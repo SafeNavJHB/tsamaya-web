@@ -2,25 +2,11 @@
 import { colors } from '../site.config.mjs';
 
 /* ----------------------------------------------------------------------------
- * Brand mark — the green "swerve" arrow bending around layered heat rings on a
- * deep-navy tile. Mirrors the icon spec in docs/BRAND.md. `size` in px.
+ * Brand mark — the genuine Tsamaya app icon (green swerve arrow threading
+ * between the red & amber risk hotspots on a deep-navy tile). `size` in px.
  * ------------------------------------------------------------------------- */
 export function logoMark(size = 40) {
-  return `
-<svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tsamaya icon" class="logo-mark">
-  <rect width="100" height="100" rx="22" fill="${colors.navy}"/>
-  <!-- secondary amber hotspot (lower) -->
-  <circle cx="34" cy="64" r="16" fill="${colors.amber}" opacity="0.22"/>
-  <circle cx="34" cy="64" r="9"  fill="${colors.amber}" opacity="0.5"/>
-  <!-- primary red hotspot (upper) -->
-  <circle cx="66" cy="40" r="20" fill="#B91C1C" opacity="0.22"/>
-  <circle cx="66" cy="40" r="12" fill="#B91C1C" opacity="0.42"/>
-  <circle cx="66" cy="40" r="6.5" fill="${colors.redHot}" opacity="0.9"/>
-  <!-- the swerve: bottom-centre up, bulging away from the red hotspot -->
-  <path d="M50 86 C50 70 40 58 40 46 C40 33 54 30 60 24"
-        stroke="${colors.emerald}" stroke-width="8" stroke-linecap="round" fill="none"/>
-  <path d="M60 24 l9 3 M60 24 l-1 9" stroke="${colors.emerald}" stroke-width="8" stroke-linecap="round" fill="none"/>
-</svg>`;
+  return `<img class="logo-mark" src="img/icon.png" width="${size}" height="${size}" alt="Tsamaya icon" loading="eager"/>`;
 }
 
 // Full lockup: mark + wordmark, used in the nav and footer.

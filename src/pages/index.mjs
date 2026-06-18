@@ -86,7 +86,7 @@ const features = section({
       ['layers', 'Safe corridors', 'Curated “known-okay” roads the router prefers when threading past a hotspot — so detours stay sensible.'],
       ['route', 'Smart re-routing', 'Only red and orange zones trigger a detour, and a sanity check rejects any bypass that’s wildly longer than direct.'],
       ['map', 'Multi-metro', 'Live across Gauteng and Cape Town, with five metros mapped and more on the way.'],
-      ['bolt', 'Google Maps handoff', 'Prefer Google Maps? Tsamaya injects the bypass waypoints so Google follows the lower-risk line, not its own.'],
+      ['route', 'Turn-by-turn, your way', 'Drive the lower-risk route with built-in turn-by-turn navigation — or hand off to Google Maps with the bypass waypoints baked in.'],
       ['eye', 'See the risk', 'Toggle the live zone overlay any time — every hotspot and corridor, colour-coded on the map.'],
     ]
       .map(

@@ -55,7 +55,8 @@ export function renderPage(page) {
   <meta property="og:image:height" content="630"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:image" content="${ogImage}"/>
-  <link rel="icon" type="image/svg+xml" href="img/favicon.svg"/>
+  <link rel="icon" type="image/png" sizes="48x48" href="img/favicon.png"/>
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>

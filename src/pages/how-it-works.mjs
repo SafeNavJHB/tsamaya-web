@@ -60,7 +60,7 @@ const pipeline = section({
       <div class="t-marker">${icon('bolt', 20)}</div>
       <div>
         <h3>6 · Drive it your way</h3>
-        <p>Hand off to Google Maps — Tsamaya seeds it with the bypass waypoints so it follows the lower-risk line instead of recomputing its own. (Full in-app turn-by-turn navigation is on the way.)</p>
+        <p>Follow along with in-app turn-by-turn navigation, or hand off to Google Maps — Tsamaya seeds it with the bypass waypoints so it follows the lower-risk line instead of recomputing its own.</p>
       </div>
     </li>
   </ol>`,
