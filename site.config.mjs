@@ -23,9 +23,9 @@ export const site = {
   // custom domain is wired up; when you set `domain` above, that takes precedence.
   ogBase: 'https://safenavjhb.github.io/tsamaya-web',
 
-  // Working contact inbox. Swap to a domain mailbox (e.g. hello@tsamaya.app) once the
-  // domain is live; everything that references contact email reads from here.
-  contactEmail: '4mkimkyl@gmail.com',
+  // Working contact inbox — iCloud+ Custom Email Domain on tsamayaapp.co.za.
+  // Everything that references a contact email (contact page, footer, sponsor) reads from here.
+  contactEmail: 'info@tsamayaapp.co.za',
 
   // The app currently ships to testers via TestFlight (Apple ID 6779297974). No public
   // App Store link yet, so the primary call-to-action requests beta access by email.
