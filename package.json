@@ -1,0 +1,15 @@
+{
+  "name": "tsamaya-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Marketing + info website for Tsamaya (Go well.) — static, zero-dependency build.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "node serve.mjs",
+    "dev": "node build.mjs && node serve.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
