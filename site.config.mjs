@@ -16,7 +16,7 @@ export const site = {
   // 'https://tsamayaapp.co.za') and add a public/CNAME file with the bare host. All
   // internal links are relative, so the site already works at a root domain, a
   // *.github.io/<repo>/ subpath, or any folder.
-  domain: null,
+  domain: 'https://tsamayaapp.co.za',
 
   // Absolute base used for canonical tags + social-share (og/twitter) image URLs,
   // which crawlers require to be absolute. Points at the current live host until a
