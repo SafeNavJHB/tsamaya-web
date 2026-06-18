@@ -14,7 +14,7 @@ const hero = `
     <div class="hero-copy">
       ${eyebrow('Lower-risk routes for South African drivers')}
       <h1>Go where the<br/><span class="grad">trouble isn’t.</span></h1>
-      <p class="lede">Tsamaya plans driving routes that think about <strong>risk</strong>, not just speed — steering you around known crime hotspots using public statistics and curated local knowledge. <span class="muted">(say: ${site.pronunciation} — Sesotho for “go”)</span></p>
+      <p class="lede">Tsamaya plans driving routes that think about <strong>risk</strong>, not just speed — steering you around known crime hotspots using public statistics and curated local knowledge. <span class="muted">(say: ${site.pronunciation} — Sesotho/Setswana for “go”)</span></p>
       <div class="hero-cta">
         ${button('Join the beta', 'contact.html#beta', 'primary')}
         ${button('See how it works', 'how-it-works.html', 'ghost-light')}
@@ -79,14 +79,14 @@ const features = section({
   cls: 'band',
   inner: `
   ${eyebrow('What’s inside')}
-  <h2>A real navigation app — with a safety brain.</h2>
+  <h2>A real navigation app — with a risk-aware brain.</h2>
   <div class="feature-grid">
     ${[
       ['clock', 'Time-aware risk', 'Zones carry separate risk bands for day, evening and night. The route you get at noon is not the route you get at 11pm.'],
       ['layers', 'Safe corridors', 'Curated “known-okay” roads the router prefers when threading past a hotspot — so detours stay sensible.'],
       ['route', 'Smart re-routing', 'Only red and orange zones trigger a detour, and a sanity check rejects any bypass that’s wildly longer than direct.'],
       ['map', 'Multi-metro', 'Live across Gauteng and Cape Town, with five metros mapped and more on the way.'],
-      ['bolt', 'Google Maps handoff', 'Prefer Google Maps? Tsamaya injects the safe waypoints so Google follows the lower-risk line, not its own.'],
+      ['bolt', 'Google Maps handoff', 'Prefer Google Maps? Tsamaya injects the bypass waypoints so Google follows the lower-risk line, not its own.'],
       ['eye', 'See the risk', 'Toggle the live zone overlay any time — every hotspot and corridor, colour-coded on the map.'],
     ]
       .map(

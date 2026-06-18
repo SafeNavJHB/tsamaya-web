@@ -12,10 +12,16 @@ export const site = {
     'Tsamaya plans driving routes that think about risk, not just speed — using public crime statistics and curated local knowledge for South African metros.',
 
   // No custom domain registered yet → relative URLs, hosted on GitHub Pages for now.
-  // When a domain is registered, set `domain` (e.g. 'https://tsamaya.app') and add a
-  // website/CNAME file with the bare host. All internal links are relative, so the
-  // site already works at a root domain, a *.github.io/<repo>/ subpath, or any folder.
+  // When tsamayaapp.co.za is registered & DNS is pointed, set `domain` (e.g.
+  // 'https://tsamayaapp.co.za') and add a public/CNAME file with the bare host. All
+  // internal links are relative, so the site already works at a root domain, a
+  // *.github.io/<repo>/ subpath, or any folder.
   domain: null,
+
+  // Absolute base used for canonical tags + social-share (og/twitter) image URLs,
+  // which crawlers require to be absolute. Points at the current live host until a
+  // custom domain is wired up; when you set `domain` above, that takes precedence.
+  ogBase: 'https://safenavjhb.github.io/tsamaya-web',
 
   // Working contact inbox. Swap to a domain mailbox (e.g. hello@tsamaya.app) once the
   // domain is live; everything that references contact email reads from here.

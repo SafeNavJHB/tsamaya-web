@@ -9,6 +9,7 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, extname } from 'node:path';
 import { renderPage } from './src/layout.mjs';
+import { site } from './site.config.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const dist = join(root, 'dist');
@@ -51,6 +52,25 @@ async function build() {
 
   // 3. A .nojekyll file so GitHub Pages serves everything verbatim.
   await writeFile(join(dist, '.nojekyll'), '', 'utf8');
+
+  // 4. sitemap.xml + robots.txt (absolute URLs from the configured base).
+  const base = (site.domain || site.ogBase || '').replace(/\/$/, '');
+  if (base) {
+    const urls = pages
+      .map((p) => {
+        const loc = p.slug === 'index.html' ? `${base}/` : `${base}/${p.slug}`;
+        const priority = p.slug === 'index.html' ? '1.0' : '0.7';
+        return `  <url><loc>${loc}</loc><priority>${priority}</priority></url>`;
+      })
+      .join('\n');
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+    await writeFile(join(dist, 'sitemap.xml'), sitemap, 'utf8');
+    await writeFile(
+      join(dist, 'robots.txt'),
+      `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`,
+      'utf8',
+    );
+  }
 
   console.log(`\nBuilt ${pages.length} pages → ${dist}`);
 }

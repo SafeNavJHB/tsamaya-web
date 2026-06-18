@@ -13,14 +13,28 @@ function navLinks(active) {
     .join('');
 }
 
+// Escape text destined for HTML attributes / element text (titles, descriptions).
+function esc(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 // page: { slug, title, description, body, heroClass }
 export function renderPage(page) {
-  const titleFull =
+  const titleFull = esc(
     page.slug === 'index.html'
       ? `${site.name} — ${site.tagline} Lower-risk routes for South African drivers`
-      : `${page.title} · ${site.name}`;
-  const desc = page.description || site.description;
-  const canonical = site.domain ? `${site.domain}/${page.slug}` : '';
+      : `${page.title} · ${site.name}`,
+  );
+  const desc = esc(page.description || site.description);
+  // Absolute base for canonical + social images (crawlers require absolute URLs).
+  // Falls back to the GitHub Pages URL until a custom domain is wired up.
+  const base = (site.domain || site.ogBase || '').replace(/\/$/, '');
+  const canonical = base ? `${base}/${page.slug}` : '';
+  const ogImage = base ? `${base}/img/og.png` : 'img/og.png';
 
   return `<!doctype html>
 <html lang="en">
@@ -34,8 +48,13 @@ export function renderPage(page) {
   <meta property="og:title" content="${titleFull}"/>
   <meta property="og:description" content="${desc}"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:image" content="img/og.svg"/>
+  ${canonical ? `<meta property="og:url" content="${canonical}"/>` : ''}
+  <meta property="og:image" content="${ogImage}"/>
+  <meta property="og:image:type" content="image/png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
   <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="${ogImage}"/>
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>

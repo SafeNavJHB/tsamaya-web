@@ -239,7 +239,7 @@ function screenResult() {
       </g>
       <!-- actions -->
       <rect x="16" y="560" width="138" height="46" rx="14" fill="${colors.emerald}"/>
-      <text x="85" y="588" fill="#04231a" font-size="14" font-weight="700" text-anchor="middle">Start drive</text>
+      <text x="85" y="588" fill="#04231a" font-size="14" font-weight="700" text-anchor="middle">Start Navigation</text>
       <rect x="166" y="560" width="138" height="46" rx="14" fill="none" stroke="#475569" stroke-width="1.5"/>
       <text x="235" y="588" fill="#e2e8f0" font-size="14" text-anchor="middle">Google Maps</text>
       <text x="160" y="634" fill="#64748b" font-size="10.5" text-anchor="middle">Routes consider risk, not guarantees. Stay aware.</text>

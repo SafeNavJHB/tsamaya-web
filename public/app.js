@@ -9,6 +9,7 @@
     toggle.addEventListener('click', function () {
       var open = mobileNav.classList.toggle('open');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     });
     mobileNav.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function () {

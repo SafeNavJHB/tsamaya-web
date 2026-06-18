@@ -11,6 +11,7 @@ const hero = `
 </section>`;
 
 const main = section({
+  id: 'sponsor',
   cls: 'band',
   inner: `
   <div class="contact-grid">

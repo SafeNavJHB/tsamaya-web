@@ -71,7 +71,7 @@ const walkthrough = section({
       <div class="walk-text">
         <span class="walk-num">03</span>
         <h3>Compare &amp; see what was avoided</h3>
-        <p>Tsamaya shows the lower-risk route beside the direct one — distance, time and the exact risk areas it steered you around. Start the in-app drive, or hand off to Google Maps with the safe waypoints baked in.</p>
+        <p>Tsamaya shows the lower-risk route beside the direct one — distance, time and the exact risk areas it steered you around. Hand off to Google Maps with the bypass waypoints baked in, so it follows the lower-risk line — not its own. (Full in-app turn-by-turn is on the way.)</p>
       </div>
     </div>
   </div>`,

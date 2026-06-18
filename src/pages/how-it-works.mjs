@@ -11,13 +11,15 @@ const hero = `
   <div class="wrap">
     ${eyebrow('How it works')}
     <h1>Risk, weighed before you drive.</h1>
-    <p class="lede center-narrow">Tsamaya layers a safety model on top of ordinary turn-by-turn routing. Here’s the whole pipeline — from the moment you pick a destination to the route on your screen.</p>
+    <p class="lede center-narrow">Tsamaya layers a risk model on top of ordinary turn-by-turn routing. Here’s the whole pipeline — from the moment you pick a destination to the route on your screen.</p>
   </div>
 </section>`;
 
 const pipeline = section({
   cls: 'band',
   inner: `
+  ${eyebrow('The pipeline')}
+  <h2 class="center">From destination to lower-risk route, step by step</h2>
   <ol class="timeline">
     <li>
       <div class="t-marker">${icon('route', 20)}</div>
@@ -51,14 +53,14 @@ const pipeline = section({
       <div class="t-marker">${icon('check', 20)}</div>
       <div>
         <h3>5 · Re-route &amp; sanity-check</h3>
-        <p>We re-fetch with those waypoints. If the safer line ends up more than 50% longer than direct, we don’t pretend it’s reasonable — we hand back the direct route, clearly flagged as risky, and let you decide.</p>
+        <p>We re-fetch with those waypoints. If the safer line ends up more than 30% longer than direct, we don’t pretend it’s reasonable — we hand back the direct route, clearly flagged as risky, and let you decide.</p>
       </div>
     </li>
     <li>
       <div class="t-marker">${icon('bolt', 20)}</div>
       <div>
         <h3>6 · Drive it your way</h3>
-        <p>Follow along in-app, or hand off to Google Maps — Tsamaya seeds Google with the safe waypoints so it follows the lower-risk line instead of recomputing its own.</p>
+        <p>Hand off to Google Maps — Tsamaya seeds it with the bypass waypoints so it follows the lower-risk line instead of recomputing its own. (Full in-app turn-by-turn navigation is on the way.)</p>
       </div>
     </li>
   </ol>`,

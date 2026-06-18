@@ -58,19 +58,19 @@ const thresholds = section({
     <div>
       ${eyebrow('The routing model')}
       <h2>Tuned thresholds keep detours honest.</h2>
-      <p class="big">The safety logic isn’t a black box — it’s a small set of explicit, tunable rules that decide when a detour is worth it and when it isn’t.</p>
+      <p class="big">The routing logic isn’t a black box — it’s a small set of explicit, tunable rules that decide when a detour is worth it and when it isn’t.</p>
       <div class="mt">${button('Walk through the steps', 'how-it-works.html', 'ghost')}</div>
     </div>
     <table class="spec-table">
       <tbody>
-        <tr><th>Risk bands that detour</th><td>Red &amp; orange only — yellow is shown, never forced</td></tr>
-        <tr><th>Route sampling</th><td>Every 3rd coordinate, ray-cast vs. all active zones</td></tr>
-        <tr><th>Corridor snap tolerance</th><td>≈ 650 m (pass-through detection)</td></tr>
-        <tr><th>Max lateral deviation</th><td>15% of route length, capped at 5 km</td></tr>
-        <tr><th>Corridor search radius</th><td>Within 8 km of the danger area</td></tr>
-        <tr><th>Bypass waypoints</th><td>Up to 2 injected per route</td></tr>
-        <tr><th>Detour reject rule</th><td>&gt; 50% longer than direct → serve direct, flagged</td></tr>
-        <tr><th>Time bands</th><td>Day 05–18 · Evening 18–22 · Night 22–05</td></tr>
+        <tr><th scope="row">Risk bands that detour</th><td>Red &amp; orange only — yellow is shown, never forced</td></tr>
+        <tr><th scope="row">Route sampling</th><td>Every 3rd coordinate, ray-cast vs. all active zones</td></tr>
+        <tr><th scope="row">Corridor snap tolerance</th><td>≈ 650 m (pass-through detection)</td></tr>
+        <tr><th scope="row">Max lateral deviation</th><td>15% of route length, capped at 5 km</td></tr>
+        <tr><th scope="row">Corridor search radius</th><td>Within 8 km of the danger area</td></tr>
+        <tr><th scope="row">Bypass waypoints</th><td>Up to 2 injected per route</td></tr>
+        <tr><th scope="row">Detour reject rule</th><td>&gt; 30% longer than direct → serve direct, flagged</td></tr>
+        <tr><th scope="row">Time bands</th><td>Day 05–18 · Evening 18–22 · Night 22–05</td></tr>
       </tbody>
     </table>
   </div>`,
