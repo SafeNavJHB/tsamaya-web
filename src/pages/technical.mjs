@@ -20,7 +20,7 @@ const stack = section({
       ['phone', 'React Native + Expo', 'Cross-platform app, New Architecture enabled. Expo Router for navigation, EAS for builds and over-the-air updates.'],
       ['map', 'Mapbox', 'Map tiles, Directions API for routing, and Geocoding for search and reverse-geocoding the map.'],
       ['database', 'Supabase + PostGIS', 'Postgres with PostGIS geometry holds every zone and corridor. The app reads live; the editor writes via typed RPC functions.'],
-      ['cpu', 'Python data pipeline', 'OpenStreetMap fetch → crime-density (KDE) scoring → zone/corridor classification → staging → promotion to live.'],
+      ['cpu', 'Python data pipeline', 'Map-data fetch → proprietary crime-density scoring → zone/corridor classification → staging → promotion to live.'],
       ['shield', 'Claude review', 'A second-opinion review pass flags questionable classifications for a human before anything reaches drivers.'],
       ['server', 'GitHub + EAS', 'Versioned SQL migrations keep the database reproducible; TestFlight distributes builds to testers.'],
     ]
@@ -41,7 +41,7 @@ const architecture = section({
   <div class="flow">
     <div class="flow-node"><span class="flow-k">Sources</span>OpenStreetMap · SAPS crime stats · local knowledge</div>
     <div class="flow-arrow">${icon('route', 18)}</div>
-    <div class="flow-node"><span class="flow-k">Pipeline</span>Fetch → KDE scoring → classify zones &amp; corridors → stage</div>
+    <div class="flow-node"><span class="flow-k">Pipeline</span>Fetch → density scoring → classify zones &amp; corridors → stage</div>
     <div class="flow-arrow">${icon('route', 18)}</div>
     <div class="flow-node"><span class="flow-k">Review</span>Claude second-opinion + human approve/reject</div>
     <div class="flow-arrow">${icon('route', 18)}</div>
@@ -57,20 +57,19 @@ const thresholds = section({
   <div class="split">
     <div>
       ${eyebrow('The routing model')}
-      <h2>Tuned thresholds keep detours honest.</h2>
-      <p class="big">The routing logic isn’t a black box — it’s a small set of explicit, tunable rules that decide when a detour is worth it and when it isn’t.</p>
+      <h2>A principled, carefully-tuned model.</h2>
+      <p class="big">The routing logic isn’t a black box — it’s a small set of deliberate rules, tuned over real South African routes, that decide when a detour is worth it and when it isn’t.</p>
       <div class="mt">${button('Walk through the steps', 'how-it-works.html', 'ghost')}</div>
     </div>
     <table class="spec-table">
       <tbody>
-        <tr><th scope="row">Risk bands that detour</th><td>Red &amp; orange only — yellow is shown, never forced</td></tr>
-        <tr><th scope="row">Route sampling</th><td>Every 3rd coordinate, ray-cast vs. all active zones</td></tr>
-        <tr><th scope="row">Corridor snap tolerance</th><td>≈ 650 m (pass-through detection)</td></tr>
-        <tr><th scope="row">Max lateral deviation</th><td>15% of route length, capped at 5 km</td></tr>
-        <tr><th scope="row">Corridor search radius</th><td>Within 8 km of the danger area</td></tr>
-        <tr><th scope="row">Bypass waypoints</th><td>Up to 2 injected per route</td></tr>
-        <tr><th scope="row">Detour reject rule</th><td>&gt; 30% longer than direct → serve direct, flagged</td></tr>
-        <tr><th scope="row">Time bands</th><td>Day 05–18 · Evening 18–22 · Night 22–05</td></tr>
+        <tr><th scope="row">What triggers a detour</th><td>Only higher-risk areas; caution-level zones are shown, never forced</td></tr>
+        <tr><th scope="row">Route check</th><td>The route is sampled and tested against every active zone for the current time</td></tr>
+        <tr><th scope="row">Corridor awareness</th><td>Recognises when a route already runs a known-safe corridor, and leaves it be</td></tr>
+        <tr><th scope="row">Detour limits</th><td>Bypasses are capped so they never wander unreasonably far from the direct line</td></tr>
+        <tr><th scope="row">Corridor selection</th><td>Only nearby safe corridors are used to steer around a risk area</td></tr>
+        <tr><th scope="row">Sanity check</th><td>Any detour that ends up excessively longer than direct is rejected — you get the direct route, clearly flagged</td></tr>
+        <tr><th scope="row">Time-aware</th><td>Separate risk weighting for daytime, evening and night</td></tr>
       </tbody>
     </table>
   </div>`,
