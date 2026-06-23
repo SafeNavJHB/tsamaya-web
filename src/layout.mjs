@@ -115,6 +115,7 @@ export function renderPage(page) {
     </div>
     <div class="wrap footer-bottom">
       <p>© ${year} Tsamaya. Built in Johannesburg. Routes consider risk — they are not a guarantee of safety.</p>
+      <p class="footer-admin"><a href="https://admin.tsamayaapp.co.za" rel="noopener nofollow" style="opacity:.35;font-size:12px;text-decoration:none" aria-label="Admin sign-in">Admin</a></p>
     </div>
   </footer>
 
