@@ -1,10 +1,12 @@
-// Public live-trip tracker — tsamayaapp.co.za/t/?id=<token>.
+// Public live-trip tracker — tsamayaapp.co.za/track.html?id=<token>.
+// Served at the site ROOT (not a /t/ subfolder) so the shared layout's relative
+// CSS / logo / nav assets resolve correctly (a subfolder broke them → unstyled).
 // Reads ONE trip by token via the get_live_trip Supabase RPC (no table read, so
 // other trips never leak). Client keys (Supabase anon + Mapbox pk) are loaded at
 // runtime from /config.json (written by build.mjs from CI secrets) — never in
 // source. Self-contained: the inline script loads Mapbox GL from the CDN.
 export default {
-  slug: 't/index.html',
+  slug: 'track.html',
   title: 'Live trip',
   description: 'Follow a Tsamaya drive in real time.',
   body: `
