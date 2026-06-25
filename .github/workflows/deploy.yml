@@ -24,8 +24,14 @@ jobs:
         with:
           node-version: 20
       # Zero npm dependencies — just run the build.
+      # Public client keys for the live-trip tracker (/t/) are injected from repo
+      # secrets into dist/config.json so they're never committed to source.
       - name: Build site
         run: node build.mjs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

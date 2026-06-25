@@ -46,12 +46,24 @@ async function build() {
 
   for (const page of pages) {
     const html = renderPage(page);
-    await writeFile(join(dist, page.slug), html, 'utf8');
+    const outPath = join(dist, page.slug);
+    // Support nested slugs like 't/index.html' (gives a clean /t/ URL).
+    await mkdir(dirname(outPath), { recursive: true });
+    await writeFile(outPath, html, 'utf8');
     console.log(`  ✓ ${page.slug}`);
   }
 
   // 3. A .nojekyll file so GitHub Pages serves everything verbatim.
   await writeFile(join(dist, '.nojekyll'), '', 'utf8');
+
+  // 4. Runtime config for client pages (the live-trip tracker /t/). Values come
+  //    from CI secrets — kept OUT of source so nothing is committed. Absent
+  //    locally, so the tracker shows a friendly "being set up" message.
+  await writeFile(join(dist, 'config.json'), JSON.stringify({
+    supabaseUrl: process.env.SUPABASE_URL || '',
+    anonKey: process.env.SUPABASE_ANON_KEY || '',
+    mapboxToken: process.env.MAPBOX_TOKEN || '',
+  }), 'utf8');
 
   // 4. sitemap.xml + robots.txt (absolute URLs from the configured base).
   const base = (site.domain || site.ogBase || '').replace(/\/$/, '');
