@@ -40,8 +40,9 @@ export default {
       started=true;
     } else { driver.setLngLat([lng,lat]); map.easeTo({center:[lng,lat],duration:1200}); }
     var to=trip.dest_name?(' to '+trip.dest_name):'';
-    if(trip.status==='arrived'){ info.textContent='\\u2705 Arrived safely'+to+'.'; }
-    else if(trip.status==='ended'){ info.textContent='Trip ended.'; }
+    var at=trip.dest_name?(' at '+trip.dest_name):'';
+    if(trip.status==='arrived'){ info.textContent='\\u2705 Drive ended \\u2014 arrived safely'+at+'.'; }
+    else if(trip.status==='ended'){ info.textContent='Drive ended.'; }
     else { var eta=''; if(trip.eta_epoch){ var d=new Date(Number(trip.eta_epoch)); eta=' \\u00b7 ETA ~'+d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); } info.textContent='\\uD83D\\uDE97 On the way'+to+eta+'.'; }
   }
   function tick(){ fetchTrip().then(function(rows){ render(rows&&rows[0]); }); }
