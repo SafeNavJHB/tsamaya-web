@@ -1,0 +1,18 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["6Z2294K878.com.tsamaya.app"],
+        "components": [
+          { "/": "/go", "comment": "Open a shared destination in the Tsamaya app" },
+          { "/": "/go/*" },
+          { "/": "/share", "comment": "Resolve a shared map link in the app" },
+          { "/": "/share/*" },
+          { "/": "/track", "comment": "Open the in-app live-trip viewer" },
+          { "/": "/track/*" },
+          { "/": "/track.html" }
+        ]
+      }
+    ]
+  }
+}
