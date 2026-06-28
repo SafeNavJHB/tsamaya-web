@@ -39,7 +39,7 @@ const tiers = section({
   <div class="tier-grid">
     <article class="tier">
       <h3>Friend</h3>
-      <p class="tier-price">R500<span>+ once-off</span></p>
+      <p class="tier-price">R100<span>+ once-off</span></p>
       <ul>
         <li>${icon('check', 16)} Our genuine thanks</li>
         <li>${icon('check', 16)} Early access to new features</li>
@@ -49,7 +49,7 @@ const tiers = section({
     <article class="tier tier-featured">
       <span class="tier-tag">Most impact</span>
       <h3>Supporter</h3>
-      <p class="tier-price">R2,500<span>+ once-off or monthly</span></p>
+      <p class="tier-price">R1,000<span>+ once-off or monthly</span></p>
       <ul>
         <li>${icon('check', 16)} Name / logo on this site</li>
         <li>${icon('check', 16)} A say in which metro we map next</li>
@@ -59,7 +59,7 @@ const tiers = section({
     </article>
     <article class="tier">
       <h3>Metro partner</h3>
-      <p class="tier-price">R10,000<span>+ / metro</span></p>
+      <p class="tier-price">R2,500<span>+ / metro</span></p>
       <ul>
         <li>${icon('check', 16)} Sponsor a whole city’s mapping</li>
         <li>${icon('check', 16)} Prominent “city brought to you by” credit</li>
