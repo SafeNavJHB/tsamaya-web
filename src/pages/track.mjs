@@ -61,10 +61,11 @@ export default {
   function render(trip){
     if(!trip){ stopped=true; if(info) info.textContent='This trip link has ended or expired.'; return; }
     var lng=trip.lng, lat=trip.lat;
+    var isSos = trip.kind==='sos';
     if(!started){
       mapboxgl.accessToken=cfg.mapboxToken;
       map=new mapboxgl.Map({container:'map',style:'mapbox://styles/mapbox/streets-v12',center:[lng,lat],zoom:13});
-      driver=new mapboxgl.Marker({color:'#0A84FF'}).setLngLat([lng,lat]).addTo(map);
+      driver=new mapboxgl.Marker({color:isSos?'#dc3c50':'#0A84FF'}).setLngLat([lng,lat]).addTo(map);
       if(trip.dest_lng!=null&&trip.dest_lat!=null){ new mapboxgl.Marker({color:'#E5484D'}).setLngLat([trip.dest_lng,trip.dest_lat]).addTo(map); }
       started=true;
     } else { driver.setLngLat([lng,lat]); if(!routeAdded) map.easeTo({center:[lng,lat],duration:1200}); }
@@ -81,6 +82,7 @@ export default {
       }
     }
     else if(trip.status==='ended'){ stopped=true; if(info) info.textContent='Sharing ended.'; }
+    else if(isSos){ if(info){ info.textContent='\\u26A0\\uFE0F Emergency \\u2014 following their live location.'; info.style.color='#dc3c50'; info.style.fontWeight='700'; } }
     else { var eta=''; if(trip.eta_epoch){ eta=' \\u00b7 ETA ~'+clock(Number(trip.eta_epoch)); } if(info) info.textContent='\\uD83D\\uDE97 On the way'+to+eta+'.'; }
   }
   function tick(){ if(stopped) return; fetchTrip().then(function(rows){ render(rows&&rows[0]); }); }
