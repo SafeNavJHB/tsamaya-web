@@ -46,8 +46,11 @@ export default {
   function pad(n){ return (n<10?'0':'')+n; }
   function clock(ms){ var d=new Date(ms); return d.getHours()+':'+pad(d.getMinutes()); }
   function loadMapbox(cb){
-    var css=document.createElement('link'); css.rel='stylesheet'; css.href='https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css'; document.head.appendChild(css);
-    var s=document.createElement('script'); s.src='https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js'; s.onload=cb; s.onerror=function(){ if(info) info.textContent='Could not load the map.'; }; document.head.appendChild(s);
+    // referrerPolicy no-referrer on the Mapbox loads too, so the ?id= token
+    // never rides the Referer header to api.mapbox.com (defence in depth beside
+    // the page-level meta referrer).
+    var css=document.createElement('link'); css.rel='stylesheet'; css.referrerPolicy='no-referrer'; css.href='https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css'; document.head.appendChild(css);
+    var s=document.createElement('script'); s.referrerPolicy='no-referrer'; s.src='https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js'; s.onload=cb; s.onerror=function(){ if(info) info.textContent='Could not load the map.'; }; document.head.appendChild(s);
   }
   function fetchTrip(){
     return fetch(cfg.supabaseUrl+'/rest/v1/rpc/get_live_trip',{method:'POST',headers:{'Content-Type':'application/json','apikey':cfg.anonKey,'Authorization':'Bearer '+cfg.anonKey},body:JSON.stringify({p_token:token})}).then(function(r){return r.ok?r.json():[];}).catch(function(){return [];});

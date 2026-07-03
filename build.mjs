@@ -69,6 +69,9 @@ async function build() {
   const base = (site.domain || site.ogBase || '').replace(/\/$/, '');
   if (base) {
     const urls = pages
+      // The live-trip tracker is a token-bearing capability page — don't
+      // advertise it to crawlers (it also gets a noindex meta of its own).
+      .filter((p) => p.slug !== 'track.html')
       .map((p) => {
         const loc = p.slug === 'index.html' ? `${base}/` : `${base}/${p.slug}`;
         const priority = p.slug === 'index.html' ? '1.0' : '0.7';

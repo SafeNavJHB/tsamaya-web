@@ -41,6 +41,9 @@ export function renderPage(page) {
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- Never leak the URL (the live-trip tracker carries a bearer ?id= token) in
+       the Referer header to Mapbox / Google Fonts or any cross-origin request. -->
+  <meta name="referrer" content="no-referrer"/>
   <title>${titleFull}</title>
   <meta name="description" content="${desc}"/>
   <meta name="theme-color" content="#0F172A"/>
