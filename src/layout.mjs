@@ -2,6 +2,7 @@
 import { site, nav, baseUrl, canonicalFor } from '../site.config.mjs';
 import { logoLockup, logoMark, icon } from './components.mjs';
 import { siteGraph } from './seo.mjs';
+import { analyticsSnippet } from './analytics.mjs';
 import { metros } from './data/metros.mjs';
 
 const year = 2026; // build-time constant; Date.* is unavailable in the build sandbox.
@@ -155,6 +156,7 @@ export function renderPage(page) {
   </footer>
 
   <script src="app.js" defer></script>
+  ${analyticsSnippet()}
 </body>
 </html>`;
 }

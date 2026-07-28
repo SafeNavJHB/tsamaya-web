@@ -82,6 +82,36 @@ export const site = {
     google: 'rTbWXci5jDpgA5KzHoly-_DLJzKFaInplMgdGfvlTnM',
     bing: '',
   },
+
+  // Web analytics. OFF by default — set `provider` and the matching field to switch it on.
+  //
+  // Search Console (already connected) answers the questions that matter most for
+  // this site: what people searched, what ranked, what they clicked. This block is
+  // for on-site behaviour on top of that — how many people land, and whether they
+  // reach the beta request.
+  //
+  // ⚠️ CHOOSE WITH POPIA IN MIND. Google Analytics sets cookies and profiles
+  // visitors, which in South Africa means you need a consent banner before it may
+  // run — and a banner on a site this small costs more than the data is worth.
+  // The cookieless options below need no banner because they store nothing on the
+  // visitor's device and collect no personal information.
+  //
+  //   provider: 'plausible'   → set `domain` below.        Paid (~$9/mo), cookieless.
+  //   provider: 'umami'       → set `src` and `websiteId`. Free if self-hosted, cookieless.
+  //   provider: 'cloudflare'  → set `token`.               Free, cookieless.  ← best free fit
+  //   provider: 'goatcounter' → set `src`.                 Free for non-commercial, cookieless.
+  //   provider: 'ga4'         → set `measurementId`.       Free, BUT cookies → needs consent.
+  //
+  // Whichever you pick, creating the account and accepting its terms is a step only
+  // you can take. Once you have the ID, put it here and push — nothing else changes.
+  analytics: {
+    provider: '',        // '' = no analytics script is emitted at all
+    domain: '',          // plausible
+    src: '',             // umami / goatcounter script URL
+    websiteId: '',       // umami
+    token: '',           // cloudflare web analytics
+    measurementId: '',   // ga4, e.g. 'G-XXXXXXXXXX'
+  },
 };
 
 // The absolute base URL every canonical, sitemap entry and social image is built
