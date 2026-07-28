@@ -199,6 +199,9 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .copy-btn:focus-visib
    side by side without looking like different components. */
 .device-img { border-radius: 32px; display: block; width: 224px; height: auto; }
 .device-real .device-frame { overflow: hidden; }
+/* Real captures already contain the device's own dynamic island, so the drawn
+   notch would sit on top of a second one. Only the SVG mockups need it. */
+.device-real .device-notch { display: none; }
 .hero-device .device-img { width: 258px; }
 .device figcaption { font-size: 0.85rem; color: var(--muted); text-align: center; max-width: 220px; }
 .hero-device .device-frame { transform: rotate(2deg); }

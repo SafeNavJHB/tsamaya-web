@@ -1,57 +1,93 @@
-// shots.mjs — real screenshots captured from the iOS Simulator for the demo page.
-// Captured from the Tsamaya build (com.tsamaya.app) running on an iPhone 16 Pro
-// simulator, June 2026. Each entry:
-//   { src, alt, title, caption, width, height }
-// (src is relative to dist/, served from public/; width/height are the image's
-// intrinsic pixels and must be present or the page shifts as images load.)
-// Leave the array empty to fall back to the interactive SVG mockups on the demo page.
+// shots.mjs — the real app screenshots used across the site.
 //
-// TO REFRESH THESE — and to finally replace the two *mocked* walkthrough screens
-// (the From/To card and the route-comparison result are SVG drawings, not captures):
+// Captured 28 July 2026 from a Release build of com.tsamaya.app on an iPhone 17
+// Pro simulator (iOS 26.5), against the live database. Every one of these is the
+// actual app: real Mapbox tiles, real zones and corridors from Supabase, real
+// Google Places search, real routing.
 //
-//   1. Boot a simulator and install a build:
-//        npx expo run:ios --configuration Release
-//      NOTE: as of 28 July 2026 that build stalls indefinitely on this machine
-//      after the pods finish (SWBBuildService sleeps, no compiler activity, no
-//      disk pressure). The previously-installed 24 July binary cannot be used
-//      with current JS either — it predates the native `Voice` HybridObject that
-//      @iternio/react-native-auto-play 0.5.11 requires, so the app dies at launch
-//      with "Cannot create an instance of HybridObject Voice". A working native
-//      build is a prerequisite for any new capture.
-//   2. Put the simulator in a metro:  xcrun simctl location <UDID> set -26.1076,28.0567
-//   3. Drive the flow and capture:    xcrun simctl io booted screenshot home.png
-//   4. Drop the PNGs in public/img/screens/src/ and run `npm run images`, which
-//      writes AVIF/WebP/JPEG at three widths.
-//   5. Switch the page to the `deviceShot()` component (src/components.mjs), which
-//      renders those variants through <picture> with srcset.
+// `name` refers to the optimised variants in public/img/screens/ produced by
+// `npm run images` from the raw PNGs in public/img/screens/src/. Each name has
+// AVIF, WebP and JPEG at 300/600/900 wide; the browser picks one.
+//
+// ---------------------------------------------------------------------------
+// HOW TO REFRESH THESE
+//
+// 1. Build. Use xcodebuild DIRECTLY — `npx expo run:ios` hangs indefinitely on
+//    this machine after the pods finish (reproduced twice on 28 July; the Expo
+//    wrapper stalls, Xcode itself is fine):
+//
+//      cd ~/Desktop/SafeNav/ios
+//      xcodebuild -workspace Tsamaya.xcworkspace -scheme Tsamaya \
+//        -configuration Release \
+//        -destination "platform=iOS Simulator,id=<UDID>" \
+//        -derivedDataPath /tmp/tsamaya-dd ONLY_ACTIVE_ARCH=YES -quiet build
+//
+//    Only ever run ONE build against a given -derivedDataPath at a time; two
+//    concurrent builds fail with "unable to attach DB: database is locked".
+//    Release embeds the JS bundle, so no Metro is needed and there is no dev
+//    overlay in the shot.
+//
+// 2. Install, place the device in a metro, and launch:
+//      xcrun simctl install <UDID> /tmp/tsamaya-dd/Build/Products/Release-iphonesimulator/Tsamaya.app
+//      xcrun simctl location <UDID> set -26.1076,28.0567    # Rosebank, Johannesburg
+//      xcrun simctl launch <UDID> com.tsamaya.app
+//
+// 3. Drive the UI, then capture at device resolution:
+//      xcrun simctl io <UDID> screenshot public/img/screens/src/<name>.png
+//
+// 4. npm run images   → writes the AVIF/WebP/JPEG variants. Commit both the raw
+//    PNG and the variants.
+//
+// Note the time band in the shot: the app follows the real clock, so a late-night
+// capture renders the night palette (as jhb-map and route-card below do). Capture
+// during the day if you want the daytime look.
 
+// Gallery entries for the demo page.
 export const shots = [
   {
-    src: 'img/screens/home.jpg',
-    width: 640,
-    height: 1391,
-    alt: 'Tsamaya home screen over Johannesburg with the live risk overlay and safe corridors',
+    name: 'jhb-map',
+    alt: 'Tsamaya over Sandton, Johannesburg — risk zones, safe corridors and a flagged hijacking hotspot on the live map',
     title: 'The live risk map',
-    caption: 'Johannesburg — risk zones and safe corridors, colour-coded',
+    caption: 'Sandton and Illovo — zones, corridors and hotspots, rated for the current time of day',
   },
   {
-    src: 'img/screens/risk-innercity.jpg',
-    width: 640,
-    height: 1391,
-    alt: 'Tsamaya over the Johannesburg inner city showing dense high-risk overlays across Hillbrow and Berea',
-    title: 'See the risk',
-    caption: 'Hillbrow, Berea & the CBD — high-risk areas at a glance',
-  },
-  {
-    src: 'img/screens/capetown.jpg',
-    width: 640,
-    height: 1391,
-    alt: 'Tsamaya home screen over Cape Town with risk overlays around the city centre',
+    name: 'capetown-map',
+    alt: 'Tsamaya over the Cape Town city centre with risk overlays across District Six, Vredehoek and the Foreshore',
     title: 'Multi-metro',
-    caption: 'Cape Town — the same engine, a second city',
+    caption: 'Cape Town — the same engine, the largest map we run',
+  },
+  {
+    name: 'route-result',
+    alt: 'Tsamaya comparing a lower-risk route against the standard one, showing the time and distance each costs',
+    title: 'Compare before you drive',
+    caption: 'Three routes, the real trade-off in minutes — and an honest warning when risk cannot be avoided',
   },
 ];
 
-// No screen recording captured for this build (the route-flow screens require UI
-// interaction; the annotated mockups below cover that flow).
-// shots.video = { src: 'img/screens/demo.mp4', poster: 'img/screens/home.jpg' };
+// Which capture backs each step of the annotated walkthrough. A step with no
+// entry here falls back to the drawn SVG mockup in components.mjs.
+export const walkthrough = {
+  home: 'jhb-map',
+  route: 'route-card',
+  result: 'route-result',
+};
+
+// Alt text for every capture, including the ones that only appear in the
+// walkthrough and so have no gallery entry to borrow a description from.
+// A screen reader should get the same information a sighted reader does.
+export const alts = {
+  'jhb-map':
+    'The Tsamaya app over Sandton, Johannesburg — risk zones shaded on the live map, safe corridors in green, and a flagged hijacking hotspot',
+  'capetown-map':
+    'Tsamaya over the Cape Town city centre, with risk overlays across District Six, Vredehoek and the Foreshore',
+  'route-card':
+    'Tsamaya with the start set to the driver’s location and the destination set to Maboneng Precinct, ready to plan the route',
+  'route-result':
+    'Tsamaya comparing three routes to the same destination — lower-risk at 23 minutes, balanced at 21, standard at 20 — with a warning that three high-risk areas could not be avoided',
+};
+
+export const altFor = (name) => alts[name] || 'A screen from the Tsamaya app';
+
+// Intrinsic pixel size of every capture (iPhone 17 Pro at 3x). Used for the
+// width/height attributes that stop the page shifting as images load.
+export const shotSize = { width: 1206, height: 2622 };

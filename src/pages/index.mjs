@@ -6,8 +6,10 @@ import {
   button,
   icon,
   deviceMockup,
+  deviceShot,
 } from '../components.mjs';
 import { metros as metroContent } from '../data/metros.mjs';
+import { shotSize, walkthrough, altFor } from '../shots.mjs';
 import { coverageBars, routeCompare } from '../charts.mjs';
 import { faqNode } from '../seo.mjs';
 
@@ -38,7 +40,13 @@ const hero = `
       <p class="hero-disclaimer">${icon('shield', 15)} Routes consider risk — not a guarantee of safety. Always stay aware.</p>
     </div>
     <div class="hero-device">
-      ${deviceMockup('home')}
+      ${deviceShot({
+        name: 'jhb-map',
+        alt: altFor('jhb-map'),
+        width: shotSize.width,
+        height: shotSize.height,
+        eager: true, // above the fold: this is the page's largest paint
+      })}
     </div>
   </div>
   <div class="wrap">${statRow(site.stats)}</div>
@@ -118,8 +126,8 @@ const demoTeaser = section({
   inner: `
   <div class="split">
     <div class="device-pair">
-      ${deviceMockup('route', 'Set From / To, then Go')}
-      ${deviceMockup('result', 'See exactly what was avoided')}
+      ${deviceShot({ name: walkthrough.route, alt: altFor(walkthrough.route), label: 'Set From / To, then Go', width: shotSize.width, height: shotSize.height })}
+      ${deviceShot({ name: walkthrough.result, alt: altFor(walkthrough.result), label: 'Compare the real trade-off', width: shotSize.width, height: shotSize.height })}
     </div>
     <div>
       ${eyebrow('See it in action')}

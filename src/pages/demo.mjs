@@ -3,9 +3,11 @@ import {
   eyebrow,
   icon,
   deviceMockup,
+  deviceShot,
+  picture,
   button,
 } from '../components.mjs';
-import { shots } from '../shots.mjs';
+import { shots, walkthrough, shotSize, altFor } from '../shots.mjs';
 
 const hero = `
 <section class="page-hero">
@@ -30,7 +32,7 @@ const gallery = shots.length
       ${shots
         .map(
           (s) => `<figure class="shot" data-reveal>
-        <img src="${s.src}" alt="${s.alt}" loading="lazy" decoding="async" width="${s.width || 640}" height="${s.height || 1391}"/>
+        ${picture({ name: s.name, alt: s.alt, width: shotSize.width, height: shotSize.height, sizes: '(max-width: 680px) 80vw, 248px' })}
         <figcaption><strong>${s.title}</strong>${s.caption ? ` — ${s.caption}` : ''}</figcaption>
       </figure>`,
         )
@@ -39,14 +41,26 @@ const gallery = shots.length
     })
   : '';
 
-const walkthrough = section({
+// A real capture where we have one; the drawn mockup only where we do not.
+const step = (key, label = '') =>
+  walkthrough[key]
+    ? deviceShot({
+        name: walkthrough[key],
+        alt: altFor(walkthrough[key]),
+        label,
+        width: shotSize.width,
+        height: shotSize.height,
+      })
+    : deviceMockup(key, label);
+
+const walkthroughSection = section({
   cls: shots.length ? 'band-soft' : 'band',
   inner: `
   ${eyebrow('Annotated walkthrough')}
   <h2>What you’re looking at</h2>
   <div class="walk">
     <div class="walk-step">
-      ${deviceMockup('home')}
+      ${step('home')}
       <div class="walk-text">
         <span class="walk-num">01</span>
         <h3>Home — the live risk map</h3>
@@ -59,7 +73,7 @@ const walkthrough = section({
       </div>
     </div>
     <div class="walk-step reverse">
-      ${deviceMockup('route')}
+      ${step('route')}
       <div class="walk-text">
         <span class="walk-num">02</span>
         <h3>Set From / To, then Go</h3>
@@ -67,7 +81,7 @@ const walkthrough = section({
       </div>
     </div>
     <div class="walk-step">
-      ${deviceMockup('result')}
+      ${step('result')}
       <div class="walk-text">
         <span class="walk-num">03</span>
         <h3>Compare &amp; see what was avoided</h3>
@@ -97,7 +111,7 @@ const notes = section({
   inner: `
   <div class="note-card">
     <h3>${icon('shield', 20)} Honest note on this build</h3>
-    <p>Tsamaya is in active beta. The screens above are from the current build; the interactive mockups mirror the same UI and brand. Risk data is curated and improving constantly — routes weigh known risk, they don’t guarantee safety, and you should always stay aware on the road.</p>
+    <p>Every screen on this page is a real capture from the current build, taken against the live database — real map tiles, real risk zones, real search, real routing. Nothing here is a mock-up or a rendering. You’ll notice the map wears its night colours: the app follows the actual clock, and these were captured late in the evening. Risk data is curated and improves constantly — routes weigh known risk, they don’t guarantee safety, and you should always stay aware on the road.</p>
   </div>`,
 });
 
@@ -114,5 +128,5 @@ export default {
   title: 'See it in action',
   description:
     'A walkthrough of the Tsamaya app: the live risk map, setting a route, and comparing the lower-risk route against the direct one.',
-  body: [hero, gallery, walkthrough, video, notes, cta].join('\n'),
+  body: [hero, gallery, walkthroughSection, video, notes, cta].join('\n'),
 };
