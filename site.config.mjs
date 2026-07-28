@@ -69,11 +69,17 @@ export const site = {
     { value: String(stats.totals.riskBands), label: 'risk bands by time of day' },
   ],
 
-  // Search Console / Bing verification tokens. Paste the value from the
-  // "HTML tag" verification method (just the content="..." part, not the whole
-  // tag). Left empty until the property is claimed — an empty string emits no tag.
+  // Search Console / Bing verification tokens — the content="..." value from the
+  // "HTML tag" verification method, not the whole tag. An empty string emits no tag.
+  //
+  // The Google property is https://tsamayaapp.co.za/ (URL-prefix), owned by
+  // 4mkimkyl@gmail.com, verified 28 July 2026 by this meta tag.
+  //
+  // DO NOT REMOVE THE GOOGLE VALUE. Google re-checks it periodically; if the tag
+  // disappears the property silently un-verifies and all Search Console data stops.
+  // `npm run check` fails if it goes missing, precisely so that cannot happen quietly.
   verification: {
-    google: '',
+    google: 'rTbWXci5jDpgA5KzHoly-_DLJzKFaInplMgdGfvlTnM',
     bing: '',
   },
 };
