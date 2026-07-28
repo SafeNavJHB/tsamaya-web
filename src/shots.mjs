@@ -46,21 +46,27 @@
 export const shots = [
   {
     name: 'jhb-map',
-    alt: 'Tsamaya over Sandton, Johannesburg — risk zones, safe corridors and a flagged hijacking hotspot on the live map',
+    alt: 'Tsamaya over Sandton, Johannesburg, showing risk zones, safe corridors and a flagged hijacking hotspot on the live map',
     title: 'The live risk map',
-    caption: 'Sandton and Illovo — zones, corridors and hotspots, rated for the current time of day',
+    caption: 'Sandton and Illovo, with zones, corridors and hotspots rated for the current time of day',
   },
   {
     name: 'capetown-map',
     alt: 'Tsamaya over the Cape Town city centre with risk overlays across District Six, Vredehoek and the Foreshore',
     title: 'Multi-metro',
-    caption: 'Cape Town — the same engine, the largest map we run',
+    caption: 'Cape Town, the largest map we run',
   },
   {
     name: 'route-result',
     alt: 'Tsamaya comparing a lower-risk route against the standard one, showing the time and distance each costs',
     title: 'Compare before you drive',
-    caption: 'Three routes, the real trade-off in minutes — and an honest warning when risk cannot be avoided',
+    caption: 'Three routes, the real trade-off in minutes, and an honest warning when risk cannot be avoided',
+  },
+  {
+    name: 'navigation',
+    alt: 'Turn-by-turn navigation in Tsamaya, showing the next turn onto West Street, the current speed, the road ahead and the time remaining',
+    title: 'Turn-by-turn, in the app',
+    caption: 'The next turn, the road you’re on, your speed and the time left, plus one-tap SOS and a flag to report an area',
   },
 ];
 
@@ -70,6 +76,7 @@ export const walkthrough = {
   home: 'jhb-map',
   route: 'route-card',
   result: 'route-result',
+  navigation: 'navigation',
 };
 
 // Alt text for every capture, including the ones that only appear in the
@@ -77,13 +84,15 @@ export const walkthrough = {
 // A screen reader should get the same information a sighted reader does.
 export const alts = {
   'jhb-map':
-    'The Tsamaya app over Sandton, Johannesburg — risk zones shaded on the live map, safe corridors in green, and a flagged hijacking hotspot',
+    'The Tsamaya app over Sandton, Johannesburg, with risk zones shaded on the live map, safe corridors in green, and a flagged hijacking hotspot',
   'capetown-map':
     'Tsamaya over the Cape Town city centre, with risk overlays across District Six, Vredehoek and the Foreshore',
   'route-card':
     'Tsamaya with the start set to the driver’s location and the destination set to Maboneng Precinct, ready to plan the route',
   'route-result':
-    'Tsamaya comparing three routes to the same destination — lower-risk at 23 minutes, balanced at 21, standard at 20 — with a warning that three high-risk areas could not be avoided',
+    'Tsamaya comparing three routes to the same destination: lower-risk at 23 minutes, balanced at 21, standard at 20, with a warning that three high-risk areas could not be avoided',
+  navigation:
+    'Turn-by-turn navigation running in Tsamaya: the next turn is a slight left onto West Street in 20 metres, with the current road, speed, remaining time of 22 minutes, an SOS button and a flag for reporting an area',
 };
 
 export const altFor = (name) => alts[name] || 'A screen from the Tsamaya app';

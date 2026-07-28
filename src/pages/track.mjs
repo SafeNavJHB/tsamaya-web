@@ -40,7 +40,7 @@ export default {
       <p id="arrived-sub" style="margin:0;opacity:.65;"></p>
     </div>
   </div>
-  <p style="margin-top:12px;opacity:.6;font-size:13px;">Shared via Tsamaya — the map updates roughly every 10–15 seconds while a drive is active. Between drives the page waits and picks up the next one automatically, so it's safe to bookmark.</p>
+  <p style="margin-top:12px;opacity:.6;font-size:13px;">Shared via Tsamaya. The map updates roughly every 10 to 15 seconds while a drive is active. Between drives the page waits and picks up the next one automatically, so it's safe to bookmark.</p>
 </section>
 <script>
 (function(){
@@ -136,7 +136,7 @@ export default {
   }
   fetch('/config.json').then(function(r){return r.json();}).then(function(c){
     cfg=c;
-    if(!cfg||!cfg.supabaseUrl||!cfg.mapboxToken){ if(info) info.textContent='Live tracking is being set up — please check back soon.'; return; }
+    if(!cfg||!cfg.supabaseUrl||!cfg.mapboxToken){ if(info) info.textContent='Live tracking is being set up. Please check back soon.'; return; }
     loadMapbox(function(){ tick(); setInterval(tick,10000); });
   }).catch(function(){ if(info) info.textContent='Could not load tracking right now.'; });
 })();

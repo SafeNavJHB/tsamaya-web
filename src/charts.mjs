@@ -35,7 +35,7 @@ import { fmt } from '../site.config.mjs';
 const BANDS = [
   { key: 'red', label: 'Highest', fill: '#c92a3f', desc: 'avoided by default on the safest setting' },
   { key: 'orange', label: 'Elevated', fill: '#d97706', desc: 'always costed, avoided on the safest setting' },
-  { key: 'yellow', label: 'Caution', fill: '#b08900', desc: 'costed but never avoided — too widespread to route around', hatch: true },
+  { key: 'yellow', label: 'Caution', fill: '#b08900', desc: 'costed but never avoided, since it is too widespread to route around', hatch: true },
   { key: 'none', label: 'No penalty', fill: '#2f7d4f', desc: 'checked and carries no routing cost' },
 ];
 
@@ -85,7 +85,7 @@ export function bandBar(bands, metroName) {
   <details class="chart-table">
     <summary>View as table</summary>
     <table>
-      <caption>${metroName} — ${fmt(total)} mapped zones by risk band</caption>
+      <caption>${metroName}: ${fmt(total)} mapped zones by risk band</caption>
       <thead><tr><th scope="col">Band</th><th scope="col">Zones</th><th scope="col">Share</th><th scope="col">How routing treats it</th></tr></thead>
       <tbody>${rows}</tbody>
     </table>

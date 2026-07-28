@@ -58,7 +58,7 @@ const thresholds = section({
     <div>
       ${eyebrow('The routing model')}
       <h2>A principled, carefully-tuned model.</h2>
-      <p class="big">The routing logic isn’t a black box — it’s a small set of deliberate rules, tuned over real South African routes, that decide when a detour is worth it and when it isn’t.</p>
+      <p class="big">The routing logic is a small set of deliberate rules, tuned over real South African routes, that decide when a detour is worth it and when it isn’t.</p>
       <div class="mt">${button('Walk through the steps', 'how-it-works.html', 'ghost')}</div>
     </div>
     <table class="spec-table">
@@ -68,7 +68,7 @@ const thresholds = section({
         <tr><th scope="row">Corridor awareness</th><td>Recognises when a route already runs a known-safe corridor, and leaves it be</td></tr>
         <tr><th scope="row">Detour limits</th><td>Bypasses are capped so they never wander unreasonably far from the direct line</td></tr>
         <tr><th scope="row">Corridor selection</th><td>Only nearby safe corridors are used to steer around a risk area</td></tr>
-        <tr><th scope="row">Sanity check</th><td>Any detour that ends up excessively longer than direct is rejected — you get the direct route, clearly flagged</td></tr>
+        <tr><th scope="row">Sanity check</th><td>Any detour that ends up excessively longer than direct is rejected. You get the direct route, clearly flagged</td></tr>
         <tr><th scope="row">Time-aware</th><td>Separate risk weighting for daytime, evening and night</td></tr>
       </tbody>
     </table>
@@ -88,7 +88,7 @@ const dataModel = section({
     </article>
     <article class="info-card">
       <h3>${icon('layers', 18)} Corridors</h3>
-      <p>LineStrings with a buffer width that mark roads as <em>safe</em> (preferred when threading past risk) or <em>danger</em> (actively avoided). Identity is always <code>(city, name)</code> — road names repeat across metros.</p>
+      <p>LineStrings with a buffer width that mark roads as <em>safe</em> (preferred when threading past risk) or <em>danger</em> (actively avoided). Identity is always <code>(city, name)</code>, because road names repeat across metros.</p>
       <code class="chip">safe · danger</code>
     </article>
   </div>
@@ -100,7 +100,7 @@ const coverage = section({
   inner: `
   ${eyebrow('Coverage')}
   <h2>Where Tsamaya works today</h2>
-  <p class="big">Live across ${site.coverageLive}. Mapped metros: <strong>${site.coverageData}</strong> — and adding a new city is a documented, repeatable runbook, not a rewrite.</p>
+  <p class="big">Live across ${site.coverageLive}. Mapped metros: <strong>${site.coverageData}</strong>. Adding a new city is a documented, repeatable runbook, not a rewrite.</p>
   <div class="stats stats-tech">
     ${site.stats.map((s) => `<div class="stat"><span class="stat-value">${s.value}</span><span class="stat-label">${s.label}</span></div>`).join('')}
   </div>`,
@@ -109,7 +109,7 @@ const coverage = section({
 const cta = `
 <section class="cta-band">
   <div class="wrap cta-inner">
-    <div><h2>Curious, or want to help build it?</h2><p>We’re always glad to talk shop — or to find sponsors who want to fund the next metro.</p></div>
+    <div><h2>Curious, or want to help build it?</h2><p>We’re always glad to talk shop, or to find sponsors who want to fund the next metro.</p></div>
     <div class="cta-actions">${button('Get in touch', 'contact.html', 'primary')}${button('Sponsor a city', 'sponsor.html', 'ghost-light')}</div>
   </div>
 </section>`;

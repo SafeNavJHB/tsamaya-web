@@ -1,0 +1,1410 @@
+{
+  "categories": [
+    {
+      "key": "feature",
+      "label": "Features"
+    },
+    {
+      "key": "fix",
+      "label": "Bug fixes"
+    },
+    {
+      "key": "tweak",
+      "label": "Tweaks"
+    }
+  ],
+  "releases": [
+    {
+      "version": "2026-07-28.1",
+      "date": "28 July 2026",
+      "items": [
+        {
+          "icon": "volume-medium-outline",
+          "title": "Your voice choice is remembered",
+          "body": "Choosing voice, alerts-only or silent on the car screen now sticks — the next drive starts in the mode you left it in, instead of resetting to full voice. The phone and CarPlay buttons also stay in step: change one and the other shows the same mode.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "Your car photo survives app updates",
+          "body": "The custom car marker no longer disappears after a new build. The photo was always kept on your phone, but the app remembered its location in a form that broke on every update — so you had to re-upload and re-size it each time. It now finds the photo again on its own, size and all.",
+          "category": "fix"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Route colouring is ~30× faster",
+          "body": "The coloured safety ribbon along your route is now computed with a spatial index instead of checking every mapped road for every stretch of the route. Long cross-town routes that took ~200 ms of freeze on every reroute now take a few milliseconds — on the phone and the car screen. The colours themselves are unchanged (verified point-for-point against the old calculation).",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-27.6",
+      "date": "27 July 2026",
+      "items": [
+        {
+          "icon": "lock-closed-outline",
+          "title": "“Share without locations” now really does",
+          "body": "Sharing diagnostics without locations was still including saved-place names (“Home”, your work) and the ids of hotspots you drove past. It no longer does — names, place ids and every coordinate are stripped, and the timeline, timings and journey times all stay. “Share full diagnostics” is unchanged and still includes everything.",
+          "category": "fix"
+        },
+        {
+          "icon": "pulse-outline",
+          "title": "The app now notices when it freezes",
+          "body": "A heartbeat measures how late it runs, so a stall is recorded with the number of seconds it lasted instead of leaving a silent gap. Low memory is recorded too. If something goes wrong on a drive, the diagnostics you send will say what happened.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-27.5",
+      "date": "27 July 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "Rerouting no longer freezes the car screen",
+          "body": "A mid-drive reroute now has a hard time limit, and the distance and arrival time keep counting down while it works. If it takes too long, Tsamaya simply keeps you on the route you are already driving and tries again shortly — the buttons on the car screen stay live throughout.",
+          "category": "fix"
+        },
+        {
+          "icon": "volume-high-outline",
+          "title": "One voice at a time",
+          "body": "When the phone and the car screen were both awake they could announce the same turn at once, in two different voices. Only one surface speaks now, and a prompt that gets cut short no longer leaves the next one waiting.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "Home and Work from the CarPlay dashboard actually go",
+          "body": "Tapping a dashboard shortcut now shows that it is finding your route, and tells you if something goes wrong instead of sitting there silently.",
+          "category": "fix"
+        },
+        {
+          "icon": "stop-circle-outline",
+          "title": "Ending a route ends it everywhere",
+          "body": "Ending the drive on CarPlay used to leave the phone still showing turn-by-turn directions, so you had to end it twice. Now either one ends both.",
+          "category": "fix"
+        },
+        {
+          "icon": "layers-outline",
+          "title": "Risk data loads once and is shared",
+          "body": "Zone and road data is now read from the on-device cache a single time and shared with every screen, so plugging in CarPlay uses what the app already has instead of loading it all over again. Faster to start and much lighter on memory.",
+          "category": "tweak"
+        },
+        {
+          "icon": "color-palette-outline",
+          "title": "The map and the readout agree on the tier",
+          "body": "Risky roads on the home map now follow the evening and night ratings the rest of the app already used, and the route line under your car carries a flagged road right to its end — matching what the readout says.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-27.4",
+      "date": "27 July 2026",
+      "items": [
+        {
+          "icon": "git-merge-outline",
+          "title": "A flagged road stays flagged to its end",
+          "body": "Risky roads are recorded in pieces, and those pieces can stop short of where the road actually ends. Drive past that point and the safety readout dropped to “Unrated road” while the map was still drawing the same road orange a few metres away. A road now keeps its rating across the join, so the words under the car and the colours on the map agree. It can only ever raise a warning, never lower one.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-27.3",
+      "date": "27 July 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "The CarPlay dashboard map actually moves now",
+          "body": "The small map on the CarPlay dashboard used to be a still picture that refetched itself every several seconds, so it stepped forward in jumps and could not turn with you — the arrow pointed the right way while the map underneath lagged behind. It is now a real live map that scrolls and rotates continuously, like the one on the main car screen.",
+          "category": "fix"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "The speedometer works in slow traffic",
+          "body": "Anything under about 9 km/h was being treated as a dead stop, so the speed read 0 while you were crawling in traffic. The filter that ignores GPS jitter on a parked car now cuts in at walking pace instead, so real crawling speeds show.",
+          "category": "fix"
+        },
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "No more “No known risk” on a road we haven’t checked",
+          "body": "When only the small built-in starter map was loaded — every road in it marked safe, none marked risky — the app could still tell you a road had “No known risk”, or call a flagged road “Unrated”. Glenhove Road, which is flagged in the live data, showed both. Whether the full risk data is really loaded is now judged from the data itself, so until it is, the app says it is still checking rather than guessing.",
+          "category": "fix"
+        },
+        {
+          "icon": "return-down-back-outline",
+          "title": "U-turn arrow points the South African way",
+          "body": "The U-turn symbol was the right-hand-drive shape — looping to the left. In South Africa a U-turn crosses to the right, so the arrow is now mirrored to match what you actually do at the intersection.",
+          "category": "fix"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "Lock-screen distance keeps up",
+          "body": "The distance to your next turn on the lock-screen card only refreshed every 15 seconds, so it sat well behind the car. It now updates whenever the number on it would actually change.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-27.2",
+      "date": "27 July 2026",
+      "items": [
+        {
+          "icon": "speedometer-outline",
+          "title": "Speed limit always on the CarPlay tile",
+          "body": "The posted speed limit now stays in the corner of the CarPlay dashboard map whenever there is one to show — driving a route or just driving around. It used to appear only during navigation.",
+          "category": "tweak"
+        },
+        {
+          "icon": "git-compare-outline",
+          "title": "Every screen tells the same story",
+          "body": "While the risk data is still downloading on a fresh install, the route screen no longer says a route “avoids known risk areas” — it says the data is still loading, which is what the map and the drive were already saying. Same data, same answer, everywhere.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-27.1",
+      "date": "27 July 2026",
+      "items": [
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Green on the map means green",
+          "body": "The driving map was drawing Mapbox’s own live-traffic lines, and their “traffic is flowing” colour is the same green Tsamaya uses for a road it has checked and rated safe — so ordinary roads with no safety rating at all could look verified. Those traffic lines are switched off on every map you tap, browse and drive with, so green there is a Tsamaya safety rating and nothing else. Traffic itself isn’t lost: while you’re driving, heavy and severe jams still show along your route in dark red.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "A cleaner CarPlay dashboard",
+          "body": "The mini map on the CarPlay dashboard no longer repeats the turn CarPlay is already showing. It now shows the speed limit in the top corner and a small pill under your car with the road you’re on and its safety tier — and it’s zoomed out a little and keeps moving smoothly instead of stalling between updates.",
+          "category": "tweak"
+        },
+        {
+          "icon": "exit-outline",
+          "title": "Freeway exits are named",
+          "body": "Turn cards used to read just “Take the ramp” when a slip road had no name of its own. They now read “Take exit 26 onto M60”, using the exit number and road from the signs.",
+          "category": "fix"
+        },
+        {
+          "icon": "help-circle-outline",
+          "title": "Honest about what we don’t know yet",
+          "body": "Straight after a fresh install, before the full risk data finishes downloading, the road tier now reads “Loading risk data…” instead of calling every road unrated — and area warnings keep working throughout. The road name under your car is more honest too: through an interchange it used to keep naming the freeway you’d already left, right next to that road’s safety rating. It now reads the signposted route number off the ramp, and shows nothing rather than something stale.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-26.1",
+      "date": "26 July 2026",
+      "items": [
+        {
+          "icon": "trail-sign-outline",
+          "title": "Freeways route like freeways again",
+          "body": "The N1, N4, N14 and the airport freeway through Joburg and Pretoria were being scored as risky roads, so routes were pushed onto slower surface streets to avoid them. About 330 km of national freeway now reads as the safe main route it is — the off-ramps and suburbs around them keep their own ratings.",
+          "category": "fix"
+        },
+        {
+          "icon": "sparkles-outline",
+          "title": "Roads you draw get reviewed too",
+          "body": "When you trace a road on the map, it now goes through the same AI review as every other report — and the reviewer can see what the app already knows about that spot, so it can tell a genuine gap from something already covered.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-25.3",
+      "date": "25 July 2026",
+      "items": [
+        {
+          "icon": "share-outline",
+          "title": "Send any place to Tsamaya",
+          "body": "Got sent a location on WhatsApp, or found a place in another app? Tap Share → Tsamaya and it lands straight on your map, ready to route the safer way.",
+          "category": "feature"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "CarPlay, rebuilt under the hood",
+          "body": "Guidance keeps flowing with your phone locked in your pocket, the car screen responds faster, and turn cards draw more smoothly — a set of deep native fixes from real-drive testing.",
+          "category": "fix"
+        },
+        {
+          "icon": "map-outline",
+          "title": "Faster, fresher maps",
+          "body": "The map engine jumped several versions: quicker tiles, smoother offline handling, and groundwork for richer route colours.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-25.2",
+      "date": "25 July 2026",
+      "items": [
+        {
+          "icon": "pulse-outline",
+          "title": "Smarter drive diagnostics",
+          "body": "The shareable navigation log now records CarPlay connects, map-style health, phone lock state and which screen is guiding — so field issues can be pinpointed from a single shared file.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-25.1",
+      "date": "25 July 2026",
+      "items": [
+        {
+          "icon": "car-sport-outline",
+          "title": "CarPlay: big stability fix",
+          "body": "Fixed the bug where plugging into CarPlay mid-drive could stack extra navigation screens (slowing everything down until the app crashed), and guidance now survives the car cancelling Apple’s turn cards — the drive keeps going instead of vanishing from both screens.",
+          "category": "fix"
+        },
+        {
+          "icon": "map-outline",
+          "title": "CarPlay map: never stuck blank",
+          "body": "The car map now recovers by itself if the map style fails to load (bad signal at connect, or the evening style switch in a dead spot), and it runs a lighter, faster driving map built for car screens.",
+          "category": "fix"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Cleaner CarPlay dashboard card",
+          "body": "Our dashboard tile no longer duplicates Apple’s next-turn widget — it now sticks to what Apple doesn’t show: your speed, the road, its safety rating and your ETA.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-24.3",
+      "date": "24 July 2026",
+      "items": [
+        {
+          "icon": "mic-outline",
+          "title": "Hey Siri, take me home",
+          "body": "“Take me home in Tsamaya”, “take me to work”, “start navigation”, “end navigation” — Siri now works out of the box, no setup. Handy before you pull off or mid-drive.",
+          "category": "feature"
+        },
+        {
+          "icon": "call-outline",
+          "title": "Voice waits for your calls",
+          "body": "Navigation prompts now pause automatically the moment a phone call starts and resume when you hang up — no more directions talking over your conversation.",
+          "category": "feature"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Turns in your instrument cluster",
+          "body": "On cars that support it, the next turn now shows behind the steering wheel — glyph, distance and road, coloured by road risk.",
+          "category": "feature"
+        },
+        {
+          "icon": "volume-medium-outline",
+          "title": "Volume slider now rules every voice",
+          "body": "The guidance-volume slider now controls the device voice too (it previously only affected the natural voice). Diagnostics can also email support in one tap.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-24.2",
+      "date": "24 July 2026",
+      "items": [
+        {
+          "icon": "git-merge-outline",
+          "title": "One-tap apply for drawn roads (admin)",
+          "body": "Approving a hand-drawn road suggestion now matches it to the live road it follows and applies the rating to exactly the drawn stretch (start to end), or adds it as a brand-new road corridor when nothing matches — no manual editor work needed.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-24.1",
+      "date": "24 July 2026",
+      "items": [
+        {
+          "icon": "create-outline",
+          "title": "Draw the map you know",
+          "body": "New pencil button on the home screen: outline an area or trace a road you know, rate how safe it is, and send it to us. The Tsamaya team and our AI reviewer check every suggestion before it changes anything — perfect for places where our street-level detail is still thin.",
+          "category": "feature"
+        },
+        {
+          "icon": "sparkles",
+          "title": "Natural voice by default",
+          "body": "The natural-sounding guidance voice is now on for everyone (it was hidden behind a setting). If you’re offline it falls back to the device voice automatically — and you can still switch it off in Settings → Navigation.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-21.1",
+      "date": "21 July 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Dashboard map moves with you",
+          "body": "The CarPlay home-screen mini-map now glides continuously as you drive instead of jumping every few seconds, matches the day/night look of the main navigation map, and wears a coloured border when you are inside a risk area. While navigating it shows your speed, the road you are on and its risk level — the next turn stays in Apple’s own cards.",
+          "category": "feature"
+        },
+        {
+          "icon": "musical-notes-outline",
+          "title": "Music un-dims reliably",
+          "body": "A voice prompt that got cut off could leave your music quiet until the next prompt. Volume now always restores within a second or two of a prompt finishing — or being interrupted.",
+          "category": "fix"
+        },
+        {
+          "icon": "chatbubble-ellipses-outline",
+          "title": "Turns name the road, not the suburb",
+          "body": "Spoken directions like “turn left toward Hatfield” now say the actual road — “turn left onto Gordon Road” — whenever the road name is known. Signposted ramps and forks still follow the signs.",
+          "category": "fix"
+        },
+        {
+          "icon": "document-text-outline",
+          "title": "Better diagnostics sharing",
+          "body": "Share diagnostics now sends a small file covering the last 24 hours (not a month of text), including app version and settings — ready to attach to an email to admin@tsamayaapp.co.za.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-20.2",
+      "date": "20 July 2026",
+      "items": [
+        {
+          "icon": "layers-outline",
+          "title": "Smoother map start-up",
+          "body": "Risk zones and flagged roads now wait for the basemap to finish loading before they draw, instead of racing it — no more overlay glitches on launch or when the map look changes.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-20.1",
+      "date": "20 July 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "CarPlay dashboard map — actually there now",
+          "body": "The map tile on the CarPlay home screen was showing black on real cars (an iOS map-engine limitation in that window). It now draws a live mini-map that follows you as you drive — rotating with your direction, zooming with your speed, and showing your route in its live safety colour when navigating.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-15.1",
+      "date": "15 July 2026",
+      "items": [
+        {
+          "icon": "speedometer-outline",
+          "title": "CarPlay camera thinks in km/h",
+          "body": "The head-unit map now zooms out as you speed up — highway driving shows the road ahead, not a close-up — leans back in for turns, and glides smoothly between GPS fixes instead of stuttering.",
+          "category": "feature"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "Your road, on the head unit",
+          "body": "CarPlay now names the road you are driving — with its live safety colour — in both navigation and free drive, and the car sits offset from the turn cards like the big nav apps.",
+          "category": "feature"
+        },
+        {
+          "icon": "grid-outline",
+          "title": "Dashboard widget works in free drive",
+          "body": "The CarPlay dashboard tile now shows a live map, your speed, road and area safety even when Tsamaya is not open on the car screen — and it recovers by itself after long stops.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-14.1",
+      "date": "14 July 2026",
+      "items": [
+        {
+          "icon": "clipboard-outline",
+          "title": "Paste any Google Maps link",
+          "body": "Shared Google Maps links (maps.app.goo.gl and friends) now paste straight in as a destination — including shares that arrive as a place name plus a link.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-outline",
+          "title": "Traffic alerts out of the way",
+          "body": "The \"heavy traffic ahead\" notice no longer covers the road name and its safety level while navigating.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-10.1",
+      "date": "10 July 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "Live traffic, honest ETAs",
+          "body": "Your ETA now reflects live traffic. Jams ahead show under the route line, and you get a heads-up when heavy traffic will cost you time.",
+          "category": "feature"
+        },
+        {
+          "icon": "arrow-up-circle-outline",
+          "title": "Lane guidance",
+          "body": "Lane arrows show which lane to be in for the next turn or exit — on your phone and on CarPlay.",
+          "category": "feature"
+        },
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Route safety grades",
+          "body": "Every route now carries an A–E safety grade with a plain-language reason, so comparing routes takes one glance.",
+          "category": "feature"
+        },
+        {
+          "icon": "moon-outline",
+          "title": "Beat the dark",
+          "body": "Setting off late? Tsamaya now warns when you will arrive after dark — and how soon to leave to get in before it.",
+          "category": "feature"
+        },
+        {
+          "icon": "location-outline",
+          "title": "Know where you are heading",
+          "body": "The destination card now reads the area itself — like “higher-risk area at night” — before you tap Go.",
+          "category": "feature"
+        },
+        {
+          "icon": "megaphone-outline",
+          "title": "Report what you actually see",
+          "body": "In-drive reports now use South African incident types — hijacking, smash-and-grab, spiking, blue-light stop and more. Two taps and it is filed.",
+          "category": "feature"
+        },
+        {
+          "icon": "home-outline",
+          "title": "Home and Work at a glance",
+          "body": "Open the app and see a live ETA to Home or Work with a route risk chip — one tap to get going.",
+          "category": "feature"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Sharper guidance",
+          "body": "The camera now leans in for turns and eases out on straights, and the speedo warns you before the limit drops.",
+          "category": "tweak"
+        },
+        {
+          "icon": "chatbubble-ellipses-outline",
+          "title": "How did that area feel?",
+          "body": "After a drive through flagged areas you can say how each one felt. Every answer tunes the safety map.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-09.4",
+      "date": "9 July 2026",
+      "items": [
+        {
+          "icon": "speedometer-outline",
+          "title": "Speedo top-right in landscape",
+          "body": "The speedo now sits in the top-right corner in landscape, with the buttons below it.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-09.3",
+      "date": "9 July 2026",
+      "items": [
+        {
+          "icon": "phone-landscape-outline",
+          "title": "Landscape layout, sorted",
+          "body": "In landscape the road name and safety pill sit under the car, the car rides a little higher, and the buttons keep clear of the screen edge.",
+          "category": "tweak"
+        },
+        {
+          "icon": "search-outline",
+          "title": "Search follows you",
+          "body": "Destination search now favours results near where you actually are — searching in Prague finds Prague, and full street addresses abroad resolve too. At home nothing changes: South African results still come first.",
+          "category": "tweak"
+        },
+        {
+          "icon": "git-branch-outline",
+          "title": "Tidier route panel",
+          "body": "The “Roads on your route” chip no longer shows when there are no rated roads to list (for example outside covered metros).",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-09.2",
+      "date": "9 July 2026",
+      "items": [
+        {
+          "icon": "speedometer-outline",
+          "title": "Speed limits in free drive",
+          "body": "The speed-limit roundel now works in free drive too — it previously only showed while navigating a route. Free drive matches your recent movement to the road you're on and reads its posted limit, wherever Mapbox has the data (including Europe).",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-09.1",
+      "date": "9 July 2026",
+      "items": [
+        {
+          "icon": "moon-outline",
+          "title": "Night colours back, 3D kept",
+          "body": "Yesterday’s 3D-after-dark change accidentally swapped the home map’s night look away from the high-visibility night style — dimming the roads, zones and corridor colours. The night map is back to those colours, and the home screen now draws its 3D buildings on top of it, so you get both.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-08.2",
+      "date": "8 July 2026",
+      "items": [
+        {
+          "icon": "cloud-download-outline",
+          "title": "Offline maps",
+          "body": "Download an area of the map for use without data — frame it, tap download, and it saves both the day and night looks. Your risk zones and safer corridors are already stored on your phone. Find it under Settings › Places › Offline maps. Search and routing still need a connection.",
+          "category": "feature"
+        },
+        {
+          "icon": "locate-outline",
+          "title": "The map opens where you are",
+          "body": "Opening the app away from home — another city or another country — now starts the map at your last known location instead of Johannesburg, and it no longer jumps back to Johannesburg during the day.",
+          "category": "fix"
+        },
+        {
+          "icon": "business-outline",
+          "title": "3D buildings are back after dark",
+          "body": "The home map keeps its 3D buildings when you tilt, at any time of day. Navigation still switches to the high-contrast night map while you drive — that one is about reading the road, not the skyline.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "CarPlay dashboard 3D (experimental)",
+          "body": "A new switch under Settings › Navigation renders the CarPlay dashboard widget on the full 3D map. Off by default — it uses more memory on the head unit, so try it and see how your car handles it.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-08.1",
+      "date": "8 July 2026",
+      "items": [
+        {
+          "icon": "color-palette-outline",
+          "title": "Blue means unrated",
+          "body": "Green now only means a road we’ve verified as safer. Roads we don’t have safety data for show in a neutral blue during navigation and free drive — on the route line, the road readout, and CarPlay — so an unrated road is never mistaken for a verified-safe one. Yellow, orange and red still mean what they always did.",
+          "category": "feature"
+        },
+        {
+          "icon": "location-outline",
+          "title": "Location arrow fixed",
+          "body": "Fixed the iOS location indicator staying on after you’d finished with the app. Connecting to CarPlay no longer starts background GPS unless you’re actually navigating, and any stale background location from an earlier session is now cleaned up when the app opens.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-04.5",
+      "date": "4 July 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Works anywhere now",
+          "body": "Tsamaya now works as a normal map and turn-by-turn navigator wherever you are — even outside our covered metros or overseas. It centres on your real location and routes you normally. The safety layer (risk zones and safe corridors) still only applies where we have data, so routes outside coverage won’t avoid risk zones — the location pill shows your city tagged “(unstaged)” to make that clear.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-04.4",
+      "date": "4 July 2026",
+      "items": [
+        {
+          "icon": "options-outline",
+          "title": "Settings, tidied up",
+          "body": "Settings is clearer and easier to find your way around. There’s a new Safety tab that gathers your risk alerts, crime hotspots and emergency contact in one place. The old “Time Band” control is gone — Tsamaya now adjusts risk automatically by the time of day, so there’s nothing to set.",
+          "category": "tweak"
+        },
+        {
+          "icon": "time-outline",
+          "title": "Risk now follows the clock",
+          "body": "Areas are treated as higher-risk from earlier in the evening — daytime runs to 5:30pm, evening 5:30–7:30pm, then night until 5am. The map’s evening and night look shifts at the same times, so what you see matches the risk. You can still pin the map’s look under Settings › Navigation if you prefer.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-04.3",
+      "date": "4 July 2026",
+      "items": [
+        {
+          "icon": "color-filter-outline",
+          "title": "Road colour and area alert, shown separately",
+          "body": "While navigating, the route now shows the ROAD’s own risk — a safe road stays green even through a high-risk area — and the glowing screen edge shows the AREA’s risk. So on a safe route through a red zone you see a green road with a red screen edge: you’re on the safe way through, and you can still see the area is high-risk.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-04.2",
+      "date": "4 July 2026",
+      "items": [
+        {
+          "icon": "partly-sunny-outline",
+          "title": "Clearer maps in the evening too",
+          "body": "The brighter, easier-to-read night map now kicks in from the evening — not just late at night — so roads stay clear as soon as it starts getting dark.",
+          "category": "tweak"
+        },
+        {
+          "icon": "shield-outline",
+          "title": "Safe routes still flag the most dangerous areas",
+          "body": "On a safe route through a very high-risk (red) area, the road now shows an amber “stay alert” instead of green — so a red area is never shown as completely risk-free, even on the safe way through it.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-04.1",
+      "date": "4 July 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "A live map on the CarPlay dashboard",
+          "body": "The Tsamaya card on the CarPlay home screen now shows a live map that follows you — like Maps and Waze — with your turn, ETA and safety colour floating over it. It works even before you set a destination.",
+          "category": "feature"
+        },
+        {
+          "icon": "moon-outline",
+          "title": "Night maps are far easier to read",
+          "body": "In dark mode and at night, the map now uses a purpose-built night-driving style — roads are bright and clearly visible (with highway numbers) instead of the near-invisible dark grey they were before. This applies to the home map and to turn-by-turn navigation.",
+          "category": "feature"
+        },
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Safe roads show as safe while you drive",
+          "body": "A road we mark as a safe way through a risky area (a safe corridor, like the N3) now shows green while you navigate, instead of turning yellow or orange where it clips a flagged zone — matching how it already looks on the map.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-03.1",
+      "date": "3 July 2026",
+      "items": [
+        {
+          "icon": "shield-outline",
+          "title": "Dangerous areas and dangerous roads now count equally",
+          "body": "Safer routes now treat driving through a dangerous area as seriously as driving along a dangerous road of the same risk level. The router no longer cuts through a risky neighbourhood just to dodge a flagged road (or the other way round) — when the risk is equal, the shorter route wins.",
+          "category": "tweak"
+        },
+        {
+          "icon": "color-wand-outline",
+          "title": "Risky roads are always visible while you drive",
+          "body": "Flagged higher-risk roads around you now show as coloured lines on the map during a drive AND in free-drive (no destination set) — on both the phone and CarPlay — so you can see the risk on the road you are on without needing a route.",
+          "category": "feature"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "CarPlay is smoother and clearer",
+          "body": "Starting a drive from the car screen no longer sticks on “Loading…” or shows a doubled-up ETA, and the turn banner and speed no longer overlap. When a route ends the map keeps following you in free-drive, and the CarPlay dashboard card now fits without its ETA being cut off.",
+          "category": "fix"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Speed reads zero at a standstill",
+          "body": "The speed widget now drops to 0 promptly when you stop at a light instead of lingering on a low “creeping” number.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-02.3",
+      "date": "2 July 2026",
+      "items": [
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Guardian — one tap, someone watches over your drive",
+          "body": "Share your Guardian link once (Settings › Navigation › Emergency contact), then tap the shield in CarPlay to let that person follow your drive live — they see your route, your live position, and the moment you arrive.",
+          "category": "feature"
+        },
+        {
+          "icon": "grid-outline",
+          "title": "CarPlay: one-tap incident reporting",
+          "body": "The report button now opens big one-tap buttons — Police, Crash, Hazard, Robot out, Smash & grab, Hijacking. One tap sends it to the review team without leaving your drive.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-02.2",
+      "date": "2 July 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "Risk data loads instantly on first run",
+          "body": "A fresh install now uses the built-in risk snapshot immediately while the full live dataset downloads in the background — no more long \"Loading risk data\" wait at the start of a drive.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "No more squashed car while panning",
+          "body": "Panning away from the drive now flattens the map to a top-down view, so the car marker keeps its shape instead of being flattened by the 3D tilt. Re-centre returns to the chase view.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-02.1",
+      "date": "2 July 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "Tsamaya on the CarPlay dashboard",
+          "body": "Tsamaya now provides the CarPlay home-screen navigation card — the live turn, ETA and safety colour show right on the CarPlay dashboard, with Drive home / Drive to work shortcuts. (Needs this new app version — update in TestFlight.)",
+          "category": "feature"
+        },
+        {
+          "icon": "search-outline",
+          "title": "Search destinations from the car",
+          "body": "A new Where to? button on the CarPlay screen lets you search any destination on the car’s keyboard — plus your saved places and recent trips — and pick a Safest / Balanced / Fastest route without touching your phone. Route options now show the trade-off: “Avoids 2 risk areas · +4 min”.",
+          "category": "feature"
+        },
+        {
+          "icon": "flag-outline",
+          "title": "Report speed cameras from CarPlay",
+          "body": "The report button on the car screen can now add a permanent speed camera at your spot, with the limit it enforces — same review queue as the phone. Camera and hotspot voice alerts now play on CarPlay drives too.",
+          "category": "feature"
+        },
+        {
+          "icon": "checkmark-done-outline",
+          "title": "Drives end themselves at the destination",
+          "body": "A drive started from the car screen now ends itself when you arrive and stop — the map stays live with your safety colour, like a normal drive around town.",
+          "category": "fix"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Lighter on long drives",
+          "body": "Fixed the remaining memory growth when the route recalculates — long drives with lots of rerouting now stay smooth on phone and CarPlay.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-01.3",
+      "date": "1 July 2026",
+      "items": [
+        {
+          "icon": "navigate-circle-outline",
+          "title": "Smoother, cleaner CarPlay",
+          "body": "On CarPlay the map now glides continuously as you drive, instead of the car jumping forward once a second (and it rides on the road using the smooth route heading, not the jittery GPS one). The turn, ETA, safety and speed panels are now SafeNav’s own, arranged to stay clear of the car’s built-in controls.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "Your car stays the right size",
+          "body": "The vehicle marker now keeps a consistent size when you rotate to landscape or pan around the map — no more oversized car in landscape, and it no longer shrinks when you pan away to look ahead.",
+          "category": "fix"
+        },
+        {
+          "icon": "color-palette-outline",
+          "title": "CarPlay safety colours match the map",
+          "body": "On CarPlay, the route’s safety colours now follow the map’s day / evening / night lighting like the phone does, so an amber or red stretch reads clearly instead of looking washed-out on a dark evening map.",
+          "category": "fix"
+        },
+        {
+          "icon": "shapes-outline",
+          "title": "More accurate danger-zone edges",
+          "body": "Zones drawn with a carved-out area (large farms or mines with an excluded patch) no longer treat that excluded patch as risky — the live safety readout now matches the exact zone shape shown on the map.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-01.2",
+      "date": "1 July 2026",
+      "items": [
+        {
+          "icon": "battery-charging-outline",
+          "title": "Lighter on long drives",
+          "body": "Navigation now uses noticeably less memory while you drive, so a long trip stays smooth instead of slowing down or closing on you.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-01.1",
+      "date": "1 July 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "Smoother, freeze-free guidance",
+          "body": "Navigation no longer briefly freezes when a voice prompt plays over Bluetooth or CarPlay, and guidance no longer falls behind and then fires a burst of turns at the intersection — you hear just the current instruction, on time.",
+          "category": "fix"
+        },
+        {
+          "icon": "color-palette-outline",
+          "title": "Safety colours line up",
+          "body": "The route line, the safety card and the screen-edge alert now always agree — an amber or red stretch shows the same everywhere, instead of a green road under an amber warning. The pulse only appears for genuine higher-risk areas.",
+          "category": "fix"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "Clearer turn wording",
+          "body": "Roundabouts now read “At the roundabout, take the 1st exit”, and arrival reads “Arrive at your destination” — no more jumbled instruction text in the banner.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-30.9",
+      "date": "30 June 2026",
+      "items": [
+        {
+          "icon": "trail-sign-outline",
+          "title": "No more “Dropped pin” as your road",
+          "body": "During a free drive, if we can’t name the exact road you’re on, the readout now keeps the last known road (or just shows the safety status) instead of labelling it “Dropped pin”.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-30.8",
+      "date": "30 June 2026",
+      "items": [
+        {
+          "icon": "shield-half-outline",
+          "title": "Never shows “safe” before risk data loads",
+          "body": "If the risk data hasn’t loaded yet (e.g. just after opening on a weak connection), the driving screen now shows a neutral “Loading risk data” state instead of a green “No known risk” — so you’re never told an area is safe when we simply don’t have the data yet.",
+          "category": "fix"
+        },
+        {
+          "icon": "map-outline",
+          "title": "Map always loads",
+          "body": "If the map is slow or fails to load on a cold start, your route and car now appear anyway instead of a blank screen.",
+          "category": "fix"
+        },
+        {
+          "icon": "pulse-outline",
+          "title": "Crash reporting",
+          "body": "If the app closes unexpectedly, Settings › General › Help & Feedback now offers to share what led up to it (locations removed) so we can fix it fast.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-30.7",
+      "date": "30 June 2026",
+      "items": [
+        {
+          "icon": "navigate-circle-outline",
+          "title": "Drive opens centred on the route",
+          "body": "When you start navigating, the camera now opens framed on the start of your route instead of off to the side — no need to pan and re-centre first.",
+          "category": "fix"
+        },
+        {
+          "icon": "sparkles-outline",
+          "title": "Brighter route colour on dark maps",
+          "body": "The live route line is a little brighter and clearer on the Evening and Dark maps.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-30.6",
+      "date": "30 June 2026",
+      "items": [
+        {
+          "icon": "locate-outline",
+          "title": "Navigation starts where you are",
+          "body": "If a route was built before your GPS had fully settled, navigation now re-anchors the start onto your real location instead of beginning elsewhere.",
+          "category": "fix"
+        },
+        {
+          "icon": "moon-outline",
+          "title": "Route preview matches your map lighting",
+          "body": "The route comparison screen now follows your Map lighting (Light / Evening / Dark) instead of always showing a light map.",
+          "category": "fix"
+        },
+        {
+          "icon": "color-palette-outline",
+          "title": "Brighter colours on dark maps",
+          "body": "Risk zones, roads and the live route now show clearer, brighter colours on the Evening and Dark maps so they no longer read muddy.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-30.5",
+      "date": "30 June 2026",
+      "items": [
+        {
+          "icon": "options-outline",
+          "title": "Voice volume slider",
+          "body": "The guidance-voice volume is now a smooth slider (Settings › Navigation) instead of fixed steps, and quick changes no longer play two clips at once.",
+          "category": "tweak"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "Size your own car marker",
+          "body": "Uploading a photo of your car now keeps the whole image (no forced crop), with a Marker-size slider to fit it to the map. Your car also stays on screen when you pan the map during a drive, instead of switching to an arrow.",
+          "category": "tweak"
+        },
+        {
+          "icon": "color-wand-outline",
+          "title": "Clearer Evening & Dark maps",
+          "body": "Risk zones and roads now read clearly on the Evening and Dark map styles, and switching the map lighting mid-drive no longer hides the car or route.",
+          "category": "fix"
+        },
+        {
+          "icon": "navigate-circle-outline",
+          "title": "Tidier driving screen",
+          "body": "The Re-centre button no longer overlaps the road name when you pan, and the safety readout now reflects the area you’re in, not just the road.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-30.4",
+      "date": "30 June 2026",
+      "items": [
+        {
+          "icon": "swap-horizontal-outline",
+          "title": "CarPlay: map or directions on your phone",
+          "body": "While CarPlay is driving, tap Map / Directions on your phone to switch between the live map and the turn-by-turn list.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-30.3",
+      "date": "30 June 2026",
+      "items": [
+        {
+          "icon": "contrast-outline",
+          "title": "Choose your map lighting",
+          "body": "Settings › Map & graphics › Map lighting now lets you keep the map matched to the time of day (Auto), or lock it to Light, Evening or Dark.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-30.2",
+      "date": "30 June 2026",
+      "items": [
+        {
+          "icon": "car-sport-outline",
+          "title": "CarPlay refinements",
+          "body": "On CarPlay: the speedometer (with the posted speed limit) now shows, the arrival card names your destination, distances read like Apple Maps (5 km / 600 m / 50 m), and your phone opens turn-by-turn directions automatically when a CarPlay drive begins.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-30.1",
+      "date": "30 June 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "A richer, time-of-day map",
+          "body": "The map now uses Mapbox Standard with 3D buildings and lighting that shifts with the time of day — daylight, dusk and night. Phone feeling slow? Settings › Map & graphics has High / Balanced / Lite — Lite is the fast, flat map.",
+          "category": "feature"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "Tsamaya on CarPlay",
+          "body": "Plug into a CarPlay car and Tsamaya guides you on the dashboard screen — the safer route, turn-by-turn, with your phone out of sight.",
+          "category": "feature"
+        },
+        {
+          "icon": "navigate-circle-outline",
+          "title": "Keeps guiding with the screen off",
+          "body": "Navigation now continues when your phone is locked or in your pocket — directions, voice and rerouting carry on in the background until you arrive.",
+          "category": "feature"
+        },
+        {
+          "icon": "options-outline",
+          "title": "More ways to make it yours",
+          "body": "Use a photo of your own car as the map marker, rotate the navigation screen to landscape, and set the guidance voice volume — all in Settings.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-29.1",
+      "date": "29 June 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Your route, coloured by safety",
+          "body": "The route line now shows where it’s safer and where it isn’t — green along safer stretches, amber and red where it passes through higher-risk areas — so you can see the risk ahead at a glance instead of one colour for the whole trip.",
+          "category": "feature"
+        },
+        {
+          "icon": "volume-high-outline",
+          "title": "Clearer voice directions",
+          "body": "Guidance now names your next move earlier — “In 2 kilometres, take exit 10” instead of just “continue” — and tells you which side your destination is on as you arrive.",
+          "category": "feature"
+        },
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "A safer-arrival summary",
+          "body": "When you arrive, Tsamaya shows how many higher-risk areas your route steered you clear of — a quick note that the safer way was worth it.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-28.4",
+      "date": "28 June 2026",
+      "items": [
+        {
+          "icon": "time-outline",
+          "title": "Recent destinations",
+          "body": "Tap “Where to?” and your recent places pop up straight away, so your regular trips are one tap from a route. They’re kept on your phone only.",
+          "category": "feature"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "Calmer, clearer guidance",
+          "body": "Navigation no longer re-routes while you’re parked or after you’ve arrived, and voice prompts now wait their turn instead of talking over each other. Your destination shows a pin on the map, and arriving ends the drive cleanly.",
+          "category": "fix"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Speedometer fixes",
+          "body": "The speed dial turns red the moment you’re over the limit (even by 1 km/h), and snaps back to zero promptly when you stop instead of lingering.",
+          "category": "fix"
+        },
+        {
+          "icon": "share-social-outline",
+          "title": "Sharing polish",
+          "body": "The share sheet opens instantly, and if you re-route mid-trip, anyone following your live link now sees your updated route.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-28.3",
+      "date": "28 June 2026",
+      "items": [
+        {
+          "icon": "sparkles-outline",
+          "title": "A quick tour of the buttons",
+          "body": "The first time you open the home, route and navigation screens, a short spotlight tour points out the key buttons — search, saved places, risk overlays, sharing, reporting and the SOS button. Replay it any time from Settings › Help › “Show me around”.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-28.2",
+      "date": "28 June 2026",
+      "items": [
+        {
+          "icon": "heart-outline",
+          "title": "Support Tsamaya",
+          "body": "Settings now has a “Support Tsamaya” option that opens our website if you’d like to help keep safer routing free. There’s never any pressure, and nothing is collected inside the app.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-28.1",
+      "date": "28 June 2026",
+      "items": [
+        {
+          "icon": "alert-circle-outline",
+          "title": "SOS now shares a live emergency link",
+          "body": "Pressing SOS while driving texts your emergency contact your coordinates AND a “track me live” link they can follow for 24 hours. It’s location-only (no destination needed), keeps updating while you drive, and you can stop it any time — from the SOS button or a banner on the home screen.",
+          "category": "feature"
+        },
+        {
+          "icon": "flash-outline",
+          "title": "Faster, smoother startup",
+          "body": "The map’s risk overlays now load just after the app opens instead of during launch, fixing a brief freeze on startup (most noticeable in Low Power Mode).",
+          "category": "fix"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "Clearer risk info + tidier navigation",
+          "body": "Ending a route returns you to the map. Risk labels are colour-based again (yellow = lower risk), tapping a zone explains it in plain language (“frequent reports of …”) instead of technical wording, and the in-drive buttons sit in a tighter group.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-27.4",
+      "date": "27 June 2026",
+      "items": [
+        {
+          "icon": "link-outline",
+          "title": "Shared trip links open straight in the app",
+          "body": "Tap a shared Tsamaya link — a live trip, or a place someone sent you — and it now opens reliably inside the app, even when Tsamaya wasn’t already running. Before, a cold tap could land on a blank “unmatched” screen, and a live trip could briefly open over the wrong part of the world.",
+          "category": "fix"
+        },
+        {
+          "icon": "map-outline",
+          "title": "Clearer map: areas we haven’t rated yet",
+          "body": "The map legend now spells out that a blank patch means “no risk data here yet” — not “assessed and safe.” A blank map is never a safety guarantee, so stay alert in unrated areas. Coverage keeps growing.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-27.3",
+      "date": "27 June 2026",
+      "items": [
+        {
+          "icon": "navigate-circle-outline",
+          "title": "Share your drive, live",
+          "body": "During navigation, tap Share › Share live location to send someone a link to your trip. They can follow your route and live position, see your ETA, and get an “Arrived safely” when you get there. It opens right in Tsamaya for anyone who has the app, or on the web for everyone else.",
+          "category": "feature"
+        },
+        {
+          "icon": "lock-closed-outline",
+          "title": "Live links close when you arrive",
+          "body": "A shared trip link stops updating and shows that you’ve arrived once you reach your destination, then closes shortly after — so it can’t be used to track you later.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-27.2",
+      "date": "27 June 2026",
+      "items": [
+        {
+          "icon": "help-buoy-outline",
+          "title": "See why a road or area is flagged",
+          "body": "The route screen now shows the reason behind each flagged zone or road — the local context we hold — so you can judge a detour for yourself, not just trust a colour.",
+          "category": "feature"
+        },
+        {
+          "icon": "keypad-outline",
+          "title": "Emergency contact is no longer hidden by the keyboard",
+          "body": "Adding your SOS contact in Settings now scrolls the fields above the keyboard so you can see what you type. We’ll also remind you if a contact is missing its phone number.",
+          "category": "fix"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "Clearer turn directions",
+          "body": "Fixed a turn instruction that could read twice (“Keep right toward Keep right…”), and the re-centre button now sits next to the road name instead of floating mid-screen.",
+          "category": "fix"
+        },
+        {
+          "icon": "pin-outline",
+          "title": "A friendlier map and clearer wording",
+          "body": "Dropped pins read as “Dropped pin” instead of raw coordinates, the route options use clearer “Lower-risk” wording, and the From/To card no longer overlaps the map buttons while you plan.",
+          "category": "tweak"
+        },
+        {
+          "icon": "accessibility-outline",
+          "title": "Better VoiceOver support",
+          "body": "The map and navigation buttons now describe themselves to screen readers, with larger tap targets.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-27.1",
+      "date": "27 June 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "Lighter, faster map loading",
+          "body": "Tsamaya now keeps your downloaded risk-zone and safe-corridor data between sessions and only re-fetches it when something has actually changed — so the map loads quicker and uses less mobile data each time you open the app.",
+          "category": "tweak"
+        },
+        {
+          "icon": "alert-circle-outline",
+          "title": "Clear heads-up outside covered areas",
+          "body": "Pick a destination outside Tsamaya’s covered metros and we now tell you plainly that the route is shown without risk avoidance — instead of quietly handing you an ordinary route.",
+          "category": "fix"
+        },
+        {
+          "icon": "stats-chart-outline",
+          "title": "Opt out of usage data",
+          "body": "Settings › Privacy now has a “Share anonymous usage data” switch, so you can turn off the coarse, anonymous usage stats whenever you like.",
+          "category": "tweak"
+        },
+        {
+          "icon": "lock-closed-outline",
+          "title": "Privacy policy updated",
+          "body": "Our privacy policy now spells out exactly what optional live-trip sharing stores, and that you can have a shared trip deleted on request.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-26.1",
+      "date": "26 June 2026",
+      "items": [
+        {
+          "icon": "alert-circle-outline",
+          "title": "Crime hotspots on the map",
+          "body": "Known hijacking and smash-and-grab spots now show as marked points with a risk circle, and you’ll get a spoken heads-up as you approach one while navigating. They’re NOT a complete list — coverage is growing and we’re still tightening exact locations. Turn them on or off in Settings › Navigation › Crime hotspots.",
+          "category": "feature"
+        },
+        {
+          "icon": "locate-outline",
+          "title": "Help place a hotspot correctly",
+          "body": "Tap a hotspot, choose “Wrong spot?”, then tap its true location on the map to send a correction to our team for review.",
+          "category": "feature"
+        },
+        {
+          "icon": "restaurant-outline",
+          "title": "More “Nearby” places",
+          "body": "Nearby now also finds restaurants and tourist attractions, dropped as map pins with their star rating and whether they’re open now.",
+          "category": "feature"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Add a speed camera’s limit",
+          "body": "Tap a speed camera on the map to suggest its speed limit — handy for the Johannesburg cameras imported without one. Our team reviews each suggestion.",
+          "category": "feature"
+        },
+        {
+          "icon": "document-text-outline",
+          "title": "Share a navigation log",
+          "body": "From Settings › General you can share a navigation log for diagnostics — with an option to trim the start and end so your home or work address stays private.",
+          "category": "feature"
+        },
+        {
+          "icon": "location-outline",
+          "title": "Hotspots line up with the road",
+          "body": "Every hotspot was snapped to its real intersection or off-ramp using map road data, so the markers now sit where they belong instead of nearby.",
+          "category": "fix"
+        },
+        {
+          "icon": "volume-medium-outline",
+          "title": "Clearer risk-area alerts",
+          "body": "Driving into a large higher-risk area now simply says “entering a higher-risk area.” The specific “hijacking / smash-and-grab” callout is reserved for the precise hotspot points.",
+          "category": "tweak"
+        },
+        {
+          "icon": "close-circle-outline",
+          "title": "Tidier “Nearby” pins",
+          "body": "The “Clear pins” button moved below the quick actions so it no longer hides behind the search bar.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-25.7",
+      "date": "25 June 2026",
+      "items": [
+        {
+          "icon": "navigate-circle-outline",
+          "title": "More reliable live location sharing",
+          "body": "When you share your live location, the app now confirms the link is working before you send it — and “arrived safely” reliably shows when you finish your drive.",
+          "category": "fix"
+        },
+        {
+          "icon": "volume-high-outline",
+          "title": "Voice directions on time",
+          "body": "Spoken turn-by-turn now arrives on time even on a weak signal — if the natural voice can’t load quickly, it falls back to the on-device voice instead of going quiet.",
+          "category": "fix"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "Navigation arrow rides the road",
+          "body": "The vehicle arrow now sits centred on your road instead of drifting off to the side.",
+          "category": "fix"
+        },
+        {
+          "icon": "cloud-download-outline",
+          "title": "Fixes & improvements",
+          "body": "Added a “Check for app updates” button in Settings › General, sped up map-data loading, and stopped the “What’s New” card from repeating itself.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-25.6",
+      "date": "25 June 2026",
+      "items": [
+        {
+          "icon": "flag-outline",
+          "title": "Flag a route that looks wrong",
+          "body": "On the route screen, tap “Something off with this route? Send it to the team” to send us the proposed route and a note, so we can look into it.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-25.5",
+      "date": "25 June 2026",
+      "items": [
+        {
+          "icon": "color-palette-outline",
+          "title": "Clearer route options",
+          "body": "Each route’s dot now matches its colour on the map (Standard grey, Balanced green, Lower-risk blue). And when two options are the same road, we say so instead of quietly hiding one.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-25.4",
+      "date": "25 June 2026",
+      "items": [
+        {
+          "icon": "sparkles-outline",
+          "title": "Never miss an update",
+          "body": "You’ll now see a “What’s New” card after every update — and you can revisit the full history any time in Settings › General › What’s New.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-25.3",
+      "date": "25 June 2026",
+      "items": [
+        {
+          "icon": "git-branch-outline",
+          "title": "Pick your route: Standard, Balanced or Lower-risk",
+          "body": "Every trip now offers three routes — Standard (fastest), Balanced (avoids high-risk areas) and Lower-risk (avoids high + medium-risk). Choose per trip, or set a default in Settings › Default route.",
+          "category": "feature"
+        },
+        {
+          "icon": "navigate-circle-outline",
+          "title": "Share your live location",
+          "body": "From the navigation screen you can now share a live, trackable link so family can follow your drive in real time and see when you’ve arrived safely.",
+          "category": "feature"
+        },
+        {
+          "icon": "search-outline",
+          "title": "Find places nearby",
+          "body": "Tap “Nearby” on the home screen to find the closest police station, hospital, fuel stop or mall and route straight there.",
+          "category": "feature"
+        },
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Safety nudges + SOS",
+          "body": "Optional in-drive heads-ups for hijack / smash-and-grab hotspots, peak-risk times and arrival — plus an SOS button that alerts a chosen contact. Manage them in Settings › Safety.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-25.2",
+      "date": "25 June 2026",
+      "items": [
+        {
+          "icon": "camera-outline",
+          "title": "Report speed cameras as you drive",
+          "body": "Tap the report button while navigating to add a permanent speed camera at your spot. Our team reviews it — and it’s added automatically once a few drivers flag the same place.",
+          "category": "feature"
+        },
+        {
+          "icon": "share-outline",
+          "title": "Share your trip with family",
+          "body": "Sharing a route now tells a friend where you’re driving from and to, your ETA, and any higher-risk areas you pass — so someone can keep an eye on your drive.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-06-25.1",
+      "date": "25 June 2026",
+      "items": [
+        {
+          "icon": "camera-outline",
+          "title": "Speed cameras on the map",
+          "body": "Known fixed speed cameras now show on the map, with a spoken “speed camera ahead” heads-up while you’re navigating. Turn it on or off in Settings › Navigation. (Coverage is best in Cape Town and still growing elsewhere.)",
+          "category": "feature"
+        }
+      ]
+    }
+  ]
+}

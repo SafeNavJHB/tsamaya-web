@@ -37,7 +37,7 @@ function esc(str) {
 export function renderPage(page) {
   const titleFull = esc(
     page.slug === 'index.html'
-      ? `${site.name} — ${site.tagline} Lower-risk routes for South African drivers`
+      ? `${site.name}: ${site.tagline} Lower-risk routes for South African drivers`
       : `${page.title} · ${site.name}`,
   );
   const desc = esc(page.description || site.description);
@@ -77,10 +77,10 @@ export function renderPage(page) {
   <meta property="og:image:type" content="image/png"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
-  <meta property="og:image:alt" content="Tsamaya — lower-risk driving routes for South African metros"/>
+  <meta property="og:image:alt" content="Tsamaya: lower-risk driving routes for South African metros"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:image" content="${ogImage}"/>
-  <meta name="twitter:image:alt" content="Tsamaya — lower-risk driving routes for South African metros"/>
+  <meta name="twitter:image:alt" content="Tsamaya: lower-risk driving routes for South African metros"/>
   <link rel="icon" type="image/png" sizes="48x48" href="img/favicon.png"/>
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg"/>
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png"/>
@@ -121,13 +121,14 @@ export function renderPage(page) {
       <div class="footer-brand">
         ${logoMark(40)}
         <p class="footer-tagline"><strong>${site.lockup}</strong></p>
-        <p class="footer-note">Driving routes that think about risk, not just speed — for South African metros. <em>Tsamaya</em> (say: ${site.pronunciation}) is Sesotho/Setswana for “go”.</p>
+        <p class="footer-note">Driving routes planned around risk, for South African metros. <em>Tsamaya</em> (say: ${site.pronunciation}) is Sesotho/Setswana for “go”.</p>
       </div>
       <div class="footer-col">
         <h4>Explore</h4>
         <a href="how-it-works.html">How it works</a>
         <a href="demo.html">See it in action</a>
         <a href="coverage.html">Coverage</a>
+        <a href="updates.html">Updates</a>
         <a href="technical.html">Technical details</a>
         <a href="about.html">About us</a>
       </div>
@@ -150,7 +151,7 @@ export function renderPage(page) {
       </div>
     </div>
     <div class="wrap footer-bottom">
-      <p>© ${year} Tsamaya. Built in Johannesburg. Routes consider risk — they are not a guarantee of safety.</p>
+      <p>© ${year} Tsamaya. Built in Johannesburg. Routes consider risk. They are not a guarantee of safety.</p>
       <p class="footer-admin"><a href="https://admin.tsamayaapp.co.za" rel="noopener nofollow" style="opacity:.35;font-size:12px;text-decoration:none" aria-label="Admin sign-in">Admin</a></p>
     </div>
   </footer>

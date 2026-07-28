@@ -35,7 +35,7 @@ const tiers = section({
   inner: `
   ${eyebrow('For businesses & organisations')}
   <h2 class="center">Sponsorship tiers</h2>
-  <p class="sub">Indicative — we’ll happily tailor something. Sponsors get a thank-you and, from Supporter up, a place on this site.</p>
+  <p class="sub">These are indicative and we’ll happily tailor something. Sponsors get a thank-you and, from Supporter up, a place on this site.</p>
   <div class="tier-grid">
     <article class="tier">
       <h3>Friend</h3>
@@ -108,13 +108,13 @@ const donate = section({
   <div class="bank-grid">
     ${banking.accounts.map(accountCard).join('')}
   </div>
-  <p class="footnote">${icon('shield', 15)} Tsamaya is an independent project, not a registered public-benefit organisation, so donations aren’t tax-deductible — they’re simply support, and they mean a great deal. Once you’ve sent something, <a href="contact.html">drop us a line</a> so we can thank you properly.</p>`,
+  <p class="footnote">${icon('shield', 15)} Tsamaya is an independent project, not a registered public-benefit organisation, so donations aren’t tax-deductible. They’re simply support, and they mean a great deal. Once you’ve sent something, <a href="contact.html">drop us a line</a> so we can thank you properly.</p>`,
 });
 
 const cta = `
 <section class="cta-band">
   <div class="wrap cta-inner">
-    <div><h2>Prefer to talk first?</h2><p>Email us about sponsorship, partnerships, or anything else — no pressure.</p></div>
+    <div><h2>Prefer to talk first?</h2><p>Email us about sponsorship, partnerships, or anything else. No pressure.</p></div>
     <div class="cta-actions">
       <a class="btn btn-primary" href="mailto:${site.contactEmail}?subject=Sponsoring%20Tsamaya">${icon('mail', 16)} Email about sponsorship</a>
       ${button('Contact page', 'contact.html', 'ghost-light')}
@@ -126,6 +126,6 @@ export default {
   slug: 'sponsor.html',
   title: 'Sponsor us & Donate',
   description:
-    'Support Tsamaya — sponsor a metro or donate by EFT. Independent, self-funded South African navigation that routes drivers around risk.',
+    'Sponsor a metro or donate by EFT. Tsamaya is independent, self-funded South African navigation that routes drivers around risk.',
   body: [hero, uses, tiers, donate, cta].join('\n'),
 };

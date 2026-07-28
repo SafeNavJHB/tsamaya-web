@@ -487,6 +487,70 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .faq-item p { margin: 0; padding: 0 20px 19px; color: var(--text-soft); line-height: 1.65; }
 
 /* ===========================================================================
+ * Updates page — mirrors the app's What's New screen.
+ *
+ * The three tabs are radio inputs with styled labels, so they work with no
+ * JavaScript at all: the checked radio reveals its panel through a sibling
+ * selector. Keyboard users get arrow-key navigation for free, because that is
+ * how radio groups already behave.
+ * ======================================================================== */
+.up-tabbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+.up-radio { position: absolute; opacity: 0; width: 0; height: 0; }
+.up-tab {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  padding: 9px 17px; border-radius: 999px; background: var(--bg-soft);
+  color: var(--text-soft); font-weight: 600; font-size: 0.94rem;
+  border: 1px solid transparent; transition: background 0.15s, color 0.15s, border-color 0.15s;
+  user-select: none;
+}
+.up-tab:hover { background: #eaeef7; color: var(--ink); }
+.up-count {
+  font-size: 0.78rem; font-variant-numeric: tabular-nums; padding: 1px 7px;
+  border-radius: 999px; background: rgba(0, 0, 0, 0.07); color: inherit;
+}
+/* Active pill. The radios are siblings of the tab bar (not inside it), so these
+   reach the label through the bar rather than with an adjacent-sibling combinator. */
+#tab-feature:checked ~ .up-tabbar label[for='tab-feature'],
+#tab-fix:checked ~ .up-tabbar label[for='tab-fix'],
+#tab-tweak:checked ~ .up-tabbar label[for='tab-tweak'] { background: var(--emerald-text); color: #fff; }
+#tab-feature:checked ~ .up-tabbar label[for='tab-feature'] .up-count,
+#tab-fix:checked ~ .up-tabbar label[for='tab-fix'] .up-count,
+#tab-tweak:checked ~ .up-tabbar label[for='tab-tweak'] .up-count { background: rgba(255, 255, 255, 0.22); }
+/* Radios are visually hidden, so the focus ring has to live on the label. */
+#tab-feature:focus-visible ~ .up-tabbar label[for='tab-feature'],
+#tab-fix:focus-visible ~ .up-tabbar label[for='tab-fix'],
+#tab-tweak:focus-visible ~ .up-tabbar label[for='tab-tweak'] { outline: 3px solid var(--emerald-deep); outline-offset: 2px; }
+
+/* Show only the panel whose radio is checked. Requires the radios to be direct
+   siblings of the panels — see the note in src/pages/updates.mjs. */
+.up-panel { display: none; }
+#tab-feature:checked ~ #panel-feature,
+#tab-fix:checked ~ #panel-fix,
+#tab-tweak:checked ~ #panel-tweak { display: block; }
+
+.up-release { margin-bottom: 34px; }
+.up-date {
+  font-family: var(--display); font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted);
+  margin: 0 0 12px;
+}
+.up-list {
+  list-style: none; margin: 0; padding: 0;
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.up-item { display: flex; gap: 14px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.up-item:last-child { border-bottom: none; }
+.up-icon {
+  flex: none; width: 36px; height: 36px; border-radius: 11px;
+  display: grid; place-items: center;
+  background: rgba(4, 120, 87, 0.09); color: var(--emerald-text);
+}
+.up-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.up-text strong { color: var(--text); font-weight: 650; }
+.up-text span { color: var(--text-soft); font-size: 0.95rem; line-height: 1.6; }
+
+/* ===========================================================================
  * Charts
  *
  * Risk-band colours are STATUS colours carried over from the app so the site and

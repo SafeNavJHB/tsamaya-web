@@ -54,8 +54,8 @@ function metroPage({ content, data }) {
     <div>
       ${eyebrow('What the data looks like here')}
       <h2>${fmt(data.zones)} mapped areas across ${content.name}.</h2>
-      <p class="big">Every zone carries three separate ratings — one each for daytime, evening and night — because risk in South African metros does not hold still across a day. The split below is how ${content.name}'s ${fmt(data.zones)} zones fall across the bands at their highest rating.</p>
-      <p class="muted small">Figures read directly from the live database, not typed by hand. The lowest band means an area was checked and carries no routing penalty — different from an area we have no data for.</p>
+      <p class="big">Every area is rated three times over, once each for daytime, evening and night, because risk in South African metros does not hold still across a day. The split below is how ${content.name}'s ${fmt(data.zones)} zones fall across the bands at their highest rating.</p>
+      <p class="muted small">Figures read directly from the live database, not typed by hand. The lowest band means an area was checked and carries no routing penalty, which is different from an area we have no data for.</p>
     </div>
     <div>
       ${bandBar(data.bands, content.name)}
@@ -78,7 +78,7 @@ function metroPage({ content, data }) {
     cls: 'band',
     inner: `
   ${eyebrow('Questions')}
-  <h2 class="center">${content.name} — common questions</h2>
+  <h2 class="center">Common questions about ${content.name}</h2>
   <div class="faq">
     ${content.faqs
       .map(
@@ -148,7 +148,7 @@ const coverageHero = `
   <div class="wrap">
     ${eyebrow('Where Tsamaya works')}
     <h1>${stats.totals.metros} metros mapped, ${fmt(stats.totals.zones)} risk zones.</h1>
-    <p class="lede center-narrow">Tsamaya is live across ${site.coverageLive}. Every mapped area carries three ratings — daytime, evening and night — and every figure on this page is read from the live database rather than typed in by hand.</p>
+    <p class="lede center-narrow">Tsamaya is live across ${site.coverageLive}. Every mapped area is rated for daytime, evening and night, and every figure on this page comes straight from the live database rather than being typed in.</p>
   </div>
 </section>`;
 
@@ -192,7 +192,7 @@ const coverageFaqs = [
   },
   {
     q: 'How often is the data updated?',
-    a: 'Zones and corridors are re-scored periodically as new crime statistics are published, and corrections from local knowledge are applied continuously. The app pulls changes automatically — you do not need to reinstall it.',
+    a: 'Zones and corridors are re-scored periodically as new crime statistics are published, and corrections from local knowledge are applied continuously. The app pulls changes automatically, so you do not need to reinstall it.',
   },
   {
     q: 'Which metro is next?',
@@ -234,7 +234,7 @@ const coverageCta = `
 const coveragePage = {
   slug: 'coverage.html',
   title: 'Coverage',
-  description: `Tsamaya maps ${fmt(stats.totals.zones)} risk zones across ${stats.totals.metros} South African metros — Johannesburg, Cape Town, Pretoria, Ekurhuleni, the West Rand, Secunda and Stellenbosch.`,
+  description: `Tsamaya maps ${fmt(stats.totals.zones)} risk zones across ${stats.totals.metros} South African metros: Johannesburg, Cape Town, Pretoria, Ekurhuleni, the West Rand, Secunda and Stellenbosch.`,
   heroClass: 'page-coverage',
   jsonLd: [
     faqNode(coverageFaqs),

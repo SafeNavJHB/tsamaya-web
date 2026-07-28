@@ -22,10 +22,10 @@ export const site = {
   name: 'Tsamaya',
   pronunciation: 'tsa-MAH-ya',
   tagline: 'Go well.',
-  lockup: 'Tsamaya — Go well.',
+  lockup: 'Tsamaya. Go well.',
   // Short meta description used site-wide unless a page overrides it.
   description:
-    'Tsamaya plans driving routes that think about risk, not just speed — using public crime statistics and curated local knowledge for South African metros.',
+    'Tsamaya plans driving routes around known crime hotspots in South African metros, using published crime statistics and local knowledge.',
 
   // No custom domain registered yet → relative URLs, hosted on GitHub Pages for now.
   // When tsamayaapp.co.za is registered & DNS is pointed, set `domain` (e.g.
@@ -43,9 +43,20 @@ export const site = {
   // Everything that references a contact email (contact page, footer, sponsor) reads from here.
   contactEmail: 'info@tsamayaapp.co.za',
 
-  // The app currently ships to testers via TestFlight (Apple ID 6779297974). No public
-  // App Store link yet, so the primary call-to-action requests beta access by email.
+  // The app ships to testers via TestFlight (Apple ID 6779297974). No public App
+  // Store listing yet.
   betaSubject: 'Tsamaya beta access request',
+
+  // PUBLIC TESTFLIGHT LINK — paste it here and the beta section switches from
+  // "ask us for access" to "install it right now", with no reply needed from you.
+  //
+  // Find it in App Store Connect → your app → TestFlight → Public Link. It looks
+  // like https://testflight.apple.com/join/XXXXXXXX and it is meant to be public,
+  // so there is nothing sensitive about putting it on the site.
+  //
+  // Left empty, the page falls back to the email request flow — which still works,
+  // it just costs you a manual reply each time.
+  testflightPublicLink: '',
 
   // Existing legal pages already hosted on GitHub Pages.
   legal: {
@@ -102,14 +113,22 @@ export const site = {
   //   provider: 'goatcounter' → set `src`.                 Free for non-commercial, cookieless.
   //   provider: 'ga4'         → set `measurementId`.       Free, BUT cookies → needs consent.
   //
-  // Whichever you pick, creating the account and accepting its terms is a step only
-  // you can take. Once you have the ID, put it here and push — nothing else changes.
+  // LIVE: Cloudflare Web Analytics, set up 28 July 2026 on the
+  // Kylekimble@outlook.com account, hostname tsamayaapp.co.za.
+  //
+  // Cookieless and stores nothing on the visitor's device, so it needs no consent
+  // banner. It measures page views, referrers, countries and which pages people
+  // land on — not individuals. Dashboard:
+  // https://dash.cloudflare.com/ → Analytics → Web Analytics
+  //
+  // The token is a public beacon identifier, not a secret: it ships in the page
+  // source on every load, exactly as Cloudflare intends. Nothing here needs hiding.
   analytics: {
-    provider: '',        // '' = no analytics script is emitted at all
+    provider: 'cloudflare',
+    token: '433490bfd12f4ce2879cb9ed77833446',
     domain: '',          // plausible
     src: '',             // umami / goatcounter script URL
     websiteId: '',       // umami
-    token: '',           // cloudflare web analytics
     measurementId: '',   // ga4, e.g. 'G-XXXXXXXXXX'
   },
 };
@@ -156,6 +175,7 @@ export const nav = [
   { href: 'how-it-works.html', label: 'How it works' },
   { href: 'demo.html', label: 'See it' },
   { href: 'coverage.html', label: 'Coverage' },
+  { href: 'updates.html', label: 'Updates' },
   { href: 'technical.html', label: 'Technical' },
   { href: 'about.html', label: 'About' },
   { href: 'sponsor.html', label: 'Sponsor' },

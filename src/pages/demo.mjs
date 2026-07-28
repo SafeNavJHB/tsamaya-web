@@ -14,7 +14,7 @@ const hero = `
   <div class="wrap">
     ${eyebrow('See it in action')}
     <h1>Two taps from “Where to?” to a lower-risk route.</h1>
-    <p class="lede center-narrow">A walkthrough of the real app — set a destination, compare routes, and see exactly which areas Tsamaya kept you out of.</p>
+    <p class="lede center-narrow">A walk through the real app: set a destination, compare the routes, and see which areas Tsamaya kept you out of.</p>
   </div>
 </section>`;
 
@@ -33,7 +33,7 @@ const gallery = shots.length
         .map(
           (s) => `<figure class="shot" data-reveal>
         ${picture({ name: s.name, alt: s.alt, width: shotSize.width, height: shotSize.height, sizes: '(max-width: 680px) 80vw, 248px' })}
-        <figcaption><strong>${s.title}</strong>${s.caption ? ` — ${s.caption}` : ''}</figcaption>
+        <figcaption><strong>${s.title}</strong>${s.caption ? `. ${s.caption}` : ''}</figcaption>
       </figure>`,
         )
         .join('')}
@@ -63,7 +63,7 @@ const walkthroughSection = section({
       ${step('home')}
       <div class="walk-text">
         <span class="walk-num">01</span>
-        <h3>Home — the live risk map</h3>
+        <h3>The live risk map</h3>
         <p>Open the app and every active hotspot is on the map, colour-coded by severity for the current time of day. Tap the eye to toggle the overlay; tap “Where to?” to begin.</p>
         <ul class="mini-legend">
           <li><span class="dot dot-red"></span> High risk</li>
@@ -84,8 +84,16 @@ const walkthroughSection = section({
       ${step('result')}
       <div class="walk-text">
         <span class="walk-num">03</span>
-        <h3>Compare &amp; see what was avoided</h3>
-        <p>Tsamaya shows the lower-risk route beside the direct one — distance, time and the exact risk areas it steered you around. Start the in-app turn-by-turn drive, or hand off to Google Maps with the bypass waypoints baked in so it follows the lower-risk line — not its own.</p>
+        <h3>Compare, then choose</h3>
+        <p>You get the lower-risk route next to the direct one, with what each costs in minutes and kilometres. If risk can’t be avoided entirely, it says so rather than pretending otherwise. Drive it in the app, or hand off to Google Maps with the detour points baked in so it follows the same line.</p>
+      </div>
+    </div>
+    <div class="walk-step reverse">
+      ${step('navigation')}
+      <div class="walk-text">
+        <span class="walk-num">04</span>
+        <h3>Drive it</h3>
+        <p>Turn-by-turn works the way you’d expect: the next turn up top, your speed, the road you’re on and the time left. The route itself is coloured by risk as you go. Voice guidance cycles between spoken directions, alerts only, and silence. There’s an SOS button, and a flag for telling us an area looks wrong.</p>
       </div>
     </div>
   </div>`,
@@ -111,7 +119,7 @@ const notes = section({
   inner: `
   <div class="note-card">
     <h3>${icon('shield', 20)} Honest note on this build</h3>
-    <p>Every screen on this page is a real capture from the current build, taken against the live database — real map tiles, real risk zones, real search, real routing. Nothing here is a mock-up or a rendering. You’ll notice the map wears its night colours: the app follows the actual clock, and these were captured late in the evening. Risk data is curated and improves constantly — routes weigh known risk, they don’t guarantee safety, and you should always stay aware on the road.</p>
+    <p>Every screen on this page is a real capture from the current build, taken against the live database. Real map tiles, real risk zones, real search, real routing. Nothing here is a mock-up or a rendering. You’ll notice the map wears its night colours: the app follows the actual clock, and these were captured late in the evening. Risk data is curated and improves constantly. Routes weigh known risk, they don’t guarantee safety, and you should stay aware on the road regardless.</p>
   </div>`,
 });
 

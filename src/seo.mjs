@@ -87,7 +87,7 @@ function application() {
     '@type': 'MobileApplication',
     '@id': ID.app,
     name: site.name,
-    alternateName: 'Tsamaya — Go well.',
+    alternateName: 'Tsamaya. Go well.',
     url: `${baseUrl}/`,
     // Free text, but these are the values Google's own docs use.
     applicationCategory: 'TravelApplication',

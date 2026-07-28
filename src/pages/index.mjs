@@ -32,12 +32,12 @@ const hero = `
     <div class="hero-copy">
       ${eyebrow('Lower-risk routes for South African drivers')}
       <h1>Go where the<br/><span class="grad">trouble isn’t.</span></h1>
-      <p class="lede">Tsamaya plans driving routes that think about <strong>risk</strong>, not just speed — steering you around known crime hotspots using public statistics and curated local knowledge. <span class="muted">(say: ${site.pronunciation} — Sesotho/Setswana for “go”)</span></p>
+      <p class="lede">Most maps work out the quickest way there. Tsamaya also works out what you would be driving through, and steers you around the areas where vehicle crime actually happens. <span class="muted">(say: ${site.pronunciation}. It is Sesotho and Setswana for “go”.)</span></p>
       <div class="hero-cta">
         ${button('Join the beta', 'contact.html#beta', 'primary')}
         ${button('See how it works', 'how-it-works.html', 'ghost-light')}
       </div>
-      <p class="hero-disclaimer">${icon('shield', 15)} Routes consider risk — not a guarantee of safety. Always stay aware.</p>
+      <p class="hero-disclaimer">${icon('shield', 15)} Lower risk is not no risk. Stay alert either way.</p>
     </div>
     <div class="hero-device">
       ${deviceShot({
@@ -58,14 +58,14 @@ const problem = section({
   <div class="split">
     <div>
       ${eyebrow('Why it exists')}
-      <h2>Most maps optimise for time. South African roads need more than that.</h2>
-      <p class="big">Hijackings, smash-and-grabs and robberies cluster in known areas — and they shift by time of day. A fast route can run straight through the worst of it. Tsamaya weighs that risk before it sends you.</p>
+      <h2>The fastest way there is not always the one you want.</h2>
+      <p class="big">Hijackings, smash-and-grabs and robberies cluster in particular places, and those places change between lunchtime and midnight. A route planned only for speed will take you through them without mentioning it. Tsamaya weighs that up before it sends you anywhere.</p>
     </div>
     <ul class="check-list">
-      <li>${icon('check')} Avoids high- and elevated-risk zones, not just traffic</li>
-      <li>${icon('check')} Risk changes by day, evening and night — so do the routes</li>
-      <li>${icon('check')} Built on public crime stats + on-the-ground local knowledge</li>
-      <li>${icon('check')} Hands off cleanly to Google Maps or guides you in-app</li>
+      <li>${icon('check')} Routes around the top two risk bands, not only around traffic</li>
+      <li>${icon('check')} Ratings change between day, evening and night, so the route does too</li>
+      <li>${icon('check')} Built from published crime statistics, then corrected by people who drive here</li>
+      <li>${icon('check')} Drive it in the app, or hand the route to Google Maps</li>
     </ul>
   </div>`,
 });
@@ -81,19 +81,19 @@ const steps = section({
       <span class="step-num">1</span>
       ${icon('pin', 26, 'step-ic')}
       <h3>Set your destination</h3>
-      <p>Search, tap the map, or long-press to drop a pin. Your start defaults to your live location.</p>
+      <p>Search for it, tap the map, or hold down to drop a pin. Your starting point is wherever you are.</p>
     </div>
     <div class="step">
       <span class="step-num">2</span>
       ${icon('route', 26, 'step-ic')}
       <h3>We check the route</h3>
-      <p>Tsamaya samples the fastest route and tests it against every active risk zone for the current time of day.</p>
+      <p>We take the quickest route and test it against every rated area, using the ratings that apply at this hour.</p>
     </div>
     <div class="step">
       <span class="step-num">3</span>
       ${icon('shield', 26, 'step-ic')}
       <h3>Re-routed around risk</h3>
-      <p>If the direct line runs through danger, we steer it along safe corridors and show you exactly what was avoided.</p>
+      <p>If it runs through somewhere bad, we move it onto roads we have checked, and tell you what we moved it around.</p>
     </div>
   </div>
   <div class="center mt">${button('The full breakdown', 'how-it-works.html', 'ghost')}</div>`,
@@ -103,15 +103,15 @@ const features = section({
   cls: 'band',
   inner: `
   ${eyebrow('What’s inside')}
-  <h2>A real navigation app — with a risk-aware brain.</h2>
+  <h2>A proper navigation app that happens to think about risk.</h2>
   <div class="feature-grid">
     ${[
-      ['clock', 'Time-aware risk', 'Zones carry separate risk bands for day, evening and night. The route you get at noon is not the route you get at 11pm.'],
-      ['layers', 'Safe corridors', 'Curated “known-okay” roads the router prefers when threading past a hotspot — so detours stay sensible.'],
-      ['route', 'Smart re-routing', 'Only red and orange zones trigger a detour, and a sanity check rejects any bypass that’s wildly longer than direct.'],
-      ['map', 'Multi-metro', `Live across Gauteng, the Western Cape and Mpumalanga — ${stats.totals.metros} metros mapped and more on the way.`],
-      ['route', 'Turn-by-turn, your way', 'Drive the lower-risk route with built-in turn-by-turn navigation — or hand off to Google Maps with the bypass waypoints baked in.'],
-      ['eye', 'See the risk', 'Toggle the live zone overlay any time — every hotspot and corridor, colour-coded on the map.'],
+      ['clock', 'Ratings follow the clock', 'Every area is rated three times over: daytime, evening and night. The route you get at noon is not the one you get at 11pm.'],
+      ['layers', 'Roads we have checked', 'When a detour is needed, it runs along roads we have already looked at, which keeps it sensible rather than sending you down a back street.'],
+      ['route', 'Detours with a limit', 'Only the top two bands are worth going around, and any detour that adds too much gets thrown out before you ever see it.'],
+      ['map', 'Multi-metro', `Live across Gauteng, the Western Cape and Mpumalanga, with ${stats.totals.metros} metros mapped and more on the way.`],
+      ['route', 'Drive it however you like', 'Full turn-by-turn is built in. If you would rather use Google Maps, we hand it the route with the detour points already in place.'],
+      ['eye', 'Look before you go', 'Turn the overlay on whenever you want and see every rated area and road on the map, colour-coded.'],
     ]
       .map(
         ([ic, t, b]) =>
@@ -132,7 +132,7 @@ const demoTeaser = section({
     <div>
       ${eyebrow('See it in action')}
       <h2>From “Where to?” to a lower-risk route in two taps.</h2>
-      <p class="big">Pick a destination, hit <strong>Go</strong>, and Tsamaya compares the direct line against a route built around risk — then tells you which areas it kept you out of.</p>
+      <p class="big">Pick a destination, hit <strong>Go</strong>, and Tsamaya compares the direct line against a route built around risk, then tells you which areas it kept you out of.</p>
       <div class="mt">${button('Open the demo', 'demo.html', 'primary')}</div>
     </div>
   </div>`,
@@ -145,7 +145,7 @@ const coverage = section({
   inner: `
   ${eyebrow('Where it works')}
   <h2>${fmt(stats.totals.zones)} mapped risk zones across ${stats.totals.metros} metros.</h2>
-  <p class="sub">Every figure here is read from the live database rather than typed into the page. Zone counts follow how big and dense a metro is — Stellenbosch has ${stats.metros.find((m) => m.key === 'stellenbosch').zones} because it is a small town, not because it is half-finished.</p>
+  <p class="sub">Every figure here is read from the live database rather than typed into the page. Zone counts follow how big and dense a metro is. Stellenbosch has ${stats.metros.find((m) => m.key === 'stellenbosch').zones} because it is a small town, not because it is half-finished.</p>
   ${coverageBars(
     metroContent
       .map((c) => ({ content: c, data: stats.metros.find((m) => m.key === c.key) }))
@@ -162,9 +162,9 @@ const tradeoff = section({
   <div class="split">
     <div>
       ${eyebrow('The trade-off')}
-      <h2>Safer usually costs minutes, not hours.</h2>
-      <p class="big">A detour has to genuinely reduce risk exposure to be offered at all, and one that is wildly longer than the direct route gets rejected even when it is safer. That guardrail is the difference between a route you will actually take and one you will ignore.</p>
-      <p class="muted small">If no acceptable lower-risk route exists, Tsamaya says so and gives you the standard one with the risks marked — rather than inventing a detour to look useful.</p>
+      <h2>It usually costs you a few minutes.</h2>
+      <p class="big">A detour only gets offered if it actually cuts your exposure, and one that adds too much distance is thrown out even when it is safer. Without that limit you would be handed routes nobody would ever drive.</p>
+      <p class="muted small">When there is no good alternative, Tsamaya says so and gives you the normal route with the risky stretches marked. It will not invent a detour just to look busy.</p>
     </div>
     <div>
       ${routeCompare({ directMin: 16, safeMin: 19, avoided: 2 })}
@@ -175,11 +175,11 @@ const tradeoff = section({
 const faqs = [
   {
     q: 'What is Tsamaya?',
-    a: 'Tsamaya is a free navigation app for South African drivers that plans routes around known crime hotspots rather than purely for speed. It is currently in beta on iPhone.',
+    a: 'A free navigation app for South African drivers. It plans routes around the places where vehicle crime is known to happen, instead of only working out the quickest way there. It is in beta on iPhone at the moment.',
   },
   {
     q: 'Where does the risk data come from?',
-    a: 'Published South African crime statistics, scored against map data to identify where vehicle-related crime concentrates, then reviewed and corrected with local knowledge before anything goes live.',
+    a: 'Published South African crime statistics, scored against map data to work out where vehicle crime concentrates. Everything then gets reviewed and corrected against local knowledge before it goes anywhere near the app.',
   },
   {
     q: 'Which cities does it cover?',
@@ -187,15 +187,15 @@ const faqs = [
   },
   {
     q: 'Does a safer route take much longer?',
-    a: 'Usually a few minutes. A detour is only offered if it meaningfully reduces risk exposure, and routes that are dramatically longer than the direct one are rejected outright.',
+    a: 'Usually a few minutes. A detour has to actually reduce your exposure to be offered at all, and anything dramatically longer than the direct route is rejected outright.',
   },
   {
     q: 'Is Tsamaya free?',
-    a: 'Yes. It is free to use and independently funded through sponsorship and donations rather than advertising or selling data.',
+    a: 'Yes. It is paid for by sponsorship and donations. There are no ads, and we do not sell anything about you.',
   },
   {
     q: 'Does it guarantee I will be safe?',
-    a: 'No, and it never claims to. Tsamaya reduces known, mapped exposure based on historical crime data. Crime is not predictable and no route is guaranteed safe. It is a tool for making a better-informed choice, not a substitute for staying alert.',
+    a: 'No, and we will never tell you otherwise. Tsamaya cuts your exposure to areas with a history of vehicle crime. Crime is not predictable, and no route is safe. Treat it as better information for the choice you were going to make anyway, and stay alert.',
   },
 ];
 
@@ -221,7 +221,7 @@ const sponsorBand = `
   <div class="wrap cta-inner">
     <div>
       <h2>Help us map the next metro.</h2>
-      <p>Tsamaya is independent and self-funded. Sponsorship and donations pay for data, hosting and getting the app to more drivers.</p>
+      <p>Tsamaya is independent and self-funded. Sponsorship and donations pay for the map data, the hosting bills, and getting the app onto more phones.</p>
     </div>
     <div class="cta-actions">
       ${button('Sponsor us', 'sponsor.html', 'primary')}

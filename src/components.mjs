@@ -46,7 +46,73 @@ const ICONS = {
   github:
     '<path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.8-2.4 4.7-4.6 4.9.3.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/>',
   star: '<path d="M12 3l2.6 5.5 6 .8-4.4 4.2 1.1 6L12 16.8 6.7 19.5l1.1-6L3.4 9.3l6-.8L12 3z"/>',
+  // Added for the updates page, which mirrors the app's changelog.
+  car: '<path d="M5 17h14M4 17v-4.2l2-4.6A2 2 0 0 1 7.8 7h8.4a2 2 0 0 1 1.8 1.2l2 4.6V17"/><path d="M4 12.8h16"/><circle cx="7.5" cy="17" r="1.6"/><circle cx="16.5" cy="17" r="1.6"/>',
+  speedometer: '<path d="M4.5 18a9 9 0 1 1 15 0"/><path d="M12 14.5 15.5 10"/><circle cx="12" cy="15.4" r="1.4"/>',
+  palette: '<path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.8 1.8-1.6 0-1.3-1.1-1.6-1.1-2.6 0-.8.7-1.3 1.6-1.3H16a5 5 0 0 0 5-5c0-4-4-7.5-9-7.5z"/><circle cx="7.8" cy="11.5" r="1"/><circle cx="10" cy="7.8" r="1"/><circle cx="14.6" cy="8.2" r="1"/>',
+  moon: '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/>',
+  volume: '<path d="M4 9.5v5h3.2L12 18.5v-13L7.2 9.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.6a7.5 7.5 0 0 1 0 10.8"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/>',
+  pulse: '<path d="M3 12h3.5l2-5.5 3.5 11 2.5-6.5 1.6 3H21"/>',
+  lock: '<rect x="4.5" y="10.5" width="15" height="10" rx="2.2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/>',
+  share: '<path d="M12 15V3.5M12 3.5 8.4 7.1M12 3.5l3.6 3.6"/><path d="M5 13v5.5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V13"/>',
+  flag: '<path d="M6 21V4"/><path d="M6 5h10l-1.8 3.4L16 12H6"/>',
+  document: '<path d="M14 3H7.5A1.5 1.5 0 0 0 6 4.5v15A1.5 1.5 0 0 0 7.5 21h9a1.5 1.5 0 0 0 1.5-1.5V7l-4-4z"/><path d="M14 3v4h4M9 12h6M9 16h4"/>',
+  download: '<path d="M12 3.5v10M12 13.5 8.4 10M12 13.5 15.6 10"/><path d="M4.5 15v3.5a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V15"/>',
+  chat: '<path d="M20 12.5a7.5 7.5 0 0 1-10.9 6.7L4 20.5l1.4-4.7A7.5 7.5 0 1 1 20 12.5z"/><path d="M9 12h.01M12 12h.01M15 12h.01"/>',
+  camera: '<path d="M4 8.5h3l1.4-2.2h7.2L17 8.5h3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.2"/>',
+  alert: '<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5M12 16.2v.3"/>',
+  sparkle: '<path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3z"/><path d="M18.5 16.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2z"/>',
 };
+
+/* ----------------------------------------------------------------------------
+ * The app writes its changelog with Ionicons names; this site has its own small
+ * stroke-icon set. Rather than redraw 68 Ionicons, map them onto the icons we
+ * have by meaning. Anything unmapped falls back to its category's icon, which is
+ * always sensible — never a missing glyph.
+ * ------------------------------------------------------------------------- */
+const IONICON_MAP = {
+  speedometer: 'speedometer', 'car-sport': 'car', car: 'car',
+  map: 'map', 'map-outline': 'map', navigate: 'route', 'navigate-circle': 'route',
+  locate: 'pin', location: 'pin', pin: 'pin', 'trail-sign': 'route',
+  'shield-checkmark': 'shield', shield: 'shield', 'shield-half': 'shield',
+  'lock-closed': 'lock', 'lock-open': 'lock',
+  'color-palette': 'palette', 'color-wand': 'palette', 'color-filter': 'palette',
+  contrast: 'palette', shapes: 'layers', grid: 'layers', layers: 'layers', options: 'layers',
+  flash: 'bolt', sparkles: 'sparkle', star: 'star',
+  moon: 'moon', sunny: 'moon', time: 'clock', hourglass: 'clock',
+  'volume-medium': 'volume', 'volume-high': 'volume', 'volume-mute': 'volume',
+  'volume-low': 'volume', mic: 'volume', 'musical-notes': 'volume',
+  search: 'search', pulse: 'pulse', 'stats-chart': 'pulse', analytics: 'pulse',
+  share: 'share', 'share-social': 'share', 'swap-horizontal': 'swap',
+  flag: 'flag', warning: 'alert', 'alert-circle': 'alert', 'close-circle': 'alert',
+  'document-text': 'document', clipboard: 'document', newspaper: 'document',
+  'cloud-download': 'download', 'cloud-offline': 'download', download: 'download',
+  'arrow-up-circle': 'download', 'chatbubble-ellipses': 'chat', chatbubble: 'chat',
+  camera: 'camera', image: 'camera', 'phone-landscape': 'phone', phone: 'phone',
+  'call-outline': 'phone', call: 'phone',
+  'checkmark-done': 'check', checkmark: 'check', 'checkmark-circle': 'check',
+  heart: 'heart', 'help-circle': 'alert', 'help-buoy': 'shield',
+  'git-branch': 'route', 'git-merge': 'route', 'git-compare': 'route',
+  eye: 'eye', 'eye-off': 'eye', battery: 'bolt', 'battery-charging': 'bolt',
+  business: 'map', restaurant: 'pin', accessibility: 'heart',
+  'create-outline': 'copy', create: 'copy', 'exit-outline': 'share', exit: 'share',
+  'stop-circle': 'alert', 'return-down-back': 'swap', 'refresh': 'swap',
+  cpu: 'cpu', server: 'server', 'phone-portrait': 'phone',
+};
+
+const CATEGORY_ICON = { feature: 'sparkle', fix: 'check', tweak: 'bolt' };
+
+/** Ionicons name (e.g. "car-sport-outline") → an icon this site actually has. */
+export function iconForIonicon(ionicon, category = 'feature') {
+  const base = String(ionicon || '')
+    .replace(/-outline$/, '')
+    .replace(/-sharp$/, '');
+  const mapped = IONICON_MAP[base];
+  if (mapped && ICONS[mapped]) return mapped;   // explicitly mapped
+  if (ICONS[base]) return base;                 // the names happen to match
+  return CATEGORY_ICON[category] || 'sparkle';  // sensible default, never blank
+}
 
 export function icon(name, size = 22, cls = '') {
   const body = ICONS[name] || '';

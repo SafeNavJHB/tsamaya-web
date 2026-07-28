@@ -32,7 +32,10 @@ export function analyticsSnippet() {
 
     case 'cloudflare':
       if (!a.token) return '';
-      return `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"${attr(a.token)}"}'></script>`;
+      // Matches Cloudflare's own snippet exactly, including type="module" —
+      // that is how they ship it, and beacon.min.js is served as an ES module.
+      return `<!-- Cloudflare Web Analytics -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "${attr(a.token)}"}'></script>`;
 
     case 'goatcounter':
       if (!a.src) return '';

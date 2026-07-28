@@ -6,7 +6,7 @@ const hero = `
   <div class="wrap">
     ${eyebrow('Contact us')}
     <h1>Let’s talk.</h1>
-    <p class="lede center-narrow">Beta access, sponsorship, a risky corner we’ve missed, or just hello — every message reaches a real person.</p>
+    <p class="lede center-narrow">Beta access, sponsorship, a risky corner we’ve missed, or just hello. Every message reaches a real person.</p>
   </div>
 </section>`;
 
@@ -17,7 +17,7 @@ const main = section({
   <div class="contact-grid">
     <div class="contact-form-wrap">
       <h2>Send a message</h2>
-      <p class="sub">This opens your email app with everything filled in — no account or sign-up needed.</p>
+      <p class="sub">This opens your email app with everything filled in. No account, no sign-up.</p>
       <form class="contact-form" data-mailto="${site.contactEmail}">
         <label>Your name
           <input type="text" name="name" autocomplete="name" required placeholder="Thandi M."/>
@@ -27,7 +27,7 @@ const main = section({
         </label>
         <label>What’s this about?
           <select name="topic">
-            <option>Joining the beta</option>
+            <option>Getting the app</option>
             <option>Sponsorship / donation</option>
             <option>Report a risky area</option>
             <option>Partnership / press</option>
@@ -54,12 +54,25 @@ const main = section({
       </div>
       <div class="contact-card">
         <h3>${icon('shield', 18)} Spotted a risky area?</h3>
-        <p>Local knowledge makes Tsamaya better. Tell us about a corner we should flag — or one we’ve flagged wrongly.</p>
+        <p>Local knowledge makes Tsamaya better. Tell us about a corner we should flag, or one we’ve got wrong.</p>
         <a class="btn btn-ghost btn-sm" href="mailto:${site.contactEmail}?subject=Risk%20area%20report">Report an area</a>
       </div>
     </aside>
   </div>`,
 });
+
+// Two ways in, depending on whether the public TestFlight link is configured.
+// With a link, people install it themselves. Without one, they email and Kyle
+// replies with the link — no Apple ID needed either way, just an email address.
+const hasPublicLink = Boolean(site.testflightPublicLink);
+
+const betaAction = hasPublicLink
+  ? `<a class="btn btn-primary btn-lg" href="${site.testflightPublicLink}" rel="noopener">${icon('phone', 18)} Install the beta</a>
+        <p class="muted center">Opens TestFlight on your iPhone. No sign-up, nothing to fill in.</p>`
+  : `<a class="btn btn-primary btn-lg" href="mailto:${site.contactEmail}?subject=${encodeURIComponent(site.betaSubject)}&body=${encodeURIComponent(
+      'Hi Tsamaya\n\nPlease send me the TestFlight link so I can try the beta.\n\nThanks',
+    )}">${icon('mail', 18)} Ask for the link</a>
+        <p class="muted center">Send us your email address and we’ll reply with the TestFlight link and a short guide to getting started. That’s all we need. No Apple ID, no forms.</p>`;
 
 const beta = `
 <section id="beta" class="band-soft section">
@@ -67,21 +80,54 @@ const beta = `
     <div class="beta-card">
       <div>
         ${eyebrow('Get the app')}
-        <h2>Join the Tsamaya beta</h2>
-        <p class="big">Tsamaya is rolling out to testers through Apple’s TestFlight while we polish toward a public release. Request access and we’ll send you an invite link.</p>
+        <h2>Try Tsamaya on your iPhone</h2>
+        <p class="big">Tsamaya is in open beta through Apple’s TestFlight. It’s free, it takes a couple of minutes to set up, and you can leave whenever you like.</p>
         <ul class="check-list">
-          <li>${icon('check')} Free during beta</li>
-          <li>${icon('check')} iPhone (TestFlight) — Android coming later</li>
-          <li>${icon('check')} Your feedback shapes what ships</li>
+          <li>${icon('check')} Free, with nothing to pay later during the beta</li>
+          <li>${icon('check')} iPhone only for now, with Android to come</li>
+          <li>${icon('check')} Just your email address. We don’t need your Apple ID</li>
+          <li>${icon('check')} Tell us what’s wrong and we’ll usually fix it that week</li>
         </ul>
       </div>
       <div class="beta-action">
-        <a class="btn btn-primary btn-lg" href="mailto:${site.contactEmail}?subject=${encodeURIComponent(site.betaSubject)}&body=${encodeURIComponent('Hi Tsamaya team,\n\nI’d love to join the beta. My Apple ID email is:\n\nThanks!')}">${icon('phone', 18)} Request beta access</a>
-        <p class="muted center">We’ll add you to the TestFlight group and send the link.</p>
+        ${betaAction}
       </div>
     </div>
   </div>
 </section>`;
+
+// What to expect once you're in. People install a beta and then wonder what they
+// are supposed to do with it, so this answers that before they have to ask.
+const gettingStarted = section({
+  cls: 'band',
+  inner: `
+  ${eyebrow('Once you’re in')}
+  <h2 class="center">Getting started takes about five minutes</h2>
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">1</span>
+      ${icon('download', 26, 'step-ic')}
+      <h3>Install TestFlight, then Tsamaya</h3>
+      <p>TestFlight is Apple’s own app for trying beta software. Open the link we send on your iPhone, install TestFlight if you don’t have it, then tap Install for Tsamaya.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">2</span>
+      ${icon('pin', 26, 'step-ic')}
+      <h3>Allow location while driving</h3>
+      <p>Tsamaya needs your location to show where you are and to plan a route from where you’re standing. Choose “While Using the App”. It never tracks you in the background.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">3</span>
+      ${icon('route', 26, 'step-ic')}
+      <h3>Drive a route you already know</h3>
+      <p>The best first test is a trip you make often. You’ll see straight away whether the route it suggests makes sense to you, and that’s exactly the feedback worth having.</p>
+    </div>
+  </div>
+  <div class="note-card mt">
+    <h3>${icon('chat', 20)} Telling us something’s wrong</h3>
+    <p>If an area looks mis-rated, tap the flag on the map and say so. That goes straight into our review queue. For anything else, shake your phone in TestFlight to send a screenshot and a note, or just email <a href="mailto:${site.contactEmail}">${site.contactEmail}</a>. Reports about roads you actually drive are the most useful thing you can send us.</p>
+  </div>`,
+});
 
 const cta = `
 <section class="cta-band">
@@ -95,6 +141,6 @@ export default {
   slug: 'contact.html',
   title: 'Contact us',
   description:
-    'Get in touch with Tsamaya — request beta access, ask about sponsorship, or report a risky area. Built in Johannesburg.',
-  body: [hero, main, beta, cta].join('\n'),
+    'Get in touch about the beta, sponsorship, or a risky area we should know about. Tsamaya is built in Johannesburg.',
+  body: [hero, beta, gettingStarted, main, cta].join('\n'),
 };
