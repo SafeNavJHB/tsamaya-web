@@ -9,12 +9,20 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, extname } from 'node:path';
 import { renderPage } from './src/layout.mjs';
-import { site } from './site.config.mjs';
+import { site, baseUrl, canonicalFor } from './site.config.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const dist = join(root, 'dist');
 const pagesDir = join(root, 'src', 'pages');
 const publicDir = join(root, 'public');
+
+// Date stamped into <lastmod>. Honours SOURCE_DATE_EPOCH so a rebuild of the same
+// commit produces byte-identical output when that matters.
+const buildDate = new Date(
+  process.env.SOURCE_DATE_EPOCH ? Number(process.env.SOURCE_DATE_EPOCH) * 1000 : Date.now(),
+)
+  .toISOString()
+  .slice(0, 10);
 
 async function copyDir(from, to) {
   await mkdir(to, { recursive: true });
@@ -35,13 +43,24 @@ async function build() {
   if (existsSync(publicDir)) await copyDir(publicDir, dist);
 
   // 2. Render every page module.
+  // A page module's default export is either one page object, or an array of them
+  // (used by metros.mjs, which builds one page per metro from shared data — seven
+  // near-identical files would be seven places to forget to update).
   const files = (await readdir(pagesDir)).filter((f) => extname(f) === '.mjs');
   const pages = [];
   for (const f of files) {
     const mod = await import(join(pagesDir, f));
-    const page = mod.default;
-    if (!page || !page.slug) throw new Error(`Page ${f} has no default { slug }`);
-    pages.push(page);
+    const emitted = Array.isArray(mod.default) ? mod.default : [mod.default];
+    for (const page of emitted) {
+      if (!page || !page.slug) throw new Error(`Page ${f} has no default { slug }`);
+      pages.push(page);
+    }
+  }
+  // A duplicate slug means one page silently overwrites another — fail loudly.
+  const seen = new Set();
+  for (const p of pages) {
+    if (seen.has(p.slug)) throw new Error(`Duplicate slug "${p.slug}" — two pages would write the same file`);
+    seen.add(p.slug);
   }
 
   for (const page of pages) {
@@ -65,26 +84,33 @@ async function build() {
     mapboxToken: process.env.MAPBOX_TOKEN || '',
   }), 'utf8');
 
-  // 4. sitemap.xml + robots.txt (absolute URLs from the configured base).
-  const base = (site.domain || site.ogBase || '').replace(/\/$/, '');
-  if (base) {
-    const urls = pages
-      // The live-trip tracker is a token-bearing capability page — don't
-      // advertise it to crawlers (it also gets a noindex meta of its own).
-      .filter((p) => p.slug !== 'track.html')
+  // 5. sitemap.xml + robots.txt (absolute URLs from the configured base).
+  //
+  // The <loc> values come from canonicalFor() — the SAME function the page layout
+  // uses for its <link rel="canonical">. They used to be computed separately here
+  // and drifted: the sitemap said `/` while the page claimed `/index.html`, which
+  // is two URLs advertising one page and splits ranking signals between them.
+  if (baseUrl) {
+    const indexable = pages.filter((p) => !p.noindex && p.slug !== 'track.html');
+    const urls = indexable
       .map((p) => {
-        const loc = p.slug === 'index.html' ? `${base}/` : `${base}/${p.slug}`;
-        const priority = p.slug === 'index.html' ? '1.0' : '0.7';
-        return `  <url><loc>${loc}</loc><priority>${priority}</priority></url>`;
+        const loc = canonicalFor(p.slug);
+        // Priority is a weak hint at best, but "the home page matters most, then
+        // the metro pages, then everything else" is at least an honest one.
+        const priority = p.slug === 'index.html' ? '1.0' : p.slug.startsWith('coverage') ? '0.8' : '0.7';
+        return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${buildDate}</lastmod>\n    <priority>${priority}</priority>\n  </url>`;
       })
       .join('\n');
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
     await writeFile(join(dist, 'sitemap.xml'), sitemap, 'utf8');
     await writeFile(
       join(dist, 'robots.txt'),
-      `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`,
+      // Explicitly disallow the token-bearing tracker. It also carries a noindex
+      // meta; belt and braces, because this one leaks a live location if indexed.
+      `User-agent: *\nAllow: /\nDisallow: /track.html\n\nSitemap: ${baseUrl}/sitemap.xml\n`,
       'utf8',
     );
+    console.log(`  ✓ sitemap.xml (${indexable.length} URLs, lastmod ${buildDate})`);
   }
 
   console.log(`\nBuilt ${pages.length} pages → ${dist}`);

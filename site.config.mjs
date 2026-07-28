@@ -2,6 +2,22 @@
 // Everything page-agnostic lives here so copy/links/colours change in one place.
 // Plain data only — no dependencies. Edit, then run `node build.mjs`.
 
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+// Live coverage figures, refreshed by `npm run stats` and committed to the repo.
+// Read from disk rather than `import ... with { type: 'json' }` so the build works
+// on every Node 20+ release regardless of import-attribute support.
+// The committed file is the build's source of truth — the build never hits the
+// network, so it stays reproducible offline and in CI without secrets.
+export const stats = JSON.parse(
+  readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'src', 'data', 'stats.json'), 'utf8'),
+);
+
+// Formats 3254 as "3,254" — thousands separators, no locale dependency.
+export const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
 export const site = {
   name: 'Tsamaya',
   pronunciation: 'tsa-MAH-ya',
@@ -38,19 +54,49 @@ export const site = {
     home: 'https://safenavjhb.github.io/tsamaya-legal/',
   },
 
-  // Headline coverage — honest to the app's live service areas (the two GPS bounding
-  // boxes in app/index.tsx) plus the data footprint in Supabase.
-  coverageLive: 'Gauteng (Johannesburg, Pretoria, the East & West Rand) and Cape Town',
-  coverageData: 'Johannesburg · Pretoria · Cape Town · East Rand · Secunda',
+  // Headline coverage — honest to the app's live service areas (the metro bounding
+  // boxes in src/constants/cities.ts) plus the data footprint in Supabase.
+  coverageLive:
+    'Gauteng (Johannesburg, Pretoria, Ekurhuleni and the West Rand), Cape Town, Stellenbosch and Secunda',
+  coverageData: stats.metros.map((m) => m.name).join(' · '),
 
-  // Rounded-down, honest figures from the live Supabase project (June 2026).
+  // Headline figures, derived from the live database — never hand-typed.
+  // Refresh with `npm run stats`, then commit src/data/stats.json.
   stats: [
-    { value: '5', label: 'metros mapped' },
-    { value: '2,500+', label: 'risk zones' },
-    { value: '1,100+', label: 'safe corridors' },
-    { value: '3', label: 'risk bands by time of day' },
+    { value: String(stats.totals.metros), label: 'metros mapped' },
+    { value: fmt(stats.totals.zones), label: 'risk zones' },
+    { value: fmt(stats.totals.corridorsSafe), label: 'safe corridors' },
+    { value: String(stats.totals.riskBands), label: 'risk bands by time of day' },
   ],
+
+  // Search Console / Bing verification tokens. Paste the value from the
+  // "HTML tag" verification method (just the content="..." part, not the whole
+  // tag). Left empty until the property is claimed — an empty string emits no tag.
+  verification: {
+    google: '',
+    bing: '',
+  },
 };
+
+// The absolute base URL every canonical, sitemap entry and social image is built
+// from. `domain` wins; the GitHub Pages URL is the fallback before a domain exists.
+export const baseUrl = (site.domain || site.ogBase || '').replace(/\/$/, '');
+
+// THE canonical URL for a page slug — used by the layout's <link rel="canonical">
+// AND by the sitemap generator in build.mjs.
+//
+// It lives here, shared, because these two used to compute the URL independently
+// and drifted: the sitemap advertised `https://tsamayaapp.co.za/` while the page
+// itself declared `.../index.html` as canonical. That is two URLs for one page,
+// which splits ranking signals on the single most important page on the site.
+// One function, one answer, no drift.
+export function canonicalFor(slug) {
+  if (!baseUrl) return '';
+  // The host serves index.html at the bare directory URL, so that is the real
+  // address of the page and the one both places must agree on.
+  if (slug === 'index.html') return `${baseUrl}/`;
+  return `${baseUrl}/${slug}`;
+}
 
 // Brand colours — mirrored from the app (src/constants/colors.ts) and the icon spec
 // (docs/BRAND.md) so the site and product read as one thing.
@@ -73,6 +119,7 @@ export const nav = [
   { href: 'index.html', label: 'Home' },
   { href: 'how-it-works.html', label: 'How it works' },
   { href: 'demo.html', label: 'See it' },
+  { href: 'coverage.html', label: 'Coverage' },
   { href: 'technical.html', label: 'Technical' },
   { href: 'about.html', label: 'About' },
   { href: 'sponsor.html', label: 'Sponsor' },

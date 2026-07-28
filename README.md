@@ -9,19 +9,61 @@ that can serve files, and can't break from a bad package update.
 tsamaya-web/  (this repo — site lives at the root)
 ├── build.mjs            ← the build (run this; writes ./dist)
 ├── serve.mjs            ← local preview server
-├── site.config.mjs      ← EDIT HERE: name, links, bank details, stats, colours
+├── site.config.mjs      ← EDIT HERE: name, links, bank details, colours, canonical URLs
+├── scripts/
+│   ├── fetch-stats.mjs   ← pulls live coverage figures from Supabase
+│   ├── optimise-images.mjs ← screenshots → AVIF/WebP/JPEG at three widths
+│   └── check-seo.mjs     ← guards the SEO invariants (runs in CI, gates deploy)
 ├── src/
-│   ├── layout.mjs        ← the shared page shell (header + footer)
-│   ├── components.mjs    ← logo, icons, the phone mock-ups
+│   ├── layout.mjs        ← the shared page shell (header + footer + meta + JSON-LD)
+│   ├── seo.mjs           ← structured data (Organization, app, FAQ, breadcrumbs)
+│   ├── charts.mjs        ← the data visualisations
+│   ├── components.mjs    ← logo, icons, phone frames, <picture> helper
 │   ├── shots.mjs         ← the real app screenshots used on the demo page
-│   └── pages/*.mjs       ← one file per page (home, about, demo, …)
-├── public/               ← static assets copied as-is (styles.css, app.js, images)
+│   ├── data/
+│   │   ├── stats.json    ← LIVE FIGURES (generated — do not hand-edit)
+│   │   └── metros.mjs    ← per-metro editorial copy for the landing pages
+│   └── pages/*.mjs       ← one file per page; metros.mjs emits eight at once
+├── public/               ← static assets copied as-is (styles.css, app.js, fonts, images)
 └── dist/                 ← the built site (created by build.mjs; safe to delete)
 ```
 
 ## Pages
 
-Home · How it works · See it (demo) · Technical · About · Sponsor & Donate · Contact.
+Home · How it works · See it (demo) · **Coverage** · Technical · About · Sponsor & Donate · Contact,
+plus a landing page per metro (`/johannesburg.html`, `/cape-town.html`, …) generated
+from `src/data/metros.mjs`.
+
+## The two rules that keep this site honest
+
+**1. Figures are never typed by hand.** Every coverage number on the site comes from
+`src/data/stats.json`, which is generated from the live database. Refresh it with:
+
+```bash
+npm run stats
+```
+
+Then eyeball the diff and commit the JSON. The site build itself never touches the
+network, so it still works offline and in CI without secrets.
+
+**2. Metro pages never name a suburb as dangerous.** The risk data is at census
+sub-place granularity, and the highest band is overwhelmingly townships and informal
+settlements. Showing a driver a risk overlay for the road ahead is the product;
+publishing a permanent, indexable list of those place names is a redline map. The
+metro pages carry counts, band distributions, roads and driving context — never a
+list of neighbourhoods. See the editorial note at the top of `src/data/metros.mjs`.
+
+## Before you push
+
+```bash
+npm run build && npm run check
+```
+
+`npm run check` fails the build if the sitemap and the page canonicals disagree, if a
+page has no structured data, if two pages share a title, if an image is referenced but
+missing, or if the token-bearing live-trip page loses its `noindex`. The same check
+runs in CI and blocks the deploy — every one of those rules exists because something
+was actually broken in production.
 
 ## Build it locally
 

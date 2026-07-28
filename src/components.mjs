@@ -242,3 +242,41 @@ export function deviceMockup(screen, label = '') {
   const fn = map[screen] || screenHome;
   return phoneFrame(fn(), label);
 }
+
+/* ----------------------------------------------------------------------------
+ * Real screenshots.
+ *
+ * `deviceShot` is the counterpart to `deviceMockup` above: same phone frame, but
+ * the screen is an actual iOS Simulator capture rather than a drawing. Prefer it
+ * everywhere — a drawn approximation of your own product is a strange thing to
+ * show someone when you can show them the product.
+ *
+ * Variants are produced by `npm run images` (AVIF, WebP and JPEG at 300/600/900
+ * wide). The browser picks the smallest format and size it can use; the JPEG at
+ * the end is the fallback nothing fails to render.
+ * ------------------------------------------------------------------------- */
+export function picture({ name, alt, width, height, sizes = '(max-width: 680px) 88vw, 320px', className = '', loading = 'lazy' }) {
+  const srcset = (ext) => [300, 600, 900].map((w) => `img/screens/${name}-${w}.${ext} ${w}w`).join(', ');
+  return `<picture>
+    <source type="image/avif" srcset="${srcset('avif')}" sizes="${sizes}"/>
+    <source type="image/webp" srcset="${srcset('webp')}" sizes="${sizes}"/>
+    <img src="img/screens/${name}-600.jpg" srcset="${srcset('jpg')}" sizes="${sizes}"
+         alt="${alt}" width="${width}" height="${height}"
+         loading="${loading}"${loading === 'eager' ? ' fetchpriority="high"' : ''} decoding="async"
+         class="${className}"/>
+  </picture>`;
+}
+
+/**
+ * A real screenshot inside the phone frame.
+ * `eager` for the one above the fold; everything else lazy-loads.
+ */
+export function deviceShot({ name, alt, label = '', width = 402, height = 874, eager = false }) {
+  return `<figure class="device device-real">
+    <div class="device-frame">
+      <div class="device-notch"></div>
+      ${picture({ name, alt, width, height, className: 'device-img', loading: eager ? 'eager' : 'lazy' })}
+    </div>
+    ${label ? `<figcaption>${label}</figcaption>` : ''}
+  </figure>`;
+}

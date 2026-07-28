@@ -22,6 +22,12 @@ export default {
   slug: 'track.html',
   title: 'Live trip',
   description: 'Follow a Tsamaya drive in real time.',
+  // Keep this page out of search indexes entirely. The URL carries a bearer
+  // token (?id=<token>) that grants access to someone's live location, so an
+  // indexed copy would be a leaked capability. build.mjs already excludes it from
+  // the sitemap, but a sitemap exclusion is not a noindex — a crawler that finds
+  // the link anywhere else will happily index it. This emits the actual directive.
+  noindex: true,
   body: `
 <section class="wrap" style="padding:28px 0;">
   <h1 style="margin:0 0 4px;">Live trip</h1>

@@ -1,6 +1,8 @@
 // layout.mjs — the HTML shell wrapped around every page's body.
-import { site, nav } from '../site.config.mjs';
+import { site, nav, baseUrl, canonicalFor } from '../site.config.mjs';
 import { logoLockup, logoMark, icon } from './components.mjs';
+import { siteGraph } from './seo.mjs';
+import { metros } from './data/metros.mjs';
 
 const year = 2026; // build-time constant; Date.* is unavailable in the build sandbox.
 
@@ -11,6 +13,14 @@ function navLinks(active) {
         `<a href="${n.href}"${n.href === active ? ' aria-current="page"' : ''}>${n.label}</a>`,
     )
     .join('');
+}
+
+// Every page links to every metro page from the footer. On a site this small that
+// is the strongest internal-linking signal available: it means a crawler that
+// reaches any page can reach all of them in one hop, and it gives readers a way to
+// jump straight to their own city from wherever they landed.
+function metroLinks() {
+  return metros.map((m) => `<a href="${m.slug}.html">${m.name}</a>`).join('');
 }
 
 // Escape text destined for HTML attributes / element text (titles, descriptions).
@@ -30,24 +40,34 @@ export function renderPage(page) {
       : `${page.title} · ${site.name}`,
   );
   const desc = esc(page.description || site.description);
-  // Absolute base for canonical + social images (crawlers require absolute URLs).
-  // Falls back to the GitHub Pages URL until a custom domain is wired up.
-  const base = (site.domain || site.ogBase || '').replace(/\/$/, '');
-  const canonical = base ? `${base}/${page.slug}` : '';
-  const ogImage = base ? `${base}/img/og.png` : 'img/og.png';
+  // Absolute URLs — crawlers require them for canonical tags and social images.
+  // canonicalFor() is shared with the sitemap generator so the two cannot drift.
+  const canonical = canonicalFor(page.slug);
+  const ogImage = baseUrl ? `${baseUrl}/img/og.png` : 'img/og.png';
+  // The live-trip tracker is a token-bearing page and must never be indexed.
+  const noindex = page.noindex === true;
 
   return `<!doctype html>
-<html lang="en">
+<html lang="en-ZA">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- Marks the document as script-capable before first paint. Every reveal
+       animation is scoped to .js, so with JavaScript disabled or still loading
+       nothing is hidden waiting for an observer that will never run. -->
+  <script>document.documentElement.className+=' js';</script>
   <!-- Never leak the URL (the live-trip tracker carries a bearer ?id= token) in
-       the Referer header to Mapbox / Google Fonts or any cross-origin request. -->
+       the Referer header to Mapbox or any cross-origin request. -->
   <meta name="referrer" content="no-referrer"/>
   <title>${titleFull}</title>
   <meta name="description" content="${desc}"/>
   <meta name="theme-color" content="#0F172A"/>
+  ${noindex ? '<meta name="robots" content="noindex,nofollow"/>' : '<meta name="robots" content="index,follow,max-image-preview:large"/>'}
   ${canonical ? `<link rel="canonical" href="${canonical}"/>` : ''}
+  ${site.verification.google ? `<meta name="google-site-verification" content="${esc(site.verification.google)}"/>` : ''}
+  ${site.verification.bing ? `<meta name="msvalidate.01" content="${esc(site.verification.bing)}"/>` : ''}
+  <meta property="og:site_name" content="Tsamaya"/>
+  <meta property="og:locale" content="en_ZA"/>
   <meta property="og:title" content="${titleFull}"/>
   <meta property="og:description" content="${desc}"/>
   <meta property="og:type" content="website"/>
@@ -56,14 +76,21 @@ export function renderPage(page) {
   <meta property="og:image:type" content="image/png"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="Tsamaya — lower-risk driving routes for South African metros"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:image" content="${ogImage}"/>
+  <meta name="twitter:image:alt" content="Tsamaya — lower-risk driving routes for South African metros"/>
   <link rel="icon" type="image/png" sizes="48x48" href="img/favicon.png"/>
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg"/>
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <!-- Fonts are self-hosted (public/fonts/). Previously these came from the
+       Google Fonts CDN, which meant a render-blocking request to a third party
+       on every page load, plus a DNS + TLS handshake before any text could paint.
+       Same files, one origin, preloaded. -->
+  <link rel="preload" href="fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin/>
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin/>
   <link rel="stylesheet" href="styles.css"/>
+  ${siteGraph(page, titleFull, desc)}
 </head>
 <body class="${page.heroClass || ''}">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -99,8 +126,13 @@ export function renderPage(page) {
         <h4>Explore</h4>
         <a href="how-it-works.html">How it works</a>
         <a href="demo.html">See it in action</a>
+        <a href="coverage.html">Coverage</a>
         <a href="technical.html">Technical details</a>
         <a href="about.html">About us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Where it works</h4>
+        ${metroLinks()}
       </div>
       <div class="footer-col">
         <h4>Support</h4>

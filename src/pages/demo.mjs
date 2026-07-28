@@ -29,8 +29,8 @@ const gallery = shots.length
     <div class="shot-grid">
       ${shots
         .map(
-          (s) => `<figure class="shot">
-        <img src="${s.src}" alt="${s.alt}" loading="lazy" width="300"/>
+          (s) => `<figure class="shot" data-reveal>
+        <img src="${s.src}" alt="${s.alt}" loading="lazy" decoding="async" width="${s.width || 640}" height="${s.height || 1391}"/>
         <figcaption><strong>${s.title}</strong>${s.caption ? ` — ${s.caption}` : ''}</figcaption>
       </figure>`,
         )

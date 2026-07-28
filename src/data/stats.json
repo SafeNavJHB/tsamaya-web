@@ -1,0 +1,111 @@
+{
+  "generatedFrom": "uthvorhglqysehayyxzy",
+  "totals": {
+    "metros": 7,
+    "zones": 3254,
+    "corridors": 6522,
+    "corridorsSafe": 2083,
+    "corridorsDanger": 4439,
+    "riskBands": 3
+  },
+  "bands": {
+    "red": 1168,
+    "orange": 992,
+    "yellow": 863,
+    "none": 231
+  },
+  "metros": [
+    {
+      "key": "johannesburg",
+      "name": "Johannesburg",
+      "slug": "johannesburg",
+      "zones": 828,
+      "corridors": 3802,
+      "bands": {
+        "red": 221,
+        "orange": 296,
+        "yellow": 298,
+        "none": 13
+      }
+    },
+    {
+      "key": "cape_town",
+      "name": "Cape Town",
+      "slug": "cape-town",
+      "zones": 918,
+      "corridors": 1650,
+      "bands": {
+        "red": 276,
+        "orange": 317,
+        "yellow": 272,
+        "none": 53
+      }
+    },
+    {
+      "key": "pretoria",
+      "name": "Pretoria",
+      "slug": "pretoria",
+      "zones": 513,
+      "corridors": 883,
+      "bands": {
+        "red": 119,
+        "orange": 121,
+        "yellow": 205,
+        "none": 68
+      }
+    },
+    {
+      "key": "ekurhuleni",
+      "name": "Ekurhuleni",
+      "slug": "ekurhuleni",
+      "zones": 742,
+      "corridors": 0,
+      "bands": {
+        "red": 431,
+        "orange": 198,
+        "yellow": 80,
+        "none": 33
+      }
+    },
+    {
+      "key": "west_rand",
+      "name": "West Rand",
+      "slug": "west-rand",
+      "zones": 158,
+      "corridors": 83,
+      "bands": {
+        "red": 56,
+        "orange": 39,
+        "yellow": 2,
+        "none": 61
+      }
+    },
+    {
+      "key": "secunda",
+      "name": "Secunda",
+      "slug": "secunda",
+      "zones": 63,
+      "corridors": 54,
+      "bands": {
+        "red": 44,
+        "orange": 13,
+        "yellow": 3,
+        "none": 3
+      }
+    },
+    {
+      "key": "stellenbosch",
+      "name": "Stellenbosch",
+      "slug": "stellenbosch",
+      "zones": 32,
+      "corridors": 50,
+      "bands": {
+        "red": 21,
+        "orange": 8,
+        "yellow": 3,
+        "none": 0
+      }
+    }
+  ],
+  "perMetroCorridorsReliable": false
+}

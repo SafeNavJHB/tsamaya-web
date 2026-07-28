@@ -32,6 +32,13 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
+      # Gate the deploy on the SEO invariants. This exists because the sitemap and
+      # the page canonicals silently drifted apart in production — the home page
+      # advertised itself at two different URLs for weeks and nothing caught it.
+      # Also fails on a missing image, a duplicate title, a page with no structured
+      # data, or the token-bearing live-trip page losing its noindex.
+      - name: Check SEO invariants
+        run: node scripts/check-seo.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
