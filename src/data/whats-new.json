@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-07-29.1",
+      "date": "29 July 2026",
+      "items": [
+        {
+          "icon": "color-palette-outline",
+          "title": "Allowed roads keep their true colour",
+          "body": "If you tapped \"Allow\" on a higher-risk road on the route screen, navigation used to paint that road neutral blue (\"Unrated road\") — while the map and the corridor overlay still showed it orange, which looked like the app disagreeing with itself. Allowed roads and zones now always show their real risk colour on the route ribbon, the road readout and the car screen. Allowing still does what it promised: no detours around that road and no voice or vibration nagging — it just never hides the risk any more. Manage your allowed list in Settings › Routing › Allowed roads & zones.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-07-28.1",
       "date": "28 July 2026",
       "items": [
