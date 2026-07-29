@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-07-29.2",
+      "date": "29 July 2026",
+      "items": [
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Safer highways stay green next to flagged roads",
+          "body": "Highways marked as safer routes (like the M1 past Alexandra) were showing orange in navigation because flagged roads running right beside them — service roads, parallel main roads — sat close enough to bleed their risk onto the highway. The road you’re actually on now wins: a verified-safer road stays green unless the flagged road is the same road you’re driving. Area risk is unchanged — driving past a red zone still shows the zone and pulses the screen edge.",
+          "category": "fix"
+        },
+        {
+          "icon": "play-circle-outline",
+          "title": "\"Start Navigation\" works again after cancelling a drive",
+          "body": "Ending a drive and then starting a new route could leave the Start Navigation button doing nothing until you force-closed the app. Ending a drive quietly left the whole navigation screen alive behind the map (the system’s \"go home\" call stopped closing screens in a recent update), and the app’s guard against opening two navigation screens then blocked every new drive. Ending a drive now properly closes the screen — repeat trips start instantly, and the hidden screen no longer drains memory.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-07-29.1",
       "date": "29 July 2026",
       "items": [
