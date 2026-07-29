@@ -38,9 +38,12 @@
 // 4. npm run images   → writes the AVIF/WebP/JPEG variants. Commit both the raw
 //    PNG and the variants.
 //
-// Note the time band in the shot: the app follows the real clock, so a late-night
-// capture renders the night palette (as jhb-map and route-card below do). Capture
-// during the day if you want the daytime look.
+// TIME BAND. The app follows the real clock, so the palette in a capture depends
+// on when it was taken. The map shots are deliberately NIGHT: after dark the
+// ratings climb and the overlays actually show the risk data, which is the whole
+// point of those screens. Captured at 06:39 the same map is nearly empty, because
+// Sandton genuinely rates low in the daytime band. The navigation shot is DAYTIME
+// because the light map reads better and the route colouring shows regardless.
 
 // Gallery entries for the demo page.
 export const shots = [
@@ -64,9 +67,9 @@ export const shots = [
   },
   {
     name: 'navigation',
-    alt: 'Turn-by-turn navigation in Tsamaya, showing the next turn onto West Street, the current speed, the road ahead and the time remaining',
+    alt: 'Tsamaya mid-drive with the route overview open, showing the safety-coloured route and the full list of turns ahead',
     title: 'Turn-by-turn, in the app',
-    caption: 'The next turn, the road you’re on, your speed and the time left, plus one-tap SOS and a flag to report an area',
+    caption: 'The route coloured by risk end to end, with every turn ahead listed by name',
   },
 ];
 
@@ -92,7 +95,7 @@ export const alts = {
   'route-result':
     'Tsamaya comparing three routes to the same destination: lower-risk at 23 minutes, balanced at 21, standard at 20, with a warning that three high-risk areas could not be avoided',
   navigation:
-    'Turn-by-turn navigation running in Tsamaya: the next turn is a slight left onto West Street in 20 metres, with the current road, speed, remaining time of 22 minutes, an SOS button and a flag for reporting an area',
+    'Tsamaya navigating from Sandton to Maboneng with the route overview open. The route is drawn across Johannesburg and coloured by risk, hotspots are marked along it, and the turn list below reads: turn right, bear right onto Maude Street, turn left toward the M9, right onto Grayston Drive, then the M1 ramp and exit 10A onto the M2',
 };
 
 export const altFor = (name) => alts[name] || 'A screen from the Tsamaya app';

@@ -93,7 +93,7 @@ const walkthroughSection = section({
       <div class="walk-text">
         <span class="walk-num">04</span>
         <h3>Drive it</h3>
-        <p>Turn-by-turn works the way you’d expect: the next turn up top, your speed, the road you’re on and the time left. The route itself is coloured by risk as you go. Voice guidance cycles between spoken directions, alerts only, and silence. There’s an SOS button, and a flag for telling us an area looks wrong.</p>
+        <p>Turn-by-turn works the way you’d expect: the next turn up top, your speed and the time left. Pull up the route overview and you get the whole drive at once, coloured by risk from start to finish, with every turn listed by name and the flagged spots marked along the way. Voice guidance cycles between spoken directions, alerts only, and silence. There’s an SOS button, and a flag for telling us an area looks wrong.</p>
       </div>
     </div>
   </div>`,
@@ -119,7 +119,7 @@ const notes = section({
   inner: `
   <div class="note-card">
     <h3>${icon('shield', 20)} Honest note on this build</h3>
-    <p>Every screen on this page is a real capture from the current build, taken against the live database. Real map tiles, real risk zones, real search, real routing. Nothing here is a mock-up or a rendering. You’ll notice the map wears its night colours: the app follows the actual clock, and these were captured late in the evening. Risk data is curated and improves constantly. Routes weigh known risk, they don’t guarantee safety, and you should stay aware on the road regardless.</p>
+    <p>Every screen on this page is a real capture from the current build, taken against the live database. Real map tiles, real risk zones, real search, real routing. Nothing here is a mock-up or a rendering. The map screens wear their night colours on purpose. Ratings climb after dark, so that is when the overlays actually show you the risk data; shot at breakfast the same map is nearly empty, because Sandton genuinely rates low in the daytime. Risk data is curated and improves constantly. Routes weigh known risk, they don’t guarantee safety, and you should stay aware on the road regardless.</p>
   </div>`,
 });
 
