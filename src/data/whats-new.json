@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-07-29.4",
+      "date": "29 July 2026",
+      "items": [
+        {
+          "icon": "analytics-outline",
+          "title": "Flagged roads are no longer counted twice",
+          "body": "Roads are stored as one row per carriageway (and a handful were accidentally saved twice), and route scoring summed every row — so a 3.1 km drive down a flagged road was counted as 6.5 km of risk, inflating its score and safety grade compared to roads stored as a single line. Every metre of a route now counts once, at the worst rating that covers it — the same way the map colours it. The 58 accidental duplicate rows were also removed from the dataset.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-07-29.3",
       "date": "29 July 2026",
       "items": [
