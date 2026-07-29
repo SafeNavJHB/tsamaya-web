@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-07-29.3",
+      "date": "29 July 2026",
+      "items": [
+        {
+          "icon": "git-network-outline",
+          "title": "Route choice ignores flagged roads you aren’t on",
+          "body": "Route scoring had the same blind spot navigation had this morning: a flagged road running right beside a safer highway (like the M1’s service roads) was counted against routes that never leave the highway — the M1 past Alexandra was scored as 4.5 km of medium risk that was 100% phantom, and roads you never touch could appear in the route’s caution list. The scorer now applies the same rule as the map and navigation: the road you’re actually on decides. Genuinely flagged roads (including split carriageways like \"Main Road (west)\") still count in full.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-07-29.2",
       "date": "29 July 2026",
       "items": [
