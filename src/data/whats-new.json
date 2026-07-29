@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-07-29.5",
+      "date": "29 July 2026",
+      "items": [
+        {
+          "icon": "sparkles-outline",
+          "title": "Discover the city — landmarks on the map",
+          "body": "Iconic places across all seven metros now appear as small badges on the home map — Gold Reef City, Table Mountain, O.R. Tambo, the Union Buildings, Boulders Beach and dozens more. Tap a badge for a quick guide (what it is, how far, and the area’s risk read at this hour), then “Take me there” to route to it. Decorative only — landmarks never change your route. Turn them off in Settings › City landmarks.",
+          "category": "feature"
+        },
+        {
+          "icon": "map-outline",
+          "title": "The map opens flat",
+          "body": "The home map now always opens in a top-down view — clearer for scanning zones at a glance. Tilt with two fingers whenever you want the 3D view; the map stays at the angle you set.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-07-29.4",
       "date": "29 July 2026",
       "items": [
