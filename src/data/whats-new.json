@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-07-29.6",
+      "date": "29 July 2026",
+      "items": [
+        {
+          "icon": "sparkles",
+          "title": "Discover — a guided flyover of your metro",
+          "body": "Tap the new ✨ button on the map and Tsamaya flies you landmark to landmark through your metro — a tilted, cinematic tour of the places worth knowing, each with its quick guide and safety tip. Pause, skip around, or tap “Take me there” to route to any stop. Any pan or pinch hands the map straight back to you.",
+          "category": "feature"
+        },
+        {
+          "icon": "pricetag-outline",
+          "title": "Landmark badges stay put, cards read in full",
+          "body": "Landmark badges no longer vanish behind the map’s own labels as you zoom in, so they’re always there to tap. Their cards now scroll — the full guide and safety tip are readable, and long captions glide across instead of being cut off.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-07-29.5",
       "date": "29 July 2026",
       "items": [
