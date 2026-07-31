@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-07-31.10",
+      "date": "31 July 2026",
+      "items": [
+        {
+          "icon": "business-outline",
+          "title": "Full 3D maps on CarPlay — if you want them",
+          "body": "A new switch in Settings › Navigation › CarPlay puts the full 3D map — buildings, landmarks and time-of-day lighting — on the car screens during the day. It is experimental and heavier on memory, so the proven flat driving map stays the default; after dark the high-contrast night map still takes over either way.",
+          "category": "feature"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "Your car, on the little dashboard map",
+          "body": "The mini map on the CarPlay dashboard now shows your chosen vehicle marker — including your own uploaded car photo — instead of always the blue arrow.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-07-31.9",
       "date": "31 July 2026",
       "items": [
