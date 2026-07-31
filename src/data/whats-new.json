@@ -15,6 +15,180 @@
   ],
   "releases": [
     {
+      "version": "2026-07-31.9",
+      "date": "31 July 2026",
+      "items": [
+        {
+          "icon": "shield-half",
+          "title": "Off the route, the risk readout reads where you actually are",
+          "body": "When you left the route, the safety readout could keep reading the risk of the road you were supposed to be on rather than the one you are on. Once you are more than about forty metres off the line, it now reads your real position until the new route lands.",
+          "category": "fix"
+        },
+        {
+          "icon": "bandage",
+          "title": "Two more ways the car could put Tsamaya back to sleep",
+          "body": "Muting the voice mid-drive, or a genuinely stuck voice clip, could quietly undo the keep-awake fix from earlier today and return CarPlay to its slow-motion state. Both paths now leave the keep-awake alone.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-31.8",
+      "date": "31 July 2026",
+      "items": [
+        {
+          "icon": "flash",
+          "title": "Working out a route in the car is quick again",
+          "body": "Tapping Home or Work on the car screen could sit on a spinner for over a minute and only finish when you woke your phone — a four kilometre trip took eighty seconds, of which the actual routing was about a fifth of a second. Tsamaya now keeps itself awake for your whole time plugged in, not just while a route is running, so working one out is as quick as following one.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport",
+          "title": "The dashboard card stops going blank when you park",
+          "body": "After arriving, the little card on the CarPlay home screen could drop back to \"Open Tsamaya on the car screen\" even though it was still running. One slow update was enough to make it give up on the whole session. It now holds on.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-31.7",
+      "date": "31 July 2026",
+      "items": [
+        {
+          "icon": "shield-half",
+          "title": "The road and its risk stay on screen while rerouting",
+          "body": "While Tsamaya worked out a new route, the panel under your car replaced the road name and its safety rating with \"Rerouting…\". That is the moment you need it most — you have left the route, possibly somewhere you would rather not be. The road and its rating now stay put; the spinner says the rest.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-31.6",
+      "date": "31 July 2026",
+      "items": [
+        {
+          "icon": "speedometer",
+          "title": "The right speed limit for the stretch you are on",
+          "body": "On a long run like the M1 the limit changes several times, but Tsamaya was showing one number for the whole stretch — and it picked the highest one, so a 100 zone displayed 120. It now reads the limit for the exact piece of road under your car. On the M1 north out of Rosebank that is 100 for most of it, as it should be.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-31.5",
+      "date": "31 July 2026",
+      "items": [
+        {
+          "icon": "flash",
+          "title": "Tsamaya keeps working while you drive",
+          "body": "On a CarPlay drive your phone was giving Tsamaya almost no time to think — measured at four percent — which is why guidance arrived late, rerouting crawled, and the car screen only caught up when you picked the phone up. It now holds on to the audio channel it uses for spoken directions, which keeps it running for the whole drive. Your music is untouched.",
+          "category": "fix"
+        },
+        {
+          "icon": "shield-checkmark",
+          "title": "The road rating matches the map again",
+          "body": "The line under your car could be drawn green for a verified-safe road while the label beside it said \"Unrated road\". The map read the rating from the road itself; the label read it from your raw GPS position, which between tall buildings can sit a lane or two off. Both now read the road you are actually on.",
+          "category": "fix"
+        },
+        {
+          "icon": "phone-landscape",
+          "title": "A smaller road label on the CarPlay dashboard",
+          "body": "The road name and safety pill on the little dashboard map were too big and sat low enough to hide behind the arrival time. Smaller now, and lifted clear of it.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-31.4",
+      "date": "31 July 2026",
+      "items": [
+        {
+          "icon": "bandage",
+          "title": "The log stops calling restarts crashes",
+          "body": "When you force-quit Tsamaya — to pick up an update, say — the navigation log recorded it as though the app had crashed, because it never got the chance to note it was closing. It now also records how long the app had been running and whether a real error was caught, so a restart no longer looks like a crash.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-31.3",
+      "date": "31 July 2026",
+      "items": [
+        {
+          "icon": "git-branch",
+          "title": "Rerouting actually finishes now",
+          "body": "When you left the route, Tsamaya could sit on \"Finding a lower-risk route\" and then quietly give up — every time. The countdown it used to decide it had waited long enough kept running while the app itself was paused by the phone, so it had always \"run out of time\" before the new route had a chance to arrive. It now only counts time the app was genuinely awake and working.",
+          "category": "fix"
+        },
+        {
+          "icon": "volume-high",
+          "title": "No more two voices talking over each other",
+          "body": "The natural voice and the built-in one could speak different instructions at the same time. Same cause as the rerouting problem: the app decided a clip had got stuck when really the phone had paused it, so it gave up and spoke the next instruction on top. Both now wait on time the app was actually running.",
+          "category": "fix"
+        },
+        {
+          "icon": "speedometer",
+          "title": "A bigger, tilted map on the CarPlay dashboard",
+          "body": "The little Tsamaya card on the CarPlay home screen was mostly a text block, leaving only a sliver of map. Your speed is now the same round dial as the main screen, tucked into the corner, with the road name and its safety rating on a pill under the car — so almost the whole tile is map, and it is tilted to the same angle as the main navigation view.",
+          "category": "feature"
+        },
+        {
+          "icon": "trail-sign",
+          "title": "The right road name in free drive",
+          "body": "After ending a route, the car screen could name a house you were driving past rather than the road you were on. It now asks which road you are actually travelling along.",
+          "category": "fix"
+        },
+        {
+          "icon": "map",
+          "title": "The route picker shows the route again",
+          "body": "Choosing between Safest, Balanced and Fastest on the car screen zoomed out to fit the route across the whole display — including the half hidden behind the list of choices. It now fits the route into the part of the map you can actually see.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-31.2",
+      "date": "31 July 2026",
+      "items": [
+        {
+          "icon": "pulse",
+          "title": "Better diagnostics when something goes wrong in the car",
+          "body": "If you hit a problem while driving and share the navigation log from Settings, it now records far more of what happened: which part of the app failed, what was on screen over the map, and a much fuller crash trace. Nothing extra leaves your phone — the log still only goes where you send it.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-07-31.1",
+      "date": "31 July 2026",
+      "items": [
+        {
+          "icon": "car-sport",
+          "title": "CarPlay: your speed and road stay on the dashboard",
+          "body": "The small Tsamaya card on the CarPlay home screen used to go quiet once a drive started, leaving only the posted limit. It now keeps your live speed, the road you are on and its safety tier for the whole drive, and the little map behind it is tilted to match the main one.",
+          "category": "fix"
+        },
+        {
+          "icon": "shield-half",
+          "title": "Risk areas now show on the car map",
+          "body": "The CarPlay map drew flagged roads but not the risk area you were actually inside. Nearby zones are now outlined in their live colour, so an amber or red area is visible from the car screen too.",
+          "category": "fix"
+        },
+        {
+          "icon": "git-branch",
+          "title": "Route picker: a real Cancel, and a real overview",
+          "body": "Choosing between Safest, Balanced and Fastest on the car screen now zooms out to show the whole route you are picking, and there is a clear ✕ to back out — instead of one unlabelled arrow in the far corner.",
+          "category": "fix"
+        },
+        {
+          "icon": "bug",
+          "title": "No more “Something went wrong” mid-drive",
+          "body": "Picking up your phone while a CarPlay drive was already running could show a full-screen error. Fixed.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-07-29.6",
       "date": "29 July 2026",
       "items": [
