@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-01.1",
+      "date": "1 August 2026",
+      "items": [
+        {
+          "icon": "flag-outline",
+          "title": "The voice now finishes the drive",
+          "body": "Arriving used to cut the guidance voice off mid-sentence — \"in forty metres, you will arri—\". Tsamaya now closes every trip properly: \"You have arrived at your destination. Go well.\"",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-07-31.10",
       "date": "31 July 2026",
       "items": [
