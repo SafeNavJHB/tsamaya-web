@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-08-01.2",
+      "date": "1 August 2026",
+      "items": [
+        {
+          "icon": "flag-outline",
+          "title": "Add stops along the way",
+          "body": "Running errands? Tap \"Add stop\" on the route card to build a trip with up to four stops — shops, a friend, then home. Each leg is checked for danger zones separately, so the detour is as carefully routed as the main trip, and Tsamaya tells you when you reach each stop.",
+          "category": "feature"
+        },
+        {
+          "icon": "warning-outline",
+          "title": "Protests and road closures",
+          "body": "Tsamaya now watches the news each morning for planned protests, strikes and road blockades in your city, and routes you around them for as long as they last. Affected roads show as a red-and-white striped line, and you only hear about closures within 50 km of you.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-08-01.1",
       "date": "1 August 2026",
       "items": [
