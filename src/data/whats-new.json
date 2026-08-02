@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-08-02.1",
+      "date": "2 August 2026",
+      "items": [
+        {
+          "icon": "flag-outline",
+          "title": "Stops are announced by name",
+          "body": "On a trip with stops, the voice used to say \"you have arrived at your destination\" at every stop — and then cut itself off mid-word. Each stop is now announced by its own name (\"In 600 metres, Mall@55 will be on the left\"), and only the real destination ends the trip. Reversing a trip with the swap button now also reverses your stops.",
+          "category": "fix"
+        },
+        {
+          "icon": "warning-outline",
+          "title": "Road-closure alerts behave better",
+          "body": "Dismissing a protest banner now hides only those closures — a new protest later in the day still alerts you. Alerts also stay quiet unless Tsamaya knows where you actually are, so you are never warned about another city’s roads.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-01.2",
       "date": "1 August 2026",
       "items": [
