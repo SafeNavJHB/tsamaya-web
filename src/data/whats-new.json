@@ -15,6 +15,36 @@
   ],
   "releases": [
     {
+      "version": "2026-08-06.5",
+      "date": "6 August 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Road closures now follow the actual roads",
+          "body": "A closed road used to be drawn as a short straight line through roughly the right spot, which cut across the street grid instead of tracing the road. Closures are now mapped along the real road, and the affected area is shaped around them rather than boxed off.",
+          "category": "fix"
+        },
+        {
+          "icon": "flag-outline",
+          "title": "A road race is no longer flagged as a protest",
+          "body": "Closures now say why the road is shut. A marathon or parade reads as a planned closure, roadworks as roadworks, and only actual unrest gets the red warning. You are routed around all of them the same way — the difference is what you are told.",
+          "category": "feature"
+        },
+        {
+          "icon": "time-outline",
+          "title": "Closures only apply while the road is actually shut",
+          "body": "A closure announced days ahead used to start diverting traffic the moment it was added. It now stays dormant until its start time and clears itself when the road reopens.",
+          "category": "fix"
+        },
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "More trustworthy closure data",
+          "body": "The daily check that finds closures was quietly failing most mornings, and could place a road tens of kilometres away when the same street name exists elsewhere in the city. Both are fixed, and a road that cannot be pinned down is now held back for review instead of being guessed at.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-06.4",
       "date": "6 August 2026",
       "items": [
