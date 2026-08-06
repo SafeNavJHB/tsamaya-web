@@ -15,6 +15,72 @@
   ],
   "releases": [
     {
+      "version": "2026-08-06.1",
+      "date": "6 August 2026",
+      "items": [
+        {
+          "icon": "musical-notes",
+          "title": "Music really comes back after each instruction now",
+          "body": "On CarPlay (and locked-phone drives) your music dimmed at the first spoken instruction and never recovered until you woke the phone. iPhones only restore other apps' volume when the app that dimmed them briefly lets go of the speaker — and Tsamaya was holding on for the whole drive to keep itself awake in the background. After each spoken line it now lets go for a split second and takes the speaker straight back: your music returns to full volume the moment the voice stops, and navigation keeps running with the screen off exactly as before.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-08-02.5",
+      "date": "2 August 2026",
+      "items": [
+        {
+          "icon": "volume-high",
+          "title": "The real reason directions kept going quiet",
+          "body": "Every time Tsamaya finished speaking, it was handing the phone's audio back completely — which also gave up the permission it needs to keep running with the screen off. So after the first instruction of a drive it would gradually go to sleep, and only wake when you picked the phone up. It now keeps that permission for the whole trip. This is also what made your music jump back to full volume for a few seconds after each instruction.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-08-02.4",
+      "date": "2 August 2026",
+      "items": [
+        {
+          "icon": "musical-notes",
+          "title": "Your music stays at full volume between directions",
+          "body": "Music was being turned down for the whole drive instead of just while Tsamaya was speaking — dipping from the moment you set off and only coming back for a few seconds after each instruction. It now ducks around the spoken line and hands your music straight back.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-08-02.3",
+      "date": "2 August 2026",
+      "items": [
+        {
+          "icon": "volume-high",
+          "title": "Guidance no longer goes quiet mid-drive",
+          "body": "This is the one that kept coming back. Tsamaya was asking iOS to let it keep running with the screen off, but iOS only grants that to an app that is actually playing sound — and between spoken directions there is none, so it kept getting put to sleep. It now plays a silent tone for the length of a drive, which keeps it awake and the directions coming. You will not hear it and your music is untouched.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-08-02.2",
+      "date": "2 August 2026",
+      "items": [
+        {
+          "icon": "volume-high",
+          "title": "Voice guidance keeps talking with the phone asleep",
+          "body": "Directions could go quiet mid-drive and only pick up again the moment you woke your phone. Two separate causes: Tsamaya was letting iOS pause its own voice whenever the phone locked, and the claim it makes to keep running in the car was only made once when you plugged in — so if anything took it away later, nothing put it back. It now holds that claim for the whole drive and re-checks it as you move.",
+          "category": "fix"
+        },
+        {
+          "icon": "pulse",
+          "title": "Better evidence if a drive ends by itself",
+          "body": "If navigation ever stops without you ending it, the shared log now records why the screen closed and whether the drive was still running at the time — so the next report can name the cause instead of guessing at it.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-08-02.1",
       "date": "2 August 2026",
       "items": [
