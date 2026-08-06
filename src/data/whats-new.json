@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-06.3",
+      "date": "6 August 2026",
+      "items": [
+        {
+          "icon": "musical-notes",
+          "title": "Locked-screen drives: music restore and rerouting hardened",
+          "body": "On drives with the screen locked, the fix that hands your music back after each instruction could itself stop the background heartbeat that keeps the app responsive — leaving music dimmed and rerouting frozen until the screen woke. The hand-back now runs in the moment the spoken clip finishes, the background heartbeat repairs itself if it is ever paused, and the brief audio handover can no longer be interrupted midway.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-06.2",
       "date": "6 August 2026",
       "items": [
