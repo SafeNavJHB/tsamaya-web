@@ -34,7 +34,7 @@ const hero = `
       <h1>Go where the<br/><span class="grad">trouble isn’t.</span></h1>
       <p class="lede">Most maps work out the quickest way there. Tsamaya also works out what you would be driving through, and steers you around the areas where vehicle crime actually happens. <span class="muted">(say: ${site.pronunciation}. It is Sesotho and Setswana for “go”.)</span></p>
       <div class="hero-cta">
-        ${button('Join the beta', 'contact.html#beta', 'primary')}
+        ${button('Join the beta', 'get-app.html', 'primary')}
         ${button('See how it works', 'how-it-works.html', 'ghost-light')}
       </div>
       <p class="hero-disclaimer">${icon('shield', 15)} Lower risk is not no risk. Stay alert either way.</p>

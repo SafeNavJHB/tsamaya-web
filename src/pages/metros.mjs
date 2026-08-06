@@ -117,7 +117,7 @@ function metroPage({ content, data }) {
       <p>Tsamaya is free and currently in beta on iPhone. Ask for an invite and we'll send you a TestFlight link.</p>
     </div>
     <div class="cta-actions">
-      ${button('Join the beta', 'contact.html#beta', 'primary')}
+      ${button('Join the beta', 'get-app.html', 'primary')}
       ${button('See how it works', 'how-it-works.html', 'ghost-light')}
     </div>
   </div>
@@ -226,7 +226,7 @@ const coverageCta = `
     </div>
     <div class="cta-actions">
       ${button('Sponsor a metro', 'sponsor.html', 'primary')}
-      ${button('Join the beta', 'contact.html#beta', 'ghost-light')}
+      ${button('Join the beta', 'get-app.html', 'ghost-light')}
     </div>
   </div>
 </section>`;

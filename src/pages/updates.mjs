@@ -122,7 +122,7 @@ const cta = `
       <p>Tsamaya is in open beta on iPhone. Join and you’ll get every update as it ships.</p>
     </div>
     <div class="cta-actions">
-      ${button('Join the beta', 'contact.html#beta', 'primary')}
+      ${button('Join the beta', 'get-app.html', 'primary')}
       ${button('See it in action', 'demo.html', 'ghost-light')}
     </div>
   </div>

@@ -101,14 +101,14 @@ export function renderPage(page) {
       <nav class="primary-nav" aria-label="Primary">
         ${navLinks(page.slug)}
       </nav>
-      <a class="btn btn-primary btn-sm header-cta" href="contact.html#beta">Get the app</a>
+      <a class="btn btn-primary btn-sm header-cta" href="get-app.html">Get the app</a>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
     <nav class="mobile-nav" aria-label="Mobile">
       ${navLinks(page.slug)}
-      <a class="btn btn-primary" href="contact.html#beta">Get the app</a>
+      <a class="btn btn-primary" href="get-app.html">Get the app</a>
     </nav>
   </header>
 
@@ -141,7 +141,7 @@ export function renderPage(page) {
         <a href="sponsor.html">Sponsor us</a>
         <a href="sponsor.html#donate">Donate</a>
         <a href="contact.html">Contact</a>
-        <a href="contact.html#beta">Join the beta</a>
+        <a href="get-app.html">Join the beta</a>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
