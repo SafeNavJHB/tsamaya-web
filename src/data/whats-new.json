@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-06.6",
+      "date": "6 August 2026",
+      "items": [
+        {
+          "icon": "hardware-chip",
+          "title": "Lighter on memory during CarPlay drives",
+          "body": "During a drive, up to five live maps could be open at once (the home screen and route screens stay loaded underneath navigation) — enough for iOS to shut the app down mid-drive on some days. Covered screens now release their maps while you navigate and bring them back the moment the drive ends, and the CarPlay dashboard tile falls back to its text card if the phone ever runs short of memory.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-06.5",
       "date": "6 August 2026",
       "items": [
