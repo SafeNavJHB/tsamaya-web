@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-08-06.2",
+      "date": "6 August 2026",
+      "items": [
+        {
+          "icon": "map",
+          "title": "New installs start with the full current risk map",
+          "body": "The map data bundled into the app for a brand-new install was from the earliest days of Tsamaya — a handful of coarse blocks that showed for a few seconds until the live data downloaded. The app now ships with a complete, current copy of every zone and rated road, so the very first screen a new user sees is the real risk picture.",
+          "category": "fix"
+        },
+        {
+          "icon": "navigate",
+          "title": "Android: smoother start to navigation",
+          "body": "On Android, starting a drive no longer bounces you into the system settings page for background location — navigation starts immediately with while-you-use-it access.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-06.1",
       "date": "6 August 2026",
       "items": [
