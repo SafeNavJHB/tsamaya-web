@@ -670,3 +670,27 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .platform-card { display: grid; gap: 12px; align-content: start; justify-items: start; }
 .platform-card .btn { justify-self: start; }
 .mini-steps { margin: 4px 0 0; padding-left: 20px; display: grid; gap: 8px; color: var(--muted); font-size: 14.5px; line-height: 1.5; }
+
+/* Legal pages (privacy.html, terms.html) — long-form prose rendered from the
+   markdown in src/content/ by src/markdown.mjs. Constrained to a readable
+   measure; tables scroll on their own so a wide processor table never makes
+   the page itself scroll sideways on a phone. */
+.legal-prose { max-width: 76ch; margin: 0 auto; color: var(--text-soft); font-size: 16px; line-height: 1.7; }
+.legal-prose h2 { margin: 38px 0 12px; font-size: 1.45rem; color: var(--ink); line-height: 1.25; }
+.legal-prose h3 { margin: 28px 0 10px; font-size: 1.12rem; color: var(--ink); }
+.legal-prose h2:first-child, .legal-prose h3:first-child { margin-top: 0; }
+.legal-prose p { margin: 0 0 15px; }
+.legal-prose strong { color: var(--ink); font-weight: 600; }
+.legal-prose ul { margin: 0 0 16px; padding-left: 22px; display: grid; gap: 8px; }
+.legal-prose li { line-height: 1.65; }
+.legal-prose hr { border: none; border-top: 1px solid var(--line); margin: 30px 0; }
+.legal-prose blockquote { margin: 0 0 16px; padding: 12px 16px; border-left: 3px solid var(--line); background: var(--bg-soft); border-radius: 0 8px 8px 0; color: var(--muted); }
+.legal-prose a { color: var(--emerald-text, #0f766e); }
+
+.legal-prose .table-scroll { overflow-x: auto; margin: 0 0 20px; -webkit-overflow-scrolling: touch; }
+.legal-prose table { width: 100%; min-width: 460px; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; font-size: 0.92rem; }
+.legal-prose th, .legal-prose td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.legal-prose thead th { background: var(--bg-soft); color: var(--ink); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.legal-prose tbody tr:last-child td { border-bottom: none; }
+
+.legal-foot { max-width: 76ch; margin: 30px auto 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.92rem; }

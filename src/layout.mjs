@@ -145,8 +145,8 @@ export function renderPage(page) {
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
-        <a href="${site.legal.privacy}" rel="noopener">Privacy policy</a>
-        <a href="${site.legal.terms}" rel="noopener">Terms of use</a>
+        <a href="${site.legal.privacy}">Privacy policy</a>
+        <a href="${site.legal.terms}">Terms of use</a>
         <a href="mailto:${site.contactEmail}">${icon('mail', 15)} Email us</a>
       </div>
     </div>

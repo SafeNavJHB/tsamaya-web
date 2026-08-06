@@ -78,11 +78,16 @@ export const site = {
     sha256: '63f6e682841537971277763b7da40b21f11023646c3e23e86a0e0b071a88a507',
   },
 
-  // Existing legal pages already hosted on GitHub Pages.
+  // Legal pages now live on THIS site (src/pages/privacy.mjs + terms.mjs, text
+  // rendered from src/content/*.md). They used to be a separate GitHub Pages
+  // site — which meant tsamayaapp.co.za/privacy 404'd, and that is the URL the
+  // app and the Play listing want. The old site stays up as a fallback for
+  // builds already in the field that link to it; it is NOT the canonical copy,
+  // so update src/content/ here when the app repo's legal/*.md changes.
   legal: {
-    privacy: 'https://safenavjhb.github.io/tsamaya-legal/privacy',
-    terms: 'https://safenavjhb.github.io/tsamaya-legal/terms',
-    home: 'https://safenavjhb.github.io/tsamaya-legal/',
+    privacy: 'privacy.html',
+    terms: 'terms.html',
+    legacyHome: 'https://safenavjhb.github.io/tsamaya-legal/',
   },
 
   // Headline coverage — honest to the app's live service areas (the metro bounding
