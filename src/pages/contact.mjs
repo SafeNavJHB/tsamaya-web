@@ -74,23 +74,34 @@ const betaAction = hasPublicLink
     )}">${icon('mail', 18)} Ask for the link</a>
         <p class="muted center">Send us your email address and we’ll reply with the TestFlight link and a short guide to getting started. That’s all we need. No Apple ID, no forms.</p>`;
 
+// Android is a DIRECT download — no store account, no invite. The APK lives on
+// this repo's GitHub Releases behind an evergreen URL (site.config.mjs has the
+// whole story), so this block never needs touching when a new build ships.
+// When the Play Store listing is live the config swaps to the Play URL and the
+// caveat copy below should be trimmed to match.
+const androidAction = site.androidApk?.url
+  ? `<a class="btn btn-primary btn-lg" href="${site.androidApk.url}" rel="noopener">${icon('download', 18)} Download for Android</a>
+        <p class="muted center">Direct install (APK) · v${site.androidApk.version} · ${site.androidApk.sizeMb} MB · updated ${site.androidApk.updated}.<br>Open the downloaded file and allow the install when your phone asks. Android may warn about an unknown developer — that’s normal for a download outside the Play Store, where Tsamaya is headed next.</p>`
+  : '';
+
 const beta = `
 <section id="beta" class="band-soft section">
   <div class="wrap">
     <div class="beta-card">
       <div>
         ${eyebrow('Get the app')}
-        <h2>Try Tsamaya on your iPhone</h2>
-        <p class="big">Tsamaya is in open beta through Apple’s TestFlight. It’s free, it takes a couple of minutes to set up, and you can leave whenever you like.</p>
+        <h2>Try Tsamaya on your phone</h2>
+        <p class="big">Tsamaya is in open beta — TestFlight on iPhone, a direct download on Android. It’s free, it takes a couple of minutes to set up, and you can leave whenever you like.</p>
         <ul class="check-list">
           <li>${icon('check')} Free, with nothing to pay later during the beta</li>
-          <li>${icon('check')} iPhone only for now, with Android to come</li>
+          <li>${icon('check')} iPhone via TestFlight, Android as a direct download below</li>
           <li>${icon('check')} Just your email address. We don’t need your Apple ID</li>
           <li>${icon('check')} Tell us what’s wrong and we’ll usually fix it that week</li>
         </ul>
       </div>
       <div class="beta-action">
         ${betaAction}
+        ${androidAction}
       </div>
     </div>
   </div>

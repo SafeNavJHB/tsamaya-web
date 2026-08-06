@@ -58,6 +58,26 @@ export const site = {
   // it just costs you a manual reply each time.
   testflightPublicLink: '',
 
+  // DIRECT ANDROID DOWNLOAD — the Android beta installs straight from an APK
+  // hosted on THIS repo's GitHub Releases (the repo is public; releases are
+  // used ONLY for Android APKs and the asset is always named tsamaya.apk, so
+  // the evergreen /releases/latest/download/ URL below never changes — publish
+  // a new release and every button on the site serves the new build; see
+  // docs/ANDROID.md in the app repo for the two-command release flow).
+  //
+  // WHEN THE PLAY STORE LISTING GOES LIVE: replace `url` with the Play link
+  // (https://play.google.com/store/apps/details?id=com.tsamaya.app), delete
+  // version/sizeMb/sha256, and trim the install caveats in
+  // src/pages/contact.mjs — exactly the same swap the TestFlight link above
+  // will get when the App Store listing lands.
+  androidApk: {
+    url: 'https://github.com/SafeNavJHB/tsamaya-web/releases/latest/download/tsamaya.apk',
+    version: '1.4.0 (build 1)',
+    updated: '6 August 2026',
+    sizeMb: 191,
+    sha256: '63f6e682841537971277763b7da40b21f11023646c3e23e86a0e0b071a88a507',
+  },
+
   // Existing legal pages already hosted on GitHub Pages.
   legal: {
     privacy: 'https://safenavjhb.github.io/tsamaya-legal/privacy',
