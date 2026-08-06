@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-06.4",
+      "date": "6 August 2026",
+      "items": [
+        {
+          "icon": "close-circle",
+          "title": "CarPlay: the End button on your phone can no longer vanish",
+          "body": "With CarPlay connected, switching the phone between the map and directions views (or tapping the trip stats) could hide the trip bar — leaving no way to end the route without force-closing the app. While CarPlay is connected the bar now stays put, always.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-06.3",
       "date": "6 August 2026",
       "items": [
