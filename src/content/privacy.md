@@ -1,8 +1,8 @@
 # Tsamaya Privacy Policy
 
-**Status: v0.8 — prepared 2026-08-06 (responsible party moved from Kyle Guy Kimble personally to Tsamaya (Pty) Ltd, contact unified on info@tsamayaapp.co.za, Google Play added as an Android distribution processor, and iOS-only wording generalised — all ahead of the Google Play listing under the company's developer account; v0.7 corrected live-trip link expiry to match implementation — active trips 12 h rolling, ended/arrived trips ~30 min, SOS links 24 h, §3a/§6; v0.6 disclosed optional live trip sharing, §3a/§2/§5/§6; v0.5 added Google Places API as the place-search processor, §1/§5). This text is not legal advice and remains subject to review by a South African attorney. Items still open for that review are tracked as notes in the source document.**
+**Status: v0.9 — prepared 2026-08-09 (added §4a disclosing optional push notifications: the device push token, platform and coarse metro stored per device, the two independent opt-in switches, and Expo/APNs/FCM as delivery processors; v0.8 moved the responsible party from Kyle Guy Kimble personally to Tsamaya (Pty) Ltd, unified contact on info@tsamayaapp.co.za, added Google Play as an Android distribution processor, and generalised iOS-only wording — all ahead of the Google Play listing under the company's developer account; v0.7 corrected live-trip link expiry to match implementation — active trips 12 h rolling, ended/arrived trips ~30 min, SOS links 24 h, §3a/§6; v0.6 disclosed optional live trip sharing, §3a/§2/§5/§6; v0.5 added Google Places API as the place-search processor, §1/§5). This text is not legal advice and remains subject to review by a South African attorney. Items still open for that review are tracked as notes in the source document.**
 
-**Effective date:** 6 August 2026
+**Effective date:** 9 August 2026
 **Responsible party (POPIA):** Tsamaya (Pty) Ltd (reg. K2023990736), South Africa ("we", "us")
 **Contact:** info@tsamayaapp.co.za
 
@@ -16,6 +16,7 @@ Tsamaya is a navigation app for South African metros that suggests driving route
 - We keep **no server-side history of where you are or where you go** — with one exception you control: an optional **live trip you choose to share**, visible only via a private link (see §3a).
 - During the beta we collect **anonymous, aggregate usage events** (such as the app being opened, or a route requested/accepted/completed) tied only to a random installation id — never your location history, name, or account. See section 4.
 - If you choose to **send a report or feedback**, we store what you submit (and your email only if you choose to provide it) — see "User reports and feedback" below.
+- Notifications are **optional**. If you switch them on, we store a delivery token for your device and the metro you are in (such as "Cape Town") so that a closure alert reaches the right city, **never your coordinates**. There are two separate switches and you can turn either off at any time. See section 4a.
 
 ## 1. Information we process, and why
 
@@ -65,6 +66,19 @@ During the beta, the app records **anonymous, aggregate usage events** to help u
 
 Crash reporting is **not yet enabled**. If we add a crash-reporting tool (e.g. Sentry) to improve stability, it would process technical crash data (device model, OS version, stack traces) and we will update this policy and the app's privacy labels **before** enabling it.
 
+## 4a. Push notifications (optional)
+
+If you allow notifications, Tsamaya can tell you about road closures, protests and race-day disruption in your city. A second, separate switch covers news about new app features. Both are off unless you allow them, and either can be switched off on its own at any time under Settings › General › Notifications. Switch both off and we delete this device's registration.
+
+To deliver a notification we store, for each device:
+
+- the push token that Expo, Apple or Google issues for that installation (a delivery address for the device, not a name, an account or a contact detail);
+- the random installation identifier described in section 3, so that a device which re-registers is recognised instead of duplicated;
+- the platform (iOS or Android) and the app version;
+- the metro you are in: a city name such as "Cape Town", chosen from the six areas we cover, so that a Cape Town closure alert does not go to drivers in Johannesburg. **Not coordinates, not a street, not a trip.**
+
+We do not use notifications for advertising, and we do not send them for anyone else. A person writes and approves every notification before it goes out. Nothing is sent automatically because of where you are or where you drive. If the delivery service tells us a token no longer works, for example after you uninstall the app, we stop using it.
+
 ## 5. Third-party processors
 
 | Provider | Role | Data touched |
@@ -74,6 +88,8 @@ Crash reporting is **not yet enabled**. If we add a crash-reporting tool (e.g. S
 | Supabase (cloud hosting) | Hosts our public risk-zone dataset, user reports, reviewer authentication, anonymous usage events, and any live trip you choose to share (while active) | IP/request metadata; report contents (incl. optional emails); reviewer emails (admins only); anonymous usage events; shared-trip location while active |
 | Apple Inc. (USA) | App distribution (App Store, TestFlight) | Per Apple's terms |
 | Google LLC (USA) | App distribution on Android (Google Play) | Per Google Play's terms |
+| Expo (650 Industries, Inc., USA) | Push-notification delivery, if you opt in (§4a) | Device push token, notification title/text |
+| Apple Inc. (USA) / Google LLC (USA) | Push delivery to the device itself (APNs / Firebase Cloud Messaging) | Device push token, notification title/text |
 
 These providers process data outside South Africa. POPIA s72 permits cross-border transfers where the recipient is bound by adequate protection; our providers are bound by their published data-protection terms. [ATTORNEY: confirm s72 position.]
 
@@ -83,6 +99,7 @@ These providers process data outside South Africa. POPIA s72 permits cross-borde
 - Shared live trips: visible via the private link while the trip is active (up to 12 hours after the last update; SOS links up to 24 hours); once you arrive or end the trip the link expires about 30 minutes later. Deletable on request.
 - On-device data (saved places, settings): retained until you delete it or uninstall the app.
 - User reports and feedback: retained until reviewed and actioned; deletable on request via the contact address.
+- Push registrations (§4a): retained while notifications are switched on. Deleted immediately when you turn both notification switches off, and retired when the delivery service reports the app has been uninstalled.
 - Reviewer accounts: retained while the reviewer is authorised.
 
 ## 7. Security
