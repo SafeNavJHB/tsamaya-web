@@ -15,6 +15,54 @@
   ],
   "releases": [
     {
+      "version": "2026-08-09.1",
+      "date": "9 August 2026",
+      "items": [
+        {
+          "icon": "camera-outline",
+          "title": "Johannesburg speed cameras marked as not operating",
+          "body": "Johannesburg’s automated speed cameras have been switched off since December 2025 — the city’s contract with its camera supplier ended and the equipment was removed. Those cameras now show greyed out on the map, and tapping one explains why. We still call them out as you approach, because a new provider could switch them back on at any time without notice. Enforcement in Johannesburg also continues by roadblock and manned traps, so keep to the limit — it is the cameras that stopped, not the policing. Pretoria and Ekurhuleni run their own cameras and are unaffected.",
+          "category": "fix"
+        },
+        {
+          "icon": "people-outline",
+          "title": "Report a speed trap, and help keep it accurate",
+          "body": "When you report a speed camera you can now say whether it’s a camera van or a permanent camera. Vans show on the map in amber for about three hours; tap one and tell us “still there” to keep it up for other drivers, or “not there” to take it down. Permanent cameras you report stay put — South African map data barely covers Gauteng’s fixed cameras, so those reports are genuinely valuable.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-08-08.2",
+      "date": "8 August 2026",
+      "items": [
+        {
+          "icon": "hourglass-outline",
+          "title": "Your route appears immediately — safer options follow",
+          "body": "Tapping Go now opens the route screen as soon as the standard route is ready, with a progress card showing the safer-route search still working. The safer options slide in when found — and if the search fails (weak signal), the screen says so instead of quietly pretending there was only one road. The search itself also retries once, so a brief signal drop no longer costs you the safer route.",
+          "category": "feature"
+        },
+        {
+          "icon": "shield-half-outline",
+          "title": "An even-safer option, when going far around is worth it",
+          "body": "Sometimes a much safer road exists but is too long for the normal detour limit. When it removes at least half the risk, it now appears as a separate \"even lower-risk — much longer\" card you can choose deliberately. It never replaces your route on its own, and one tap brings the shorter option back.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-08-08.1",
+      "date": "8 August 2026",
+      "items": [
+        {
+          "icon": "shield-checkmark",
+          "title": "Safer routes will now go the long way around",
+          "body": "When the direct road runs through high-risk areas, the Balanced and Safest options used to cap how far around they would take you — on some trips the only genuinely safer road was just past that cap, so all three options collapsed onto the same risky route. Escaping high-risk areas now earns extra detour room in proportion to the risk it removes, so a trip whose direct road crosses several danger zones can take the highway loop around them instead.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-06.6",
       "date": "6 August 2026",
       "items": [
