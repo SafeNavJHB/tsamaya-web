@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-08-09.4",
+      "date": "9 August 2026",
+      "items": [
+        {
+          "icon": "notifications-outline",
+          "title": "Road-closure alerts, if you want them",
+          "body": "Tsamaya can now tell you when a protest, race or road closure hits your city — the same disruptions it already routes you around. Alerts only go to the metro they affect, so you won’t be woken about a road 1,400 km away. A second, separate switch covers occasional new-feature news, so muting one never mutes the other. Both live in Settings › General › Notifications, and nothing is sent unless you allow it.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-08-09.3",
+      "date": "9 August 2026",
+      "items": [
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Reported speed traps stay honest about what they are",
+          "body": "A camera van someone reported is now always treated as a van — shown for about three hours from when it was spotted, never turned into a permanent camera on the map. Only genuinely fixed cameras stay put.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-09.2",
       "date": "9 August 2026",
       "items": [
