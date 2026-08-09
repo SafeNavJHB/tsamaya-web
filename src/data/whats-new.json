@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-09.2",
+      "date": "9 August 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "Tell us when a switched-off camera comes back",
+          "body": "Tap any greyed-out speed camera and you can now report that it’s working again — a few reports switch it back to a live camera. We also corrected one camera on Grayston Drive in Sandton that was wrongly left marked as active.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-08-09.1",
       "date": "9 August 2026",
       "items": [
