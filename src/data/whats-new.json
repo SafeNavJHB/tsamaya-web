@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-09.7",
+      "date": "9 August 2026",
+      "items": [
+        {
+          "icon": "navigate-circle-outline",
+          "title": "Search now finds the closest branch",
+          "body": "Searching a place with a lot of branches used to offer them in no particular order — a Kung-Fu Kitchen or a Steers halfway across the province could come up while the one down the road never appeared. Suggestions are now weighted to where you actually are, and each one shows how far away it is as you type.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-09.6",
       "date": "9 August 2026",
       "items": [
