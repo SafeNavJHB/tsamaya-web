@@ -15,6 +15,42 @@
   ],
   "releases": [
     {
+      "version": "2026-08-09.6",
+      "date": "9 August 2026",
+      "items": [
+        {
+          "icon": "search",
+          "title": "A proper search screen",
+          "body": "Tapping “Where to?” now opens a full-screen search — recent trips up front, suggestions as you type, and a full results list with addresses, distance from you, ratings and open/closed status. Tap a place and you’re routing.",
+          "category": "feature"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Over-speed chime",
+          "body": "Opt in under Settings › Navigation › Speed warnings and Tsamaya plays a short ping when you drift more than 10 or 20 km/h over the posted limit, with an occasional reminder if you stay over. Off by default — and where no limit is known, nothing sounds.",
+          "category": "feature"
+        },
+        {
+          "icon": "videocam-outline",
+          "title": "Choose how camera alerts speak",
+          "body": "Settings › Navigation › Speed cameras now has a voice-alert mode: every camera ahead (as before), only when you’re near the camera’s limit — about 8 seconds out, with a “check your speed” nudge — or off, keeping the map pins without the voice.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-08-09.5",
+      "date": "9 August 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "CarPlay keeps your voice and safety settings",
+          "body": "When a drive started from the car screen with your phone still locked in your pocket, Tsamaya could fall back to the default guidance voice, volume and safety alerts instead of the ones you chose. CarPlay now loads all your saved choices — voice, volume, safety nudges, route preference and camera alerts — on every start.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-09.4",
       "date": "9 August 2026",
       "items": [
