@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-10.1",
+      "date": "10 August 2026",
+      "items": [
+        {
+          "icon": "color-filter-outline",
+          "title": "Risk areas no longer double up on the map",
+          "body": "Where two risk areas covered the same ground — a suburb sitting inside a larger area, or the same place listed under two metros — their colours were painted on top of each other, so a yellow area inside another yellow area came out looking a shade worse than either really is. Each patch of ground is now shaded once, in the colour the routing actually uses, with outlines still marking every area. The counts on the home screen no longer count one place twice either.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-09.7",
       "date": "9 August 2026",
       "items": [
