@@ -72,10 +72,10 @@ export const site = {
   // will get when the App Store listing lands.
   androidApk: {
     url: 'https://github.com/SafeNavJHB/tsamaya-web/releases/latest/download/tsamaya.apk',
-    version: '1.4.0 (build 1)',
-    updated: '6 August 2026',
-    sizeMb: 191,
-    sha256: '63f6e682841537971277763b7da40b21f11023646c3e23e86a0e0b071a88a507',
+    version: '1.4.1 (build 2)',
+    updated: '11 August 2026',
+    sizeMb: 195,
+    sha256: '67f4609641d31335093ee2d85dafeb94b840d6d2d297ee63d5ac08e1dfd88ad1',
   },
 
   // Legal pages now live on THIS site (src/pages/privacy.mjs + terms.mjs, text
