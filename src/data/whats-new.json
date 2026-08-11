@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-08-11.2",
+      "date": "11 August 2026",
+      "items": [
+        {
+          "icon": "navigate-outline",
+          "title": "Reroutes and the speedo stay live with the screen locked",
+          "body": "Coming to a stop with the phone locked used to freeze the app’s engine — reroutes could take minutes to land on CarPlay and the speedometer stuck at your last moving speed. Navigation now keeps itself scheduled through standstills, so reroutes, the speedo and safety updates stay current without waking the phone.",
+          "category": "fix"
+        },
+        {
+          "icon": "moon-outline",
+          "title": "Forgotten trips end themselves",
+          "body": "Parking just short of your destination (or pocketing the phone while the trip-rating card was up) used to leave navigation — and GPS — running in the background all night. A stationary, unattended trip now ends itself within half an hour, and the rating card steps aside when you leave the app.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "CarPlay taps before GPS is ready now start themselves",
+          "body": "Choosing a destination on CarPlay right after plugging in used to ask you to try again once GPS locked. The tap is now remembered and the route starts on its own the moment a fix lands. The branded Tsamaya car marker is also now correctly reserved on the car screen — everyone else gets the standard arrow or their own custom car photo.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-11.1",
       "date": "11 August 2026",
       "items": [
