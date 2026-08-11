@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-08-11.1",
+      "date": "11 August 2026",
+      "items": [
+        {
+          "icon": "notifications-off-outline",
+          "title": "Risk alerts stop repeating themselves",
+          "body": "Driving along the edge of a risk area — or through the gap between two — could speak \"entering a high-risk area\" every few seconds. The alert now waits until you are genuinely inside an area, and the same level of risk stays quiet for two minutes after you leave it. The map, the route ribbon and the CarPlay tile still show live risk every second — only the voice and buzz calm down.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-outline",
+          "title": "CarPlay mini map now shades risk areas",
+          "body": "The small dashboard map (the one beside your music) only showed a coloured frame around the tile. It now shades the suburbs around you with the same colours as the full-screen car map.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-10.1",
       "date": "10 August 2026",
       "items": [
