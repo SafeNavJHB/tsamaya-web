@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-08-11.3",
+      "date": "11 August 2026",
+      "items": [
+        {
+          "icon": "videocam-outline",
+          "title": "Speed cameras and hotspots on the CarPlay map",
+          "body": "The car screen now shows the same fixed speed-camera pins and hijacking / smash-and-grab hotspot markers as the phone maps, following the same Settings toggles.",
+          "category": "feature"
+        },
+        {
+          "icon": "musical-notes-outline",
+          "title": "Music dims only when the voice actually speaks",
+          "body": "The music used to dip while the natural voice was still being fetched — a few silent seconds before anything was said. It now dims at the moment the words start.",
+          "category": "fix"
+        },
+        {
+          "icon": "time-outline",
+          "title": "Traffic heads-up now says it clearly",
+          "body": "Routes are planned with live traffic, so a jam’s delay is already inside your ETA. The heads-up now says exactly that, instead of sounding like your arrival time is about to jump.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-08-11.2",
       "date": "11 August 2026",
       "items": [
