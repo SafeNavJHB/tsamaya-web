@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-12.2",
+      "date": "12 August 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Dashboard mini map recovers after memory pressure",
+          "body": "When iPhone memory ran low, the CarPlay dashboard mini map was switched off for the rest of the day as a protective measure — even unplugging CarPlay could not bring it back. It now returns on its own once memory has been calm for ten minutes, and comes back in the lighter map style so the retry does not recreate the pressure.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-12.1",
       "date": "12 August 2026",
       "items": [
