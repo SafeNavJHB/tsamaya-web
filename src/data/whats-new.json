@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-08-12.1",
+      "date": "12 August 2026",
+      "items": [
+        {
+          "icon": "navigate-outline",
+          "title": "Reroutes no longer wait for your screen",
+          "body": "Fixed a serious bug where a mid-drive reroute (and other live updates) could stall until the phone screen was woken — on locked-phone CarPlay drives, finished network responses were stuck behind iOS’s frozen JS timers. Rerouting now completes with the screen off, and a genuinely stuck reroute cancels itself and retries instead of silently switching off for the rest of the drive.",
+          "category": "fix"
+        },
+        {
+          "icon": "color-palette-outline",
+          "title": "Warning border now matches the map in overlapping zones",
+          "body": "Where a smaller, more specific zone sits on top of a bigger one, the screen-edge warning and risk alerts now follow the same “most specific zone wins” rule as the map colours and the router — no more red border while the map under the car shows orange.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-11.3",
       "date": "11 August 2026",
       "items": [
