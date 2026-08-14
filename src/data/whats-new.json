@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-14.4",
+      "date": "14 August 2026",
+      "items": [
+        {
+          "icon": "link-outline",
+          "title": "Shared live-trip links now open inside Tsamaya",
+          "body": "Opening a shared \"track my trip\" link on a phone that has Tsamaya installed used to land on the home screen with the trip nowhere in sight — the app claimed the link but only knew the web address under a slightly different name. Those links now open the live-trip viewer directly. Links opened on phones without the app keep working in the browser exactly as before, and older links your contacts already have are covered too.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-14.3",
       "date": "14 August 2026",
       "items": [
