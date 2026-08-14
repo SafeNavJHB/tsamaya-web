@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-08-14.5",
+      "date": "14 August 2026",
+      "items": [
+        {
+          "icon": "navigate-outline",
+          "title": "Rerouting now follows your lead",
+          "body": "When you keep choosing your own road, Tsamaya stops arguing. After a couple of quick reroutes it plans along the road you are actually driving — with a notice on screen — and your chosen safety level takes over again once you are back on a planned route. Risk colours and alerts stay honest the whole time. Auto-reroute also can no longer run out for the rest of a drive: the old hard cap of eight reroutes per trip (one tester hit it in 14 minutes) is now a rolling budget that always recovers, and it says so on screen on the rare occasion it pauses.",
+          "category": "feature"
+        },
+        {
+          "icon": "mic-outline",
+          "title": "Alerts stick to your chosen voice",
+          "body": "Safety alerts are spoken from a warmed-up cache now, so the natural Google voice keeps working at exactly the busy moments — like right after a reroute — where it used to briefly fall back to the plain iOS voice. The little spoken confirmations when you tap the voice button (\"Alerts only\") also use your selected voice instead of the system default. When a fallback does still happen, the app now records it so we can see how often.",
+          "category": "fix"
+        },
+        {
+          "icon": "pulse-outline",
+          "title": "Steadier on long drives",
+          "body": "On phones with less memory, a long CarPlay drive could quietly end navigation mid-trip. Tsamaya now watches its own memory and temporarily switches off the decorative extras (3D buildings, the animated route line — never the safety colours) before that can happen, and brings them back once things settle. Risk-area voice alerts also remember their recent history across an app restart, so a restart mid-drive no longer repeats a warning you just heard.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-14.4",
       "date": "14 August 2026",
       "items": [
