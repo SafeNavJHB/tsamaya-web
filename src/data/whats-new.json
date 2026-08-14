@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-14.3",
+      "date": "14 August 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "See a proposed road closure on the map before approving it",
+          "body": "The closure review queue now has a \"See it on the map\" button showing exactly which stretches of road would be marked red, and the area around them, before you approve anything. The watch already worked these out from OpenStreetMap while checking each closure and then discarded them; it now keeps them. Review team only.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-08-14.2",
       "date": "14 August 2026",
       "items": [
