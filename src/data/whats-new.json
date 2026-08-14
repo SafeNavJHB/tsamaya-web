@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-14.1",
+      "date": "14 August 2026",
+      "items": [
+        {
+          "icon": "volume-medium-outline",
+          "title": "Voice prompts no longer weaken locked-phone navigation",
+          "body": "The silent audio loop that keeps navigation running while the phone is locked was being torn down and rebuilt after spoken instructions — on a guided CarPlay drive that happened every few minutes, each time opening a brief gap in which iOS could pause the app. Handing your music back after a prompt now resumes the loop in place instead of rebuilding it. Also fixed the drive log recording the previous route’s remaining distance right after a reroute (display was always correct — only diagnostics were affected).",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-12.2",
       "date": "12 August 2026",
       "items": [
