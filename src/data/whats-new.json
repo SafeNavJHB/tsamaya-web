@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-14.2",
+      "date": "14 August 2026",
+      "items": [
+        {
+          "icon": "construct-outline",
+          "title": "Road-closure alerts now open the closures themselves",
+          "body": "Tapping the daily \"closures awaiting your approval\" notification opened the app on the map with nothing to act on. It now opens a review queue showing each closure the watch found but would not publish on its own — the roads, the time window, the source, and why it was held back — with Approve and Reject. Approving publishes it on the next check, within 30 minutes. Review team only.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-14.1",
       "date": "14 August 2026",
       "items": [
