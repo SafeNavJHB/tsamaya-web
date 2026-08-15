@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-08-15.1",
+      "date": "15 August 2026",
+      "items": [
+        {
+          "icon": "bookmark-outline",
+          "title": "Saved places open properly again",
+          "body": "Tapping a saved place from the Saved Places list used to stack a second copy of the home screen in front of the one that had taken your destination — so the map just slid back to where you were standing and nothing else happened. It now returns to the home screen you came from, with the place set and ready to Go.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "Your car is back on the CarPlay mini map",
+          "body": "The mini map decides on connect whether it can draw a live map, and a busy first connect could make it give up too early and hand the tile to the simpler backup map — which only ever drew a plain arrow, never your chosen car. The check now ignores time the phone spent frozen, the backup map draws your car too, and after the mini map steps aside to save memory it comes back as a map rather than a black rectangle.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-14.5",
       "date": "14 August 2026",
       "items": [
