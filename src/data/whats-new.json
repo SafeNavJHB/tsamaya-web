@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-08-16.4",
+      "date": "16 August 2026",
+      "items": [
+        {
+          "icon": "time-outline",
+          "title": "Risk timing no longer freezes mid-drive",
+          "body": "On long drives the app could keep using daytime risk levels after 17:30 (and evening levels after 19:30), so areas whose risk rises after dark were shown and priced too low. The time of day now updates reliably during navigation, including on CarPlay.",
+          "category": "fix"
+        },
+        {
+          "icon": "layers-outline",
+          "title": "Evening and night risk levels restored for 221 areas",
+          "body": "Some areas had their per-time-of-day risk levels stored in a format the app skipped, so they showed their daytime level all day. Those levels now load correctly.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-16.3",
       "date": "16 August 2026",
       "items": [
