@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-16.1",
+      "date": "16 August 2026",
+      "items": [
+        {
+          "icon": "remove-circle-outline",
+          "title": "Roads that are closed are now routed around",
+          "body": "Some roads are gated off, barricaded or washed away, and map data is often years behind. Tsamaya can now hold its own record of those, plan around them rather than merely treating them as risky, and draw them greyed out with a hatch so they read as “not a road you can use” instead of as a danger area. A closed road is never counted as a safety warning, and if a closure sits between you and your destination you still get a route, with the road named so the barrier is not a surprise.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-08-15.1",
       "date": "15 August 2026",
       "items": [
