@@ -15,6 +15,42 @@
   ],
   "releases": [
     {
+      "version": "2026-08-16.3",
+      "date": "16 August 2026",
+      "items": [
+        {
+          "icon": "volume-high-outline",
+          "title": "Turning voice on mid-drive now tells you the right distance",
+          "body": "Switching voice guidance on partway through a drive used to replay the last turn announcement with its old distance (\"in 3 km\" when the turn was 2.4 km away). It now announces the next turn with the live distance instead.",
+          "category": "fix"
+        },
+        {
+          "icon": "musical-notes-outline",
+          "title": "Music no longer dips seconds before the voice speaks",
+          "body": "Natural-voice prompts are now downloaded and kept on the phone ahead of time, so the music ducks as the voice starts — not three seconds before it, and prompts no longer arrive late at the turn.",
+          "category": "fix"
+        },
+        {
+          "icon": "map-outline",
+          "title": "CarPlay shows rated areas it used to leave blank",
+          "body": "On the car screen, yellow areas were drawn so faintly in daylight they looked like missing data, and verified-safe areas were not drawn at all. Yellow is now clearly visible and verified-safe areas show as a light green tint.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-08-16.2",
+      "date": "16 August 2026",
+      "items": [
+        {
+          "icon": "locate-outline",
+          "title": "Guided tour highlights line up on Android",
+          "body": "On Android the short tour that points out the navigation buttons was drawing its highlight slightly above the button it was describing. The highlight now sits on the right button.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-16.1",
       "date": "16 August 2026",
       "items": [
