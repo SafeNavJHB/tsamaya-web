@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-18.2",
+      "date": "18 August 2026",
+      "items": [
+        {
+          "icon": "git-branch-outline",
+          "title": "The route screen always shows your real choices",
+          "body": "When Fastest, Balanced and Lower-risk all pick the same road, that card now says so in its title (\"Fastest · Balanced · Lower-risk\") instead of showing one unexplained route. And when other sensible roads exist, they appear as extra options — named by their main road, safety-graded, and fully drivable — on the phone and on the CarPlay picker. If there truly is only one sensible road, the screen says that too.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-08-18.1",
       "date": "18 August 2026",
       "items": [
