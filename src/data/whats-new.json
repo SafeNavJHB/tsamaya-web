@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-18.3",
+      "date": "18 August 2026",
+      "items": [
+        {
+          "icon": "battery-charging-outline",
+          "title": "No more background battery drain after a drive",
+          "body": "If a drive ended while your phone was locked, the app could keep using GPS in the background until it was force-closed — showing up as \"Background Location Services\" and real battery drain days later. Location now switches off the moment a drive ends or the app leaves the screen without one, and any stuck session from an older version is cleaned up when you next open the app. Guidance with the screen off during an actual drive is unchanged.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-18.2",
       "date": "18 August 2026",
       "items": [
