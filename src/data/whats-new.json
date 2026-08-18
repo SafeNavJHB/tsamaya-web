@@ -15,6 +15,36 @@
   ],
   "releases": [
     {
+      "version": "2026-08-18.1",
+      "date": "18 August 2026",
+      "items": [
+        {
+          "icon": "speedometer-outline",
+          "title": "Pick Fastest, Balanced or Lower-risk on every trip",
+          "body": "The route options are now named for the trade they make: Fastest takes the quickest way and makes no attempt to avoid flagged areas, while Balanced and Lower-risk steer around them. The Fastest card says plainly when it passes high-risk areas, with a one-time note the first time you choose it. The same three options, with the same wording, appear on the CarPlay route picker.",
+          "category": "feature"
+        },
+        {
+          "icon": "time-outline",
+          "title": "ETAs now belong to the route you actually chose",
+          "body": "When your chosen route was not the road Mapbox considered fastest in traffic, the ETA could show that other road’s time and read minutes off from the very start of the drive. Every option now shows its own live-traffic ETA, and after a mid-drive reroute the ETA keeps its traffic adjustment instead of turning optimistic.",
+          "category": "fix"
+        },
+        {
+          "icon": "expand-outline",
+          "title": "Zoom and pan the CarPlay map",
+          "body": "The CarPlay route screen now has zoom buttons, responds to pinch and drag on touch screens, and redraws the map as you flip between route options. Panning while driving no longer overshoots, and the map returns to following the car a few seconds after you stop exploring.",
+          "category": "feature"
+        },
+        {
+          "icon": "search-outline",
+          "title": "Search for a new destination mid-drive on CarPlay",
+          "body": "A Search button now sits in the CarPlay top bar while navigating. Pick a new place and the route options preview over your current drive — guidance carries on until you tap Go, and cancelling changes nothing.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-08-16.4",
       "date": "16 August 2026",
       "items": [
