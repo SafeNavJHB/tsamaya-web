@@ -10,7 +10,7 @@
 //
 // Nothing here is retyped. If an entry is on the website it is because it shipped.
 //
-//   npm run changelog              (reads ~/Desktop/SafeNav by default)
+//   npm run changelog              (reads ~/Projects/SafeNav by default)
 //   TSAMAYA_APP_DIR=/path npm run changelog
 //   npm run changelog -- --dry
 //
@@ -27,8 +27,17 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const outPath = join(root, 'src', 'data', 'whats-new.json');
 const dryRun = process.argv.includes('--dry');
 
-const appDir = process.env.TSAMAYA_APP_DIR || join(homedir(), 'Desktop', 'SafeNav');
-const sourceFile = join(appDir, 'src', 'constants', 'whatsNew.ts');
+// The app repo's usual homes, tried in order; TSAMAYA_APP_DIR beats them all.
+const sourceIn = (dir) => join(dir, 'src', 'constants', 'whatsNew.ts');
+const defaultAppDirs = [
+  join(homedir(), 'Projects', 'SafeNav'),
+  join(homedir(), 'Desktop', 'SafeNav'), // the repo's home before 2026-08-19
+];
+const appDir =
+  process.env.TSAMAYA_APP_DIR ||
+  defaultAppDirs.find((dir) => existsSync(sourceIn(dir))) ||
+  defaultAppDirs[0];
+const sourceFile = sourceIn(appDir);
 
 if (!existsSync(sourceFile)) {
   console.error(
