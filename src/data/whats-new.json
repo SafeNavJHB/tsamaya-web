@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-19.1",
+      "date": "19 August 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "CarPlay route preview fixed",
+          "body": "The route choices screen now frames your whole route beside the route card instead of behind it — on every head unit, whichever side the card sits. The car marker, speed dial and road pill no longer cover the preview, and the map uses the full visible space.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-18.3",
       "date": "18 August 2026",
       "items": [
