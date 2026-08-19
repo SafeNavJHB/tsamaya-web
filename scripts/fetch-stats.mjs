@@ -15,7 +15,7 @@
 //   node scripts/fetch-stats.mjs --dry  (print, don't write)
 //
 // Credentials come from the environment. The app repo's .env has them, so:
-//   set -a && source ~/Desktop/SafeNav/.env && set +a
+//   set -a && source ~/Projects/SafeNav/.env && set +a
 //   SUPABASE_URL=$EXPO_PUBLIC_SUPABASE_URL SUPABASE_ANON_KEY=$EXPO_PUBLIC_SUPABASE_ANON_KEY \
 //     node scripts/fetch-stats.mjs
 
@@ -33,7 +33,7 @@ const KEY = process.env.SUPABASE_ANON_KEY || process.env.EXPO_PUBLIC_SUPABASE_AN
 if (!URL_BASE || !KEY) {
   console.error(
     'Missing credentials. Set SUPABASE_URL and SUPABASE_ANON_KEY, e.g.:\n\n' +
-      '  set -a && source ~/Desktop/SafeNav/.env && set +a\n' +
+      '  set -a && source ~/Projects/SafeNav/.env && set +a\n' +
       '  SUPABASE_URL=$EXPO_PUBLIC_SUPABASE_URL SUPABASE_ANON_KEY=$EXPO_PUBLIC_SUPABASE_ANON_KEY node scripts/fetch-stats.mjs\n',
   );
   process.exit(1);

@@ -16,7 +16,7 @@
 //    this machine after the pods finish (reproduced twice on 28 July; the Expo
 //    wrapper stalls, Xcode itself is fine):
 //
-//      cd ~/Desktop/SafeNav/ios
+//      cd ~/Projects/SafeNav/ios
 //      xcodebuild -workspace Tsamaya.xcworkspace -scheme Tsamaya \
 //        -configuration Release \
 //        -destination "platform=iOS Simulator,id=<UDID>" \

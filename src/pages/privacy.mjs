@@ -6,7 +6,7 @@ import { renderMarkdown } from '../markdown.mjs';
 
 // The canonical text lives in the APP repo at legal/PRIVACY_POLICY.md and is
 // copied here into src/content/ so this repo builds standalone (CI has no
-// access to ~/Desktop/SafeNav). When the app repo's copy changes, re-copy it.
+// access to ~/Projects/SafeNav). When the app repo's copy changes, re-copy it.
 const here = dirname(fileURLToPath(import.meta.url));
 const md = readFileSync(join(here, '..', 'content', 'privacy.md'), 'utf8');
 
