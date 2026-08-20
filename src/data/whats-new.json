@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-08-20.1",
+      "date": "20 August 2026",
+      "items": [
+        {
+          "icon": "moon-outline",
+          "title": "CarPlay follows your car into night mode",
+          "body": "When your head unit switches to night — a garage, a storm, early winter dusk — the car map now darkens with it instead of staying in daylight. Zone borders are also calmer on the night map, so your route stands out.",
+          "category": "feature"
+        },
+        {
+          "icon": "alert-circle-outline",
+          "title": "Road alerts reach the car screen",
+          "body": "Reroute and heavy-traffic notices now show on CarPlay, closed roads draw their grey hatching there, and if barricades are reported on or near your route you get a heads-up as the drive starts.",
+          "category": "feature"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Cleaner CarPlay chrome",
+          "body": "The speed dial docks in whichever corner is free on your head unit, turn cards only take a risk colour when it matters (orange and red always, calmer tiers near the turn), reporting a speed camera is one screen shorter, and report confirmations dismiss themselves.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-08-19.1",
       "date": "19 August 2026",
       "items": [
