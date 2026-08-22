@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-08-22.1",
+      "date": "22 August 2026",
+      "items": [
+        {
+          "icon": "help-circle-outline",
+          "title": "Route grades now explain themselves",
+          "body": "A route card could show a worse grade than the one below it while listing fewer flagged areas, with nothing on screen to explain the gap. The missing piece was distance through low-risk areas, which counts towards the grade but was never shown. Route cards now say it, so the letter always matches what is listed.",
+          "category": "fix"
+        },
+        {
+          "icon": "phone-portrait-outline",
+          "title": "Android phones now get updates too",
+          "body": "Updates are published to Android as well as iPhone from now on, so both run the same version of Tsamaya. This one brings Android up to date with everything shipped since 16 August: honest traffic ETAs, the rebuilt route picker, background GPS that stops when the drive does, and the mid-drive time band fix.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-08-20.1",
       "date": "20 August 2026",
       "items": [
