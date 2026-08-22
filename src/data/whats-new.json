@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-08-22.2",
+      "date": "22 August 2026",
+      "items": [
+        {
+          "icon": "navigate-circle-outline",
+          "title": "Starting a drive far from its start no longer ends it instantly",
+          "body": "If a drive began while you were well away from the planned starting point, it could count as \"arrived\" the moment it started and stop before it began. It now re-routes from where you actually are and carries on, as it should.",
+          "category": "fix"
+        },
+        {
+          "icon": "pulse-outline",
+          "title": "Diagnostics tell memory in use from memory reserved",
+          "body": "The diagnostics export and its heartbeat now record how much memory the app is actually using alongside how much it has reserved. The reserved figure was the one that looked like a leak in recent reports; the two numbers together settle that at a glance.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-08-22.1",
       "date": "22 August 2026",
       "items": [
