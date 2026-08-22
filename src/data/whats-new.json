@@ -19,6 +19,12 @@
       "date": "22 August 2026",
       "items": [
         {
+          "icon": "car-outline",
+          "title": "CarPlay mini map comes back after a music detour",
+          "body": "On the CarPlay dashboard, switching to full-screen music and back could leave the Tsamaya mini map on its plain road-and-speed card, or show a blank tile for a few seconds while the map rebuilt. The map now stays ready while you are away and comes back already on your car. On phones where a long drive pushes memory high, the mini map also returns once things settle instead of staying hidden for the rest of the trip.",
+          "category": "fix"
+        },
+        {
           "icon": "help-circle-outline",
           "title": "Route grades now explain themselves",
           "body": "A route card could show a worse grade than the one below it while listing fewer flagged areas, with nothing on screen to explain the gap. The missing piece was distance through low-risk areas, which counts towards the grade but was never shown. Route cards now say it, so the letter always matches what is listed.",
