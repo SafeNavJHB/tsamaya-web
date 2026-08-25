@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-08-25.2",
+      "date": "25 August 2026",
+      "items": [
+        {
+          "icon": "bug-outline",
+          "title": "Crash reports now reach us, so faults actually get fixed",
+          "body": "If the app crashes, it now sends us the fault and a short trail of what led up to it. Until today, a crash you hit was simply a crash we never heard about. The reports carry no name and no account, and your saved places, your starting point, your destination and every coordinate are stripped out on your phone before anything is sent. They are stored in the European Union and used only to fix faults.",
+          "category": "feature"
+        },
+        {
+          "icon": "document-text-outline",
+          "title": "Privacy policy and terms brought up to date",
+          "body": "The Legal section in Settings now carries the current documents: Tsamaya (Pty) Ltd as the responsible party, info@tsamayaapp.co.za as the contact address, the two optional notification switches described in full, and a new section covering crash reporting. Nothing about how routes are chosen has changed.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-08-25.1",
       "date": "25 August 2026",
       "items": [
