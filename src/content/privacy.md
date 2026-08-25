@@ -1,8 +1,8 @@
 # Tsamaya Privacy Policy
 
-**Status: v0.9 — prepared 2026-08-09 (added §4a disclosing optional push notifications: the device push token, platform and coarse metro stored per device, the two independent opt-in switches, and Expo/APNs/FCM as delivery processors; v0.8 moved the responsible party from Kyle Guy Kimble personally to Tsamaya (Pty) Ltd, unified contact on info@tsamayaapp.co.za, added Google Play as an Android distribution processor, and generalised iOS-only wording — all ahead of the Google Play listing under the company's developer account; v0.7 corrected live-trip link expiry to match implementation — active trips 12 h rolling, ended/arrived trips ~30 min, SOS links 24 h, §3a/§6; v0.6 disclosed optional live trip sharing, §3a/§2/§5/§6; v0.5 added Google Places API as the place-search processor, §1/§5). This text is not legal advice and remains subject to review by a South African attorney. Items still open for that review are tracked as notes in the source document.**
+**Status: v1.0 — prepared 2026-08-25 (enabled crash reporting and disclosed it before switching it on, as v0.9 undertook to do: §4 now describes what a crash report contains, that the event trail is filtered on-device to remove coordinates, place names and destinations, and that the data is stored in the EU; §5 adds Sentry as a processor). Earlier revisions: v0.9 — prepared 2026-08-09 (added §4a disclosing optional push notifications: the device push token, platform and coarse metro stored per device, the two independent opt-in switches, and Expo/APNs/FCM as delivery processors; v0.8 moved the responsible party from Kyle Guy Kimble personally to Tsamaya (Pty) Ltd, unified contact on info@tsamayaapp.co.za, added Google Play as an Android distribution processor, and generalised iOS-only wording — all ahead of the Google Play listing under the company's developer account; v0.7 corrected live-trip link expiry to match implementation — active trips 12 h rolling, ended/arrived trips ~30 min, SOS links 24 h, §3a/§6; v0.6 disclosed optional live trip sharing, §3a/§2/§5/§6; v0.5 added Google Places API as the place-search processor, §1/§5). This text is not legal advice and remains subject to review by a South African attorney. Items still open for that review are tracked as notes in the source document.**
 
-**Effective date:** 9 August 2026
+**Effective date:** 25 August 2026
 **Responsible party (POPIA):** Tsamaya (Pty) Ltd (reg. K2023990736), South Africa ("we", "us")
 **Contact:** info@tsamayaapp.co.za
 
@@ -64,7 +64,13 @@ When you end the trip or arrive, live updates stop and the private link **expire
 
 During the beta, the app records **anonymous, aggregate usage events** to help us understand whether people find Tsamaya useful and to decide its future — for example: the app being opened, a route being requested, accepted, or completed, a reroute, or a report being sent. These events carry only **coarse, non-identifying** details (such as the metro you are in, a rounded distance or duration, and whether the lower-risk route was chosen), together with the random installation identifier described in section 3 and the app version. They **never** include your name, an account, your start or end locations, place names, or precise coordinates. We use them **only in aggregate** — never to profile you — and you can ask us to stop.
 
-Crash reporting is **not yet enabled**. If we add a crash-reporting tool (e.g. Sentry) to improve stability, it would process technical crash data (device model, OS version, stack traces) and we will update this policy and the app's privacy labels **before** enabling it.
+**Crash reporting is enabled.** When the app crashes or hits an unexpected error, it sends a technical report to Sentry so that we can find and fix it. During a beta this matters more than usual: without it, a crash you hit is simply a crash we never learn about.
+
+A crash report contains the error and its stack trace, your device model and operating system version, the app and update version, and the random installation identifier described in section 3. It also carries a short trail of recent app events — a reroute, a change in risk level, connecting to a car screen — so that we can see what led up to the failure.
+
+That trail is **filtered on your phone before anything is sent**: place names, your starting point and destination, and all coordinates are stripped out, and only simple values are allowed through. A crash report never contains your name, an account, where you were, or where you were going. Sentry stores this data in the **European Union**.
+
+We use crash reports only to fix faults. They are not used to profile you and are not shared for any other purpose.
 
 ## 4a. Push notifications (optional)
 
@@ -88,6 +94,7 @@ We do not use notifications for advertising, and we do not send them for anyone 
 | Supabase (cloud hosting) | Hosts our public risk-zone dataset, user reports, reviewer authentication, anonymous usage events, and any live trip you choose to share (while active) | IP/request metadata; report contents (incl. optional emails); reviewer emails (admins only); anonymous usage events; shared-trip location while active |
 | Apple Inc. (USA) | App distribution (App Store, TestFlight) | Per Apple's terms |
 | Google LLC (USA) | App distribution on Android (Google Play) | Per Google Play's terms |
+| Functional Software, Inc. dba Sentry (EU data region — Germany) | Crash and error reporting | The error and its stack trace, device model, OS version, app and update version, the random installation identifier, and a filtered trail of recent app events. Never coordinates, place names, start/end points or other personal information |
 | Expo (650 Industries, Inc., USA) | Push-notification delivery, if you opt in (§4a) | Device push token, notification title/text |
 | Apple Inc. (USA) / Google LLC (USA) | Push delivery to the device itself (APNs / Firebase Cloud Messaging) | Device push token, notification title/text |
 
