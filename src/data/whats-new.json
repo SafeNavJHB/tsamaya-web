@@ -27,7 +27,7 @@
         {
           "icon": "close-circle-outline",
           "title": "Closing a report map no longer forces a decision",
-          "body": "In the report review screen, opening \"View on map\" left the close button invisible against the light map, so the only apparent ways out were approving, rejecting, or force-quitting. The close button is now readable on every report map.",
+          "body": "In the report review screen, opening \"View on map\" left no way out except approving, rejecting, or force-quitting — the close button was being laid out underneath the details panel, off screen. It now sits at the top of every report map where you can actually reach it.",
           "category": "fix"
         }
       ]
