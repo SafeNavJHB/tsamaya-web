@@ -11,7 +11,7 @@ const hero = `
   <div class="wrap">
     ${eyebrow('Get the app')}
     <h1>Put Tsamaya on your phone.</h1>
-    <p class="lede center-narrow">Free while in beta, on both platforms — TestFlight on iPhone, a direct download on Android. A couple of minutes to set up, and you can leave whenever you like.</p>
+    <p class="lede center-narrow">Free while in beta, on both platforms — TestFlight on iPhone, Google Play on Android. A couple of minutes to set up, and you can leave whenever you like.</p>
   </div>
 </section>`;
 
@@ -27,20 +27,20 @@ const iosAction = hasPublicLink
     )}">${icon('mail', 18)} Ask for the link</a>
      <p class="muted">Send us your email address and we’ll reply with the TestFlight link and a short guide. That’s all we need — no Apple ID, no forms.</p>`;
 
-// Android: a direct download. The APK lives on this repo's GitHub Releases
-// behind an evergreen URL — see the androidApk block in site.config.mjs for
-// the whole story and the one-line swap to the Play Store when it's live.
-const androidCard = site.androidApk?.url
+// Android: Google Play open testing (live 22 August 2026). This used to be a
+// direct APK download; see the androidPlayLink note in site.config.mjs for why
+// the store route is worth the swap.
+const androidCard = site.androidPlayLink
   ? `
       <div class="note-card platform-card">
         <h3>${icon('phone', 20)} On Android</h3>
-        <p>Tsamaya installs directly — no store account, no invite needed. The Play Store listing is on its way; this is the same app, a step earlier.</p>
-        <a class="btn btn-primary btn-lg" href="${site.androidApk.url}" rel="noopener">${icon('download', 18)} Download for Android</a>
-        <p class="muted">APK · v${site.androidApk.version} · ${site.androidApk.sizeMb} MB · updated ${site.androidApk.updated}</p>
+        <p>Tsamaya is on Google Play as an open test — the normal install, with no invite and nothing to sideload. Updates arrive on their own, the same as any other app.</p>
+        <a class="btn btn-primary btn-lg" href="${site.androidPlayLink}" rel="noopener">${icon('download', 18)} Get it on Google Play</a>
+        <p class="muted">Play will say you’re joining a test. That’s expected — it’s how beta builds reach you.</p>
         <ol class="mini-steps">
-          <li>Download <strong>tsamaya.apk</strong> on your phone.</li>
-          <li>Open the downloaded file and allow the install when your phone asks.</li>
-          <li>Android may warn about an unknown developer — that’s normal for an app from outside the Play Store.</li>
+          <li>Open the Play Store link on your Android phone.</li>
+          <li>Tap Install, as you would for anything else.</li>
+          <li>That’s it — updates arrive automatically during the beta.</li>
         </ol>
       </div>`
   : '';
@@ -112,6 +112,6 @@ export default {
   slug: 'get-app.html',
   title: 'Get the app',
   description:
-    'Install Tsamaya on iPhone (TestFlight) or Android (direct download) — free during the beta — and get set up in about five minutes.',
+    'Install Tsamaya on iPhone (TestFlight) or Android (Google Play) — free during the beta — and get set up in about five minutes.',
   body: [hero, platforms, gettingStarted, cta].join('\n'),
 };

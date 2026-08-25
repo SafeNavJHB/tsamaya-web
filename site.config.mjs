@@ -58,25 +58,19 @@ export const site = {
   // it just costs you a manual reply each time.
   testflightPublicLink: '',
 
-  // DIRECT ANDROID DOWNLOAD — the Android beta installs straight from an APK
-  // hosted on THIS repo's GitHub Releases (the repo is public; releases are
-  // used ONLY for Android APKs and the asset is always named tsamaya.apk, so
-  // the evergreen /releases/latest/download/ URL below never changes — publish
-  // a new release and every button on the site serves the new build; see
-  // docs/ANDROID.md in the app repo for the two-command release flow).
+  // ANDROID — Google Play open testing, live since 22 August 2026. This
+  // replaced the direct APK download that ran until then (GitHub Releases,
+  // /releases/latest/download/tsamaya.apk). The swap matters for more than
+  // tidiness: a sideloaded APK makes Android warn about an unknown developer,
+  // costs people the "unknown sources" dance, and never auto-updates — three
+  // reasons a tester gives up before the app ever opens.
   //
-  // WHEN THE PLAY STORE LISTING GOES LIVE: replace `url` with the Play link
-  // (https://play.google.com/store/apps/details?id=com.tsamaya.app), delete
-  // version/sizeMb/sha256, and trim the install caveats in
-  // src/pages/contact.mjs — exactly the same swap the TestFlight link above
-  // will get when the App Store listing lands.
-  androidApk: {
-    url: 'https://github.com/SafeNavJHB/tsamaya-web/releases/latest/download/tsamaya.apk',
-    version: '1.4.1 (build 2)',
-    updated: '11 August 2026',
-    sizeMb: 195,
-    sha256: '67f4609641d31335093ee2d85dafeb94b840d6d2d297ee63d5ac08e1dfd88ad1',
-  },
+  // Open testing means anyone with the link installs from the Play Store as
+  // normal; Play itself presents it as a test, so the page says so too rather
+  // than implying a finished release. No version/size/checksum here on
+  // purpose: Play always serves the current build, so any number written on
+  // this site would only ever go stale.
+  androidPlayLink: 'https://play.google.com/store/apps/details?id=com.tsamaya.app',
 
   // Legal pages now live on THIS site (src/pages/privacy.mjs + terms.mjs, text
   // rendered from src/content/*.md). They used to be a separate GitHub Pages
