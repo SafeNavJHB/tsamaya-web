@@ -55,8 +55,9 @@ export const site = {
   // so there is nothing sensitive about putting it on the site.
   //
   // Left empty, the page falls back to the email request flow — which still works,
-  // it just costs you a manual reply each time.
-  testflightPublicLink: '',
+  // it just costs you a manual reply each time. Filled in 2026-08-25, so the iOS
+  // card now installs directly and no longer routes people through Kyle's inbox.
+  testflightPublicLink: 'https://testflight.apple.com/join/BZmAqy4v',
 
   // ANDROID — Google Play open testing, live since 22 August 2026. This
   // replaced the direct APK download that ran until then (GitHub Releases,
