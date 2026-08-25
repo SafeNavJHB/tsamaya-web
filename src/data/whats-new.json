@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-08-25.1",
+      "date": "25 August 2026",
+      "items": [
+        {
+          "icon": "moon-outline",
+          "title": "The car screen map is properly dark at night again",
+          "body": "On CarPlay and Android Auto after dark, a medium-risk area could tint the whole map until it looked like the daytime map dimmed, washing out the roads. Medium-risk areas are now drawn lighter over the night map, so the map reads as night and the roads stay clear. Daytime is unchanged.",
+          "category": "fix"
+        },
+        {
+          "icon": "close-circle-outline",
+          "title": "Closing a report map no longer forces a decision",
+          "body": "In the report review screen, opening \"View on map\" left the close button invisible against the light map, so the only apparent ways out were approving, rejecting, or force-quitting. The close button is now readable on every report map.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-22.2",
       "date": "22 August 2026",
       "items": [
