@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-28.3",
+      "date": "28 August 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "CarPlay mini map stays up on long drives",
+          "body": "On longer drives the small dashboard map could step aside for about ten minutes and show only the speed card, because a routine memory reading was mistaken for memory trouble. The app now tells the two apart: the mini map stays up through a normal drive, and still gets out of the way instantly when the phone is genuinely running low on memory.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-28.2",
       "date": "28 August 2026",
       "items": [
