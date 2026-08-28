@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-08-28.2",
+      "date": "28 August 2026",
+      "items": [
+        {
+          "icon": "bug-outline",
+          "title": "Sharper crash reports",
+          "body": "When something does go wrong, the crash report can now pinpoint the exact place in the app's code, so fixes land faster. Nothing new is collected — this only makes the existing reports readable.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-08-28.1",
       "date": "28 August 2026",
       "items": [
