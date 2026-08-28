@@ -15,6 +15,84 @@
   ],
   "releases": [
     {
+      "version": "2026-08-28.1",
+      "date": "28 August 2026",
+      "items": [
+        {
+          "icon": "volume-mute-outline",
+          "title": "Quieter alerts on safer roads",
+          "body": "When a verified safer road takes you through a risk area (say, a protected highway through a red zone), the spoken \"entering a higher-risk area\" warning now stays quiet: the road is doing its job. The zone still shows on the map and the screen edge, and a road that is itself flagged as dangerous still warns. You can switch this off in Settings under Safety alerts, \"Quiet on safer roads\".",
+          "category": "feature"
+        },
+        {
+          "icon": "contrast-outline",
+          "title": "The route screen follows your theme",
+          "body": "The route-options screen now matches your Light or Dark setting like the rest of the app, instead of always being dark. The risk pills, the A-E safety grade and the numbered stop badges all got legible text on every colour, and the map ribbon stays neutral until a route is actually chosen.",
+          "category": "feature"
+        },
+        {
+          "icon": "flag-outline",
+          "title": "Ending a drive early no longer reads as \"arrived\"",
+          "body": "If you end a drive before the destination, the trip summary and anyone following your shared link now see that the drive ended — not \"Arrived safely\". Arriving still reads as arriving.",
+          "category": "fix"
+        },
+        {
+          "icon": "create-outline",
+          "title": "Tap a stop or destination to edit it",
+          "body": "Tapping a filled stop or the destination name now opens it for editing instead of deleting it or dropping the whole route. The ✕ is the only way to remove one.",
+          "category": "fix"
+        },
+        {
+          "icon": "search-outline",
+          "title": "Search results can no longer get stale or stuck",
+          "body": "Slow search responses can no longer overwrite what you typed next, relabel a dropped pin, or leave the spinner running. Nearby category search says when search is unavailable rather than claiming an empty neighbourhood.",
+          "category": "fix"
+        },
+        {
+          "icon": "sparkles-outline",
+          "title": "Smaller polish across the app",
+          "body": "The guide follows your theme, banners at the bottom of the map stack instead of overlapping, the Go button is easier to hit, offline maps no longer flash an empty list, and the About screen shows the exact version for bug reports. In landscape, the guided tour now points at the controls it is describing, and opening Routes from a connected head unit fits the whole route on screen the way it does on the phone.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-08-25.3",
+      "date": "25 August 2026",
+      "items": [
+        {
+          "icon": "location-outline",
+          "title": "The app now says so when location is off",
+          "body": "If location permission is denied or no GPS fix arrives, the home screen and the drive screen now show a clear \"Location is off\" notice you can tap to jump straight to your phone's settings. Before, the app quietly routed you from Rosebank and left you guessing.",
+          "category": "fix"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "Start Navigation stays on screen",
+          "body": "On the route screen the Start Navigation and Google Maps buttons are now pinned at the bottom, so they no longer slide out of view when the lower-risk options arrive.",
+          "category": "fix"
+        },
+        {
+          "icon": "cloud-download-outline",
+          "title": "Honest banner while risk data syncs",
+          "body": "A fresh install used to claim \"Offline — showing bundled zone data\" while it was actually online and busy downloading. It now says it is getting the latest risk data, and only says Offline when it really is.",
+          "category": "fix"
+        },
+        {
+          "icon": "school-outline",
+          "title": "First-run flow untangled",
+          "body": "The welcome tour and the notifications question no longer pop up over the intro slides, replaying the intro from Settings no longer shows the risk disclaimer again or leaves a duplicate map behind, and the About screen now reports the real app version.",
+          "category": "fix"
+        },
+        {
+          "icon": "color-palette-outline",
+          "title": "Light-mode and small-screen polish",
+          "body": "The legal documents now follow your light or dark theme, search says \"No results\" or \"Couldn't search\" instead of showing a blank pane, and a handful of screens got small layout corrections.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-08-25.2",
       "date": "25 August 2026",
       "items": [
@@ -573,7 +651,7 @@
         {
           "icon": "shield-checkmark",
           "title": "Safer routes will now go the long way around",
-          "body": "When the direct road runs through high-risk areas, the Balanced and Safest options used to cap how far around they would take you — on some trips the only genuinely safer road was just past that cap, so all three options collapsed onto the same risky route. Escaping high-risk areas now earns extra detour room in proportion to the risk it removes, so a trip whose direct road crosses several danger zones can take the highway loop around them instead.",
+          "body": "When the direct road runs through high-risk areas, the Balanced and Lower-risk options used to cap how far around they would take you — on some trips the only genuinely safer road was just past that cap, so all three options collapsed onto the same risky route. Escaping high-risk areas now earns extra detour room in proportion to the risk it removes, so a trip whose direct road crosses several danger zones can take the highway loop around them instead.",
           "category": "fix"
         }
       ]
@@ -921,7 +999,7 @@
         {
           "icon": "map",
           "title": "The route picker shows the route again",
-          "body": "Choosing between Safest, Balanced and Fastest on the car screen zoomed out to fit the route across the whole display — including the half hidden behind the list of choices. It now fits the route into the part of the map you can actually see.",
+          "body": "Choosing between Fastest, Balanced and Lower-risk on the car screen zoomed out to fit the route across the whole display — including the half hidden behind the list of choices. It now fits the route into the part of the map you can actually see.",
           "category": "fix"
         }
       ]
@@ -957,7 +1035,7 @@
         {
           "icon": "git-branch",
           "title": "Route picker: a real Cancel, and a real overview",
-          "body": "Choosing between Safest, Balanced and Fastest on the car screen now zooms out to show the whole route you are picking, and there is a clear ✕ to back out — instead of one unlabelled arrow in the far corner.",
+          "body": "Choosing between Fastest, Balanced and Lower-risk on the car screen now zooms out to show the whole route you are picking, and there is a clear ✕ to back out — instead of one unlabelled arrow in the far corner.",
           "category": "fix"
         },
         {
@@ -1677,7 +1755,7 @@
         {
           "icon": "color-filter-outline",
           "title": "Road colour and area alert, shown separately",
-          "body": "While navigating, the route now shows the ROAD’s own risk — a safe road stays green even through a high-risk area — and the glowing screen edge shows the AREA’s risk. So on a safe route through a red zone you see a green road with a red screen edge: you’re on the safe way through, and you can still see the area is high-risk.",
+          "body": "While navigating, the route now shows the ROAD’s own risk — a lower-risk road stays green even through a high-risk area — and the glowing screen edge shows the AREA’s risk. So on a lower-risk route through a red zone you see a green road with a red screen edge: you’re on the lower-risk way through, and you can still see the area is high-risk.",
           "category": "tweak"
         }
       ]
@@ -1694,8 +1772,8 @@
         },
         {
           "icon": "shield-outline",
-          "title": "Safe routes still flag the most dangerous areas",
-          "body": "On a safe route through a very high-risk (red) area, the road now shows an amber “stay alert” instead of green — so a red area is never shown as completely risk-free, even on the safe way through it.",
+          "title": "Lower-risk routes still flag the most dangerous areas",
+          "body": "On a lower-risk route through a very high-risk (red) area, the road now shows an amber “stay alert” instead of green — so a red area is never shown as completely risk-free, even on the lower-risk way through it.",
           "category": "fix"
         }
       ]
@@ -1718,8 +1796,8 @@
         },
         {
           "icon": "shield-checkmark-outline",
-          "title": "Safe roads show as safe while you drive",
-          "body": "A road we mark as a safe way through a risky area (a safe corridor, like the N3) now shows green while you navigate, instead of turning yellow or orange where it clips a flagged zone — matching how it already looks on the map.",
+          "title": "Lower-risk roads show green while you drive",
+          "body": "A road we mark as a lower-risk way through a risky area (a lower-risk corridor, like the N3) now shows green while you navigate, instead of turning yellow or orange where it clips a flagged zone — matching how it already looks on the map.",
           "category": "fix"
         }
       ]
@@ -1803,7 +1881,7 @@
         {
           "icon": "search-outline",
           "title": "Search destinations from the car",
-          "body": "A new Where to? button on the CarPlay screen lets you search any destination on the car’s keyboard — plus your saved places and recent trips — and pick a Safest / Balanced / Fastest route without touching your phone. Route options now show the trade-off: “Avoids 2 risk areas · +4 min”.",
+          "body": "A new Where to? button on the CarPlay screen lets you search any destination on the car’s keyboard — plus your saved places and recent trips — and pick a Fastest / Balanced / Lower-risk route without touching your phone. Route options now show the trade-off: “Avoids 2 risk areas · +4 min”.",
           "category": "feature"
         },
         {
