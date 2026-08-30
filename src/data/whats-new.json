@@ -15,6 +15,54 @@
   ],
   "releases": [
     {
+      "version": "2026-08-30.1",
+      "date": "30 August 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Dashboard mini map no longer disappears mid-drive",
+          "body": "The small CarPlay dashboard map could go dark for ten minutes in the middle of a long drive — a memory safeguard was misreading normal driving as a problem. It now steps aside only when the phone itself reports memory trouble, and comes back within about a minute instead of ten.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-08-29.1",
+      "date": "29 August 2026",
+      "items": [
+        {
+          "icon": "square-outline",
+          "title": "Risk areas are outlines on the car screen",
+          "body": "On CarPlay and Android Auto, risk areas are now drawn as a coloured boundary instead of a coloured wash over the map. The shading made the roads inside a zone hard to pick out, and at night a yellow or orange area lit up the whole display. The outline says the same thing without touching the roads, and the screen edge still glows when you are inside a higher-risk area. The phone map is unchanged.",
+          "category": "feature"
+        },
+        {
+          "icon": "car-outline",
+          "title": "Hijacking hotspots and speed cameras on the mini map",
+          "body": "The small dashboard map on CarPlay now shows the same hotspot and speed-camera pins the phone and the main car screen have always shown. Both still follow their switches in Settings.",
+          "category": "feature"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "The car map opens on your location",
+          "body": "Connecting to CarPlay or Android Auto without opening the app on your phone first left the car map with no vehicle and no risk areas until the first GPS fix arrived, which in a garage can take a while. It now starts from your last known position, so the map opens where you are.",
+          "category": "fix"
+        },
+        {
+          "icon": "resize-outline",
+          "title": "Bigger, better-placed controls on the car screen",
+          "body": "The car screen now measures itself instead of trusting the size the system reports at connection time, so the speed dial and the road card are sized for the screen you actually have. On large head units they now grow past phone size rather than stopping there. Your car is also positioned against the part of the map you can really see, which fixes the off-centre map on the Android Auto split screen.",
+          "category": "fix"
+        },
+        {
+          "icon": "information-circle-outline",
+          "title": "Free drive tells you about the road, not the suburb",
+          "body": "With no route set, the dashboard card put the area warning next to the road name, so a clean street inside a busier suburb read as if the street itself were the problem. The card now describes the road you are on. The area is still shown, by the coloured frame around the tile.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-28.3",
       "date": "28 August 2026",
       "items": [
