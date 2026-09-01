@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-01.1",
+      "date": "1 September 2026",
+      "items": [
+        {
+          "icon": "sunny-outline",
+          "title": "Day and night maps agree on the car screen",
+          "body": "With Map lighting on Auto, the main CarPlay map could stay in night colours on a bright day while the dashboard mini map correctly showed day. Some cars report night mode to apps all the time, so the map no longer listens to the car for its look: every screen now follows the time of day together.",
+          "category": "fix"
+        },
+        {
+          "icon": "apps-outline",
+          "title": "Car-screen buttons recover on their own",
+          "body": "Tapping the CarPlay map hides the on-screen buttons, and they could then refuse to come back. The app now quietly re-places its buttons as you drive or touch the screen, so a stuck strip rights itself within seconds.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "The mini map keeps your car while stopped",
+          "body": "The dashboard mini map hid the car marker whenever you stood still for a few seconds, and it only returned once you moved off. A parked car now stays on its map.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-08-30.1",
       "date": "30 August 2026",
       "items": [
