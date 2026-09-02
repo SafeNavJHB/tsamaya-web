@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-02.4",
+      "date": "2 September 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Pilanesberg and Sun City are covered",
+          "body": "Risk zones and road ratings now cover Pilanesberg National Park and the areas around it, including Sun City, Ledig, Mogwase and Moruleng. Routes through the park and the resort are scored the same way as the metros, and the approach roads (the R510, R512, R556 and R565) each carry their own rating. Your location is also recognised there now, so the map opens where you actually are instead of falling back to Johannesburg.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-02.3",
       "date": "2 September 2026",
       "items": [
