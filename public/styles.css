@@ -347,6 +347,9 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .ref-banner strong { color: var(--emerald-text); }
 
 .bank-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+/* One account (the usual case since the company account replaced the two
+   personal ones) would otherwise sit in the left column with a hole beside it. */
+.bank-grid-one { grid-template-columns: minmax(0, 460px); justify-content: center; }
 .bank-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 26px; box-shadow: var(--shadow-sm); }
 .bank-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
 .bank-logo { font-family: var(--display); font-weight: 800; font-size: 0.8rem; letter-spacing: 0.04em; background: var(--ink); color: #fff; width: 52px; height: 52px; border-radius: 13px; display: grid; place-items: center; flex: none; }

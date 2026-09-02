@@ -88,7 +88,7 @@ function accountCard(a) {
     </header>
     ${row('Account holder', a.holder, false)}
     ${row('Account number', a.number)}
-    ${row('Branch', a.branchName, false)}
+    ${a.branchName ? row('Branch', a.branchName, false) : ''}
     ${row('Branch code', a.branchCode)}
     ${row('SWIFT / BIC', a.swift)}
   </article>`;
@@ -105,10 +105,10 @@ const donate = section({
     ${icon('bolt', 18)} <span>Payment reference:</span> <strong>${banking.reference}</strong>
     <button class="copy-btn" data-copy="${banking.reference}" aria-label="Copy reference">${icon('copy', 14)}</button>
   </div>
-  <div class="bank-grid">
+  <div class="bank-grid${banking.accounts.length === 1 ? ' bank-grid-one' : ''}">
     ${banking.accounts.map(accountCard).join('')}
   </div>
-  <p class="footnote">${icon('shield', 15)} Tsamaya is an independent project, not a registered public-benefit organisation, so donations aren’t tax-deductible. They’re simply support, and they mean a great deal. Once you’ve sent something, <a href="contact.html">drop us a line</a> so we can thank you properly.</p>`,
+  <p class="footnote">${icon('shield', 15)} Payments go to Tsamaya (Pty) Ltd. We are not a registered public-benefit organisation, so donations are not tax-deductible. They are simply support, and they mean a great deal. Once you’ve sent something, <a href="contact.html">drop us a line</a> so we can thank you properly.</p>`,
 });
 
 const cta = `

@@ -15,7 +15,7 @@ const hero = `
   <div class="wrap">
     ${eyebrow('Legal')}
     <h1>Terms of use</h1>
-    <p class="lede center-narrow">The agreement covering your use of Tsamaya — including what the app does not promise.</p>
+    <p class="lede center-narrow">The agreement covering your use of Tsamaya, including what the app does not promise.</p>
   </div>
 </section>`;
 

@@ -75,9 +75,9 @@ const timeBands = section({
       <h2>The same road isn’t equally risky all day.</h2>
       <p class="big">Every zone carries three separate risk bands. Tsamaya reads the clock and routes against the band that actually applies right now.</p>
       <div class="band-pills">
-        <span class="pill pill-day">${icon('clock', 16)} Daytime · 05:00–18:00</span>
-        <span class="pill pill-eve">${icon('clock', 16)} Evening · 18:00–22:00</span>
-        <span class="pill pill-night">${icon('clock', 16)} Night · 22:00–05:00</span>
+        <span class="pill pill-day">${icon('clock', 16)} Daytime · 05:00–17:30</span>
+        <span class="pill pill-eve">${icon('clock', 16)} Evening · 17:30–19:30</span>
+        <span class="pill pill-night">${icon('clock', 16)} Night · 19:30–05:00</span>
       </div>
     </div>
     <div class="device-pair">

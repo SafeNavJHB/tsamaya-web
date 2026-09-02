@@ -202,30 +202,26 @@ export const nav = [
   { href: 'contact.html', label: 'Contact' },
 ];
 
-// Banking details for direct EFT donations / sponsorships (provided by the founder).
-// Reference convention helps reconcile incoming payments.
+// Banking details for direct EFT donations / sponsorships.
+// This is the company account. Money raised for Tsamaya belongs to TSAMAYA (PTY)
+// LTD, and a donor who sees the holder name match the company has one less reason
+// to hesitate. Kyle's personal Investec and Discovery accounts sat here until the
+// business account replaced them in September 2026; do not put a personal account
+// back, it makes the books a reconciliation problem.
+// The reference convention is what lets an incoming payment be identified.
+// `branchName` is optional. Nedbank uses a single universal branch code, so there
+// is no branch worth naming and the row is left out.
 export const banking = {
   reference: 'Tsamaya + your name',
   accounts: [
     {
-      bank: 'Investec',
-      logo: 'INV',
-      holder: 'Mr KG Kimble',
-      type: 'Investec Bank Limited',
-      number: '10013287872',
-      branchName: 'Investec Bank Grayston Drive',
-      branchCode: '580105',
-      swift: 'IVESZAJJXXX',
-    },
-    {
-      bank: 'Discovery Bank',
-      logo: 'DISC',
-      holder: 'Kyle Kimble',
-      type: 'Current Account',
-      number: '11988334942',
-      branchName: 'Discovery Bank',
-      branchCode: '679000',
-      swift: 'DISCZAJJXXX',
+      bank: 'Nedbank',
+      logo: 'NED',
+      holder: 'TSAMAYA (PTY) LTD',
+      type: 'Current account',
+      number: '1347984453',
+      branchCode: '198765',
+      swift: 'NEDSZAJJXXX',
     },
   ],
 };

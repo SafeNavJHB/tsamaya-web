@@ -286,8 +286,8 @@ function screenResult() {
       <!-- avoided list -->
       <text x="20" y="488" fill="#94a3b8" font-size="11" letter-spacing="1">AVOIDED ON THIS ROUTE</text>
       <g>
-        <circle cx="26" cy="508" r="5" fill="${colors.red}"/><text x="40" y="512" fill="#e2e8f0" font-size="13" font-family="system-ui">Hillbrow — hijacking, robbery</text>
-        <circle cx="26" cy="532" r="5" fill="${colors.orange}"/><text x="40" y="536" fill="#e2e8f0" font-size="13" font-family="system-ui">Berea — smash-and-grab</text>
+        <circle cx="26" cy="508" r="5" fill="${colors.red}"/><text x="40" y="512" fill="#e2e8f0" font-size="13" font-family="system-ui">Hillbrow: hijacking, robbery</text>
+        <circle cx="26" cy="532" r="5" fill="${colors.orange}"/><text x="40" y="536" fill="#e2e8f0" font-size="13" font-family="system-ui">Berea: smash-and-grab</text>
       </g>
       <!-- actions -->
       <rect x="16" y="560" width="138" height="46" rx="14" fill="${colors.emerald}"/>

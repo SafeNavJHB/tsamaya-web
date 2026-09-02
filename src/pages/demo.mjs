@@ -126,7 +126,7 @@ const notes = section({
 const cta = `
 <section class="cta-band">
   <div class="wrap cta-inner">
-    <div><h2>Try it yourself.</h2><p>Tsamaya is in open beta — TestFlight on iPhone, Google Play on Android.</p></div>
+    <div><h2>Try it yourself.</h2><p>Tsamaya is in open beta: TestFlight on iPhone, Google Play on Android.</p></div>
     <div class="cta-actions">${button('Join the beta', 'get-app.html', 'primary')}${button('How it works', 'how-it-works.html', 'ghost-light')}</div>
   </div>
 </section>`;

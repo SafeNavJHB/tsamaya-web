@@ -54,7 +54,7 @@ const main = section({
       </div>
       <div class="contact-card">
         <h3>${icon('phone', 18)} Here for the app?</h3>
-        <p>Downloads and setup live on their own page now — iPhone and Android.</p>
+        <p>Downloads and setup live on their own page now, for iPhone and Android.</p>
         <a class="btn btn-ghost btn-sm" href="get-app.html">Get the app</a>
       </div>
       <div class="contact-card">

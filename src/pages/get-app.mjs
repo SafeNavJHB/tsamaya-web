@@ -11,7 +11,7 @@ const hero = `
   <div class="wrap">
     ${eyebrow('Get the app')}
     <h1>Put Tsamaya on your phone.</h1>
-    <p class="lede center-narrow">Free while in beta, on both platforms — TestFlight on iPhone, Google Play on Android. A couple of minutes to set up, and you can leave whenever you like.</p>
+    <p class="lede center-narrow">Free while in beta, on both platforms: TestFlight on iPhone, Google Play on Android. A couple of minutes to set up, and you can leave whenever you like.</p>
   </div>
 </section>`;
 
@@ -25,7 +25,7 @@ const iosAction = hasPublicLink
   : `<a class="btn btn-primary btn-lg" href="mailto:${site.contactEmail}?subject=${encodeURIComponent(site.betaSubject)}&body=${encodeURIComponent(
       'Hi Tsamaya\n\nPlease send me the TestFlight link so I can try the beta.\n\nThanks',
     )}">${icon('mail', 18)} Ask for the link</a>
-     <p class="muted">Send us your email address and we’ll reply with the TestFlight link and a short guide. That’s all we need — no Apple ID, no forms.</p>`;
+     <p class="muted">Send us your email address and we’ll reply with the TestFlight link and a short guide. That’s all we need: no Apple ID, no forms.</p>`;
 
 // Android: Google Play open testing (live 22 August 2026). This used to be a
 // direct APK download; see the androidPlayLink note in site.config.mjs for why
@@ -34,13 +34,13 @@ const androidCard = site.androidPlayLink
   ? `
       <div class="note-card platform-card">
         <h3>${icon('phone', 20)} On Android</h3>
-        <p>Tsamaya is on Google Play as an open test — the normal install, with no invite and nothing to sideload. Updates arrive on their own, the same as any other app.</p>
+        <p>Tsamaya is on Google Play as an open test: the normal install, with no invite and nothing to sideload. Updates arrive on their own, the same as any other app.</p>
         <a class="btn btn-primary btn-lg" href="${site.androidPlayLink}" rel="noopener">${icon('download', 18)} Get it on Google Play</a>
-        <p class="muted">Play will say you’re joining a test. That’s expected — it’s how beta builds reach you.</p>
+        <p class="muted">Play will say you’re joining a test. That’s expected. It’s how beta builds reach you.</p>
         <ol class="mini-steps">
           <li>Open the Play Store link on your Android phone.</li>
           <li>Tap Install, as you would for anything else.</li>
-          <li>That’s it — updates arrive automatically during the beta.</li>
+          <li>That’s it. Updates arrive automatically during the beta.</li>
         </ol>
       </div>`
   : '';
@@ -54,12 +54,12 @@ const platforms = section({
   <div class="card-2 platform-grid">
     <div class="note-card platform-card">
       <h3>${icon('phone', 20)} On iPhone</h3>
-      <p>Tsamaya ships through Apple’s TestFlight while in beta — Apple’s own app for trying new software. Free, and easy to leave.</p>
+      <p>Tsamaya ships through Apple’s TestFlight while in beta, which is Apple’s own app for trying new software. Free, and easy to leave.</p>
       ${iosAction}
       <ol class="mini-steps">
         <li>Open the TestFlight link on your iPhone.</li>
         <li>Install TestFlight if you don’t have it, then tap Install for Tsamaya.</li>
-        <li>That’s it — updates arrive automatically during the beta.</li>
+        <li>That’s it. Updates arrive automatically during the beta.</li>
       </ol>
     </div>
     ${androidCard}
@@ -79,7 +79,7 @@ const gettingStarted = section({
       <span class="step-num">1</span>
       ${icon('download', 26, 'step-ic')}
       <h3>Open Tsamaya and look around</h3>
-      <p>The map opens on your metro with the risk picture already drawn — zones and rated roads, coloured by risk level and time of day. A short tour points out the important bits on first run.</p>
+      <p>The map opens on your metro with the risk picture already drawn: zones and rated roads, coloured by risk level and time of day. A short tour points out the important bits on first run.</p>
     </div>
     <div class="step">
       <span class="step-num">2</span>
@@ -96,7 +96,7 @@ const gettingStarted = section({
   </div>
   <div class="note-card mt">
     <h3>${icon('chat', 20)} Telling us something’s wrong</h3>
-    <p>If an area looks mis-rated, tap the flag on the map and say so. That goes straight into our review queue. For anything else, email <a href="mailto:${site.contactEmail}">${site.contactEmail}</a> — reports about roads you actually drive are the most useful thing you can send us.</p>
+    <p>If an area looks mis-rated, tap the flag on the map and say so. That goes straight into our review queue. For anything else, email <a href="mailto:${site.contactEmail}">${site.contactEmail}</a>. Reports about roads you actually drive are the most useful thing you can send us.</p>
   </div>`,
 });
 
@@ -112,6 +112,6 @@ export default {
   slug: 'get-app.html',
   title: 'Get the app',
   description:
-    'Install Tsamaya on iPhone (TestFlight) or Android (Google Play) — free during the beta — and get set up in about five minutes.',
+    'Install Tsamaya on iPhone (TestFlight) or Android (Google Play), free during the beta, and get set up in about five minutes.',
   body: [hero, platforms, gettingStarted, cta].join('\n'),
 };

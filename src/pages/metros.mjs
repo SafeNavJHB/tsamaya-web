@@ -188,7 +188,7 @@ const coverageFaqs = [
   },
   {
     q: 'Does blank map mean an area is safe?',
-    a: 'No, and this distinction matters. A blank area means no data. An area rated in the lowest band means it was checked and carries no routing penalty. The app shows those differently on purpose.',
+    a: 'No. A blank area means no data. An area rated in the lowest band means it was checked and carries no routing penalty. The app shows those differently on purpose.',
   },
   {
     q: 'How often is the data updated?',

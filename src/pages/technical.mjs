@@ -57,7 +57,7 @@ const thresholds = section({
   <div class="split">
     <div>
       ${eyebrow('The routing model')}
-      <h2>A principled, carefully-tuned model.</h2>
+      <h2>How a detour gets decided.</h2>
       <p class="big">The routing logic is a small set of deliberate rules, tuned over real South African routes, that decide when a detour is worth it and when it isn’t.</p>
       <div class="mt">${button('Walk through the steps', 'how-it-works.html', 'ghost')}</div>
     </div>
@@ -100,7 +100,7 @@ const coverage = section({
   inner: `
   ${eyebrow('Coverage')}
   <h2>Where Tsamaya works today</h2>
-  <p class="big">Live across ${site.coverageLive}. Mapped metros: <strong>${site.coverageData}</strong>. Adding a new city is a documented, repeatable runbook, not a rewrite.</p>
+  <p class="big">Live across ${site.coverageLive}. Mapped metros: <strong>${site.coverageData}</strong>. Adding a new city follows a documented runbook, which is how the map went from one metro to seven.</p>
   <div class="stats stats-tech">
     ${site.stats.map((s) => `<div class="stat"><span class="stat-value">${s.value}</span><span class="stat-label">${s.label}</span></div>`).join('')}
   </div>`,

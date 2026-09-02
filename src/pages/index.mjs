@@ -175,7 +175,7 @@ const tradeoff = section({
 const faqs = [
   {
     q: 'What is Tsamaya?',
-    a: 'A free navigation app for South African drivers. It plans routes around the places where vehicle crime is known to happen, instead of only working out the quickest way there. It is in beta on iPhone at the moment.',
+    a: 'A free navigation app for South African drivers. It plans routes around the places where vehicle crime is known to happen, instead of only working out the quickest way there. It is in open beta on iPhone and Android at the moment.',
   },
   {
     q: 'Where does the risk data come from?',
