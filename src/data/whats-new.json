@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-02.1",
+      "date": "2 September 2026",
+      "items": [
+        {
+          "icon": "phone-portrait-outline",
+          "title": "Guidance keeps up with the screen off",
+          "body": "Version 1.5.0. On a CarPlay drive with the phone locked, reroutes and safety alerts could wait until the screen woke up. The app now keeps its timers and network replies running while the display is off, so a reroute no longer has to wait for the next unlock.",
+          "category": "fix"
+        },
+        {
+          "icon": "notifications-outline",
+          "title": "Lock Screen card stays on the turn",
+          "body": "The Lock Screen and Dynamic Island card could fall a hundred metres behind the turn on a locked phone. Its updates now run at a higher priority, so the card shows the same turn the car does.",
+          "category": "fix"
+        },
+        {
+          "icon": "medkit-outline",
+          "title": "Clearer crash reports",
+          "body": "When the app does crash, the report we receive now names the exact function instead of a memory address, so a fix can start from the right line instead of a guess.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-01.1",
       "date": "1 September 2026",
       "items": [
