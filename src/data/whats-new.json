@@ -15,7 +15,7 @@
   ],
   "releases": [
     {
-      "version": "2026-09-02.1",
+      "version": "2026-09-02.2",
       "date": "2 September 2026",
       "items": [
         {
@@ -35,6 +35,24 @@
           "title": "Clearer crash reports",
           "body": "When the app does crash, the report we receive now names the exact function instead of a memory address, so a fix can start from the right line instead of a guess.",
           "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-02.1",
+      "date": "2 September 2026",
+      "items": [
+        {
+          "icon": "earth-outline",
+          "title": "Satellite view",
+          "body": "Settings › Navigation › Basemap now offers Satellite: real aerial photos under your map, with street names and your route still drawn on top. Good for finding a gate, a complex entrance or which side of the road a place is on. Risk areas, corridors and your routing are identical on either basemap — this only changes how the map looks. Free for everyone, and phone only for now, so CarPlay and Android Auto keep the normal map. Aerial photos always stream, so they are not part of a downloaded offline area — keep Basemap on Map where you expect to lose signal.",
+          "category": "feature"
+        },
+        {
+          "icon": "layers-outline",
+          "title": "Route preview always draws its risk layers",
+          "body": "On the route screen the risk areas, corridors and reported closures could occasionally fail to appear if the map was still loading when they were added. They now wait for the map to be ready, so the preview never comes up missing them.",
+          "category": "fix"
         }
       ]
     },
