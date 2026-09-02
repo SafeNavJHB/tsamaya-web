@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-02.3",
+      "date": "2 September 2026",
+      "items": [
+        {
+          "icon": "mic-outline",
+          "title": "Natural voice restored on older installs",
+          "body": "An early build offered three South African guidance voices that Google turned out not to have. If your phone still had one of them saved, every spoken prompt fell back to the robotic built-in voice, on every drive, with nothing on screen to say why. A saved voice is now checked against the list the app actually offers, and anything unavailable falls back to Olivia, so the natural voice returns on its own the next time you open the app.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-02.2",
       "date": "2 September 2026",
       "items": [
