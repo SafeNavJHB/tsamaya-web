@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-03.1",
+      "date": "3 September 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Rustenburg is covered",
+          "body": "Risk zones and road ratings now cover Rustenburg and the roads through it, including the N4 Platinum Highway and the R565 running north toward Sun City. Together with Pilanesberg this covers the destination end of the drive from Johannesburg. Your location is recognised there now, so the map opens where you actually are.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-02.4",
       "date": "2 September 2026",
       "items": [
