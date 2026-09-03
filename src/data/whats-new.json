@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-03.2",
+      "date": "3 September 2026",
+      "items": [
+        {
+          "icon": "analytics-outline",
+          "title": "Route scoring measured at a fixed resolution",
+          "body": "Once a drive got long, the safety scorer was measuring each route on a thinned-out copy of its shape, and two routes through the same risk areas could come out up to two kilometres apart in red exposure purely from how the thinning fell. On the Johannesburg to Sun City drive that made Balanced and Lower-risk prefer a flagged surface road over the Western Bypass, a highway with no known risk. Every route, short or long, is now measured on its full shape at a fixed 50 metre resolution, so equal exposure scores equal.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-03.1",
       "date": "3 September 2026",
       "items": [
