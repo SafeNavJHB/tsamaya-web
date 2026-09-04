@@ -15,6 +15,66 @@
   ],
   "releases": [
     {
+      "version": "2026-09-04.3",
+      "date": "4 September 2026",
+      "items": [
+        {
+          "icon": "phone-portrait-outline",
+          "title": "Android Auto: the map no longer opens shoved to the left",
+          "body": "When the car screen shows the map in a split card next to another app, the app could apply screen margins that belonged to the previous, full-width layout and put the car marker, the camera and the road name at the card’s left edge until something on the screen changed. Margins that cannot belong to the current card are now ignored.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-outline",
+          "title": "Android Auto: the road name no longer sits on the car",
+          "body": "On short car screens the road-name pill could overlap the car marker, and in navigation cover it entirely under the turn card and ETA bar. It now keeps clear of the marker, switching to a one-line layout when the screen is too short for the stacked one, and it is no longer clipped on its left edge.",
+          "category": "fix"
+        },
+        {
+          "icon": "stop-circle-outline",
+          "title": "Android Auto: a reroute no longer ends the trip",
+          "body": "The car could tell the app to stop navigating a second or two after a reroute, ending the trip with nobody touching anything. A reroute no longer restarts the car’s navigation session, and a stop request that arrives within a few seconds of the app starting a session or updating it after a reroute is treated as an echo of that action, at most twice per trip. A real “stop navigation” is still honoured. If the car ends a trip mid-drive for another reason, the app now records exactly when, and what it had just done, so it can be traced.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-04.2",
+      "date": "4 September 2026",
+      "items": [
+        {
+          "icon": "git-branch-outline",
+          "title": "Guidance no longer jumps ahead where your route crosses itself",
+          "body": "Where a route goes over a bridge and later comes back under it (or out along one carriageway and back on the other), the app could place you on the later stretch the moment you crossed the earlier one, skip several kilometres of the drive, and then hold you there with the next turn drifting further away. Your position is now matched to where a moving car could actually have got to since the last fix, and to the direction you are travelling, so the guidance stays on the road you are on. If it ever does lose you, it re-plans from your real position, usually within half a minute, instead of never.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "Satellite view on CarPlay and Android Auto",
+          "body": "If Basemap is set to Satellite in Settings › Navigation, the full-screen car map now uses it too. The dashboard mini-map keeps the normal map, since aerial tiles are the heaviest thing a map can hold and that tile is the one the car unit is most likely to squeeze for memory.",
+          "category": "feature"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Car-screen speedo is always dark",
+          "body": "The speed dial on the car screen used to follow the light or dark look, which put a white dial on the pale daytime map. It is now a dark dial with white numbers whatever the map, so it reads at a glance by day, by night and on satellite.",
+          "category": "tweak"
+        },
+        {
+          "icon": "ellipsis-horizontal-outline",
+          "title": "Area boundaries are dotted on the car screen",
+          "body": "On CarPlay and Android Auto, the outline of a risk area is now a dotted line, and flagged roads stay dashed. An orange boundary meeting an orange road at a junction no longer looks like two roads.",
+          "category": "tweak"
+        },
+        {
+          "icon": "refresh-outline",
+          "title": "Dashboard mini-map comes back in seconds",
+          "body": "When the car unit warns the phone about memory, the mini-map briefly hands its graphics memory back. It used to stay off for over a minute after a single warning; it now comes back after about eight seconds, and only stays off longer if the warnings keep coming.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-04.1",
       "date": "4 September 2026",
       "items": [
