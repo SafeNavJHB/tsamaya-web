@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-04.1",
+      "date": "4 September 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Mossel Bay re-mapped, and the whole municipality is covered",
+          "body": "Mossel Bay was first mapped from the town centre outward, and the area it covered stopped short of Kwanonqaba and Asla Park while taking in the whole seafront. That put the harbour, Santos Bay and the golf estate at the highest risk rating and left the two areas local reporting flags most often with no rating at all. Coverage now runs across the full municipality, from Gouritsmond in the west to Great Brak River in the east, and every area has been re-rated against SAPS data for the eight police stations that serve it rather than the one inside the old boundary.",
+          "category": "fix"
+        },
+        {
+          "icon": "location-outline",
+          "title": "Places to discover in Mossel Bay, Rustenburg and Pilanesberg",
+          "body": "The map now shows tappable places in the three newest areas, the way it already did for the older ones: Sun City, the Valley of Waves and Pilanesberg National Park; Waterfall Mall, the Royal Bafokeng Sports Palace and Kgaswane Mountain Reserve; and the Dias Museum, Cape St Blaize lighthouse and Santos Beach. Tap one for a short description and a read on the area around it.",
+          "category": "feature"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Speed cameras around Sun City and Mossel Bay",
+          "body": "Known fixed camera positions have been added for the Pilanesberg and Mossel Bay areas, so you get the same heads-up there that you already get in the older areas.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-03.2",
       "date": "3 September 2026",
       "items": [
