@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-05.1",
+      "date": "5 September 2026",
+      "items": [
+        {
+          "icon": "grid-outline",
+          "title": "Settings, reorganised",
+          "body": "Settings now opens on a page of category cards — Routes, Map, Navigation, Alerts, Places, Customise, Sharing & privacy, Help & About — each one showing what it is currently set to, so you can see how the app is set up at a glance. Every category has its own colour, which carries through its whole page, and the old catch-all Navigation tab has been split so the map, the voice, the warnings and the look of the app each have a home of their own. Nothing was removed and no setting changed its value.",
+          "category": "feature"
+        },
+        {
+          "icon": "search-outline",
+          "title": "Search your settings",
+          "body": "A search box at the top of Settings finds any setting by name or by what it does — type “hijacking”, “satellite”, “emergency” or “volume” — and tapping a result opens the right page, scrolls to that setting and highlights it for a moment.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-04.3",
       "date": "4 September 2026",
       "items": [
