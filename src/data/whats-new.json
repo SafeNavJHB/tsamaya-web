@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-06.2",
+      "date": "6 September 2026",
+      "items": [
+        {
+          "icon": "cloud-download-outline",
+          "title": "Offline maps that tell you the size",
+          "body": "Settings › Places › Offline maps now shows how much an area will cost before you download it: about how many megabytes, and how many kilometres across. Every downloaded area reports its real size instead of 0 MB. A new choice, Roads & names or Full detail, lets you keep a whole metro on your phone in a fraction of the space: Roads & names holds every road, street name and suburb, which is the map you need to drive, while Full detail adds building outlines and minor places at several times the size. Areas that overlap share what they have in common, so downloading the same place twice costs nothing extra.",
+          "category": "feature"
+        },
+        {
+          "icon": "refresh-outline",
+          "title": "Downloads that finish",
+          "body": "An offline download that was interrupted, by the app closing or the signal dropping, keeps what it saved and shows as Paused with a Resume button, so it carries on from where it stopped when you choose, on Wi-Fi if you prefer. Framing an area larger than your phone can store is refused up front, with the numbers, instead of failing part-way. A second area started straight after a first no longer reports a false failure.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-06.1",
       "date": "6 September 2026",
       "items": [
