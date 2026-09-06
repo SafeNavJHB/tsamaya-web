@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-06.1",
+      "date": "6 September 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Durban is on the map",
+          "body": "The whole of eThekwini is now covered, from Umkomaas in the south through the city, Umlazi, Pinetown, Phoenix and Inanda to Umhlanga, Tongaat and King Shaka airport in the north. Every suburb and the main roads between them have been rated against SAPS data for the police stations that serve them, then checked a second time, so routes into and around Durban avoid the areas and roads that carry the most risk at the time you are driving. Your location is now trusted anywhere in the metro, so trips start from where you are rather than a default point.",
+          "category": "feature"
+        },
+        {
+          "icon": "location-outline",
+          "title": "Places to discover in Durban",
+          "body": "Ten tappable places join the map in Durban, the way the other areas already have them: uShaka Marine World, Moses Mabhida Stadium, the Golden Mile at North Beach, the Botanic Gardens, Suncoast, the Victoria Street Market, Gateway, the Umhlanga lighthouse, King Shaka airport and the Kenneth Stainbank reserve. Tap one for a short description and a read on the area around it.",
+          "category": "feature"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Speed cameras around Durban",
+          "body": "Known fixed camera positions on the N2, N3, M7 and Umhlanga Rocks Drive have been added, so you get the same heads-up in Durban that you already get elsewhere. As always this is the list of cameras we know about, not a complete one.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-05.1",
       "date": "5 September 2026",
       "items": [
