@@ -1,30 +1,30 @@
 {
   "generatedFrom": "uthvorhglqysehayyxzy",
   "totals": {
-    "metros": 7,
-    "zones": 3254,
-    "corridors": 6522,
-    "corridorsSafe": 2083,
-    "corridorsDanger": 4439,
+    "metros": 11,
+    "zones": 4198,
+    "corridors": 6983,
+    "corridorsSafe": 2226,
+    "corridorsDanger": 4757,
     "riskBands": 3
   },
   "bands": {
-    "red": 1168,
-    "orange": 992,
-    "yellow": 863,
-    "none": 231
+    "red": 1656,
+    "orange": 1294,
+    "yellow": 931,
+    "none": 317
   },
   "metros": [
     {
       "key": "johannesburg",
       "name": "Johannesburg",
       "slug": "johannesburg",
-      "zones": 828,
+      "zones": 801,
       "corridors": 3802,
       "bands": {
-        "red": 221,
-        "orange": 296,
-        "yellow": 298,
+        "red": 211,
+        "orange": 285,
+        "yellow": 292,
         "none": 13
       }
     },
@@ -36,8 +36,8 @@
       "corridors": 1650,
       "bands": {
         "red": 276,
-        "orange": 317,
-        "yellow": 272,
+        "orange": 318,
+        "yellow": 271,
         "none": 53
       }
     },
@@ -45,26 +45,26 @@
       "key": "pretoria",
       "name": "Pretoria",
       "slug": "pretoria",
-      "zones": 513,
-      "corridors": 883,
+      "zones": 493,
+      "corridors": 826,
       "bands": {
-        "red": 119,
-        "orange": 121,
+        "red": 113,
+        "orange": 112,
         "yellow": 205,
-        "none": 68
+        "none": 63
       }
     },
     {
       "key": "ekurhuleni",
       "name": "Ekurhuleni",
       "slug": "ekurhuleni",
-      "zones": 742,
+      "zones": 738,
       "corridors": 0,
       "bands": {
-        "red": 431,
+        "red": 429,
         "orange": 198,
-        "yellow": 80,
-        "none": 33
+        "yellow": 82,
+        "none": 29
       }
     },
     {
@@ -74,9 +74,9 @@
       "zones": 158,
       "corridors": 83,
       "bands": {
-        "red": 56,
-        "orange": 39,
-        "yellow": 2,
+        "red": 52,
+        "orange": 38,
+        "yellow": 7,
         "none": 61
       }
     },
@@ -87,9 +87,9 @@
       "zones": 63,
       "corridors": 54,
       "bands": {
-        "red": 44,
+        "red": 43,
         "orange": 13,
-        "yellow": 3,
+        "yellow": 4,
         "none": 3
       }
     },
@@ -98,12 +98,64 @@
       "name": "Stellenbosch",
       "slug": "stellenbosch",
       "zones": 32,
-      "corridors": 50,
+      "corridors": 49,
       "bands": {
         "red": 21,
-        "orange": 8,
-        "yellow": 3,
+        "orange": 7,
+        "yellow": 4,
         "none": 0
+      }
+    },
+    {
+      "key": "rustenburg",
+      "name": "Rustenburg",
+      "slug": "rustenburg",
+      "zones": 98,
+      "corridors": 81,
+      "bands": {
+        "red": 49,
+        "orange": 39,
+        "yellow": 7,
+        "none": 3
+      }
+    },
+    {
+      "key": "pilanesberg",
+      "name": "Pilanesberg",
+      "slug": "pilanesberg",
+      "zones": 43,
+      "corridors": 5,
+      "bands": {
+        "red": 15,
+        "orange": 12,
+        "yellow": 0,
+        "none": 16
+      }
+    },
+    {
+      "key": "mossel_bay",
+      "name": "Mossel Bay",
+      "slug": "mossel-bay",
+      "zones": 61,
+      "corridors": 25,
+      "bands": {
+        "red": 16,
+        "orange": 13,
+        "yellow": 20,
+        "none": 12
+      }
+    },
+    {
+      "key": "durban",
+      "name": "Durban",
+      "slug": "durban",
+      "zones": 793,
+      "corridors": 408,
+      "bands": {
+        "red": 431,
+        "orange": 259,
+        "yellow": 39,
+        "none": 64
       }
     }
   ],

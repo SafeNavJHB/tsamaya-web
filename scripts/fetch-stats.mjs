@@ -67,6 +67,10 @@ const METROS = [
   { key: 'west_rand', name: 'West Rand', slug: 'west-rand' },
   { key: 'secunda', name: 'Secunda', slug: 'secunda' },
   { key: 'stellenbosch', name: 'Stellenbosch', slug: 'stellenbosch' },
+  { key: 'rustenburg', name: 'Rustenburg', slug: 'rustenburg' },
+  { key: 'pilanesberg', name: 'Pilanesberg', slug: 'pilanesberg' },
+  { key: 'mossel_bay', name: 'Mossel Bay', slug: 'mossel-bay' },
+  { key: 'durban', name: 'Durban', slug: 'durban' },
 ];
 
 const BANDS = ['red', 'orange', 'yellow', 'none'];

@@ -23,7 +23,7 @@ tsamaya-web/  (this repo — site lives at the root)
 │   ├── data/
 │   │   ├── stats.json    ← LIVE FIGURES (generated — do not hand-edit)
 │   │   └── metros.mjs    ← per-metro editorial copy for the landing pages
-│   └── pages/*.mjs       ← one file per page; metros.mjs emits eight at once
+│   └── pages/*.mjs       ← one file per page; metros.mjs emits twelve at once (eleven metros plus the coverage index)
 ├── public/               ← static assets copied as-is (styles.css, app.js, fonts, images)
 └── dist/                 ← the built site (created by build.mjs; safe to delete)
 ```

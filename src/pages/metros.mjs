@@ -234,7 +234,7 @@ const coverageCta = `
 const coveragePage = {
   slug: 'coverage.html',
   title: 'Coverage',
-  description: `Tsamaya maps ${fmt(stats.totals.zones)} risk zones across ${stats.totals.metros} South African metros: Johannesburg, Cape Town, Pretoria, Ekurhuleni, the West Rand, Secunda and Stellenbosch.`,
+  description: `Tsamaya maps ${fmt(stats.totals.zones)} risk zones across ${stats.totals.metros} South African metros: Johannesburg, Cape Town, Durban, Pretoria, Ekurhuleni, the West Rand, Stellenbosch, Rustenburg, Pilanesberg, Mossel Bay and Secunda.`,
   heroClass: 'page-coverage',
   jsonLd: [
     faqNode(coverageFaqs),

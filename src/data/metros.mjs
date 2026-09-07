@@ -159,7 +159,7 @@ export const metros = [
     blurb:
       'Driving routes around Secunda and Evander, covering the N17 and the roads through the petrochemical belt.',
     intro:
-      'The smallest place on the map and the only one outside the two big provincial centres. It is here because of the N17, which carries a great deal of shift traffic and freight through the petrochemical belt, much of it driven in the dark at either end of a shift.',
+      'One of the smallest places on the map, and the first that was mapped outside the two big provincial centres. It is here because of the N17, which carries a great deal of shift traffic and freight through the petrochemical belt, much of it driven in the dark at either end of a shift.',
     context: [
       'Shift work means a lot of the driving here happens in the evening and night bands, which is exactly when the ratings differ most from the daytime picture.',
       'The N17 is the spine of this map and is rated along its whole length.',
@@ -184,7 +184,7 @@ export const metros = [
     blurb:
       'Driving routes around Stellenbosch, covering the R44, R304 and the roads between the town and Cape Town.',
     intro:
-      'The newest addition, and a test of whether any of this works in a small town rather than a sprawling metro. It mostly does, with one adjustment: the rated areas here are small and sit close together, so the routing has to think harder about detours that would be trivial anywhere else.',
+      'The first small town on the map, and a test of whether any of this works somewhere that is not a sprawling metro. It mostly does, with one adjustment: the rated areas here are small and sit close together, so the routing has to think harder about detours that would be trivial anywhere else.',
     context: [
       'The R44 and R304 connect the town to the N1 and N2. Both are mapped.',
       'The Stellenbosch map overlaps the edge of the Cape Town one, so a trip between them is handled as a single drive.',
@@ -198,6 +198,106 @@ export const metros = [
       {
         q: 'Is a small town really worth mapping?',
         a: 'A lot of after-dark driving happens in a small area here, which suits time-of-day ratings well. It was also a deliberate test of whether any of this works outside the big metros.',
+      },
+    ],
+  },
+  {
+    key: 'rustenburg',
+    slug: 'rustenburg',
+    name: 'Rustenburg',
+    region: 'North West',
+    blurb:
+      'Driving routes around Rustenburg, covering the N4 through town, the R24 and the R565 north toward Sun City.',
+    intro:
+      'Rustenburg sits on the N4 between Pretoria and the Botswana border, with the platinum belt on either side of it. A lot of the driving here is commuting to and from the mines at shift change, plus through-traffic on the N4 and the weekend run up the R565 to Sun City. The map covers the town and the roads that feed it.',
+    context: [
+      'The N4 is mapped through the town and out both sides. It carries the freight and most of the long-distance traffic, and it is rated separately for day, evening and night.',
+      'The R565 to Sun City and the R24 toward Johannesburg are the two roads most visitors use, and both are on the map from end to end.',
+      'Shift traffic around the mines means a lot of the local driving happens before dawn and after dark, which is when the ratings differ most from the daytime picture.',
+    ],
+    faqs: [
+      {
+        q: 'Does the Rustenburg map join up with Pilanesberg?',
+        a: 'Yes. The two maps meet along the R565, so a trip from town to Sun City or the park gates is handled as one drive.',
+      },
+      {
+        q: 'Is the N4 covered outside the town?',
+        a: 'The N4 is mapped through Rustenburg and the approaches on both sides of it. Beyond the mapped area the app still navigates normally, it simply has no risk data to apply.',
+      },
+    ],
+  },
+  {
+    key: 'pilanesberg',
+    slug: 'pilanesberg',
+    name: 'Pilanesberg',
+    region: 'North West',
+    blurb:
+      'Driving routes around Sun City and the Pilanesberg National Park, covering the R565, the R510 and the roads through Ledig, Mogwase and Moruleng.',
+    intro:
+      'Pilanesberg is on the map for the visitors. Sun City, the park gates and the resorts around them draw a steady flow of people who do not know the roads and arrive at odd hours. The map covers the park, Sun City and the towns around the edge of it, along with the roads in from Rustenburg and from the north.',
+    context: [
+      'The R565 from Rustenburg and the R510 from the north are the two ways most people arrive, and both are mapped all the way in.',
+      'The roads between the park gates and the resorts are short, but they carry a lot of unfamiliar drivers late in the day. Ratings here change more between day and night than the distances suggest.',
+      'Inside the park the app works as a normal map. The risk data is for the public roads outside the gates.',
+    ],
+    faqs: [
+      {
+        q: 'Does Tsamaya cover the drive from Johannesburg to Sun City?',
+        a: 'The Johannesburg, Rustenburg and Pilanesberg maps cover the start and the end of that trip and the roads on either side of the N4. The open stretches between mapped areas are driven as normal navigation.',
+      },
+      {
+        q: 'Why is a game reserve on the map at all?',
+        a: 'Because of the number of visitors who drive in and out of it, many of them at dusk or after dark, on roads they have never used. That is exactly the situation the time-of-day ratings are for.',
+      },
+    ],
+  },
+  {
+    key: 'mossel_bay',
+    slug: 'mossel-bay',
+    name: 'Mossel Bay',
+    region: 'Western Cape',
+    blurb:
+      'Driving routes around Mossel Bay, covering the N2 and the whole municipality from Gouritsmond to Great Brak River.',
+    intro:
+      'Mossel Bay is the first Garden Route town on the map. Coverage is the whole municipality rather than just the town: from Gouritsmond in the west, through Mossel Bay itself and the N2, to Great Brak River in the east and Herbertsdale inland. Every part of it has been rated against the police stations that actually serve it.',
+    context: [
+      'The N2 runs across the top of the town and carries most of the through-traffic on the Garden Route. It is rated along its whole length here, separately for each time of day.',
+      'The R328 toward Oudtshoorn and the coastal roads to the Point, Hartenbos and Great Brak River are all mapped.',
+      'Holiday traffic changes the picture. A road that is quiet in winter is busy and full of unfamiliar drivers in December, so the map covers the roads visitors use, not just the ones locals do.',
+    ],
+    faqs: [
+      {
+        q: 'Does coverage include Hartenbos and Great Brak River?',
+        a: 'Yes. The mapped area is the full municipality, so Hartenbos, Little Brak, Great Brak River and Gouritsmond are all inside it.',
+      },
+      {
+        q: 'Is the N2 through Mossel Bay treated as a freeway?',
+        a: 'It is mapped end to end and rated for each time of day. It is not given a blanket protective rating the way the big city freeways are, because it passes close to town for part of its length.',
+      },
+    ],
+  },
+  {
+    key: 'durban',
+    slug: 'durban',
+    name: 'Durban',
+    region: 'KwaZulu-Natal',
+    blurb:
+      'Driving routes around Durban and the whole of eThekwini, covering the N2, N3, M4 and M7 and the roads between the city, Pinetown, Umlazi and Umhlanga.',
+    intro:
+      'Durban is the biggest addition since Cape Town and the first metro on the east coast. Coverage is the whole of eThekwini: the city and the beachfront, Pinetown and the Upper Highway, the south coast down to Umkomaas, and the north through Umhlanga and Tongaat to King Shaka airport. The N2 and the N3 tie all of it together, and they are what most trips here depend on.',
+    context: [
+      'The N3 climb through Pinetown and Mariannhill and the N2 along the coast are both mapped end to end and rated for each time of day. Neither is given a blanket protective rating, because both pass close to areas that carry a real penalty.',
+      'The M4 along the northern beachfront, the M7 and the M13 through Westville are the everyday roads for most of the metro, and all three are on the map.',
+      'The beachfront changes character after dark. Several stretches that carry a modest rating at midday sit in the top band in the evening and at night, which is why the three time bands are rated separately.',
+    ],
+    faqs: [
+      {
+        q: 'Does Tsamaya cover the drive from King Shaka airport into the city?',
+        a: 'Yes. The airport, the N2 and the M4 are all inside the mapped area, so the whole trip is planned with risk data whichever time of day you land.',
+      },
+      {
+        q: 'How far south and inland does coverage go?',
+        a: 'South to Umkomaas and inland to Cato Ridge, which is the municipal boundary. Beyond that the app still navigates normally, it simply has no risk data to apply.',
       },
     ],
   },
