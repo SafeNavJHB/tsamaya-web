@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-07.1",
+      "date": "7 September 2026",
+      "items": [
+        {
+          "icon": "moon-outline",
+          "title": "Night map when your car’s lights come on",
+          "body": "On CarPlay and Android Auto the map now switches to the night look whenever the car reports its lights are on, and back to the daytime map when they go off, the way Google Maps does. This applies with Map lighting on Auto; a lighting you have pinned in Settings still wins.",
+          "category": "feature"
+        },
+        {
+          "icon": "earth-outline",
+          "title": "Satellite on the dashboard mini-map",
+          "body": "If you have chosen the satellite basemap, the small map on the CarPlay dashboard now shows it too, not just the full-screen car map.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-06.2",
       "date": "6 September 2026",
       "items": [
