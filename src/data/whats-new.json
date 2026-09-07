@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-07.2",
+      "date": "7 September 2026",
+      "items": [
+        {
+          "icon": "ribbon-outline",
+          "title": "Route grades that tell the options apart",
+          "body": "The A to E grade on each route option used to top out at one kilometre of high-risk road, so on most real trips every option read E and the badge said nothing about which one to take. The scale now runs much wider at the top, and when one option carries half the risk of another they can no longer share a letter. A route that touches a high-risk area still never reads better than D.",
+          "category": "feature"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "CarPlay turn card stops re-animating between zones",
+          "body": "On CarPlay the next-turn card slid in again every time the car crossed into a new risk area, sometimes dozens of times on one road, as if a new turn were coming up. The card’s colour now reflects the risk at the turn itself rather than wherever the car happens to be, so it only moves when the turn does.",
+          "category": "fix"
+        },
+        {
+          "icon": "analytics-outline",
+          "title": "How much less risk, in words",
+          "body": "Each route option can now say how it compares to the fastest one, for example “62% less risk than the fastest route”, or “more risk” when that is the honest answer. It is on by default and can be switched off under Settings › Routes › Route cards if it is one line too many.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-07.1",
       "date": "7 September 2026",
       "items": [
