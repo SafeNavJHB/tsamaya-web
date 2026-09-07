@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-07.3",
+      "date": "7 September 2026",
+      "items": [
+        {
+          "icon": "earth-outline",
+          "title": "Risk areas rebalanced on the satellite, night and day maps",
+          "body": "The low-risk yellow areas were drawn heavier than orange and red, which on the satellite basemap read as a solid wash you could not see the ground through, and on the night map made the lowest-risk suburbs the most prominent thing on the screen. Yellow now sits a touch lighter than the other two bands on both. On the day map all three bands are a little stronger than before, so orange and yellow no longer disappear into the background while red stays clearly the strongest.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-07.2",
       "date": "7 September 2026",
       "items": [
