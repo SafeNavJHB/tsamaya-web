@@ -1,18 +1,18 @@
 {
   "generatedFrom": "uthvorhglqysehayyxzy",
   "totals": {
-    "metros": 11,
-    "zones": 4198,
-    "corridors": 6983,
-    "corridorsSafe": 2226,
-    "corridorsDanger": 4757,
+    "metros": 12,
+    "zones": 4454,
+    "corridors": 7153,
+    "corridorsSafe": 2246,
+    "corridorsDanger": 4907,
     "riskBands": 3
   },
   "bands": {
-    "red": 1656,
-    "orange": 1294,
-    "yellow": 931,
-    "none": 317
+    "red": 1742,
+    "orange": 1415,
+    "yellow": 957,
+    "none": 340
   },
   "metros": [
     {
@@ -156,6 +156,19 @@
         "orange": 259,
         "yellow": 39,
         "none": 64
+      }
+    },
+    {
+      "key": "gqeberha",
+      "name": "Gqeberha",
+      "slug": "gqeberha",
+      "zones": 256,
+      "corridors": 170,
+      "bands": {
+        "red": 86,
+        "orange": 121,
+        "yellow": 26,
+        "none": 23
       }
     }
   ],

@@ -88,7 +88,7 @@ export const site = {
   // Headline coverage — honest to the app's live service areas (the metro bounding
   // boxes in src/constants/cities.ts) plus the data footprint in Supabase.
   coverageLive:
-    'Gauteng (Johannesburg, Pretoria, Ekurhuleni and the West Rand), Durban, Cape Town and Stellenbosch, Rustenburg and Pilanesberg, Mossel Bay, and Secunda',
+    'Gauteng (Johannesburg, Pretoria, Ekurhuleni and the West Rand), Durban, Gqeberha, Cape Town and Stellenbosch, Rustenburg and Pilanesberg, Mossel Bay, and Secunda',
   coverageData: stats.metros.map((m) => m.name).join(' · '),
 
   // Headline figures, derived from the live database — never hand-typed.

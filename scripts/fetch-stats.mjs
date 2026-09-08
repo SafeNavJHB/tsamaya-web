@@ -71,6 +71,7 @@ const METROS = [
   { key: 'pilanesberg', name: 'Pilanesberg', slug: 'pilanesberg' },
   { key: 'mossel_bay', name: 'Mossel Bay', slug: 'mossel-bay' },
   { key: 'durban', name: 'Durban', slug: 'durban' },
+  { key: 'gqeberha', name: 'Gqeberha', slug: 'gqeberha' },
 ];
 
 const BANDS = ['red', 'orange', 'yellow', 'none'];

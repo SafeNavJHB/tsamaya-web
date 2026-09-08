@@ -301,6 +301,31 @@ export const metros = [
       },
     ],
   },
+  {
+    key: 'gqeberha',
+    slug: 'gqeberha',
+    name: 'Gqeberha',
+    region: 'Eastern Cape',
+    blurb:
+      'Driving routes around Gqeberha and the whole of Nelson Mandela Bay, covering the N2, the M4 Settlers Freeway, the R75 to Kariega and the beachfront roads.',
+    intro:
+      'Gqeberha is the first Eastern Cape metro on the map, and coverage is the whole of Nelson Mandela Bay rather than the old Port Elizabeth town limits: the beachfront and the city centre, the Northern Areas, Motherwell and the northern townships, and Kariega and Despatch in the west. The N2 and the M4 tie it together, and the R75 out to Kariega carries most of the commuting.',
+    context: [
+      'The N2 is mapped end to end from Colchester in the north-east through to the western edge of the metro, and the M4 Settlers Freeway between the centre and the beachfront with it. Neither gets a blanket protective rating; both pass close to areas that carry a real penalty, so each stretch is rated on its own.',
+      'The R75 to Kariega and Despatch and the R102 old main road are the everyday commuter roads for the west of the metro, and both are on the map.',
+      'The beachfront from Kings Beach to Summerstrand is rated separately for each time of day. It carries a modest rating in daylight and a higher one after dark, which is when most visitors are driving between the hotels and the Boardwalk.',
+    ],
+    faqs: [
+      {
+        q: 'Does Tsamaya cover Kariega and Uitenhage?',
+        a: 'Yes. Kariega, Despatch and KwaNobuhle are all inside the mapped area, along with the R75 and the N2 that connect them to the city.',
+      },
+      {
+        q: 'Does it cover the drive from the airport?',
+        a: 'Yes. Chief Dawid Stuurman International Airport sits inside the mapped area, so the trip from the terminal to the beachfront or the city is planned with risk data from the first turn.',
+      },
+    ],
+  },
 ];
 
 // Look up the editorial entry for a metro key from stats.json.
