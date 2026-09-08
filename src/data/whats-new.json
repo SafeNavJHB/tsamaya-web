@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-08.4",
+      "date": "8 September 2026",
+      "items": [
+        {
+          "icon": "git-branch-outline",
+          "title": "Top-down view at turns",
+          "body": "As a turn comes up, about 250 metres out or ten seconds away at speed, the map now tilts to a top-down view of the junction so you can see its shape clearly, then leans back to your camera tilt once you are through. It is on by default, on the phone and on a car screen, and lives under Settings › Navigation › Junction view.",
+          "category": "feature"
+        },
+        {
+          "icon": "information-circle-outline",
+          "title": "Satellite map credits moved out of the way",
+          "body": "On a car screen with the satellite basemap, the Mapbox mark and the imagery credit sat at the bottom, where the car’s own bar and the road pill covered them. They now sit in the top corner away from the speedo. They stay on for satellite because the aerial imagery is licensed and must be credited.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-08.3",
       "date": "8 September 2026",
       "items": [
