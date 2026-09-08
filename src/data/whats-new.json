@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-08.2",
+      "date": "8 September 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Gqeberha is on the map",
+          "body": "The whole of Nelson Mandela Bay is now covered: Gqeberha itself from the beachfront to the Northern Areas, the townships of Motherwell, KwaZakhele, New Brighton and Zwide, Kariega and Despatch in the west, and the coast from Colchester round to Cape Recife. Every suburb and the main roads between them have been rated against SAPS data for the police stations that serve them, then checked a second time, and your location is now trusted anywhere in the metro.",
+          "category": "feature"
+        },
+        {
+          "icon": "location-outline",
+          "title": "Places to discover in Gqeberha",
+          "body": "Ten tappable places join the map: the Boardwalk, Nelson Mandela Bay Stadium, Hobie Beach, Kings Beach, Bayworld, St George’s Park, the Donkin Reserve, Cape Recife, Baywest Mall and Kragga Kamma. Tap one for a short description and a read on the area around it.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-08.1",
       "date": "8 September 2026",
       "items": [
