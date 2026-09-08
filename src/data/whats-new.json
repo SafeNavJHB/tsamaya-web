@@ -15,6 +15,42 @@
   ],
   "releases": [
     {
+      "version": "2026-09-08.1",
+      "date": "8 September 2026",
+      "items": [
+        {
+          "icon": "options-outline",
+          "title": "Choose how far the map leans",
+          "body": "Settings › Navigation › Camera tilt sets the angle of the driving view — Low is closer to top-down, the way Google Maps sits; Standard is the angle Tsamaya has always used; Steep leans further over the road ahead. It applies to the phone and to the map on a car screen.",
+          "category": "feature"
+        },
+        {
+          "icon": "locate-outline",
+          "title": "Re-centre after dragging the car map",
+          "body": "Drag the map on a car screen and a re-centre button now appears so you can get back to the car with one tap. Before, the map only came back on its own once the car moved, so sitting in traffic left it wherever you had dragged it.",
+          "category": "feature"
+        },
+        {
+          "icon": "compass-outline",
+          "title": "The map stays facing your direction when you stop",
+          "body": "Standing still in traffic used to turn the map north-up, and crawling under a bridge could spin it. The map now holds the direction you were last travelling in until you are properly moving again.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-outline",
+          "title": "The right road name in slow traffic",
+          "body": "In stop-go traffic the road pill could name the highway you were driving over instead of the road you were on — “M1” on the bridge above the M1. Road matching now keeps working at crawling speed, and the nearest-address lookup no longer talks over it.",
+          "category": "fix"
+        },
+        {
+          "icon": "phone-portrait-outline",
+          "title": "Android Auto split view lines up on connect",
+          "body": "On Android Auto the map could open laid out for the whole screen while showing in the split card, with the car marker cut off at the card’s edge until you opened the full map and came back. The card’s layout is now picked up the moment it connects.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-07.3",
       "date": "7 September 2026",
       "items": [
