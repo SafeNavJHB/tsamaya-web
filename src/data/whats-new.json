@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-08.3",
+      "date": "8 September 2026",
+      "items": [
+        {
+          "icon": "cloud-download-outline",
+          "title": "See the risk data download",
+          "body": "When the app fetches new risk data, a small pill on the map now shows the download as a percentage, both on a fresh install and whenever a change has been published. The built-in snapshot keeps the map and routing working while it lands, so nothing waits on it.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-08.2",
       "date": "8 September 2026",
       "items": [
