@@ -39,7 +39,7 @@ export const metros = [
       },
       {
         q: 'Will it route me the long way round?',
-        a: 'Only within limits. A detour has to actually cut your exposure to be offered, and anything dramatically longer than the direct route gets rejected even when it is safer. In practice most lower-risk routes across Johannesburg add a few minutes.',
+        a: 'Only within limits. A detour has to actually cut your exposure to be offered, and anything dramatically longer than the direct route gets rejected even when it carries less risk. In practice most lower-risk routes across Johannesburg add a few minutes.',
       },
       {
         q: 'Does it work on the highways out of Joburg?',
@@ -59,7 +59,7 @@ export const metros = [
     context: [
       'The N2 between the airport and the city is the thing people ask about most. It is mapped end to end, rated separately for each time of day.',
       'The N1, N2, N7 and R300 carry protective ratings. Diverting you off a freeway onto side streets to improve a number would leave you worse off, so the router will not do it.',
-      'Risk here sits in specific pockets rather than spreading along the main roads. A bigger share of the metro has been checked and rated as carrying no penalty than in Johannesburg, which is why the map looks emptier despite more rated areas.',
+      'Risk here sits in specific pockets rather than spreading along the main roads. A bigger share of the metro has been checked and rated as carrying no penalty than in Johannesburg, so more of the map is green rather than blank.',
     ],
     faqs: [
       {
@@ -72,7 +72,7 @@ export const metros = [
       },
       {
         q: 'Why does the Cape Town map look emptier than Johannesburg?',
-        a: 'Because it genuinely is emptier. Risk here clusters tightly rather than smearing across the metro. A blank map is real information: it means nothing was flagged, not that we never looked.',
+        a: 'Because the risk here clusters tightly rather than smearing across the metro. A blank map is real information: it means nothing was flagged, not that we never looked.',
       },
     ],
   },
@@ -87,7 +87,7 @@ export const metros = [
       'Pretoria sits at the top of the busiest commuter run in the country, and a good share of the driving here is the daily trip down the Ben Schoeman and back. The city has a tight, dense centre wrapped in long arterial roads, which gives it a very different shape from Johannesburg.',
     context: [
       'The Ben Schoeman and the N4 both carry protective ratings. An early version of the data flagged a stretch of the Ben Schoeman badly enough that it would have pushed traffic onto side roads. A validation check caught it before it shipped.',
-      'Most of Pretoria’s flagged areas sit in the middle bands rather than the top one, so routes here tend to get a small nudge rather than a full detour.',
+      'Most of Pretoria’s flagged areas sit in the middle and caution bands rather than the top one, so a lot of what you see on the map is marked without changing your route.',
       'The CBD and the areas immediately around it change rating between the daytime and evening bands more often than the outer suburbs do.',
     ],
     faqs: [
@@ -109,10 +109,10 @@ export const metros = [
     blurb:
       'Driving routes around the risky parts of Ekurhuleni and the East Rand, including OR Tambo, the N12, N17 and R21.',
     intro:
-      'Ekurhuleni is the East Rand: Kempton Park, Benoni, Boksburg, Germiston, Springs, and the belt around OR Tambo. Most drivers pass through it without thinking, because the airport run and the N12 and N17 freight routes cut straight across. It also has the highest share of top-band areas of any of the big metros.',
+      'Ekurhuleni is the East Rand: Kempton Park, Benoni, Boksburg, Germiston, Springs, and the belt around OR Tambo. Most drivers pass through it without thinking, because the airport run and the N12 and N17 freight routes cut straight across. It also carries a much higher share of top-band areas than Johannesburg, Pretoria or Cape Town.',
     context: [
       'The R21 and N12 around OR Tambo carry a lot of drivers who do not know the area. That is exactly who this is for.',
-      'More than half of the flagged areas here sit in the top band rather than the middle ones.',
+      'Freight is a big part of why. Truck hijacking shows up in the crime data along the N12 and N17, and those roads carry the ratings to match.',
       'Freight matters here in a way it does not elsewhere. Truck hijacking shows up in the crime data along the N12 and N17, and those roads are rated accordingly.',
     ],
     faqs: [
@@ -161,7 +161,7 @@ export const metros = [
     intro:
       'One of the smallest places on the map, and the first that was mapped outside the two big provincial centres. It is here because of the N17, which carries a great deal of shift traffic and freight through the petrochemical belt, much of it driven in the dark at either end of a shift.',
     context: [
-      'Shift work puts a lot of the driving here in the evening and night bands, which are the two that diverge most from the daytime picture.',
+      'Shift work puts a lot of the driving here in the evening and night bands, which is when the ratings look least like the daytime picture.',
       'The N17 is the spine of this map and is rated along its whole length.',
       'We have kept coverage tight around the town and its approach roads instead of spreading it thin across the wider district.',
     ],
@@ -312,7 +312,7 @@ export const metros = [
       'Gqeberha is the first Eastern Cape metro on the map, and coverage is the whole of Nelson Mandela Bay rather than the old Port Elizabeth town limits: the beachfront and the city centre, the Northern Areas, Motherwell and the northern townships, and Kariega and Despatch in the west. The N2 and the M4 tie it together, and the R75 out to Kariega carries most of the commuting.',
     context: [
       'The N2 is mapped end to end from Colchester in the north-east through to the western edge of the metro, and so is the M4 Settlers Freeway between the centre and the beachfront. Neither gets a blanket protective rating; both pass close to areas that carry a real penalty, so each stretch is rated on its own.',
-      'The R75 and the old R102 carry the daily run between Gqeberha and Kariega, and the two roads rate quite differently from each other. Both are mapped.',
+      'The R75 and the old R102 are the everyday commuter roads for the west of the metro, out toward Kariega and Despatch. Both are mapped.',
       'The beachfront from Kings Beach to Summerstrand is rated separately for each time of day. It carries a modest rating in daylight and a higher one after dark, which is when most visitors are driving between the hotels and the Boardwalk.',
     ],
     faqs: [

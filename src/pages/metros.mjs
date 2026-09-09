@@ -177,7 +177,7 @@ const coverageChart = section({
   inner: `
   ${eyebrow('The shape of the map')}
   <h2>Mapped areas per metro</h2>
-  <p class="sub">Zone counts follow the size and density of each metro, not how thoroughly it has been covered. Stellenbosch has ${stats.metros.find((m) => m.key === 'stellenbosch').zones} because it is a small town, not because it is half-finished.</p>
+  <p class="sub">Zone counts follow the size and density of each metro, not how thoroughly it has been covered. Stellenbosch has ${stats.metros.find((m) => m.key === 'stellenbosch').zones} zones because it is a small town, not because it is half-finished.</p>
   ${coverageBars(joined.map(({ content, data }) => ({ label: content.name, value: data.zones, slug: content.slug })))}`,
 });
 
@@ -196,7 +196,7 @@ const coverageFaqs = [
   },
   {
     q: 'Which metro is next?',
-    a: 'New metros are added as funding allows, since each one means fetching map data, scoring it against crime statistics, and running a review pass before anything goes live. Sponsorship directly determines the pace.',
+    a: 'New metros are added as time and money allow, since each one means fetching map data, scoring it against crime statistics, and running a review pass before anything goes live. Anything people chip in speeds that up.',
   },
 ];
 
@@ -222,7 +222,7 @@ const coverageCta = `
   <div class="wrap cta-inner">
     <div>
       <h2>Help us map the next metro.</h2>
-      <p>Each new city means map data, crime scoring and a review pass before it goes live. Sponsorship is what decides which one is next.</p>
+      <p>Each new city means map data, crime scoring and a review pass before it goes live. Sponsoring one is the surest way to move it up the list.</p>
     </div>
     <div class="cta-actions">
       ${button('Sponsor a metro', 'sponsor.html#sponsor', 'primary')}

@@ -33,8 +33,8 @@ import { fmt } from '../site.config.mjs';
 // Web-surface variants of the app's risk bands. Order is severity order and is
 // load-bearing — it is the primary non-colour encoding. Do not sort these.
 const BANDS = [
-  { key: 'red', label: 'Highest', fill: '#c92a3f', desc: 'avoided by default on the safest setting' },
-  { key: 'orange', label: 'Elevated', fill: '#d97706', desc: 'always costed, avoided on the safest setting' },
+  { key: 'red', label: 'Highest', fill: '#c92a3f', desc: 'avoided by default on the strictest setting' },
+  { key: 'orange', label: 'Elevated', fill: '#d97706', desc: 'always costed, avoided on the strictest setting' },
   { key: 'yellow', label: 'Caution', fill: '#b08900', desc: 'costed but never avoided, since it is too widespread to route around', hatch: true },
   { key: 'none', label: 'No penalty', fill: '#2f7d4f', desc: 'checked and carries no routing cost' },
 ];

@@ -46,7 +46,7 @@ const pipeline = section({
       <div class="t-marker">${icon('pin', 20)}</div>
       <div>
         <h3>4 · Find bypass waypoints</h3>
-        <p>Where a zone has no corridor through it, Tsamaya picks the nearest checked-corridor point to each risk zone and injects a small number of waypoints, nudging the route around the area rather than through it.</p>
+        <p>For the zones the route still runs through, Tsamaya picks the nearest point on a nearby checked corridor and injects a small number of waypoints, nudging the route around the area rather than through it.</p>
       </div>
     </li>
     <li>

@@ -95,7 +95,7 @@ function application() {
     // Both platforms, because every page of this site says both. Declaring iOS
     // only told crawlers the opposite of the page text and made the app node
     // ineligible for Android-intent results.
-    operatingSystem: 'iOS 16.0 or later, Android 8.0 or later',
+    operatingSystem: 'iOS 16.0 or later, Android',
     description: site.description,
     publisher: { '@id': ID.org },
     author: { '@id': ID.org },
@@ -104,7 +104,7 @@ function application() {
     featureList: [
       'Risk-aware route planning for South African metros',
       'Time-of-day risk bands for day, evening and night',
-      'Turn-by-turn navigation with live safety indication',
+      'Turn-by-turn navigation with a live risk readout',
       'CarPlay support',
       'Live trip sharing with a trusted contact',
     ],

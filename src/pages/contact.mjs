@@ -69,7 +69,7 @@ const main = section({
 const cta = `
 <section class="cta-band">
   <div class="wrap cta-inner">
-    <div><h2>Like what we’re building?</h2><p>The best way to help right now is to drive with it and tell us where the map is wrong.</p></div>
+    <div><h2>Like what we’re building?</h2><p>Drive with it, and tell us where the map is wrong. There are a few other ways to help too.</p></div>
     <div class="cta-actions">${button('Support Tsamaya', 'sponsor.html', 'primary')}${button('How it works', 'how-it-works.html', 'ghost-light')}</div>
   </div>
 </section>`;

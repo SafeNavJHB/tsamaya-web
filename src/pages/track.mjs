@@ -113,7 +113,7 @@ export default {
       waiting=true;
       if(info) info.textContent='\\u2705 Arrived'+at+'.';
       if(arrivedEl){
-        document.getElementById('arrived-title').textContent=(trip.dest_name?'Arrived at '+trip.dest_name:'Arrived');
+        document.getElementById('arrived-title').textContent=(trip.dest_name?trip.dest_name:'Arrived');
         document.getElementById('arrived-sub').textContent=trip.arrived_at?('Arrived at '+clock(new Date(trip.arrived_at).getTime())+'.'):'';
         arrivedEl.style.display='flex';
       }

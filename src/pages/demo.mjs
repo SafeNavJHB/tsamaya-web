@@ -93,7 +93,7 @@ const walkthroughSection = section({
       <div class="walk-text">
         <span class="walk-num">03</span>
         <h3>Compare, then choose</h3>
-        <p>You get up to three routes side by side, lower-risk, balanced and direct, with what each costs in minutes and kilometres. If risk can’t be avoided entirely, it says so rather than pretending otherwise. Drive it in the app, or hand off to Google Maps with the detour points baked in so it follows the same line.</p>
+        <p>You get up to three routes side by side, lower-risk, balanced and standard, with what each costs in minutes and kilometres. If risk can’t be avoided entirely, it says so rather than pretending otherwise. Drive it in the app, or hand off to Google Maps with the detour points baked in so it follows the same line.</p>
       </div>
     </div>
     <div class="walk-step reverse">

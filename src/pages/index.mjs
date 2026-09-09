@@ -145,7 +145,7 @@ const coverage = section({
   inner: `
   ${eyebrow('Where it works')}
   <h2>${fmt(stats.totals.zones)} mapped risk zones across ${stats.totals.metros} metros.</h2>
-  <p class="sub">Every figure here is read from the live database rather than typed into the page. Zone counts follow how big and dense a metro is. Stellenbosch has ${stats.metros.find((m) => m.key === 'stellenbosch').zones} because it is a small town, not because it is half-finished.</p>
+  <p class="sub">Every figure here is read from the live database rather than typed into the page. Zone counts follow how big and dense a metro is. Stellenbosch has ${stats.metros.find((m) => m.key === 'stellenbosch').zones} zones because it is a small town, not because it is half-finished.</p>
   ${coverageBars(
     metroContent
       .map((c) => ({ content: c, data: stats.metros.find((m) => m.key === c.key) }))

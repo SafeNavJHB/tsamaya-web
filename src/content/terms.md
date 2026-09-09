@@ -10,7 +10,7 @@ By using the Tsamaya app you agree to these terms. If you do not agree, do not u
 
 ## 1. What Tsamaya is, and what it is not
 
-Tsamaya is an **information tool**. It suggests driving routes that avoid areas and roads showing elevated risk in **historical, statistical data** (public crime statistics, mapping data, and curated review).
+Tsamaya is an **information tool**. It suggests driving routes with lower statistical exposure to areas and roads showing elevated risk in **historical, statistical data** (public crime statistics, mapping data, and curated review).
 
 Tsamaya is **not** a safety guarantee, a security service, an emergency service, or a substitute for your own judgement.
 
