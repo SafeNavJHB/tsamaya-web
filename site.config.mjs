@@ -198,7 +198,7 @@ export const nav = [
   { href: 'updates.html', label: 'Updates' },
   { href: 'technical.html', label: 'Technical' },
   { href: 'about.html', label: 'About' },
-  { href: 'sponsor.html', label: 'Sponsor' },
+  { href: 'sponsor.html', label: 'Support' },
   { href: 'contact.html', label: 'Contact' },
 ];
 

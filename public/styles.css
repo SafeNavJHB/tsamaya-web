@@ -154,6 +154,9 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .copy-btn:focus-visib
 .sub { color: var(--muted); max-width: 680px; margin-bottom: 1.6rem; }
 .footnote { color: var(--muted); font-size: 0.92rem; margin-top: 1.4rem; }
 .footnote code, .chip { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+/* svg is display:block site-wide, which drops a leading footnote icon onto a
+   line of its own. Footnote icons are inline by intent. */
+.footnote .ic { display: inline; vertical-align: -2px; color: var(--emerald-deep); }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -235,6 +238,9 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .copy-btn:focus-visib
 .cta-band h2 { color: #fff; margin-bottom: 6px; }
 .cta-band p { color: #b9c6e6; margin: 0; max-width: 520px; }
 .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+/* `.center` is text-align, which a flex row ignores. The sponsor hero asks for
+   centred buttons under a centred headline, so give it the flex equivalent. */
+.cta-actions.center { justify-content: center; }
 
 /* ---------- Page hero (sub-pages) ---------- */
 .page-hero { background: linear-gradient(180deg, var(--bg-soft), var(--bg)); padding: 70px 0 40px; text-align: center; border-bottom: 1px solid var(--line); }
@@ -331,16 +337,21 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .use-ic { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; color: var(--emerald-deep); background: rgba(52, 211, 153, 0.12); margin-bottom: 12px; }
 .use p { color: var(--text-soft); margin: 0; }
 
-.tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 28px; }
-.tier { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 30px 26px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
-.tier-featured { border: 2px solid var(--emerald); box-shadow: var(--shadow); transform: translateY(-6px); }
-.tier-tag { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--emerald); color: #04231a; font-family: var(--display); font-weight: 700; font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; }
-.tier-price { font-family: var(--display); font-weight: 800; font-size: 2rem; color: var(--ink); margin: 4px 0 14px; }
-.tier-price span { display: block; font-size: 0.82rem; font-weight: 500; color: var(--muted); letter-spacing: 0; }
-.tier ul { list-style: none; padding: 0; margin: 0 0 22px; display: grid; gap: 10px; }
-.tier li { display: flex; gap: 10px; align-items: flex-start; color: var(--text-soft); font-size: 0.96rem; }
-.tier li .ic { color: var(--emerald-deep); flex: none; margin-top: 3px; }
-.tier .btn { margin-top: auto; }
+/* Suggested amounts. Deliberately a plain list of rows rather than the three
+   pricing cards that used to sit here: a featured tier with a "Most impact"
+   badge reads as a sales page, which is the wrong register for asking people
+   to fund a free safety app. */
+.give-list { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow-sm); overflow: hidden; margin: 26px 0 28px; }
+.give-row { display: grid; grid-template-columns: 118px 1fr; gap: 20px; align-items: baseline; padding: 18px 24px; border-bottom: 1px solid var(--line); }
+.give-row:last-child { border-bottom: none; }
+.give-amount { font-family: var(--display); font-weight: 800; font-size: 1.3rem; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.give-row p { margin: 0; color: var(--text-soft); font-size: 0.98rem; }
+
+/* The small action line at the foot of a "ways to help" card. */
+.use-link { margin-top: 14px !important; display: flex; align-items: center; gap: 8px; font-size: 0.94rem; }
+.use-link a { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; color: var(--emerald-text); }
+.use-link .ic { flex: none; }
+.use-url { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9rem; color: var(--text-soft); }
 
 .ref-banner { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.35); color: var(--ink); padding: 12px 18px; border-radius: 12px; margin-bottom: 24px; font-size: 0.98rem; }
 .ref-banner .ic { color: var(--emerald-deep); }
@@ -417,7 +428,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
   .hero .lede { margin-left: auto; margin-right: auto; }
   .split, .contact-grid, .beta-card, .card-2, .tech-grid, .value-grid, .use-grid, .bank-grid { grid-template-columns: 1fr; }
   .split .device-pair { order: 2; }
-  .steps, .feature-grid, .tier-grid { grid-template-columns: 1fr 1fr; }
+  .steps, .feature-grid { grid-template-columns: 1fr 1fr; }
   .walk-step, .walk-step.reverse { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .walk-step.reverse .device { order: 0; }
   .walk-text { display: flex; flex-direction: column; align-items: center; }
@@ -444,9 +455,9 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 
 @media (max-width: 680px) {
   .section { padding: 60px 0; }
-  .steps, .feature-grid, .tier-grid, .stats { grid-template-columns: 1fr; }
+  .steps, .feature-grid, .stats { grid-template-columns: 1fr; }
   .stats { gap: 20px; }
-  .tier-featured { transform: none; }
+  .give-row { grid-template-columns: 1fr; gap: 4px; }
   .cta-inner { flex-direction: column; align-items: flex-start; }
   .device-pair { gap: 16px; }
 }

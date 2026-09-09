@@ -138,7 +138,7 @@ export function renderPage(page) {
       </div>
       <div class="footer-col">
         <h4>Support</h4>
-        <a href="sponsor.html">Sponsor us</a>
+        <a href="sponsor.html">Support us</a>
         <a href="sponsor.html#donate">Donate</a>
         <a href="contact.html">Contact</a>
         <a href="get-app.html">Join the beta</a>
