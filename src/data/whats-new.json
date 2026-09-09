@@ -15,6 +15,60 @@
   ],
   "releases": [
     {
+      "version": "2026-09-09.1",
+      "date": "9 September 2026",
+      "items": [
+        {
+          "icon": "swap-vertical-outline",
+          "title": "Camera tilt the right way round",
+          "body": "Low now means a low camera that leans over the road ahead, the Google Maps look, and Steep means a steep camera looking down, closer to top-down. The first version had the two swapped. Your saved choice stays as it is, so if you picked Low wanting the leaning view you now have it.",
+          "category": "fix"
+        },
+        {
+          "icon": "phone-portrait-outline",
+          "title": "Android: room for the navigation buttons",
+          "body": "On an Android phone using the three-button navigation bar, buttons and sheets at the bottom of the screen sat under the bar: the onboarding Skip link, the end of Settings, and every pop-up sheet. Everything bottom-anchored now clears the bar. Gesture navigation and iPhone are unchanged.",
+          "category": "fix"
+        },
+        {
+          "icon": "sparkles-outline",
+          "title": "Fresh installs start on the latest version",
+          "body": "A new install now fetches the latest update on its first launch, before the welcome screens, instead of running the version that shipped with the store build until the second launch. Existing installs keep the one-tap \"Update ready\" offer.",
+          "category": "tweak"
+        },
+        {
+          "icon": "hand-left-outline",
+          "title": "First taps land on Android",
+          "body": "On a first launch the home map and its risk data were being built underneath the welcome screens, which stalled the app for a few seconds at a time and made taps on Next and Skip look ignored. The home screen now loads only once you reach it. Tapping the highlighted control during the home-screen tour also moves the tour on now.",
+          "category": "fix"
+        },
+        {
+          "icon": "business-outline",
+          "title": "3D buildings on the evening drive",
+          "body": "After 17:30 the driving map uses the high-contrast night style. On the Balanced and High map-detail tiers it now draws 3D buildings over that map, as the home screen already did, instead of going flat for the drive.",
+          "category": "tweak"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "CarPlay mini map keeps up at low speed",
+          "body": "In free drive the dashboard mini map turned only after the car had covered 25 metres, so a slow corner showed the car facing the wrong way for several seconds, and the position itself moved in steps. It now follows the phone’s held heading on every fix, and location updates arrive continuously instead of every 5 metres.",
+          "category": "fix"
+        },
+        {
+          "icon": "information-circle-outline",
+          "title": "Satellite credits on the mini map",
+          "body": "On the CarPlay dashboard tile with the satellite basemap, the Mapbox mark was hidden in the bottom-left corner and the attribution \"i\" stood beside the road pill. Both now sit in the top corner opposite the speed dial, as on the full car map.",
+          "category": "tweak"
+        },
+        {
+          "icon": "flag-outline",
+          "title": "Day / Eve / Ngt flag on narrow screens",
+          "body": "The time-of-day flag next to the city name on the home screen was clipped off on narrower phones. The city name now truncates instead and the flag always shows.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-08.4",
       "date": "8 September 2026",
       "items": [
