@@ -1160,7 +1160,7 @@
         },
         {
           "icon": "shield-half-outline",
-          "title": "An even-safer option, when going far around is worth it",
+          "title": "An even lower-risk option, when going far around is worth it",
           "body": "Sometimes a much safer road exists but is too long for the normal detour limit. When it removes at least half the risk, it now appears as a separate \"even lower-risk — much longer\" card you can choose deliberately. It never replaces your route on its own, and one tap brings the shorter option back.",
           "category": "feature"
         }
@@ -1172,7 +1172,7 @@
       "items": [
         {
           "icon": "shield-checkmark",
-          "title": "Safer routes will now go the long way around",
+          "title": "Lower-risk routes will now go the long way around",
           "body": "When the direct road runs through high-risk areas, the Balanced and Lower-risk options used to cap how far around they would take you — on some trips the only genuinely safer road was just past that cap, so all three options collapsed onto the same risky route. Escaping high-risk areas now earns extra detour room in proportion to the risk it removes, so a trip whose direct road crosses several danger zones can take the highway loop around them instead.",
           "category": "fix"
         }
@@ -2433,7 +2433,7 @@
         {
           "icon": "navigate-circle-outline",
           "title": "Smoother, cleaner CarPlay",
-          "body": "On CarPlay the map now glides continuously as you drive, instead of the car jumping forward once a second (and it rides on the road using the smooth route heading, not the jittery GPS one). The turn, ETA, safety and speed panels are now SafeNav’s own, arranged to stay clear of the car’s built-in controls.",
+          "body": "On CarPlay the map now glides continuously as you drive, instead of the car jumping forward once a second (and it rides on the road using the smooth route heading, not the jittery GPS one). The turn, ETA, safety and speed panels are now Tsamaya’s own, arranged to stay clear of the car’s built-in controls.",
           "category": "fix"
         },
         {
