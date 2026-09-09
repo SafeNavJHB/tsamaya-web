@@ -25,9 +25,9 @@ const gallery = shots.length
   ? section({
       cls: 'band',
       inner: `
-    ${eyebrow('From the latest build')}
+    ${eyebrow('Screenshots')}
     <h2>Screenshots from the app</h2>
-    <p class="sub">Captured on the iOS&nbsp;Simulator from the current Tsamaya build.</p>
+    <p class="sub">Captured on the iOS&nbsp;Simulator, July 2026.</p>
     <div class="shot-grid">
       ${shots
         .map(
@@ -42,6 +42,14 @@ const gallery = shots.length
   : '';
 
 // A real capture where we have one; the drawn mockup only where we do not.
+const WALKTHROUGH_KEYS = ['home', 'route', 'result', 'navigation'];
+
+// Whether every walkthrough step resolved to an actual screenshot. The honest
+// note below claims these are real captures, and `step()` silently falls back to
+// a drawn SVG for any key missing from shots.mjs — so the claim is computed from
+// what the page actually rendered rather than asserted and left to rot.
+const allShotsAreReal = WALKTHROUGH_KEYS.every((k) => Boolean(walkthrough[k]));
+
 const step = (key, label = '') =>
   walkthrough[key]
     ? deviceShot({
@@ -85,7 +93,7 @@ const walkthroughSection = section({
       <div class="walk-text">
         <span class="walk-num">03</span>
         <h3>Compare, then choose</h3>
-        <p>You get the lower-risk route next to the direct one, with what each costs in minutes and kilometres. If risk can’t be avoided entirely, it says so rather than pretending otherwise. Drive it in the app, or hand off to Google Maps with the detour points baked in so it follows the same line.</p>
+        <p>You get up to three routes side by side, lower-risk, balanced and direct, with what each costs in minutes and kilometres. If risk can’t be avoided entirely, it says so rather than pretending otherwise. Drive it in the app, or hand off to Google Maps with the detour points baked in so it follows the same line.</p>
       </div>
     </div>
     <div class="walk-step reverse">
@@ -93,7 +101,7 @@ const walkthroughSection = section({
       <div class="walk-text">
         <span class="walk-num">04</span>
         <h3>Drive it</h3>
-        <p>Turn-by-turn works the way you’d expect: the next turn up top, your speed and the time left. Pull up the route overview and you get the whole drive at once, coloured by risk from start to finish, with every turn listed by name and the flagged spots marked along the way. Voice guidance cycles between spoken directions, alerts only, and silence. There’s an SOS button, and a flag for telling us an area looks wrong.</p>
+        <p>Turn-by-turn works the way you’d expect: the next turn up top, your speed and the time left. Pull up the route overview and you get the whole drive at once, coloured by risk from start to finish, with every turn listed by name and the flagged spots marked along the way. Voice guidance cycles through spoken directions, alerts only, and silence. There’s an SOS button and a flag for telling us an area looks wrong.</p>
       </div>
     </div>
   </div>`,
@@ -119,7 +127,7 @@ const notes = section({
   inner: `
   <div class="note-card">
     <h3>${icon('shield', 20)} Honest note on this build</h3>
-    <p>Every screen on this page is a real capture from the current build, taken against the live database. Real map tiles, real risk zones, real search, real routing. Nothing here is a mock-up or a rendering. The map screens wear their night colours on purpose. Ratings climb after dark, so that is when the overlays actually show you the risk data; shot at breakfast the same map is nearly empty, because Sandton genuinely rates low in the daytime. Risk data is curated and improves constantly. Routes weigh known risk, they don’t guarantee safety, and you should stay aware on the road regardless.</p>
+    <p>${allShotsAreReal ? 'Every screen on this page is a real capture from the app, taken against the live database: real map tiles, real risk zones, real search, real routing.' : 'Most screens on this page are real captures from the app, taken against the live database. A couple are drawn illustrations of screens we have not re-captured yet.'} The map screens wear their night colours on purpose. Ratings climb after dark, so that is when the overlays actually show you the risk data; shot at breakfast, the same map is nearly empty, because Sandton rates low in the daytime. The risk data is reviewed and re-scored as new statistics land. Routes weigh known risk. They do not guarantee safety, and you should stay aware on the road regardless.</p>
   </div>`,
 });
 

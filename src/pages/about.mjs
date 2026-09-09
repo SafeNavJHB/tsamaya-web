@@ -18,7 +18,7 @@ const name = section({
     <div>
       ${eyebrow('The name')}
       <h2>Tsamaya <span class="muted">/ tsa-MAH-ya /</span></h2>
-      <p class="big">It’s Sesotho and Setswana for <strong>“go”</strong>, from the everyday blessing <em>tsamaya sentle</em>, meaning “go well”. That’s the whole promise in two words: not a guarantee, just a wish for a good journey, the way South Africans say goodbye in every language.</p>
+      <p class="big">It’s Sesotho and Setswana for <strong>“go”</strong>, from the everyday blessing <em>tsamaya sentle</em>, meaning “go well”. That’s the whole promise in two words. It’s a wish for a good journey rather than a guarantee, the way people say goodbye here.</p>
       <p>There’s a second meaning we love: in kasi football, a <em>tsamaya</em> is the move that sends the defender the wrong way. Going exactly where the trouble isn’t. Which is the entire point.</p>
       <p class="lockup-line"><strong>${site.lockup}</strong></p>
     </div>
@@ -61,8 +61,8 @@ const founder = section({
     <div>
       ${eyebrow('Who’s behind it')}
       <h2>An independent, self-funded project.</h2>
-      <p class="big">Tsamaya is built and maintained by <strong>Kyle Kimble</strong>, a Johannesburg Chartered Accountant who taught himself to ship a mobile app because the problem wouldn’t leave him alone.</p>
-      <p>It’s not backed by a big company or a marketing budget. Every metro mapped, every line of routing logic and every rand of running cost has come from one person’s nights and weekends, which is exactly why sponsorship and donations make such a difference.</p>
+      <p class="big">Tsamaya is built and maintained by <strong>Kyle Kimble</strong>, a Johannesburg chartered accountant who taught himself to ship a mobile app because the problem wouldn’t leave him alone.</p>
+      <p>It’s not backed by a big company or a marketing budget. Every metro on the map came out of one person’s nights and weekends.</p>
       <div class="mt cta-actions">
         ${button('Support the project', 'sponsor.html', 'primary')}
         ${button('Say hello', 'contact.html', 'ghost')}
@@ -78,7 +78,7 @@ const founder = section({
 const cta = `
 <section class="cta-band">
   <div class="wrap cta-inner">
-    <div><h2>Want to follow along, or pitch in?</h2><p>Whether you’re a driver, a sponsor or just curious, we’d love to hear from you.</p></div>
+    <div><h2>Want to follow along, or pitch in?</h2><p>Whether you drive with it, want to chip in, or are just curious, we’d love to hear from you.</p></div>
     <div class="cta-actions">${button('Contact us', 'contact.html', 'primary')}${button('See the app', 'demo.html', 'ghost-light')}</div>
   </div>
 </section>`;

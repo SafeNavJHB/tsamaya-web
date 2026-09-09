@@ -96,7 +96,7 @@ export const site = {
   stats: [
     { value: String(stats.totals.metros), label: 'metros mapped' },
     { value: fmt(stats.totals.zones), label: 'risk zones' },
-    { value: fmt(stats.totals.corridorsSafe), label: 'safe corridors' },
+    { value: fmt(stats.totals.corridorsSafe), label: 'checked corridors' },
     { value: String(stats.totals.riskBands), label: 'risk bands by time of day' },
   ],
 
@@ -231,7 +231,7 @@ export const sponsorUses = [
   {
     icon: 'map',
     title: 'Map another metro',
-    body: 'Each new city means fetching OpenStreetMap data, scoring crime density, and a Claude-assisted review pass before anything goes live. Sponsorship funds the next metro.',
+    body: 'Each new city means fetching OpenStreetMap data, scoring crime density, and running a Claude-assisted review pass before anything goes live. Sponsorship funds the next metro.',
   },
   {
     icon: 'server',

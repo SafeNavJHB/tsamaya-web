@@ -28,7 +28,7 @@ const main = section({
         <label>What’s this about?
           <select name="topic">
             <option>Getting the app</option>
-            <option>Sponsorship / donation</option>
+            <option>Support / donation</option>
             <option>Report a risky area</option>
             <option>Partnership / press</option>
             <option>Something else</option>
@@ -54,7 +54,7 @@ const main = section({
       </div>
       <div class="contact-card">
         <h3>${icon('phone', 18)} Here for the app?</h3>
-        <p>Downloads and setup live on their own page now, for iPhone and Android.</p>
+        <p>Installing Tsamaya has its own page, for iPhone and Android.</p>
         <a class="btn btn-ghost btn-sm" href="get-app.html">Get the app</a>
       </div>
       <div class="contact-card">
@@ -69,8 +69,8 @@ const main = section({
 const cta = `
 <section class="cta-band">
   <div class="wrap cta-inner">
-    <div><h2>Like what we’re building?</h2><p>The best way to help right now is to sponsor a metro or spread the word.</p></div>
-    <div class="cta-actions">${button('Sponsor us', 'sponsor.html', 'primary')}${button('How it works', 'how-it-works.html', 'ghost-light')}</div>
+    <div><h2>Like what we’re building?</h2><p>The best way to help right now is to drive with it and tell us where the map is wrong.</p></div>
+    <div class="cta-actions">${button('Support Tsamaya', 'sponsor.html', 'primary')}${button('How it works', 'how-it-works.html', 'ghost-light')}</div>
   </div>
 </section>`;
 

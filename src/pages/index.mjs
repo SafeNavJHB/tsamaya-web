@@ -62,7 +62,7 @@ const problem = section({
       <p class="big">Hijackings, smash-and-grabs and robberies cluster in particular places, and those places change between lunchtime and midnight. A route planned only for speed will take you through them without mentioning it. Tsamaya weighs that up before it sends you anywhere.</p>
     </div>
     <ul class="check-list">
-      <li>${icon('check')} Routes around the top two risk bands, not only around traffic</li>
+      <li>${icon('check')} Routes around the top two risk levels, not only around traffic</li>
       <li>${icon('check')} Ratings change between day, evening and night, so the route does too</li>
       <li>${icon('check')} Built from published crime statistics, then corrected by people who drive here</li>
       <li>${icon('check')} Drive it in the app, or hand the route to Google Maps</li>
@@ -81,7 +81,7 @@ const steps = section({
       <span class="step-num">1</span>
       ${icon('pin', 26, 'step-ic')}
       <h3>Set your destination</h3>
-      <p>Search for it, tap the map, or hold down to drop a pin. Your starting point is wherever you are.</p>
+      <p>Search for it, tap the map, or press and hold to drop a pin. Your starting point is wherever you are.</p>
     </div>
     <div class="step">
       <span class="step-num">2</span>
@@ -93,7 +93,7 @@ const steps = section({
       <span class="step-num">3</span>
       ${icon('shield', 26, 'step-ic')}
       <h3>Re-routed around risk</h3>
-      <p>If it runs through somewhere bad, we move it onto roads we have checked, and tell you what we moved it around.</p>
+      <p>If it runs through a high-risk area, we move it onto roads we have checked, and tell you what we moved it around.</p>
     </div>
   </div>
   <div class="center mt">${button('The full breakdown', 'how-it-works.html', 'ghost')}</div>`,
@@ -107,9 +107,9 @@ const features = section({
   <div class="feature-grid">
     ${[
       ['clock', 'Ratings follow the clock', 'Every area is rated three times over: daytime, evening and night. The route you get at noon is not the one you get at 11pm.'],
-      ['layers', 'Roads we have checked', 'When a detour is needed, it runs along roads we have already looked at, which keeps it sensible rather than sending you down a back street.'],
-      ['route', 'Detours with a limit', 'Only the top two bands are worth going around, and any detour that adds too much gets thrown out before you ever see it.'],
-      ['map', 'Multi-metro', `Live across Gauteng, the Western Cape and Mpumalanga, with ${stats.totals.metros} metros mapped and more on the way.`],
+      ['layers', 'Roads we have checked', 'When a detour is needed, it runs along roads we have checked, which keeps it sensible rather than sending you down a back street.'],
+      ['route', 'Detours with a limit', 'Only the top two risk levels are worth going around, and any detour that adds too much gets thrown out before you ever see it.'],
+      ['map', 'Multi-metro', `Live in ${stats.totals.metros} metros across six provinces, from Johannesburg and Cape Town to Durban and Gqeberha.`],
       ['route', 'Drive it however you like', 'Full turn-by-turn is built in. If you would rather use Google Maps, we hand it the route with the detour points already in place.'],
       ['eye', 'Look before you go', 'Turn the overlay on whenever you want and see every rated area and road on the map, colour-coded.'],
     ]
@@ -163,7 +163,7 @@ const tradeoff = section({
     <div>
       ${eyebrow('The trade-off')}
       <h2>It usually costs you a few minutes.</h2>
-      <p class="big">A detour only gets offered if it actually cuts your exposure, and one that adds too much distance is thrown out even when it is safer. Without that limit you would be handed routes nobody would ever drive.</p>
+      <p class="big">A detour only gets offered if it actually cuts your exposure, and one that adds too much distance is thrown out even when it carries less risk. Without that limit you would be handed detours nobody would ever drive.</p>
       <p class="muted small">When there is no good alternative, Tsamaya says so and gives you the normal route with the risky stretches marked. It will not invent a detour just to look busy.</p>
     </div>
     <div>
@@ -183,15 +183,15 @@ const faqs = [
   },
   {
     q: 'Which cities does it cover?',
-    a: `Tsamaya currently maps ${stats.totals.metros} metros: ${stats.metros.map((m) => m.name).join(', ')}. Outside those areas it still works as an ordinary map and turn-by-turn navigator, it just has no risk data to apply.`,
+    a: `Tsamaya currently maps ${stats.totals.metros} metros: ${stats.metros.map((m) => m.name).join(', ')}. Outside those areas it still works as an ordinary map and turn-by-turn navigator; it just has no risk data to apply.`,
   },
   {
-    q: 'Does a safer route take much longer?',
-    a: 'Usually a few minutes. A detour has to actually reduce your exposure to be offered at all, and anything dramatically longer than the direct route is rejected outright.',
+    q: 'Does a lower-risk route take much longer?',
+    a: 'Usually a few minutes. A detour is only offered when it cuts your exposure, and anything dramatically longer than the direct route is rejected outright.',
   },
   {
     q: 'Is Tsamaya free?',
-    a: 'Yes. It is paid for by sponsorship and donations. There are no ads, and we do not sell anything about you.',
+    a: 'Yes. It is paid for out of pocket, with help from anyone who chips in. There are no ads, and we do not sell anything about you.',
   },
   {
     q: 'Does it guarantee I will be safe?',
@@ -220,12 +220,12 @@ const sponsorBand = `
 <section class="cta-band">
   <div class="wrap cta-inner">
     <div>
-      <h2>Help us map the next metro.</h2>
-      <p>Tsamaya is independent and self-funded. Sponsorship and donations pay for the map data, the hosting bills, and getting the app onto more phones.</p>
+      <h2>Want to help map the next metro?</h2>
+      <p>Tsamaya is independent and self-funded. There are free ways to help, and there is a bank account if you would rather chip in.</p>
     </div>
     <div class="cta-actions">
-      ${button('Sponsor us', 'sponsor.html', 'primary')}
-      ${button('Donate', 'sponsor.html#donate', 'ghost-light')}
+      ${button('Ways to help', 'sponsor.html', 'primary')}
+      ${button('Chip in', 'sponsor.html#donate', 'ghost-light')}
     </div>
   </div>
 </section>`;

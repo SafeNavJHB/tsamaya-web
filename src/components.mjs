@@ -218,10 +218,10 @@ function screenHome() {
     <!-- risk legend -->
     <g font-family="system-ui" font-size="11" fill="#0F172A">
       <rect x="14" y="606" width="292" height="34" rx="12" fill="#ffffff" opacity="0.92"/>
-      <circle cx="34" cy="623" r="5" fill="${colors.red}"/><text x="44" y="627">High</text>
-      <circle cx="104" cy="623" r="5" fill="${colors.orange}"/><text x="114" y="627">Elevated</text>
-      <circle cx="194" cy="623" r="5" fill="${colors.yellow}"/><text x="204" y="627">Caution</text>
-      <line x1="262" y1="623" x2="278" y2="623" stroke="${colors.saferGreen}" stroke-width="4" stroke-linecap="round"/><text x="284" y="627">Safe</text>
+      <circle cx="30" cy="623" r="5" fill="${colors.red}"/><text x="40" y="627">High</text>
+      <circle cx="96" cy="623" r="5" fill="${colors.orange}"/><text x="106" y="627">Elevated</text>
+      <circle cx="178" cy="623" r="5" fill="${colors.yellow}"/><text x="188" y="627">Caution</text>
+      <line x1="242" y1="623" x2="256" y2="623" stroke="${colors.saferGreen}" stroke-width="4" stroke-linecap="round"/><text x="262" y="627">Checked</text>
     </g>
   </svg>`;
 }

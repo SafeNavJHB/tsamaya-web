@@ -54,7 +54,7 @@ function metroPage({ content, data }) {
     <div>
       ${eyebrow('What the data looks like here')}
       <h2>${fmt(data.zones)} mapped areas across ${content.name}.</h2>
-      <p class="big">Every area is rated three times over, once each for daytime, evening and night, because risk in South African metros does not hold still across a day. The split below is how ${content.name}'s ${fmt(data.zones)} zones fall across the bands at their highest rating.</p>
+      <p class="big">Every area is rated three times over, once each for daytime, evening and night, because risk in South African metros does not hold still across a day. The split below is how ${content.name}’s ${fmt(data.zones)} zones fall across the bands at their highest rating.</p>
       <p class="muted small">Figures read directly from the live database, not typed by hand. The lowest band means an area was checked and carries no routing penalty, which is different from an area we have no data for.</p>
     </div>
     <div>
@@ -67,7 +67,7 @@ function metroPage({ content, data }) {
     cls: 'band-soft',
     inner: `
   ${eyebrow('Driving here')}
-  <h2>What matters on ${content.name}'s roads</h2>
+  <h2>What matters on ${content.name}’s roads</h2>
   <ul class="context-list">
     ${content.context.map((c) => `<li>${icon('route', 20)}<span>${c}</span></li>`).join('')}
   </ul>
@@ -114,7 +114,7 @@ function metroPage({ content, data }) {
   <div class="wrap cta-inner">
     <div>
       <h2>Drive ${content.name} with the risk on the map.</h2>
-      <p>Tsamaya is free and currently in beta on iPhone. Ask for an invite and we'll send you a TestFlight link.</p>
+      <p>Tsamaya is free and in open beta on iPhone and Android. Install it straight from TestFlight or Google Play.</p>
     </div>
     <div class="cta-actions">
       ${button('Join the beta', 'get-app.html', 'primary')}
@@ -177,7 +177,7 @@ const coverageChart = section({
   inner: `
   ${eyebrow('The shape of the map')}
   <h2>Mapped areas per metro</h2>
-  <p class="sub">Zone counts follow the size and density of each metro, not how thoroughly it has been covered. Stellenbosch has 32 zones because it is a small town, not because it is half-finished.</p>
+  <p class="sub">Zone counts follow the size and density of each metro, not how thoroughly it has been covered. Stellenbosch has ${stats.metros.find((m) => m.key === 'stellenbosch').zones} because it is a small town, not because it is half-finished.</p>
   ${coverageBars(joined.map(({ content, data }) => ({ label: content.name, value: data.zones, slug: content.slug })))}`,
 });
 
@@ -187,7 +187,7 @@ const coverageFaqs = [
     a: 'The app still works as a normal map and turn-by-turn navigator anywhere. It simply has no risk data to apply, and it tells you that rather than implying an unmapped road has been checked and found safe.',
   },
   {
-    q: 'Does blank map mean an area is safe?',
+    q: 'Does a blank map mean an area is safe?',
     a: 'No. A blank area means no data. An area rated in the lowest band means it was checked and carries no routing penalty. The app shows those differently on purpose.',
   },
   {
@@ -196,7 +196,7 @@ const coverageFaqs = [
   },
   {
     q: 'Which metro is next?',
-    a: 'New metros are added as funding allows, since each one means fetching map data, scoring it against crime statistics and a review pass before anything goes live. Sponsorship directly determines the pace.',
+    a: 'New metros are added as funding allows, since each one means fetching map data, scoring it against crime statistics, and running a review pass before anything goes live. Sponsorship directly determines the pace.',
   },
 ];
 
@@ -225,7 +225,7 @@ const coverageCta = `
       <p>Each new city means map data, crime scoring and a review pass before it goes live. Sponsorship is what decides which one is next.</p>
     </div>
     <div class="cta-actions">
-      ${button('Sponsor a metro', 'sponsor.html', 'primary')}
+      ${button('Sponsor a metro', 'sponsor.html#sponsor', 'primary')}
       ${button('Join the beta', 'get-app.html', 'ghost-light')}
     </div>
   </div>

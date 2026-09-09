@@ -8,7 +8,7 @@
 
 By using the Tsamaya app you agree to these terms. If you do not agree, do not use the app.
 
-## 1. What Tsamaya is — and is not
+## 1. What Tsamaya is, and what it is not
 
 Tsamaya is an **information tool**. It suggests driving routes that avoid areas and roads showing elevated risk in **historical, statistical data** (public crime statistics, mapping data, and curated review).
 
@@ -59,7 +59,7 @@ South African law governs these terms. If any clause is unenforceable, the rest 
 
 ---
 
-## Appendix A — short in-app disclaimer (first-run screen)
+## Appendix A: short in-app disclaimer (first-run screen)
 
 > **Tsamaya suggests lower-risk routes using historical crime statistics and curated local knowledge. Lower-risk does not mean safe — no app can guarantee your safety, and conditions change faster than any data. You stay responsible for every driving decision. In an emergency call 10111 or 112.**
 >
@@ -67,6 +67,6 @@ South African law governs these terms. If any clause is unenforceable, the rest 
 
 Acknowledgement is recorded on-device (timestamp + version) before first route is requested.
 
-## Appendix B — store-listing footer (one line)
+## Appendix B: store-listing footer (one line)
 
 > Route suggestions are based on historical statistics and curated review; they reduce estimated exposure but cannot guarantee safety. Always drive with judgement. Emergencies: 10111 / 112.

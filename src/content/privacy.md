@@ -1,12 +1,12 @@
 # Tsamaya Privacy Policy
 
-**Status: v1.0 — prepared 2026-08-25 (enabled crash reporting and disclosed it before switching it on, as v0.9 undertook to do: §4 now describes what a crash report contains, that the event trail is filtered on-device to remove coordinates, place names and destinations, and that the data is stored in the EU; §5 adds Sentry as a processor). Earlier revisions: v0.9 — prepared 2026-08-09 (added §4a disclosing optional push notifications: the device push token, platform and coarse metro stored per device, the two independent opt-in switches, and Expo/APNs/FCM as delivery processors; v0.8 moved the responsible party from Kyle Guy Kimble personally to Tsamaya (Pty) Ltd, unified contact on info@tsamayaapp.co.za, added Google Play as an Android distribution processor, and generalised iOS-only wording — all ahead of the Google Play listing under the company's developer account; v0.7 corrected live-trip link expiry to match implementation — active trips 12 h rolling, ended/arrived trips ~30 min, SOS links 24 h, §3a/§6; v0.6 disclosed optional live trip sharing, §3a/§2/§5/§6; v0.5 added Google Places API as the place-search processor, §1/§5). This text is not legal advice and remains subject to review by a South African attorney. Items still open for that review are tracked as notes in the source document.**
+**Status: v1.0, prepared 2026-08-25 (enabled crash reporting and disclosed it before switching it on, as v0.9 undertook to do: §4 now describes what a crash report contains, that the event trail is filtered on-device to remove coordinates, place names and destinations, and that the data is stored in the EU; §5 adds Sentry as a processor). Earlier revisions: v0.9, prepared 2026-08-09 (added §4a disclosing optional push notifications: the device push token, platform and coarse metro stored per device, the two independent opt-in switches, and Expo/APNs/FCM as delivery processors); v0.8 moved the responsible party from Kyle Guy Kimble personally to Tsamaya (Pty) Ltd, unified contact on info@tsamayaapp.co.za, added Google Play as an Android distribution processor, and generalised iOS-only wording, all ahead of the Google Play listing under the company's developer account; v0.7 corrected live-trip link expiry to match implementation (active trips 12 h rolling, ended/arrived trips ~30 min, SOS links 24 h), §3a/§6; v0.6 disclosed optional live trip sharing, §3a/§2/§5/§6; v0.5 added Google Places API as the place-search processor, §1/§5. This text is not legal advice and remains subject to review by a South African attorney. Items still open for that review are tracked as notes in the source document.**
 
 **Effective date:** 25 August 2026
 **Responsible party (POPIA):** Tsamaya (Pty) Ltd (reg. K2023990736), South Africa ("we", "us")
 **Contact:** info@tsamayaapp.co.za
 
-Tsamaya is a navigation app for South African metros that suggests driving routes which avoid areas and roads with elevated, statistically derived risk. This policy explains what personal information we process, why, and your rights under the Protection of Personal Information Act, 2013 (POPIA).
+Tsamaya is a navigation app for South African metros that suggests driving routes with lower statistical exposure to areas and roads carrying elevated, statistically derived risk. This policy explains what personal information we process, why, and your rights under the Protection of Personal Information Act, 2013 (POPIA).
 
 ## The short version
 
@@ -54,7 +54,7 @@ Reports are suggestions for human review; they never change the live dataset aut
 
 ## 3a. Live trip sharing (optional)
 
-Tsamaya lets you **optionally** share a live trip so someone you choose can follow your progress on a private web link and see when you arrive safely. This is **off** unless you tap **Share** during a drive.
+Tsamaya lets you **optionally** share a live trip so someone you choose can follow your progress on a private web link and see when you arrive. This is **off** unless you tap **Share** during a drive.
 
 While a share is active we store, on our server (Supabase): your **current location and heading**, your **destination and estimated arrival time**, and the **random installation identifier** — never your **starting point**, your name, or an account. The trip is readable **only by someone who holds the private link** you send (a random, unguessable token).
 
@@ -81,7 +81,7 @@ To deliver a notification we store, for each device:
 - the push token that Expo, Apple or Google issues for that installation (a delivery address for the device, not a name, an account or a contact detail);
 - the random installation identifier described in section 3, so that a device which re-registers is recognised instead of duplicated;
 - the platform (iOS or Android) and the app version;
-- the metro you are in: a city name such as "Cape Town", chosen from the six areas we cover, so that a Cape Town closure alert does not go to drivers in Johannesburg. **Not coordinates, not a street, not a trip.**
+- the metro you are in: a city name such as "Cape Town", chosen from the metros we cover, so that a Cape Town closure alert does not go to drivers in Johannesburg. **Not coordinates, not a street, not a trip.**
 
 We do not use notifications for advertising, and we do not send them for anyone else. A person writes and approves every notification before it goes out. Nothing is sent automatically because of where you are or where you drive. If the delivery service tells us a token no longer works, for example after you uninstall the app, we stop using it.
 
@@ -123,7 +123,7 @@ To exercise any right: info@tsamayaapp.co.za. We respond within a reasonable tim
 
 Tsamaya is a driving app and is not directed at children under 18. We do not knowingly process children's personal information.
 
-## 10. Safety-data is not personal data — but a note on it
+## 10. Risk data is not personal data
 
 The risk zones and road classifications shown in the app are derived from public, aggregated sources (including SAPS crime statistics and OpenStreetMap) plus curated review. They describe **areas**, never individuals, and contain no personal information.
 

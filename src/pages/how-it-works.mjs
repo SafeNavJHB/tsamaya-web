@@ -32,28 +32,28 @@ const pipeline = section({
       <div class="t-marker">${icon('eye', 20)}</div>
       <div>
         <h3>2 · Sample &amp; test against risk zones</h3>
-        <p>The route is sampled along its length and tested against all active danger zones for the current time band. Only <strong>red</strong> and <strong>elevated-orange</strong> zones count. Caution-yellow is shown but never forces a detour.</p>
+        <p>The route is sampled along its length and tested against all active risk zones for the current time band. Only <strong>red</strong> and <strong>elevated-orange</strong> zones count. Caution-yellow is shown but never forces a detour.</p>
       </div>
     </li>
     <li>
       <div class="t-marker">${icon('layers', 20)}</div>
       <div>
-        <h3>3 · Already on a safe corridor?</h3>
-        <p>If the route is already running along a curated <em>safe corridor</em> through a zone, that counts as a pass-through and no detour is needed. Corridors are the local knowledge that stops the app over-reacting.</p>
+        <h3>3 · Already on a checked corridor?</h3>
+        <p>If the route is already running along a curated <em>checked corridor</em> through a zone, that counts as a pass-through and no detour is needed. Corridors are the local knowledge that stops the app over-reacting.</p>
       </div>
     </li>
     <li>
       <div class="t-marker">${icon('pin', 20)}</div>
       <div>
         <h3>4 · Find bypass waypoints</h3>
-        <p>For genuine danger, Tsamaya picks the nearest safe-corridor point to each hotspot and injects a small number of waypoints, nudging the route around the area rather than through it.</p>
+        <p>Where a zone has no corridor through it, Tsamaya picks the nearest checked-corridor point to each risk zone and injects a small number of waypoints, nudging the route around the area rather than through it.</p>
       </div>
     </li>
     <li>
       <div class="t-marker">${icon('check', 20)}</div>
       <div>
         <h3>5 · Re-route &amp; sanity-check</h3>
-        <p>We re-fetch with those waypoints. If the safer line ends up substantially longer than direct, we don’t pretend it’s reasonable. We hand back the direct route, clearly flagged as risky, and let you decide.</p>
+        <p>We re-fetch with those waypoints. If the lower-risk line ends up substantially longer than the direct route, we don’t pretend it’s reasonable. We hand back the direct route, clearly flagged as risky, and let you decide.</p>
       </div>
     </li>
     <li>
@@ -98,6 +98,6 @@ export default {
   slug: 'how-it-works.html',
   title: 'How it works',
   description:
-    'How Tsamaya plans lower-risk routes: fetch the fastest line, test it against time-aware risk zones, and re-route along curated safe corridors.',
+    'How Tsamaya plans lower-risk routes: fetch the fastest line, test it against time-aware risk zones, and re-route along curated checked corridors.',
   body: [hero, pipeline, timeBands, cta].join('\n'),
 };

@@ -1,4 +1,4 @@
-import { site } from '../../site.config.mjs';
+import { site, stats } from '../../site.config.mjs';
 import { section, eyebrow, icon, button } from '../components.mjs';
 
 const hero = `
@@ -22,7 +22,7 @@ const stack = section({
       ['database', 'Supabase + PostGIS', 'Postgres with PostGIS geometry holds every zone and corridor. The app reads live; the editor writes via typed RPC functions.'],
       ['cpu', 'Python data pipeline', 'Map-data fetch → proprietary crime-density scoring → zone/corridor classification → staging → promotion to live.'],
       ['shield', 'Claude review', 'A second-opinion review pass flags questionable classifications for a human before anything reaches drivers.'],
-      ['server', 'GitHub + EAS', 'Versioned SQL migrations keep the database reproducible; TestFlight distributes builds to testers.'],
+      ['server', 'GitHub + EAS', 'Versioned SQL migrations keep the database reproducible; TestFlight and Google Play open testing get builds to testers.'],
     ]
       .map(
         ([ic, t, b]) =>
@@ -63,12 +63,12 @@ const thresholds = section({
     </div>
     <table class="spec-table">
       <tbody>
-        <tr><th scope="row">What triggers a detour</th><td>Only higher-risk areas; caution-level zones are shown, never forced</td></tr>
+        <tr><th scope="row">What triggers a detour</th><td>Only higher-risk areas. Caution-level zones are drawn on the map but never trigger a detour</td></tr>
         <tr><th scope="row">Route check</th><td>The route is sampled and tested against every active zone for the current time</td></tr>
-        <tr><th scope="row">Corridor awareness</th><td>Recognises when a route already runs a known-safe corridor, and leaves it be</td></tr>
+        <tr><th scope="row">Corridor awareness</th><td>Recognises when a route already runs a corridor we have checked, and leaves it be</td></tr>
         <tr><th scope="row">Detour limits</th><td>Bypasses are capped so they never wander unreasonably far from the direct line</td></tr>
-        <tr><th scope="row">Corridor selection</th><td>Only nearby safe corridors are used to steer around a risk area</td></tr>
-        <tr><th scope="row">Sanity check</th><td>Any detour that ends up excessively longer than direct is rejected. You get the direct route, clearly flagged</td></tr>
+        <tr><th scope="row">Corridor selection</th><td>Only nearby checked corridors are used to steer around a risk area</td></tr>
+        <tr><th scope="row">Sanity check</th><td>Any detour that ends up excessively longer than the direct route is rejected. You get the direct route, clearly flagged</td></tr>
         <tr><th scope="row">Time-aware</th><td>Separate risk weighting for daytime, evening and night</td></tr>
       </tbody>
     </table>
@@ -88,11 +88,11 @@ const dataModel = section({
     </article>
     <article class="info-card">
       <h3>${icon('layers', 18)} Corridors</h3>
-      <p>LineStrings with a buffer width that mark roads as <em>safe</em> (preferred when threading past risk) or <em>danger</em> (actively avoided). Identity is always <code>(city, name)</code>, because road names repeat across metros.</p>
+      <p>LineStrings with a buffer width that mark roads as <em>safe</em> (preferred when threading past risk) or <em>danger</em> (actively avoided). The <em>safe</em> value is the stored field name for what the rest of the site calls a checked corridor: a road we have reviewed, not a promise about it. Identity is always <code>(city, name)</code>, because road names repeat across metros.</p>
       <code class="chip">safe · danger</code>
     </article>
   </div>
-  <p class="footnote">Geometry is stored as PostGIS and written through <code>ST_SetSRID(ST_GeomFromGeoJSON(…), 4326)</code> RPCs, since PostgREST can’t auto-cast GeoJSON to geometry.</p>`,
+  <p class="footnote">Geometry is stored as PostGIS geometry and written through <code>ST_SetSRID(ST_GeomFromGeoJSON(…), 4326)</code> RPCs, since PostgREST can’t auto-cast GeoJSON to geometry.</p>`,
 });
 
 const coverage = section({
@@ -100,7 +100,7 @@ const coverage = section({
   inner: `
   ${eyebrow('Coverage')}
   <h2>Where Tsamaya works today</h2>
-  <p class="big">Live across ${site.coverageLive}. Mapped metros: <strong>${site.coverageData}</strong>. Adding a new city follows a documented runbook, which is how the map went from one metro to seven.</p>
+  <p class="big">Live across ${site.coverageLive}. Mapped metros: <strong>${site.coverageData}</strong>. Adding a new city follows a documented runbook, which is how the map went from one metro to ${stats.totals.metros}.</p>
   <div class="stats stats-tech">
     ${site.stats.map((s) => `<div class="stat"><span class="stat-value">${s.value}</span><span class="stat-label">${s.label}</span></div>`).join('')}
   </div>`,
@@ -110,7 +110,7 @@ const cta = `
 <section class="cta-band">
   <div class="wrap cta-inner">
     <div><h2>Curious, or want to help build it?</h2><p>We’re always glad to talk shop, or to find sponsors who want to fund the next metro.</p></div>
-    <div class="cta-actions">${button('Get in touch', 'contact.html', 'primary')}${button('Sponsor a city', 'sponsor.html', 'ghost-light')}</div>
+    <div class="cta-actions">${button('Get in touch', 'contact.html', 'primary')}${button('Sponsor a metro', 'sponsor.html#sponsor', 'ghost-light')}</div>
   </div>
 </section>`;
 

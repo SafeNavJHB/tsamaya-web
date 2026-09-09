@@ -36,11 +36,11 @@ export default {
     <div id="map" style="position:absolute;inset:0;"></div>
     <div id="arrived" style="position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(255,255,255,0.96);padding:24px;">
       <div style="font-size:56px;line-height:1;">✅</div>
-      <h2 id="arrived-title" style="margin:14px 0 6px;">Arrived safely</h2>
+      <h2 id="arrived-title" style="margin:14px 0 6px;">Arrived</h2>
       <p id="arrived-sub" style="margin:0;opacity:.65;"></p>
     </div>
   </div>
-  <p style="margin-top:12px;opacity:.6;font-size:13px;">Shared via Tsamaya. The map updates roughly every 10 to 15 seconds while a drive is active. Between drives the page waits and picks up the next one automatically, so it's safe to bookmark.</p>
+  <p style="margin-top:12px;opacity:.6;font-size:13px;">Shared via Tsamaya. The map updates roughly every 10 to 15 seconds while a drive is active. Between drives the page waits and picks up the next one automatically, so you can bookmark it.</p>
 </section>
 <script>
 (function(){
@@ -93,8 +93,8 @@ export default {
       // keep waiting rather than declaring the link dead.
       waiting=true;
       if(info) info.textContent=started
-        ? 'Drive over \\u2014 this page picks up their next shared drive automatically.'
-        : 'No live drive right now \\u2014 leave this page open and the next shared drive appears automatically.';
+        ? 'Drive over. This page picks up their next shared drive automatically.'
+        : 'No live drive right now. Leave this page open and the next shared drive appears automatically.';
       return;
     }
     var lng=trip.lng, lat=trip.lat;
@@ -111,20 +111,20 @@ export default {
     var at=trip.dest_name?(' at '+trip.dest_name):'';
     if(trip.status==='arrived'){
       waiting=true;
-      if(info) info.textContent='\\u2705 Arrived safely'+at+'.';
+      if(info) info.textContent='\\u2705 Arrived'+at+'.';
       if(arrivedEl){
-        document.getElementById('arrived-title').textContent=(trip.dest_name?trip.dest_name+' \\u2014 ':'')+'Arrived safely';
+        document.getElementById('arrived-title').textContent=(trip.dest_name?'Arrived at '+trip.dest_name:'Arrived');
         document.getElementById('arrived-sub').textContent=trip.arrived_at?('Arrived at '+clock(new Date(trip.arrived_at).getTime())+'.'):'';
         arrivedEl.style.display='flex';
       }
     }
-    else if(trip.status==='ended'){ waiting=true; if(info) info.textContent='Sharing ended \\u2014 this page picks up their next shared drive automatically.'; }
+    else if(trip.status==='ended'){ waiting=true; if(info) info.textContent='Sharing ended. This page picks up their next shared drive automatically.'; }
     else {
       // An active drive (re)appeared — leave waiting mode and reset the
       // previous drive's leftovers so drive #2 renders cleanly.
       waiting=false;
       if(arrivedEl) arrivedEl.style.display='none';
-      if(isSos){ if(info){ info.textContent='\\u26A0\\uFE0F Emergency \\u2014 following their live location.'; info.style.color='#dc3c50'; info.style.fontWeight='700'; } }
+      if(isSos){ if(info){ info.textContent='\\u26A0\\uFE0F Emergency. Following their live location.'; info.style.color='#dc3c50'; info.style.fontWeight='700'; } }
       else { var eta=''; if(trip.eta_epoch){ eta=' \\u00b7 ETA ~'+clock(Number(trip.eta_epoch)); } if(info) info.textContent='\\uD83D\\uDE97 On the way'+to+eta+'.'; }
     }
   }

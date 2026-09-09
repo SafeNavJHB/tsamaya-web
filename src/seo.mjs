@@ -92,7 +92,10 @@ function application() {
     // Free text, but these are the values Google's own docs use.
     applicationCategory: 'TravelApplication',
     applicationSubCategory: 'Navigation',
-    operatingSystem: 'iOS 16.0 or later',
+    // Both platforms, because every page of this site says both. Declaring iOS
+    // only told crawlers the opposite of the page text and made the app node
+    // ineligible for Android-intent results.
+    operatingSystem: 'iOS 16.0 or later, Android 8.0 or later',
     description: site.description,
     publisher: { '@id': ID.org },
     author: { '@id': ID.org },

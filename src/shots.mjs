@@ -49,7 +49,7 @@
 export const shots = [
   {
     name: 'jhb-map',
-    alt: 'Tsamaya over Sandton, Johannesburg, showing risk zones, safe corridors and a flagged hijacking hotspot on the live map',
+    alt: 'Tsamaya over Sandton, Johannesburg, showing risk zones, checked corridors and a flagged hijacking hotspot on the live map',
     title: 'The live risk map',
     caption: 'Sandton and Illovo, with zones, corridors and hotspots rated for the current time of day',
   },
@@ -87,7 +87,7 @@ export const walkthrough = {
 // A screen reader should get the same information a sighted reader does.
 export const alts = {
   'jhb-map':
-    'The Tsamaya app over Sandton, Johannesburg, with risk zones shaded on the live map, safe corridors in green, and a flagged hijacking hotspot',
+    'The Tsamaya app over Sandton, Johannesburg, with risk zones shaded on the live map, checked corridors in green, and a flagged hijacking hotspot',
   'capetown-map':
     'Tsamaya over the Cape Town city centre, with risk overlays across District Six, Vredehoek and the Foreshore',
   'route-card':

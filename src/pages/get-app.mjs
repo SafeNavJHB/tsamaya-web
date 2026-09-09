@@ -11,7 +11,7 @@ const hero = `
   <div class="wrap">
     ${eyebrow('Get the app')}
     <h1>Put Tsamaya on your phone.</h1>
-    <p class="lede center-narrow">Free while in beta, on both platforms: TestFlight on iPhone, Google Play on Android. A couple of minutes to set up, and you can leave whenever you like.</p>
+    <p class="lede center-narrow">Free while in beta, on both platforms: TestFlight on iPhone, Google Play on Android. A few minutes to set up, and you can leave whenever you like.</p>
   </div>
 </section>`;
 
@@ -54,7 +54,7 @@ const platforms = section({
   <div class="card-2 platform-grid">
     <div class="note-card platform-card">
       <h3>${icon('phone', 20)} On iPhone</h3>
-      <p>Tsamaya ships through Apple’s TestFlight while in beta, which is Apple’s own app for trying new software. Free, and easy to leave.</p>
+      <p>While it’s in beta, Tsamaya ships through TestFlight, Apple’s own app for trying new software. Free, and easy to leave.</p>
       ${iosAction}
       <ol class="mini-steps">
         <li>Open the TestFlight link on your iPhone.</li>
@@ -64,7 +64,7 @@ const platforms = section({
     </div>
     ${androidCard}
   </div>
-  <p class="muted center mt">Free during the beta on both platforms, with nothing to pay later for the safety basics. Just your email if you’d like to send feedback.</p>`,
+  <p class="muted center mt">Free on both platforms during the beta, and the safety side stays free after it.</p>`,
 });
 
 // What to expect once it's installed — moved verbatim-in-spirit from the old
@@ -85,7 +85,7 @@ const gettingStarted = section({
       <span class="step-num">2</span>
       ${icon('pin', 26, 'step-ic')}
       <h3>Allow location while driving</h3>
-      <p>Tsamaya needs your location to show where you are and to plan a route from where you’re standing. Choose “While Using the App”. It never tracks you in the background.</p>
+      <p>Tsamaya needs your location to show where you are and to plan a route from where you’re standing. Choose “While Using the App” when it first asks. On iPhone it asks once more when you start your first drive, so guidance keeps going when your screen locks. It doesn’t collect your location when the app is closed.</p>
     </div>
     <div class="step">
       <span class="step-num">3</span>
