@@ -8,9 +8,9 @@ import {
   deviceMockup,
   deviceShot,
 } from '../components.mjs';
-import { metros as metroContent } from '../data/metros.mjs';
 import { shotSize, walkthrough, altFor } from '../shots.mjs';
-import { coverageBars, routeCompare } from '../charts.mjs';
+import { routeCompare } from '../charts.mjs';
+import { coverageMap, mappedMetros } from '../map.mjs';
 import { faqNode } from '../seo.mjs';
 
 // A decorative route that draws itself across the hero background — the brand's
@@ -139,19 +139,16 @@ const demoTeaser = section({
 });
 
 // Coverage — the map's actual footprint, straight from the live database, and the
-// entry point to the per-metro pages.
+// entry point to the per-metro pages. The picture leads here and the numbers
+// follow on the coverage page: "does it work where I drive?" is a question about
+// a place, and a bar chart is a poor way to answer it.
 const coverage = section({
   cls: 'band',
   inner: `
   ${eyebrow('Where it works')}
   <h2>${fmt(stats.totals.zones)} mapped risk zones across ${stats.totals.metros} metros.</h2>
-  <p class="sub">Every figure here is read from the live database rather than typed into the page. Zone counts follow how big and dense a metro is. Stellenbosch has ${stats.metros.find((m) => m.key === 'stellenbosch').zones} zones because it is a small town, not because it is half-finished.</p>
-  ${coverageBars(
-    metroContent
-      .map((c) => ({ content: c, data: stats.metros.find((m) => m.key === c.key) }))
-      .filter((x) => x.data && x.data.zones > 0)
-      .map(({ content, data }) => ({ label: content.name, value: data.zones, slug: content.slug })),
-  )}
+  <p class="sub">Every figure here is read from the live database rather than typed into the page. Coverage runs metro by metro, so the honest picture is patches rather than a blanket over the country.</p>
+  ${coverageMap(mappedMetros(), 'home-map')}
   <div class="center mt">${button('Coverage by metro', 'coverage.html', 'ghost')}</div>`,
 });
 

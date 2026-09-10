@@ -708,3 +708,57 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .legal-prose tbody tr:last-child td { border-bottom: none; }
 
 .legal-foot { max-width: 76ch; margin: 30px auto 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.92rem; }
+
+/* ---------------------------------------------------------------------------
+ * Coverage map (src/map.mjs) — South Africa with the mapped metros on it.
+ *
+ * The drawing and the list beside it are two views of one thing. On a phone the
+ * list is the only readable one: SVG text scales with the drawing, so the labels
+ * that read comfortably on a laptop would be about 7px on a 360px screen. They
+ * are hidden there rather than shrunk, and the list carries the names instead.
+ * ------------------------------------------------------------------------ */
+.zamap { display: grid; grid-template-columns: minmax(0, 1fr) 272px; gap: 34px; align-items: start; margin: 30px 0 0; }
+.zamap-canvas { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 6px; box-shadow: var(--shadow-sm); }
+.zamap-svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.zamap-land { fill: #e9edf6; stroke: #cdd6e8; stroke-width: 1.4; }
+.zamap-border { fill: none; stroke: #ffffff; stroke-width: 1.8; stroke-opacity: 0.85; stroke-linejoin: round; }
+.zamap-leader { stroke: #9aa5bd; stroke-width: 1.1; }
+.zamap-area { fill: rgba(5, 150, 105, 0.2); stroke: var(--emerald-deep); stroke-width: 1.4; transition: fill 0.2s, stroke-width 0.2s; }
+.zamap-dot { fill: var(--emerald-text); stroke: #ffffff; stroke-width: 2.4; }
+/* Grown on hover instead of animating the dot's radius: `r` as a CSS property is
+   newer than this site's browser floor, and a halo reads better anyway. */
+.zamap-halo { fill: none; stroke: var(--emerald-deep); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0.55); transition: opacity 0.2s, transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1); }
+.zamap-hit { fill: transparent; }
+.zamap-label { font-family: var(--display); font-size: 21px; font-weight: 600; fill: var(--text); paint-order: stroke; stroke: #ffffff; stroke-width: 4.5px; stroke-linejoin: round; transition: fill 0.2s; }
+
+.zamap-metro { cursor: pointer; }
+.zamap-metro:hover .zamap-area, .zamap-metro.is-active .zamap-area { fill: rgba(5, 150, 105, 0.36); stroke-width: 2.4; }
+.zamap-metro:hover .zamap-halo, .zamap-metro.is-active .zamap-halo { opacity: 1; transform: scale(1); }
+.zamap-metro:hover .zamap-label, .zamap-metro.is-active .zamap-label { fill: var(--emerald-text); }
+
+.zamap-key { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 20px; font-size: 0.84rem; color: var(--muted); }
+.zamap-key-item { display: inline-flex; align-items: center; }
+.zamap-swatch { width: 13px; height: 13px; margin-right: 7px; border-radius: 3px; background: rgba(5, 150, 105, 0.28); border: 1px solid var(--emerald-deep); }
+.zamap-swatch.is-blank { background: #e9edf6; border-color: #cdd6e8; }
+
+.zamap-group + .zamap-group { margin-top: 18px; }
+.zamap-region { margin: 0 0 7px; font-family: var(--font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.zamap-metros { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.zamap-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 6px 10px; border-radius: 9px; text-decoration: none; color: var(--text); font-size: 0.94rem; transition: background 0.18s, color 0.18s; }
+.zamap-row:hover, .zamap-row.is-active { background: var(--bg-soft); color: var(--emerald-text); }
+.zamap-row-name { font-weight: 600; }
+.zamap-row-count { font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.zamap-row:hover .zamap-row-count, .zamap-row.is-active .zamap-row-count { color: var(--emerald-text); }
+
+.zamap-caption { grid-column: 1 / -1; margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.88rem; line-height: 1.6; color: var(--muted); max-width: 78ch; }
+
+@media (max-width: 900px) {
+  .zamap { grid-template-columns: 1fr; gap: 24px; }
+  /* Type inside the drawing would be ~7px wide here. The list says it instead. */
+  .zamap-label, .zamap-leader { display: none; }
+  .zamap-metros { grid-template-columns: 1fr 1fr; gap: 2px 10px; }
+}
+@media (max-width: 460px) {
+  .zamap-metros { grid-template-columns: 1fr; }
+}

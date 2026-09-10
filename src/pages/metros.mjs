@@ -18,6 +18,7 @@ import { section, eyebrow, icon, button } from '../components.mjs';
 import { metros as metroContent } from '../data/metros.mjs';
 import { faqNode, breadcrumbNode } from '../seo.mjs';
 import { bandBar, coverageBars } from '../charts.mjs';
+import { coverageMap, mappedMetros } from '../map.mjs';
 
 // Pair the editorial content with the live numbers for that metro.
 const joined = metroContent
@@ -152,8 +153,17 @@ const coverageHero = `
   </div>
 </section>`;
 
-const coverageGrid = section({
+const coverageMapSection = section({
   cls: 'band',
+  inner: `
+  ${eyebrow('The map')}
+  <h2>Twelve patches of a very large country</h2>
+  <p class="sub">Coverage is deliberately metro by metro rather than a thin national layer. Each block below is the area the app treats as mapped, drawn from the same bounds the app itself uses, so what you see here is what the app knows.</p>
+  ${coverageMap(mappedMetros(), 'coverage-map')}`,
+});
+
+const coverageGrid = section({
+  cls: 'band-soft',
   inner: `
   ${eyebrow('Coverage by metro')}
   <h2>Pick a metro</h2>
@@ -173,7 +183,7 @@ const coverageGrid = section({
 });
 
 const coverageChart = section({
-  cls: 'band-soft',
+  cls: 'band',
   inner: `
   ${eyebrow('The shape of the map')}
   <h2>Mapped areas per metro</h2>
@@ -201,7 +211,7 @@ const coverageFaqs = [
 ];
 
 const coverageFaq = section({
-  cls: 'band',
+  cls: 'band-soft',
   inner: `
   ${eyebrow('Questions')}
   <h2 class="center">About coverage</h2>
@@ -243,7 +253,7 @@ const coveragePage = {
       { name: 'Coverage', slug: 'coverage.html' },
     ]),
   ],
-  body: [coverageHero, coverageGrid, coverageChart, coverageFaq, coverageCta].join('\n'),
+  body: [coverageHero, coverageMapSection, coverageGrid, coverageChart, coverageFaq, coverageCta].join('\n'),
 };
 
 export default [coveragePage, ...joined.map(metroPage)];

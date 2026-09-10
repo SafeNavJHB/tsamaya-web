@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-10.1",
+      "date": "10 September 2026",
+      "items": [
+        {
+          "icon": "close-circle-outline",
+          "title": "Closing a road-closure map no longer traps you",
+          "body": "In the road closures review screen, \"See it on the map\" left no way back: the close button was being laid out underneath the details panel at the bottom, off screen. It now sits at the top left of the map, and on Android the back button closes the map instead of leaving the screen.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-09.1",
       "date": "9 September 2026",
       "items": [

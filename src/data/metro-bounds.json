@@ -1,0 +1,174 @@
+{
+  "_generated": "scripts/sync-metro-bounds.mjs — do not hand-edit",
+  "_source": "SafeNav app, src/constants/cities.ts (the service-area gate)",
+  "metros": [
+    {
+      "key": "johannesburg",
+      "name": "Johannesburg",
+      "bbox": {
+        "lngMin": 27.5,
+        "lngMax": 28.7,
+        "latMin": -26.8,
+        "latMax": -25.5
+      },
+      "center": [
+        28.05,
+        -26.2
+      ]
+    },
+    {
+      "key": "stellenbosch",
+      "name": "Stellenbosch",
+      "bbox": {
+        "lngMin": 18.77,
+        "lngMax": 18.98,
+        "latMin": -34.02,
+        "latMax": -33.79
+      },
+      "center": [
+        18.86,
+        -33.935
+      ]
+    },
+    {
+      "key": "cape_town",
+      "name": "Cape Town",
+      "bbox": {
+        "lngMin": 18.3,
+        "lngMax": 19,
+        "latMin": -34.4,
+        "latMax": -33.45
+      },
+      "center": [
+        18.42,
+        -33.92
+      ]
+    },
+    {
+      "key": "pretoria",
+      "name": "Pretoria",
+      "bbox": {
+        "lngMin": 27.95,
+        "lngMax": 28.45,
+        "latMin": -25.95,
+        "latMax": -25.55
+      },
+      "center": [
+        28.19,
+        -25.75
+      ]
+    },
+    {
+      "key": "secunda",
+      "name": "Secunda",
+      "bbox": {
+        "lngMin": 29.04278,
+        "lngMax": 29.36278,
+        "latMin": -26.67611,
+        "latMax": -26.35611
+      },
+      "center": [
+        29.20278,
+        -26.51611
+      ]
+    },
+    {
+      "key": "ekurhuleni",
+      "name": "Ekurhuleni",
+      "bbox": {
+        "lngMin": 28.06561,
+        "lngMax": 28.52715,
+        "latMin": -26.46558,
+        "latMax": -25.90338
+      },
+      "center": [
+        28.29638,
+        -26.18448
+      ]
+    },
+    {
+      "key": "west_rand",
+      "name": "West Rand",
+      "bbox": {
+        "lngMin": 27.4,
+        "lngMax": 27.9,
+        "latMin": -26.55,
+        "latMax": -26
+      },
+      "center": [
+        27.65,
+        -26.275
+      ]
+    },
+    {
+      "key": "rustenburg",
+      "name": "Rustenburg",
+      "bbox": {
+        "lngMin": 27.08145,
+        "lngMax": 27.40145,
+        "latMin": -25.82566,
+        "latMax": -25.50566
+      },
+      "center": [
+        27.24145,
+        -25.66566
+      ]
+    },
+    {
+      "key": "pilanesberg",
+      "name": "Pilanesberg",
+      "bbox": {
+        "lngMin": 26.9,
+        "lngMax": 27.3,
+        "latMin": -25.42,
+        "latMax": -25.1
+      },
+      "center": [
+        27.1,
+        -25.26
+      ]
+    },
+    {
+      "key": "mossel_bay",
+      "name": "Mossel Bay",
+      "bbox": {
+        "lngMin": 21.63,
+        "lngMax": 22.36,
+        "latMin": -34.35,
+        "latMax": -33.84
+      },
+      "center": [
+        21.995,
+        -34.095
+      ]
+    },
+    {
+      "key": "durban",
+      "name": "Durban",
+      "bbox": {
+        "lngMin": 30.55,
+        "lngMax": 31.2,
+        "latMin": -30.28,
+        "latMax": -29.49
+      },
+      "center": [
+        31.02,
+        -29.86
+      ]
+    },
+    {
+      "key": "gqeberha",
+      "name": "Gqeberha",
+      "bbox": {
+        "lngMin": 25.18,
+        "lngMax": 25.88,
+        "latMin": -34.06,
+        "latMax": -33.54
+      },
+      "center": [
+        25.6,
+        -33.96
+      ]
+    }
+  ]
+}
