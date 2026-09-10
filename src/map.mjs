@@ -35,13 +35,13 @@ const readJson = (name) => JSON.parse(readFileSync(join(dataDir, name), 'utf8'))
 const landData = readJson('za-land.json');
 const boundsData = readJson('metro-bounds.json');
 
-export const metroBounds = new Map(boundsData.metros.map((m) => [m.key, m]));
+const metroBounds = new Map(boundsData.metros.map((m) => [m.key, m]));
 
 /* ---------------------------------------------------------------------------
  * Projection.
  *
  * Equirectangular, with longitude squeezed by cos(mid-latitude). South Africa
- * spans 22°S to 35°S, where a degree of longitude is only ~85% of a degree of
+ * spans 22°S to 35°S, where a degree of longitude is only ~88% of a degree of
  * latitude; plotting raw lng/lat would stretch the country visibly wider than it
  * is. Web Mercator would do the opposite at these latitudes (it stretches the
  * Cape vertically). Neither matters for navigation here — nothing is measured off
@@ -58,9 +58,16 @@ const COUNTRY_W = 1000;
 const SCALE = COUNTRY_W / ((B.lngMax - B.lngMin) * LNG_SQUEEZE);
 const COUNTRY_H = (B.latMax - B.latMin) * SCALE;
 
-// Room for the labels that sit outside the coastline. Durban's runs off the east
-// coast, Cape Town's below the Cape.
-const PAD = { top: 34, right: 150, bottom: 62, left: 96 };
+// Room for the labels that sit outside the coastline: Cape Town's runs off the
+// west coast, and the Cape itself hangs below the last of them.
+//
+// Measured, not guessed. The first pass reserved a generous margin all round and
+// left a fifth of the frame empty — on the coverage map, where the country IS
+// the content. These values sit about 20 units clear of the furthest ink in the
+// browser, which is enough for a wider fallback font if Sora fails to load. If a
+// new metro's label runs past the frame, widen the side it runs past; the
+// clipping is not subtle when it happens.
+const PAD = { top: 16, right: 34, bottom: 24, left: 34 };
 
 const px = (lng) => (lng - B.lngMin) * LNG_SQUEEZE * SCALE;
 const py = (lat) => (B.latMax - lat) * SCALE;
@@ -75,10 +82,10 @@ const toPath = (rings, close) =>
  * Label placement.
  *
  * Offsets in map units from the metro's own marker, plus which side the text
- * runs. They are hand-set because there is no getting around it: four metros sit
- * inside Gauteng within 40 units of each other, and Cape Town and Stellenbosch
- * are 27 apart. An automatic placer that handles that is a bigger piece of
- * software than this whole site.
+ * runs. They are hand-set because there is no getting around it: the four
+ * Gauteng metros all fall inside a 50-unit square, and Cape Town and
+ * Stellenbosch are 27 units apart. An automatic placer that resolves that is a
+ * bigger piece of software than this whole site.
  *
  * A metro with no entry here gets its name to the right of its marker, which is
  * correct for anything that is not in a cluster. If a newly added metro lands on
@@ -132,11 +139,12 @@ export function mappedMetros() {
  * The coverage map, with the list of metros beside it.
  *
  * The list is not a caption — it is the accessible form of the same information,
- * and on a phone it is the only readable form, because SVG text scales with the
- * drawing and a national map on a 360px screen would render the labels at 7px.
- * The <svg> is therefore aria-hidden and its links are taken out of the tab order
- * on purpose: with the list sitting right beside it, exposing both would make a
- * screen reader read out twelve metros twice.
+ * and on a narrow screen it is the only readable form: SVG text scales with the
+ * drawing, so below about 620px the labels are hidden and the list is all there
+ * is. The <svg> is therefore aria-hidden and its links are taken out of the tab
+ * order on purpose: with the list sitting right beside it, exposing both would
+ * make a screen reader read out twelve metros twice, and reaching the map by
+ * keyboard would gain a reader nothing the list has not already said.
  *
  * @param {{key:string, name:string, slug:string, region:string, zones:number}[]} metros
  * @param {string} [id]  unique per page — two maps on one page would collide.
@@ -152,13 +160,46 @@ export function coverageMap(metros, id = 'coverage-map') {
       );
     }
     const [lng, lat] = bounds.center;
-    return { ...m, bounds, x: px(lng), y: py(lat), label: LABELS[m.key] || DEFAULT_LABEL };
+    const { lngMin, lngMax, latMin, latMax } = bounds.bbox;
+    return {
+      ...m,
+      bounds,
+      x: px(lng),
+      y: py(lat),
+      area: (lngMax - lngMin) * (latMax - latMin),
+      label: LABELS[m.key] || DEFAULT_LABEL,
+    };
   });
+
+  // Paint the biggest box first so the smallest ends up on top. Metro boxes nest
+  // — Pretoria's sits entirely inside Johannesburg's, as do Ekurhuleni's and the
+  // West Rand's — so without an order the click target for a small metro is
+  // whatever happened to be written last. Smallest-on-top is also the rule the
+  // app itself uses to decide which of two overlapping zones owns a piece of
+  // ground, so the map behaves the way the product does.
+  const painted = [...placed].sort((a, b) => b.area - a.area);
+
+  // Marker hit areas, sized against the nearest other marker.
+  //
+  // A flat, generous radius looked fine and was wrong: Johannesburg and
+  // Ekurhuleni sit 15 map units apart, so a 16-unit target around Ekurhuleni
+  // covered the middle of Johannesburg's marker, and Ekurhuleni is drawn later.
+  // Clicking Johannesburg opened Ekurhuleni. Half the distance to the nearest
+  // neighbour is the most a marker can claim without stealing from one; where
+  // that is less than the marker itself, the marker is the target and nothing is
+  // added.
+  const MARKER_R = 9;
+  for (const m of placed) {
+    const nearest = Math.min(
+      ...placed.filter((o) => o !== m).map((o) => Math.hypot(o.x - m.x, o.y - m.y)),
+    );
+    m.hit = Math.max(MARKER_R, Math.min(26, nearest / 2 - 0.5));
+  }
 
   const land = `<path class="zamap-land" d="${toPath(landData.land, true)}" fill-rule="evenodd"/>`;
   const borders = `<path class="zamap-border" d="${toPath(landData.borders, false)}"/>`;
 
-  const markers = placed
+  const markers = painted
     .map((m) => {
       const { lngMin, lngMax, latMin, latMax } = m.bounds.bbox;
       const x = px(lngMin);
@@ -178,9 +219,9 @@ export function coverageMap(metros, id = 'coverage-map') {
       <rect class="zamap-area" x="${r1(x)}" y="${r1(y)}" width="${r1(w)}" height="${r1(h)}" rx="2"/>
       ${leader}
       <circle class="zamap-halo" cx="${r1(m.x)}" cy="${r1(m.y)}" r="18"/>
-      <circle class="zamap-dot" cx="${r1(m.x)}" cy="${r1(m.y)}" r="9"/>
+      <circle class="zamap-dot" cx="${r1(m.x)}" cy="${r1(m.y)}" r="${MARKER_R}"/>
       <text class="zamap-label" x="${r1(lx)}" y="${r1(ly)}" text-anchor="${m.label.anchor}">${m.name}</text>
-      <circle class="zamap-hit" cx="${r1(m.x)}" cy="${r1(m.y)}" r="30"/>
+      <circle class="zamap-hit" cx="${r1(m.x)}" cy="${r1(m.y)}" r="${r1(m.hit)}"/>
     </a>`;
     })
     .join('\n    ');
@@ -211,7 +252,7 @@ export function coverageMap(metros, id = 'coverage-map') {
       ([region, items]) => `<div class="zamap-group">
       <h3 class="zamap-region">${region}</h3>
       <ul class="zamap-metros">
-        ${items
+        ${[...items]
           .sort((a, b) => b.zones - a.zones)
           .map(
             (m) => `<li><a class="zamap-row" data-metro="${m.key}" href="${m.slug}.html">
@@ -225,8 +266,21 @@ export function coverageMap(metros, id = 'coverage-map') {
     )
     .join('\n    ');
 
+  // The label margin, restated as percentages of the drawing's own width, so a
+  // narrow screen — where the labels are hidden and that margin is dead space —
+  // can crop back to the coastline in CSS. Computed rather than typed so the two
+  // cannot drift apart when PAD changes.
+  const pc = (units) => `${((units / COUNTRY_W) * 100).toFixed(3)}%`;
+  const crop = [
+    `--zamap-w:${pc(COUNTRY_W + PAD.left + PAD.right)}`,
+    `--zamap-t:-${pc(PAD.top)}`,
+    `--zamap-r:-${pc(PAD.right)}`,
+    `--zamap-b:-${pc(PAD.bottom)}`,
+    `--zamap-l:-${pc(PAD.left)}`,
+  ].join(';');
+
   return `<figure class="zamap" id="${id}" data-reveal>
-  <div class="zamap-canvas">
+  <div class="zamap-canvas" style="${crop}">
     <svg viewBox="${viewBox}" class="zamap-svg" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">
       ${land}
       ${borders}
@@ -238,7 +292,9 @@ export function coverageMap(metros, id = 'coverage-map') {
       <span class="zamap-key-item"><span class="zamap-swatch" aria-hidden="true"></span>Mapped and live</span>
       <span class="zamap-key-item"><span class="zamap-swatch is-blank" aria-hidden="true"></span>No risk data yet</span>
     </p>
-    ${list}
+    <div class="zamap-groups">
+      ${list}
+    </div>
   </div>
   <figcaption class="zamap-caption">
     Each block is the area the app treats as covered — the same box it uses to decide whether your

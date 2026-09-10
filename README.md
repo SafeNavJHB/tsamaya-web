@@ -12,16 +12,21 @@ tsamaya-web/  (this repo — site lives at the root)
 ├── site.config.mjs      ← EDIT HERE: name, links, bank details, colours, canonical URLs
 ├── scripts/
 │   ├── fetch-stats.mjs   ← pulls live coverage figures from Supabase
+│   ├── sync-metro-bounds.mjs ← copies the app's metro bounding boxes over
+│   ├── make-land-outline.py  ← regenerates the country outline (run once, ever)
 │   ├── optimise-images.mjs ← screenshots → AVIF/WebP/JPEG at three widths
 │   └── check-seo.mjs     ← guards the SEO invariants (runs in CI, gates deploy)
 ├── src/
 │   ├── layout.mjs        ← the shared page shell (header + footer + meta + JSON-LD)
 │   ├── seo.mjs           ← structured data (Organization, app, FAQ, breadcrumbs)
 │   ├── charts.mjs        ← the data visualisations
+│   ├── map.mjs           ← the coverage map (South Africa, with the metros on it)
 │   ├── components.mjs    ← logo, icons, phone frames, <picture> helper
 │   ├── shots.mjs         ← the real app screenshots used on the demo page
 │   ├── data/
 │   │   ├── stats.json    ← LIVE FIGURES (generated — do not hand-edit)
+│   │   ├── metro-bounds.json ← metro bounding boxes (generated — do not hand-edit)
+│   │   ├── za-land.json  ← the country outline (generated — do not hand-edit)
 │   │   └── metros.mjs    ← per-metro editorial copy for the landing pages
 │   └── pages/*.mjs       ← one file per page; metros.mjs emits thirteen at once (twelve metros plus the coverage index)
 ├── public/               ← static assets copied as-is (styles.css, app.js, fonts, images)
@@ -45,6 +50,18 @@ npm run stats
 
 Then eyeball the diff and commit the JSON. The site build itself never touches the
 network, so it still works offline and in CI without secrets.
+
+The same goes for the **shapes on the coverage map**. Each metro's block is the app's
+own service-area box, copied out of `src/constants/cities.ts` in the app repo — the
+rectangle inside which a GPS fix is trusted and risk ratings apply. Refresh it in the
+same sitting as the figures:
+
+```bash
+npm run bounds
+```
+
+Forgetting is loud rather than silent: the build throws if a metro has published zone
+counts and no bounds, rather than quietly leaving it off the map.
 
 **2. Metro pages never name a suburb as dangerous.** The risk data is at census
 sub-place granularity, and the highest band is overwhelmingly townships and informal
@@ -131,3 +148,32 @@ of `dist/`. No server-side code, no database, no build server required.
 
 See [`BUILD_NOTES.md`](./BUILD_NOTES.md) for how the screenshots were captured and
 for app bugs noted along the way.
+
+### Onboarding a new metro onto the site
+
+Three edits, in this order:
+
+1. `npm run stats` — pulls the new metro's zone counts out of the live database.
+2. `npm run bounds` — copies its bounding box across from the app.
+3. Add its entry to `src/data/metros.mjs` (intro, driving context, FAQs). That file
+   is what turns a row of numbers into a page, and it is the only part written by hand.
+
+Then `npm run build && npm run check`. The metro gets a landing page, a card on the
+coverage page, a block on the map and a footer link, all at once.
+
+If its label lands on top of a neighbour's on the map, give it an entry in `LABELS` at
+the top of `src/map.mjs`. Nothing checks label collisions for you.
+
+### The country outline
+
+`src/data/za-land.json` is the coastline, the provincial borders and the hole where
+Lesotho is. It is generated from the StatsSA census sub-place layer that the risk
+pipeline already downloads, by dissolving 22 196 sub-places into nine provinces:
+
+```bash
+~/Projects/SafeNav/pipeline/.venv/bin/python scripts/make-land-outline.py
+```
+
+You will almost certainly never run it. Borders do not move, the output is committed,
+and it needs geopandas plus the pipeline checkout — none of which the site build knows
+anything about.

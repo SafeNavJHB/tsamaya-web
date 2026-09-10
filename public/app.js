@@ -67,7 +67,38 @@
     });
   }
 
-  // 4. Shrink header on scroll for a touch of depth
+  /* ------------------------------------------------------------------------
+   * 4. Coverage map — tie the drawing and the list beside it together.
+   *
+   * Hovering "Durban" in the list lights up Durban on the map, and the other way
+   * round. Pure enhancement: without it, both halves still work on their own,
+   * since each element highlights itself on :hover through CSS and both are real
+   * links to the same page.
+   * --------------------------------------------------------------------- */
+  document.querySelectorAll('.zamap').forEach(function (map) {
+    var linked = map.querySelectorAll('[data-metro]');
+    var mark = function (key, on) {
+      for (var i = 0; i < linked.length; i++) {
+        if (linked[i].getAttribute('data-metro') === key) {
+          linked[i].classList.toggle('is-active', on);
+        }
+      }
+    };
+    linked.forEach(function (el) {
+      var key = el.getAttribute('data-metro');
+      var on = function () { mark(key, true); };
+      var off = function () { mark(key, false); };
+      el.addEventListener('mouseenter', on);
+      el.addEventListener('mouseleave', off);
+      // Keyboard users reach the list, never the drawing — the <svg> is
+      // aria-hidden and its links are out of the tab order — so focusing a row
+      // has to light the map too, or the map simply never responds to them.
+      el.addEventListener('focus', on);
+      el.addEventListener('blur', off);
+    });
+  });
+
+  // 5. Shrink header on scroll for a touch of depth
   var header = document.querySelector('.site-header');
   if (header) {
     var onScroll = function () {
@@ -78,7 +109,7 @@
   }
 
   /* ------------------------------------------------------------------------
-   * 5. Motion — reveal on scroll, and counting stat numbers.
+   * 6. Motion — reveal on scroll, and counting stat numbers.
    *
    * Rules this obeys:
    *  - Anyone who has asked their operating system for reduced motion gets none

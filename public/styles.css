@@ -723,7 +723,9 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 
 .zamap-land { fill: #e9edf6; stroke: #cdd6e8; stroke-width: 1.4; }
 .zamap-border { fill: none; stroke: #ffffff; stroke-width: 1.8; stroke-opacity: 0.85; stroke-linejoin: round; }
-.zamap-leader { stroke: #9aa5bd; stroke-width: 1.1; }
+/* Decorative, and long: a leader that captured clicks would put a live link
+   across empty country. */
+.zamap-leader { stroke: #9aa5bd; stroke-width: 1.1; pointer-events: none; }
 .zamap-area { fill: rgba(5, 150, 105, 0.2); stroke: var(--emerald-deep); stroke-width: 1.4; transition: fill 0.2s, stroke-width 0.2s; }
 .zamap-dot { fill: var(--emerald-text); stroke: #ffffff; stroke-width: 2.4; }
 /* Grown on hover instead of animating the dot's radius: `r` as a CSS property is
@@ -753,12 +755,31 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 
 .zamap-caption { grid-column: 1 / -1; margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.88rem; line-height: 1.6; color: var(--muted); max-width: 78ch; }
 
-@media (max-width: 900px) {
-  .zamap { grid-template-columns: 1fr; gap: 24px; }
-  /* Type inside the drawing would be ~7px wide here. The list says it instead. */
+/* The two-column arrangement is dropped well above the phone breakpoint: the
+   labels live inside the drawing and scale with it, so a map squeezed into
+   two-thirds of a 1000px screen renders its type at about 11px. Below 1100 the
+   map takes the full width and the province list flows underneath it in
+   columns, which reads better AND keeps the labels legible far further down. */
+@media (max-width: 1100px) {
+  .zamap { grid-template-columns: 1fr; gap: 26px; }
+  .zamap-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px 26px; align-items: start; }
+  .zamap-group + .zamap-group { margin-top: 0; }
+}
+@media (max-width: 620px) {
+  /* Below this the drawing is narrow enough that its type would be ~9px. Hide
+     the labels; the list says the same thing in text that scales properly. */
   .zamap-label, .zamap-leader { display: none; }
-  .zamap-metros { grid-template-columns: 1fr 1fr; gap: 2px 10px; }
+  /* With the labels gone, the room reserved around the coastline for them is
+     dead space on the screens with the least to spare. Crop back to the coast:
+     the SVG is blown up past the frame and pulled back by its own margins. The
+     numbers come from the same padding the viewBox is built with, so the crop
+     cannot drift out of step with it. */
+  .zamap-canvas { overflow: hidden; }
+  /* `img, svg, video { max-width: 100% }` up at the top of this file would
+     otherwise cap the blow-up back to the frame and only the margins would
+     apply, which crops the country instead of the empty margin. */
+  .zamap-svg { width: var(--zamap-w); max-width: none; margin: var(--zamap-t) var(--zamap-r) var(--zamap-b) var(--zamap-l); }
 }
 @media (max-width: 460px) {
-  .zamap-metros { grid-template-columns: 1fr; }
+  .zamap-groups { grid-template-columns: 1fr; }
 }
