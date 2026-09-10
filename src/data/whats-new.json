@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-10.2",
+      "date": "10 September 2026",
+      "items": [
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Lower-risk is never the riskier option",
+          "body": "The three route options are worked out by three separate searches, and nothing used to compare their answers. On a handful of Kempton Park trips that meant the option named Lower-risk came back through MORE high-risk ground than Balanced, and further and slower with it: on one Edleen run it passed five high-risk areas against Balanced's two, for 7 km and 3 minutes more driving. Now an option that is not genuinely safer than the one above it is shown as the same route rather than offered as a worse one under a safer name, so the list always gets safer as you read down it. Where the options really do differ, nothing changes.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-10.1",
       "date": "10 September 2026",
       "items": [
