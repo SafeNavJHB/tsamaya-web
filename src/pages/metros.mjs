@@ -14,7 +14,7 @@
 // See the editorial note at the top of src/data/metros.mjs.
 
 import { site, stats, fmt } from '../../site.config.mjs';
-import { section, eyebrow, icon, button } from '../components.mjs';
+import { section, eyebrow, icon, button, disclosure } from '../components.mjs';
 import { metros as metroContent } from '../data/metros.mjs';
 import { faqNode, breadcrumbNode } from '../seo.mjs';
 import { bandBar, coverageBars } from '../charts.mjs';
@@ -158,8 +158,12 @@ const coverageMapSection = section({
   inner: `
   ${eyebrow('The map')}
   <h2>Twelve patches of a very large country</h2>
-  <p class="sub">Coverage is deliberately metro by metro rather than a thin national layer. Each shape below is that metro’s own risk zones dissolved into one outline, read off the live database, so what you are looking at is the actual ground the app has ratings for rather than a tidied-up version of it.</p>
-  ${coverageMap(mappedMetros(), 'coverage-map')}`,
+  <p class="sub">Coverage is deliberately metro by metro rather than a thin national layer. On the map, each metro is drawn as its own risk zones dissolved into a single outline, read off the live database, so what you get is the actual ground the app has ratings for rather than a tidied-up version of it.</p>
+  ${disclosure({
+    closedLabel: 'See a map view',
+    openLabel: 'Hide the map view',
+    inner: coverageMap(mappedMetros(), 'coverage-map'),
+  })}`,
 });
 
 const coverageGrid = section({

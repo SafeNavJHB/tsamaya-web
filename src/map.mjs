@@ -308,7 +308,7 @@ export function coverageMap(metros, id = 'coverage-map') {
     `--zamap-l:-${pc(PAD.left)}`,
   ].join(';');
 
-  return `<figure class="zamap" id="${id}" data-reveal>
+  return `<figure class="zamap" id="${id}">
   <div class="zamap-canvas" style="${crop}">
     <svg viewBox="${viewBox}" class="zamap-svg" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">
       ${defs}

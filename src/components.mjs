@@ -144,6 +144,28 @@ export function button(label, href, kind = 'primary', attrs = '') {
 }
 
 /* ----------------------------------------------------------------------------
+ * A show/hide panel, for content worth having on the page but not worth giving
+ * the whole page to.
+ *
+ * Built on <details>/<summary> rather than a button and a script, for the same
+ * reason the FAQ items are: it opens with no JavaScript, it is keyboard operable
+ * and announced as a disclosure by screen readers without a single ARIA
+ * attribute, and the content inside is in the DOM either way, so a crawler still
+ * reads it. The summary is dressed up to look like the site's ghost button.
+ * ------------------------------------------------------------------------- */
+export function disclosure({ closedLabel, openLabel, inner, iconName = 'map', cls = '' }) {
+  return `<details class="reveal ${cls}">
+  <summary class="reveal-toggle">
+    ${icon(iconName, 19)}
+    <span class="reveal-label" data-when="closed">${closedLabel}</span>
+    <span class="reveal-label" data-when="open">${openLabel}</span>
+    <span class="reveal-chevron" aria-hidden="true"></span>
+  </summary>
+  <div class="reveal-body">${inner}</div>
+</details>`;
+}
+
+/* ----------------------------------------------------------------------------
  * Device mockups — faithful renders of the real app screens, built from the
  * actual UI copy (app/index.tsx, app/route-result.tsx) and brand colours.
  * Rendered as SVG inside a phone frame so they stay crisp at any size and need

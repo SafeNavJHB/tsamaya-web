@@ -746,6 +746,39 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .legal-foot { max-width: 76ch; margin: 30px auto 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.92rem; }
 
 /* ---------------------------------------------------------------------------
+ * Show/hide panel (components.mjs disclosure()).
+ *
+ * A <details> whose <summary> is dressed as the site's ghost button. No script:
+ * it opens on click and on Enter or Space, and a screen reader announces it as a
+ * disclosure without a single ARIA attribute. Two labels live inside it and the
+ * closed/open state picks one, so the button says what it will do next rather
+ * than what it is.
+ * ------------------------------------------------------------------------ */
+.reveal { margin-top: 26px; }
+.reveal-toggle {
+  display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+  padding: 12px 20px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--card); color: var(--ink); font-weight: 600; font-size: 0.96rem;
+  list-style: none; transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+/* Both are needed: the first kills the marker in Safari, the second everywhere
+   else that still honours list-style on a summary. */
+.reveal-toggle::-webkit-details-marker { display: none; }
+.reveal-toggle::marker { content: ''; }
+.reveal-toggle:hover { border-color: var(--emerald); color: var(--emerald-text); background: rgba(52, 211, 153, 0.06); }
+.reveal-toggle:focus-visible { outline: 2px solid var(--emerald-deep); outline-offset: 3px; }
+.reveal-chevron { width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translate(-2px, -2px); transition: transform 0.2s; opacity: 0.65; }
+.reveal[open] .reveal-chevron { transform: rotate(-135deg) translate(-3px, -3px); }
+.reveal:not([open]) .reveal-label[data-when='open'] { display: none; }
+.reveal[open] .reveal-label[data-when='closed'] { display: none; }
+.reveal-body { margin-top: 8px; }
+/* The panel opens instantly rather than growing: the map inside is a fixed-ratio
+   drawing, so animating a height would reflow it every frame for no gain. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-chevron { transition: none; }
+}
+
+/* ---------------------------------------------------------------------------
  * Coverage map (src/map.mjs) — South Africa with the mapped metros on it.
  *
  * The drawing and the list beside it are two views of one thing. On a phone the
@@ -753,7 +786,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
  * that read comfortably on a laptop would be about 7px on a 360px screen. They
  * are hidden there rather than shrunk, and the list carries the names instead.
  * ------------------------------------------------------------------------ */
-.zamap { display: grid; grid-template-columns: minmax(0, 1fr) 272px; gap: 34px; align-items: start; margin: 30px 0 0; }
+.zamap { display: grid; grid-template-columns: minmax(0, 1fr) 272px; gap: 34px; align-items: start; margin: 18px 0 0; }
 .zamap-canvas { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 6px; box-shadow: var(--shadow-sm); }
 .zamap-svg { display: block; width: 100%; height: auto; overflow: visible; }
 
