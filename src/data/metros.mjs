@@ -109,7 +109,7 @@ export const metros = [
     blurb:
       'Driving routes around the risky parts of Ekurhuleni and the East Rand, including OR Tambo, the N12, N17 and R21.',
     intro:
-      'Ekurhuleni is the East Rand: Kempton Park, Benoni, Boksburg, Germiston, Springs, and the belt around OR Tambo. Most drivers pass through it without thinking, because the airport run and the N12 and N17 freight routes cut straight across. It also carries a much higher share of top-band areas than Johannesburg, Pretoria or Cape Town.',
+      'Ekurhuleni is the East Rand: Kempton Park, Benoni, Boksburg, Germiston, Springs, and the belt around OR Tambo. Most drivers pass through it without thinking, because the airport run and the N12 and N17 freight routes cut straight across. Its share of top-band areas is among the highest on the map, level with Johannesburg and well clear of Pretoria.',
     context: [
       'The R21 and N12 around OR Tambo carry a lot of drivers who do not know the area. That is exactly who this is for.',
       'Freight is a big part of why. Truck hijacking shows up in the crime data along the N12 and N17, and those roads carry the ratings to match.',

@@ -76,6 +76,38 @@ const METROS = [
 
 const BANDS = ['red', 'orange', 'yellow', 'none'];
 
+// The three ratings every zone carries. `risk_band` is a summary column holding
+// the worst of them; these are the ratings the app actually routes against, and
+// the difference between them is the whole point of the product, so the site
+// publishes all three rather than the summary alone.
+const TIMES = ['day', 'evening', 'night'];
+
+/** How a set of zones splits across the bands, by the summary column. */
+async function bandSplit(scope, live) {
+  const out = {};
+  await Promise.all(
+    BANDS.map(async (band) => {
+      out[band] = await count('zones', `select=id&${live}${scope}&risk_band=eq.${band}`);
+    }),
+  );
+  return out;
+}
+
+/** The same split, once per time of day, read out of the time_bands object. */
+async function timeSplit(scope, live) {
+  const out = {};
+  for (const time of TIMES) {
+    const per = {};
+    await Promise.all(
+      BANDS.map(async (band) => {
+        per[band] = await count('zones', `select=id&${live}${scope}&time_bands->>${time}=eq.${band}`);
+      }),
+    );
+    out[time] = per;
+  }
+  return out;
+}
+
 async function main() {
   const live = 'deleted_at=is.null';
 
@@ -88,20 +120,16 @@ async function main() {
   ]);
 
   // ---- Risk-band split (drives the distribution chart) --------------------
-  const bandCounts = {};
-  for (const band of BANDS) {
-    bandCounts[band] = await count('zones', `select=id&${live}&risk_band=eq.${band}`);
-  }
+  const bandCounts = await bandSplit('', live);
+  const byTime = await timeSplit('', live);
 
   // ---- Per-metro ----------------------------------------------------------
   const metros = [];
   for (const m of METROS) {
     const zones = await count('zones', `select=id&${live}&city=eq.${m.key}`);
     const corridors = await count('corridors', `select=id&${live}&city=eq.${m.key}`);
-    const bands = {};
-    for (const band of BANDS) {
-      bands[band] = await count('zones', `select=id&${live}&city=eq.${m.key}&risk_band=eq.${band}`);
-    }
+    const bands = await bandSplit(`&city=eq.${m.key}`, live);
+    const metroByTime = await timeSplit(`&city=eq.${m.key}`, live);
     // DELIBERATELY NOT COLLECTED: the names of red-band zones.
     //
     // They are census sub-place names, and the red band is overwhelmingly
@@ -116,7 +144,7 @@ async function main() {
     // Metro pages therefore carry counts, band distribution, data provenance and
     // driving context — never a list of named areas. If this is ever revisited,
     // it needs a legal opinion first, not a code change.
-    metros.push({ ...m, zones, corridors, bands });
+    metros.push({ ...m, zones, corridors, bands, byTime: metroByTime });
   }
 
   // ---- Sanity checks ------------------------------------------------------
@@ -133,6 +161,16 @@ async function main() {
     warnings.push(
       `Safe (${corridorsSafe}) + danger (${corridorsDanger}) ≠ total (${corridorsTotal}) corridors.`,
     );
+  }
+  for (const time of TIMES) {
+    const sum = BANDS.reduce((a, b) => a + byTime[time][b], 0);
+    if (sum !== zonesTotal) {
+      warnings.push(
+        `The ${time} ratings account for ${sum} zones but there are ${zonesTotal} — ` +
+          `${zonesTotal - sum} zone(s) have no readable time_bands.${time}. ` +
+          `Historically that meant the column was double-encoded as a JSON string.`,
+      );
+    }
   }
   const metroZoneSum = metros.reduce((a, m) => a + m.zones, 0);
   if (metroZoneSum !== zonesTotal) {
@@ -165,7 +203,13 @@ async function main() {
       corridorsDanger,
       riskBands: 3,
     },
+    // The summary column. The site no longer renders this: it is the worst of a
+    // zone's three ratings, which measures identical to the night rating for
+    // every live zone, so publishing it alone showed each metro at its worst
+    // hour and called it the metro. Kept for the sanity checks above and for
+    // anyone comparing against the database.
     bands: bandCounts,
+    byTime,
     metros,
     // Per-metro corridor counts are unreliable (see the warning above); the site
     // must not render them. Kept in the JSON for debugging only.
@@ -176,9 +220,15 @@ async function main() {
 
   console.log(
     `\n  metros    ${stats.totals.metros}` +
-      `\n  zones     ${zonesTotal}  (red ${bandCounts.red} · orange ${bandCounts.orange} · yellow ${bandCounts.yellow} · none ${bandCounts.none})` +
+      `\n  zones     ${zonesTotal}` +
       `\n  corridors ${corridorsTotal}  (safe ${corridorsSafe} · danger ${corridorsDanger})\n`,
   );
+  // The whole reason the site publishes three splits: watch red climb after dark.
+  console.log(`  ${'by band'.padEnd(10)} ${BANDS.map((b) => b.padStart(7)).join('')}`);
+  for (const time of TIMES) {
+    console.log(`  ${time.padEnd(10)} ${BANDS.map((b) => String(byTime[time][b]).padStart(7)).join('')}`);
+  }
+  console.log(`  ${'worst of'.padEnd(10)} ${BANDS.map((b) => String(bandCounts[b]).padStart(7)).join('')}\n`);
   for (const m of metros) console.log(`  ${m.name.padEnd(14)} ${String(m.zones).padStart(4)} zones`);
 
   if (warnings.length) {

@@ -42,8 +42,8 @@ function metroPage({ content, data }) {
     <p class="lede center-narrow">${content.intro}</p>
     <div class="metro-figures">
       <div class="stat"><span class="stat-value">${fmt(data.zones)}</span><span class="stat-label">risk zones mapped</span></div>
-      <div class="stat"><span class="stat-value">${fmt(data.bands.red)}</span><span class="stat-label">in the highest band</span></div>
-      <div class="stat"><span class="stat-value">3</span><span class="stat-label">ratings per zone, by time of day</span></div>
+      <div class="stat"><span class="stat-value">${fmt(data.byTime.day.red)}</span><span class="stat-label">in the top band at midday</span></div>
+      <div class="stat"><span class="stat-value">${fmt(data.byTime.night.red)}</span><span class="stat-label">in the top band after dark</span></div>
     </div>
   </div>
 </section>`;
@@ -55,11 +55,11 @@ function metroPage({ content, data }) {
     <div>
       ${eyebrow('What the data looks like here')}
       <h2>${fmt(data.zones)} mapped areas across ${content.name}.</h2>
-      <p class="big">Every area is rated three times over, once each for daytime, evening and night, because risk in South African metros does not hold still across a day. The split below is how ${content.name}’s ${fmt(data.zones)} zones fall across the bands at their highest rating.</p>
-      <p class="muted small">Figures read directly from the live database, not typed by hand. The lowest band means an area was checked and carries no routing penalty, which is different from an area we have no data for.</p>
+      <p class="big">Every area is rated three times over, once each for daytime, evening and night, because risk in South African metros does not hold still across a day. Here is how ${content.name}’s ${fmt(data.zones)} areas fall across the bands at each of those hours.</p>
+      <p class="muted small">Figures read directly from the live database, not typed by hand. The lowest band means an area was checked and carries no routing penalty, which is different from an area we have no data for. No area in the country is rated worse by day than it is at night, so the night bar is also the worst case.</p>
     </div>
     <div>
-      ${bandBar(data.bands, content.name)}
+      ${bandBar(data.byTime, content.name)}
     </div>
   </div>`,
   });

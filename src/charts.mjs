@@ -39,55 +39,93 @@ const BANDS = [
   { key: 'none', label: 'No penalty', fill: '#2f7d4f', desc: 'checked and carries no routing cost' },
 ];
 
+// The three ratings every zone carries, in the order a day runs.
+const TIMES = [
+  { key: 'day', label: 'Daytime', hint: '05:00 to 17:30' },
+  { key: 'evening', label: 'Evening', hint: '17:30 to 19:30' },
+  { key: 'night', label: 'Night', hint: '19:30 to 05:00' },
+];
+
 /**
- * A stacked proportion bar showing how one metro's zones split across risk bands.
- * @param {{red:number, orange:number, yellow:number, none:number}} bands
+ * How one metro's zones split across the risk bands, once for each time of day.
+ *
+ * Three bars rather than one, because one was actively misleading. The single
+ * bar was drawn from the `risk_band` summary column, which holds the worst of a
+ * zone's three ratings — and, measured against the live data, is identical to
+ * the night rating for all 4 396 zones, with not one zone worse by day than
+ * after dark. So the old chart showed every metro at its worst hour and called
+ * it the metro. Johannesburg read as 67% top-band when two thirds of the day it
+ * is 31%.
+ *
+ * Showing all three is also the only honest way to make the app's central claim
+ * visible: the ratings move with the clock, so the route does too.
+ *
+ * @param {{day:object, evening:object, night:object}} byTime  band counts per time
  * @param {string} metroName  used in the accessible summary
  */
-export function bandBar(bands, metroName) {
-  const total = BANDS.reduce((a, b) => a + (bands[b.key] || 0), 0);
-  if (!total) return '';
-  const pct = (n) => (n / total) * 100;
-  // One-sentence summary for screen readers, so the graphic is not the only route
-  // to the information.
-  const summary = BANDS.filter((b) => bands[b.key])
-    .map((b) => `${b.label} ${fmt(bands[b.key])} (${Math.round(pct(bands[b.key]))}%)`)
-    .join(', ');
+export function bandBar(byTime, metroName) {
+  if (!byTime || !byTime.day) return '';
 
-  const segments = BANDS.filter((b) => bands[b.key] > 0)
-    .map(
-      (b) =>
-        `<span class="bandbar-seg${b.hatch ? ' is-hatched' : ''}" style="--seg:${pct(bands[b.key])}%;--fill:${b.fill}" title="${b.label}: ${fmt(bands[b.key])} zones"></span>`,
-    )
+  const rows = TIMES.map(({ key, label, hint }) => {
+    const bands = byTime[key] || {};
+    const total = BANDS.reduce((a, b) => a + (bands[b.key] || 0), 0);
+    return { key, label, hint, bands, total };
+  }).filter((r) => r.total > 0);
+  if (!rows.length) return '';
+
+  const pct = (n, total) => (n / total) * 100;
+
+  const bars = rows
+    .map((row) => {
+      // One sentence per bar for screen readers, so the graphic is not the only
+      // route to the information.
+      const summary = BANDS.filter((b) => row.bands[b.key])
+        .map((b) => `${b.label} ${fmt(row.bands[b.key])} (${Math.round(pct(row.bands[b.key], row.total))}%)`)
+        .join(', ');
+      const segments = BANDS.filter((b) => row.bands[b.key] > 0)
+        .map(
+          (b) =>
+            `<span class="bandbar-seg${b.hatch ? ' is-hatched' : ''}" style="--seg:${pct(row.bands[b.key], row.total)}%;--fill:${b.fill}" title="${b.label}: ${fmt(row.bands[b.key])} zones"></span>`,
+        )
+        .join('');
+      const top = Math.round(pct(row.bands.red || 0, row.total));
+      return `<li class="bandbar-row">
+      <span class="bandbar-time"><strong>${row.label}</strong><span class="bandbar-hint">${row.hint}</span></span>
+      <span class="bandbar-track" role="img" aria-label="${metroName}, ${row.label.toLowerCase()}: ${summary}.">${segments}</span>
+      <span class="bandbar-top">${top}%</span>
+    </li>`;
+    })
     .join('');
 
-  const legend = BANDS.filter((b) => bands[b.key] > 0)
+  const legend = BANDS.filter((b) => rows.some((r) => r.bands[b.key] > 0))
     .map(
       (b) => `<li class="bandbar-key">
       <span class="bandbar-chip${b.hatch ? ' is-hatched' : ''}" style="--fill:${b.fill}" aria-hidden="true"></span>
       <span class="bandbar-key-label">${b.label}</span>
-      <span class="bandbar-key-num">${fmt(bands[b.key])}</span>
-      <span class="bandbar-key-pct">${Math.round(pct(bands[b.key]))}%</span>
+      <span class="bandbar-key-desc">${b.desc}</span>
     </li>`,
     )
     .join('');
 
-  const rows = BANDS.filter((b) => bands[b.key] > 0)
+  const tableRows = rows
     .map(
-      (b) =>
-        `<tr><th scope="row">${b.label}</th><td>${fmt(bands[b.key])}</td><td>${Math.round(pct(bands[b.key]))}%</td><td>${b.desc}</td></tr>`,
+      (row) =>
+        `<tr><th scope="row">${row.label}</th>${BANDS.map(
+          (b) => `<td>${fmt(row.bands[b.key] || 0)}</td>`,
+        ).join('')}</tr>`,
     )
     .join('');
 
   return `<figure class="chart bandbar" data-reveal>
-  <div class="bandbar-track" role="img" aria-label="${metroName} risk zones by band: ${summary}.">${segments}</div>
+  <ul class="bandbar-rows">${bars}</ul>
+  <p class="bandbar-caption">The right-hand figure is the share of ${metroName}’s mapped areas sitting in the highest band at that hour.</p>
   <ul class="bandbar-legend">${legend}</ul>
   <details class="chart-table">
     <summary>View as table</summary>
     <table>
-      <caption>${metroName}: ${fmt(total)} mapped zones by risk band</caption>
-      <thead><tr><th scope="col">Band</th><th scope="col">Zones</th><th scope="col">Share</th><th scope="col">How routing treats it</th></tr></thead>
-      <tbody>${rows}</tbody>
+      <caption>${metroName}: mapped areas by risk band, for each time of day</caption>
+      <thead><tr><th scope="col">Time of day</th>${BANDS.map((b) => `<th scope="col">${b.label}</th>`).join('')}</tr></thead>
+      <tbody>${tableRows}</tbody>
     </table>
   </details>
 </figure>`;

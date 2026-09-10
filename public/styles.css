@@ -626,7 +626,15 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .chart-table tbody th { font-weight: 600; }
 
 /* Stacked proportion bar — risk bands within one metro. */
-.bandbar-track { display: flex; gap: 2px; height: 46px; border-radius: 10px; overflow: hidden; background: var(--bg-soft); }
+/* Three bars, one per time of day, sharing a label column and a legend. */
+.bandbar-rows { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 12px; }
+.bandbar-row { display: grid; grid-template-columns: 104px 1fr 46px; align-items: center; gap: 14px; }
+.bandbar-time { display: flex; flex-direction: column; line-height: 1.25; }
+.bandbar-time strong { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+.bandbar-hint { font-size: 0.74rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bandbar-top { font-weight: 700; font-size: 0.95rem; color: #c92a3f; text-align: right; font-variant-numeric: tabular-nums; }
+.bandbar-caption { margin: 12px 0 0; font-size: 0.82rem; color: var(--muted); }
+.bandbar-track { display: flex; gap: 2px; height: 34px; border-radius: 8px; overflow: hidden; background: var(--bg-soft); }
 .bandbar-seg { flex: 0 0 auto; width: var(--seg); background: var(--fill); transition: width 0.9s cubic-bezier(0.2, 0.7, 0.3, 1); }
 /* The caution band gets a texture as well as a hue — it is the segment most
    likely to merge with its neighbour for a colour-blind reader. */
@@ -634,12 +642,11 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .js [data-reveal] .bandbar-seg { width: 0; }
 .js [data-reveal].is-visible .bandbar-seg { width: var(--seg); }
 
-.bandbar-legend { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 7px; }
-.bandbar-key { display: grid; grid-template-columns: 14px 1fr auto auto; align-items: center; gap: 10px; font-size: 0.93rem; }
-.bandbar-chip { width: 14px; height: 14px; border-radius: 4px; background: var(--fill); }
+.bandbar-legend { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 7px; padding-top: 16px; border-top: 1px solid var(--line); }
+.bandbar-key { display: grid; grid-template-columns: 14px auto 1fr; align-items: baseline; gap: 10px; font-size: 0.9rem; }
+.bandbar-chip { width: 14px; height: 14px; border-radius: 4px; background: var(--fill); align-self: center; }
 .bandbar-key-label { color: var(--text); font-weight: 600; }
-.bandbar-key-num { color: var(--text); font-variant-numeric: tabular-nums; }
-.bandbar-key-pct { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 40px; text-align: right; }
+.bandbar-key-desc { color: var(--muted); font-size: 0.86rem; }
 
 /* Horizontal bars — one series, so one colour and no legend. */
 .cbar-list, .routecmp-list { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 12px; }
@@ -712,7 +719,10 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 @media (max-width: 680px) {
   .metro-figures { grid-template-columns: 1fr; gap: 22px; }
   .cbar-row, .routecmp-row { grid-template-columns: 92px 1fr 52px; gap: 10px; }
-  .bandbar-key { grid-template-columns: 14px 1fr auto auto; gap: 8px; font-size: 0.88rem; }
+  .bandbar-key { grid-template-columns: 14px 1fr; gap: 6px 10px; font-size: 0.88rem; }
+  .bandbar-key-desc { grid-column: 2; }
+  .bandbar-row { grid-template-columns: 74px 1fr 40px; gap: 10px; }
+  .bandbar-hint { display: none; }
 }
 
 /* Get-the-app page: per-platform cards + compact install steps */

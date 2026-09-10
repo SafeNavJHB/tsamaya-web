@@ -2,82 +2,202 @@
   "generatedFrom": "uthvorhglqysehayyxzy",
   "totals": {
     "metros": 12,
-    "zones": 4454,
-    "corridors": 7153,
-    "corridorsSafe": 2246,
-    "corridorsDanger": 4907,
+    "zones": 4396,
+    "corridors": 7054,
+    "corridorsSafe": 2180,
+    "corridorsDanger": 4874,
     "riskBands": 3
   },
   "bands": {
-    "red": 1742,
-    "orange": 1415,
-    "yellow": 957,
-    "none": 340
+    "yellow": 373,
+    "red": 2525,
+    "none": 250,
+    "orange": 1248
+  },
+  "byTime": {
+    "day": {
+      "red": 1372,
+      "none": 263,
+      "orange": 1488,
+      "yellow": 1273
+    },
+    "evening": {
+      "red": 1524,
+      "orange": 1486,
+      "none": 258,
+      "yellow": 1128
+    },
+    "night": {
+      "yellow": 373,
+      "orange": 1248,
+      "red": 2525,
+      "none": 250
+    }
   },
   "metros": [
     {
       "key": "johannesburg",
       "name": "Johannesburg",
       "slug": "johannesburg",
-      "zones": 801,
-      "corridors": 3802,
+      "zones": 800,
+      "corridors": 3698,
       "bands": {
-        "red": 211,
-        "orange": 285,
-        "yellow": 292,
+        "red": 533,
+        "yellow": 99,
+        "orange": 155,
         "none": 13
+      },
+      "byTime": {
+        "day": {
+          "red": 315,
+          "yellow": 235,
+          "none": 13,
+          "orange": 237
+        },
+        "evening": {
+          "red": 326,
+          "none": 13,
+          "yellow": 233,
+          "orange": 228
+        },
+        "night": {
+          "red": 533,
+          "orange": 155,
+          "yellow": 99,
+          "none": 13
+        }
       }
     },
     {
       "key": "cape_town",
       "name": "Cape Town",
       "slug": "cape-town",
-      "zones": 918,
+      "zones": 909,
       "corridors": 1650,
       "bands": {
-        "red": 276,
-        "orange": 318,
-        "yellow": 271,
-        "none": 53
+        "red": 581,
+        "orange": 241,
+        "none": 44,
+        "yellow": 43
+      },
+      "byTime": {
+        "day": {
+          "yellow": 275,
+          "red": 278,
+          "orange": 312,
+          "none": 44
+        },
+        "evening": {
+          "red": 282,
+          "none": 44,
+          "yellow": 256,
+          "orange": 327
+        },
+        "night": {
+          "red": 581,
+          "orange": 241,
+          "yellow": 43,
+          "none": 44
+        }
       }
     },
     {
       "key": "pretoria",
       "name": "Pretoria",
       "slug": "pretoria",
-      "zones": 493,
-      "corridors": 826,
+      "zones": 486,
+      "corridors": 821,
       "bands": {
-        "red": 113,
-        "orange": 112,
-        "yellow": 205,
-        "none": 63
+        "red": 188,
+        "orange": 153,
+        "yellow": 97,
+        "none": 48
+      },
+      "byTime": {
+        "day": {
+          "red": 134,
+          "orange": 128,
+          "yellow": 176,
+          "none": 48
+        },
+        "evening": {
+          "red": 136,
+          "orange": 127,
+          "yellow": 175,
+          "none": 48
+        },
+        "night": {
+          "orange": 153,
+          "none": 48,
+          "yellow": 97,
+          "red": 188
+        }
       }
     },
     {
       "key": "ekurhuleni",
       "name": "Ekurhuleni",
       "slug": "ekurhuleni",
-      "zones": 738,
+      "zones": 732,
       "corridors": 0,
       "bands": {
-        "red": 429,
-        "orange": 198,
-        "yellow": 82,
-        "none": 29
+        "red": 451,
+        "yellow": 73,
+        "none": 23,
+        "orange": 185
+      },
+      "byTime": {
+        "day": {
+          "red": 284,
+          "orange": 253,
+          "none": 24,
+          "yellow": 171
+        },
+        "evening": {
+          "orange": 268,
+          "yellow": 131,
+          "red": 310,
+          "none": 23
+        },
+        "night": {
+          "none": 23,
+          "orange": 185,
+          "red": 451,
+          "yellow": 73
+        }
       }
     },
     {
       "key": "west_rand",
       "name": "West Rand",
       "slug": "west-rand",
-      "zones": 158,
-      "corridors": 83,
+      "zones": 130,
+      "corridors": 106,
       "bands": {
-        "red": 52,
-        "orange": 38,
-        "yellow": 7,
-        "none": 61
+        "red": 57,
+        "yellow": 10,
+        "none": 20,
+        "orange": 43
+      },
+      "byTime": {
+        "day": {
+          "red": 26,
+          "yellow": 39,
+          "none": 20,
+          "orange": 45
+        },
+        "evening": {
+          "red": 33,
+          "orange": 54,
+          "none": 20,
+          "yellow": 23
+        },
+        "night": {
+          "yellow": 10,
+          "orange": 43,
+          "none": 20,
+          "red": 57
+        }
       }
     },
     {
@@ -87,10 +207,30 @@
       "zones": 63,
       "corridors": 54,
       "bands": {
-        "red": 43,
-        "orange": 13,
+        "none": 3,
+        "orange": 6,
         "yellow": 4,
-        "none": 3
+        "red": 50
+      },
+      "byTime": {
+        "day": {
+          "red": 29,
+          "yellow": 10,
+          "none": 3,
+          "orange": 21
+        },
+        "evening": {
+          "red": 29,
+          "yellow": 10,
+          "none": 3,
+          "orange": 21
+        },
+        "night": {
+          "red": 50,
+          "none": 3,
+          "orange": 6,
+          "yellow": 4
+        }
       }
     },
     {
@@ -100,10 +240,30 @@
       "zones": 32,
       "corridors": 49,
       "bands": {
-        "red": 21,
-        "orange": 7,
-        "yellow": 4,
-        "none": 0
+        "none": 0,
+        "red": 22,
+        "orange": 6,
+        "yellow": 4
+      },
+      "byTime": {
+        "day": {
+          "red": 12,
+          "orange": 11,
+          "yellow": 6,
+          "none": 3
+        },
+        "evening": {
+          "orange": 14,
+          "none": 2,
+          "yellow": 3,
+          "red": 13
+        },
+        "night": {
+          "red": 22,
+          "orange": 6,
+          "yellow": 4,
+          "none": 0
+        }
       }
     },
     {
@@ -111,12 +271,32 @@
       "name": "Rustenburg",
       "slug": "rustenburg",
       "zones": 98,
-      "corridors": 81,
+      "corridors": 67,
       "bands": {
         "red": 49,
-        "orange": 39,
         "yellow": 7,
-        "none": 3
+        "none": 3,
+        "orange": 39
+      },
+      "byTime": {
+        "day": {
+          "red": 38,
+          "yellow": 38,
+          "orange": 18,
+          "none": 4
+        },
+        "evening": {
+          "red": 44,
+          "yellow": 22,
+          "none": 3,
+          "orange": 29
+        },
+        "night": {
+          "none": 3,
+          "yellow": 7,
+          "orange": 39,
+          "red": 49
+        }
       }
     },
     {
@@ -126,49 +306,129 @@
       "zones": 43,
       "corridors": 5,
       "bands": {
-        "red": 15,
-        "orange": 12,
-        "yellow": 0,
-        "none": 16
+        "red": 17,
+        "orange": 10,
+        "none": 16,
+        "yellow": 0
+      },
+      "byTime": {
+        "day": {
+          "red": 5,
+          "none": 16,
+          "yellow": 8,
+          "orange": 14
+        },
+        "evening": {
+          "red": 9,
+          "none": 16,
+          "orange": 11,
+          "yellow": 7
+        },
+        "night": {
+          "red": 17,
+          "orange": 10,
+          "yellow": 0,
+          "none": 16
+        }
       }
     },
     {
       "key": "mossel_bay",
       "name": "Mossel Bay",
       "slug": "mossel-bay",
-      "zones": 61,
+      "zones": 58,
       "corridors": 25,
       "bands": {
+        "none": 9,
         "red": 16,
-        "orange": 13,
         "yellow": 20,
-        "none": 12
+        "orange": 13
+      },
+      "byTime": {
+        "day": {
+          "red": 10,
+          "orange": 16,
+          "yellow": 20,
+          "none": 12
+        },
+        "evening": {
+          "red": 12,
+          "none": 12,
+          "yellow": 19,
+          "orange": 15
+        },
+        "night": {
+          "yellow": 20,
+          "red": 16,
+          "none": 9,
+          "orange": 13
+        }
       }
     },
     {
       "key": "durban",
       "name": "Durban",
       "slug": "durban",
-      "zones": 793,
-      "corridors": 408,
+      "zones": 791,
+      "corridors": 407,
       "bands": {
-        "red": 431,
-        "orange": 259,
-        "yellow": 39,
-        "none": 64
+        "orange": 256,
+        "red": 460,
+        "yellow": 10,
+        "none": 65
+      },
+      "byTime": {
+        "day": {
+          "red": 211,
+          "yellow": 169,
+          "orange": 341,
+          "none": 70
+        },
+        "evening": {
+          "yellow": 136,
+          "red": 266,
+          "none": 68,
+          "orange": 321
+        },
+        "night": {
+          "orange": 256,
+          "yellow": 10,
+          "red": 460,
+          "none": 65
+        }
       }
     },
     {
       "key": "gqeberha",
       "name": "Gqeberha",
       "slug": "gqeberha",
-      "zones": 256,
-      "corridors": 170,
+      "zones": 254,
+      "corridors": 172,
       "bands": {
-        "red": 86,
-        "orange": 121,
-        "yellow": 26,
-        "none": 23
+        "yellow": 6,
+        "orange": 141,
+        "red": 101,
+        "none": 6
+      },
+      "byTime": {
+        "day": {
+          "orange": 92,
+          "red": 30,
+          "yellow": 126,
+          "none": 6
+        },
+        "evening": {
+          "red": 64,
+          "none": 6,
+          "yellow": 113,
+          "orange": 71
+        },
+        "night": {
+          "red": 101,
+          "none": 6,
+          "yellow": 6,
+          "orange": 141
+        }
       }
     }
   ],
