@@ -68,6 +68,8 @@ import argparse
 import json
 import os
 import sys
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -107,9 +109,14 @@ def fetch_city(base, key, city):
     out, offset = [], 0
     while True:
         query = urllib.parse.urlencode({
-            "select": "geometry",
+            "select": "id,geometry",
             "deleted_at": "is.null",
             "city": f"eq.{city}",
+            # Ordering is not optional with limit/offset. Postgres makes no
+            # promise about row order between two unordered queries, so paging
+            # without it can hand back the same row twice and skip another —
+            # and a skipped zone quietly shrinks a metro's coverage.
+            "order": "id.asc",
             "limit": PAGE,
             "offset": offset,
         })
@@ -117,8 +124,19 @@ def fetch_city(base, key, city):
             f"{base}/rest/v1/zones?{query}",
             headers={"apikey": key, "Authorization": f"Bearer {key}"},
         )
-        with urllib.request.urlopen(req, timeout=120) as res:
-            rows = json.load(res)
+        # A dozen requests of half a megabyte each; one of them being reset by the
+        # far end is ordinary, and losing the whole run to it is not.
+        for attempt in range(4):
+            try:
+                with urllib.request.urlopen(req, timeout=120) as res:
+                    rows = json.load(res)
+                break
+            except (urllib.error.URLError, ConnectionError, TimeoutError) as err:
+                if attempt == 3:
+                    raise
+                wait = 2 ** attempt
+                print(f"    {city}: {type(err).__name__}, retrying in {wait}s")
+                time.sleep(wait)
         out.extend(rows)
         if len(rows) < PAGE:
             return out
@@ -194,6 +212,7 @@ def main() -> int:
 
     owned = {city: [] for city in METROS}
     homeless = 0
+    geomless = 0  # rows with no usable geometry; counted so they cannot vanish quietly
     for city in METROS:
         rows = fetch_city(base, key, city)
         if not rows:
@@ -202,6 +221,7 @@ def main() -> int:
         for row in rows:
             g = row.get("geometry")
             if not g:
+                geomless += 1
                 continue
             # PostGIS hands PostgREST a `crs` member that shapely does not want.
             g.pop("crs", None)
@@ -209,6 +229,7 @@ def main() -> int:
             if not geom.is_valid:
                 geom = geom.buffer(0)
             if geom.is_empty or geom.area <= 0:
+                geomless += 1
                 continue
             if geom.intersection(served).area >= 0.5 * geom.area:
                 owned[city].append(geom)
@@ -244,6 +265,8 @@ def main() -> int:
         }
         print(f"  {city:<14} {len(polys):>4} zones → {len(rings):>3} ring(s), {pts:>5} points")
 
+    if geomless:
+        print(f"\n  ! {geomless} row(s) had no usable geometry and were skipped.")
     if homeless:
         print(
             f"\n  {homeless} zone(s) lie mostly outside every service area and are drawn by nobody."
@@ -262,7 +285,12 @@ def main() -> int:
     }
     json_text = json.dumps(payload, separators=(",", ":")) + "\n"
 
-    print(f"\n  {len(metros)} metros, {total_pts} points, {len(json_text) / 1024:.0f} kB")
+    drawn = sum(len(v) for v in owned.values())
+    print(
+        f"\n  {len(metros)} metros, {total_pts} points, {len(json_text) / 1024:.0f} kB"
+        f"\n  {drawn + homeless + geomless} live zones read: {drawn} drawn,"
+        f" {homeless} outside every service area, {geomless} without geometry"
+    )
     if args.dry:
         print("  --dry: not written.\n")
         return 0

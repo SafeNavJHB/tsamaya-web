@@ -82,6 +82,71 @@ const px = (lng) => (lng - B.lngMin) * LNG_SQUEEZE * SCALE;
 const py = (lat) => (B.latMax - lat) * SCALE;
 const r1 = (n) => Math.round(n * 10) / 10;
 
+/* Point-to-segment distance, and a point-in-rings test, both in projected units.
+ * Needed to size a marker's hit area against the SHAPES around it rather than
+ * only against the other markers. */
+function segmentDistance(x, y, ax, ay, bx, by) {
+  const dx = bx - ax;
+  const dy = by - ay;
+  const len = dx * dx + dy * dy;
+  const t = len === 0 ? 0 : Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / len));
+  return Math.hypot(x - (ax + t * dx), y - (ay + t * dy));
+}
+
+/** 0 when the point is inside the shape, otherwise the distance to its nearest edge. */
+function distanceToShape(x, y, rings) {
+  let inside = false;
+  let best = Infinity;
+  for (const ring of rings) {
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const [ax, ay] = ring[i];
+      const [bx, by] = ring[j];
+      if (ay > y !== by > y && x < ((bx - ax) * (y - ay)) / (by - ay) + ax) inside = !inside;
+      const d = segmentDistance(x, y, ax, ay, bx, by);
+      if (d < best) best = d;
+    }
+  }
+  return inside ? 0 : best;
+}
+
+function ringArea(ring) {
+  let twice = 0;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    twice += (ring[j][0] - ring[i][0]) * (ring[j][1] + ring[i][1]);
+  }
+  return Math.abs(twice) / 2;
+}
+
+function pointInRing(x, y, ring) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [ax, ay] = ring[i];
+    const [bx, by] = ring[j];
+    if (ay > y !== by > y && x < ((bx - ax) * (y - ay)) / (by - ay) + ax) inside = !inside;
+  }
+  return inside;
+}
+
+/** A shape's true area: exteriors less the holes punched out of them.
+ *
+ * The rings arrive unlabelled — the generator emits exteriors and holes into one
+ * flat list for an even-odd fill — so a ring inside an odd number of the others
+ * is a hole. Bounding-box area was used here first and is a bad proxy for a
+ * crescent: it ranked Ekurhuleni and the West Rand as larger than Johannesburg,
+ * which inverted the paint order this is for. */
+function shapeArea(rings) {
+  let total = 0;
+  for (const ring of rings) {
+    const [x, y] = ring[0];
+    let depth = 0;
+    for (const other of rings) {
+      if (other !== ring && pointInRing(x, y, other)) depth++;
+    }
+    total += depth % 2 === 1 ? -ringArea(ring) : ringArea(ring);
+  }
+  return total;
+}
+
 const toPath = (rings, close) =>
   rings
     .map((ring) => `M${ring.map(([lng, lat]) => `${r1(px(lng))} ${r1(py(lat))}`).join('L')}${close ? 'Z' : ''}`)
@@ -158,7 +223,11 @@ export function mappedMetros() {
  * keyboard would gain a reader nothing the list has not already said.
  *
  * @param {{key:string, name:string, slug:string, region:string, zones:number}[]} metros
- * @param {string} [id]  unique per page — two maps on one page would collide.
+ * @param {string} [id]  must be unique per page: it names the figure and the
+ *                       shared land path, and two maps sharing one would emit
+ *                       duplicate ids. Both would still render, since the second
+ *                       <use> resolves to the first identical path, but the HTML
+ *                       would be invalid and nothing in the build checks for it.
  */
 export function coverageMap(metros, id = 'coverage-map') {
   const placed = metros.map((m) => {
@@ -170,29 +239,24 @@ export function coverageMap(metros, id = 'coverage-map') {
         `coverageMap: no coverage shape for "${m.key}". Run \`npm run shapes\` after onboarding a metro.`,
       );
     }
+    if (!shape.rings || !shape.rings.length) {
+      // Would render an empty path and sort to the far end of the paint order on
+      // an Infinity extent, both silently. Only reachable through a hand-edited
+      // or half-written JSON, which is exactly when you want to be told.
+      throw new Error(`coverageMap: "${m.key}" has no rings in metro-shapes.json.`);
+    }
     const [lng, lat] = shape.point;
 
-    // The drawn extent, used for paint order below. Taken from the projected
-    // shape rather than from degrees, because a degree of longitude is worth
-    // less than a degree of latitude here and the comparison would be skewed.
-    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-    for (const ring of shape.rings) {
-      for (const [rlng, rlat] of ring) {
-        const x = px(rlng);
-        const y = py(rlat);
-        if (x < minX) minX = x;
-        if (x > maxX) maxX = x;
-        if (y < minY) minY = y;
-        if (y > maxY) maxY = y;
-      }
-    }
+    // Projected once, and reused for the path, the area and the hit sizing.
+    const rings = shape.rings.map((ring) => ring.map(([rlng, rlat]) => [px(rlng), py(rlat)]));
 
     return {
       ...m,
+      rings,
       d: toPath(shape.rings, true),
       x: px(lng),
       y: py(lat),
-      extent: (maxX - minX) * (maxY - minY),
+      area: shapeArea(rings),
       label: LABELS[m.key] || DEFAULT_LABEL,
     };
   });
@@ -203,25 +267,40 @@ export function coverageMap(metros, id = 'coverage-map') {
   // whatever happened to be written last. Smallest-on-top is also the rule the
   // app itself uses to decide which of two overlapping zones owns a piece of
   // ground, so the map behaves the way the product does.
-  const painted = [...placed].sort((a, b) => b.extent - a.extent);
+  const painted = [...placed].sort((a, b) => b.area - a.area);
 
-  // Marker hit areas, sized against the nearest other marker.
+  // Marker hit areas.
   //
-  // A flat, generous radius looked fine and was wrong. Back when markers sat at
-  // the centre of each metro's bounding box, Johannesburg's and Ekurhuleni's
-  // were 15 map units apart, so a 16-unit target around Ekurhuleni covered the
-  // middle of Johannesburg's marker, and Ekurhuleni is drawn later: clicking
-  // Johannesburg opened Ekurhuleni. Half the distance to the nearest neighbour
-  // is the most a marker can claim without stealing from one; where that is less
-  // than the marker itself, the marker is the target and nothing is added. The
-  // pair are 28 units apart now that markers sit on the coverage, but the
-  // closest pair on the map is whatever the next metro makes it.
+  // Each marker carries an invisible disc so that a metro whose coverage is a
+  // few specks — Pilanesberg, Secunda — is still comfortably clickable. The disc
+  // is transparent, not `fill: none`, so it DOES take clicks, and it is the last
+  // element in its group, so it sits above everything drawn before it.
+  //
+  // It therefore has to be bounded against two different things, and bounding it
+  // against only the first was a real bug once the metros became shapes rather
+  // than boxes:
+  //
+  //   1. other markers — half the distance to the nearest one is the most a disc
+  //      can claim without covering a neighbour's marker. This alone was the old
+  //      rule, from when a metro was a rectangle and its marker sat at the centre
+  //      of it.
+  //   2. other metros' COVERAGE — a disc must not reach across a neighbour's
+  //      visible ground, because the reader sees Johannesburg's green there and
+  //      would get the West Rand's page. Johannesburg's marker sits on a 40x90
+  //      crescent whose anchor is close to the West Rand's and Pretoria's, so
+  //      their discs were covering about 22% of Johannesburg's visible shape and
+  //      taking its clicks, its tooltip and its hover highlight with them.
+  //
+  // Where the bound falls below the marker itself the marker is the whole target
+  // and nothing is added. The marker may legitimately sit over a neighbour's
+  // coverage — the metros overlap — and clicking a labelled marker should always
+  // reach the metro it labels.
   const MARKER_R = 5.5;
   for (const m of placed) {
-    const nearest = Math.min(
-      ...placed.filter((o) => o !== m).map((o) => Math.hypot(o.x - m.x, o.y - m.y)),
-    );
-    m.hit = Math.max(MARKER_R, Math.min(26, nearest / 2 - 0.5));
+    const others = placed.filter((o) => o !== m);
+    const nearestMarker = Math.min(...others.map((o) => Math.hypot(o.x - m.x, o.y - m.y)));
+    const nearestShape = Math.min(...others.map((o) => distanceToShape(m.x, m.y, o.rings)));
+    m.hit = Math.max(MARKER_R, Math.min(26, nearestMarker / 2 - 0.5, nearestShape - 1));
   }
 
   // The land is drawn twice: once as a soft wide stroke that reads as the haze
@@ -329,7 +408,8 @@ export function coverageMap(metros, id = 'coverage-map') {
   <figcaption class="zamap-caption">
     Each shape is the real outline of that metro’s rated ground inside the area the app serves: its
     risk zones, dissolved into one piece and drawn where they actually fall. The ragged edges and the
-    gaps between them are not an artist’s impression, they are the coverage. Outside the shapes
+    gaps between them are the coverage rather than an artist’s impression, smoothed to about half a
+    kilometre so that a country fits on a page. Outside the shapes
     Tsamaya still navigates and still gives you turn-by-turn directions; it simply has nothing to warn
     you about, and says so rather than implying the road has been checked.
   </figcaption>

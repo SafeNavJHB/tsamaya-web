@@ -800,11 +800,17 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
    across empty country. */
 .zamap-leader { stroke: #9aa5bd; stroke-width: 1; pointer-events: none; }
 /* The mapped ground itself: the metro's risk zones dissolved into one outline. */
-.zamap-area { fill: rgba(4, 120, 87, 0.34); stroke: var(--emerald-text); stroke-width: 1.1; stroke-linejoin: round; transition: fill 0.2s, stroke-width 0.2s; }
+/* `pointer-events: fill` keeps the OUTLINE out of hit-testing. Metros share
+   borders, and a stroke takes clicks by default, so each metro's outline was
+   claiming a 1px band of its neighbour's ground: most of what was left of
+   the West Rand's clicks going to Johannesburg. */
+.zamap-area { pointer-events: fill; fill: rgba(4, 120, 87, 0.34); stroke: var(--emerald-text); stroke-width: 1.1; stroke-linejoin: round; transition: fill 0.2s, stroke-width 0.2s; }
 .zamap-dot { fill: var(--emerald-text); stroke: #ffffff; stroke-width: 1.6; }
 /* Grown on hover instead of animating the dot's radius: `r` as a CSS property is
    newer than this site's browser floor, and a ring reads better anyway. */
-.zamap-ring { fill: none; stroke: var(--emerald-deep); stroke-width: 1.6; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0.5); transition: opacity 0.2s, transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1); }
+/* Decorative. `opacity: 0` still takes clicks, and at its active size the ring
+   reaches past its own hit disc onto a neighbour's coverage. */
+.zamap-ring { pointer-events: none; fill: none; stroke: var(--emerald-deep); stroke-width: 1.6; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0.5); transition: opacity 0.2s, transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1); }
 .zamap-hit { fill: transparent; }
 .zamap-label { font-family: var(--display); font-size: 21px; font-weight: 600; fill: var(--text); paint-order: stroke; stroke: #ffffff; stroke-width: 4.5px; stroke-linejoin: round; transition: fill 0.2s; }
 
