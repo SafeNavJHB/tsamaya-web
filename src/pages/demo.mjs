@@ -27,7 +27,7 @@ const gallery = shots.length
       inner: `
     ${eyebrow('Screenshots')}
     <h2>Screenshots from the app</h2>
-    <p class="sub">Captured on the iOS&nbsp;Simulator, July 2026.</p>
+    <p class="sub">Captured on the iOS&nbsp;Simulator, July and September 2026.</p>
     <div class="shot-grid">
       ${shots
         .map(

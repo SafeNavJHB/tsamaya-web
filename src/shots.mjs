@@ -1,9 +1,15 @@
 // shots.mjs — the real app screenshots used across the site.
 //
-// Captured 28 July 2026 from a Release build of com.tsamaya.app on an iPhone 17
-// Pro simulator (iOS 26.5), against the live database. Every one of these is the
-// actual app: real Mapbox tiles, real zones and corridors from Supabase, real
-// Google Places search, real routing.
+// Captured from a Release build of com.tsamaya.app on an iPhone 17 Pro simulator
+// (iOS 26.5), against the live database. Every one of these is the actual app:
+// real Mapbox tiles, real zones and corridors from Supabase, real Google Places
+// search, real routing.
+//
+// jhb-map, capetown-map and route-card: 28 July 2026.
+// route-result and navigation: re-captured 10 September 2026, on a Kempton Park
+// to Mall of Africa drive. The navigation shot is taken with the simulator
+// DRIVING the route (see the location note below), which is what puts the car
+// marker, a real speed and a rated road on screen at once.
 //
 // `name` refers to the optimised variants in public/img/screens/ produced by
 // `npm run images` from the raw PNGs in public/img/screens/src/. Each name has
@@ -32,6 +38,18 @@
 //      xcrun simctl location <UDID> set -26.1076,28.0567    # Rosebank, Johannesburg
 //      xcrun simctl launch <UDID> com.tsamaya.app
 //
+//    A STATIC fix is not enough for the navigation shot. It leaves the speed
+//    reading "--", the road readout stuck on "Loading risk data...", and no car
+//    marker at all, which is exactly how the July capture shipped. Drive the
+//    route instead, feeding waypoints on stdin because a negative latitude on
+//    the command line is parsed as a flag:
+//
+//      tr ' ' '\n' < waypoints.txt | \
+//        xcrun simctl location <UDID> start --speed=15 --interval=1 -
+//
+//    Waypoints come from the app's own planRoute (scripts/route-probe.ts in the
+//    app repo prints a route's geometry), thinned to about one every 100 m.
+//
 // 3. Drive the UI, then capture at device resolution:
 //      xcrun simctl io <UDID> screenshot public/img/screens/src/<name>.png
 //
@@ -42,8 +60,10 @@
 // on when it was taken. The map shots are deliberately NIGHT: after dark the
 // ratings climb and the overlays actually show the risk data, which is the whole
 // point of those screens. Captured at 06:39 the same map is nearly empty, because
-// Sandton genuinely rates low in the daytime band. The navigation shot is DAYTIME
-// because the light map reads better and the route colouring shows regardless.
+// Sandton genuinely rates low in the daytime band. The navigation shot is night
+// too as of September 2026: the dark map is what a driver sees on the trips this
+// app is for, and the orange risk ribbon reads better against it than it did on
+// the old light capture.
 
 // Gallery entries for the demo page.
 export const shots = [
@@ -61,15 +81,15 @@ export const shots = [
   },
   {
     name: 'route-result',
-    alt: 'Tsamaya comparing a lower-risk route against the standard one, showing the time and distance each costs',
+    alt: 'Tsamaya comparing a lower-risk route against the fastest one on a Kempton Park to Mall of Africa drive, each option graded and showing how many high-risk areas it passes',
     title: 'Compare before you drive',
-    caption: 'Three routes, the real trade-off in minutes, and an honest warning when risk cannot be avoided',
+    caption: 'Kempton Park to Mall of Africa: the same 25 minutes, half a kilometre shorter, and half the high-risk areas, with an honest warning about the ones it could not avoid',
   },
   {
     name: 'navigation',
-    alt: 'Tsamaya mid-drive with the route overview open, showing the safety-coloured route and the full list of turns ahead',
+    alt: 'Tsamaya mid-drive on Monument Road in Kempton Park, the route ribbon coloured orange for risk, showing the next turn with lane guidance, the current speed against the limit, and the road rated Use caution',
     title: 'Turn-by-turn, in the app',
-    caption: 'The route coloured by risk end to end, with every turn ahead listed by name',
+    caption: 'The route coloured by risk as you drive, the next turn with its lanes, and the road you are on named and rated',
   },
 ];
 
@@ -93,9 +113,9 @@ export const alts = {
   'route-card':
     'Tsamaya with the start set to the driver’s location and the destination set to Maboneng Precinct, ready to plan the route',
   'route-result':
-    'Tsamaya comparing three routes to the same destination: lower-risk at 23 minutes, balanced at 21, standard at 20, with a warning that three high-risk areas could not be avoided',
+    'Tsamaya comparing two routes from Kempton Park to Mall of Africa: a combined balanced and lower-risk option at 25 minutes and 17.4 km, graded D, passing two high-risk areas and carrying 68 per cent less risk, against the fastest at 25 minutes and 18.0 km, graded E, passing four. Above them a warning says two high-risk areas could not be avoided',
   navigation:
-    'Tsamaya navigating from Sandton to Maboneng with the route overview open. The route is drawn across Johannesburg and coloured by risk, hotspots are marked along it, and the turn list below reads: turn right, bear right onto Maude Street, turn left toward the M9, right onto Grayston Drive, then the M1 ramp and exit 10A onto the M2',
+    'Tsamaya navigating on Monument Road in Kempton Park at night. The road ahead is drawn in orange where the route carries risk, the next instruction is a left turn onto Highveld Road in 140 metres with lane guidance underneath, the speed reads 54 km/h against a 60 limit, and the road the car is on is labelled Monument Road, use caution. The trip has 38 minutes and 37.8 km left',
 };
 
 export const altFor = (name) => alts[name] || 'A screen from the Tsamaya app';
