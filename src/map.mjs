@@ -207,13 +207,15 @@ export function coverageMap(metros, id = 'coverage-map') {
 
   // Marker hit areas, sized against the nearest other marker.
   //
-  // A flat, generous radius looked fine and was wrong: Johannesburg and
-  // Ekurhuleni sit about 15 map units apart, so a 16-unit target around
-  // Ekurhuleni covered the middle of Johannesburg's marker, and Ekurhuleni is
-  // drawn later. Clicking Johannesburg opened Ekurhuleni. Half the distance to
-  // the nearest neighbour is the most a marker can claim without stealing from
-  // one; where that is less than the marker itself, the marker is the target
-  // and nothing is added.
+  // A flat, generous radius looked fine and was wrong. Back when markers sat at
+  // the centre of each metro's bounding box, Johannesburg's and Ekurhuleni's
+  // were 15 map units apart, so a 16-unit target around Ekurhuleni covered the
+  // middle of Johannesburg's marker, and Ekurhuleni is drawn later: clicking
+  // Johannesburg opened Ekurhuleni. Half the distance to the nearest neighbour
+  // is the most a marker can claim without stealing from one; where that is less
+  // than the marker itself, the marker is the target and nothing is added. The
+  // pair are 28 units apart now that markers sit on the coverage, but the
+  // closest pair on the map is whatever the next metro makes it.
   const MARKER_R = 5.5;
   for (const m of placed) {
     const nearest = Math.min(
