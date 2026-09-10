@@ -158,7 +158,7 @@ const coverageMapSection = section({
   inner: `
   ${eyebrow('The map')}
   <h2>Twelve patches of a very large country</h2>
-  <p class="sub">Coverage is deliberately metro by metro rather than a thin national layer. Each block below is the area the app treats as mapped, drawn from the same bounds the app itself uses, so what you see here is what the app knows.</p>
+  <p class="sub">Coverage is deliberately metro by metro rather than a thin national layer. Each shape below is that metro’s own risk zones dissolved into one outline, read off the live database, so what you are looking at is the actual ground the app has ratings for rather than a tidied-up version of it.</p>
   ${coverageMap(mappedMetros(), 'coverage-map')}`,
 });
 

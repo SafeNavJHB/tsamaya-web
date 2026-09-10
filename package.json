@@ -2,7 +2,7 @@
   "name": "tsamaya-website",
   "version": "1.0.0",
   "private": true,
-  "description": "Marketing + info website for Tsamaya (Go well.) \u2014 static site, zero runtime dependencies.",
+  "description": "Marketing + info website for Tsamaya (Go well.) — static site, zero runtime dependencies.",
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
@@ -10,11 +10,12 @@
     "dev": "node build.mjs && node serve.mjs",
     "stats": "node scripts/fetch-stats.mjs",
     "bounds": "node scripts/sync-metro-bounds.mjs",
+    "shapes": "${PYTHON:-$HOME/Projects/SafeNav/pipeline/.venv/bin/python} scripts/make-coverage-shapes.py",
     "changelog": "node scripts/sync-changelog.mjs",
     "images": "node scripts/optimise-images.mjs",
     "check": "node scripts/check-seo.mjs"
   },
-  "//": "The BUILD has no dependencies \u2014 `node build.mjs` runs on a clean checkout with no npm install, which is why CI needs nothing. sharp is used only by `npm run images`, a manual step whose output is committed. Never move it to dependencies.",
+  "//": "The BUILD has no dependencies — `node build.mjs` runs on a clean checkout with no npm install, which is why CI needs nothing. sharp is used only by `npm run images`, a manual step whose output is committed. Never move it to dependencies. `npm run shapes` needs Python and shapely (the pipeline venv, or set PYTHON) plus Supabase credentials in the environment; like `stats` and `bounds` it is a manual step whose output is committed.",
   "devDependencies": {
     "sharp": "^0.34.2"
   },

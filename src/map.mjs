@@ -11,12 +11,17 @@
 // WHAT IT DRAWS, AND WHY EACH PIECE IS HONEST
 //   land       — the outline of the country from src/data/za-land.json, plus the
 //                provincial borders, purely so a reader can locate themselves.
-//   rectangle  — one per metro, and it is NOT decoration: it is the exact box
-//                from the app's own service-area gate (src/constants/cities.ts),
-//                i.e. the area inside which a GPS fix is trusted and risk ratings
-//                apply. Drawing anything larger would overstate the coverage.
-//   marker     — the metro's centre, so the small metros stay visible at national
-//                scale where their box is only a few pixels across.
+//   coverage   — one shape per metro, and it is NOT decoration: it is that
+//                metro's own risk zones dissolved into a single outline
+//                (src/data/metro-shapes.json, read off the live database). What
+//                you see is the ground that actually carries ratings, down to
+//                the coastline it follows and the gaps where nothing is rated.
+//                An earlier version drew each metro as its bounding box, which
+//                was accurate about the app's GPS gate and looked like a
+//                spreadsheet laid over a country.
+//   marker     — a point on that shape, so the small metros stay findable at
+//                national scale where their coverage is a few pixels across, and
+//                so every label has something to point at.
 //
 // Nothing here shades a province or a region that is not actually mapped. The
 // site's whole argument is that a blank area means "no data" rather than "safe",
@@ -33,9 +38,7 @@ const dataDir = join(dirname(fileURLToPath(import.meta.url)), 'data');
 const readJson = (name) => JSON.parse(readFileSync(join(dataDir, name), 'utf8'));
 
 const landData = readJson('za-land.json');
-const boundsData = readJson('metro-bounds.json');
-
-const metroBounds = new Map(boundsData.metros.map((m) => [m.key, m]));
+const shapeData = readJson('metro-shapes.json');
 
 /* ---------------------------------------------------------------------------
  * Projection.
@@ -93,17 +96,19 @@ const toPath = (rings, close) =>
  * will catch overlapping text.
  * ------------------------------------------------------------------------ */
 const LABELS = {
-  // The Gauteng cluster, fanned out: two east, two west, so no leader crosses
-  // another.
-  pretoria: { dx: 48, dy: -14, anchor: 'start' },
-  ekurhuleni: { dx: 74, dy: 8, anchor: 'start' },
-  johannesburg: { dx: -104, dy: 20, anchor: 'end' },
-  west_rand: { dx: -86, dy: 52, anchor: 'end' },
-  // North West, west of the cluster and stacked.
+  // The Gauteng cluster and its neighbours, fanned out: three west, three east,
+  // stacked far enough apart that no label touches another and no leader crosses
+  // one. Retuned when the markers moved off the bounding-box centres and onto
+  // the coverage shapes themselves — Johannesburg's dropped 30 units south, because
+  // Soweto is in the shape and the centre of the rated ground is not the centre
+  // of the box.
   pilanesberg: { dx: -20, dy: -8, anchor: 'end' },
-  rustenburg: { dx: -20, dy: 12, anchor: 'end' },
-  // Mpumalanga, clear to the east.
-  secunda: { dx: 22, dy: 26, anchor: 'start' },
+  rustenburg: { dx: -22, dy: 10, anchor: 'end' },
+  johannesburg: { dx: -96, dy: 6, anchor: 'end' },
+  west_rand: { dx: -78, dy: 62, anchor: 'end' },
+  pretoria: { dx: 46, dy: -16, anchor: 'start' },
+  ekurhuleni: { dx: 62, dy: -2, anchor: 'start' },
+  secunda: { dx: 24, dy: 24, anchor: 'start' },
   // The coast, where there is room below each marker.
   cape_town: { dx: -14, dy: 46, anchor: 'end' },
   stellenbosch: { dx: 16, dy: 48, anchor: 'start' },
@@ -151,44 +156,59 @@ export function mappedMetros() {
  */
 export function coverageMap(metros, id = 'coverage-map') {
   const placed = metros.map((m) => {
-    const bounds = metroBounds.get(m.key);
-    if (!bounds) {
-      // A metro with published zone counts and no bounds would silently vanish
+    const shape = shapeData.metros[m.key];
+    if (!shape) {
+      // A metro with published zone counts and no shape would silently vanish
       // from the map while still being listed beside it. Fail the build instead.
       throw new Error(
-        `coverageMap: no bounds for "${m.key}". Run \`npm run bounds\` after onboarding a metro.`,
+        `coverageMap: no coverage shape for "${m.key}". Run \`npm run shapes\` after onboarding a metro.`,
       );
     }
-    const [lng, lat] = bounds.center;
-    const { lngMin, lngMax, latMin, latMax } = bounds.bbox;
+    const [lng, lat] = shape.point;
+
+    // The drawn extent, used for paint order below. Taken from the projected
+    // shape rather than from degrees, because a degree of longitude is worth
+    // less than a degree of latitude here and the comparison would be skewed.
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const ring of shape.rings) {
+      for (const [rlng, rlat] of ring) {
+        const x = px(rlng);
+        const y = py(rlat);
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+
     return {
       ...m,
-      bounds,
+      d: toPath(shape.rings, true),
       x: px(lng),
       y: py(lat),
-      area: (lngMax - lngMin) * (latMax - latMin),
+      extent: (maxX - minX) * (maxY - minY),
       label: LABELS[m.key] || DEFAULT_LABEL,
     };
   });
 
-  // Paint the biggest box first so the smallest ends up on top. Metro boxes nest
-  // — Pretoria's sits entirely inside Johannesburg's, as do Ekurhuleni's and the
-  // West Rand's — so without an order the click target for a small metro is
+  // Paint the largest coverage first so the smallest ends up on top. The Gauteng
+  // metros share borders and overlap slightly where the same suburb is rated by
+  // two of them, so without an order the click target for a small metro is
   // whatever happened to be written last. Smallest-on-top is also the rule the
   // app itself uses to decide which of two overlapping zones owns a piece of
   // ground, so the map behaves the way the product does.
-  const painted = [...placed].sort((a, b) => b.area - a.area);
+  const painted = [...placed].sort((a, b) => b.extent - a.extent);
 
   // Marker hit areas, sized against the nearest other marker.
   //
   // A flat, generous radius looked fine and was wrong: Johannesburg and
-  // Ekurhuleni sit 15 map units apart, so a 16-unit target around Ekurhuleni
-  // covered the middle of Johannesburg's marker, and Ekurhuleni is drawn later.
-  // Clicking Johannesburg opened Ekurhuleni. Half the distance to the nearest
-  // neighbour is the most a marker can claim without stealing from one; where
-  // that is less than the marker itself, the marker is the target and nothing is
-  // added.
-  const MARKER_R = 9;
+  // Ekurhuleni sit about 15 map units apart, so a 16-unit target around
+  // Ekurhuleni covered the middle of Johannesburg's marker, and Ekurhuleni is
+  // drawn later. Clicking Johannesburg opened Ekurhuleni. Half the distance to
+  // the nearest neighbour is the most a marker can claim without stealing from
+  // one; where that is less than the marker itself, the marker is the target
+  // and nothing is added.
+  const MARKER_R = 5.5;
   for (const m of placed) {
     const nearest = Math.min(
       ...placed.filter((o) => o !== m).map((o) => Math.hypot(o.x - m.x, o.y - m.y)),
@@ -196,16 +216,17 @@ export function coverageMap(metros, id = 'coverage-map') {
     m.hit = Math.max(MARKER_R, Math.min(26, nearest / 2 - 0.5));
   }
 
-  const land = `<path class="zamap-land" d="${toPath(landData.land, true)}" fill-rule="evenodd"/>`;
+  // The land is drawn twice: once as a soft wide stroke that reads as the haze
+  // printed maps put along a coastline, and once as the land itself. Defining
+  // the path once and referencing it keeps the second copy free — that outline
+  // is 1 600 points and is the single heaviest thing on the page.
+  const landId = `${id}-land`;
+  const defs = `<defs><path id="${landId}" d="${toPath(landData.land, true)}" fill-rule="evenodd"/></defs>`;
+  const land = `<use class="zamap-halo-land" href="#${landId}"/><use class="zamap-land" href="#${landId}"/>`;
   const borders = `<path class="zamap-border" d="${toPath(landData.borders, false)}"/>`;
 
   const markers = painted
     .map((m) => {
-      const { lngMin, lngMax, latMin, latMax } = m.bounds.bbox;
-      const x = px(lngMin);
-      const y = py(latMax);
-      const w = px(lngMax) - x;
-      const h = py(latMin) - y;
       const lx = m.x + m.label.dx;
       const ly = m.y + m.label.dy;
       const far = Math.hypot(m.label.dx, m.label.dy) > LEADER_MIN;
@@ -216,9 +237,9 @@ export function coverageMap(metros, id = 'coverage-map') {
         : '';
       return `<a class="zamap-metro" data-metro="${m.key}" href="${m.slug}.html" tabindex="-1">
       <title>${m.name}: ${fmt(m.zones)} mapped areas</title>
-      <rect class="zamap-area" x="${r1(x)}" y="${r1(y)}" width="${r1(w)}" height="${r1(h)}" rx="2"/>
+      <path class="zamap-area" d="${m.d}" fill-rule="evenodd"/>
       ${leader}
-      <circle class="zamap-halo" cx="${r1(m.x)}" cy="${r1(m.y)}" r="18"/>
+      <circle class="zamap-ring" cx="${r1(m.x)}" cy="${r1(m.y)}" r="15"/>
       <circle class="zamap-dot" cx="${r1(m.x)}" cy="${r1(m.y)}" r="${MARKER_R}"/>
       <text class="zamap-label" x="${r1(lx)}" y="${r1(ly)}" text-anchor="${m.label.anchor}">${m.name}</text>
       <circle class="zamap-hit" cx="${r1(m.x)}" cy="${r1(m.y)}" r="${r1(m.hit)}"/>
@@ -282,6 +303,7 @@ export function coverageMap(metros, id = 'coverage-map') {
   return `<figure class="zamap" id="${id}" data-reveal>
   <div class="zamap-canvas" style="${crop}">
     <svg viewBox="${viewBox}" class="zamap-svg" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">
+      ${defs}
       ${land}
       ${borders}
       ${markers}
@@ -297,10 +319,11 @@ export function coverageMap(metros, id = 'coverage-map') {
     </div>
   </div>
   <figcaption class="zamap-caption">
-    Each block is the area the app treats as covered — the same box it uses to decide whether your
-    position has risk ratings behind it. Outside those blocks Tsamaya still navigates and still gives
-    you turn-by-turn directions; it simply has nothing to warn you about, and says so rather than
-    implying the road has been checked.
+    Each shape is the real outline of that metro’s rated ground: its risk zones, dissolved into one
+    piece and drawn where they actually fall. The ragged edges and the gaps between them are not an
+    artist’s impression, they are the coverage. Outside the shapes Tsamaya still navigates and still
+    gives you turn-by-turn directions; it simply has nothing to warn you about, and says so rather
+    than implying the road has been checked.
   </figcaption>
 </figure>`;
 }

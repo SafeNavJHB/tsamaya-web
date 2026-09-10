@@ -13,6 +13,7 @@ tsamaya-web/  (this repo — site lives at the root)
 ├── scripts/
 │   ├── fetch-stats.mjs   ← pulls live coverage figures from Supabase
 │   ├── sync-metro-bounds.mjs ← copies the app's metro bounding boxes over
+│   ├── make-coverage-shapes.py ← dissolves each metro's live risk zones into one outline
 │   ├── make-land-outline.py  ← regenerates the country outline (run once, ever)
 │   ├── optimise-images.mjs ← screenshots → AVIF/WebP/JPEG at three widths
 │   └── check-seo.mjs     ← guards the SEO invariants (runs in CI, gates deploy)
@@ -26,6 +27,7 @@ tsamaya-web/  (this repo — site lives at the root)
 │   ├── data/
 │   │   ├── stats.json    ← LIVE FIGURES (generated — do not hand-edit)
 │   │   ├── metro-bounds.json ← metro bounding boxes (generated — do not hand-edit)
+│   │   ├── metro-shapes.json ← coverage outlines (generated — do not hand-edit)
 │   │   ├── za-land.json  ← the country outline (generated — do not hand-edit)
 │   │   └── metros.mjs    ← per-metro editorial copy for the landing pages
 │   └── pages/*.mjs       ← one file per page; metros.mjs emits thirteen at once (twelve metros plus the coverage index)
@@ -51,17 +53,26 @@ npm run stats
 Then eyeball the diff and commit the JSON. The site build itself never touches the
 network, so it still works offline and in CI without secrets.
 
-The same goes for the **shapes on the coverage map**. Each metro's block is the app's
-own service-area box, copied out of `src/constants/cities.ts` in the app repo — the
-rectangle inside which a GPS fix is trusted and risk ratings apply. Refresh it in the
-same sitting as the figures:
+The same goes for the **shapes on the coverage map**. Each metro is drawn as its own
+risk zones dissolved into a single outline, straight from the live database, so the
+map is the coverage rather than a picture of it. Refresh the shapes, and the
+service-area boxes they are filtered against, in the same sitting as the figures:
 
 ```bash
 npm run bounds
 ```
 
-Forgetting is loud rather than silent: the build throws if a metro has published zone
-counts and no bounds, rather than quietly leaving it off the map.
+```bash
+npm run shapes
+```
+
+`bounds` copies each metro's service-area box out of `src/constants/cities.ts` in the
+app repo. `shapes` needs Python with shapely (it defaults to the pipeline's virtualenv;
+set `PYTHON` to point elsewhere) and Supabase credentials in the environment, the same
+ones `npm run stats` uses.
+
+Forgetting either is loud rather than silent: the build throws if a metro has published
+zone counts and no shape, rather than quietly leaving it off the map.
 
 **2. Metro pages never name a suburb as dangerous.** The risk data is at census
 sub-place granularity, and the highest band is overwhelmingly townships and informal
@@ -154,8 +165,9 @@ for app bugs noted along the way.
 Three edits, in this order:
 
 1. `npm run stats` — pulls the new metro's zone counts out of the live database.
-2. `npm run bounds` — copies its bounding box across from the app.
-3. Add its entry to `src/data/metros.mjs` (intro, driving context, FAQs). That file
+2. `npm run bounds` — copies its service-area box across from the app.
+3. `npm run shapes` — dissolves its zones into the outline the map draws.
+4. Add its entry to `src/data/metros.mjs` (intro, driving context, FAQs). That file
    is what turns a row of numbers into a page, and it is the only part written by hand.
 
 Then `npm run build && npm run check`. The metro gets a landing page, a card on the

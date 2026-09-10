@@ -757,28 +757,33 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .zamap-canvas { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 6px; box-shadow: var(--shadow-sm); }
 .zamap-svg { display: block; width: 100%; height: auto; overflow: visible; }
 
-.zamap-land { fill: #e9edf6; stroke: #cdd6e8; stroke-width: 1.4; }
-.zamap-border { fill: none; stroke: #ffffff; stroke-width: 1.8; stroke-opacity: 0.85; stroke-linejoin: round; }
+/* The haze printed maps carry along a coastline: the land outline drawn a
+   second time underneath itself as a wide soft stroke, so the country does not
+   look like a shape cut out with scissors. */
+.zamap-halo-land { fill: none; stroke: #dde4f0; stroke-width: 7; stroke-opacity: 0.55; stroke-linejoin: round; }
+.zamap-land { fill: #e8edf5; stroke: #d0d9ea; stroke-width: 1.2; stroke-linejoin: round; }
+.zamap-border { fill: none; stroke: #ffffff; stroke-width: 1.6; stroke-opacity: 0.9; stroke-linejoin: round; stroke-linecap: round; }
 /* Decorative, and long: a leader that captured clicks would put a live link
    across empty country. */
-.zamap-leader { stroke: #9aa5bd; stroke-width: 1.1; pointer-events: none; }
-.zamap-area { fill: rgba(5, 150, 105, 0.2); stroke: var(--emerald-deep); stroke-width: 1.4; transition: fill 0.2s, stroke-width 0.2s; }
-.zamap-dot { fill: var(--emerald-text); stroke: #ffffff; stroke-width: 2.4; }
+.zamap-leader { stroke: #9aa5bd; stroke-width: 1; pointer-events: none; }
+/* The mapped ground itself: the metro's risk zones dissolved into one outline. */
+.zamap-area { fill: rgba(4, 120, 87, 0.34); stroke: var(--emerald-text); stroke-width: 1.1; stroke-linejoin: round; transition: fill 0.2s, stroke-width 0.2s; }
+.zamap-dot { fill: var(--emerald-text); stroke: #ffffff; stroke-width: 1.6; }
 /* Grown on hover instead of animating the dot's radius: `r` as a CSS property is
-   newer than this site's browser floor, and a halo reads better anyway. */
-.zamap-halo { fill: none; stroke: var(--emerald-deep); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0.55); transition: opacity 0.2s, transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1); }
+   newer than this site's browser floor, and a ring reads better anyway. */
+.zamap-ring { fill: none; stroke: var(--emerald-deep); stroke-width: 1.6; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0.5); transition: opacity 0.2s, transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1); }
 .zamap-hit { fill: transparent; }
 .zamap-label { font-family: var(--display); font-size: 21px; font-weight: 600; fill: var(--text); paint-order: stroke; stroke: #ffffff; stroke-width: 4.5px; stroke-linejoin: round; transition: fill 0.2s; }
 
 .zamap-metro { cursor: pointer; }
-.zamap-metro:hover .zamap-area, .zamap-metro.is-active .zamap-area { fill: rgba(5, 150, 105, 0.36); stroke-width: 2.4; }
-.zamap-metro:hover .zamap-halo, .zamap-metro.is-active .zamap-halo { opacity: 1; transform: scale(1); }
+.zamap-metro:hover .zamap-area, .zamap-metro.is-active .zamap-area { fill: rgba(4, 120, 87, 0.5); stroke-width: 1.8; }
+.zamap-metro:hover .zamap-ring, .zamap-metro.is-active .zamap-ring { opacity: 1; transform: scale(1); }
 .zamap-metro:hover .zamap-label, .zamap-metro.is-active .zamap-label { fill: var(--emerald-text); }
 
 .zamap-key { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 20px; font-size: 0.84rem; color: var(--muted); }
 .zamap-key-item { display: inline-flex; align-items: center; }
-.zamap-swatch { width: 13px; height: 13px; margin-right: 7px; border-radius: 3px; background: rgba(5, 150, 105, 0.28); border: 1px solid var(--emerald-deep); }
-.zamap-swatch.is-blank { background: #e9edf6; border-color: #cdd6e8; }
+.zamap-swatch { width: 13px; height: 13px; margin-right: 7px; border-radius: 3px; background: rgba(4, 120, 87, 0.3); border: 1px solid var(--emerald-text); }
+.zamap-swatch.is-blank { background: #e8edf5; border-color: #d0d9ea; }
 
 .zamap-group + .zamap-group { margin-top: 18px; }
 .zamap-region { margin: 0 0 7px; font-family: var(--font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
