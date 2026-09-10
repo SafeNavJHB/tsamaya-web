@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-10.3",
+      "date": "10 September 2026",
+      "items": [
+        {
+          "icon": "navigate-circle-outline",
+          "title": "Go always starts from where you are",
+          "body": "With the starting point set to My location, Go now asks the phone where you are at the moment you press it. Until now the app used the position it had been given when it started up, which it was never told to update: open the app at home, drive somewhere, press Go, and the route was planned from your driveway. The map, the centre-on-me button and nearby search were reading the same stale position, and they now keep up too. A starting point you chose yourself is still used exactly as you set it.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-10.2",
       "date": "10 September 2026",
       "items": [
