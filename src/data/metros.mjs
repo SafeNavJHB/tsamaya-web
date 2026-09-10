@@ -113,7 +113,6 @@ export const metros = [
     context: [
       'The R21 and N12 around OR Tambo carry a lot of drivers who do not know the area. That is exactly who this is for.',
       'Freight is a big part of why. Truck hijacking shows up in the crime data along the N12 and N17, and those roads carry the ratings to match.',
-      'Freight matters here in a way it does not elsewhere. Truck hijacking shows up in the crime data along the N12 and N17, and those roads are rated accordingly.',
     ],
     faqs: [
       {
