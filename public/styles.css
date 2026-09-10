@@ -105,19 +105,19 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .copy-btn:focus-visib
   backdrop-filter: saturate(180%) blur(14px);
   border-bottom: 1px solid var(--line);
 }
-.header-inner { display: flex; align-items: center; gap: 18px; height: 66px; }
+.header-inner { display: flex; align-items: center; gap: 16px; height: 66px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: 1.25rem; color: var(--ink); }
 .brand .logo-mark { border-radius: 9px; box-shadow: var(--shadow-sm); }
 .brand-word { letter-spacing: -0.03em; }
 /* nowrap so a two-word label like "How it works" never breaks across lines. */
 .primary-nav { display: flex; gap: 2px; margin-left: auto; white-space: nowrap; }
 .primary-nav a {
-  padding: 8px 13px; border-radius: 10px; color: var(--text-soft); font-weight: 500; font-size: 0.95rem;
+  padding: 8px 12px; border-radius: 10px; color: var(--text-soft); font-weight: 500; font-size: 0.95rem;
   transition: color 0.15s, background 0.15s;
 }
 .primary-nav a:hover { color: var(--ink); background: var(--bg-soft); }
 .primary-nav a[aria-current='page'] { color: var(--emerald-text); background: rgba(52, 211, 153, 0.12); }
-.header-cta { margin-left: 6px; }
+.header-cta { margin-left: 4px; }
 .nav-toggle { display: none; }
 
 /* ---------- Buttons ---------- */
@@ -426,7 +426,11 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
   .hero-copy { order: 1; } .hero-device { order: 2; margin-top: 10px; }
   .hero-cta, .band-pills { justify-content: center; }
   .hero .lede { margin-left: auto; margin-right: auto; }
-  .split, .contact-grid, .beta-card, .card-2, .tech-grid, .value-grid, .use-grid, .bank-grid { grid-template-columns: 1fr; }
+  /* minmax(0, …) rather than a bare 1fr: a grid item's automatic minimum is its
+     min-content width, so one unbreakable child (a nowrap button, a long URL)
+     widens the track, then the page, then the whole document scrolls sideways.
+     Letting the track shrink keeps the overflow inside the card that caused it. */
+  .split, .contact-grid, .beta-card, .card-2, .tech-grid, .value-grid, .use-grid, .bank-grid { grid-template-columns: minmax(0, 1fr); }
   .split .device-pair { order: 2; }
   .steps, .feature-grid { grid-template-columns: 1fr 1fr; }
   .walk-step, .walk-step.reverse { grid-template-columns: 1fr; justify-items: center; text-align: center; }
@@ -435,11 +439,34 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
   .mini-legend { justify-content: center; }
   .quote-card { order: -1; }
 }
-/* The navigation swaps to the hamburger well before the phone breakpoint: the
-   full bar needs about 970px once the logo and the "Get the app" button are
-   counted, so anything narrower wrapped the links onto two and three lines.
-   This used to trigger at 680px, which left every tablet-width screen broken. */
-@media (max-width: 1000px) {
+/* The header bar has to be measured, not guessed — twice now a guessed
+   breakpoint has left a band of laptop widths scrolling sideways (the hamburger
+   fired at 680px, then at 1000px, and both times the full bar still needed more
+   room than the widths just above). Measured on how-it-works.html with the real
+   fonts and the logo loaded:
+
+     logo lockup 129 + nine nav links 770 + "Get the app" 122 + gaps and margin
+       = 1057px of content, and .wrap adds a 22px gutter either side.
+
+   Above --maxw (1140px) the container stops growing, so that 1057px is measured
+   against a fixed 1096px content box: 39px of slack, at every width, for good.
+   Below it every further pixel comes out of the bar, so the bar is tightened
+   there. At 9px of link padding and a 12px flex gap the same nine links need
+   993px, which fits from a 1037px viewport up, and the hamburger takes over at
+   1080px, so the narrowest width that ever renders the full bar (1081px) still
+   has 44px in hand. Nine links plus a button genuinely do not fit a 1024px
+   laptop at a readable size, which is why that width gets the menu button.
+
+   Change a nav label or add a link and these numbers move. Re-measure
+   `.header-inner`'s visible children (with the logo loaded — an unloaded logo
+   reads 34px narrow and flatters the result) rather than assuming there is
+   still room. */
+@media (max-width: 1140px) {
+  .header-inner { gap: 12px; }
+  .primary-nav a { padding-left: 9px; padding-right: 9px; }
+  .header-cta { margin-left: 2px; }
+}
+@media (max-width: 1080px) {
   .primary-nav, .header-cta { display: none; }
   .nav-toggle { display: inline-flex; flex-direction: column; gap: 5px; margin-left: auto; background: none; border: none; cursor: pointer; padding: 8px; }
   .nav-toggle span { width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
@@ -451,6 +478,15 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
   .mobile-nav a { padding: 11px 8px; color: var(--text-soft); font-weight: 600; border-radius: 10px; }
   .mobile-nav a[aria-current='page'] { color: var(--emerald-text); }
   .mobile-nav .btn { margin-top: 8px; }
+}
+
+/* Small phones. The roomy card padding and the large button stop fitting side by
+   side down here: "Install the beta" is a nowrap 218px button, and a 26px-padded
+   card inside the 22px .wrap gutters leaves it exactly 219px to live in at 320px
+   — which is why get-app.html scrolled 12px sideways on the narrowest phones. */
+@media (max-width: 420px) {
+  .note-card { padding: 20px 18px; }
+  .btn-lg { padding: 14px 20px; font-size: 1rem; }
 }
 
 @media (max-width: 680px) {
