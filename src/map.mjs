@@ -16,6 +16,12 @@
 //                (src/data/metro-shapes.json, read off the live database). What
 //                you see is the ground that actually carries ratings, down to
 //                the coastline it follows and the gaps where nothing is rated.
+//                A zone is left out only when it lies mostly outside every
+//                metro's service area, which is how a 5 000 km2 rural sub-place
+//                tagged to Mossel Bay is kept from dragging its coverage past
+//                George; see the note at the top of
+//                scripts/make-coverage-shapes.py. Measured against the live
+//                data, every metro draws at least 99.2% of the ground it keeps.
 //                An earlier version drew each metro as its bounding box, which
 //                was accurate about the app's GPS gate and looked like a
 //                spreadsheet laid over a country.
@@ -319,11 +325,11 @@ export function coverageMap(metros, id = 'coverage-map') {
     </div>
   </div>
   <figcaption class="zamap-caption">
-    Each shape is the real outline of that metro’s rated ground: its risk zones, dissolved into one
-    piece and drawn where they actually fall. The ragged edges and the gaps between them are not an
-    artist’s impression, they are the coverage. Outside the shapes Tsamaya still navigates and still
-    gives you turn-by-turn directions; it simply has nothing to warn you about, and says so rather
-    than implying the road has been checked.
+    Each shape is the real outline of that metro’s rated ground inside the area the app serves: its
+    risk zones, dissolved into one piece and drawn where they actually fall. The ragged edges and the
+    gaps between them are not an artist’s impression, they are the coverage. Outside the shapes
+    Tsamaya still navigates and still gives you turn-by-turn directions; it simply has nothing to warn
+    you about, and says so rather than implying the road has been checked.
   </figcaption>
 </figure>`;
 }

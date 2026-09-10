@@ -18,26 +18,44 @@ exactly like scripts/fetch-stats.mjs. Run it in the same sitting as `npm run
 stats` so the shapes and the counts describe the same database. The site build
 never touches the network; it reads the committed JSON.
 
-WHICH ZONES COUNT AS A METRO'S OWN
-One rule: a zone belongs to a metro when MOST of it lies inside that metro's
-service area (the box in src/data/metro-bounds.json, which is the app's own GPS
-gate). Anything mostly somewhere else is tagged to this metro only because it
-brushes the edge of it, and is left out.
+WHICH ZONES GET DRAWN
+A zone is drawn by the metro named in its `city` column — that attribution comes
+from the pipeline's municipal assignment and is the same one the published zone
+counts use — provided the zone lies mostly inside SOME metro's service area.
+Service areas are the boxes in src/data/metro-bounds.json, the app's own GPS
+gate, taken as one union rather than one at a time.
 
-That rule exists because StatsSA sub-places include enormous rural "NU"
-remainders — "Hessequa NU" is 5 000 km2 — and the pipeline pulls one in whole
-whenever it so much as touches a metro's box. Six of those made Mossel Bay's
-coverage stretch from Riversdale past George, five times the width of the
-municipality, and Gqeberha was nearly as bad. "Kgetlengrivier NU" is tagged to
-Rustenburg and is three times the size of Rustenburg's whole service area, of
-which 2.5% is actually in it.
+Both halves of that are load-bearing, and both were got wrong first:
 
-Clipping every shape to its box was tried first and is worse: where a metro's own
+  Testing a zone only against ITS OWN metro's box leaves holes. Bassonia,
+  Glenvista and Liefde en Vrede are tagged to Ekurhuleni and are in Johannesburg;
+  three red "City of Johannesburg NU" polygons are tagged to the West Rand;
+  Noordwyk is tagged to Pretoria and is in Midrand. Eleven rated zones, several
+  red, ended up inside a served area and on nobody's shape, because the metro
+  they were tagged to correctly refused them and the metro they are actually in
+  never saw them.
+
+  Attributing GEOMETRICALLY instead of by the `city` column is worse still. The
+  service boxes overlap heavily and are not a partition: Ekurhuleni's covers a
+  large part of eastern Johannesburg, so "smallest box containing it wins" moved
+  448 zones out of Johannesburg and into Ekurhuleni and the West Rand. Hovering
+  Ekurhuleni in the list would then have lit up half of Johannesburg. Attributing
+  by the cities.ts order is worse again: Johannesburg is listed first and its box
+  spans all of Gauteng, so Pretoria, Ekurhuleni and the West Rand were left with
+  nothing whatsoever to draw.
+
+Testing against the boxes at all is necessary because StatsSA sub-places include
+enormous rural "NU" remainders, and the pipeline pulls one in whole whenever it
+so much as touches a metro's box. "Hessequa NU" is 5 000 km2 and is tagged to
+Mossel Bay, whose coverage therefore stretched from Riversdale past George, five
+times the width of the municipality. "Kgetlengrivier NU" is tagged to Rustenburg
+and is three times the size of Rustenburg's entire service area, of which 2.5%
+is in it.
+
+Clipping every shape to its box was tried too and is worse: where a metro's own
 rural remainder blankets the box — Govan Mbeki NU covers 70% of Secunda's — the
 clip returns the box itself, so the small metros came out as rectangles again,
-which is exactly what this map exists to stop being. The majority test drops the
-handful of polygons that belong to a neighbouring municipality and leaves every
-shape with its own natural edges.
+which is exactly what this map exists to stop being.
 
 WHAT IT DOES NOT PUBLISH
 Only the OUTLINE of each metro's coverage, dissolved. No zone names, no risk
@@ -161,19 +179,26 @@ def main() -> int:
         return 1
 
     bounds_path = here / "src" / "data" / "metro-bounds.json"
-    bounds = {
-        m["key"]: m["bbox"]
-        for m in json.loads(bounds_path.read_text(encoding="utf8"))["metros"]
-    }
+    bounds = json.loads(bounds_path.read_text(encoding="utf8"))["metros"]
+    known = {m["key"] for m in bounds}
+    for city in METROS:
+        if city not in known:
+            print(f"  ! {city} has no entry in metro-bounds.json — run `npm run bounds` first")
+            return 1
+    # Every service area as one shape. A zone is drawn if most of it is inside
+    # this, wherever "inside" happens to be; who draws it is the `city` column.
+    served = unary_union([
+        box(m["bbox"]["lngMin"], m["bbox"]["latMin"], m["bbox"]["lngMax"], m["bbox"]["latMax"])
+        for m in bounds
+    ])
 
-    metros, total_pts = {}, 0
+    owned = {city: [] for city in METROS}
+    homeless = 0
     for city in METROS:
         rows = fetch_city(base, key, city)
         if not rows:
-            print(f"  ! {city}: no live zones — skipped")
+            print(f"  ! {city}: no live zones")
             continue
-
-        polys = []
         for row in rows:
             g = row.get("geometry")
             if not g:
@@ -183,28 +208,21 @@ def main() -> int:
             geom = shape(g)
             if not geom.is_valid:
                 geom = geom.buffer(0)
-            if not geom.is_empty:
-                polys.append(geom)
-
-        # Keep only the zones that are mostly inside this metro's service area.
-        # See the note at the top: without it a single rural sub-place that
-        # merely touches the box drags the coverage hundreds of kilometres.
-        bb = bounds.get(city)
-        if not bb:
-            print(f"  ! {city}: no entry in metro-bounds.json — run `npm run bounds` first")
-            return 1
-        served = box(bb["lngMin"], bb["latMin"], bb["lngMax"], bb["latMax"])
-        mine, elsewhere = [], 0
-        for geom in polys:
-            if geom.area <= 0 or geom.intersection(served).area >= 0.5 * geom.area:
-                mine.append(geom)
+            if geom.is_empty or geom.area <= 0:
+                continue
+            if geom.intersection(served).area >= 0.5 * geom.area:
+                owned[city].append(geom)
             else:
-                elsewhere += 1
-        if not mine:
-            print(f"  ! {city}: no zone is mostly inside its own service area — skipped")
+                homeless += 1
+
+    metros, total_pts = {}, 0
+    for city in METROS:
+        polys = owned.get(city) or []
+        if not polys:
+            print(f"  ! {city}: nothing to draw — skipped")
             continue
 
-        dissolved = unary_union(mine)
+        dissolved = unary_union(polys)
 
         # Close the digitising cracks, then simplify. Order matters: simplifying
         # first turns a crack into a wedge that the close can no longer shut.
@@ -222,10 +240,15 @@ def main() -> int:
         metros[city] = {
             "rings": rings,
             "point": [round(point.x, 4), round(point.y, 4)],
-            "zones": len(mine),
+            "zones": len(polys),
         }
-        note = f", {elsewhere} mostly elsewhere" if elsewhere else ""
-        print(f"  {city:<14} {len(rows):>4} zones{note} → {len(rings):>3} ring(s), {pts:>5} points")
+        print(f"  {city:<14} {len(polys):>4} zones → {len(rings):>3} ring(s), {pts:>5} points")
+
+    if homeless:
+        print(
+            f"\n  {homeless} zone(s) lie mostly outside every service area and are drawn by nobody."
+            "\n  That is the intended outcome for a rural remainder tagged to a metro it merely touches."
+        )
 
     missing = [c for c in METROS if c not in metros]
     if missing:
