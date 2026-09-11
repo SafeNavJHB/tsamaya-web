@@ -15,6 +15,42 @@
   ],
   "releases": [
     {
+      "version": "2026-09-11.2",
+      "date": "11 September 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "The map goes to the place you searched for",
+          "body": "Picking a place from the search screen set it as your destination but left the map sitting wherever it already was, so you never saw where you were about to drive to. The map now moves to the place you chose, and it checks that it actually got there rather than assuming so. If you start moving the map yourself it leaves it alone.",
+          "category": "fix"
+        },
+        {
+          "icon": "warning-outline",
+          "title": "The risk glow is back on the night map",
+          "body": "The red and amber glow around the edge of the screen, the one that tells you at a glance that you are in a higher-risk area, was quietly switched off whenever the driving map was in its night look. That meant it was missing for every drive after 17:30, on the Lite map setting, and any time you pinned the map to Dusk or Night: the hours it matters most. It now follows only its own switch in Settings, and nothing else can turn it off.",
+          "category": "fix"
+        },
+        {
+          "icon": "git-branch-outline",
+          "title": "Route options are easier to tell apart",
+          "body": "On the route screen the lines were thin, in the same colours as the risk areas underneath them, and no thicker than the flagged roads they crossed, so picking one out was hard work. Each route now has a dark outline around it, the one you have selected is drawn heavier and always on top, the risk-area shading is lighter with a firmer edge, and flagged roads are drawn more quietly. Nothing about the routes themselves has changed, only how clearly you can see them.",
+          "category": "tweak"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "Car screens: a thinner route, and no duplicate on your phone",
+          "body": "On CarPlay and Android Auto the route line was drawn at its full driving thickness even in the zoomed-out overview, where it covered the junctions and risk areas the overview exists to show. It now thins out as the map zooms out and is unchanged while you are driving. Your phone also stops showing its own Lock Screen and Dynamic Island card while a car screen is connected, since the car is already showing the same turn, arrival time and risk. Unplug mid-drive and the card comes straight back.",
+          "category": "tweak"
+        },
+        {
+          "icon": "list-outline",
+          "title": "The \"Roads on route\" panel is smaller and better placed",
+          "body": "It sat floating in the middle-left of the driving screen and took up more room than it needed, noticeably so on Android. It is now a compact pill tucked under the speed dial, lined up with the buttons beside it, and the two phone types size it the same way.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-11.1",
       "date": "11 September 2026",
       "items": [
