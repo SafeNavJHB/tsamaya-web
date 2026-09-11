@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-11.5",
+      "date": "11 September 2026",
+      "items": [
+        {
+          "icon": "git-branch-outline",
+          "title": "Car screens: the route picker names the option again",
+          "body": "When choosing between routes on Android Auto, the card printed the same sentence twice and never said which option you were looking at, so \"Lower-risk\", \"Balanced\" and \"Fastest\" were indistinguishable. With a longer description it also pushed the arrival time and distance off the card. The option name is back at the top, with the trade-off underneath.",
+          "category": "fix"
+        },
+        {
+          "icon": "time-outline",
+          "title": "Car screens: the arrival time fits on the route card again",
+          "body": "When every route option came back with the same road, the card listed all three names, which wrapped onto a second line and pushed the journey time and distance off the bottom. It now says \"All options\", which means the same thing in one line.",
+          "category": "fix"
+        },
+        {
+          "icon": "apps-outline",
+          "title": "Car screens: two buttons that were blank squares",
+          "body": "On Android Auto the \"more report types\" button and the search button during a drive were drawn as empty white squares with no icon in them. Both now show their proper symbol. The blank one on the report screen was the only way to reach five of the report types, so it was worth more than it looked.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-11.4",
       "date": "11 September 2026",
       "items": [
