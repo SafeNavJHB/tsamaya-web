@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-11.1",
+      "date": "11 September 2026",
+      "items": [
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Lower-risk always wears the best badge",
+          "body": "The A to E safety letter could still put Balanced above Lower-risk, because any route touching a high-risk area is held at D no matter how little of it there is: a Lower-risk line with 100 m of red read D under a Balanced line with none reading C. The options are now ranked by the letter you see as well as the risk behind it, so the option named Lower-risk can never wear a worse badge than the one below it. And where every option touches a high-risk area and the letter could not separate them, the ones carrying at least twice the risk of Lower-risk now move down to E instead of sharing its D: on a Kempton Park to Waterfall run, Lower-risk with 80 m of red and Fastest with 5.5 km of red used to both read D.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-10.3",
       "date": "10 September 2026",
       "items": [
