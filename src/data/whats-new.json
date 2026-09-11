@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-11.3",
+      "date": "11 September 2026",
+      "items": [
+        {
+          "icon": "mic-outline",
+          "title": "Android Auto: asking for a place by voice now works",
+          "body": "Saying \"navigate to Sandton City\" in the car did nothing at all. The car passes us the spoken place as text rather than as a point on the map, and the app was only set up to handle the point, so every spoken destination was quietly dropped. Spoken places are now looked up the same way the search bar looks them up, biased to where you actually are, and the destination comes up ready for you to pick a route. Asking for a set of coordinates works too.",
+          "category": "fix"
+        },
+        {
+          "icon": "help-circle-outline",
+          "title": "Car screens now tell you why the map is empty",
+          "body": "If the app had not been given permission to use your location, or was still finding you, the car screen just showed a map with no car on it and nothing explaining why. It now says what is wrong: either that it needs location access, which only your phone can give it, or simply that it is still finding you. The first one asks you to sort it out on your phone when it is safe to do so, never while you are driving.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-11.2",
       "date": "11 September 2026",
       "items": [
