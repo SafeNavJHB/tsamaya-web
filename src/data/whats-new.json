@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-11.4",
+      "date": "11 September 2026",
+      "items": [
+        {
+          "icon": "refresh-outline",
+          "title": "Car screens notice when you allow location",
+          "body": "Following on from the message added earlier today: if you allowed location from your phone's own Settings rather than from inside Tsamaya, the car screen kept saying it still needed access until you next opened the app. It now picks up the change on its own, within a few seconds.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-11.3",
       "date": "11 September 2026",
       "items": [
