@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-12.3",
+      "date": "12 September 2026",
+      "items": [
+        {
+          "icon": "options-outline",
+          "title": "Camera tilt is now a slider, with notches",
+          "body": "Settings › Navigation › Camera tilt is a slider instead of three buttons. The three familiar angles (Low, the Google Maps look; Standard; Steep) sit as notches you can tap or slide onto, and anything in between works too. The car screen and the dashboard tile follow the same angle in proportion. Your saved choice carries over.",
+          "category": "feature"
+        },
+        {
+          "icon": "image-outline",
+          "title": "Preview the driving view before you drive",
+          "body": "Under Camera tilt and under Map zoom there is a Preview drop-down that shows a real map frame at the exact zoom and tilt you have set, with the car where it will sit on screen. It updates as you move either slider and costs nothing while it is closed.",
+          "category": "feature"
+        },
+        {
+          "icon": "hand-left-outline",
+          "title": "Sliders no longer lose the page",
+          "body": "Dragging the car-marker size, Map zoom, Camera tilt or voice volume slider used to scroll the whole settings page if your finger drifted up or down, and the slider stopped responding until you let go. The slider now keeps the gesture for as long as your finger is down; the page scrolls normally again the moment you release.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-12.2",
       "date": "12 September 2026",
       "items": [
