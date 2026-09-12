@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-12.4",
+      "date": "12 September 2026",
+      "items": [
+        {
+          "icon": "fast-food-outline",
+          "title": "Searching a chain now finds the branch nearest you",
+          "body": "Typing “KFC” could list five branches five kilometres away and leave out the one two kilometres up the road. Searches like that — a shop or restaurant with several branches near you — now show a “Nearest” group at the top, closest first, with the distance on each. Searching a specific place by name is unchanged.",
+          "category": "fix"
+        },
+        {
+          "icon": "map-outline",
+          "title": "See all your search results on the map",
+          "body": "Search for something, and the results list now has “Show all on map”. It drops a pin on every result and brings up a list you can drag open over the map. Tap a pin to see which one it is, tap a row to find it on the map, and Go sets it as your destination. Your own position stays in view so you can tell which one is actually on your way.",
+          "category": "feature"
+        },
+        {
+          "icon": "globe-outline",
+          "title": "Roads are visible on the satellite map",
+          "body": "On the satellite basemap the streets faded out as you zoomed in, until street names were floating over the photos with no road under them. Roads are now drawn with an outline over the aerial imagery at every zoom, on the phone map, the driving map and the car screens. Risk areas and route lines still draw on top.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-12.3",
       "date": "12 September 2026",
       "items": [
