@@ -15,6 +15,66 @@
   ],
   "releases": [
     {
+      "version": "2026-09-12.2",
+      "date": "12 September 2026",
+      "items": [
+        {
+          "icon": "options-outline",
+          "title": "Map zoom: a slider, a wider default, and more room at speed",
+          "body": "The driving map now starts about 15% further out than before, and pulls back further as your speed climbs so you see more of the road ahead on the open road. Settings › Navigation has a new Map zoom slider if you want it closer or further; it takes effect on the next camera move, even mid-drive. Same on CarPlay, Android Auto and the phone.",
+          "category": "feature"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "Your own car marker: a smoother size slider",
+          "body": "Dragging the marker-size slider used to judder, because each move was measured against the thumb it was moving. It now tracks your finger. The range is 25% to 150% instead of up to 250%, so the sizes people actually use sit in the middle of the track. A saved size above the new maximum is trimmed to fit.",
+          "category": "fix"
+        },
+        {
+          "icon": "moon-outline",
+          "title": "CarPlay: Satellite from the first frame, and 3D at night",
+          "body": "Starting a drive from the car with the phone in your pocket showed the night map in broad daylight until you unlocked the phone, at which point it flipped to Satellite. The car screen now reads your map choice itself. With Full map detail on, the night map keeps its 3D buildings, as the phone already did.",
+          "category": "fix"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "Android Auto: a stray \"navigate to\" no longer takes over your drive",
+          "body": "Words the car heard as a destination were geocoded and re-planned over your live route, dropping you onto the route picker mid-drive. If a spoken destination arrives while you are already driving, the car now asks \"Drive to X instead?\" and keeps your route unless you say so. A destination you pick yourself still plans at once.",
+          "category": "fix"
+        },
+        {
+          "icon": "pulse-outline",
+          "title": "Android Auto: the warning border fits the small card",
+          "body": "In the split-screen card, the left edge of the safety border was drawn off the card and the right edge was mostly hidden. The border now traces the card you can actually see. CarPlay is unchanged.",
+          "category": "fix"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Speed limit: no more blink through short gaps in the map data",
+          "body": "On roads like Old Pretoria Main Road the limit vanished for a few seconds and came back, because a short stretch of the road has no speed-limit tag in OpenStreetMap. The last limit read on that road is now held through a gap of up to 1.5 km. A held limit is never used for the over-speed chime, and nothing is shown where no limit was ever read.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-outline",
+          "title": "CarPlay dashboard: the mini-map looks down at the junction too",
+          "body": "The small dashboard map now flattens to a top-down view as a turn comes up, the same way the main car map and the phone do, then leans back once you are through.",
+          "category": "tweak"
+        },
+        {
+          "icon": "map-outline",
+          "title": "CarPlay: the Mapbox logo is in the top-right corner again",
+          "body": "On Satellite, the map logo and the (i) button sat in the top centre of the screen, and were pushed off the map entirely while a turn card was up. They now sit in the top-right corner of the visible map.",
+          "category": "fix"
+        },
+        {
+          "icon": "document-text-outline",
+          "title": "Sending a drive log is for any odd drive, not only a crash",
+          "body": "Settings › Help & About now invites you to send the log after anything unexpected: a route that failed or looked wrong, a freeze, or CarPlay and Android Auto misbehaving. It covers the last 24 hours, so send it soon after the drive.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-12.1",
       "date": "12 September 2026",
       "items": [
