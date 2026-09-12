@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-12.1",
+      "date": "12 September 2026",
+      "items": [
+        {
+          "icon": "git-branch-outline",
+          "title": "CarPlay: the route picker names each route again",
+          "body": "On CarPlay, choosing between routes showed the destination at the top of every page and nothing else, so \"Lower-risk\", \"Balanced\" and \"Fastest\" all looked identical and you were picking between two sets of numbers. The options are now listed by name, with what each one avoids underneath, the way they already were on Android Auto.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-11.5",
       "date": "11 September 2026",
       "items": [
