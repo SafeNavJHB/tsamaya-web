@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-13.2",
+      "date": "13 September 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "CarPlay: the buttons come back when you tap the map",
+          "body": "With no route running, CarPlay hides the map buttons a few seconds after they appear. Once hidden, no tap would bring them back until you left Tsamaya and opened it again. There is now a Search button at the top of the car screen, and a tap on the map shows everything again every time.",
+          "category": "fix"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "CarPlay: faster start after Go",
+          "body": "Pressing Go on the car screen left a \"Loading\" card up for four seconds or more while the phone got its own directions screen ready. The car now goes first: the first turn shows in about two seconds, with the right arrival time and distance for the whole trip from the start.",
+          "category": "fix"
+        },
+        {
+          "icon": "map-outline",
+          "title": "CarPlay: a steadier map and clearer route cards",
+          "body": "The map no longer slides sideways every time the car screen shows or hides its buttons. The route options card names your destination (not the last road) and no longer repeats the same line twice. The phone and the car now agree on the arrival time. The speedometer stays clear of the map credits, the report buttons all have coloured icons, and the route preview and map exploration now show where your car is.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-13.1",
       "date": "13 September 2026",
       "items": [
