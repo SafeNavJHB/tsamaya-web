@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-13.1",
+      "date": "13 September 2026",
+      "items": [
+        {
+          "icon": "volume-high-outline",
+          "title": "A turn reminder at 1.5 kilometres",
+          "body": "On stretches where the directions went quiet between the first mention of a turn and the last 400 metres, you now also hear the turn named about 1.5 kilometres out, so it never comes as a surprise.",
+          "category": "tweak"
+        },
+        {
+          "icon": "phone-portrait-outline",
+          "title": "Android Auto: keep guiding on your phone after unplugging",
+          "body": "If you unplug from Android Auto in the middle of a drive while Tsamaya is not open on your phone, a quiet notification now waits on your phone. Tap it and your phone picks up the same route. If Tsamaya is open but not showing directions, it asks whether to keep guiding instead. If it is already guiding on your phone, it simply carries on. Unplugging when you have parked at a stop or your destination shows nothing.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-12.4",
       "date": "12 September 2026",
       "items": [
