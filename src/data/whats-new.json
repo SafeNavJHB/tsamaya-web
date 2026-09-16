@@ -15,6 +15,60 @@
   ],
   "releases": [
     {
+      "version": "2026-09-16.1",
+      "date": "16 September 2026",
+      "items": [
+        {
+          "icon": "volume-high-outline",
+          "title": "Android: the natural voice speaks again",
+          "body": "On Android phones the Google natural voice went quiet after the first spoken line of a drive, in the car and out of it. The app switched its own audio off after each prompt and Android never switched it back. It stays on now, and if a line ever fails to start within two seconds the on-device voice reads it instead.",
+          "category": "fix"
+        },
+        {
+          "icon": "map-outline",
+          "title": "CarPlay: the mini map stays up",
+          "body": "When the phone runs short of memory, the CarPlay dashboard map used to go black for up to two minutes. It is now the last thing given up: the phone’s own maps drop their imagery and 3D first, and the dashboard map is never dark for more than about eight seconds. On the satellite basemap the mini map draws its roads and the route on top of the imagery again, and the End route button clears once a route has ended.",
+          "category": "fix"
+        },
+        {
+          "icon": "options-outline",
+          "title": "Settings on the car screen",
+          "body": "CarPlay and Android Auto now have a Settings grid: Sound, Alerts, Basemap, Map look, Route and Detail, each showing its current value. Open it from Settings on the car screen or from the \"Where to?\" list, with or without a route running, so you can mute guidance or switch to satellite without picking up the phone.",
+          "category": "feature"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Speed warnings: one chime, then five minutes of peace",
+          "body": "The over-speed chime used to repeat every 30 seconds for as long as you stayed over. It now sounds once, reminds you after five minutes if you are still over, and sounds again straight away if the posted limit drops below the speed you are doing.",
+          "category": "tweak"
+        },
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "A side road no longer borrows the highway’s green",
+          "body": "Village Road runs directly under the M2, and the road readout kept calling it verified safe long after you had left the highway. A safe road now has to plausibly be the road under the car, by name or by being within 8 metres of its centreline, before it counts.",
+          "category": "fix"
+        },
+        {
+          "icon": "cloud-download-outline",
+          "title": "Risk data downloads only when it changes",
+          "body": "Android could never save the risk data between launches (it is bigger than the space the phone’s key-value store allows), so every start downloaded all 29 MB again. It is saved to a file now, and when something changes only the changed rows are fetched.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-outline",
+          "title": "Android Auto: new route preview, spoken stop, risk border",
+          "body": "Asking for a new destination mid-drive now previews the new route, not the one you are on. Telling the assistant to end navigation ends it instead of offering to drive to a street called End. The risk border frames the map you can see: along the screen edges in full screen, around the card in split view.",
+          "category": "fix"
+        },
+        {
+          "icon": "document-text-outline",
+          "title": "“App closed unexpectedly” only for real crashes",
+          "body": "The red row in Settings no longer appears when the phone simply closed Tsamaya in the background hours after you last used it.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-15.1",
       "date": "15 September 2026",
       "items": [
