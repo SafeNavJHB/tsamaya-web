@@ -15,6 +15,84 @@
   ],
   "releases": [
     {
+      "version": "2026-09-17.1",
+      "date": "17 September 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "One traffic warning, not several",
+          "body": "When there is heavy traffic ahead, you now hear it once, with the total delay added up. It used to be repeated for each slow stretch, again when the phone screen was open too, and again after every change of route.",
+          "category": "fix"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Faster routes on the car screen",
+          "body": "Planning a trip from CarPlay or Android Auto, by voice or from search, now works out the route options together instead of one after the other, and stops asking for the same directions twice.",
+          "category": "fix"
+        },
+        {
+          "icon": "flag-outline",
+          "title": "Android Auto: Report and Settings buttons",
+          "body": "The Android Auto map now has its own Report and Settings buttons at the top, so you can report an incident without a route and reach Settings without going through Search. While driving, Settings sits next to Search.",
+          "category": "feature"
+        },
+        {
+          "icon": "mic-outline",
+          "title": "Ending a drive by voice understands more ways of asking",
+          "body": "Asking your car’s assistant to end the route now works with more ways of saying it, like “can you end the route” or “stop navigating to Rosebank Mall”.",
+          "category": "fix"
+        },
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Green roads now say “Lower risk”",
+          "body": "Verified roads are labelled “Lower risk” instead of “No known risk”. A green road crossed by a bridge also stays green now: a road on the bridge could colour a short stretch underneath it, like the M1 under Grayston Drive.",
+          "category": "fix"
+        },
+        {
+          "icon": "star-outline",
+          "title": "Trip rating stays on screen on Android",
+          "body": "After ending a drive, the “How was your trip?” card could vanish straight away on some Android phones. It now stays until you answer it or leave the app. A notification the Android Auto connection could leave stuck on your phone is also cleared.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-16.4",
+      "date": "16 September 2026",
+      "items": [
+        {
+          "icon": "grid-outline",
+          "title": "Car screen: Settings keeps track of Back",
+          "body": "Leaving Settings with the car screen’s own Back button is now recorded properly, so the drive log no longer shows a second Settings screen that was never open, and the one-time Home and Work tip on the car can appear again.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-16.3",
+      "date": "16 September 2026",
+      "items": [
+        {
+          "icon": "sunny-outline",
+          "title": "CarPlay: day maps in the daytime",
+          "body": "With Map look on Auto, the car screen could show the night map in broad daylight: CarPlay reports a dark screen style all day, and on Lite detail a phone in dark mode darkened the car map too. The car map now follows the time of day and your Map look choice. Android Auto still switches to night maps when the car does.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-16.2",
+      "date": "16 September 2026",
+      "items": [
+        {
+          "icon": "document-text-outline",
+          "title": "Old “App closed unexpectedly” warnings cleared",
+          "body": "A red warning left over from before the last update no longer stays in Settings. It now only appears for a crash the current rules actually find.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-16.1",
       "date": "16 September 2026",
       "items": [
