@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-18.2",
+      "date": "18 September 2026",
+      "items": [
+        {
+          "icon": "refresh-outline",
+          "title": "Android: no more crash when an update reloads the app",
+          "body": "Tapping Reload on \"Update ready\" could close Tsamaya a few seconds later on Android, because the map was still tracking your position while the app restarted. The map now stops tracking first, then the app reloads.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-18.1",
       "date": "18 September 2026",
       "items": [
