@@ -15,6 +15,60 @@
   ],
   "releases": [
     {
+      "version": "2026-09-18.1",
+      "date": "18 September 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "This card now closes the moment you tap it",
+          "body": "After an update, this card now appears before the map starts loading, so its button answers straight away. On Android a tap here could take several seconds to register while the map and risk data were loading underneath. They now load once you close the card.",
+          "category": "fix"
+        },
+        {
+          "icon": "albums-outline",
+          "title": "Android Auto: risk border on the edge of the map card",
+          "body": "When Tsamaya shares the car screen with another app, the coloured risk border now runs along the edge of the map card instead of floating inside it with map showing around it.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-17.3",
+      "date": "17 September 2026",
+      "items": [
+        {
+          "icon": "alert-circle-outline",
+          "title": "New hijacking hotspot: Winnie Mandela Drive and Uranium Road",
+          "body": "The Witkoppen intersection of Winnie Mandela Drive and Uranium Road, in Fourways, is now marked as a hijacking hotspot after community reports of attempted hijackings there, mostly in the evening. You will see it on the map and hear a heads-up when your drive goes through it. Hotspots are awareness only and never change your route.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-17.2",
+      "date": "17 September 2026",
+      "items": [
+        {
+          "icon": "moon-outline",
+          "title": "CarPlay: the night map follows your car",
+          "body": "Version 1.5.2. With Map look set to Auto, the CarPlay map now switches to the night map when the car itself switches to its dark map appearance, the way Android Auto already does. A look pinned to Day or Dark still wins.",
+          "category": "feature"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "Android Auto: next turn shown over other car apps",
+          "body": "When another app, like your music, is full screen on Android Auto, the next turn now appears in the small navigation card at the bottom of the car screen. A turn notification that could stay stuck on your phone after a drive is now cleared too.",
+          "category": "feature"
+        },
+        {
+          "icon": "medkit-outline",
+          "title": "Clearer crash reports on both phones",
+          "body": "On Android, a serious error mid-drive now closes the app cleanly with a report instead of leaving a blank screen. On iPhone, crash reports now point to the exact line of code, so causes are found faster.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-17.1",
       "date": "17 September 2026",
       "items": [
@@ -155,6 +209,24 @@
           "title": "A tidier “What’s New” after the next app update",
           "body": "When you install the next version of Tsamaya from the store, the “What’s New” card shows you that release only, instead of paging back through everything that came before it.",
           "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-13.3",
+      "date": "13 September 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "CarPlay: a crash when closing route options is fixed",
+          "body": "Version 1.5.1. Closing the route options on the car screen could crash Tsamaya, because two parts of the app changed the car’s buttons at the same moment. They now take turns.",
+          "category": "fix"
+        },
+        {
+          "icon": "medkit-outline",
+          "title": "Clearer crash reports on Android",
+          "body": "When Tsamaya crashes on an Android phone, more of the report we receive now names the code involved instead of showing bare memory addresses, which makes the cause quicker to find.",
+          "category": "tweak"
         }
       ]
     },
