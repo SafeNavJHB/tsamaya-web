@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-19.8",
+      "date": "19 September 2026",
+      "items": [
+        {
+          "icon": "car-sport-outline",
+          "title": "Car screen shows your route much sooner",
+          "body": "On CarPlay and Android Auto, choosing a destination now shows the Fastest route within a few seconds, with the lower-risk options filling in behind it. On a long trip the risk check used to take well over a minute with nothing but a spinner. If you press Go before it finishes and a lower-risk route turns up, the car offers a one-tap Switch.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-19.7",
       "date": "19 September 2026",
       "items": [
