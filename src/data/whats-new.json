@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-19.2",
+      "date": "19 September 2026",
+      "items": [
+        {
+          "icon": "layers-outline",
+          "title": "Route overview: risk areas and roads draw at once",
+          "body": "The route overview screen was rebuilding its risk overlays from scratch on every step of the lower-risk search, so on older Android phones the zones and roads took seconds to appear and taps waited behind that work. It now reads the same overlay files the home map keeps on the phone.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-19.1",
       "date": "19 September 2026",
       "items": [
