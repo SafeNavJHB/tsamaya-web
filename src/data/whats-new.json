@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-19.7",
+      "date": "19 September 2026",
+      "items": [
+        {
+          "icon": "search-outline",
+          "title": "Search keeps working on a busy day",
+          "body": "Destination search now has a daily limit with Google. If the limit is reached, search switches to the map's own place search instead of showing an error, and goes back to Google within the hour. The Nearby buttons say when they are busy rather than asking you to check your connection.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-19.6",
       "date": "19 September 2026",
       "items": [
