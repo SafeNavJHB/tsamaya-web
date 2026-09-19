@@ -15,6 +15,36 @@
   ],
   "releases": [
     {
+      "version": "2026-09-19.4",
+      "date": "19 September 2026",
+      "items": [
+        {
+          "icon": "layers-outline",
+          "title": "Previous overlays really do show after an update",
+          "body": "The earlier fix for the bare map after an update was undone by its own first pass: the app built an empty overlay before the risk data had loaded and threw the previous one away. It now waits for real data before writing anything, so the previous overlays stay on the map until the new ones are ready.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-19.3",
+      "date": "19 September 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "The route screen opens as soon as the fastest route is in",
+          "body": "Tapping Go used to show \"Finding route…\" for as long as the first round of safety scoring took, and on older Android phones taps were ignored while the lower-risk search ran. The planner now lets the screen draw between scoring steps whenever the app is on screen, so the fastest route appears as soon as it downloads and the screen stays responsive while the safer options are found.",
+          "category": "fix"
+        },
+        {
+          "icon": "layers-outline",
+          "title": "No blank map after an update",
+          "body": "The first launch after an app update rebuilds the risk overlays for the new version. The map now shows the previous overlays straight away and swaps them in when the rebuild finishes, instead of leaving the map bare for half a minute.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-19.2",
       "date": "19 September 2026",
       "items": [
