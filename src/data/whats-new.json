@@ -15,6 +15,108 @@
   ],
   "releases": [
     {
+      "version": "2026-09-19.1",
+      "date": "19 September 2026",
+      "items": [
+        {
+          "icon": "speedometer-outline",
+          "title": "Android: the home screen answers taps at once",
+          "body": "On Android phones the home screen was quietly redrawing itself sixty times a second, all the time, because of the frosted-glass effect behind its buttons and a blinking dot in the area pill. On a Samsung S21 that kept the phone busy nine tenths of the time and every tap landed a beat late. The glass on the home screen is now a plain tint on Android and the dot no longer blinks, so the screen sits idle until you touch it.",
+          "category": "fix"
+        },
+        {
+          "icon": "layers-outline",
+          "title": "Risk areas come back with the map, not eight seconds later",
+          "body": "After a drive, or after changing the Map detail setting, the home map came back blank and the risk areas and roads took about eight seconds to reappear while the app rebuilt them from scratch. The overlays are now kept on the phone as files the map reads directly, so they survive a drive and a restart, and the map now tells the app when it has finished drawing instead of the app waiting out a timer.",
+          "category": "fix"
+        },
+        {
+          "icon": "settings-outline",
+          "title": "Settings does less work when it opens",
+          "body": "Settings no longer starts its own second GPS listener, no longer lists the installed voices until you open the Navigation page, and only refreshes the review-team badges once a minute. The home map also stops re-serialising its markers and pins every time your position updates.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-18.6",
+      "date": "18 September 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "Android Auto: the turn card appears much sooner after Go",
+          "body": "Tapping Go on the car screen used to take about ten seconds before the first turn card appeared. Nine of those seconds were spent checking every road segment near the route against the whole route, one sample at a time. That check now skips segments the route cannot touch, so guidance starts within a few seconds.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-18.5",
+      "date": "18 September 2026",
+      "items": [
+        {
+          "icon": "stopwatch-outline",
+          "title": "Car screen: measuring the pause after Go",
+          "body": "On Android Auto the first turn card can take about ten seconds to appear after you tap Go. This update times each step of that pause so the next drive log shows exactly where it goes, and lets a staff phone stream its drive log to a connected computer.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-18.4",
+      "date": "18 September 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "Faster, smoother start on Android",
+          "body": "Opening Tsamaya used to freeze the screen for about five seconds on Android while the risk data loaded and the zone map was prepared, so early taps did nothing. That work now runs in small steps, the prepared zone map is kept on the phone between launches, and the map receives its overlays ready-made, so the home screen answers taps straight away.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-18.3",
+      "date": "18 September 2026",
+      "items": [
+        {
+          "icon": "mic-outline",
+          "title": "Android Auto: \"Hey Google, end the route\" now ends it",
+          "body": "The assistant sends a Google Maps-style command when you ask it to stop, and Tsamaya was reading it as a place to search for. It now recognises the command and ends the drive. \"Show traffic\" and \"alternate route\" requests are also recognised (and no longer searched for), though the map already shows traffic and the route picker is where alternatives live.",
+          "category": "fix"
+        },
+        {
+          "icon": "camera-outline",
+          "title": "Speed camera and hotspot warnings without a route",
+          "body": "In free drive on the car screen (and the phone), Tsamaya now warns about fixed speed cameras and hijacking or smash-and-grab hotspots coming up on the road you are driving, using your direction of travel. Before, these only worked while navigating.",
+          "category": "feature"
+        },
+        {
+          "icon": "locate-outline",
+          "title": "Road name updates faster after a turn",
+          "body": "In free drive, turning onto a new road restarts the road-matching trail, so the road readout names the new road in a second or two instead of after a stretch of the old one.",
+          "category": "tweak"
+        },
+        {
+          "icon": "car-outline",
+          "title": "Android Auto: the car sits in the centre while navigating",
+          "body": "The map used to push the car to the right of the visible area during a drive and back to the centre once it ended. It now stays centred in the space beside the turn card, in both states.",
+          "category": "tweak"
+        },
+        {
+          "icon": "volume-mute-outline",
+          "title": "No \"watch for anyone following you\" after ending a drive",
+          "body": "After you ended navigation, the arrival reminder could still play as you reached the destination you had cancelled. It now only plays during a drive.",
+          "category": "fix"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Android Auto: smoother first seconds after Go",
+          "body": "The phone screen now waits a few seconds after the car has started guiding before it opens, so the car map and the first spoken instruction are not held up by it.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-18.2",
       "date": "18 September 2026",
       "items": [
