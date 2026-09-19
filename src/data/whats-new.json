@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-19.6",
+      "date": "19 September 2026",
+      "items": [
+        {
+          "icon": "layers-outline",
+          "title": "Previous overlays appear as soon as the map does",
+          "body": "After an update the previous risk overlays now go onto the map the moment it opens, rather than after the risk data has loaded and been re-cut, which on older phones was about fourteen seconds. The refreshed overlays still replace them when ready.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-19.5",
       "date": "19 September 2026",
       "items": [
