@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-19.5",
+      "date": "19 September 2026",
+      "items": [
+        {
+          "icon": "git-branch-outline",
+          "title": "Route planning in about half the time",
+          "body": "The Balanced and Lower-risk options used to be searched for separately, each scoring the same candidate routes against the same risk areas. They now share one search and each option still decides by its own rule, so the Fastest, Balanced and Lower-risk choices are exactly what they were, in about half the time and with fewer map requests. On older Android phones a long trip that took a minute and a half to finish planning should now take under a minute.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-19.4",
       "date": "19 September 2026",
       "items": [
