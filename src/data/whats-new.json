@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-22.6",
+      "date": "22 September 2026",
+      "items": [
+        {
+          "icon": "swap-horizontal-outline",
+          "title": "A stretch now covers both directions",
+          "body": "Where a road is mapped as two carriageways, a stretch you rate now covers both directions: the other carriageway is marked with it and the review applies both together. Before, only the side you tapped changed, so half the road kept its old colour. A Both-directions switch on the rating panel turns it off for a one-way change.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-22.5",
       "date": "22 September 2026",
       "items": [
