@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-22.3",
+      "date": "22 September 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "Your usual trips start faster",
+          "body": "Tsamaya now remembers the route options it worked out for trips to your saved places, for the time of day you drove them. The next time you tap Go to Home or Work from the same spot, the options appear straight away with a fresh traffic estimate, on the phone and on the car screen. It re-checks the route automatically when the risk data changes, after a week, or if a temporary closure near it starts or ends.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-22.2",
       "date": "22 September 2026",
       "items": [
