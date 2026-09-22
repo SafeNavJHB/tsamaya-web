@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-22.2",
+      "date": "22 September 2026",
+      "items": [
+        {
+          "icon": "trail-sign-outline",
+          "title": "Mark a road with two taps",
+          "body": "In Suggest a map edit, choose Road and tap where a stretch starts and where it ends. The road between your taps now fills in by itself, so you no longer trace it point by point. Tap further along to extend the stretch, and Undo takes back the last tap.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-22.1",
+      "date": "22 September 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "Road name clears the arrival bar on the CarPlay dashboard",
+          "body": "On the CarPlay dashboard's mini map, the road name and safety label under your car now sit on one line and shrink to fit above Apple's arrival-time bar instead of running behind it (on the smallest screens, most of the way). Your car stays exactly where it was.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-19.8",
       "date": "19 September 2026",
       "items": [
