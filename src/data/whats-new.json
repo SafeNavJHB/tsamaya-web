@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-22.4",
+      "date": "22 September 2026",
+      "items": [
+        {
+          "icon": "options-outline",
+          "title": "Choose how long a saved trip is reused",
+          "body": "Settings › Routes › Saved trips now lets you pick when a remembered trip gets a fresh check regardless of changes: after a week (the default), after a month, or only when the risk data, your allowed roads, a nearby closure or the app changes.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-22.3",
       "date": "22 September 2026",
       "items": [
