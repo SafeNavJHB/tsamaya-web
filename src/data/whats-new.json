@@ -15,6 +15,60 @@
   ],
   "releases": [
     {
+      "version": "2026-09-23.1",
+      "date": "23 September 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "From place to plan in one tap",
+          "body": "Pick a place from search, a suggestion card, Home, Work or a pin and Tsamaya starts planning straight away, with no Go button to press first. Empty search now shows Home, Work and your saved places, and the result distance sits on the right so more results fit above the keyboard.",
+          "category": "feature"
+        },
+        {
+          "icon": "list-outline",
+          "title": "The route details agree with the card",
+          "body": "When the options merged into one card, the card could count a high-risk area that the list below never named. Every area the card counts is now listed, with the kilometres driven through it. After a drive, the summary describes the part you actually drove, and a drive ended before it started no longer asks for a rating.",
+          "category": "fix"
+        },
+        {
+          "icon": "call-outline",
+          "title": "A clearer SOS",
+          "body": "SOS now opens a sheet with a large Call 10111 button first, then Call 112 (which works from any cellphone), then alerting your emergency contact. Sharing your live location shows a Live link on pill with a one-tap Stop, and Share and Navigation settings now sit together under More.",
+          "category": "feature"
+        },
+        {
+          "icon": "eye-outline",
+          "title": "A calmer drive screen",
+          "body": "The coloured screen border flashes a few times as you enter a higher-risk area and then holds its colour instead of pulsing the whole way. Shop and hotspot labels are hidden while you drive, speed camera and hotspot alerts also show on screen with the distance, and the road pill names a high-risk area even when the road itself is rated lower.",
+          "category": "tweak"
+        },
+        {
+          "icon": "arrow-undo-outline",
+          "title": "Undo a report",
+          "body": "A report tapped during a drive now waits a few seconds with an Undo button before it is sent, on the phone and on the car screen.",
+          "category": "tweak"
+        },
+        {
+          "icon": "car-outline",
+          "title": "Android Auto says what each route passes",
+          "body": "The car’s route list now says what each option passes, the same words as the phone, with its A to E grade. Ending a route shows Resume for a few seconds, and the navigation notification clears when you unplug.",
+          "category": "fix"
+        },
+        {
+          "icon": "chatbubbles-outline",
+          "title": "One way of naming risk",
+          "body": "High, medium and low-risk areas are now called the same thing everywhere: the map legend, route cards, the drive screen, the car and the trip summary. Settings are shorter too, with the detail one tap away under More about this.",
+          "category": "tweak"
+        },
+        {
+          "icon": "location-outline",
+          "title": "No repeating location pop-up",
+          "body": "With the phone’s location switched off, Google’s location prompt no longer comes back every few seconds. Tsamaya asks once when you tap Go, and the home screen says what is wrong and opens the right setting.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-22.6",
       "date": "22 September 2026",
       "items": [
