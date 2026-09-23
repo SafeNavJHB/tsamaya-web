@@ -15,6 +15,36 @@
   ],
   "releases": [
     {
+      "version": "2026-09-23.5",
+      "date": "23 September 2026",
+      "items": [
+        {
+          "icon": "shield-outline",
+          "title": "Police reported ahead",
+          "body": "Tap Police or Roadblock while driving and every driver nearby sees it on the map for the next hour. On a drive, Tsamaya says \"Police reported ahead\" as you approach one on your route, on the phone and in the car. These reports are notices only: they never change your route or the risk ratings.",
+          "category": "feature"
+        },
+        {
+          "icon": "time-outline",
+          "title": "Road closures say when",
+          "body": "The road closure notice now shows when the closure runs, such as Until 11:30 tomorrow. Close it and it stays hidden the next time you open Tsamaya. Every current and upcoming closure, including ones you hid, is listed in Settings, Alerts, Road closures.",
+          "category": "feature"
+        },
+        {
+          "icon": "cloud-download-outline",
+          "title": "Offline maps no longer freezes",
+          "body": "On some phones the offline maps screen could lock up: the download size stopped changing, Roads & names and Full detail could not be picked, and Back did nothing. It now stays responsive, and a frame that is far too large says so instead of showing an old size.",
+          "category": "fix"
+        },
+        {
+          "icon": "chatbox-outline",
+          "title": "Tsamaya pop-ups on Android",
+          "body": "The remaining grey Android pop-ups, such as the update prompt and the confirmations in Settings and Offline maps, now use the same Tsamaya dialog as the drive screen.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-23.4",
       "date": "23 September 2026",
       "items": [
