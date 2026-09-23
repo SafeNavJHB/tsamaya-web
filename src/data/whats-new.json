@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-23.2",
+      "date": "23 September 2026",
+      "items": [
+        {
+          "icon": "navigate-outline",
+          "title": "Start Navigation shows its label again",
+          "body": "On the route screen the Start Navigation button had shrunk to a thin blue bar with its label hidden. It is full size again.",
+          "category": "fix"
+        },
+        {
+          "icon": "analytics-outline",
+          "title": "The trip summary measures drives along the route",
+          "body": "On phones that do not report a speed, the summary after a drive could miss the areas you drove through. It now measures the drive along the route, and an arrival always counts the route you arrived on.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-23.1",
       "date": "23 September 2026",
       "items": [
