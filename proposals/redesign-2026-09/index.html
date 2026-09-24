@@ -1,0 +1,421 @@
+<title>Tsamaya Redesign Proposals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap">
+<style>
+:root {
+  --bg: #F6F7F9;
+  --surface: #FFFFFF;
+  --ink: #0F172A;
+  --ink-2: #475467;
+  --rule: #DCE1E8;
+  --accent: #047857;
+  --accent-soft: #D7F2E6;
+  --red: #C2334A;
+  --warn: #9A5B00;
+  --shadow: 0 1px 2px rgba(15, 23, 42, .06);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E131C;
+    --surface: #151C27;
+    --ink: #E8EDF4;
+    --ink-2: #A3AFBF;
+    --rule: #263142;
+    --accent: #34D399;
+    --accent-soft: #123528;
+    --red: #F07A8C;
+    --warn: #F2B85A;
+    --shadow: none;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E131C;
+  --surface: #151C27;
+  --ink: #E8EDF4;
+  --ink-2: #A3AFBF;
+  --rule: #263142;
+  --accent: #34D399;
+  --accent-soft: #123528;
+  --red: #F07A8C;
+  --warn: #F2B85A;
+  --shadow: none;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Public Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  padding-inline: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+.page { max-width: 1080px; margin: 0 auto; padding-block: 40px 80px; }
+.measure { max-width: 68ch; }
+h1, h2, h3, h4 { line-height: 1.15; text-wrap: balance; margin: 0 0 .5em; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2rem, 1.4rem + 2.6vw, 3.2rem); font-weight: 800; letter-spacing: -0.025em; }
+h2 { font-size: clamp(1.45rem, 1.2rem + 1vw, 2rem); font-weight: 800; margin-top: 0; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+h4 { font-size: 1rem; font-weight: 700; }
+p { margin: 0 0 1em; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.small { font-size: .9rem; color: var(--ink-2); }
+.num { font-variant-numeric: tabular-nums; }
+ul, ol { padding-left: 1.2em; margin: 0 0 1em; }
+li { margin-bottom: .35em; }
+
+/* Masthead */
+.mast { display: grid; gap: 18px; padding-bottom: 28px; border-bottom: 2px solid var(--ink); margin-bottom: 36px; }
+.mast-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: .9rem; color: var(--ink-2); }
+.mast-top img { width: 34px; height: 34px; border-radius: 8px; }
+.mast-top strong { color: var(--ink); font-weight: 800; font-size: 1.05rem; }
+.mast .lede { font-size: 1.15rem; color: var(--ink-2); max-width: 62ch; margin: 0; }
+
+section { margin-bottom: 64px; }
+.label { font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 8px; }
+
+/* Summary */
+.summary { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: clamp(20px, 3vw, 32px); box-shadow: var(--shadow); }
+.summary ol { padding-left: 1.3em; }
+.pick { border-top: 1px solid var(--rule); margin-top: 18px; padding-top: 18px; }
+
+/* Concept picker */
+.concepts { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+.concept { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+.concept figure { margin: 0; border-bottom: 1px solid var(--rule); background: var(--bg); aspect-ratio: 16 / 10; overflow: hidden; }
+.concept figure img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.concept .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.concept .body p { margin: 0; }
+.concept .go { margin-top: auto; padding-top: 8px; font-weight: 700; }
+.concept .go a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+.swatches { display: flex; gap: 6px; flex-wrap: wrap; }
+.sw { width: 26px; height: 26px; border-radius: 5px; border: 1px solid rgba(0,0,0,.14); }
+
+/* Diagnosis */
+.two { display: grid; gap: 28px; grid-template-columns: 1fr; }
+@media (min-width: 860px) { .two { grid-template-columns: 1.1fr .9fr; align-items: start; } }
+.shot { margin: 0; }
+.shot img { width: 100%; height: auto; display: block; border: 1px solid var(--rule); border-radius: 8px; }
+.shot figcaption { font-size: .85rem; color: var(--ink-2); margin-top: 8px; }
+.tells li::marker { color: var(--red); }
+.keep li::marker { color: var(--accent); }
+
+/* Research */
+.findings { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.finding { display: grid; gap: 6px 28px; grid-template-columns: 1fr; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+@media (min-width: 760px) { .finding { grid-template-columns: 220px 1fr; } }
+.finding h3 { font-size: 1.02rem; margin: 0; }
+.finding p { margin: 0 0 .5em; }
+.finding p:last-child { margin-bottom: 0; }
+.so { font-weight: 600; }
+.caveat { border-left: 3px solid var(--warn); padding: 4px 0 4px 14px; color: var(--ink-2); font-size: .95rem; }
+
+/* Concept detail */
+.detail { border-top: 2px solid var(--ink); padding-top: 22px; }
+.detail + .detail { margin-top: 48px; }
+.detail-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; }
+.detail-head h3 { font-size: 1.5rem; font-weight: 800; margin: 0; }
+.open { font-weight: 700; min-height: 44px; display: inline-flex; align-items: center; }
+.thesis { font-size: 1.12rem; max-width: 64ch; margin: 10px 0 18px; }
+.detail-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+@media (min-width: 860px) { .detail-grid { grid-template-columns: 1.15fr .85fr; } }
+dl.spec { margin: 0; display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--rule); }
+dl.spec > div { display: grid; grid-template-columns: 1fr; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+@media (min-width: 560px) { dl.spec > div { grid-template-columns: 130px 1fr; gap: 16px; } }
+dl.spec dt { font-weight: 700; font-size: .9rem; }
+dl.spec dd { margin: 0; font-size: .95rem; }
+.shots-2 { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; align-items: start; }
+.shots-2 img { width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 6px; display: block; }
+.shots-2 figcaption { font-size: .8rem; color: var(--ink-2); margin-top: 6px; }
+.shots-2 figure { margin: 0; }
+
+/* Comparison */
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 680px; font-size: .95rem; }
+th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+thead th { font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); background: var(--bg); }
+tbody tr:last-child td, tbody tr:last-child th { border-bottom: 0; }
+tbody th { font-weight: 700; width: 24%; }
+.dots { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); margin-right: 3px; vertical-align: 0; }
+.dot.off { background: transparent; border: 1.5px solid var(--rule); }
+
+.rec { background: var(--accent-soft); border-radius: 10px; padding: clamp(20px, 3vw, 32px); }
+.rec h2 { margin-bottom: .4em; }
+
+.sources { columns: 1; font-size: .88rem; color: var(--ink-2); }
+@media (min-width: 860px) { .sources { columns: 2; column-gap: 40px; } }
+.sources li { break-inside: avoid; overflow-wrap: anywhere; }
+footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .88rem; color: var(--ink-2); }
+</style>
+
+<div class="page">
+
+<header class="mast">
+  <div class="mast-top"><img src="img/favicon.svg" alt="Tsamaya app icon" width="34" height="34"><strong>Tsamaya</strong><span>Website redesign proposals · 2026/09/24</span></div>
+  <h1>Three redesigns for tsamayaapp.co.za</h1>
+  <p class="lede">Each one is a working prototype of the home page and the Johannesburg page, built on the live figures, the real app screenshots and the real coverage outlines. Open them on your phone as well as a laptop: most of your visitors will arrive on an Android phone.</p>
+</header>
+
+<section aria-labelledby="summary-h">
+  <div class="summary">
+    <p class="label" id="summary-h">Summary</p>
+    <p>The current site is honest and well built, but it looks like a template: gradient headline text, pill buttons with glowing shadows, a frosted-glass header, a stat row, three numbered step cards and six identical icon cards. Research on what makes sites look machine-made lists almost every one of those.</p>
+    <p>The three proposals keep the familiar page structure (research says visitors trust a layout that looks like a normal site) and put all the character into type, colour, one graphic device and one moment of motion:</p>
+    <ol>
+      <li><strong>Street guide.</strong> The spiral-bound street guide from the cubbyhole, redrawn: grid references, an index of metros, a key to map symbols and a highlighter line around a hatched risk area. Calm and precise.</li>
+      <li><strong>City clock.</strong> The site runs on South African time. It opens by telling you the time in Johannesburg and which ratings apply right now, and the page moves from morning light to night as you scroll. The most product-specific of the three.</li>
+      <li><strong>Road manual.</strong> Built from the South African road-sign system: sign green, DIN-style lettering, route markers, time plates, a message-sign strip, and the A to E route grade as a plate. The boldest and most local.</li>
+    </ol>
+    <div class="pick">
+      <p class="label">Recommendation</p>
+      <p id="rec-short">{{REC_SHORT}}</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="open-h">
+  <h2 id="open-h">Open the prototypes</h2>
+  <p class="small">Each link opens a full page. Use the Johannesburg link in each footer or coverage list to see the metro page in the same design.</p>
+  <div class="concepts">
+    <article class="concept">
+      <figure><img src="img/c1-hero.jpg" alt="Street guide concept, top of the home page" width="720" height="450" loading="lazy"></figure>
+      <div class="body">
+        <h3>1. Street guide</h3>
+        <p>The street guide that knows what time it is.</p>
+        <div class="swatches" aria-hidden="true"><span class="sw" style="background:#F3F4EF"></span><span class="sw" style="background:#15171C"></span><span class="sw" style="background:#2D5B8A"></span><span class="sw" style="background:#34D399"></span><span class="sw" style="background:#D23C4F"></span></div>
+        <p class="go"><a href="{{C1_URL}}">Open Street guide</a></p>
+      </div>
+    </article>
+    <article class="concept">
+      <figure><img src="img/c2-hero.jpg" alt="City clock concept, top of the home page" width="720" height="450" loading="lazy"></figure>
+      <div class="body">
+        <h3>2. City clock</h3>
+        <p>The same road is a different road at 19:30.</p>
+        <div class="swatches" aria-hidden="true"><span class="sw" style="background:#E4ECEF"></span><span class="sw" style="background:#E8A46C"></span><span class="sw" style="background:#0B1220"></span><span class="sw" style="background:#FFB347"></span><span class="sw" style="background:#34D399"></span></div>
+        <p class="go"><a href="{{C2_URL}}">Open City clock</a></p>
+      </div>
+    </article>
+    <article class="concept">
+      <figure><img src="img/c3-hero.jpg" alt="Road manual concept, top of the home page" width="720" height="450" loading="lazy"></figure>
+      <div class="body">
+        <h3>3. Road manual</h3>
+        <p>Read the road before you drive it.</p>
+        <div class="swatches" aria-hidden="true"><span class="sw" style="background:#E7E8E4"></span><span class="sw" style="background:#0A6A44"></span><span class="sw" style="background:#FFC928"></span><span class="sw" style="background:#22252A"></span><span class="sw" style="background:#D7263D"></span></div>
+        <p class="go"><a href="{{C3_URL}}">Open Road manual</a></p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section aria-labelledby="now-h">
+  <h2 id="now-h">What the current site gets right, and where it reads as a template</h2>
+  <div class="two">
+    <div>
+      <h3>Template tells on the current home page</h3>
+      <ul class="tells">
+        <li>The headline's second line is gradient text ("trouble isn't" in an emerald fade).</li>
+        <li>Pill-shaped buttons with coloured glow shadows.</li>
+        <li>A frosted-glass sticky header (backdrop blur).</li>
+        <li>A four-number stat row directly under the hero.</li>
+        <li>"Three quick steps" as three numbered cards with line icons.</li>
+        <li>Six identical feature cards, each with an icon in a tinted square.</li>
+        <li>A small uppercase label over every heading (eight on the home page).</li>
+        <li>Sora and Inter, the most common "modern app" pairing.</li>
+        <li>The same rhythm all the way down: white band, pale grey band, repeat.</li>
+      </ul>
+      <h3>What every proposal keeps</h3>
+      <ul class="keep">
+        <li>The honest copy: "Lower risk is not no risk", no fake detours, no guarantees.</li>
+        <li>Figures read from the live database, never typed by hand.</li>
+        <li>Real app screenshots and the real coverage outlines.</li>
+        <li>The rule that no suburb is ever named as risky.</li>
+        <li>The zero-dependency static build, self-hosted fonts and cookieless analytics.</li>
+      </ul>
+    </div>
+    <figure class="shot">
+      <img src="img/current-hero.jpg" alt="The current Tsamaya home page, top section" width="720" height="450" loading="lazy">
+      <figcaption>The current home page at 1440 px wide, captured 2026/09/24.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section aria-labelledby="research-h">
+  <h2 id="research-h">What the research found</h2>
+  <p class="measure">Two research passes ran in parallel: one on what makes a website appealing and effective, one on what makes a site look machine-made and how distinctive sites avoid it. The findings that shaped the designs:</p>
+  <div class="findings">
+    <div class="finding">
+      <h3>First impressions are fast</h3>
+      <div>
+        <p>People rate how appealing a page looks within 50 ms, and those ratings hold up at 500 ms (Lindgaard et al., 2006). Two things win that moment: low to medium visual complexity, and a page that looks like a typical site of its kind. Complexity matters more (Tuch et al., 2012).</p>
+        <p class="so">So: all three proposals keep the normal skeleton (logo top left, menu top right, hero, proof, how it works, action, footer). The character comes from type, colour, one graphic device and one motion moment, never from a strange layout.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <h3>The first screen does most of the work</h3>
+      <div>
+        <p>57% of viewing time is spent above the fold and 74% in the first two screens (Nielsen Norman Group, 2018). Visitors read about 20 to 28% of the words on a page.</p>
+        <p class="so">So: each first screen says what Tsamaya does, gives one main action and one quiet link, and lets the next section peek in. Headings are written to make sense on their own.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <h3>The machine-made look is measurable</h3>
+      <div>
+        <p>An automated check of 1 590 launch pages found about 67% carried AI-design fingerprints: permanent dark themes, gradient backgrounds and grids of icon cards were the most common (Krebs). The purple comes from one Tailwind default whose creator apologised for it in 2025. The newer "anti-slop" look (an italic serif word in a sans headline, a small monospace label, amber on dark) has already become a cliché of its own.</p>
+        <p class="so">So: no gradients as decoration, no icon-card grids, no monospace labels, no italic accent words, no Inter, and every structural device has to mean something.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <h3>Distinctive sites own one device</h3>
+      <div>
+        <p>Sites that feel authored take a single system from the real world and commit to it. Waze's 2020 identity came from city blocks and road layouts (Pentagram). Stamen's map styles are the brand. Transit made the arrival time enormous. GOV.UK sets its type in a face descended from British road signs.</p>
+        <p class="so">So: each proposal borrows one real South African system: the street guide, the clock and Highveld light, and the SADC road-sign manual.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <h3>Safety products earn trust by being calm</h3>
+      <div>
+        <p>Fear messages only change behaviour when paired with a clear "you can do something" message (Tannenbaum et al., 2015 meta-analysis). SketchFactor was accused of racism in 2014 for rating neighbourhoods. Trust comes from showing your method, naming sources and stating limits (Nielsen Norman Group).</p>
+        <p class="so">So: one calm sentence on the problem, then the answer. No crime imagery, no red heat blobs, no named suburbs, and the method and the limits stay visible.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <h3>Motion needs a job</h3>
+      <div>
+        <p>About 100 ms for feedback, 200 to 300 ms for larger changes, and past 500 ms it feels slow (Nielsen Norman Group). Text that animates in on scroll makes people wait and makes the site feel slow. Anything that moves on its own for more than 5 s needs a pause control (WCAG 2.2.2).</p>
+        <p class="so">So: one signature moment per concept, nothing hidden until you scroll, and everything turns off for visitors who ask their phone for reduced motion.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <h3>Your visitor has an Android phone and pays for data</h3>
+      <div>
+        <p>About 4 in 5 South African mobile visits are Android. Vodacom's best-selling phone in 2025 was the Samsung Galaxy A06 at R 1 899. A prepaid 1 GB bundle cost about R 79 in 2025 (ICASA). The typical mobile home page weighs 2.56 MB (Web Almanac 2025).</p>
+        <p class="so">So: Google Play is listed before TestFlight, the privacy line sits next to the download buttons, there are no libraries, video or WebGL, and each prototype stays around 1 MB or less.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <h3>South African visual language, used with care</h3>
+      <div>
+        <p>SA road signs use DIN lettering: blue for freeways, green for other direction signs, route markers with yellow lettering (Road Traffic Signs Manual). The street guide with its grid references sat in almost every car. Some local sources are off limits for a car-owner app: minibus-taxi hand signs belong to commuters, "hijacking hotspot" signs slide into fear marketing, and Ponte-style skyline shots are the stock "dangerous Joburg" picture.</p>
+        <p class="so">So: the concepts borrow public infrastructure (signs, atlases, light), not other people's culture.</p>
+      </div>
+    </div>
+  </div>
+  <p class="caveat">Research caveat: the network policy in this session blocked opening source pages directly, so figures come from search summaries of the named sources. They are fine for design decisions. Check a number at the source before it goes on a slide.</p>
+</section>
+
+<section aria-labelledby="detail-h">
+  <h2 id="detail-h">The three proposals in detail</h2>
+
+  <article class="detail" id="c1">
+    <div class="detail-head"><h3>1. Street guide</h3><a class="open" href="{{C1_URL}}">Open the prototype</a></div>
+    <p class="thesis">Every South African car used to carry a spiral-bound street guide. Tsamaya is that guide redrawn for how people drive now, with one difference: it knows what time it is.</p>
+    <div class="detail-grid">
+      <dl class="spec">
+        <div><dt>Signature device</dt><dd>Atlas grid references in the margins, a key to map symbols, an index of metros with dotted leaders, and screenshots shown as numbered plates.</dd></div>
+        <div><dt>Hero</dt><dd>A line-drawn street map. The fastest route cuts through a hatched high-risk area; the Tsamaya route is a highlighter stroke that bends around it. Labelled as an illustration.</dd></div>
+        <div><dt>Motion</dt><dd>The highlighter draws itself once on load, in about 1.4 s. Index rows get a highlighter sweep on hover.</dd></div>
+        <div><dt>Type</dt><dd>Libre Franklin for headlines and map labels, Literata for reading text.</dd></div>
+        <div><dt>Colour</dt><dd>Cool map paper, printing ink, atlas blue, emerald highlighter. Risk colours only as labelled hatching. A night edition follows the phone's dark mode.</dd></div>
+        <div><dt>Research it draws on</dt><dd>Stamen's black and white map style, the street guide's grid references, "show your method" for trust.</dd></div>
+        <div><dt>Watch out for</dt><dd>It is the quietest of the three, so it depends on precise execution. Evoke the street guide, never copy MapStudio's cartography or covers.</dd></div>
+        <div><dt>Effort to build</dt><dd>Medium. CSS and inline SVG only, and the site already draws its coverage map as SVG at build time.</dd></div>
+      </dl>
+      <div class="shots-2">
+        <figure><img src="img/c1-mobile.jpg" alt="Street guide on a phone" width="390" height="844" loading="lazy"><figcaption>Home, 390 px</figcaption></figure>
+        <figure><img src="img/c1-jhb.jpg" alt="Street guide Johannesburg page on a phone" width="390" height="844" loading="lazy"><figcaption>Johannesburg, 390 px</figcaption></figure>
+      </div>
+    </div>
+  </article>
+
+  <article class="detail" id="c2">
+    <div class="detail-head"><h3>2. City clock</h3><a class="open" href="{{C2_URL}}">Open the prototype</a></div>
+    <p class="thesis">Tsamaya's ratings follow the clock: 1 372 areas are rated high risk in daytime and 2 525 at night. This design makes time the whole system. The page runs on South African time and moves through one day as you scroll.</p>
+    <div class="detail-grid">
+      <dl class="spec">
+        <div><dt>Signature device</dt><dd>A live statement ("It is 14:12 in Johannesburg. Daytime ratings apply."), a 24-hour band strip, and a clock rail that tracks the hour of each section.</dd></div>
+        <div><dt>Hero</dt><dd>Daytime, Evening and Night buttons change the light, the national count and the metro circles on a map of South Africa.</dd></div>
+        <div><dt>Motion</dt><dd>The count runs between bands, the circles resize, and the background crossfades. Native scrolling is untouched.</dd></div>
+        <div><dt>Type</dt><dd>Anybody, a variable face whose weight gets heavier as the page gets darker, and Atkinson Hyperlegible Next for reading text.</dd></div>
+        <div><dt>Colour</dt><dd>Three real lights: pale Highveld winter sky, amber dusk, navy night with sodium-streetlight orange. The clock decides, not the phone's theme.</dd></div>
+        <div><dt>Research it draws on</dt><dd>Transit's enormous numbers, scroll-driven storytelling from data journalism, real data as the hero.</dd></div>
+        <div><dt>Watch out for</dt><dd>Three palettes mean three times the contrast checking. The night look sits close to the "amber on dark" cliché, so it has to stay disciplined. More JavaScript than the other two.</dd></div>
+        <div><dt>Effort to build</dt><dd>Larger. Time logic runs in the browser, and every section needs testing in all three lights.</dd></div>
+      </dl>
+      <div class="shots-2">
+        <figure><img src="img/c2-mobile.jpg" alt="City clock on a phone" width="390" height="844" loading="lazy"><figcaption>Home, 390 px</figcaption></figure>
+        <figure><img src="img/c2-jhb.jpg" alt="City clock Johannesburg page on a phone" width="390" height="844" loading="lazy"><figcaption>Johannesburg, 390 px</figcaption></figure>
+      </div>
+    </div>
+  </article>
+
+  <article class="detail" id="c3">
+    <div class="detail-head"><h3>3. Road manual</h3><a class="open" href="{{C3_URL}}">Open the prototype</a></div>
+    <p class="thesis">South African drivers already read one design system fluently at 120 km/h. This design builds the site from it, and turns the app's own A to E route grade into a plate in the same system.</p>
+    <div class="detail-grid">
+      <dl class="spec">
+        <div><dt>Signature device</dt><dd>Green sign panels with a white inset border, route markers for metros and roads, white time plates for the three rating bands, and a yellow roadworks sign for "help fix the map".</dd></div>
+        <div><dt>Hero</dt><dd>An overhead direction sign offering two lanes: Fastest, 16 min, and Lower-risk, 19 min, 2 areas avoided. The swerve arrow echoes the app icon.</dd></div>
+        <div><dt>Motion</dt><dd>The sign settles into place and the swerve arrow draws. A message-sign strip cycles three true messages, with a pause button.</dd></div>
+        <div><dt>Type</dt><dd>Barlow Condensed and Barlow Semi Condensed, the closest free faces to the DIN lettering on SA signs. Production would self-host D-DIN, which is free under the Open Font License.</dd></div>
+        <div><dt>Colour</dt><dd>Concrete grey, sign green, marker yellow, asphalt. Emerald only for the logo and your route.</dd></div>
+        <div><dt>Research it draws on</dt><dd>The SADC Road Traffic Signs Manual, the NYC subway Standards Manual, GOV.UK's road-sign typeface.</dd></div>
+        <div><dt>Watch out for</dt><dd>It must never look like an official sign (no coats of arms, no SANRAL marks). It moves the brand's base colour from navy to sign green, which is a bigger change than the other two.</dd></div>
+        <div><dt>Effort to build</dt><dd>Medium. CSS and SVG, a free font, and small components that repeat.</dd></div>
+      </dl>
+      <div class="shots-2">
+        <figure><img src="img/c3-mobile.jpg" alt="Road manual on a phone" width="390" height="844" loading="lazy"><figcaption>Home, 390 px</figcaption></figure>
+        <figure><img src="img/c3-jhb.jpg" alt="Road manual Johannesburg page on a phone" width="390" height="844" loading="lazy"><figcaption>Johannesburg, 390 px</figcaption></figure>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section aria-labelledby="compare-h">
+  <h2 id="compare-h">Side by side</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th scope="col">Criterion</th><th scope="col">1. Street guide</th><th scope="col">2. City clock</th><th scope="col">3. Road manual</th></tr></thead>
+      <tbody>
+{{COMPARE_ROWS}}
+      </tbody>
+    </table>
+  </div>
+  <p class="small">Scores are a judgement out of five, based on the research above and the built prototypes. Five dots is best on every row, so "Effort to build" scores the easiest build highest.</p>
+</section>
+
+<section class="rec" aria-labelledby="rec-h">
+  <h2 id="rec-h">Recommendation and next steps</h2>
+{{REC_LONG}}
+</section>
+
+<section aria-labelledby="src-h">
+  <h2 id="src-h">Sources</h2>
+  <ul class="sources">
+    <li>Lindgaard et al. (2006), first impressions in 50 ms. tandfonline.com/doi/abs/10.1080/01449290500330448</li>
+    <li>Tuch et al. (2012), visual complexity and prototypicality. research.google.com/pubs/archive/38315.pdf</li>
+    <li>Nielsen Norman Group: scrolling and attention; how little users read; photos as web content; animation duration; scroll animations; trustworthy design. nngroup.com</li>
+    <li>Krebs, design fingerprints on 1 590 Show HN pages. adriankrebs.ch/blog/design-slop</li>
+    <li>Wathan (2025) on the indigo default. x.com/adamwathan/status/1953510802159219096</li>
+    <li>Tannenbaum et al. (2015), fear appeals meta-analysis.</li>
+    <li>SketchFactor coverage, NBC News (2014).</li>
+    <li>WCAG 2.2: contrast 1.4.3, colour 1.4.1, pause 2.2.2, target size 2.5.8. w3.org/TR/WCAG22</li>
+    <li>Road signs in South Africa, and the Road Traffic Signs Manual vol. 4 ch. 4. transport.gov.za</li>
+    <li>Pentagram, Waze identity (2020); Stamen map styles; Transit 6.0 typeface; Standards Manual; GOV.UK Transport typeface.</li>
+    <li>DataReportal Digital 2026 South Africa; StatCounter via MyBroadband; ICASA via TechCentral; Web Almanac 2025 page weight.</li>
+    <li>web.dev: Core Web Vitals, animations guide, font best practices, fetch priority.</li>
+  </ul>
+</section>
+
+<footer class="end">
+  <p>Prototypes live in the tsamaya-web repository under proposals/redesign-2026-09 on the branch claude/quirky-keller-3i1043. Nothing here touches the live site: the site only deploys from main.</p>
+</footer>
+
+</div>

@@ -1,0 +1,885 @@
+<title>Tsamaya Road Manual</title>
+<!-- Concept 3 of 3, Road manual. Type: Barlow Condensed and Barlow Semi Condensed from Google Fonts stand in for the DIN 1451 lettering on South African signs. Production should self-host D-DIN (SIL OFL) instead. -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap">
+<style>
+:root{
+  --concrete:#E7E8E4; --concrete-2:#D9DBD6; --asphalt:#22252A; --ink:#111315; --ink-2:#454A50;
+  --sign-green:#08623F; --sign-blue:#0A4C9E; --marker-yellow:#FFC928; --white:#FFFFFF; --go:#34D399;
+  --red:#D7263D; --orange:#EF8A24; --yellow:#F2C230;
+  --gA:#08623F; --gB:#4E9A3A; --gC:#E0B81F; --gD:#EF8A24; --gE:#D7263D;
+  --vms-amber:#FFB000; --vms-black:#0B0B0B; --post:#979DA3;
+  --f-sign:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-body:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --gutter:clamp(16px,4vw,48px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{background:#E7E8E4}
+body{margin:0;background:var(--concrete);color:var(--ink);font:400 1.125rem/1.5 var(--f-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+[hidden]{display:none!important}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3{font-family:var(--f-sign);font-weight:800;line-height:1;margin:0;text-wrap:balance;letter-spacing:-.005em}
+p{margin:0 0 1em;text-wrap:pretty}
+a{color:inherit;text-underline-offset:.18em;text-decoration-thickness:2px}
+ul,ol{margin:0;padding:0}
+.wrap{width:min(1240px,100% - 2*var(--gutter));margin-inline:auto}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:where(a,button,summary):focus-visible{outline:3px solid var(--marker-yellow);outline-offset:3px;box-shadow:0 0 0 3px var(--ink)}
+.skip{position:absolute;left:12px;top:-60px;z-index:50;background:var(--ink);color:#fff;padding:12px 16px;font:700 1rem var(--f-sign);text-transform:uppercase;letter-spacing:.06em}
+.skip:focus{top:12px}
+.nb{white-space:nowrap}
+
+/* ---------- shared sign parts ---------- */
+.sign{position:relative;background:var(--sign-green);color:#fff;border-radius:10px;container-type:inline-size;--pad:clamp(22px,6cqi,38px);padding:var(--pad)}
+.sign::before{content:"";position:absolute;inset:8px;border:3px solid #fff;border-radius:5px;pointer-events:none;transition:border-width .15s var(--ease)}
+.plate{display:inline-block;background:#fff;color:var(--ink);font:700 1.05rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.05em;padding:.5em .75em .45em;border-radius:3px;box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 4px var(--ink),0 0 0 1px rgba(17,19,21,.35);margin:0}
+.btn-sign{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:48px;padding:.55em 1.05em .5em;background:var(--sign-green);color:#fff;font:700 1.1rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.05em;text-decoration:none;border-radius:7px;transition:transform .15s var(--ease)}
+.btn-sign::before{content:"";position:absolute;inset:4px;border:2px solid #fff;border-radius:4px;pointer-events:none;transition:border-width .15s var(--ease)}
+.btn-sign:hover,.btn-sign:focus-visible{transform:translateY(-2px)}
+.btn-sign:hover::before,.btn-sign:focus-visible::before{border-width:3px}
+.btn-lg{min-height:60px;font-size:1.35rem;padding:.6em 1.3em .55em;border-radius:9px}
+.btn-lg::before{inset:6px;border-width:3px}
+.btn-lg:hover::before,.btn-lg:focus-visible::before{border-width:4px}
+.sw{display:inline-block;width:.8em;height:.8em;border-radius:2px;margin-right:.4em;vertical-align:-.04em;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
+.sw-red{background:var(--red)}
+
+/* route markers: M = rectangle, N = shield. Yellow lettering, white border. */
+.mk{display:inline-grid;place-items:center;min-width:3.1em;height:2.05em;padding:0 .45em;font:700 1.15rem/1 var(--f-sign);color:var(--marker-yellow);letter-spacing:.02em}
+.mk-m{background:var(--sign-green);border:2.5px solid #fff;border-radius:4px}
+.mk-n{min-width:3.4em;height:2.6em;padding:0 0 .55em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 46'%3E%3Cpath d='M2 2H58V28L30 44L2 28Z' fill='%230A4C9E' stroke='%23fff' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.rd{display:inline-grid;place-items:center;height:2.05em;padding:0 .7em;background:var(--sign-green);color:#fff;border:2.5px solid #fff;border-radius:4px;font:700 1.15rem/1 var(--f-sign);letter-spacing:.01em}
+
+/* ---------- header ---------- */
+.site-head{background:var(--concrete);border-bottom:3px solid var(--ink);position:relative;z-index:10}
+.head-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;min-height:72px;padding:10px 0}
+.brand{display:inline-flex;align-items:center;gap:10px;min-height:48px;text-decoration:none;font:800 2rem/1 var(--f-sign);letter-spacing:.005em;margin-right:auto}
+.brand svg{width:40px;height:40px;flex:none}
+.menu-btn{display:none;align-items:center;gap:8px;min-height:48px;min-width:48px;padding:0 12px;background:transparent;color:var(--ink);border:3px solid var(--ink);border-radius:5px;font:700 1.05rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
+.menu-btn i{display:block;width:18px;height:3px;background:currentColor;box-shadow:0 -6px 0 currentColor,0 6px 0 currentColor}
+.menu-ready .menu-btn{display:inline-flex}
+@media (max-width:959px){.brand{font-size:1.75rem;gap:8px}.brand svg{width:36px;height:36px}.head-row>.btn-sign{font-size:1rem;padding:.5em .85em .45em}.menu-btn{padding:0;width:48px;justify-content:center}.menu-btn span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}}
+.nav{flex-basis:100%;order:5}
+.head-row>.btn-sign{order:1}
+.menu-btn{order:2}
+.nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:0 4px}
+.nav a{display:flex;align-items:center;min-height:48px;padding:0 10px;font:600 1.0625rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.07em;text-decoration:none}
+.nav a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:7px}
+.menu-ready:not(.open) .nav{display:none}
+.menu-ready.open .nav ul{flex-direction:column;gap:8px;padding:6px 0 10px}
+.menu-ready.open .nav a{background:#fff;border:3px solid var(--ink);border-radius:4px;min-height:52px;padding:0 16px;font-size:1.2rem}
+@media (min-width:960px){
+  .menu-ready .menu-btn{display:none}
+  .menu-ready:not(.open) .nav,.nav{display:block;flex-basis:auto;order:1}
+  .head-row>.btn-sign{order:2}
+  .nav ul{flex-direction:row!important;gap:0 4px!important;padding:0!important}
+  .nav a{background:none!important;border:0!important;min-height:48px!important;font-size:1.0625rem!important;padding:0 10px!important}
+  .head-row{flex-wrap:nowrap;gap:20px;min-height:84px}
+}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(28px,5vw,64px) 0 clamp(36px,5vw,64px)}
+.hero-grid{display:grid;gap:clamp(36px,5vw,64px);align-items:center}
+.hero h1{font-size:clamp(2.75rem,1.2rem + 5.2vw,5.6rem);line-height:.93}
+.lede{font-size:clamp(1.125rem,1.02rem + .35vw,1.3rem);max-width:33em;margin:24px 0 14px}
+.say{font-size:1.0625rem;color:var(--ink-2);max-width:40em}
+.say b{color:var(--ink);font-weight:600}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin:26px 0 18px}
+.quiet{display:inline-flex;align-items:center;gap:8px;min-height:48px;font:700 1.2rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.06em;text-decoration:none;border-bottom:3px solid var(--ink)}
+.quiet:hover{border-bottom-width:5px}
+.caveat{font:700 1.1rem/1.3 var(--f-sign);letter-spacing:.02em;margin:0;display:flex;align-items:center;gap:10px}
+.caveat::before{content:"";width:14px;height:14px;background:var(--ink);flex:none}
+@media (min-width:960px){.hero-grid{grid-template-columns:minmax(0,1.02fr) minmax(0,1fr)}}
+
+.hero-fig{margin:0;max-width:640px;width:100%;justify-self:end}
+.sign-hero{--pad:clamp(20px,6.2cqi,40px)}
+.lane{display:grid;grid-template-columns:clamp(46px,13cqi,78px) minmax(0,1fr);gap:clamp(14px,4.5cqi,30px);align-items:center}
+.lane+.lane{margin-top:calc(var(--pad)*.8);padding-top:calc(var(--pad)*.8);border-top:3px solid #fff;margin-inline:calc(11px - var(--pad));padding-inline:calc(var(--pad) - 11px)}
+.lane svg{width:100%;height:auto;display:block}
+.leg{display:block;font:700 clamp(1.45rem,7.6cqi,2.75rem)/1 var(--f-sign);text-transform:uppercase;letter-spacing:.015em;white-space:nowrap}
+.leg .dotsep{margin:0 .12em}
+.lane .plate{margin-top:clamp(8px,2.4cqi,14px);font-size:clamp(.9rem,3.5cqi,1.2rem)}
+.posts{display:flex;justify-content:space-between;padding:0 21%;height:clamp(34px,6vw,54px)}
+.posts i{display:block;width:clamp(10px,2vw,15px);height:100%;background:var(--post);box-shadow:inset -3px 0 0 rgba(0,0,0,.18)}
+.ground{height:3px;background:var(--ink);opacity:.8}
+.hero-fig figcaption{font-size:1rem;color:var(--ink-2);margin-top:12px}
+
+/* signature moment: the sign drops in, then the lower-risk arrow draws itself */
+@media (prefers-reduced-motion:no-preference){
+  .gantry{animation:drop .5s var(--ease) both}
+  .sw-line{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .7s .5s cubic-bezier(.35,.1,.2,1) forwards}
+  .sw-head{opacity:0;animation:show .18s 1.08s ease-out forwards}
+}
+@keyframes drop{0%{transform:translateY(-12px)}68%{transform:translateY(2px)}100%{transform:translateY(0)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes show{to{opacity:1}}
+
+/* ---------- VMS ---------- */
+.vms{background:var(--vms-black);color:var(--vms-amber);border-block:4px solid #2B2B2B}
+.vms-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;padding:18px 0}
+.vms-screen{flex:1 1 100%;display:flex;align-items:center;justify-content:center;min-height:calc(2.2em + 28px);padding:14px 12px;margin:0;background-color:#2E2200;color:var(--vms-amber);font:700 clamp(1.5rem,1rem + 2.1vw,3.1rem)/1.1 var(--f-sign);text-transform:uppercase;letter-spacing:.1em;text-align:center;-webkit-mask:radial-gradient(circle,#000 1.55px,transparent 1.95px) 0 0/4.5px 4.5px;mask:radial-gradient(circle,#000 1.55px,transparent 1.95px) 0 0/4.5px 4.5px}
+.vms-msg{display:block;transition:opacity .16s linear}
+.vms-msg.off{opacity:0}
+.vms-pause{display:inline-flex;align-items:center;gap:10px;min-height:44px;min-width:44px;padding:0 14px;margin-left:auto;background:transparent;color:var(--vms-amber);border:2px solid #6B5000;border-radius:4px;font:700 1rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.08em;cursor:pointer}
+.vms-pause:hover{border-color:var(--vms-amber)}
+.vms-pause svg{width:14px;height:14px;fill:currentColor}
+@media (max-width:759px){.vms-screen{font-size:1.85rem;letter-spacing:.06em;-webkit-mask-size:4px 4px;mask-size:4px 4px}}
+@media (min-width:760px){.vms-screen{flex:1 1 0;min-height:calc(1.1em + 30px)}.vms-pause{margin-left:0}}
+@media (prefers-reduced-motion:reduce){.vms-pause{display:none!important}}
+
+/* ---------- sections ---------- */
+.band{padding:clamp(56px,8vw,112px) 0}
+.b2{background:var(--concrete-2)}
+.dark{background:var(--asphalt);color:#fff}
+.sec-head{max-width:760px;margin-bottom:clamp(28px,4vw,48px)}
+.sec-head h2,.h2{font-size:clamp(2.35rem,1.4rem + 3.3vw,4.4rem);line-height:.96;margin-bottom:18px}
+.sec-head p{max-width:62ch;color:var(--ink-2)}
+.dark .sec-head p,.dark p{color:#D5D8DC}
+.dark .plate,.sign .plate{color:var(--ink)}
+.h3{font:700 1.5rem/1.1 var(--f-sign);margin:0 0 6px}
+
+/* time plates */
+.times{list-style:none;display:grid;gap:44px}
+.t-name{font:700 1.15rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2);margin:0 0 10px}
+.t-plate{font-size:clamp(1.3rem,1rem + 1vw,1.75rem);padding:.5em .8em .45em}
+.t-num{font:800 clamp(4.6rem,2.6rem + 6.4vw,9rem)/.84 var(--f-sign);letter-spacing:-.01em;margin:22px 0 10px;font-variant-numeric:tabular-nums}
+.t-unit{font-size:1.0625rem;margin:0;color:var(--ink-2)}
+.t-unit b{color:var(--ink);font-weight:600}
+.t-foot{margin:clamp(32px,4vw,48px) 0 0;padding-top:18px;border-top:3px solid var(--ink);max-width:62ch;font-weight:500}
+@media (max-width:759px){.times{gap:0}.times li{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"name num" "plate num" "unit unit";column-gap:16px;align-items:end;padding:18px 0 16px;border-top:3px solid var(--ink)}.times li:last-child{border-bottom:3px solid var(--ink)}.t-name{grid-area:name}.t-plate{grid-area:plate;justify-self:start}.t-num{grid-area:num;justify-self:end;margin:0;font-size:clamp(3.6rem,17vw,4.8rem)}.t-unit{grid-area:unit;margin-top:12px}.t-foot{border-top:0}}
+@media (min-width:760px){.times{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}}
+
+/* how it works */
+.how-grid{display:grid;gap:clamp(40px,5vw,72px)}
+.steps{list-style:none}
+.steps li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:18px;padding:20px 0 18px;border-top:2px solid var(--ink)}
+.steps li:last-child{border-bottom:2px solid var(--ink)}
+.sn{display:grid;place-items:center;width:44px;height:44px;background:var(--ink);color:#fff;border-radius:3px;font:800 1.55rem/1 var(--f-sign)}
+.steps .h3{margin-top:7px}
+.steps p{margin:0;color:var(--ink-2);max-width:56ch}
+.card-fig{margin:0;display:grid;gap:24px;align-content:start}
+@media (min-width:640px){.card-fig{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
+@media (min-width:1100px){.how-grid{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}}
+
+.gp{background:#fff;border:3px solid var(--ink);border-radius:6px;padding:16px 16px 14px;container-type:inline-size}
+.gp-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding-bottom:10px;margin-bottom:14px;border-bottom:3px solid var(--ink)}
+.gp-head b{font:800 1.45rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.04em}
+.gp-head span{font:600 1rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.gp-rows{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,min(46%,10.5rem));grid-auto-rows:minmax(48px,auto);gap:6px 8px}
+.gp-bar{display:flex;align-items:center;justify-content:flex-end;padding-right:24px;font:800 1.7rem/1 var(--f-sign);clip-path:polygon(0 0,calc(100% - 17px) 0,100% 50%,calc(100% - 17px) 100%,0 100%)}
+.gp-bar.a{width:40%;background:var(--gA);color:#fff}
+.gp-bar.b{width:55%;background:var(--gB);color:var(--ink)}
+.gp-bar.c{width:70%;background:var(--gC);color:var(--ink)}
+.gp-bar.d{width:85%;background:var(--gD);color:var(--ink)}
+.gp-bar.e{width:100%;background:var(--gE);color:#fff}
+.gp-tag{display:flex;align-items:center;background:var(--ink);color:#fff;padding:5px 10px 5px 22px;font:700 clamp(.95rem,4.1cqi,1.1rem)/1.05 var(--f-sign);clip-path:polygon(15px 0,100% 0,100% 100%,15px 100%,0 50%)}
+.gp-foot{margin-top:14px;padding-top:12px;border-top:3px solid var(--ink);font-size:1rem;line-height:1.4}
+.gp-foot p{margin:0 0 .5em}
+.gp-foot .big{font:800 1.45rem/1.1 var(--f-sign);color:var(--gA)}
+.gp-note{color:var(--ink-2)}
+.shot{margin:0}
+.shot img{width:100%;border:1px solid var(--ink);background:#f2f2f2}
+.shot-crop img{aspect-ratio:600/634;object-fit:cover;object-position:50% 100%}
+.shot figcaption,.cap{font-size:1rem;color:var(--ink-2);margin-top:10px;line-height:1.4}
+
+/* a few minutes */
+.few{display:grid;gap:clamp(36px,5vw,72px);align-items:center}
+@media (min-width:960px){.few{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.sign-dist{--pad:clamp(22px,6cqi,40px);max-width:600px}
+.sign-dist .plate{font-size:clamp(.9rem,3.2cqi,1.1rem);margin-bottom:clamp(14px,4cqi,24px)}
+.dist{margin:0;display:grid;gap:clamp(8px,2.4cqi,14px)}
+.dist div{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.dist dt,.dist dd{font:700 clamp(1.35rem,7cqi,2.6rem)/1.02 var(--f-sign);text-transform:uppercase;letter-spacing:.015em;margin:0}
+.dist dd{font-variant-numeric:tabular-nums;white-space:nowrap}
+.dist dd small{font-size:.62em;letter-spacing:.04em;margin-left:.1em}
+.dist .rule{border-top:3px solid #fff;margin:clamp(4px,1.4cqi,8px) calc(11px - var(--pad)) 0;padding-top:clamp(10px,3cqi,16px);padding-inline:calc(var(--pad) - 11px)}
+.few-text p{max-width:52ch;font-size:1.125rem}
+.few-text .h2{color:#fff}
+
+/* coverage */
+.cov-grid{display:grid;gap:clamp(36px,5vw,64px)}
+@media (min-width:1040px){.cov-grid{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:start}}
+.cov-map{margin:0;max-width:760px}
+.sa-map{width:100%;height:auto;display:block;overflow:visible}
+.sa-edge{fill:var(--sign-green);stroke:var(--sign-green);stroke-width:9px;stroke-linejoin:round}
+.sa-fill{fill:none;stroke:#fff;stroke-width:2.5px;stroke-linejoin:round}
+.sa-prov{fill:none;stroke:#fff;stroke-width:1.5px;stroke-dasharray:1.5 4.5;stroke-linecap:round;opacity:.5}
+.mt{fill:var(--marker-yellow);transition:fill .15s}
+.mt.hl{fill:#fff;stroke:var(--ink);stroke-width:1.5px}
+.dot{fill:#fff;stroke:var(--sign-green);stroke-width:1.5px;vector-effect:non-scaling-stroke}
+.dot.hl{fill:var(--ink);stroke:#fff}
+.lbl{font:700 21px var(--f-sign);letter-spacing:.06em;fill:#fff;stroke:var(--sign-green);stroke-width:6px;stroke-linejoin:round;paint-order:stroke fill}
+.lbl-out{fill:var(--ink);stroke:var(--concrete)}
+.lbl-inset{font-size:20px}
+.inset-panel{fill:var(--sign-green)}
+.inset-border{fill:none;stroke:#fff;stroke-width:2.5px;vector-effect:non-scaling-stroke}
+.inset-title{font:700 19px var(--f-sign);letter-spacing:.08em;fill:var(--marker-yellow)}
+.inset-box{fill:none;stroke:#fff;stroke-width:2px;stroke-dasharray:5 4;vector-effect:non-scaling-stroke}
+.inset-lead{fill:none;stroke:var(--ink);stroke-width:1.5px;stroke-dasharray:5 4;vector-effect:non-scaling-stroke}
+@media (max-width:600px){.lbl,.inset-title{display:none}}
+.map-cap{font-size:1rem;color:var(--ink-2);margin-top:14px;max-width:60ch}
+.exits{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 12px;margin-top:8px}
+.exit{position:relative;display:block;height:100%;container-type:inline-size;text-decoration:none;color:#fff;background:var(--sign-green);border-radius:8px;padding:16px 16px 14px;transition:transform .15s var(--ease)}
+.exit::before{content:"";position:absolute;inset:5px;border:2px solid #fff;border-radius:4px;pointer-events:none;transition:border-width .15s var(--ease)}
+.exit-tab{position:absolute;left:0;top:-25px;height:27px;padding:0 10px;display:grid;place-items:center;background:var(--sign-green);border-radius:6px 6px 0 0;font:700 .9rem/1 var(--f-sign);letter-spacing:.08em;color:#fff}
+.exit-tab::before{content:"";position:absolute;inset:4px 4px 0;border:2px solid #fff;border-bottom:0;border-radius:3px 3px 0 0}
+.exit-tab abbr{text-decoration:none}
+.exit-name{display:block;font:700 min(1.4rem,12.5cqi)/1.05 var(--f-sign);text-transform:uppercase;letter-spacing:.03em}
+.exit-count{display:block;margin-top:8px;font:600 .98rem/1.1 var(--f-sign);letter-spacing:.03em}
+.exit-count b{display:block;margin-bottom:2px;font:800 clamp(1.9rem,1.5rem + 1vw,2.4rem)/1 var(--f-sign);color:var(--marker-yellow);letter-spacing:.01em}
+.exit:hover,.exit:focus-visible{transform:translateY(-2px)}
+.exit:hover::before,.exit:focus-visible::before{border-width:3px}
+.exit-here{box-shadow:0 0 0 3px var(--ink)}
+@media (min-width:560px){.exits{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1040px){.exits{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 30px;border-block:3px solid var(--ink);padding:14px 0}
+.facts div{margin:0}
+.facts dt{font:600 .95rem/1.15 var(--f-sign);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.facts dd{margin:4px 0 0;font:800 clamp(1.8rem,1.4rem + 1.4vw,2.6rem)/1 var(--f-sign)}
+
+/* on the road */
+.road-grid{display:grid;gap:clamp(36px,5vw,72px)}
+@media (min-width:860px){.road-grid{grid-template-columns:minmax(0,300px) minmax(0,1fr);align-items:start}}
+.nav-shot{max-width:320px}
+@media (max-width:859px){.road-grid>.nav-shot{order:2;max-width:280px}}
+.feats{list-style:none;margin-top:8px}
+.feats li{padding:16px 0 14px;border-top:2px solid var(--ink)}
+.feats li:last-child{border-bottom:2px solid var(--ink)}
+.feats p{margin:0;color:var(--ink-2);max-width:58ch}
+.outside{margin-top:22px;font-weight:500;max-width:58ch}
+
+/* questions */
+.faq-grid{display:grid;gap:28px}
+@media (min-width:960px){.faq-grid{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}}
+.faq details{margin:0 0 12px}
+.faq summary{list-style:none;cursor:pointer;position:relative;background:#fff;border:3px solid var(--ink);border-radius:4px;padding:14px 60px 13px 18px;min-height:58px;font:700 1.35rem/1.2 var(--f-sign)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:18px;top:50%;width:20px;height:20px;margin-top:-10px;background:linear-gradient(var(--ink),var(--ink)) center/100% 3px no-repeat,linear-gradient(var(--ink),var(--ink)) center/3px 100% no-repeat}
+.faq details[open] summary::after{background:linear-gradient(var(--ink),var(--ink)) center/100% 3px no-repeat}
+.faq summary:hover{background:#F6F6F3}
+.ans{padding:16px 18px 10px;max-width:62ch}
+.ans p{margin:0 0 .6em}
+
+/* get the app */
+.dirs{display:grid;gap:20px;margin-top:8px}
+@media (min-width:800px){.dirs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.dir{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;min-height:132px;transition:transform .15s var(--ease)}
+.dir:hover,.dir:focus-visible{transform:translateY(-2px)}
+.dir:hover::before,.dir:focus-visible::before{border-width:4px}
+.dir-big{display:block;font:800 clamp(2.1rem,11cqi,3.4rem)/.95 var(--f-sign);text-transform:uppercase;letter-spacing:.01em}
+.dir-small{display:block;margin-top:8px;font:700 clamp(1.05rem,5cqi,1.45rem)/1 var(--f-sign);text-transform:uppercase;letter-spacing:.05em}
+.dir svg{width:clamp(56px,20cqi,100px);height:auto;display:block}
+.get-notes{display:grid;gap:10px 40px;margin-top:28px}
+@media (min-width:800px){.get-notes{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}}
+.get-free{font:700 1.6rem/1.15 var(--f-sign);color:#fff!important;margin:0}
+.privacy{margin:0;color:#D5D8DC;max-width:62ch}
+.privacy b{color:#fff;font-weight:600}
+
+/* help: temporary sign */
+.tsign{position:relative;background:var(--marker-yellow);color:var(--ink);border-radius:12px;padding:clamp(30px,5vw,60px) clamp(22px,5vw,60px)}
+.tsign::before{content:"";position:absolute;inset:9px;border:4px solid var(--ink);border-radius:6px;pointer-events:none}
+.tsign .h2{font-size:clamp(2.35rem,1.4rem + 3.3vw,4.4rem);margin-bottom:16px}
+.tsign-intro{max-width:60ch;font-size:1.2rem;font-weight:500}
+.help-cols{display:grid;gap:34px;margin-top:clamp(26px,4vw,44px)}
+@media (min-width:900px){.help-cols{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:0}.help-money{border-left:3px solid var(--ink);padding-left:clamp(28px,4vw,52px)}.help-free{padding-right:clamp(28px,4vw,52px)}}
+.help-cols h3{font:800 1.75rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.03em;margin-bottom:14px}
+.hlist{list-style:none}
+.hlist li{padding:13px 0 11px;border-top:2px solid var(--ink)}
+.hlist p{margin:0;max-width:56ch}
+.amt{display:grid;grid-template-columns:5.6rem minmax(0,1fr);gap:14px;align-items:baseline}
+.amt b{font:800 1.75rem/1 var(--f-sign);white-space:nowrap}
+.help-money .small{margin-top:16px;max-width:52ch}
+
+/* ---------- footer ---------- */
+.foot{background:var(--asphalt);color:#fff;padding:clamp(48px,7vw,88px) 0 28px}
+.lock{display:flex;align-items:center;gap:clamp(14px,4cqi,24px);max-width:640px;--pad:clamp(20px,5cqi,32px)}
+.lock svg{width:clamp(44px,12cqi,68px);height:auto;flex:none;position:relative}
+.lock p{margin:0;font:800 clamp(2rem,10cqi,3.6rem)/.95 var(--f-sign);text-transform:uppercase;letter-spacing:.01em}
+.foot-cols{display:grid;gap:30px;margin-top:clamp(36px,5vw,56px)}
+@media (min-width:760px){.foot-cols{grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr)}}
+.foot h2{font:700 1.05rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.09em;color:#BFC4C9;margin-bottom:10px}
+.foot ul{list-style:none}
+.foot a{display:inline-flex;align-items:center;min-height:44px;color:#fff;text-decoration:none;font-size:1.0625rem}
+.foot a:hover{text-decoration:underline}
+.metro-links,.site-links{columns:2;column-gap:24px}
+@media (min-width:760px){.site-links{columns:1}}
+@media (min-width:560px){.metro-links{columns:3}}
+.foot-base{margin-top:36px;padding-top:18px;border-top:2px solid #454A50;display:grid;gap:8px;color:#C9CCC6;font-size:1rem}
+.foot-base p{margin:0}
+.foot-base .disc{color:#fff;font-weight:600}
+.ctag{display:inline-block;margin-top:22px;background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:3px;padding:8px 11px 7px;font:700 .9rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.07em;box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3px var(--ink)}
+@media (min-width:640px){.ctag{position:fixed;right:12px;bottom:12px;z-index:30;margin:0}}
+
+/* ---------- Johannesburg view ---------- */
+.back{display:inline-flex;align-items:center;gap:10px;min-height:48px;font:700 1.1rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.07em;text-decoration:none}
+.back svg{width:22px;height:22px}
+.back:hover span{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px}
+.jhb-top{padding:clamp(18px,3vw,32px) 0 clamp(48px,7vw,96px)}
+.jhb-grid{display:grid;gap:clamp(36px,5vw,72px);margin-top:14px}
+@media (min-width:980px){.jhb-grid{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:start}}
+.sign-title{--pad:clamp(22px,3vw,44px);container-type:normal;display:inline-block;max-width:100%}
+.sign-title h1{font:800 clamp(2.5rem,.9rem + 6.4vw,6.2rem)/.9 var(--f-sign);text-transform:uppercase;letter-spacing:.01em;outline:none}
+.markers{list-style:none;display:flex;flex-wrap:wrap;gap:12px 10px;margin:clamp(16px,2.4vw,28px) 0 clamp(16px,2.4vw,26px);align-items:flex-start}
+.sign-title .mk{font-size:clamp(1.05rem,.8rem + .7vw,1.4rem)}
+.sign-title .plate{font-size:clamp(.95rem,.8rem + .5vw,1.3rem)}
+.jhb-intro{font-size:clamp(1.125rem,1.02rem + .35vw,1.3rem);max-width:36em;margin:clamp(24px,3vw,36px) 0 26px}
+.jhb-fig{margin:0;max-width:min(100%,300px);width:100%;justify-self:start}
+@media (min-width:980px){.jhb-fig{max-width:350px;justify-self:end}}
+.jhb-svg{width:100%;height:auto;display:block}
+.j-panel{fill:var(--sign-green)}
+.j-border{fill:none;stroke:#fff;stroke-width:5}
+.j-shape{fill:var(--marker-yellow);fill-opacity:.32;stroke:#fff;stroke-width:2px;stroke-linejoin:round}
+.j-north path{fill:#fff}
+.j-north text,.j-scale text{font:700 30px var(--f-sign);letter-spacing:.08em;fill:#fff}
+.j-scale path{fill:none;stroke:#fff;stroke-width:5}
+.notes{list-style:none;display:grid;gap:0}
+.notes li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:18px;padding:20px 0 18px;border-top:2px solid var(--ink)}
+.notes li:last-child{border-bottom:2px solid var(--ink)}
+.notes p{margin:0;max-width:60ch}
+.drive-grid{display:grid;gap:clamp(40px,5vw,72px)}
+@media (min-width:1000px){.drive-grid{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}}
+.roads h3{font:700 1.2rem/1 var(--f-sign);text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2);margin:0 0 14px}
+.roads ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.roads p{font-size:1.0625rem;color:var(--ink-2);max-width:48ch}
+.back-strip{padding:22px 0}
+.roads .grp{padding:20px 0 8px;border-top:2px solid var(--ink)}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="ico" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#0F172A"/><circle cx="34" cy="64" r="16" fill="#F59E0B" opacity=".22"/><circle cx="34" cy="64" r="9" fill="#F59E0B" opacity=".5"/><circle cx="66" cy="40" r="20" fill="#B91C1C" opacity=".22"/><circle cx="66" cy="40" r="12" fill="#B91C1C" opacity=".42"/><circle cx="66" cy="40" r="6.5" fill="#EF4444" opacity=".9"/><path d="M50 86C50 70 40 58 40 46C40 33 54 30 60 24M60 24l9 3M60 24l-1 9" stroke="#34D399" stroke-width="8" stroke-linecap="round" fill="none"/></symbol>
+  <symbol id="arr-r" viewBox="0 0 100 64"><path d="M0 22H60V2L100 32L60 62V42H0Z" fill="#fff"/></symbol>
+  <symbol id="arr-back" viewBox="0 0 24 24"><path d="M11 4L3 12L11 20M3 12H21" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="#home"><svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><use href="#ico"/></svg><span>Tsamaya</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><i aria-hidden="true"></i><span>Menu</span></button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#coverage">Coverage</a></li>
+        <li><a href="#home">Updates</a></li>
+        <li><a href="#home">About</a></li>
+        <li><a href="#help">Support</a></li>
+      </ul>
+    </nav>
+    <a class="btn-sign" href="#get">Get the app</a>
+  </div>
+</header>
+
+<main id="main">
+<div data-view="home" id="home">
+
+  <!-- 1. hero -->
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 id="hero-h" tabindex="-1">Read the road before you drive it.</h1>
+        <p class="lede">Tsamaya is a free navigation app for South African drivers. It checks your route against <span class="nb">4&nbsp;396</span> rated areas in 12 metros, at the hour you are driving, and steers you around the high-risk ones.</p>
+        <p class="say"><b>Tsamaya</b> (say: tsa-MAH-ya): Sesotho and Setswana for "go".</p>
+        <div class="actions">
+          <a class="btn-sign btn-lg" href="#get">Get the app</a>
+          <a class="quiet" href="#how">How it works</a>
+        </div>
+        <p class="caveat">Lower risk is not no risk.</p>
+      </div>
+
+      <figure class="hero-fig">
+        <div class="gantry">
+          <div class="sign sign-hero">
+            <div class="lane">
+              <svg viewBox="0 0 90 110" aria-hidden="true" focusable="false"><path d="M45 2L80 44H57V110H33V44H10Z" fill="#fff"/></svg>
+              <div>
+                <span class="leg">Fastest <span class="dotsep" aria-hidden="true">&middot;</span> 16 min</span>
+                <p class="plate">2 high-risk areas</p>
+              </div>
+            </div>
+            <div class="lane">
+              <svg viewBox="0 0 90 110" aria-hidden="true" focusable="false">
+                <path class="sw-line" pathLength="1" d="M26 110V80C26 58 64 64 64 42V30" fill="none" stroke="#fff" stroke-width="25"/>
+                <path class="sw-head" d="M64 3L87 33H41Z" fill="#fff" stroke="#fff" stroke-width="9" stroke-linejoin="round"/>
+                <path class="sw-line" pathLength="1" d="M26 110V80C26 58 64 64 64 42V30" fill="none" stroke="#34D399" stroke-width="14"/>
+                <path class="sw-head" d="M64 3L87 33H41Z" fill="#34D399"/>
+              </svg>
+              <div>
+                <span class="leg">Lower-risk <span class="dotsep" aria-hidden="true">&middot;</span> 19 min</span>
+                <p class="plate">2 areas avoided</p>
+              </div>
+            </div>
+          </div>
+          <div class="posts" aria-hidden="true"><i></i><i></i></div>
+          <div class="ground" aria-hidden="true"></div>
+        </div>
+        <figcaption>Illustrative trip. Your route card shows the real numbers.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 2. VMS strip -->
+  <section class="vms" aria-label="Road messages">
+    <div class="wrap vms-row">
+      <p class="vms-screen" aria-hidden="true"><span class="vms-msg" id="vms-msg">Night ratings from 19:30</span></p>
+      <ul class="sr-only">
+        <li>Night ratings from 19:30.</li>
+        <li>2&nbsp;525 high-risk areas at night.</li>
+        <li>Lower-risk route: usually a few minutes.</li>
+      </ul>
+      <button class="vms-pause" type="button" hidden><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 1h4v12H2zM8 1h4v12H8z"/></svg><span>Pause</span><span class="sr-only"> the road messages</span></button>
+    </div>
+  </section>
+
+  <!-- 3. time bands -->
+  <section class="band b2" id="time" aria-labelledby="time-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="time-h">Three ratings a day</h2>
+        <p>Risk moves with the light. Every rated area carries a daytime, an evening and a night rating, and Tsamaya plans with the one for the hour you drive. The app reads the clock; there is no switch to forget.</p>
+      </div>
+      <ol class="times">
+        <li>
+          <p class="t-name">Daytime</p>
+          <p class="plate t-plate">05:00 to 17:30</p>
+          <p class="t-num">1&nbsp;372</p>
+          <p class="t-unit"><span class="sw sw-red" aria-hidden="true"></span><b>Rated red</b>, the top band</p>
+        </li>
+        <li>
+          <p class="t-name">Evening</p>
+          <p class="plate t-plate">17:30 to 19:30</p>
+          <p class="t-num">1&nbsp;524</p>
+          <p class="t-unit"><span class="sw sw-red" aria-hidden="true"></span><b>Rated red</b>, the top band</p>
+        </li>
+        <li>
+          <p class="t-name">Night</p>
+          <p class="plate t-plate">19:30 to 05:00</p>
+          <p class="t-num">2&nbsp;525</p>
+          <p class="t-unit"><span class="sw sw-red" aria-hidden="true"></span><b>Rated red</b>, the top band</p>
+        </li>
+      </ol>
+      <p class="t-foot">Counts are areas across all 12 metros. At night the red count is close to double the daytime figure, so the same drive home can get a different route after 19:30.</p>
+    </div>
+  </section>
+
+  <!-- 4. how it works -->
+  <section class="band" id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="how-h">How it works</h2>
+        <p>The same six steps run every time you press Go.</p>
+      </div>
+      <div class="how-grid">
+        <ol class="steps">
+          <li><span class="sn">1</span><div><h3 class="h3">Set a destination</h3><p>Search, tap the map, or press and hold to drop a pin.</p></div></li>
+          <li><span class="sn">2</span><div><h3 class="h3">It tests the quickest route</h3><p>Tsamaya checks it against every rated area, using the ratings for this hour.</p></div></li>
+          <li><span class="sn">3</span><div><h3 class="h3">It moves you onto checked roads</h3><p>If the route runs through a high-risk area, it shifts it onto roads we have checked and tells you what it went around.</p></div></li>
+          <li><span class="sn">4</span><div><h3 class="h3">A detour has to earn its place</h3><p>One is offered only if it cuts your exposure. A detour that adds too much distance is thrown out, even when it carries less risk.</p></div></li>
+          <li><span class="sn">5</span><div><h3 class="h3">No detour for show</h3><p>With no good alternative, it says so and gives you the normal route with the risky stretches marked.</p></div></li>
+          <li><span class="sn">6</span><div><h3 class="h3">Drive it</h3><p>Turn-by-turn with voice, CarPlay and Android Auto. Or hand it to Google Maps with the detour points already in place.</p></div></li>
+        </ol>
+
+        <figure class="card-fig">
+          <div class="gp" role="img" aria-label="Route grade plate, A to E, A is lowest risk. Balanced, lower-risk route: grade D. Fastest route: grade E. 68% less risk than the fastest route.">
+            <div class="gp-head" aria-hidden="true"><b>Route grade</b><span>A is lowest risk</span></div>
+            <div class="gp-rows" aria-hidden="true">
+              <div class="gp-bar a">A</div><div></div>
+              <div class="gp-bar b">B</div><div></div>
+              <div class="gp-bar c">C</div><div></div>
+              <div class="gp-bar d">D</div><div class="gp-tag"><span>Balanced, <span class="nb">lower-risk: D</span></span></div>
+              <div class="gp-bar e">E</div><div class="gp-tag">Fastest: E</div>
+            </div>
+            <div class="gp-foot" aria-hidden="true">
+              <p class="big">68% less risk than the fastest route</p>
+              <p>Balanced: 25 min, 17.4 km, passes 2 high-risk areas.<br>Fastest: 25 min, 18.0 km, passes 4.</p>
+              <p class="gp-note">Any red area on a route holds its grade at D or worse.</p>
+            </div>
+          </div>
+          <figure class="shot shot-crop">
+            <img src="img/route-result-600.webp" width="600" height="1304" loading="lazy" decoding="async" alt="Tsamaya route card comparing two routes. Balanced, lower-risk, grade D: 25 min, 17.4 km, passes 2 high-risk areas, 68% less risk than the fastest route. Fastest, grade E: 25 min, 18.0 km, passes 4 high-risk areas.">
+            <figcaption>The route card in the app, captured at 20:16. The grade plate is drawn from it.</figcaption>
+          </figure>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. a few minutes -->
+  <section class="band dark" aria-labelledby="few-h">
+    <div class="wrap few">
+      <div class="sign sign-dist">
+        <p class="plate">Illustrative trip</p>
+        <dl class="dist">
+          <div><dt>Fastest</dt><dd>16<small> min</small></dd></div>
+          <div><dt>Lower-risk</dt><dd>19<small> min</small></dd></div>
+          <div class="rule"><dt>High-risk areas avoided</dt><dd>2</dd></div>
+        </dl>
+      </div>
+      <div class="few-text">
+        <h2 class="h2" id="few-h">A few minutes, usually</h2>
+        <p>On most trips the lower-risk route costs a few minutes. There is a ceiling: a detour that adds too much distance is thrown out, even when it carries less risk.</p>
+        <p>Sometimes there is no good alternative. Then Tsamaya tells you so, gives you the normal route and marks the risky stretches. It will not invent a detour to look busy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. coverage -->
+  <section class="band" id="coverage" aria-labelledby="cov-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="cov-h">Where it works</h2>
+        <p>Twelve metros so far. The ratings come from published South African crime statistics, scored against OpenStreetMap road data to find where vehicle crime concentrates. Every metro gets a review pass before it goes live, and drivers correct it from there.</p>
+      </div>
+      <div class="cov-grid">
+        <figure class="cov-map">
+          <svg class="sa-map" viewBox="0 -298 1000 1178" role="img" aria-labelledby="sa-map-t"><title id="sa-map-t">Map of South Africa with Tsamaya's 12 metros. Yellow shapes mark where ratings exist. The seven inland metros are enlarged in the panel at the top left.</title><defs><path id="sa-land" d="M79 625L76 619L75 614L70 608L68 604L66 599L65 596L62 592L61 590L60 588L60 586L58 584L58 582L56 580L55 577L55 576L50 568L50 565L48 561L47 556L45 554L44 548L43 546L43 544L41 540L40 537L40 536L38 532L37 528L37 524L36 521L35 519L33 515L34 514L32 511L32 506L30 504L29 501L26 496L25 493L24 491L24 489L22 483L22 482L20 480L18 479L16 476L16 474L15 473L14 471L9 467L7 460L7 459L7 457L5 455L4 453L0 450L0 448L2 446L9 443L10 441L13 439L15 439L15 441L17 441L18 439L20 437L19 434L22 432L18 428L18 426L20 425L21 426L23 425L23 424L21 422L22 421L25 421L23 419L23 418L24 418L26 419L27 419L26 413L28 412L31 412L32 411L34 412L35 410L36 410L38 409L41 411L42 413L45 414L45 416L44 421L46 424L47 424L49 423L50 424L52 422L54 422L57 427L56 429L59 433L58 434L57 437L55 437L54 440L54 441L56 442L57 446L59 446L60 446L59 452L59 453L58 456L59 457L63 455L66 455L68 454L70 455L70 456L71 459L73 460L75 460L76 458L78 459L79 458L81 459L83 459L89 460L90 461L92 461L94 463L97 467L99 467L102 469L104 469L106 470L108 469L110 469L110 467L116 468L117 468L120 469L123 468L125 468L127 467L131 466L132 465L136 465L139 464L142 465L146 465L151 466L155 468L156 471L158 471L159 473L161 473L164 473L167 472L170 469L172 470L173 469L173 467L171 467L171 466L170 463L171 458L173 457L176 458L180 458L183 455L185 454L186 448L188 447L188 444L189 443L191 443L193 442L196 443L200 440L205 442L206 440L207 438L208 437L211 437L214 436L216 436L216 183L218 184L218 186L220 186L220 187L221 187L221 189L223 189L223 191L225 191L227 193L228 192L229 193L230 193L232 194L232 195L233 196L234 198L239 201L239 203L241 205L241 206L242 207L242 210L244 209L244 210L244 211L243 212L243 213L245 215L246 215L246 217L246 218L247 218L248 219L249 219L247 221L248 222L249 221L249 223L250 226L252 226L252 229L254 228L253 230L254 231L255 231L256 230L257 230L257 232L255 232L255 233L254 235L257 237L258 240L256 241L256 243L257 243L258 243L257 246L257 247L260 249L260 252L262 253L261 256L262 256L263 255L264 255L264 258L265 259L265 261L264 261L265 263L267 265L265 269L267 271L266 272L267 274L266 275L268 277L266 281L266 283L264 287L262 288L261 290L260 291L258 294L258 296L257 296L255 298L253 299L253 304L253 307L254 309L255 314L253 316L254 318L255 318L254 320L255 321L254 323L255 324L255 326L257 326L257 328L258 331L259 328L262 328L264 326L266 326L266 325L267 325L271 323L273 325L275 324L277 327L282 327L285 329L287 328L290 327L293 326L295 327L297 325L300 326L301 325L306 326L309 328L310 327L311 327L312 326L313 327L315 328L317 328L318 327L319 328L324 324L325 322L325 318L323 316L325 315L327 314L330 315L334 315L339 312L341 312L342 308L344 308L344 306L346 306L346 304L347 303L347 302L349 301L349 299L350 298L349 296L352 294L352 292L355 292L356 292L357 291L360 291L360 288L361 288L362 287L362 285L363 284L365 284L366 282L370 284L371 284L373 282L373 278L374 279L375 277L376 276L376 275L378 273L378 269L382 269L382 265L383 263L381 262L381 261L382 260L382 258L385 257L385 256L382 254L384 254L384 250L386 249L387 247L388 245L387 244L386 243L389 242L387 239L389 236L390 234L389 233L390 232L392 233L391 231L393 228L397 225L397 223L399 222L399 220L400 221L402 219L402 221L403 222L404 221L405 220L407 221L407 220L408 220L410 218L411 218L413 218L415 218L416 219L417 219L418 219L420 219L421 220L424 221L425 218L427 218L426 220L427 220L428 221L429 223L430 223L431 223L432 224L432 225L434 225L434 226L435 225L436 226L436 227L437 227L437 229L438 229L438 228L439 228L439 229L439 230L441 230L441 231L443 230L443 231L444 231L444 232L445 233L445 234L448 235L447 236L448 237L449 236L450 237L449 238L452 239L452 240L454 241L453 242L456 243L456 242L458 242L460 242L459 243L460 244L461 244L461 243L463 244L463 243L464 244L466 243L468 242L469 241L469 243L471 242L472 244L473 244L474 245L475 246L474 246L475 247L475 248L477 247L477 248L476 248L477 249L478 248L479 248L479 250L481 251L482 252L483 251L484 252L484 251L485 251L486 250L487 250L488 250L488 251L494 253L496 254L501 256L502 255L504 255L508 256L509 255L509 256L512 255L514 255L515 254L515 253L516 254L517 252L518 252L520 250L522 249L524 250L525 250L526 250L527 252L529 251L531 252L532 251L540 252L546 250L549 247L551 246L555 243L558 236L561 227L563 219L564 217L572 194L574 193L573 192L574 192L573 191L574 191L573 187L572 187L573 186L571 184L572 183L572 182L575 182L576 181L579 182L581 180L605 174L606 175L607 173L608 172L610 171L612 164L615 161L617 158L618 158L620 156L621 156L622 154L623 153L624 152L625 152L625 151L627 151L628 151L629 151L631 149L632 149L633 147L633 145L635 143L634 143L633 142L634 141L633 139L634 138L633 137L635 136L635 134L636 132L637 128L638 127L637 124L639 121L638 119L639 118L639 117L640 114L640 109L642 108L641 106L642 105L643 105L643 106L644 106L644 107L644 108L646 107L647 105L645 103L647 103L647 102L648 102L648 100L649 99L650 100L651 100L650 98L650 97L651 97L651 98L652 97L654 98L655 97L653 96L653 95L655 94L655 95L656 95L657 93L658 94L659 93L660 93L662 88L663 88L663 90L664 90L665 88L666 88L666 89L667 90L669 87L674 87L676 84L676 83L676 82L677 81L677 79L678 78L678 76L681 76L683 74L684 74L685 75L685 76L687 77L688 74L689 72L688 70L689 70L689 71L691 70L692 69L691 68L692 68L695 67L699 64L699 63L699 58L700 58L705 54L706 53L705 49L708 48L710 46L711 45L712 44L712 41L714 39L715 37L717 37L719 34L722 33L723 31L732 31L734 32L737 30L742 30L743 28L744 28L747 26L753 25L753 24L755 23L756 22L759 23L762 17L761 13L762 11L764 10L764 9L764 7L765 7L766 6L772 6L775 4L777 4L779 5L783 4L784 6L784 5L785 5L789 4L792 3L795 4L796 2L799 1L800 2L802 1L803 0L804 1L810 1L812 3L816 4L817 5L820 5L822 7L825 7L826 9L828 9L832 13L834 12L838 12L842 16L843 15L847 16L854 13L858 14L860 14L863 15L865 13L867 13L875 12L878 13L879 12L881 12L884 14L885 13L890 16L895 14L898 17L901 17L902 19L904 21L919 74L919 89L919 94L926 102L927 104L927 111L932 122L939 127L940 142L945 151L947 161L946 178L948 208L947 225L944 232L945 235L946 235L946 244L946 246L945 247L942 257L944 265L938 268L910 249L904 250L901 255L893 263L892 267L883 286L878 290L876 295L875 297L873 301L872 308L872 318L873 325L874 327L874 326L876 325L878 324L878 323L879 328L883 331L884 334L882 337L884 340L889 344L894 351L915 359L944 359L944 345L945 337L947 324L949 325L952 324L953 326L957 328L958 327L959 326L961 327L965 327L966 328L967 327L967 328L987 328L1000 328L999 338L997 345L995 349L994 353L987 373L987 375L982 394L982 400L982 402L980 413L980 417L972 432L971 442L968 446L947 467L931 474L920 487L913 494L912 496L906 502L899 511L899 513L896 515L893 521L888 531L887 534L888 536L889 536L889 537L883 544L878 549L872 562L870 564L869 569L867 571L862 581L858 587L857 588L850 600L848 603L843 610L842 612L838 617L838 618L836 620L834 624L832 625L831 627L830 627L828 630L828 631L827 631L824 636L822 636L822 638L818 641L817 642L816 644L814 645L810 645L808 647L807 648L807 649L804 652L802 653L801 655L800 656L797 657L797 659L794 660L793 661L789 662L788 665L785 667L785 670L783 670L779 674L779 675L778 676L776 680L774 680L772 683L771 685L769 688L769 689L768 689L767 690L765 692L763 695L760 697L760 699L759 700L757 700L756 703L753 705L752 706L750 707L748 709L748 711L747 711L743 715L742 717L740 718L739 719L738 720L736 722L736 723L735 724L734 725L729 727L728 729L725 731L725 732L723 732L719 736L711 739L710 741L710 742L708 745L707 746L707 747L700 751L699 752L700 752L698 753L697 754L698 755L697 755L692 758L692 759L686 761L684 763L682 764L679 768L674 770L671 773L656 783L655 784L651 786L649 789L645 790L642 792L638 793L634 796L626 798L619 802L617 803L615 804L609 806L604 805L600 806L590 802L583 801L574 802L568 804L562 808L559 813L557 816L557 818L559 819L558 819L559 820L559 819L559 820L561 821L563 824L560 824L558 825L555 825L549 824L545 824L539 821L532 820L526 819L521 820L518 821L516 823L516 824L515 827L510 832L510 833L510 834L512 836L510 836L510 837L508 836L504 835L503 835L498 834L497 834L496 835L489 833L482 829L478 829L471 826L471 827L467 826L453 824L450 824L438 821L432 821L430 822L426 822L423 823L422 825L421 827L421 829L423 829L423 830L422 829L416 829L410 828L402 828L399 827L397 827L397 828L394 827L386 824L385 824L384 824L378 822L372 822L367 825L361 826L354 826L347 828L345 830L344 833L346 834L347 835L343 836L339 836L335 838L333 839L332 841L332 842L334 843L332 844L332 845L331 846L330 847L328 848L319 849L312 847L309 847L303 848L302 848L303 849L302 849L299 851L298 851L297 852L295 852L283 848L273 847L270 848L268 850L269 853L269 854L267 855L260 853L255 853L250 854L245 856L242 858L240 861L231 867L230 868L230 870L226 870L221 873L219 876L219 877L220 878L218 878L217 879L214 879L208 875L200 875L197 875L196 876L195 876L194 876L194 875L194 874L192 874L191 872L190 872L189 871L187 869L182 867L180 864L173 866L173 865L175 864L177 861L178 860L176 854L173 851L170 850L168 852L165 851L164 851L162 851L163 849L161 848L158 845L155 846L153 847L150 847L149 848L147 847L146 848L147 849L145 848L144 849L143 846L145 845L144 845L144 843L145 841L146 840L146 839L144 835L147 833L143 829L142 828L138 827L131 827L123 829L121 831L121 832L120 835L121 835L123 838L122 844L124 847L123 847L122 845L120 844L117 841L117 835L116 834L115 834L114 832L115 830L115 828L117 826L116 825L115 825L115 826L113 825L113 824L114 824L115 821L117 820L117 816L118 815L121 815L123 816L124 814L124 811L122 808L121 804L121 802L121 801L119 796L116 794L116 793L113 792L114 788L113 788L113 786L109 781L103 777L104 776L104 775L101 769L95 763L92 762L93 761L91 760L93 759L93 757L94 758L95 759L93 759L95 759L95 761L96 762L96 763L97 763L100 767L102 766L102 765L101 765L99 765L99 764L100 764L100 763L96 760L96 758L97 756L96 754L94 753L93 755L94 753L92 752L91 753L91 754L93 755L92 756L92 755L91 754L89 756L88 755L87 755L88 755L88 754L87 753L86 752L87 751L87 750L87 749L87 748L86 746L86 745L87 744L87 743L85 741L87 740L87 739L88 739L89 737L88 735L89 734L89 733L91 733L92 732L93 732L93 734L95 735L98 738L103 737L109 730L113 724L114 720L115 716L113 705L115 705L115 703L112 691L112 690L113 689L113 688L110 679L111 676L108 671L108 666L103 660L101 656L101 654L88 639L87 636L87 634L86 632L83 630L79 625ZM665 568L666 569L669 567L670 567L671 570L671 571L672 571L673 572L674 572L675 573L676 575L676 576L678 576L678 577L679 578L679 579L680 580L684 582L684 584L685 584L687 587L690 588L695 588L697 587L698 588L699 590L703 591L708 590L709 592L710 591L709 587L712 585L713 584L712 583L713 581L713 580L713 579L712 577L714 575L716 575L717 574L718 574L718 573L719 572L719 569L718 569L718 567L716 566L715 565L717 563L719 562L721 563L723 561L724 561L724 560L725 557L726 557L727 555L731 556L733 555L736 553L743 555L744 554L748 553L748 552L751 553L751 552L755 551L755 550L757 550L759 548L760 548L763 547L764 545L765 545L765 544L767 544L768 542L770 543L770 541L774 539L773 539L773 537L772 537L772 535L770 535L771 533L771 532L771 529L772 528L772 527L773 527L772 525L773 525L773 523L775 522L778 520L781 520L781 519L781 518L781 516L783 516L783 515L782 514L782 513L781 512L782 511L781 510L783 510L783 508L785 508L788 507L788 505L789 504L789 503L790 503L791 501L790 500L791 499L790 497L790 494L789 494L789 493L788 492L788 491L787 490L785 490L784 489L784 486L785 485L782 481L780 481L779 482L777 480L777 479L776 479L776 478L774 476L773 476L772 475L771 474L771 473L769 471L768 472L768 470L766 470L765 468L764 469L762 470L762 468L761 467L760 466L760 465L760 464L759 463L760 462L759 461L760 461L758 459L757 460L755 459L752 460L751 458L752 457L752 456L748 454L747 454L745 453L745 452L745 451L745 449L744 447L742 446L740 447L740 448L738 449L735 448L735 449L734 448L733 449L731 449L730 449L727 450L727 451L726 451L725 453L725 454L724 455L723 455L721 455L720 456L717 455L714 456L714 455L714 456L713 455L712 457L710 458L710 459L709 460L707 463L706 463L706 465L704 466L705 467L704 467L702 467L702 468L699 465L698 466L698 467L696 467L696 468L696 469L696 470L695 470L693 469L693 470L692 469L692 470L691 470L688 469L688 470L688 472L687 472L686 472L686 474L685 475L685 477L683 476L684 477L682 478L683 479L681 479L681 480L682 480L683 480L683 481L682 482L681 482L681 484L680 484L680 485L678 485L679 486L679 487L677 487L677 489L673 491L673 493L675 493L675 494L673 495L672 495L671 497L671 496L669 496L670 498L668 499L668 502L666 501L668 504L666 504L665 506L663 507L664 509L662 509L660 510L660 513L659 512L657 513L657 514L655 514L654 515L651 515L650 516L649 516L648 517L648 518L647 518L646 517L645 520L644 518L643 519L643 520L642 521L642 522L648 526L655 545L655 546L658 547L658 548L660 549L662 555L666 555L667 556L665 557L665 558L664 558L665 559L664 560L664 564L665 565L665 566L666 566L665 567L665 568Z" vector-effect="non-scaling-stroke"/><path id="sa-borders" d="M438 820L437 816L441 812L433 810L430 807L428 809L422 808L425 802L431 801L432 798L439 799L439 796L435 792L435 787L428 783L420 783L421 785L416 780L394 782L382 780L382 775L386 774L396 758L395 749L399 744L405 743L404 739L410 737L421 740L423 736L420 736L419 732L415 730L417 726L412 713L417 711L419 708L423 710L426 706L439 707L439 700L445 696L453 701L461 697L462 694L465 695L467 692L466 689L465 691L465 688L473 680L469 677L466 677L467 673L469 673L470 671L469 669L469 665L477 667L480 664L485 664L484 662L490 663L491 649L493 648L495 642L500 641L502 643L509 639L512 640L511 637L516 636L520 632L530 631L533 628L542 631L544 629L543 625L551 615L549 613L552 608L549 605L553 600L549 599L548 595L548 588L556 586L557 590L561 589L562 592L567 593L568 589L574 587L574 583L577 586L579 582L587 581L590 582L589 580L591 578L593 582L597 583L598 586L608 584L611 586L610 589L619 591L619 593L630 589L633 592L639 591L639 587L644 587L642 582L647 582L648 584L650 580L653 581L656 578L660 580L662 578L660 576L664 575L661 574L662 573L666 572L663 568L665 568M764 545L771 552L770 557L772 563L779 566L778 564L782 567L782 571L775 575L774 581L772 580L774 583L770 585L772 587L774 589L779 588L784 591L795 588L800 593L804 591L808 595L813 593L813 596L818 598L817 599L819 598L819 600L821 598L820 601L822 601L822 603L830 605L828 606L833 609L832 615L836 620M548 588L543 584L539 585L534 580L532 580L526 571L522 570L522 565L519 565L517 561L514 559L508 549L508 545L500 543L500 538L496 539L489 532L486 532L481 525L480 521L514 452L510 450L512 442L511 442L516 429L512 425L518 424L522 412L525 411L528 402L535 397L535 395L537 393L541 392L544 388L556 383L560 385L561 381L570 377L572 381L576 379L580 381L582 388L585 387L587 385L584 384L586 382L586 379L595 373L596 367L601 367L602 364L612 365L608 362L611 360L611 356L606 349L613 344L616 345L619 338L623 339L624 336L633 332L637 336L638 329L643 333L652 332L652 335L654 336L660 327L667 332L673 326L673 323L677 322L676 320L680 319L680 322L686 321L689 324L689 320L695 320L701 315L703 323L710 327L710 330L713 330L713 327L716 332L717 329L721 333L723 332L722 334L726 333L728 338L729 335L731 336L732 334L736 340L735 342L740 338L742 339L742 337L739 337L742 334L757 342L757 338L762 337L765 339L766 338L767 343L770 349L777 347L778 351L784 352L783 356L789 355L793 362L797 365L797 367L801 372L806 372L806 369L809 368L806 369L808 371L806 373L809 374L811 379L804 382L808 393L806 395L805 399L803 401L805 404L801 410L803 413L804 419L801 420L801 423L793 425L789 433L786 432L781 437L778 436L775 441L776 443L775 444L762 446L756 460M678 319L678 316L677 318L676 313L668 313L662 308L663 311L656 312L656 308L653 308L651 304L656 303L653 294L662 288L659 278L663 279L664 276L667 276L670 259L681 254L683 260L687 258L687 261L694 256L696 256L695 259L699 257L699 252L701 251L699 247L701 243L700 240L701 237L706 238L706 236L702 235L705 232L699 227L701 224L705 227L713 224L713 222L716 224L726 219L726 221L733 220L734 217L739 216L741 218L744 214L740 210L748 207L750 215L749 214L748 219L740 222L740 231L743 245L746 246L747 243L749 244L749 248L754 246L752 244L756 243L754 238L752 239L751 237L754 234L755 238L758 235L760 241L764 239L763 236L764 235L767 235L768 233L769 236L765 238L767 243L761 246L760 249L762 250L760 261L756 259L755 269L750 269L749 267L741 266L738 272L733 273L732 277L735 280L735 284L740 285L741 288L746 292L751 289L755 296L751 298L749 304L742 303L741 306L735 303L735 309L732 312L727 314L726 318L727 321L722 323L721 329L718 329M810 368L812 369L814 364L818 364L819 362L825 365L829 363L833 366L836 362L841 363L841 359L846 359L847 356L850 356L851 360L858 360L868 357L874 362L880 359L881 363L891 360L895 363L902 354M721 220L717 214L711 213L710 209L708 209L708 206L712 205L716 208L718 203L710 198L701 196L699 199L690 197L683 199L680 197L675 206L671 204L662 205L661 202L658 202L655 204L656 202L654 201L655 197L653 195L651 198L648 192L644 191L643 180L640 180L641 184L628 188L627 191L619 186L609 186L606 175M939 129L932 129L928 134L925 131L921 134L912 131L909 135L901 137L897 132L889 136L892 136L892 140L888 143L888 152L897 151L900 155L895 156L895 160L897 159L900 164L899 168L883 170L882 166L877 167L870 162L869 164L869 172L867 170L865 173L868 179L863 181L864 186L860 193L854 193L854 196L850 189L846 189L846 191L843 191L836 189L835 198L836 202L833 201L833 208L830 208L826 204L823 205L824 209L825 223L817 222L814 226L812 224L810 227L804 225L795 228L785 227L784 225L779 225L776 228L775 225L771 226L774 220L769 221L765 216L766 209L769 209L771 207L768 204L762 204L759 199L758 200L757 196L760 194L759 192L754 194L749 193L739 199L741 203L731 205L733 208L726 210L727 214L742 207L742 209M522 412L517 414L510 402L522 385L508 386L507 379L501 382L500 385L501 388L499 392L502 396L496 400L497 407L493 409L492 413L486 409L488 405L481 400L487 392L484 390L486 386L484 385L466 389L466 380L462 379L464 362L453 355L458 343L461 341L457 330L454 328L451 328L450 330L428 319L434 311L427 305L415 302L416 292L412 287L417 278L412 276L412 272L420 274L422 269L404 267L402 275L398 274L397 279L393 278L386 300L381 297L380 277L376 277M468 669L464 670L461 665L462 663L457 663L453 672L448 667L450 664L444 662L442 659L436 659L430 663L424 661L423 664L417 665L412 675L404 682L402 679L402 676L397 674L392 675L390 671L385 674L382 670L375 671L373 670L375 664L372 664L372 661L354 655L350 669L347 670L348 676L342 673L344 677L342 679L343 684L342 685L346 688L343 694L342 689L339 691L338 698L330 703L321 698L319 701L316 698L309 699L310 706L298 711L295 710L294 714L288 719L285 724L286 727L267 729L264 733L266 740L264 745L260 749L252 749L250 744L246 749L243 749L238 747L234 739L227 736L228 731L223 723L221 711L224 713L229 704L231 705L231 699L226 699L227 696L219 701L212 710L205 708L202 712L200 710L198 713L199 714L196 716L195 714L193 716L192 727L187 730L185 723L186 717L180 704L185 701L186 696L184 694L186 690L185 692L185 689L181 686L179 684L177 686L175 682L172 682L173 674L168 680L167 677L157 675L161 666L158 661L161 656L158 654L160 651L155 650L158 644L154 639L156 635L152 631L152 622L149 617L150 613L154 611L147 606L153 605L152 597L143 591L140 584L134 584L129 575L125 576L124 581L126 587L117 577L119 582L117 586L117 591L110 602L107 601L104 604L99 599L95 600L94 609L87 609L90 615L83 621L84 626L80 625" vector-effect="non-scaling-stroke"/><path id="mp-johannesburg" d="M721.9 262.2L722.2 261.6L723.8 261.7L723.7 261.1L725.3 260.3L724.2 259.6L725 259.2L727.2 262.9L723.9 265L723 264.7L721.9 262.2ZM690.8 297.5L691.5 296L692.4 295.8L692.7 294.5L693.4 294.2L694.2 294.4L694.3 295.2L695.1 295.4L695.3 294.7L694.8 294.5L694.8 293.8L695.6 293.8L696.1 292.9L696.7 293.3L699.6 292.6L699.9 291.4L703 292.4L703.2 291.6L704.9 291.9L705.4 293L705.6 292.3L706.5 291.8L706.5 291.5L707.4 291.3L707.4 290.4L708 289.9L708 289.4L709.2 289.3L709.3 292L708.9 291.8L708.4 292.8L707.1 296.8L707 298.6L707.4 298.7L708 298.1L707.8 299.3L708.6 299.5L709 298.7L709.4 299.4L709.1 300.1L710 301.1L710.8 301.1L711.1 300.5L710.7 299.2L711.9 298.8L713.6 297.2L713.6 297.9L714.4 297.9L713.3 298.9L713.9 299.5L715.2 298.2L715.9 298.3L714.6 300.3L713.8 299.6L711.8 302.7L711.8 304.9L712.4 306.1L710.4 305.8L709.5 308.2L711.8 308.6L713.4 308.3L716.2 313.1L716.8 311.8L718.3 311.2L719.6 314.9L723 314L723.9 314.1L726.4 312.2L726.8 313.5L725.8 317.8L726.4 317.8L727.2 320.9L723.7 321.7L723.4 322.5L721.9 323L722.2 326.4L721.3 329L719.7 328.9L719.7 328L718.5 328.1L718.4 328.7L717 328.6L716.5 327.9L716 328.3L716.1 329.3L715.4 329.8L715.8 330.9L715.1 330.5L714.9 330.9L714.8 329.8L714.1 329.1L715 328.7L714.3 328.1L714.9 327.7L715.2 325.6L714.1 325.9L714.2 326.3L713.3 327.2L712.5 326.7L713.2 326.1L713.2 325.5L714 324.5L712.2 323L711 322.7L711.1 324.9L712.1 325.4L712.2 326.7L711.8 327.1L712.7 328.2L712.9 329.6L709.8 329.7L709.5 328.8L709.9 327.4L709.5 326.6L707.1 325.8L705.6 324.5L705.2 323.5L703.4 323.1L704.2 322.2L702.9 321.4L702 318.5L702.5 316.8L702.8 317.6L703.5 317.7L703.5 316.4L704 316.3L703.8 315.1L702.6 314.9L702.7 314.2L703.4 314.7L703.7 314.6L703.2 313.7L704.6 314.3L705 316.1L705.5 315.3L706.2 315.5L706.1 313.5L706.9 312.5L706 312.4L706 311L707.2 311.8L709.6 310.9L709 308.6L706.7 310.4L705 309.5L706.8 308.7L705.6 307.3L706.4 307.1L706.5 306.7L708.2 306.8L708.6 306.2L706.7 304.7L706.7 301.8L707.2 301.1L706.6 301.3L706.2 302.2L704 302L703.7 302.8L701.1 300.9L697.6 302.1L696 305.9L695.7 305.7L695.4 306.3L695.1 305.8L693.6 305.7L693.7 305.1L693.2 305.2L692.7 306.7L692.2 306.4L692.1 305.8L691.5 305.8L690.8 305.1L691.1 302.7L691.9 302.5L691.8 301.6L691.4 301.7L693.5 298.9L692.4 299.1L692.2 297.9L690.8 297.5ZM709.8 302.8L709.6 305L711.2 305L711.2 303.9L710.7 303.8L711.4 302.8L709.8 302.8ZM702.4 297.7L704 299.2L704.3 301.4L706 301.4L706.7 300.7L706.8 300.2L706.1 300.6L705.9 300L706.8 299.8L706.8 299.5L704.6 299.4L703.2 297.5L702.4 297.7ZM699.3 297.6L700.5 297.9L700.1 296.2L701.3 296.4L701.4 295.7L702.4 295.6L700.9 294.8L699.8 296.2L699.3 297.6ZM715.3 241.6L718.7 241L720.9 241.5L719.4 244.2L719.2 243.6L716.2 243.3L716.2 241.8L715.3 241.6ZM715.4 284.4L715.5 284L716.5 283.5L716.9 284L716.8 284.5L715.4 284.4ZM713.2 264L713.7 261.5L715.1 262L714.1 262.9L714.7 263.2L714.7 263.8L713.2 264ZM687.5 283.4L687.9 282.7L688.6 282.9L688.7 282.6L687.9 282.2L688.2 281.8L687.8 280.6L688.9 280.2L689 279.8L688 279.2L690.3 279.5L689.6 278.5L690.7 277.6L690.4 277.2L690 277.8L689.3 277.7L689.2 278.7L688.7 278.5L688.2 278L688.8 277.3L688.8 275.9L689.5 275.9L690.6 276.8L691.6 276.7L691.3 276.1L690.6 275.9L690.6 275.1L690.1 275.1L689.4 274.2L690.7 272.6L692.2 272.5L693.9 269.5L693.8 268.2L691.4 267.3L692 266.9L691.7 265.4L694.4 264.1L694.8 262.8L695.6 262.9L695.6 262.2L696.4 261.8L696 261.6L695.8 260.1L696.4 260L696.4 257.2L698.7 256.9L698 256L698.8 255.7L700.6 259.2L701.2 259L701.5 261.4L700.5 262L699.5 261.7L699.2 262.3L698.4 262.4L699 263.3L698.3 263.9L698.2 264.6L697.3 265.1L697.1 264.5L697.6 263.6L698.5 263.1L696.9 263.2L697 264.3L696.3 265L697 266.1L698.2 266.2L697.9 267L698.3 267L698.4 267.5L697.8 268.1L697.8 269L698.2 268.5L699.1 268.7L698.8 268.4L699.3 267.7L698.8 267.3L699.6 267.3L700 266.9L699.8 266.2L700.3 266.3L700.2 265.4L700.8 265.2L701.9 265.6L701.6 267.2L702.9 266.4L702.9 266.8L703.7 266.9L703.9 267.9L705 266.8L704.4 266.4L704.1 267.1L703.4 266.7L703.9 264.9L704.9 264.3L704.8 265L705.3 265.1L705.1 264.8L705.6 264.3L705.1 263.9L705.3 263.5L706.1 264.1L707.1 263.3L707.6 263.6L706.6 265.7L708.5 266.3L708.5 265L708.9 264.9L709.6 265.6L709 265.5L708.8 266.2L709.7 266.3L710.2 264.8L711 265.1L710.7 266.7L711.7 267.5L712.1 267.2L712.4 267.8L713.9 267.8L711.3 269.7L710.6 269L710.2 269.7L711.5 271.1L709.3 272.5L709.7 273.5L710.9 274.1L710.9 275.3L711.4 274.8L712.1 274.8L712.2 274.3L712.8 275.1L713.2 274.9L713.8 275.6L714.5 275.7L714.6 276.2L714.3 276.7L713.8 276.8L713.9 277.7L712.8 277.9L711.8 278.8L710.9 276.9L711.4 275.6L710.1 275.4L709.3 275.9L709.3 276.4L709.9 276.7L709.3 277.2L709.6 277.7L708.5 278.5L708.7 279L707.9 279.7L708.3 279.9L707.7 280.9L708.5 281L708.4 281.3L706.9 281.8L707 282.2L708.2 282.4L707.8 283.1L709.2 283.5L708.9 283.8L709.3 284.7L706.8 285.3L706.2 284.7L706.4 286.6L704.8 287.4L705.1 288.2L706 288L706.5 289.1L705.7 289.2L706.3 290L702.8 290.8L702.3 289.9L702.3 289.3L702.7 289.2L702.5 287.8L700.7 287.5L700.4 287.6L700.3 288.7L699.7 288.6L699 289.3L697.8 289.1L697.5 289.7L696.6 289.6L696.9 290.6L696.1 290.7L695.7 290.5L695.7 289.3L692.5 288.6L691.2 286L688.9 286.6L688.6 283.6L687.5 283.4ZM695.3 276.5L696.3 277.5L697 277.6L697.9 276.2L697.7 275.8L697.3 276.3L696.7 276.2L697 275.8L696.4 274.6L695.9 275.9L695.5 275.9L695.3 276.5ZM702.7 264L703.2 262.7L704.1 262.2L703.7 264.2L703.3 264.6L702.7 264ZM695 292.7L695.7 291.4L696.4 291.8L696 292.9L695 292.7ZM692.5 290.9L693.1 289.4L694.4 289.9L694.6 290.1L694.4 290.6L695.4 291.2L694.7 292L693.9 292.1L693.9 291L693.2 290.7L692.5 290.9ZM686.6 291L686.9 288L688.9 287.9L689.3 289.5L687.6 290L688.3 290.3L688.1 290.9L686.6 291Z" vector-effect="non-scaling-stroke"/><path id="mp-cape_town" d="M112.4 783.8L137.3 783.8L136.7 784L136.2 785.1L136.8 785.8L137.8 785.4L140.1 786.1L140.3 785L139.5 784.2L139.6 783.8L152.1 783.8L151.9 784.2L152.2 784.6L151.3 784.9L151 786.6L151.3 787.2L151.3 788.7L150.8 788.9L151.2 790.4L148.9 790.8L148.5 792.2L146.6 792.4L146.2 792L145.3 792.6L145 794.4L143.9 793.8L142.1 796.7L144.2 797L142.5 799.6L142.5 801.5L143 801.4L143.5 802L143.6 801.5L144.2 801.6L144 802.6L144.8 803.7L143.4 803.9L143.5 805.1L142.2 805.7L143.4 806.7L141.9 808.2L142.2 809.4L140 810.4L140 811.4L139.5 812.2L139.9 814.4L139.5 814L137.8 814.8L137.3 816.3L139.4 817.1L138.5 819.6L139.9 822.2L139.3 822.7L139.3 823.3L140.8 824.9L142.2 825.5L143.1 825.5L143.1 825.4L144 824.6L145.4 825.1L146.5 824.5L146.2 824L148 824.2L150.2 822.8L150 822.4L150.6 821.8L153.1 823.2L153.3 825.4L152.8 827L153.1 828L152.2 830.1L150.8 832L152.6 830.5L155 829.8L155 832L154.4 831.9L155.6 832.5L155.3 833L154.9 832.7L154.3 833.1L155 833.4L155 840.4L151.8 838.8L151.7 837.6L152.3 836.4L150.8 835.9L148.9 836.8L148.9 837.6L148.5 838L147.5 837.7L147.7 839L146.8 840.1L145.6 840.5L146.2 839.3L146 838.5L144.6 836.8L144.8 836.4L143.9 835L144.6 834.1L146.9 832.8L146.2 832.3L143.5 828.8L141.1 827.6L139.2 827.1L132.7 826.9L123.2 829.2L120.5 831.4L120.9 832.1L120.4 832.9L120.1 834.8L120.5 835.1L120.5 834.8L120.8 834.6L121.1 834.8L123.2 837.9L123.2 839.5L122.4 840.1L123.1 841.1L122.2 844L122.8 845.3L124.5 846.6L122.9 846.6L121.9 845.3L120.2 844.7L118.6 843.2L118.8 842.9L118.3 841.8L117.2 840.7L117.5 840.2L116.6 835.2L115.7 834.1L114.7 834.1L113.5 832L115.3 830.4L115.7 829.2L115.4 828.1L116.6 826.2L116 825.1L115.4 825.1L114.8 826.1L112.8 824.5L113.4 824L113.1 823.7L114.2 823.5L115.3 821L116.7 820L117.1 818.2L116.7 817.7L117.1 817.5L117.1 816.4L118.7 814.9L120.6 814.7L121.8 815.7L122.6 815.7L123.8 813.4L123.9 811.5L121.4 806.5L120.6 803.5L121 801.8L120.3 799.6L119.8 799.5L120.1 799.2L119.7 798.1L118.2 795.8L117.1 795.5L116.5 794.2L115.8 794.1L116.1 793.4L115.4 792.5L114.6 792L113.6 792.4L112.9 791.7L113.1 790L113.5 789.8L113.3 789.4L113.9 788.4L113.2 787.8L113.9 787.5L113.7 787L113 787L112.4 785.4L112.4 783.8ZM134.2 785.7L134.5 787L136.4 787.5L136.2 786.2L135.1 785.2L134.5 785.1L134.2 785.7ZM115.9 808.1L116.2 807.3L116.8 807.4L117.2 807.8L117.3 809.2L116.2 809.1L115.9 808.1Z" vector-effect="non-scaling-stroke"/><path id="mp-pretoria" d="M698.6 262.9L701.5 261.4L701.2 259.1L700.6 259.3L698.8 255.7L700 255.4L699.9 254.4L700.3 254.2L700.2 253.4L699.7 253.4L699.4 251.5L701.2 251L699.3 247.1L699.9 246.9L699.5 245.4L699.9 243.5L700.3 243.6L700.3 242.9L701.3 242.7L701.1 241.8L699.9 242L699.5 241.6L699.4 240.9L700.1 240.6L699.9 240L700.3 239.1L700.9 237.7L700.2 237L701.9 237L701.9 236.7L703 237.1L707 236.8L713.5 237L712.8 234.9L714.5 235L714.6 236.5L716.9 236.6L717.4 237.1L717.6 236.7L718.7 237L727 237L726.9 238.4L727.9 238.9L729.8 241.4L729.8 253.4L731.1 254.9L729.8 256.1L729.8 262.7L727.9 264L728 264.6L727.2 264.7L726.7 264.2L727.5 263.3L725 259.2L724.2 259.7L725.3 260.2L723.7 261.1L723.9 261.7L722.3 261.6L722.2 262.2L718.9 262.4L719 263L718.4 263L718.4 263.5L719.2 263.6L719.4 264.4L719.1 264.6L718.7 264L717.8 264.9L714.7 264.7L716.3 262.6L713.7 261.5L713.7 260.7L712.5 260.7L711.5 263.4L710.5 263.5L709.8 266.3L706.5 265.7L707.5 263.6L707.1 263.3L706.1 264.2L705.3 263.5L705.1 263.9L705.6 264.2L705.2 264.7L705.3 265.1L704.8 265L704.9 264.3L703.9 264.9L703.5 266.1L703.1 266L700.8 265.2L700.9 264.1L699.3 264.5L699.2 263.4L698.6 262.9ZM715.4 241.5L716.2 241.7L716.2 243.3L719.2 243.6L719.4 244.2L720.9 241.6L718.7 241L715.4 241.5ZM702.8 264L703.3 264.6L704.8 263.1L704.3 262.1L703.2 262.7L702.8 264Z" vector-effect="non-scaling-stroke"/><path id="mp-ekurhuleni" d="M704.8 287.5L705.4 286.9L706.4 286.6L706.2 284.7L706.9 285.2L709.2 284.6L709.1 283.4L707.7 283.1L707.7 282.5L708.1 282.3L706.9 282.2L706.9 281.7L708.4 281.2L707.7 280.9L708.3 280L707.8 279.8L708.6 279L708.5 278.5L709.6 277.7L709.3 277.2L709.8 277L709.4 276.6L709.8 276.6L709.3 276.4L709.3 275.9L710.9 275.3L710.9 274.1L709.7 273.5L709.3 272.5L711.5 271.1L710.1 269.7L710.6 268.9L711.3 269.6L713.8 267.9L712.9 268L712.8 267.6L712.4 267.8L712.1 267.2L711.7 267.5L710.6 266.6L711 265.2L710 264.7L710.5 263.8L711.5 263.4L712.5 260.7L713.7 260.9L713.7 261.7L712.9 261.4L713 262L713.6 262.2L713.2 264L714.7 263.9L715.1 262L716.3 262.5L715.7 263.2L716.1 263.7L716.7 263.4L716.8 264.9L717.9 264.9L718.8 264L719.1 264.5L719.4 264.4L719.1 263.6L718.4 263.5L718.4 262.9L719 262.9L718.9 262.3L721.9 262.2L723 264.7L723.9 265L727.2 262.9L727.5 263.3L726.7 264.2L727.4 265L727.8 264.6L729.6 265.7L730.3 265.2L730.9 265.6L729.6 267.5L729.9 267.9L729.6 269.4L730.7 269L730.7 269.9L730.4 269.8L729.3 271.5L731 273.6L733.1 272.6L733.9 273.8L733 274.4L733.2 275L732.7 275.4L732.3 276.9L734.2 278.2L734.5 280.4L735 280.1L734.8 283.8L740.3 285.4L740.6 288.4L743.4 289.7L743.4 290.4L745.7 291.8L747.5 290.6L751.5 289.4L752.2 292.1L753.5 291.8L754.9 295.8L750.5 297.7L750.2 298.5L750.3 299.3L749.1 300.8L748.9 304L741.5 303.3L740.9 304.5L741.3 306L738.1 305.4L738.1 304.2L737.8 304.1L737.6 304.6L737.1 304.5L737.3 303.9L735.5 303.3L735.4 302.9L734.6 302.9L734.5 307.1L734.9 308.2L734.6 309L733.3 309L733.4 310L732 310.4L731.8 311.1L732.3 312.1L729.5 312.4L729.5 313.5L727.7 313.6L726.8 313.5L726.4 312.2L723.9 314.1L723 314L719.6 315L718.3 311.2L716.8 311.8L716.2 313.1L713.4 308.3L714.9 307.6L715 306.7L716 306L718.7 305.9L719 306.3L719.7 305.9L720.6 305.3L720.2 304.9L720.4 304L721.1 303.4L721.1 302.9L722.1 304.3L722.9 304.2L723.9 305.1L723.3 306.3L723.8 306.5L724 305.5L725.1 305.9L724.8 305.2L726 304.2L725.7 302.7L726.3 302.1L723.9 298.8L723.4 300.7L722.7 301.2L723.2 301.5L723.5 302.5L723.1 302.6L722.2 301.6L721.7 302.1L720.5 301.3L719.7 301.5L719 303L717.6 302.2L716.9 302.4L716.2 300.9L714.6 300.3L715.9 298.3L715.2 298.2L713.9 299.5L713.3 298.9L714.3 298L713.5 297.9L713.6 297.2L711.9 298.8L710.8 299.2L709.4 299.4L709 298.8L708.7 299.4L707.8 299.4L708.2 298.2L707 298.6L707.1 296.9L708.5 292.5L708.9 291.7L709.3 291.9L709.2 289.4L706.9 289L706.8 289.8L706.3 290L705.7 289.2L706.5 289L706 288L705.1 288.2L704.8 287.5ZM734.1 287.1L734.1 290.7L739.9 289.2L738.8 287.1L738.3 287.6L737.5 286.9L734.1 287.1ZM721.3 306.6L721.7 307.1L721.5 307.7L722.1 308.3L723.1 306.5L722.3 305.8L721.3 306.6ZM710.9 276.3L711.8 278.8L713.8 277.7L713.7 276.7L714.3 276.8L714.6 276.1L714.4 275.7L712.8 275.1L712.1 274.4L712.1 274.8L711.4 274.8L711.1 275.4L711.5 275.6L710.9 276.3ZM706.6 277.8L706.9 277.1L707.7 276.9L707.8 277.8L706.9 278.2L706.6 277.8Z" vector-effect="non-scaling-stroke"/><path id="mp-west_rand" d="M667.5 274.4L668.3 269.2L669 269.3L669.1 268.6L671.8 268.8L672.2 268.2L673.4 267.9L675.1 268.8L676.1 268.7L675.8 268.4L676.1 267.8L675.3 267.6L674.5 266.4L676 266L676.1 264.2L673.6 264.7L673.4 265L672.7 264.2L671.7 264.1L673.7 263.2L672.4 262.7L672 261.3L670.7 261.7L669.7 259L672.9 258.5L674 257.8L674.9 257.9L674.9 257.5L676.6 256.8L678.5 254.9L680.8 254L681 257.1L681.5 257.5L682 257.1L683.3 259.5L686.8 257.8L686.5 259.4L685.1 260.4L685.7 261.7L685.4 262L687.7 263.8L688.7 263L689.8 262.7L689.8 259.5L692.2 258.5L692.9 257.8L692.8 259.1L696.3 258.5L696.4 260.1L695.8 260.2L696 261.6L696.5 261.8L695.6 262.2L695.6 262.9L694.8 262.8L694.4 264.1L691.7 265.4L692 266.9L690.7 267.7L690 269L687.2 269.5L686.8 270L685.7 269.8L685.9 270.5L684.8 271.9L685.2 273.3L685.6 273.5L685.5 273.9L687 275.6L687.2 276.6L687.7 276.2L687.4 276L689 275.7L688 279.4L689 279.8L689 280.2L687.8 280.7L688.2 281.8L687.9 282.3L688.8 282.5L688.6 282.9L687.9 282.7L687.5 283.4L688.6 283.5L688.9 286.5L691.2 286L692.6 288.5L695.8 289.3L695.7 290.4L696 290.6L696.8 290.5L696.6 289.6L697.5 289.7L697.8 289.1L699 289.3L699.6 288.6L700.3 288.7L700.4 287.6L700.7 287.4L702.5 287.7L702.7 289.3L702.3 289.4L702.3 289.9L702.4 290.6L702.9 290.8L706.8 289.8L706.9 289.1L708.2 289.4L707.4 290.4L707.4 291.3L706.6 291.5L705.6 292.3L705.4 293.1L704.9 291.9L703.2 291.7L703 292.4L699.9 291.4L699.6 292.6L696.7 293.4L696.1 292.9L695.6 293.8L694.8 293.8L694.8 294.5L695.3 294.6L695.1 295.4L694.3 295.2L694.2 294.4L693.6 294.1L692.8 294.5L692.4 295.9L691.5 296L690.8 297.5L692.2 297.8L692.4 299.1L693.6 298.8L691.4 301.6L691.8 301.4L691.9 302.5L691.1 302.8L690.7 305.6L692 306.4L691.2 306.7L691.1 307.3L692 307.2L691.7 308.6L690.3 308.7L691.6 309.1L691.6 309.4L691.3 309.8L690.2 308.9L690.7 309.9L690.5 311L691.1 311L690.9 311.8L690 310.8L688.9 311.1L689.2 311.5L688.9 311.8L689.5 311.8L690.5 313L689.8 314.7L688.9 314.9L688.4 312.1L687.2 312.9L686.9 313.6L688.2 313.8L688.4 314.9L686.2 315.5L685.9 316.5L686.7 316.9L685.9 318L686.8 318.3L686.6 318.8L684.7 317.9L686.4 319.4L686.1 320.1L684.9 318.7L684.3 319.8L684.1 319L683.6 319.1L683.6 320.5L684 319.8L684.1 320.2L684.9 319.9L685 319.3L685.3 320.3L684 320.3L683.8 321L682.6 321.6L680.1 321.6L679.9 321.2L680.3 320.2L680.2 319.1L678.5 318.6L678.3 316.2L676.6 317.7L676.3 313L677.1 309.4L674.8 307.9L678.4 309.1L678.9 305.1L678.3 304.9L678.6 302.2L679.7 302.3L680 299.5L679.1 298.8L678.9 299.4L675.5 299.8L674.8 298.3L674.5 299.3L673.5 297.7L672.9 298.1L672.6 297.5L671.1 297.2L671 295.8L672.2 295.5L672.8 296L672.4 294.7L675.1 294.9L675.1 293.4L673.6 293.2L673.6 289.1L671 287.9L670.4 285.4L670 282L670.5 282.1L671.4 277L670.2 274.6L667.5 274.4ZM692.5 290.9L694 291L693.7 292.1L694.7 292L695.3 291.2L694.3 290.6L694.4 289.9L693.1 289.4L692.7 289.7L692.5 290.9ZM693.6 262.9L691.8 260.4L691.1 260.9L692.9 263.5L693.6 262.9ZM686.9 288.1L686.7 291L688.1 290.9L688.3 290.3L687.6 290L689.3 289.4L688.8 287.9L686.9 288.1ZM686.1 308.7L686.6 308.9L687.7 307.7L687 305.8L686.4 305.9L686.1 308.7ZM681.1 317.5L683.5 316.9L684.2 317.5L685.1 315.3L681.3 315.1L681.1 317.5ZM678.6 269L680.8 270.7L679.8 270.9L680.6 272.2L681.4 272L682 269.3L682.5 269.1L680.5 268.1L679.4 268.9L679.3 268L678.5 268.5L678.6 269ZM701.6 267.2L701.8 265.7L703.5 266.1L703.4 266.7L704.1 267L704.4 266.3L705.1 266.8L703.9 267.9L703.7 267L702.9 266.5L701.6 267.2ZM703.7 264.2L703.9 262.6L704.3 262L704.9 263.1L703.7 264.2ZM696.2 265L696.9 264.3L696.9 263.1L698.8 263.2L697.7 263.6L697.1 264.5L697.3 265.1L698.2 264.6L698.7 263.4L699.1 263.3L699.3 264.5L701 264L700.8 265.2L700.2 265.5L700.3 266.3L699.8 266.2L700 266.9L699.6 267.4L699.2 267.1L698.8 267.3L699.4 267.7L698.9 268.4L699.1 268.7L698.2 268.6L697.9 269L697.7 268.4L698.3 267.1L697.9 267.1L697.8 266.2L696.8 266.1L696.2 265ZM695.3 276.5L695.6 275.9L695.9 276L696.3 274.9L697 275.8L696.8 276.3L697.3 276.3L697.7 275.7L697.9 276.2L697.1 277.7L696.3 277.5L695.3 276.5Z" vector-effect="non-scaling-stroke"/><path id="mp-secunda" d="M776.9 313.7L778.3 313.6L778.4 312.9L781 312.5L783.1 313.9L785.4 313.6L785.4 315L777.2 315L776.9 313.7ZM766.7 305.9L766.9 304.9L767.5 304.5L766.9 304.3L767.4 303.2L768.5 302.9L767.8 303.4L767.9 304.2L768.4 303.7L769.2 304.3L769.4 303.6L769.4 302L768.1 301.7L768.2 300.7L767.1 299.7L767.7 299.4L767.8 298.9L769.1 298.9L769.2 299.4L770.9 299.3L772.9 300.2L774.6 300.1L774.5 301L775.6 301.5L776.8 299.8L776.3 299.6L775.5 296.6L775.8 294.3L777.8 294.5L777.8 295.6L779.1 295.8L779 297.6L777.7 299.9L779.6 301.2L778.8 303.8L777.9 303.8L777.9 305.1L776.3 306L776.6 307.5L777.1 307.7L776.6 308.6L776.9 309.4L777.7 309.7L777.7 310.7L775.9 310.9L775.9 310.1L773.5 308.9L771.9 309.9L769.7 307.8L767.1 307.5L766.8 307.1L767.4 306.7L766.7 305.9ZM766.7 295.7L768.5 296.9L769.6 297.1L770.1 296.7L770.6 297.2L770.1 297.9L769.5 297.5L768.9 297.8L768.7 297.2L767.2 296.8L766.7 295.7ZM765.9 302.3L765.9 300.8L766.5 300.4L766.5 302.8L765.9 302.3Z" vector-effect="non-scaling-stroke"/><path id="mp-stellenbosch" d="M137.3 816.5L137.8 814.8L139.5 814L139.9 814.3L139.5 812.1L140 811.4L140 810.4L144.1 808.8L144.2 807.9L144.5 807.7L144.9 808.5L147.1 807.8L149.1 807.7L148.7 808.4L148.6 810.9L148.1 811.2L150.8 813.4L152.8 812.3L153.3 811L154.4 811.7L156.6 810.8L157.8 810.8L158.4 812L160.7 810.2L163.7 812.3L165 812.7L168 811.9L169.8 814.7L167.6 818.4L166.6 818.2L165 819.8L163.9 818.8L162.7 819.2L156.6 823.2L154.1 824.3L152.2 822.5L150.6 821.8L150 822.4L150.3 822.8L148 824.2L146.4 824L146.6 824.5L145.4 825.1L144 824.6L143.2 825.3L143.8 825.6L143.4 826.2L143.2 825.6L140.8 824.8L139.4 823.5L139.3 822.8L139.9 822.1L138.5 819.6L139.4 817.2L137.3 816.5Z" vector-effect="non-scaling-stroke"/><path id="mp-rustenburg" d="M645.7 235.8L648.7 234.1L651.8 237.8L652.4 233.5L653.3 233.3L654.3 234.7L655.1 233.5L656.1 233.3L657.1 234.4L658.7 233.8L659.6 235.3L660.4 235.5L660.1 236.7L660.4 237.5L661.5 238L660.9 238.8L661.2 239.6L660.4 239.9L661.7 242.3L662.6 242.2L662.2 244.4L662.8 245.1L662.1 245.1L662 245.4L663.2 245.3L663.2 245.8L665 246L664.9 246.7L666.9 247.2L667.3 246.4L669.4 246.6L670.1 245.8L670.5 245.9L670.6 247.2L670.1 247.2L670 247.8L670.7 248L671 248.8L672.7 249.1L672.9 251.9L670.2 251L669.1 253.5L668 253L667.5 254.1L665.5 251.6L663.4 251.5L662.3 252.1L661.4 251.5L660.1 251.3L659.5 251.9L658.4 251.9L658.3 251.1L657.4 251.2L656.7 250.1L655.2 249.9L654.9 248.7L654.7 251.1L653.4 251L651.8 248.9L649 251L653.6 252.6L654 253.5L655.8 253.9L655.7 254.3L657.2 256.1L651.8 256.1L649.7 255L648.1 246.8L647.2 244.4L649.6 242.4L649.3 241.8L649.7 241.5L647.8 240.3L647 238.7L647.4 238.4L645.7 235.8ZM665.2 238.4L665.9 237.6L666.8 238.7L666 239.1L665.6 238.4L665.2 238.4ZM663.4 244L664.1 244L664.2 243L665 244.6L664.7 245.1L663.7 245.2L663.4 244ZM662.3 236.8L663.2 235.5L664.5 235.9L663.5 236.7L662.3 236.8Z" vector-effect="non-scaling-stroke"/><path id="mp-pilanesberg" d="M657.6 217.6L657.7 216.6L658.3 216.7L658.5 215.7L659.3 215.2L660.2 215.3L660.5 216.3L659.3 216.7L659.3 217.8L659.9 218L659.6 218.5L658.8 218.3L658.6 217.6L657.6 217.6ZM657.9 220.9L658.2 220L658.9 220.7L659.9 220.8L660.5 222.1L659.8 221.8L659.3 222.4L658.3 222L657.9 220.9ZM657.6 223.9L658 222.7L659.1 222.8L659.1 223.8L658.1 224.2L657.6 223.9ZM637.6 214.3L638.9 213.2L639.5 211.5L640.8 210.4L640.6 209.9L641.5 208.9L642.8 209.1L644.1 208.2L644.5 208.4L644.6 207.8L646.2 208.1L647.4 209.2L647.9 208.5L648.8 208.7L649.9 209.6L649.4 210L649.8 210.7L650 209.7L651.1 209.7L652.5 208.9L652.9 209.4L652.5 207.7L651.9 207.1L652.7 206.9L652.7 206.3L653.6 206.2L653.8 205.7L653.5 205.3L653.8 205L653.9 206.2L654.6 207.4L654.5 208.9L653.3 209.4L653.8 209.6L653.8 210.6L654.8 211.8L656.2 211.4L656.2 212.1L656.6 210.6L656.9 211.5L657.4 211.7L657.2 211L658.9 211L657.7 213.8L657.2 212.9L656.8 213.4L656.3 213.3L655.9 214L656.4 214.1L656.4 214.7L655.8 214.8L655.8 214.2L654.9 214L655.8 215.2L655.9 216.4L654.8 217.7L655.6 217.6L656 217.1L656.6 218.7L655.6 218.6L655.5 218.2L655.1 218.6L654.3 218.4L653.8 219.3L654.3 220.1L654.1 220.4L653.5 220L649.8 223.7L647.5 224.2L647.4 223.6L646.1 223.7L645.9 224.1L646.3 225L645.9 225.8L645.1 225.5L644.8 225.2L645 224.8L642.8 222.7L640.8 222.2L641.1 221.9L638.8 216.9L639.7 214L639.6 213.5L639.1 213.5L639 214.1L638.5 214.1L638.3 215.1L637.6 214.3ZM651.5 212.2L652.3 213.1L653.3 212.7L654.1 213.5L654.4 213.2L653.5 211.9L653.4 212.4L652.7 211.6L651.5 212.2ZM641.7 226.5L641.9 226L643.2 225.8L642.9 226.8L641.7 226.5ZM633.4 208.7L633.9 206.4L636.3 206.1L638.1 207L637.8 209L636.2 209.9L633.4 208.7ZM635.8 213.1L636.7 213L636.5 214.2L636.8 214.3L636.9 216L635.9 215.6L635.8 213.1ZM635.4 218.1L636 217.3L635.5 216.6L636.3 217.1L636.5 218.6L635.4 218.1Z" vector-effect="non-scaling-stroke"/><path id="mp-mossel_bay" d="M315.6 821.7L316.7 819.3L316.4 816L317.1 815.9L317.7 815L317.8 813.7L317 813.6L319.3 811.6L329.2 811.8L333.4 812.5L336.6 812.6L338.5 812.1L340.1 813.8L341.4 813.7L342.1 811.4L345 811.2L345.7 812.8L347.9 812.8L350.5 814.1L351.7 814.1L351.7 815.1L353.8 816.6L353.3 819.1L353.5 820.5L354.4 821.2L354 822.2L354.5 823.3L353.5 824.3L353.6 825.1L356.1 825L356.3 824.6L356.9 824.8L357.1 825.4L359 825.5L358.9 824.7L359.1 825.5L358.4 825.6L355.4 825.4L352.1 825.8L346.9 827.8L345.2 829.8L344.3 832L344.4 833.2L346 834.2L346.4 833.9L347.2 834.4L347.3 834.8L346.3 835.4L343.4 835.9L342.9 836.3L341.1 836L336.9 836.7L336.5 836.3L335.2 836.7L335.5 837.3L333.4 838.7L332.9 838.2L332.3 838.7L332 838.4L332.3 839.5L332.7 839.6L332.1 840.8L332.2 841.8L334.2 842.6L332 843.8L331.7 844.8L332.3 845.3L330.6 845.6L329.7 846.8L329.2 845.9L329.6 845.1L328.6 844.9L327 843.4L326.8 842.4L327.4 842L327.1 841.5L324.6 841.5L323.4 839.6L322.3 836.6L321.2 836.2L321 833.2L321.8 832.7L320.3 830.7L318 830.3L318.6 828L321.1 828.1L321.3 828.9L322 828.8L322.1 827.4L320.3 827.2L320.3 825.5L321.5 824.2L320.4 823.9L320.1 825L319.1 825.4L318.9 823L317.5 823L317.2 822.4L316.1 822.6L315.7 822.4L315.6 821.7Z" vector-effect="non-scaling-stroke"/><path id="mp-durban" d="M856.6 553.2L857.5 552.9L857.7 553.6L858.3 553.5L858 552.4L858.8 552.5L858.7 551.2L859 550.7L859.9 550.6L860.7 549.7L861.5 549.9L862.1 548.8L862.7 548.6L861.4 548L861.7 547.3L863.1 546.6L864.1 543.9L866 543.5L866.6 543.9L866.4 542.6L866.8 542.7L867.8 541.8L868.5 542.3L869.1 541.8L868.7 540.9L867.7 541.4L864.8 541.3L865.2 539.7L864.4 539.7L864.7 539.4L864.1 538.6L864.1 537.7L863.7 537.6L863.4 538.4L862.9 538.1L861.8 536.5L861.4 536.8L860.4 536.3L859.4 534.9L860.6 534.6L861.3 535L861.5 534.2L861.2 533.6L859.1 534.4L859.8 529.8L859.7 528.4L859.2 527.4L858.5 527.4L858.8 526.5L858.2 526.2L859 524.7L859.8 520.7L858.8 521.2L858.9 520L858.4 519.7L859.5 519.1L859.6 518.5L859.2 518L860.2 517.5L859.7 518.4L860.1 519L861.9 520.1L862.5 519.7L862 518.8L861.4 518.7L861.7 518.1L861.2 517.8L861.2 517.3L863.2 517.4L863.5 516.8L863.4 516.3L861.6 515.4L862.5 514.8L865.5 516.2L866.9 516L867.3 512.3L868.3 512.8L869.5 512.3L869.5 513L871.6 514.4L871.8 513.2L872.3 513L872 511.9L872.8 511.5L873 512.4L873.7 512.3L873.7 513.4L873.3 514.6L874.2 515L875.1 514.6L875 515.2L875.4 515.6L875.1 516.6L875.7 517.5L876.2 517.3L876.3 516.5L877.5 515.9L877.3 515.4L878.5 515.3L879 514.8L879.1 514.5L878.5 514.1L878.6 512.7L879.4 512.8L879.3 513.7L879.9 514.2L881.2 513.9L882 514.2L882.6 512.7L882.3 511.7L881.7 511.5L881.8 511L883.6 510L883.9 510.6L885.2 511.1L885.1 511.5L885.7 511.7L886.6 511.5L887.2 512.1L888.5 511.6L888.9 512L890.2 512L890.7 513.1L891.4 513.4L891.9 511L893.2 510.5L896.1 512.3L895.4 512.8L895.2 513.5L895.5 515L896.2 515.3L896 514.3L896.7 513.4L896.6 512.7L896.9 512.9L896.9 514.7L893 520.7L887.8 530.9L887.3 534L887.8 535.7L888.3 536L888.9 535.7L888.6 536.7L883.1 543.8L878 549L873.1 558.7L872.7 560.3L870.3 564.3L869.9 564.2L870.1 563.5L869.8 562.6L869.3 563.4L865.7 563.3L865.8 562.4L865 562.1L863.5 557.3L863.7 556.4L862.9 556.8L860.8 556.4L860 555.4L859.1 555.7L858.6 555.2L859 554.7L857.8 554.3L856.6 553.2ZM864.7 545.6L864.7 546.8L867.7 547.5L868.8 548.4L868.1 547.5L868.8 545.9L870.5 545.8L870.2 544.6L870.9 544.3L870.4 544L868.1 544.5L866.7 544.1L866.3 545L864.7 545.6ZM862.9 542.3L862.9 541.7L864.3 542.1L864 542.8L862.9 542.3ZM859.5 547.4L860.1 546.9L860.5 547.4L860.3 548L861.1 548.7L860 548.1L859.6 548.3L859.5 547.4Z" vector-effect="non-scaling-stroke"/><path id="mp-gqeberha" d="M531.7 816.4L532.9 813.8L535.5 813.9L533.3 813.3L534.9 812.4L533.7 811.3L535.9 808.1L536.6 806.1L538.2 806L538.5 805.4L537.3 804.7L538.3 802.9L535.4 800.5L534.6 800.5L535.1 799.9L536.7 800.3L536.3 800.9L538.3 801.3L538.1 802.1L539.9 802.8L540.5 801.7L541.3 802L541.3 801.2L540.1 800.3L541.1 799L538.7 796.8L540.5 796.6L540.6 796.1L539.5 795.6L541 791.2L544.6 791.5L546.6 790.9L550.9 792.2L550.1 794.9L553.7 796.1L553.9 793.9L558.4 793.6L558.2 794.8L560.6 795.1L561.3 796.1L561.3 794.6L561.8 794.2L562.6 796L563 795.6L564.7 796.1L564.9 798.1L567.3 800.4L568.1 800.7L568.1 799.9L571.7 798.7L572.8 801L571.6 802.6L568 804.1L562.8 807.3L560.4 809.5L558.5 812.5L557.3 816.2L557.2 818.2L558 818.8L558.9 818.7L558.3 819.1L558.7 819.2L558.5 819.5L559.2 819.3L559.4 820.1L560.9 820.7L562.8 824L560.1 823.7L558.2 825.2L557 824.9L555.3 825.3L552.5 824.7L553 824.2L549.2 823.6L544.8 824.3L538.6 821.3L533.5 819.8L532.9 819.4L533.8 818.6L533.6 817.6L532.7 816.4L531.7 816.4Z" vector-effect="non-scaling-stroke"/><clipPath id="inset-clip"><rect x="22" y="-243.7" width="469.5" height="405.7"/></clipPath></defs><use href="#sa-land" class="sa-edge"/><use href="#sa-land" class="sa-fill"/><use href="#sa-borders" class="sa-prov"/><use href="#mp-johannesburg" class="mt" data-mk="johannesburg"/><use href="#mp-cape_town" class="mt" data-mk="cape_town"/><use href="#mp-pretoria" class="mt" data-mk="pretoria"/><use href="#mp-ekurhuleni" class="mt" data-mk="ekurhuleni"/><use href="#mp-west_rand" class="mt" data-mk="west_rand"/><use href="#mp-secunda" class="mt" data-mk="secunda"/><use href="#mp-stellenbosch" class="mt" data-mk="stellenbosch"/><use href="#mp-rustenburg" class="mt" data-mk="rustenburg"/><use href="#mp-pilanesberg" class="mt" data-mk="pilanesberg"/><use href="#mp-mossel_bay" class="mt" data-mk="mossel_bay"/><use href="#mp-durban" class="mt" data-mk="durban"/><use href="#mp-gqeberha" class="mt" data-mk="gqeberha"/><circle class="dot" data-mk="johannesburg" cx="710" cy="312" r="4.5"/><circle class="dot" data-mk="cape_town" cx="132" cy="809" r="4.5"/><circle class="dot" data-mk="pretoria" cx="715" cy="250" r="4.5"/><circle class="dot" data-mk="ekurhuleni" cx="726" cy="289" r="4.5"/><circle class="dot" data-mk="west_rand" cx="682" cy="286" r="4.5"/><circle class="dot" data-mk="secunda" cx="774" cy="303" r="4.5"/><circle class="dot" data-mk="stellenbosch" cx="152" cy="817" r="4.5"/><circle class="dot" data-mk="rustenburg" cx="657" cy="245" r="4.5"/><circle class="dot" data-mk="pilanesberg" cx="647" cy="216" r="4.5"/><circle class="dot" data-mk="mossel_bay" cx="334" cy="825" r="4.5"/><circle class="dot" data-mk="durban" cx="875" cy="533" r="4.5"/><circle class="dot" data-mk="gqeberha" cx="550" cy="808" r="4.5"/><text class="lbl lbl-out" x="116" y="801" text-anchor="end">CAPE TOWN</text><text class="lbl " x="168" y="833" text-anchor="start">STELLENBOSCH</text><text class="lbl " x="334" y="801" text-anchor="middle">MOSSEL BAY</text><text class="lbl " x="550" y="780" text-anchor="middle">GQEBERHA</text><text class="lbl lbl-out" x="893" y="541" text-anchor="start">DURBAN</text><rect class="inset-box" x="628.4" y="200" width="162" height="135.9" rx="3"/><path class="inset-lead" d="M499.5 140L628.4 214"/><g class="inset"><rect class="inset-panel" x="14" y="-287.7" width="485.5" height="457.7" rx="10"/><text class="inset-title" x="36" y="-245.7">7 INLAND METROS, ENLARGED</text><g clip-path="url(#inset-clip)"><use href="#sa-borders" class="sa-prov inset-prov" transform="translate(-1694.1 -773.7) scale(2.75)"/><g transform="translate(-1694.1 -773.7) scale(2.75)"><use href="#mp-pilanesberg" class="mt" data-mk="pilanesberg"/><use href="#mp-rustenburg" class="mt" data-mk="rustenburg"/><use href="#mp-pretoria" class="mt" data-mk="pretoria"/><use href="#mp-west_rand" class="mt" data-mk="west_rand"/><use href="#mp-johannesburg" class="mt" data-mk="johannesburg"/><use href="#mp-ekurhuleni" class="mt" data-mk="ekurhuleni"/><use href="#mp-secunda" class="mt" data-mk="secunda"/></g></g><circle class="dot" data-mk="pilanesberg" cx="85.2" cy="-179.7" r="5.5"/><text class="lbl lbl-inset" x="109.2" y="-172.7" text-anchor="start">PILANESBERG</text><circle class="dot" data-mk="rustenburg" cx="112.7" cy="-100" r="5.5"/><text class="lbl lbl-inset" x="128.7" y="-90" text-anchor="start">RUSTENBURG</text><circle class="dot" data-mk="pretoria" cx="272.2" cy="-86.2" r="5.5"/><text class="lbl lbl-inset" x="286.2" y="-102.2" text-anchor="start">PRETORIA</text><circle class="dot" data-mk="west_rand" cx="181.4" cy="12.8" r="5.5"/><text class="lbl lbl-inset" x="163.4" y="19.8" text-anchor="end">WEST RAND</text><circle class="dot" data-mk="johannesburg" cx="258.4" cy="84.3" r="5.5"/><text class="lbl lbl-inset" x="246.4" y="116.3" text-anchor="end">JOHANNESBURG</text><circle class="dot" data-mk="ekurhuleni" cx="302.4" cy="21" r="5.5"/><text class="lbl lbl-inset" x="318.4" y="28" text-anchor="start">EKURHULENI</text><circle class="dot" data-mk="secunda" cx="434.4" cy="59.5" r="5.5"/><text class="lbl lbl-inset" x="434.4" y="95.5" text-anchor="middle">SECUNDA</text><rect class="inset-border" x="21" y="-280.7" width="471.5" height="443.7" rx="5"/></g></svg>
+          <figcaption class="map-cap">Yellow marks rated ground, not risk. Outside these 12 metros Tsamaya works as an ordinary map and navigator, with no risk data.</figcaption>
+        </figure>
+        <div>
+          <dl class="facts">
+            <div><dt>Rated areas</dt><dd>4&nbsp;396</dd></div>
+            <div><dt>Checked road stretches</dt><dd>2&nbsp;180</dd></div>
+            <div><dt>Flagged road stretches</dt><dd>4&nbsp;874</dd></div>
+          </dl>
+          <ul class="exits">
+            <li><a class="exit" href="#home" title="prototype: Johannesburg only" data-m="cape_town"><span class="exit-tab"><abbr title="Western Cape">WC</abbr></span><span class="exit-name">Cape Town</span><span class="exit-count"><b>909</b> <span class="nb">rated areas</span></span></a></li>
+            <li><a class="exit exit-here" href="#johannesburg" data-m="johannesburg"><span class="exit-tab"><abbr title="Gauteng">GP</abbr></span><span class="exit-name">Johannesburg</span><span class="exit-count"><b>800</b> <span class="nb">rated areas</span></span></a></li>
+            <li><a class="exit" href="#home" title="prototype: Johannesburg only" data-m="durban"><span class="exit-tab"><abbr title="KwaZulu-Natal">KZN</abbr></span><span class="exit-name">Durban</span><span class="exit-count"><b>791</b> <span class="nb">rated areas</span></span></a></li>
+            <li><a class="exit" href="#home" title="prototype: Johannesburg only" data-m="ekurhuleni"><span class="exit-tab"><abbr title="Gauteng">GP</abbr></span><span class="exit-name">Ekurhuleni</span><span class="exit-count"><b>732</b> <span class="nb">rated areas</span></span></a></li>
+            <li><a class="exit" href="#home" title="prototype: Johannesburg only" data-m="pretoria"><span class="exit-tab"><abbr title="Gauteng">GP</abbr></span><span class="exit-name">Pretoria</span><span class="exit-count"><b>486</b> <span class="nb">rated areas</span></span></a></li>
+            <li><a class="exit" href="#home" title="prototype: Johannesburg only" data-m="gqeberha"><span class="exit-tab"><abbr title="Eastern Cape">EC</abbr></span><span class="exit-name">Gqeberha</span><span class="exit-count"><b>254</b> <span class="nb">rated areas</span></span></a></li>
+            <li><a class="exit" href="#home" title="prototype: Johannesburg only" data-m="west_rand"><span class="exit-tab"><abbr title="Gauteng">GP</abbr></span><span class="exit-name">West Rand</span><span class="exit-count"><b>130</b> <span class="nb">rated areas</span></span></a></li>
+            <li><a class="exit" href="#home" title="prototype: Johannesburg only" data-m="rustenburg"><span class="exit-tab"><abbr title="North West">NW</abbr></span><span class="exit-name">Rustenburg</span><span class="exit-count"><b>98</b> <span class="nb">rated areas</span></span></a></li>
+            <li><a class="exit" href="#home" title="prototype: Johannesburg only" data-m="secunda"><span class="exit-tab"><abbr title="Mpumalanga">MP</abbr></span><span class="exit-name">Secunda</span><span class="exit-count"><b>63</b> <span class="nb">rated areas</span></span></a></li>
+            <li><a class="exit" href="#home" title="prototype: Johannesburg only" data-m="mossel_bay"><span class="exit-tab"><abbr title="Western Cape">WC</abbr></span><span class="exit-name">Mossel Bay</span><span class="exit-count"><b>58</b> <span class="nb">rated areas</span></span></a></li>
+            <li><a class="exit" href="#home" title="prototype: Johannesburg only" data-m="pilanesberg"><span class="exit-tab"><abbr title="North West">NW</abbr></span><span class="exit-name">Pilanesberg</span><span class="exit-count"><b>43</b> <span class="nb">rated areas</span></span></a></li>
+            <li><a class="exit" href="#home" title="prototype: Johannesburg only" data-m="stellenbosch"><span class="exit-tab"><abbr title="Western Cape">WC</abbr></span><span class="exit-name">Stellenbosch</span><span class="exit-count"><b>32</b> <span class="nb">rated areas</span></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. on the road -->
+  <section class="band b2" aria-labelledby="road-h">
+    <div class="wrap road-grid">
+      <figure class="shot nav-shot">
+        <img src="img/navigation-600.webp" width="600" height="1304" loading="lazy" decoding="async" alt="Tsamaya turn-by-turn screen at night: in 140 m turn left onto Highveld Road, speed 54 km/h in a 60 zone, and a Use caution chip under Monument Road.">
+        <figcaption>Turn-by-turn at night. Captured at 20:24: 140 m to Highveld Road, 54 in a 60.</figcaption>
+      </figure>
+      <div>
+        <div class="sec-head" style="margin-bottom:20px">
+          <h2 id="road-h">On the road</h2>
+          <p>Press Start and Tsamaya becomes a full navigator, with the ratings running underneath.</p>
+        </div>
+        <ul class="feats">
+          <li><h3 class="h3">Voice turn-by-turn</h3><p>Every turn called out ahead of time, with the road name.</p></li>
+          <li><h3 class="h3">CarPlay and Android Auto</h3><p>The same route and ratings on your car's screen.</p></li>
+          <li><h3 class="h3">Police and roadblock notices</h3><p>Reported by other drivers, shown for an hour and spoken when they are ahead of you. They never change your route.</p></li>
+          <li><h3 class="h3">Road closures</h3><p>Closures and protest reports are picked up daily and routed around.</p></li>
+          <li><h3 class="h3">Share a live trip</h3><p>Someone at home follows your drive on the website.</p></li>
+          <li><h3 class="h3">Hand it to Google Maps</h3><p>Prefer Google? The detour points go across with the route.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. questions -->
+  <section class="band" id="faq" aria-labelledby="faq-h">
+    <div class="wrap faq-grid">
+      <div class="sec-head"><h2 id="faq-h">Questions</h2><p>Four short answers.</p></div>
+      <div class="faq">
+        <details><summary>Is it free?</summary><div class="ans"><p>Yes. No ads, and we do not sell anything about you.</p></div></details>
+        <details><summary>Does a lower-risk route take much longer?</summary><div class="ans"><p>Usually a few minutes. Anything dramatically longer than the direct route is rejected.</p></div></details>
+        <details><summary>Does it guarantee I will be safe?</summary><div class="ans"><p>No, and we will never tell you otherwise. It cuts your exposure to areas with a history of vehicle crime. Crime is not predictable.</p><p>Treat it as better information for a choice you were going to make anyway, and stay alert.</p></div></details>
+        <details><summary>What happens outside the 12 metros?</summary><div class="ans"><p>It works as a normal map and navigator, without risk data.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. get the app -->
+  <section class="band dark" id="get" aria-labelledby="get-h">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="get-h">Get the app</h2><p>Open beta on Android and iPhone.</p></div>
+      <div class="dirs">
+        <a class="sign dir" href="https://play.google.com/store/apps/details?id=com.tsamaya.app"><span><span class="dir-big">Android</span><span class="dir-small">Google Play open test</span></span><svg viewBox="0 0 100 64" aria-hidden="true" focusable="false"><use href="#arr-r"/></svg></a>
+        <a class="sign dir" href="https://testflight.apple.com/join/BZmAqy4v"><span><span class="dir-big">iPhone</span><span class="dir-small">TestFlight beta</span></span><svg viewBox="0 0 100 64" aria-hidden="true" focusable="false"><use href="#arr-r"/></svg></a>
+      </div>
+      <div class="get-notes">
+        <p class="get-free">Free during the open beta.</p>
+        <p class="privacy"><b>No account. No trip history kept. No ads.</b> Your location is used on your phone to show the map and plan routes. Route requests send bare coordinates to the map provider, never your name.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. help -->
+  <section class="band" id="help" aria-labelledby="help-h">
+    <div class="wrap">
+      <div class="tsign">
+        <h2 class="h2" id="help-h">Roadworks: help fix the map</h2>
+        <p class="tsign-intro">Tsamaya is in beta and the map is still being built. The people who fix it are drivers, because you know the corner we got wrong better than any dataset does.</p>
+        <div class="help-cols">
+          <div class="help-free">
+            <h3>Free</h3>
+            <ul class="hlist">
+              <li><h4 class="h3">Drive with it</h4><p>Every trip you plan tells us the mapping in your metro is worth keeping fresh.</p></li>
+              <li><h4 class="h3">Tell one other driver</h4><p>Someone who drives the roads you do. There is no marketing budget, so this is how people find it: tsamayaapp.co.za.</p></li>
+              <li><h4 class="h3">Report a corner we got wrong</h4><p>From inside the app. A road we flagged that is fine now, or a bad one we missed.</p></li>
+              <li><h4 class="h3">Tell us when it annoys you</h4><p>A detour that made no sense, a voice prompt at the wrong moment. Write to <a href="mailto:info@tsamayaapp.co.za">info@tsamayaapp.co.za</a>.</p></li>
+            </ul>
+          </div>
+          <div class="help-money">
+            <h3>Money, if you want to</h3>
+            <ul class="hlist">
+              <li class="amt"><b>R&nbsp;100</b><p>Goes into running costs: map tiles, geocoding, the database.</p></li>
+              <li class="amt"><b>R&nbsp;1&nbsp;000</b><p>We will ask which metro you want next.</p></li>
+              <li class="amt"><b>R&nbsp;2&nbsp;500</b><p>Sponsors a whole new city.</p></li>
+            </ul>
+            <p class="small">Once-off EFT to TSAMAYA (PTY) LTD at Nedbank. Reference: "Tsamaya + your name". No tiers. Any amount is fine, including none.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div data-view="johannesburg" id="johannesburg" hidden>
+
+  <section class="jhb-top" aria-labelledby="jhb-h">
+    <div class="wrap">
+      <a class="back" href="#coverage"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#arr-back"/></svg><span>All 12 metros</span></a>
+      <div class="jhb-grid">
+        <div>
+          <div class="sign sign-title">
+            <h1 id="jhb-h" tabindex="-1">Johannesburg</h1>
+            <ul class="markers" aria-label="Main routes">
+              <li><span class="mk mk-m">M1</span></li>
+              <li><span class="mk mk-m">M2</span></li>
+              <li><span class="mk mk-n">N1</span></li>
+              <li><span class="mk mk-n">N3</span></li>
+              <li><span class="mk mk-n">N12</span></li>
+              <li><span class="mk mk-n">N17</span></li>
+            </ul>
+            <p class="plate">Gauteng <span aria-hidden="true">&middot;</span> 800 rated areas</p>
+          </div>
+          <p class="jhb-intro">Johannesburg is where Tsamaya started and it is still the busiest part of the map. Almost everything funnels through a handful of roads: the M1 and M2, Empire, Louis Botha, Oxford. Those roads run close to the places where vehicle crime concentrates. Plan purely for speed and you will be sent through the worst of it at the worst time of night, without being told.</p>
+          <a class="btn-sign btn-lg" href="#jhb-get">Get the app</a>
+        </div>
+        <figure class="jhb-fig">
+          <svg class="jhb-svg" viewBox="0 0 648 1349" role="img" aria-labelledby="jhb-map-t"><title id="jhb-map-t">Outline of the rated ground in Johannesburg, with no place names.</title><rect width="648" height="1349" rx="18" class="j-panel"/><rect x="11" y="11" width="626" height="1327" rx="9" class="j-border"/><path transform="translate(24 24)" d="M521 307L526 298L550 300L548 291L571 279L555 270L567 264L600 318L551 348L538 344L521 307ZM61 818L73 797L85 794L91 775L100 770L112 773L114 785L125 787L128 777L121 775L121 765L133 765L140 751L149 758L192 748L196 729L242 745L244 733L270 737L278 753L280 743L294 736L294 731L307 728L306 715L316 708L316 701L334 700L335 739L329 735L322 750L303 808L301 834L307 836L317 827L313 844L325 846L331 836L336 845L332 856L345 870L357 870L362 861L355 843L373 836L399 814L399 824L410 824L395 838L403 847L422 828L432 830L413 858L402 848L372 893L372 925L380 943L351 938L337 973L372 979L395 974L436 1044L446 1025L468 1016L488 1071L537 1056L550 1058L588 1031L594 1050L579 1111L588 1112L600 1157L548 1168L543 1180L521 1188L526 1236L512 1275L489 1272L489 1260L471 1262L470 1270L448 1268L442 1258L434 1264L435 1278L425 1285L431 1301L421 1296L418 1301L416 1285L407 1275L419 1270L409 1261L418 1255L422 1225L405 1230L407 1235L394 1247L383 1240L393 1232L393 1223L404 1209L378 1187L360 1183L361 1215L377 1222L378 1240L372 1246L385 1262L388 1282L342 1285L338 1271L343 1251L337 1240L303 1227L280 1209L275 1195L248 1189L260 1175L241 1164L227 1122L235 1098L239 1109L249 1111L249 1091L256 1090L254 1073L236 1069L238 1059L248 1067L253 1066L246 1053L266 1061L271 1088L278 1076L290 1078L288 1049L300 1035L287 1034L286 1014L304 1025L339 1011L331 979L296 1006L271 992L299 980L281 960L292 958L294 952L319 952L325 943L296 923L297 880L304 870L295 874L289 886L257 884L253 895L214 867L163 885L138 939L135 937L130 946L126 938L103 936L105 928L97 929L90 952L82 947L81 939L72 939L62 928L67 894L78 890L77 877L70 879L101 839L85 841L82 823L61 818ZM342 894L340 927L363 926L363 911L355 910L366 895L342 894ZM233 821L257 843L261 875L287 875L297 865L298 858L287 862L286 854L298 852L298 846L266 845L245 818L233 821ZM188 820L205 824L200 799L217 803L219 792L233 790L210 779L194 799L188 820ZM424 10L474 0L506 8L484 47L481 38L437 34L437 11L424 10ZM426 629L426 622L441 615L448 623L446 630L426 629ZM392 334L400 297L420 305L406 317L415 321L415 331L392 334ZM12 614L19 604L29 607L31 602L19 597L23 591L17 574L34 568L35 562L20 553L55 557L44 543L61 530L57 524L50 533L39 531L38 545L31 543L24 536L32 525L33 505L43 505L59 519L73 517L69 508L59 505L58 494L51 495L41 482L61 457L83 456L108 414L106 394L71 381L80 375L75 353L115 335L121 316L132 318L133 307L145 302L139 299L136 277L144 276L145 234L179 230L168 217L180 213L206 264L216 261L220 296L205 304L190 300L186 308L174 310L182 324L173 331L172 342L157 349L155 341L163 328L175 321L152 321L153 338L143 348L153 364L171 365L167 377L172 377L174 384L165 393L165 405L172 399L184 401L180 397L187 387L180 381L192 382L197 375L194 365L202 366L200 354L210 351L225 356L221 379L241 368L241 373L253 376L255 389L272 373L263 367L259 378L248 372L255 346L269 337L268 347L275 349L273 345L280 337L273 332L276 326L287 335L302 322L309 327L294 358L323 366L324 348L329 346L339 356L331 355L327 364L341 367L349 345L360 350L355 372L370 383L376 379L381 389L403 389L365 415L354 406L348 416L368 437L335 456L341 471L358 479L359 497L366 489L376 489L377 483L387 494L393 491L402 501L411 502L413 510L409 518L401 518L403 531L387 535L371 547L358 520L366 501L347 498L335 505L336 513L344 518L335 525L340 531L324 543L325 550L314 561L320 564L312 577L323 579L322 583L300 590L302 597L319 599L312 609L333 615L329 620L334 632L299 641L289 633L293 661L269 672L274 684L286 681L294 696L282 698L290 710L240 722L232 708L232 699L238 699L234 677L209 673L203 675L202 691L193 690L182 700L165 696L161 705L148 704L151 718L139 719L134 716L134 699L88 689L67 652L33 660L30 616L12 614ZM128 514L143 529L154 531L166 510L163 504L158 511L149 510L153 504L145 487L138 506L132 505L128 514ZM238 334L244 315L258 307L252 336L246 342L238 334ZM124 749L133 729L145 736L138 751L124 749ZM87 723L96 701L115 708L118 711L114 718L129 727L120 739L107 740L108 723L97 719L87 723ZM0 724L4 681L33 679L40 702L15 710L25 713L22 722L0 724Z" class="j-shape" fill-rule="evenodd" vector-effect="non-scaling-stroke"/><g class="j-north" transform="translate(70 90)"><path d="M0 -44L16 0H-16Z"/><text x="0" y="36" text-anchor="middle">N</text></g><g class="j-scale" transform="translate(52 1273)"><path d="M0 0V14H90.2V0"/><text x="0" y="46">10 KM</text></g></svg>
+          <figcaption class="cap">Rated ground in Johannesburg. About 66&nbsp;km across. We never name suburbs as risky.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="band b2" aria-labelledby="jtime-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="jtime-h">Johannesburg by the clock</h2>
+        <p>Ratings move sharply between day and night here. Several roads that carry no penalty at midday sit in the top band after 19:30.</p>
+      </div>
+      <ol class="times">
+        <li><p class="t-name">Daytime</p><p class="plate t-plate">05:00 to 17:30</p><p class="t-num">315</p><p class="t-unit"><span class="sw sw-red" aria-hidden="true"></span><b>Rated red</b> of 800 areas</p></li>
+        <li><p class="t-name">Evening</p><p class="plate t-plate">17:30 to 19:30</p><p class="t-num">326</p><p class="t-unit"><span class="sw sw-red" aria-hidden="true"></span><b>Rated red</b> of 800 areas</p></li>
+        <li><p class="t-name">Night</p><p class="plate t-plate">19:30 to 05:00</p><p class="t-num">533</p><p class="t-unit"><span class="sw sw-red" aria-hidden="true"></span><b>Rated red</b> of 800 areas</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="jdrive-h">
+    <div class="wrap drive-grid">
+      <div>
+        <div class="sec-head" style="margin-bottom:24px"><h2 id="jdrive-h">Driving here</h2></div>
+        <ol class="notes">
+          <li><span class="sn">1</span><p>The M1 and M2 through the inner city carry more flagged stretches than any other road we map. Most of it is smash-and-grab and robbery at off-ramps and traffic lights.</p></li>
+          <li><span class="sn">2</span><p>Ratings move sharply between day and night. Several roads that carry no penalty at midday sit in the top band after 19:30.</p></li>
+          <li><span class="sn">3</span><p>Load-shedding matters. A dark intersection is a different proposition from a lit one, which is why evening and night are rated separately.</p></li>
+        </ol>
+      </div>
+      <div class="roads">
+        <div class="sec-head" style="margin-bottom:24px"><h2 id="jroads-h">Roads on this page</h2></div>
+        <div class="grp">
+          <h3>Through the city</h3>
+          <ul>
+            <li><span class="mk mk-m">M1</span></li>
+            <li><span class="mk mk-m">M2</span></li>
+            <li><span class="rd">Empire Road</span></li>
+            <li><span class="rd">Louis Botha Avenue</span></li>
+            <li><span class="rd">Oxford Road</span></li>
+          </ul>
+          <p>Almost every trip across the city funnels through these.</p>
+        </div>
+        <div class="grp">
+          <h3>Freeways out of Joburg</h3>
+          <ul>
+            <li><span class="mk mk-n">N1</span></li>
+            <li><span class="mk mk-n">N3</span></li>
+            <li><span class="mk mk-n">N12</span></li>
+            <li><span class="mk mk-n">N17</span></li>
+          </ul>
+          <p>All mapped. The major freeways carry protective ratings, so the app will not push you off them onto side roads to shave a score.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band b2" aria-labelledby="jfaq-h">
+    <div class="wrap faq-grid">
+      <div class="sec-head"><h2 id="jfaq-h">Johannesburg questions</h2></div>
+      <div class="faq">
+        <details><summary>Does it cover Soweto and the southern suburbs?</summary><div class="ans"><p>Yes. Coverage spans the whole municipal area.</p></div></details>
+        <details><summary>Will it route me the long way round?</summary><div class="ans"><p>Only within limits. Most lower-risk routes across Johannesburg add a few minutes.</p></div></details>
+        <details><summary>Does it work on the highways out of Joburg?</summary><div class="ans"><p>Yes. The N1, N3, N12 and N17 are mapped, and the major freeways carry protective ratings, so the app will not push you off a freeway onto side roads to shave a score.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band dark" id="jhb-get" aria-labelledby="jget-h">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="jget-h">Get the app</h2><p>Open beta on Android and iPhone. Johannesburg ratings are in it now.</p></div>
+      <div class="dirs">
+        <a class="sign dir" href="https://play.google.com/store/apps/details?id=com.tsamaya.app"><span><span class="dir-big">Android</span><span class="dir-small">Google Play open test</span></span><svg viewBox="0 0 100 64" aria-hidden="true" focusable="false"><use href="#arr-r"/></svg></a>
+        <a class="sign dir" href="https://testflight.apple.com/join/BZmAqy4v"><span><span class="dir-big">iPhone</span><span class="dir-small">TestFlight beta</span></span><svg viewBox="0 0 100 64" aria-hidden="true" focusable="false"><use href="#arr-r"/></svg></a>
+      </div>
+      <div class="get-notes">
+        <p class="get-free">Free during the open beta.</p>
+        <p class="privacy"><b>No account. No trip history kept. No ads.</b> Your location is used on your phone to show the map and plan routes. Route requests send bare coordinates to the map provider, never your name.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="back-strip" aria-label="Back to all metros">
+    <div class="wrap">
+      <a class="back" href="#coverage"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#arr-back"/></svg><span>All 12 metros</span></a>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="sign lock">
+      <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><use href="#ico"/></svg>
+      <p>Tsamaya. Go well.</p>
+    </div>
+    <div class="foot-cols">
+      <nav aria-labelledby="fm-h">
+        <h2 id="fm-h">Metros</h2>
+        <ul class="metro-links">
+          <li><a href="#home" title="prototype: Johannesburg only">Cape Town</a></li>
+          <li><a href="#johannesburg">Johannesburg</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Durban</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Ekurhuleni</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Pretoria</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Gqeberha</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">West Rand</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Rustenburg</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Secunda</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Mossel Bay</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Pilanesberg</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Stellenbosch</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="fs-h">
+        <h2 id="fs-h">Site</h2>
+        <ul class="site-links">
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#home">Updates</a></li>
+          <li><a href="#home">Technical</a></li>
+          <li><a href="#home">About</a></li>
+          <li><a href="#help">Support</a></li>
+          <li><a href="#home">Contact</a></li>
+          <li><a href="#get">Get the app</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="fl-h">
+        <h2 id="fl-h">Legal</h2>
+        <ul>
+          <li><a href="#home">Privacy</a></li>
+          <li><a href="#home">Terms</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-base">
+      <p class="disc">Routes consider risk. They are not a guarantee of safety.</p>
+      <p>Built in Johannesburg by TSAMAYA (PTY) LTD. Independent and self-funded.</p>
+    </div>
+    <p class="ctag">Concept 3 of 3 &middot; Road manual</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // view router: #johannesburg shows the metro page, everything else the home page
+  var views = [].slice.call(document.querySelectorAll('[data-view]'));
+  function route(fromEvent) {
+    var id = decodeURIComponent(location.hash.slice(1));
+    var target = id ? document.getElementById(id) : null;
+    var holder = target ? target.closest('[data-view]') : null;
+    var name = holder ? holder.getAttribute('data-view') : 'home';
+    var switched = false;
+    views.forEach(function (v) {
+      var on = v.getAttribute('data-view') === name;
+      if (v.hidden === on) switched = true;
+      v.hidden = !on;
+    });
+    if (!target || target.hasAttribute('data-view')) {
+      window.scrollTo(0, 0);
+      if (fromEvent && switched) {
+        var h = document.querySelector('[data-view="' + name + '"] h1');
+        if (h) h.focus({ preventScroll: true });
+      }
+    } else if (switched) {
+      target.scrollIntoView();
+    }
+  }
+  window.addEventListener('hashchange', function () { route(true); });
+  route(false);
+
+  // compact menu below 960px
+  var head = document.querySelector('.site-head');
+  var btn = head.querySelector('.menu-btn');
+  head.classList.add('menu-ready');
+  function setMenu(open) { head.classList.toggle('open', open); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  btn.addEventListener('click', function () { setMenu(!head.classList.contains('open')); });
+  head.querySelectorAll('.nav a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+
+  // VMS: three true messages, 4 s each, with a pause control
+  var msgs = ['Night ratings from 19:30', '2\u00a0525 high-risk areas at night', 'Lower-risk route: usually a few minutes'];
+  var out = document.getElementById('vms-msg');
+  var pb = document.querySelector('.vms-pause');
+  var label = pb.querySelector('span');
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var i = 0, timer = null, paused = false;
+  function next() {
+    out.classList.add('off');
+    setTimeout(function () { i = (i + 1) % msgs.length; out.textContent = msgs[i]; out.classList.remove('off'); }, 170);
+  }
+  function stop() { clearInterval(timer); timer = null; }
+  function start() { stop(); if (!paused && !rm.matches) timer = setInterval(next, 4000); }
+  function reset() { stop(); i = 0; out.textContent = msgs[0]; out.classList.remove('off'); }
+  pb.hidden = rm.matches;
+  pb.addEventListener('click', function () {
+    paused = !paused;
+    label.textContent = paused ? 'Play' : 'Pause';
+    pb.querySelector('path').setAttribute('d', paused ? 'M2 1L13 7L2 13Z' : 'M2 1h4v12H2zM8 1h4v12H8z');
+    if (paused) stop(); else start();
+  });
+  var onRm = function () { pb.hidden = rm.matches; if (rm.matches) reset(); else start(); };
+  if (rm.addEventListener) rm.addEventListener('change', onRm);
+  start();
+
+  // coverage: point at a metro sign and its shape lights up on the map
+  document.querySelectorAll('.exit[data-m]').forEach(function (a) {
+    var key = a.getAttribute('data-m');
+    function on() { document.querySelectorAll('[data-mk="' + key + '"]').forEach(function (e) { e.classList.add('hl'); }); }
+    function off() { document.querySelectorAll('[data-mk].hl').forEach(function (e) { e.classList.remove('hl'); }); }
+    a.addEventListener('mouseenter', on); a.addEventListener('focus', on);
+    a.addEventListener('mouseleave', off); a.addEventListener('blur', off);
+  });
+})();
+</script>
