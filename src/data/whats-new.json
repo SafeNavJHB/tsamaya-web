@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-24.2",
+      "date": "24 September 2026",
+      "items": [
+        {
+          "icon": "settings-outline",
+          "title": "Settings while you drive on CarPlay",
+          "body": "CarPlay now has a Settings button next to Search during a drive too, as Android Auto does, so you can change the sound, alerts and map without ending the trip. On the map it has moved next to Search as well.",
+          "category": "feature"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "A clearer view ahead in the car",
+          "body": "With satellite imagery on CarPlay, the Mapbox logo now sits under the road label and the speed dial stays in the top corner, so the road ahead stays clear.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-24.1",
       "date": "24 September 2026",
       "items": [
