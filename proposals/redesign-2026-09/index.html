@@ -93,7 +93,7 @@ section { margin-bottom: 64px; }
 .concept figure img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
 .concept .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .concept .body p { margin: 0; }
-.concept .go { margin-top: auto; padding-top: 8px; font-weight: 700; }
+.concept .body .go { margin-top: auto; padding-top: 8px; font-weight: 700; }
 .concept .go a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
 .swatches { display: flex; gap: 6px; flex-wrap: wrap; }
 .sw { width: 26px; height: 26px; border-radius: 5px; border: 1px solid rgba(0,0,0,.14); }
@@ -159,7 +159,7 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
 <div class="page">
 
 <header class="mast">
-  <div class="mast-top"><img src="img/favicon.svg" alt="Tsamaya app icon" width="34" height="34"><strong>Tsamaya</strong><span>Website redesign proposals · 2026/09/24</span></div>
+  <div class="mast-top"><img src="img/favicon.svg" alt="Tsamaya app icon" width="34" height="34"><strong>Tsamaya</strong><span>Website redesign proposals &#183; 2026/09/24</span></div>
   <h1>Three redesigns for tsamayaapp.co.za</h1>
   <p class="lede">Each one is a working prototype of the home page and the Johannesburg page, built on the live figures, the real app screenshots and the real coverage outlines. Open them on your phone as well as a laptop: most of your visitors will arrive on an Android phone.</p>
 </header>
@@ -176,7 +176,7 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
     </ol>
     <div class="pick">
       <p class="label">Recommendation</p>
-      <p id="rec-short">{{REC_SHORT}}</p>
+      <p id="rec-short">Build the Street guide, and borrow two pieces from the others: the live line from City clock ("It is 10:48 in Johannesburg. Daytime ratings apply.") and the A to E grade plate from Road manual. That gives the calmest, most trustworthy base, keeps the brand, and still tells the one story no other navigation app can tell: the ratings follow the clock.</p>
     </div>
   </div>
 </section>
@@ -191,7 +191,7 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
         <h3>1. Street guide</h3>
         <p>The street guide that knows what time it is.</p>
         <div class="swatches" aria-hidden="true"><span class="sw" style="background:#F3F4EF"></span><span class="sw" style="background:#15171C"></span><span class="sw" style="background:#2D5B8A"></span><span class="sw" style="background:#34D399"></span><span class="sw" style="background:#D23C4F"></span></div>
-        <p class="go"><a href="{{C1_URL}}">Open Street guide</a></p>
+        <p class="go"><a href="https://claude.ai/artifact/EKwV5b3n4qEhgy4TJmcdy8">Open Street guide</a></p>
       </div>
     </article>
     <article class="concept">
@@ -200,7 +200,7 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
         <h3>2. City clock</h3>
         <p>The same road is a different road at 19:30.</p>
         <div class="swatches" aria-hidden="true"><span class="sw" style="background:#E4ECEF"></span><span class="sw" style="background:#E8A46C"></span><span class="sw" style="background:#0B1220"></span><span class="sw" style="background:#FFB347"></span><span class="sw" style="background:#34D399"></span></div>
-        <p class="go"><a href="{{C2_URL}}">Open City clock</a></p>
+        <p class="go"><a href="https://claude.ai/artifact/Edb7QLevxmPhowZfkKe1aN">Open City clock</a></p>
       </div>
     </article>
     <article class="concept">
@@ -208,8 +208,8 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
       <div class="body">
         <h3>3. Road manual</h3>
         <p>Read the road before you drive it.</p>
-        <div class="swatches" aria-hidden="true"><span class="sw" style="background:#E7E8E4"></span><span class="sw" style="background:#0A6A44"></span><span class="sw" style="background:#FFC928"></span><span class="sw" style="background:#22252A"></span><span class="sw" style="background:#D7263D"></span></div>
-        <p class="go"><a href="{{C3_URL}}">Open Road manual</a></p>
+        <div class="swatches" aria-hidden="true"><span class="sw" style="background:#E7E8E4"></span><span class="sw" style="background:#08623F"></span><span class="sw" style="background:#FFC928"></span><span class="sw" style="background:#22252A"></span><span class="sw" style="background:#D7263D"></span></div>
+        <p class="go"><a href="https://claude.ai/artifact/BxrKkTu56cCPqrgykqqakf">Open Road manual</a></p>
       </div>
     </article>
   </div>
@@ -228,7 +228,7 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
         <li>"Three quick steps" as three numbered cards with line icons.</li>
         <li>Six identical feature cards, each with an icon in a tinted square.</li>
         <li>A small uppercase label over every heading (eight on the home page).</li>
-        <li>Sora and Inter, the most common "modern app" pairing.</li>
+        <li>Inter for body text, the face most often left at its default on machine-made sites, with Sora for headings.</li>
         <li>The same rhythm all the way down: white band, pale grey band, repeat.</li>
       </ul>
       <h3>What every proposal keeps</h3>
@@ -268,7 +268,7 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
     <div class="finding">
       <h3>The machine-made look is measurable</h3>
       <div>
-        <p>An automated check of 1 590 launch pages found about 67% carried AI-design fingerprints: permanent dark themes, gradient backgrounds and grids of icon cards were the most common (Krebs). The purple comes from one Tailwind default whose creator apologised for it in 2025. The newer "anti-slop" look (an italic serif word in a sans headline, a small monospace label, amber on dark) has already become a cliché of its own.</p>
+        <p>An automated check of 1 590 launch pages found about 67% carried AI-design fingerprints: permanent dark themes, gradient backgrounds and grids of icon cards were the most common (Krebs). The purple comes from one Tailwind default whose creator apologised for it in 2025. The newer "anti-slop" look (an italic serif word in a sans headline, a small monospace label, amber on dark) has already become a clich&#233; of its own.</p>
         <p class="so">So: no gradients as decoration, no icon-card grids, no monospace labels, no italic accent words, no Inter, and every structural device has to mean something.</p>
       </div>
     </div>
@@ -315,7 +315,7 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
   <h2 id="detail-h">The three proposals in detail</h2>
 
   <article class="detail" id="c1">
-    <div class="detail-head"><h3>1. Street guide</h3><a class="open" href="{{C1_URL}}">Open the prototype</a></div>
+    <div class="detail-head"><h3>1. Street guide</h3><a class="open" href="https://claude.ai/artifact/EKwV5b3n4qEhgy4TJmcdy8">Open the prototype</a></div>
     <p class="thesis">Every South African car used to carry a spiral-bound street guide. Tsamaya is that guide redrawn for how people drive now, with one difference: it knows what time it is.</p>
     <div class="detail-grid">
       <dl class="spec">
@@ -336,7 +336,7 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
   </article>
 
   <article class="detail" id="c2">
-    <div class="detail-head"><h3>2. City clock</h3><a class="open" href="{{C2_URL}}">Open the prototype</a></div>
+    <div class="detail-head"><h3>2. City clock</h3><a class="open" href="https://claude.ai/artifact/Edb7QLevxmPhowZfkKe1aN">Open the prototype</a></div>
     <p class="thesis">Tsamaya's ratings follow the clock: 1 372 areas are rated high risk in daytime and 2 525 at night. This design makes time the whole system. The page runs on South African time and moves through one day as you scroll.</p>
     <div class="detail-grid">
       <dl class="spec">
@@ -346,7 +346,7 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
         <div><dt>Type</dt><dd>Anybody, a variable face whose weight gets heavier as the page gets darker, and Atkinson Hyperlegible Next for reading text.</dd></div>
         <div><dt>Colour</dt><dd>Three real lights: pale Highveld winter sky, amber dusk, navy night with sodium-streetlight orange. The clock decides, not the phone's theme.</dd></div>
         <div><dt>Research it draws on</dt><dd>Transit's enormous numbers, scroll-driven storytelling from data journalism, real data as the hero.</dd></div>
-        <div><dt>Watch out for</dt><dd>Three palettes mean three times the contrast checking. The night look sits close to the "amber on dark" cliché, so it has to stay disciplined. More JavaScript than the other two.</dd></div>
+        <div><dt>Watch out for</dt><dd>Three palettes mean three times the contrast checking. The night look sits close to the "amber on dark" clich&#233;, so it has to stay disciplined. More JavaScript than the other two.</dd></div>
         <div><dt>Effort to build</dt><dd>Larger. Time logic runs in the browser, and every section needs testing in all three lights.</dd></div>
       </dl>
       <div class="shots-2">
@@ -357,7 +357,7 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
   </article>
 
   <article class="detail" id="c3">
-    <div class="detail-head"><h3>3. Road manual</h3><a class="open" href="{{C3_URL}}">Open the prototype</a></div>
+    <div class="detail-head"><h3>3. Road manual</h3><a class="open" href="https://claude.ai/artifact/BxrKkTu56cCPqrgykqqakf">Open the prototype</a></div>
     <p class="thesis">South African drivers already read one design system fluently at 120 km/h. This design builds the site from it, and turns the app's own A to E route grade into a plate in the same system.</p>
     <div class="detail-grid">
       <dl class="spec">
@@ -384,7 +384,14 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
     <table>
       <thead><tr><th scope="col">Criterion</th><th scope="col">1. Street guide</th><th scope="col">2. City clock</th><th scope="col">3. Road manual</th></tr></thead>
       <tbody>
-{{COMPARE_ROWS}}
+        <tr><th scope="row">Stands apart from the template look</th><td><span class="dots" role="img" aria-label="4 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot off"></span></span><br><span class="small">Quietest of the three; the atlas devices carry it.</span></td><td><span class="dots" role="img" aria-label="5 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><br><span class="small">Time as the design system is unlike any app site.</span></td><td><span class="dots" role="img" aria-label="5 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><br><span class="small">Unmistakably South African and unmistakably road.</span></td></tr>
+        <tr><th scope="row">Clear to a first-time visitor</th><td><span class="dots" role="img" aria-label="5 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><br><span class="small">Familiar reading order, one idea per section.</span></td><td><span class="dots" role="img" aria-label="4 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot off"></span></span><br><span class="small">The live clock needs a second to understand.</span></td><td><span class="dots" role="img" aria-label="4 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot off"></span></span><br><span class="small">Very legible, but sign styling adds visual noise.</span></td></tr>
+        <tr><th scope="row">Calm and trustworthy for a safety product</th><td><span class="dots" role="img" aria-label="5 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><br><span class="small">Reads like a reference book. Method and limits are visible.</span></td><td><span class="dots" role="img" aria-label="4 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot off"></span></span><br><span class="small">Calm, though the night sections are dramatic.</span></td><td><span class="dots" role="img" aria-label="3 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot off"></span><span class="dot off"></span></span><br><span class="small">Sign language sits close to warning imagery, and must never look official.</span></td></tr>
+        <tr><th scope="row">Fit with the current brand</th><td><span class="dots" role="img" aria-label="4 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot off"></span></span><br><span class="small">Keeps emerald; a night edition brings back the navy.</span></td><td><span class="dots" role="img" aria-label="4 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot off"></span></span><br><span class="small">Keeps navy and emerald at night.</span></td><td><span class="dots" role="img" aria-label="2 of 5"><span class="dot"></span><span class="dot"></span><span class="dot off"></span><span class="dot off"></span><span class="dot off"></span></span><br><span class="small">Moves the base colour from navy to sign green.</span></td></tr>
+        <tr><th scope="row">Tells the time-of-day story</th><td><span class="dots" role="img" aria-label="3 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot off"></span><span class="dot off"></span></span><br><span class="small">In the map key and a small table.</span></td><td><span class="dots" role="img" aria-label="5 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><br><span class="small">It is the whole page.</span></td><td><span class="dots" role="img" aria-label="3 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot off"></span><span class="dot off"></span></span><br><span class="small">Three time plates and the message sign.</span></td></tr>
+        <tr><th scope="row">Ease of building into the real site</th><td><span class="dots" role="img" aria-label="4 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot off"></span></span><br><span class="small">CSS and SVG. The build already draws maps.</span></td><td><span class="dots" role="img" aria-label="2 of 5"><span class="dot"></span><span class="dot"></span><span class="dot off"></span><span class="dot off"></span><span class="dot off"></span></span><br><span class="small">Browser time logic and three palettes to test.</span></td><td><span class="dots" role="img" aria-label="4 of 5"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot off"></span></span><br><span class="small">CSS and SVG, a free font, repeating parts.</span></td></tr>
+        <tr><th scope="row">Measured size of the home page file</th><td class="num">131&nbsp;KB, 1&nbsp;KB of script</td><td class="num">94&nbsp;KB, 7&nbsp;KB of script</td><td class="num">111&nbsp;KB, 3&nbsp;KB of script</td></tr>
+        <tr><th scope="row">Measured first load, fonts and screenshots included</th><td class="num">about 360&nbsp;KB</td><td class="num">about 270&nbsp;KB</td><td class="num">about 330&nbsp;KB</td></tr>
       </tbody>
     </table>
   </div>
@@ -393,7 +400,20 @@ footer.end { border-top: 1px solid var(--rule); padding-top: 20px; font-size: .8
 
 <section class="rec" aria-labelledby="rec-h">
   <h2 id="rec-h">Recommendation and next steps</h2>
-{{REC_LONG}}
+  <p class="measure"><strong>Build the Street guide as the base.</strong> A safety product earns trust by being calm and showing its method, and the Street guide does both: it reads like a reference book, the map key and the index put the method on the page, and it works in light and dark. It also fits the way the site is already built, since the coverage map is drawn as SVG at build time today.</p>
+  <p class="measure"><strong>Borrow two pieces from the other concepts.</strong></p>
+  <ul class="measure">
+    <li>From City clock: the live line under the hero ("It is 10:48 in Johannesburg. Daytime ratings apply: 1 372 areas are rated high risk. Next change at 17:30."). It is a few lines of script and it proves the time-of-day claim the moment someone lands.</li>
+    <li>From Road manual: the A to E grade plate. The grade is the product's own output, and a stacked A to E plate explains it faster than a paragraph.</li>
+  </ul>
+  <p class="measure"><strong>Keep Road manual in reserve</strong> if you want the site to be louder than the app. It is the most local of the three, but it changes the brand colour and it needs care never to look like an official sign.</p>
+  <h3>Before any of it goes live</h3>
+  <ol class="measure">
+    <li>Show all three prototypes to five or six drivers in Johannesburg and Cape Town, on their own phones, and ask which one they would trust with their route home. Research on visual taste shows it varies by country and group, so a quick local test beats any award-site trend.</li>
+    <li>Check the name line with a first-language speaker. "Tsamaya sentle" is the Setswana form of go well; the Sesotho form is usually given as "tsamaya hantle". The current site calls the name both Sesotho and Setswana.</li>
+    <li>Recapture the route card screenshot. The June capture shows an old app banner that still has a dash in it, and all three prototypes use that screenshot.</li>
+    <li>When building, move the chosen design into the existing system (layout.mjs, styles.css and the page files), self-host the fonts again, and keep npm run check green. The live site only changes when that work is merged to main.</li>
+  </ol>
 </section>
 
 <section aria-labelledby="src-h">
