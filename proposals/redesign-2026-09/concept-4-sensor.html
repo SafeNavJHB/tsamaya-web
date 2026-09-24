@@ -1862,6 +1862,11 @@ if (CINE) {
     trigger: sec, start: 'top top', end: () => '+=' + Math.round(innerHeight * (mob() ? LM[i] : LD[i])),
     pin: true, pinSpacing: true, anticipatePin: 1
   }));
+  // once a chapter lets go, fade its panel as it rises so it never slides under the header and HUD
+  chs.forEach((sec, i) => {
+    const p = $('.ch-panel', sec);
+    if (p) G.fromTo(p, { opacity: 1 }, { opacity: 0, ease: 'none', immediateRender: false, scrollTrigger: { start: () => pins[i].end, end: () => pins[i].end + innerHeight * 0.38, scrub: true } });
+  });
   ScrollTrigger.create({ trigger: zone, start: 'top top', end: 'max', onUpdate: () => { const c = chapterC(); scene.setC(c); updateUI(c); }, onRefresh: () => { const c = chapterC(); scene.setC(c); updateUI(c); } });
   ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (self) => $('#top').classList.toggle('is-solid', self.scroll() > 40) });
   updateUI(0);

@@ -38,8 +38,8 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .eyebrow{display:flex;align-items:center;gap:10px;color:var(--ink-2);margin:0 0 20px}
 .eyebrow::before{content:"";width:18px;height:1px;background:currentColor;opacity:.6}
 .num{font-variant-numeric:tabular-nums lining-nums}
-.display{font-family:var(--f-display);font-weight:700;font-variation-settings:"opsz" 96,"wdth" 75;letter-spacing:-.03em}
-.h2{font-family:var(--f-display);font-weight:700;font-variation-settings:"opsz" 96,"wdth" 78;font-size:clamp(2.35rem,1.05rem + 4.3vw,5.6rem);line-height:.94;letter-spacing:-.03em}
+.display{font-family:var(--f-display);font-weight:700;font-variation-settings:"opsz" 96,"wdth" 75;letter-spacing:-.016em}
+.h2{font-family:var(--f-display);font-weight:700;font-variation-settings:"opsz" 96,"wdth" 78;font-size:clamp(2.35rem,1.05rem + 4.3vw,5.6rem);line-height:.94;letter-spacing:-.016em}
 .h3{font-family:var(--f-display);font-weight:600;font-variation-settings:"opsz" 32,"wdth" 90;font-size:1.3rem;line-height:1.15;letter-spacing:-.01em}
 .lede{font-size:clamp(1.06rem,.98rem + .35vw,1.25rem);line-height:1.55;color:var(--ink-2);max-width:46ch}
 .split-line{padding-bottom:.06em;margin-bottom:-.06em}
@@ -111,7 +111,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .hero-label{display:inline-flex;align-items:center;gap:10px;margin:0 0 clamp(14px,2.2vh,24px);padding:8px 14px 8px 12px;border:1px solid var(--grid-2);border-radius:999px;background:rgba(255,255,255,.78);color:var(--ink-2)}
 .hero-label b{color:var(--ink);font-weight:500}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--go);box-shadow:0 0 0 3px rgba(16,185,129,.18)}
-.hero-h1{font-size:clamp(3.4rem,.5rem + 9.6vw,11rem);line-height:.87;letter-spacing:-.035em;margin:0}
+.hero-h1{font-size:clamp(3.4rem,.5rem + 9.6vw,11rem);line-height:.87;letter-spacing:-.016em;margin:0}
 .hero-h1 em{font-style:normal;color:var(--go-large)}
 .flow-window{position:absolute;left:49%;right:0;top:9%;bottom:40%;pointer-events:none}
 .hero-body{grid-column:1/span 5;align-self:end;position:relative;z-index:1}
@@ -1409,7 +1409,7 @@ details[open] .pl::after{transform:scaleY(0)}
         var P = DEF[i] ? go[b] : ink[b];
         P.moveTo(PX[i], PY[i]); P.lineTo(X[i], Y[i]);
       }
-      ctx.lineWidth = o.lineWidth || 1.15;
+      ctx.lineWidth = o.lineWidth || 1.3;
       for (b = 0; b < NB; b++) {
         ctx.strokeStyle = 'rgba(' + col.ink + ',' + col.inkA[b] + ')'; ctx.stroke(ink[b]);
         ctx.strokeStyle = 'rgba(' + col.go + ',' + col.goA[b] + ')'; ctx.stroke(go[b]);
@@ -1541,7 +1541,7 @@ details[open] .pl::after{transform:scaleY(0)}
       still: TIER === 'still', stillCount: 220, pointer: FINE, converge: 0.62, noise: 0.75,
       wells: WELLS, life: [40, 90], wellLayer: $('[data-wells]'), destEl: $('[data-dest] i'), maxR: 0.14, fade: 0.05,
       laneGap: W.innerWidth < 700 ? 10 : 13,
-      colors: { ink: '31,41,55', go: '16,185,129', inkA: [0.44, 0.22, 0.09], goA: [0.92, 0.5, 0.2] },
+      colors: { ink: '31,41,55', go: '16,185,129', inkA: [0.62, 0.34, 0.14], goA: [1, 0.64, 0.26] },
       speed: function (w) { return w < 700 ? 42 : 58; },
       count: function (w, h) { var n = Math.round(w * h / (w < 700 ? 280 : 520)); if (TIER === 'light') n = Math.min(900, Math.round(n * 0.45)); return Math.min(2400, n); },
       min: TIER === 'light' ? 300 : 600,
