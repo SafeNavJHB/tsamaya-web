@@ -61,9 +61,9 @@ South African law governs these terms. If any clause is unenforceable, the rest 
 
 ## Appendix A: short in-app disclaimer (first-run screen)
 
-> **Tsamaya suggests lower-risk routes using historical crime statistics and curated local knowledge. Lower-risk does not mean safe — no app can guarantee your safety, and conditions change faster than any data. You stay responsible for every driving decision. In an emergency call 10111 or 112.**
+> **Tsamaya suggests lower-risk routes using historical crime statistics and curated local knowledge. Lower-risk does not mean safe. No app can guarantee your safety, and conditions change faster than any data. You stay responsible for every driving decision. In an emergency call 10111 or 112.**
 >
-> [ I understand — Asambe ]
+> [ I understand. Asambe ]
 
 Acknowledgement is recorded on-device (timestamp + version) before first route is requested.
 
