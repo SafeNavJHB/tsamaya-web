@@ -10,7 +10,9 @@ for (const [mode, q, js, rm] of [['full', '', true, false], ['light', '?tier=lig
   const ctx = await b.newContext({ viewport: { width: 360, height: 780 }, javaScriptEnabled: js, reducedMotion: rm ? 'reduce' : 'no-preference' });
   const p = await ctx.newPage();
   p.on('pageerror', (e) => errs.push(mode + ': ' + e.message));
-  p.on('console', (m) => { if (m.type() === 'error' && !/ERR_TUNNEL|cloudflareinsights/.test(m.text())) errs.push(mode + ': ' + m.text()); });
+  // the Cloudflare analytics beacon is refused on localhost (CORS), then logs a
+  // bare "Failed to load resource: net::ERR_FAILED"; nothing of ours
+  p.on('console', (m) => { if (m.type() === 'error' && !/ERR_TUNNEL|cloudflareinsights|ERR_FAILED/.test(m.text())) errs.push(mode + ': ' + m.text()); });
   await p.goto('http://localhost:8795/' + q, { waitUntil: 'load' });
   if (js) await p.waitForFunction(() => window.__home && window.__home.ready, null, { timeout: 30000 });
   await p.waitForTimeout(js ? 2500 : 300);

@@ -133,6 +133,13 @@ const live = (p) => p.waitForTimeout(150).then(() => p.evaluate(() => document.g
   check('390: Back to all 12', (await ex(p)).lvl === 'nat');
   await p.tap('#ex-list button[data-m="1"]'); await settle(p);
   check('390: tapping a list row flies in', (await ex(p)).sel === 1);
+  // a row low in the list, with the map scrolled away above: the map comes back
+  const low = await p.evaluate(() => Math.round(document.getElementById('ex-list').getBoundingClientRect().bottom + scrollY - innerHeight + 20));
+  await p.evaluate((y) => (window.lenis ? window.lenis.scrollTo(y, { immediate: true, force: true }) : scrollTo(0, y)), low);
+  await p.waitForTimeout(500);
+  await p.tap('#ex-list button[data-m="11"]'); await p.waitForTimeout(1600); await settle(p);
+  const rv = await p.evaluate(() => { const st = document.querySelector('.ex-stage').getBoundingClientRect(), c = document.getElementById('ex-card').getBoundingClientRect(); return { sel: window.__t.ex().sel, top: Math.round(st.top), card: Math.round(c.bottom) }; });
+  check('390: a row tapped low in the list brings the map and card back into view', rv.sel === 11 && rv.top >= 60 && rv.top <= 76 && rv.card <= 844, JSON.stringify(rv));
   await ctx.close();
 }
 /* ---------- static tier (reduced motion, no WebGL) ---------- */
