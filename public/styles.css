@@ -1409,7 +1409,7 @@ html:not(.js) .ex-stage, html:not(.js) .ex-card { display: none; }
 .ex.cine .ex-stage { align-self: stretch; }
 .ex.cine .ex-card { position: fixed; left: 0; top: 0; z-index: 6; pointer-events: none; }
 .ex.cine .ex-card.is-pin { pointer-events: auto; }
-.ex.cine.gl:not(.act) .ex-card, .ex.cine.gl:not(.act) .ex-hint { opacity: 0; visibility: hidden; }
+.ex.cine.gl:not(.act) .ex-card, .ex.cine.gl:not(.act) .ex-hint, .ex.cine.gl:not(.act) .ex-back { opacity: 0; visibility: hidden; }
 /* the scene's layout before its map is built (.gl), or with no map at all (the
    data file failed): the card sits in the stage's corner and shows a pick, and
    there is nothing to go back from or to pause */

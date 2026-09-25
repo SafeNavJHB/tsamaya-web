@@ -186,18 +186,18 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     SG = { w: x1 - x0, h: y1 - y0, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 };
     // a metro or the cluster in view is framed again for the new stage (a
     // tablet turning round can switch layouts)
-    if (FL.kind !== 'nat' && FL.b) FL.b = viewCam(FL.kind, FL.i);
+    if (FL.b) FL.b = FL.kind === 'nat' ? null : viewCam(FL.kind, FL.i);
   }
   // a camera that frames a box in the stage: all of them, the cluster, or one
   // metro. Side by side, a metro or the cluster is framed into the part of the
   // stage in the window when it is picked (the coverage page's section can
   // outgrow a short window, and the list may have scrolled it up)
-  function viewCam(kind, i) {
+  function viewCam(kind, i, vis) {
     if (!SG) layout();
     const B = kind === 'nat' ? { x0: -63, z0: -55, x1: 62, z1: 55 } : kind === 'reg' ? GTB : EXB[i];
     const sm = small(), p = kind === 'nat' ? 50 : kind === 'reg' ? 54 : 58, fr = kind === 'nat' ? 0.96 : kind === 'reg' ? 0.78 : sm ? 0.8 : 0.4;
     let gh = SG.h, gy = SG.cy;
-    if (kind !== 'nat' && !sm) {
+    if ((kind !== 'nat' || vis) && !sm) {
       const v0 = Math.max(0, -cv.getBoundingClientRect().top), a = v0 + 80, z = Math.min(H, v0 + innerHeight) - 36;
       if (z - a > 200) { gh = z - a; gy = (a + z) / 2; }
     }
@@ -208,7 +208,7 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
   const KEYS = ['d', 'p', 'y', 'f', 'sx', 'sy'];
   // the flight: the target eased, the zoom in log space, a lift and a slight tilt mid-way on long hops
   function curCam() {
-    const b = FL.kind === 'nat' ? viewCam('nat') : FL.b;
+    const b = FL.kind === 'nat' && !FL.b ? viewCam('nat') : FL.b;
     if (!FL.a || FL.k >= 1) return b;
     const a = FL.a, t = FL.k, o = { t: [0, 0, 0] }, s = Math.sin(Math.PI * t);
     KEYS.forEach((q) => { o[q] = lerp(a[q], b[q], t); });
@@ -251,11 +251,16 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     ex.hover(h >= 0 && h < 99 ? h : -1);
     stage.classList.toggle('pt', h >= 0);
   }
-  const offList = () => !ex.btns.includes(document.activeElement) && !card.contains(document.activeElement);
   // the pointer in the canvas's own pixels
   const at = (e) => { const o = cv.getBoundingClientRect(); return [e.clientX - o.left, e.clientY - o.top]; };
   const onMove = (e) => { if (e.pointerType === 'touch') return; [PM.x, PM.y] = at(e); PM.in = true; if (!PM.raf) PM.raf = requestAnimationFrame(doHover); };
-  const onLeave = () => { PM.in = false; hint(false); stage.classList.remove('pt'); if (offList()) ex.hover(-1); };
+  // leaving the map: the hover goes back to a focused row (or stays with a
+  // focused card), else it ends
+  const onLeave = () => {
+    PM.in = false; hint(false); stage.classList.remove('pt');
+    const fi = ex.btns.indexOf(document.activeElement);
+    if (fi >= 0) ex.hover(fi); else if (!card.contains(document.activeElement)) ex.hover(-1);
+  };
   const onClick = (e) => {
     if (!ex.act || e.target.closest('button')) return;
     const h = pick(...at(e));
@@ -289,7 +294,9 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
   }
   function fly(kind, i) {
     const from = curCam();
-    FL.a = from; FL.kind = kind; FL.i = i; FL.b = kind === 'nat' ? null : viewCam(kind, i);
+    // (all 12 too are framed into the part of the stage in the window, which
+    // on a scrolled coverage page is not its first screen)
+    FL.a = from; FL.kind = kind; FL.i = i; FL.b = viewCam(kind, i, true);
     const to = FL.b || viewCam('nat');
     FL.arc = Math.min(Math.hypot(to.t[0] - from.t[0], to.t[2] - from.t[2]) * 0.6, 110);
     G.killTweensOf(FL); FL.k = 0;
@@ -343,44 +350,60 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     back.style.zIndex = over ? '7' : '';
     if (pz) { pz.style.transform = back.style.transform; pz.style.zIndex = back.style.zIndex; }
     // side by side, Back stays below the header while the list scrolls the
-    // stage up, as the card does
-    if (!sm && !back.hidden) {
-      const hd = document.querySelector('.site-header'), keep = (hd ? hd.getBoundingClientRect().bottom : 0) + 7 - stage.getBoundingClientRect().top;
-      if (keep > 0) back.style.transform = `translateY(${keep.toFixed(1)}px)`;
-    }
+    // stage up (as the card does), but never past the stage's own foot, so
+    // both scroll away with the section
+    const sr = stage.getBoundingClientRect(), hd = document.querySelector('.site-header'), hb = (hd ? hd.getBoundingClientRect().bottom : 0) + 7;
+    const backMax = Math.max(0, sr.height - back.offsetHeight - 8);
+    const setBack = (dy) => { back.style.transform = dy > 0 ? `translateY(${Math.min(dy, backMax).toFixed(1)}px)` : ''; };
+    if (!sm && !back.hidden) setBack(hb - sr.top);
     if (i < 0 || ew < 0.3 || !SG) return;
     const o = org(card);
     if (sm) { card.style.transform = `translate3d(${(-o[0]).toFixed(1)}px,${(SG.cy + SG.h / 2 - trk - 8 - ch - o[1]).toFixed(1)}px,0)`; return; }
-    const B = EXB[i];
-    let l = 1e9, r = -1e9, t = 1e9, b = -1e9;
-    const grow = (x, y) => { l = Math.min(l, x); r = Math.max(r, x); t = Math.min(t, y); b = Math.max(b, y); };
-    if (i === ex.sel && ex.lvl === 'metro') [[B.x0, B.z0], [B.x1, B.z0], [B.x0, B.z1], [B.x1, B.z1]].forEach((q) => { const p = scr(q[0], 0, q[1]); grow(p[0], p[1]); });
-    else if (ex.lvl === 'nat' && M[i].gt) [[GTB.x0, GTB.z0], [GTB.x1, GTB.z0], [GTB.x0, GTB.z1], [GTB.x1, GTB.z1]].forEach((q) => { const p = scr(q[0], 0, q[1]); grow(p[0] - 6, p[1] - 60); grow(p[0] + 6, p[1] + 6); });
-    else { const p = scr(top(i).x, 0, top(i).z), u = scr(top(i).x, ht(i) * pil.PU.uHs.value * 1.15, top(i).z); l = p[0] - 8; r = p[0] + 8; t = u[1]; b = p[1] + 8; }
-    // beside the metro, flipping side near the edges; above or below it when
-    // neither side fits. Never left of the stage (the list is there), never
-    // under the header: v0..v1 is the canvas's part of the window (all of it on
-    // the home page; the coverage page's canvas scrolls with its section)
+    // v0..v1 is the canvas's part of the window (all of it on the home page;
+    // the coverage page's canvas scrolls with its section). The card never
+    // goes left of the stage (the list is there), above the header's line, or
+    // past the canvas's foot.
     const cw = card.offsetWidth, m = 12, c = cv.getBoundingClientRect(), v0 = Math.max(0, -c.top), v1 = Math.min(H, innerHeight - c.top);
     const lo = Math.max(m, SG.cx - SG.w / 2), hi = Math.max(lo, W - m - cw), roof = v0 + 76, floor = v1 - 96;
-    let x = r + 20, y = (t + b) / 2 - ch / 2;
-    if (x > hi) x = l - 20 - cw;
-    if (x < lo) { x = (l + r) / 2 - cw / 2; y = b + 14; if (y + ch > floor) y = t - 14 - ch; }
-    x = clamp(x, lo, hi); y = clamp(y, roof, Math.max(roof, floor - ch));
+    const vy = (yy) => clamp(yy, roof, Math.max(roof, floor - ch));
+    const hits = (X, Y, q) => X < q[1] && X + cw > q[0] && Y < q[3] && Y + ch > q[2];
+    // P: the metro's pillar, base to top, which the card must never cover.
+    // A: what it would rather stay beside: a picked metro's outline, or the
+    // Gauteng cluster at national scale
+    const p0 = scr(top(i).x, 0, top(i).z), p1 = scr(top(i).x, ht(i) * pil.PU.uHs.value * 1.15, top(i).z);
+    const P = [Math.min(p0[0], p1[0]) - 10, Math.max(p0[0], p1[0]) + 10, Math.min(p0[1], p1[1]), Math.max(p0[1], p1[1]) + 8];
+    let A = P;
+    const box = (pts) => { const q = [...P]; pts.forEach((u) => { q[0] = Math.min(q[0], u[0]); q[1] = Math.max(q[1], u[0]); q[2] = Math.min(q[2], u[1]); q[3] = Math.max(q[3], u[1]); }); return q; };
+    const B = i === ex.sel && ex.lvl === 'metro' ? EXB[i] : ex.lvl === 'nat' && M[i].gt ? GTB : null;
+    if (B) A = box([[B.x0, B.z0], [B.x1, B.z0], [B.x0, B.z1], [B.x1, B.z1]].map((q) => scr(q[0], 0, q[1])));
+    // beside it (flipping side near the edges), then beside the pillar alone,
+    // then below or above the pillar, then the side with more room
+    const side = (q) => { let X = q[1] + 20; if (X > hi) X = q[0] - 20 - cw; return X < lo || X > hi ? null : [X, vy((q[2] + q[3]) / 2 - ch / 2)]; };
+    let k = side(A);
+    if (!k || hits(k[0], k[1], P)) k = side(P);
+    if (!k || hits(k[0], k[1], P)) {
+      const X = clamp((P[0] + P[1]) / 2 - cw / 2, lo, hi);
+      k = P[3] + 14 + ch <= floor ? [X, vy(P[3] + 14)] : [X, vy(P[2] - 14 - ch)];
+      if (hits(k[0], k[1], P)) k = [hi - P[1] >= P[0] - lo ? clamp(P[1] + 12, lo, hi) : clamp(P[0] - 12 - cw, lo, hi), vy((P[2] + P[3]) / 2 - ch / 2)];
+    }
+    let [x, y] = k;
+    y = Math.min(y, H - ch - 8);
     // and clear of "Back to all 12" in the stage's top corner: beside it, else
-    // below it, as long as the metro stays clear too; failing both (a narrow
+    // below it, as long as the pillar stays clear too; failing both (a narrow
     // stage), Back moves to the foot of the stage's part in the window
     if (!back.hidden) {
-      const q = back.getBoundingClientRect(), bx0 = q.left - c.left - 8, bx1 = q.right - c.left + 8, by0 = q.top - c.top - 8, by1 = q.bottom - c.top + 8;
-      const onBack = (X, Y) => X < bx1 && X + cw > bx0 && Y < by1 && Y + ch > by0, onMetro = (X, Y) => X < r && X + cw > l && Y < b && Y + ch > t;
-      if (onBack(x, y)) {
-        const k = [[Math.min(Math.max(bx1, lo), hi), y], [x, by1]].find(([X, Y]) => !onBack(X, Y) && !onMetro(X, Y) && Y + ch <= Math.max(floor, roof + ch));
-        if (k) [x, y] = k;
+      const q = back.getBoundingClientRect(), bq = [q.left - c.left - 8, q.right - c.left + 8, q.top - c.top - 8, q.bottom - c.top + 8];
+      if (hits(x, y, bq)) {
+        const alt = [[Math.min(Math.max(bq[1], lo), hi), y], [x, bq[3]]].find(([X, Y]) => !hits(X, Y, bq) && !hits(X, Y, P) && Y + ch <= Math.max(floor, roof + ch));
+        if (alt) [x, y] = alt;
         else {
-          // (and never on the card: below it, if the window is that short)
-          const sr = stage.getBoundingClientRect(), bh = back.offsetHeight, foot = Math.min(sr.bottom, innerHeight) - bh - 16;
-          const top = Math.min(Math.max(foot, y + ch + c.top + 8), innerHeight - bh - 8);
-          back.style.transform = `translateY(${Math.max(0, top - sr.top).toFixed(1)}px)`;
+          // (and never on the card: below it, if the window is that short).
+          // With too little of the stage in the window for both (a short
+          // window scrolled deep), Back stays put, drawn over everything, and
+          // the card moves as far right as it can
+          const bh = back.offsetHeight, vb = Math.min(sr.bottom, innerHeight), to = Math.max(vb - bh - 16, y + ch + c.top + 8);
+          if (to + bh <= vb - 4) setBack(to - sr.top);
+          else { back.style.zIndex = '7'; x = hi; }
         }
       }
     }

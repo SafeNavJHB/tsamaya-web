@@ -86,9 +86,13 @@ async function loadScene() {
   const onMotion = (e) => { paused = !!(e.detail && e.detail.paused); engine.invalidate(); };
   // across the phone breakpoint the card changes place (and whether one stays up)
   const onResize = () => { xp.layout(); ex.show(); engine.invalidate(); };
+  // the canvas scrolls with the section: the card and Back keep their places
+  // (below the header, above the section's foot) with motion paused too
+  const onScroll = () => engine.invalidate();
   document.addEventListener('tsamaya:motion', onMotion);
   addEventListener('resize', onResize);
-  scene = { engine, xp, off: () => { document.removeEventListener('tsamaya:motion', onMotion); removeEventListener('resize', onResize); } };
+  addEventListener('scroll', onScroll, { passive: true });
+  scene = { engine, xp, off: () => { document.removeEventListener('tsamaya:motion', onMotion); removeEventListener('resize', onResize); removeEventListener('scroll', onScroll); } };
   root.classList.add('is-live'); sceneEl.classList.add('is-live');
   xp.layout();
   ex.gl = { sync: xp.sync, fly: xp.fly, band: xp.band };
