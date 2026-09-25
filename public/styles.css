@@ -1966,3 +1966,25 @@ html:not(.js) .sn .tabs { display: none; }
   .sn .hw-step { min-height: 52vh; }
   .sn .feat-3 { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* ---------- the live-trip tracker (track.html): restyled, same behaviour ---------- */
+.page-track .trk { padding: clamp(28px, 4vw, 56px) 0 clamp(40px, 6vw, 80px); }
+.page-track .trk-k { color: var(--hud); }
+.page-track .trk-h { margin-top: 12px; font-size: clamp(2rem, 4.4vw, 3.6rem); font-weight: 800; font-stretch: 118%; letter-spacing: -0.025em; line-height: 1; }
+.page-track .trk-s { margin-top: 14px; display: flex; align-items: center; gap: 10px; min-height: 28px; font-size: 16px; font-weight: 600; color: var(--ink); }
+.page-track .trk-s::before { content: ''; width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--fg-2); }
+.page-track .trk-s[data-state='live']::before { background: var(--go); box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.18); }
+.page-track .trk-s[data-state='arrived']::before { background: var(--go); }
+.page-track .trk-s[data-state='sos'] { color: #ef6a7b; font-weight: 700; }
+.page-track .trk-s[data-state='sos']::before { background: #dc3c50; box-shadow: 0 0 0 4px rgba(220, 60, 80, 0.25); }
+.page-track .trk-map { position: relative; height: 68vh; min-height: 320px; margin-top: 16px; border: 1px solid var(--hairline); border-radius: 16px; overflow: hidden; background: var(--night-2); }
+.page-track #map { position: absolute; inset: 0; }
+.page-track .trk-arr { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 24px; text-align: center; background: rgba(10, 15, 28, 0.94); }
+.page-track .trk-ok { color: var(--go); }
+.page-track .trk-arr h2 { margin-top: 12px; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 750; font-stretch: 112%; }
+.page-track .trk-arr p { color: var(--fg-2); }
+.page-track .trk-note { margin-top: 14px; max-width: 46rem; color: var(--fg-2); font-size: 14px; }
+@media (prefers-reduced-motion: no-preference) {
+  .page-track .trk-s[data-state='live']::before { animation: trk-pulse 2s var(--ease-ui) 2; }
+}
+@keyframes trk-pulse { 50% { box-shadow: 0 0 0 7px rgba(52, 211, 153, 0.05); } }
