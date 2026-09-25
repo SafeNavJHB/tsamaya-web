@@ -196,14 +196,18 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     if (!SG) layout();
     const B = kind === 'nat' ? { x0: -63, z0: -55, x1: 62, z1: 55 } : kind === 'reg' ? GTB : EXB[i];
     const sm = small(), p = kind === 'nat' ? 50 : kind === 'reg' ? 54 : 58, fr = kind === 'nat' ? 0.96 : kind === 'reg' ? 0.78 : sm ? 0.8 : 0.4;
-    let gh = SG.h, gy = SG.cy;
+    let gh = SG.h, gy = SG.cy, gw = SG.w, gx = SG.cx;
+    // a stage too narrow for the card beside a metro in its middle (1024 to
+    // about 1140 px wide): the metro, or the cluster, goes left of the card's width
+    const cwid = card.offsetWidth || 276;
+    if (kind !== 'nat' && !sm && SG.w < 2 * (cwid + 32)) { gw = SG.w - cwid - 32; gx = SG.cx - SG.w / 2 + gw / 2; }
     if ((kind !== 'nat' || vis) && !sm) {
       const v0 = Math.max(0, -cv.getBoundingClientRect().top), a = v0 + 80, z = Math.min(H, v0 + innerHeight) - 36;
       if (z - a > 200) { gh = z - a; gy = (a + z) / 2; }
     }
     const f = sm ? 46 : 34, th = 2 * Math.tan(f * D2R / 2), ck = kind === 'metro' && sm && !slot ? 204 : 0, sh = gh - ck;
-    const d = Math.max((B.x1 - B.x0) * H / (fr * SG.w * th), (B.z1 - B.z0) * Math.sin(p * D2R) * H / (fr * sh * th));
-    return { t: [(B.x0 + B.x1) / 2, 0, (B.z0 + B.z1) / 2], d: clamp(d, 10, 400), p, y: kind === 'nat' ? 0 : kind === 'reg' ? -4 : -9, f, sx: (SG.cx - W / 2) / W, sy: (gy - ck / 2 - H / 2) / H };
+    const d = Math.max((B.x1 - B.x0) * H / (fr * gw * th), (B.z1 - B.z0) * Math.sin(p * D2R) * H / (fr * sh * th));
+    return { t: [(B.x0 + B.x1) / 2, 0, (B.z0 + B.z1) / 2], d: clamp(d, 10, 400), p, y: kind === 'nat' ? 0 : kind === 'reg' ? -4 : -9, f, sx: (gx - W / 2) / W, sy: (gy - ck / 2 - H / 2) / H };
   }
   const KEYS = ['d', 'p', 'y', 'f', 'sx', 'sy'];
   // the flight: the target eased, the zoom in log space, a lift and a slight tilt mid-way on long hops
@@ -385,6 +389,9 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
       const X = clamp((P[0] + P[1]) / 2 - cw / 2, lo, hi);
       k = P[3] + 14 + ch <= floor ? [X, vy(P[3] + 14)] : [X, vy(P[2] - 14 - ch)];
       if (hits(k[0], k[1], P)) k = [hi - P[1] >= P[0] - lo ? clamp(P[1] + 12, lo, hi) : clamp(P[0] - 12 - cw, lo, hi), vy((P[2] + P[3]) / 2 - ch / 2)];
+      // a hover card (it takes no clicks) may cross into the text column
+      // rather than cover its pillar; a pinned one never goes over the list
+      if (hits(k[0], k[1], P) && i !== ex.sel) k = [clamp(P[0] - 12 - cw, m, hi), k[1]];
     }
     let [x, y] = k;
     y = Math.min(y, H - ch - 8);
@@ -420,6 +427,10 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
 
   return {
     sync, fly, band, uniforms, place, layout, curCam, viewCam, pick, kill,
+    // the page scrolled (coverage): all 12, framed into the part of the stage
+    // in the window after "Back to all 12", follows it, and goes back to the
+    // fixed frame once the section is at the top again
+    scrolled() { if (FL.kind === 'nat' && FL.b && FL.k >= 1) FL.b = cv.getBoundingClientRect().top < 0 ? viewCam('nat', -1, true) : null; },
     idle: () => ex.hov < 0 && ex.sel < 0 && ex.lvl === 'nat' && !PM.in,
     flying: () => FL.k < 1,
     // for tests: where a metro's pillar is in the window (h: share of its height)

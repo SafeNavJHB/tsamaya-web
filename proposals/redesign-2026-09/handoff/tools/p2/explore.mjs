@@ -95,10 +95,12 @@ const live = (p) => p.waitForTimeout(150).then(() => p.evaluate(() => document.g
   // the pillar's height on screen (top minus base: the idle sway moves both alike)
   const height = () => p.evaluate(() => { const x = window.__t.xp(); return x.screen('cape_town', 0).y - x.screen('cape_town', 1).y; });
   const h0 = await height();
-  await p.click('.exb[data-b="2"]'); await p.waitForTimeout(900);
+  // a band other than the one in force now (after 19:30 Night already is)
+  const nb = (await ex(p)).band === 2 ? 0 : 2;
+  await p.click(`.exb[data-b="${nb}"]`); await p.waitForTimeout(900);
   s = await ex(p);
   const h1 = await height();
-  check('the band switch picks Night; pillar height unchanged', s.band === 2 && Math.abs(h0 - h1) <= 1 && (await p.getAttribute('.exb[data-b="2"]', 'aria-pressed')) === 'true', `band ${s.band} top ${h0}->${h1}`);
+  check('the band switch picks another band; pillar height unchanged', s.band === nb && Math.abs(h0 - h1) <= 1 && (await p.getAttribute(`.exb[data-b="${nb}"]`, 'aria-pressed')) === 'true', `band ${s.band} top ${h0}->${h1}`);
   await p.screenshot({ path: OUT + PRE + 'd-night.png' });
   // 7. keyboard on the list
   await p.focus('#ex-list button[data-m="0"]'); await p.keyboard.press('ArrowDown'); await p.keyboard.press('ArrowDown');
@@ -189,7 +191,8 @@ for (const [w, h] of [[1440, 900], [390, 844]]) {
   const lit = await p.evaluate(() => document.querySelector('.ex-map path[data-m="4"]').classList.contains('on'));
   check(`static ${w}: picking from the list lights its outline, no camera`, s.sel === 4 && lit && (await card(p)).pin);
   const r0 = await p.getAttribute('.ex-map .rg:nth-of-type(1)', 'r');
-  await p.click('.exb[data-b="2"]'); await p.waitForTimeout(300);
+  const sb = (await ex(p)).band === 2 ? 0 : 2;
+  await p.click(`.exb[data-b="${sb}"]`); await p.waitForTimeout(300);
   const r2 = await p.getAttribute('.ex-map .rg:nth-of-type(1)', 'r');
   check(`static ${w}: the band switch resizes the rings`, r0 !== r2, `${r0} -> ${r2}`);
   await p.keyboard.press('Escape'); await p.waitForTimeout(200);

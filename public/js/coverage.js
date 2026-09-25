@@ -56,7 +56,7 @@ async function loadScene() {
   const off = { x: 0, y: 0, z: 0 };
   // The frame: the explore map's camera, with a slow idle sway (full tier,
   // nobody using the map, motion not paused). Returns true while swaying.
-  function onFrame({ dt }) {
+  function onFrame({ dt, animate }) {
     frames++;
     if (!xp) return false;
     const s1 = Math.min(0.1, dt / 1000), cam = engine.camera, W = engine.size.width, H = engine.size.height;
@@ -71,7 +71,7 @@ async function loadScene() {
     c.apply(dist, W < 768);
     xp.uniforms(1, 1, dist, 0);
     xp.place();
-    return amp > 0.001 && !paused;
+    return animate && amp > 0.001 && !paused; // (never busy off screen: the engine's pause holds)
   }
   const engine = eng.createEngine({
     canvas: $('.ex-gl', root), stage: sceneEl, tier, fov: 34, onFrame,
@@ -88,7 +88,7 @@ async function loadScene() {
   const onResize = () => { xp.layout(); ex.show(); engine.invalidate(); };
   // the canvas scrolls with the section: the card and Back keep their places
   // (below the header, above the section's foot) with motion paused too
-  const onScroll = () => engine.invalidate();
+  const onScroll = () => { const r = root.getBoundingClientRect(); if (r.bottom > 0 && r.top < innerHeight) { xp.scrolled(); engine.invalidate(); } };
   document.addEventListener('tsamaya:motion', onMotion);
   addEventListener('resize', onResize);
   addEventListener('scroll', onScroll, { passive: true });
