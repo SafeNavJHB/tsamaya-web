@@ -1765,4 +1765,61 @@ html:not(.js) .ex-page .ex-in { min-height: 0; }
 @media (max-width: 860px) {
   .page-404 .ph .wrap { grid-template-columns: minmax(0, 1fr); }
   .page-404 .rc { grid-column: 1; grid-row: auto; margin-top: 36px; }
+  .page-404 .display { font-size: clamp(1.9rem, 9.6vw, 3.4rem); }
 }
+
+/* ---------- metro pages (src/pages/metros.mjs, public/js/metro.js) ----------
+ * The metro's own coverage outline with a dot fill (outline only: it shows
+ * where ratings exist, never which parts are high risk), beside a band switch
+ * and one big number. Without JavaScript the switch hides and the list below
+ * the number carries every band. */
+.sn .ph-pre { display: block; margin-bottom: 12px; font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 650; font-stretch: 108%; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg-2); }
+.page-metro .display { max-width: none; font-size: clamp(1.9rem, 9.6vw, 8.4rem); overflow-wrap: break-word; }
+.sn .sec.mx { padding-top: 0; border-top: 0; }
+.sn .mx-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.sn .mx-map { padding: clamp(16px, 2.4vw, 28px); border: 1px solid var(--hairline); border-radius: 16px; background: var(--night-2); }
+.sn .mx-map svg { display: block; width: 100%; height: auto; max-height: 72vh; margin: 0 auto; }
+.sn .mx-fill { fill: url(#mx-dots); }
+.sn #mx-dots circle { fill: rgba(201, 214, 227, 0.42); }
+.sn .mx-line { fill: none; stroke: var(--hud); stroke-width: 1.6; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.sn .mx-map figcaption { margin-top: 14px; color: var(--fg-2); }
+.sn .tabs { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 3px; border: 1px solid var(--hairline); border-radius: 12px; }
+html:not(.js) .sn .tabs { display: none; }
+.sn .tab { position: relative; min-height: 48px; border-radius: 9px; color: var(--fg-2); letter-spacing: inherit; transition: background-color 0.18s var(--ease-ui), color 0.18s var(--ease-ui); }
+.sn .tab:hover { color: var(--ink); }
+.sn .tab[aria-selected='true'] { background: var(--surface); color: var(--ink); }
+.sn .tab .now { position: absolute; left: 50%; top: -8px; transform: translateX(-50%); padding: 0 5px; font-size: 9px; line-height: 1.5; color: var(--go); background: var(--night); }
+.sn .tab .now:empty { display: none; }
+.sn .tp { margin-top: 26px; }
+.sn .tp-n { font-size: clamp(4rem, 9vw, 7.4rem); font-weight: 800; font-stretch: 118%; letter-spacing: -0.03em; line-height: 0.95; color: var(--ink); transition: opacity 0.14s var(--ease-ui); }
+.sn .tp-l { margin-top: 10px; min-height: 3.2em; color: var(--fg-2); transition: opacity 0.14s var(--ease-ui); }
+.sn .tp.is-swap :is(.tp-n, .tp-l) { opacity: 0; }
+.sn .tp-bar { margin-top: 12px; height: 10px; border-radius: 5px; background: var(--hairline); overflow: hidden; }
+.sn .tp-bar i { display: block; height: 100%; background: var(--risk-red); transform-origin: 0 50%; transition: transform 0.5s var(--ease-out); }
+.sn .tp-sc { margin-top: 8px; display: flex; justify-content: space-between; color: var(--fg-2); }
+.sn .tp-all { margin-top: 28px; border-top: 1px solid var(--hairline); }
+.sn .tp-all li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--hairline); }
+.sn .tp-all .hud { color: var(--fg-2); }
+.sn .tp-all b { font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink); }
+@media (max-width: 900px) { .sn .mx-in { grid-template-columns: minmax(0, 1fr); } }
+.sn .card .card-p { margin-top: 12px; color: var(--fg); }
+.sn .mlist { margin-top: 36px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 28px; border-top: 1px solid var(--hairline); }
+.sn .mlist a { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 52px; border-bottom: 1px solid var(--hairline); font-family: var(--mono); font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-2); transition: color 0.18s var(--ease-ui); }
+.sn .mlist a:hover { color: var(--ink); }
+.sn .mlist .num { color: var(--hud); }
+@media (max-width: 860px) { .sn .mlist { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .sn .mlist { grid-template-columns: minmax(0, 1fr); } }
+.sn .back { padding-bottom: clamp(56px, 7vw, 96px); }
+
+/* the coverage page's metro cards */
+.sn .mcards { margin-top: 44px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.sn .mcards a { display: flex; flex-direction: column; height: 100%; padding: 22px 22px 18px; border: 1px solid var(--hairline); border-radius: 14px; background: var(--night-2); transition: border-color 0.18s var(--ease-ui); }
+.sn .mcards a:hover { border-color: var(--hud); }
+.sn .mcards .hud { color: var(--fg-2); }
+.sn .mc-n { margin-top: 10px; font-size: 1.5rem; font-weight: 750; font-stretch: 112%; letter-spacing: -0.015em; line-height: 1.1; color: var(--ink); }
+.sn .mc-b { margin-top: 10px; color: var(--fg-2); font-size: 15px; line-height: 1.5; }
+.sn .mc-go { margin-top: auto; padding-top: 14px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--go); }
+@media (max-width: 1000px) { .sn .mcards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .sn .mcards { grid-template-columns: minmax(0, 1fr); } }
+/* a long metro name in the questions heading ("Johannesburg, asked") fits its column */
+.page-metro .faq-in .h2 { font-size: clamp(1.9rem, 3vw, 2.8rem); }

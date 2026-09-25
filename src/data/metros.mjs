@@ -87,7 +87,7 @@ export const metros = [
       'Pretoria sits at the top of the busiest commuter run in the country, and a good share of the driving here is the daily trip down the Ben Schoeman and back. The city has a tight, dense centre wrapped in long arterial roads, which gives it a very different shape from Johannesburg.',
     context: [
       'The Ben Schoeman and the N4 both carry protective ratings. An early version of the data flagged a stretch of the Ben Schoeman badly enough that it would have pushed traffic onto side roads. A validation check caught it before it shipped.',
-      'Most of Pretoria’s flagged areas sit in the middle and caution bands rather than the top one, so a lot of what you see on the map is marked without changing your route.',
+      'Most of Pretoria\'s flagged areas sit in the middle and caution bands rather than the top one, so a lot of what you see on the map is marked without changing your route.',
       'The CBD and the areas immediately around it change rating between the daytime and evening bands more often than the outer suburbs do.',
     ],
     faqs: [
