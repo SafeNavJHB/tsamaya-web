@@ -5,7 +5,7 @@ import { readFile, stat } from 'node:fs/promises';
 import { gzipSync } from 'node:zlib';
 import { join, extname, normalize } from 'node:path';
 
-const root = process.argv[2] || '/home/user/tsamaya-web/dist';
+const root = process.argv[2] || decodeURIComponent(new URL('../../../../dist', import.meta.url).pathname);
 const port = +(process.argv[3] || 8796);
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',

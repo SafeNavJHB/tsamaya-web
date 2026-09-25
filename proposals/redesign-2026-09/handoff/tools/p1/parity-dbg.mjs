@@ -1,5 +1,5 @@
 import { chromium } from 'playwright';
-import * as G from '/home/user/tsamaya-web/public/js/scene/citygen.js';
+import * as G from '../../../../../public/js/scene/citygen.js';
 const flat = (c) => ({ segs: c.segs.flat(), polys: c.polys.flatMap((p) => p.pts.flat()), boxes: c.boxes.flat(), xs: c.xs, zs: c.zs });
 const n = flat(G.genCity(7));
 const b = await chromium.launch();

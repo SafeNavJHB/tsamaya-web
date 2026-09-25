@@ -1,10 +1,10 @@
-// A static server for /home/user/tsamaya-web/dist with gzip on text types, as
+// A static server for the repo's dist/ with gzip on text types, as
 // GitHub Pages serves it. Port 8796. Test use only.
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { gzipSync } from 'node:zlib';
 import { join, extname } from 'node:path';
-const root = '/home/user/tsamaya-web/dist';
+const root = decodeURIComponent(new URL('../../../../../dist', import.meta.url).pathname);
 const T = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.avif': 'image/avif', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.png': 'image/png' };
 createServer(async (req, res) => {
   let p = decodeURIComponent(req.url.split('?')[0]); if (p.endsWith('/')) p += 'index.html';

@@ -1,6 +1,6 @@
 // node cards.mjs: open each hero card at 390 x 844 (full and static tiers) and 1440 x 900, and report where it lands against the headline.
 import { chromium } from 'playwright';
-const OUT = '/tmp/claude-0/-home-user/cc91829d-9738-5aed-8992-96cc2510c765/scratchpad/p1/';
+const OUT = (process.env.OUT || decodeURIComponent(new URL('../out/p1/', import.meta.url).pathname));
 const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const errs = [];
 let bad = 0;

@@ -6,12 +6,17 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 URL="$1"; NAME="$2"; METHOD="${3:-simulate}"
+# The cloud container that wrote this had no GPU, so it forced software WebGL
+# (SwiftShader). That turns GPU work into main-thread CPU work and inflates the
+# blocking time, so it is now opt-in: GL=swiftshader ./run.sh ...
+GLFLAGS=""
+[ "${GL:-}" = "swiftshader" ] && GLFLAGS="--use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader"
 export CHROME_PATH="${CHROME_PATH:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 mkdir -p out
 npx lighthouse "$URL" \
   --only-categories=performance,accessibility,best-practices,seo \
   --throttling-method="$METHOD" \
-  --chrome-flags="--headless=new --no-sandbox --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader --ignore-certificate-errors" \
+  --chrome-flags="--headless=new --no-sandbox --ignore-certificate-errors $GLFLAGS" \
   --output=json --output=html --output-path="out/$NAME" --quiet
 node -e '
 const r = require("./out/'"$NAME"'.report.json");
@@ -19,8 +24,10 @@ const a = r.audits, c = r.categories;
 const pick = (k) => a[k] ? a[k].displayValue : "-";
 console.log(["perf " + Math.round(c.performance.score*100), "a11y " + Math.round(c.accessibility.score*100), "bp " + Math.round(c["best-practices"].score*100), "seo " + Math.round(c.seo.score*100)].join(" | "));
 console.log("FCP", pick("first-contentful-paint"), "| LCP", pick("largest-contentful-paint"), "| TBT", pick("total-blocking-time"), "| CLS", pick("cumulative-layout-shift"), "| SI", pick("speed-index"));
-const lcpEl = a["largest-contentful-paint-element"];
-try { console.log("LCP element:", lcpEl.details.items[0].items[0].node.snippet.slice(0, 160)); } catch (e) {}
+// Lighthouse 13 reports the LCP element in the breakdown insight
+const lcpIns = a["lcp-breakdown-insight"] || a["largest-contentful-paint-element"];
+try { const it = lcpIns.details.items; const node = it.find((x) => x.type === "node") || it[0].items[0].node; console.log("LCP element:", (node.selector || node.snippet).slice(0, 160)); } catch (e) {}
+try { console.log("LCP parts:", it2 = lcpIns.details.items[0].items.map((x) => x.label + " " + Math.round(x.duration) + " ms").join(", ")); } catch (e) {}
 console.log("Transfer:", pick("total-byte-weight"));
 const items = (a["network-requests"].details.items || []);
 const by = {};

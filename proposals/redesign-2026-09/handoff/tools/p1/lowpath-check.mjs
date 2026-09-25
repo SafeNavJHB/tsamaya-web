@@ -9,7 +9,7 @@
 // the generous test). The story needs: the lower-risk route touches no high
 // (level 3) cell in any band and about one medium (level 2) cell; the standard
 // route still runs through the high clusters.
-import { CITY, crSample, genCells } from '/home/user/tsamaya-web/public/js/scene/citygen.js';
+import { CITY, crSample, genCells } from '../../../../../public/js/scene/citygen.js';
 
 const dense = (ctrl) => {
   const coarse = crSample(ctrl, 2000), out = [coarse[0]];

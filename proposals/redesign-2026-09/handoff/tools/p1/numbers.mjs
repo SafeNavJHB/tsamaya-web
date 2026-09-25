@@ -36,8 +36,8 @@ const seen = await p.evaluate(() => { const S = window.__seen; const o = {}; for
 const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 const truth = await p.evaluate(() => ({ stat: [document.getElementById('stat-from').textContent, document.querySelector('#stat .sr').textContent], rows: [...document.querySelectorAll('#clocks .bands li b')].map((x) => x.textContent) }));
 // the true values: the route card (src/data/route-card.json) and the national counts (stats.json)
-const card = JSON.parse(readFileSync('/home/user/tsamaya-web/src/data/route-card.json', 'utf8'));
-const stats = JSON.parse(readFileSync('/home/user/tsamaya-web/src/data/stats.json', 'utf8'));
+const card = JSON.parse(readFileSync(new URL('../../../../../src/data/route-card.json', import.meta.url), 'utf8'));
+const stats = JSON.parse(readFileSync(new URL('../../../../../src/data/stats.json', import.meta.url), 'utf8'));
 const TRUE_STAT = [String(card.standard.highRisk), String(card.lower.highRisk)];
 const TRUE_COUNT = ['day', 'evening', 'night'].map((b) => fmt(stats.byTime[b].red));
 const sub = (a, set) => a.every((v) => set.includes(v));

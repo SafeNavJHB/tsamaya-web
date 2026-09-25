@@ -1,6 +1,6 @@
 // node newcopy.mjs: frames of the new chapter 1 story, the hero cards and the phone pair.
 import { chromium } from 'playwright';
-const OUT = '/tmp/claude-0/-home-user/cc91829d-9738-5aed-8992-96cc2510c765/scratchpad/p1/';
+const OUT = (process.env.OUT || decodeURIComponent(new URL('../out/p1/', import.meta.url).pathname));
 const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const errs = [];
 for (const [w, h, tag] of [[1440, 900, 'd'], [390, 844, 'm']]) {

@@ -17,7 +17,15 @@ for (let y = 0; y < H; y += 600) { await p.evaluate((yy) => window.scrollTo(0, y
 await p.evaluate(() => window.scrollTo(0, 0));
 await p.waitForTimeout(3500);
 const info = await p.evaluate(() => ({ H: document.documentElement.scrollHeight, sw: document.documentElement.scrollWidth, cls: document.documentElement.className }));
-await p.screenshot({ path: out, fullPage: true });
+// A very tall page can exceed what one screenshot may hold (it fails on a Mac
+// at about 16 000 px): then save screen-sized tiles, out-00.png, out-01.png...
+try { await p.screenshot({ path: out, fullPage: true }); } catch {
+  for (let y = 0, i = 0; y < info.H; y += +h, i++) {
+    await p.evaluate((yy) => window.scrollTo(0, yy), y);
+    await p.waitForTimeout(250);
+    await p.screenshot({ path: out.replace(/\.png$/, `-${String(i).padStart(2, '0')}.png`) });
+  }
+}
 const three = reqs.filter((u) => /three|scene\/(engine|city|chapters)/.test(u));
 console.log(JSON.stringify(info), '| scene requests:', three.length ? three.map((u) => u.replace(/^.*\//, '')).join(',') : 'none');
 console.log(log.join('\n') || 'no errors');

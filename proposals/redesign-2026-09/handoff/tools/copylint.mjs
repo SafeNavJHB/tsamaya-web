@@ -3,7 +3,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
-const dist = process.argv[2] || '/home/user/tsamaya-web/dist';
+const dist = process.argv[2] || decodeURIComponent(new URL('../../../../dist', import.meta.url).pathname);
 const pages = process.argv.slice(3).length ? process.argv.slice(3) : readdirSync(dist).filter((f) => f.endsWith('.html'));
 const LEGAL = new Set(['privacy.html', 'terms.html']);
 const RULES = [

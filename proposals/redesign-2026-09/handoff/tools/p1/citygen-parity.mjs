@@ -2,7 +2,7 @@
 // in Node (the build's poster) and in the browser (the scene), same seeds.
 import { chromium } from 'playwright';
 import { createHash } from 'node:crypto';
-import * as G from '/home/user/tsamaya-web/public/js/scene/citygen.js';
+import * as G from '../../../../../public/js/scene/citygen.js';
 const cases = (g) => ({ city7: JSON.stringify(g.genCity(7)), cells265: JSON.stringify(g.genCells(2.65, 11)), cells41: JSON.stringify(g.genCells(4.1, 11)), low: JSON.stringify(g.crSample(g.CITY.LOW, 400)) });
 const node = Object.fromEntries(Object.entries(cases(G)).map(([k, v]) => [k, [createHash('sha256').update(v).digest('hex').slice(0, 16), v.length]]));
 const b = await chromium.launch();

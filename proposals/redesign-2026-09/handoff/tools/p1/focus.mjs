@@ -1,5 +1,5 @@
 import { chromium } from 'playwright';
-const OUT = '/tmp/claude-0/-home-user/cc91829d-9738-5aed-8992-96cc2510c765/scratchpad/p1/';
+const OUT = (process.env.OUT || decodeURIComponent(new URL('../out/p1/', import.meta.url).pathname));
 const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const p = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
 await p.goto('http://localhost:8795/', { waitUntil: 'load' });

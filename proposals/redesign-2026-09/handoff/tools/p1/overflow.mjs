@@ -2,7 +2,7 @@
 // the top, the middle and the bottom of the page, in every mode. Also saves a
 // frame of each and names any element sticking out past the right edge.
 import { chromium } from 'playwright';
-const OUT = '/tmp/claude-0/-home-user/cc91829d-9738-5aed-8992-96cc2510c765/scratchpad/p1/';
+const OUT = (process.env.OUT || decodeURIComponent(new URL('../out/p1/', import.meta.url).pathname));
 const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 let all = true;
 const errs = [];
