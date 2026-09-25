@@ -1408,20 +1408,21 @@ html:not(.is-cine) .ex:not(.is-live) .ex-hint { display: none; }
 .is-cine .ex-card { position: fixed; left: 0; top: 0; z-index: 6; pointer-events: none; }
 .is-cine .ex-card.is-pin { pointer-events: auto; }
 .is-cine .ex:not(.act) .ex-card, .is-cine .ex:not(.act) .ex-hint { opacity: 0; visibility: hidden; }
-@media (max-width: 767px) {
+/* stacked, under 1024 wide (phones and tablets; the same query as
+   scene/explore.js): the map on top, the card under it (docked over the map's
+   foot on the home page), then the heading and the list. Beside the list, a
+   narrower map had no room left for its card. */
+@media (max-width: 1023px) {
   .ex-in { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "stage" "card" "body"; }
-  .ex .ch-h { font-size: 1.85rem; }
   html:not(.is-cine) .ex:not(.ex-page) .ex-stage { margin-top: 24px; }
+  html:not(.is-cine) .ex:not(.ex-page) .ex-map svg { max-height: 60vh; }
   html:not(.is-cine) .ex:not(.ex-page) .ex-card { grid-area: card; margin-top: 12px; width: auto; justify-self: stretch; }
   .ex-back { top: auto; bottom: 8px; }
   .is-cine .ex-back { transition: transform 0.25s var(--ease-out); }
   .is-cine .ex-in { grid-template-areas: "stage" "head" "body"; padding: 0 var(--edge) 72px; min-height: 0; }
   .is-cine .ex-stage { height: 52vh; height: 52svh; margin-top: var(--head); }
   .is-cine .ex::before { background: linear-gradient(180deg, rgba(10, 15, 28, 0) calc(var(--head) + 48svh), var(--night) calc(var(--head) + 56svh)); }
-  .ex-list { column-gap: 16px; margin-top: 18px; }
-  .ex-bands { margin-top: 14px; }
-  .ex-cap { margin-top: 12px; font-size: 10px; }
-  .is-cine .ex-card { left: 12px; width: calc(100% - 24px); }
+  .is-cine .ex-card { left: var(--edge); width: min(calc(100% - 2 * var(--edge)), 560px); }
   .is-cine .ex-card, .ex-page .ex-card { padding: 10px 14px 0; }
   .is-cine .exc-sc, .ex-page .exc-sc { display: none; }
   .is-cine .exc-k, .ex-page .exc-k { margin-top: 8px; }
@@ -1431,6 +1432,14 @@ html:not(.is-cine) .ex:not(.is-live) .ex-hint { display: none; }
   .is-cine .exc-rows b, .ex-page .exc-rows b { font-size: 14px; }
   .is-cine .exc-rows em, .ex-page .exc-rows em { display: inline; margin-left: 4px; }
   .is-cine .exc-l, .ex-page .exc-l { margin-top: 8px; }
+}
+/* the Gauteng data file missing on the home page: the list, and the card in its place, no map */
+.is-cine .ex.ex-flat .ex-card { position: relative; left: auto; top: auto; pointer-events: auto; }
+@media (max-width: 767px) {
+  .ex .ch-h { font-size: 1.85rem; }
+  .ex-list { column-gap: 16px; margin-top: 18px; }
+  .ex-bands { margin-top: 14px; }
+  .ex-cap { margin-top: 12px; font-size: 10px; }
   .ex-list a, .ex-list button { font-size: 11px; letter-spacing: 0.03em; }
 }
 
@@ -1458,7 +1467,7 @@ html:not(.js) .ex-page .ex-in { min-height: 0; }
 .ex-page .ex-stage { align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
 .ex-page .ex-map svg { max-height: calc(100vh - var(--head) - 150px); max-height: calc(100svh - var(--head) - 150px); }
 .ex-page .ex-card { position: absolute; grid-area: stage; left: 0; top: 0; z-index: 3; }
-.ex-page:not(.is-live) .ex-back { left: auto; right: 0; } /* the card has the corner */
+html:not(.is-cine) .ex:not(.is-live) .ex-back { left: auto; right: 0; } /* the static map: the card has the corner */
 .ex-page.is-live .ex-card { grid-area: auto; pointer-events: none; }
 .ex-page.is-live .ex-card.is-pin { pointer-events: auto; }
 .ex-page.is-live .ex-hint { position: absolute; }
@@ -1468,13 +1477,16 @@ html:not(.js) .ex-page .ex-in { min-height: 0; }
 .ex-pause .pi { width: 10px; height: 10px; border-left: 3px solid currentColor; border-right: 3px solid currentColor; }
 .ex-pause[aria-pressed='true'] .pi { border: 0; width: 0; height: 0; border-left: 9px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
 .ex-pause:hover { color: var(--ink); }
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .ex-page .ex-in { grid-template-areas: "stage" "card" "head" "body"; padding: var(--head) var(--gutter) 56px; min-height: 0; }
-  .ex-page .ex-stage { aspect-ratio: 1000 / 880; }
-  .ex-page .ex-scene { bottom: auto; height: calc(var(--head) + (100vw - 2 * var(--gutter)) * 0.88 + 8px); }
+  /* the map's height, from the width (the SVG's shape) or the window, and the canvas down to its foot */
+  .ex-page .ex-stage { height: min(calc((100vw - 2 * var(--gutter)) * 0.88), 62vh); height: min(calc((100vw - 2 * var(--gutter)) * 0.88), 62svh); }
+  .ex-page .ex-map { flex: 1 1 auto; min-height: 0; }
+  .ex-page .ex-map svg { width: 100%; height: 100%; max-height: none; }
+  .ex-page .ex-scene { bottom: auto; height: calc(var(--head) + min(calc((100vw - 2 * var(--gutter)) * 0.88), 62vh) + 8px); height: calc(var(--head) + min(calc((100vw - 2 * var(--gutter)) * 0.88), 62svh) + 8px); }
   .ex-page::before { display: none; }
-  .ex-page:not(.is-live) .ex-back { left: 0; right: auto; }
-  .ex-page .ex-card, .ex-page.is-live .ex-card { position: relative; grid-area: card; width: auto; justify-self: stretch; margin-top: 8px; pointer-events: auto; }
+  html:not(.is-cine) .ex:not(.is-live) .ex-back { left: 0; right: auto; }
+  .ex-page .ex-card, .ex-page.is-live .ex-card { position: relative; grid-area: card; width: auto; max-width: 560px; justify-self: stretch; margin-top: 8px; pointer-events: auto; }
   .ex-page .ex-head { margin-top: 28px; }
 }
 

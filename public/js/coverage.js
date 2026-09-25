@@ -28,14 +28,15 @@ const sceneEl = root && $('.ex-scene', root);
 let scene = null, frames = 0;
 if (ex) {
   ex.act = true; // the section is the page's map: always the view
-  ex.keep = () => innerWidth < 768; // phones: the card has its place under the map
+  const stacked = window.matchMedia('(max-width: 1023px)');
+  ex.keep = () => stacked.matches; // the stacked layout (phones, tablets): the card has its place under the map
   ex.show();
 }
 
 function toStatic(why) {
   if (tier === 'static') return;
   if (why && window.console) console.warn('coverage: 3D map off (' + why + ')');
-  if (scene) { scene.xp.kill(); scene.engine.dispose(); scene = null; }
+  if (scene) { scene.off(); scene.xp.kill(); scene.engine.dispose(); scene = null; }
   root.classList.remove('is-live'); sceneEl.classList.remove('is-live');
   doc.classList.remove('tier-full', 'tier-light'); doc.classList.add('tier-static');
   tier = 'static';
@@ -82,13 +83,16 @@ async function loadScene() {
     c = country.buildCountry(engine, { tier, geo, metros });
     xp = xpMod.buildExplore({ engine, city: c, ex, geo, root, inv: () => engine.invalidate(), paused: () => paused, mulberry32: gen.mulberry32, slot: true });
   } catch (e) { engine.dispose(); throw e; }
-  scene = { engine, xp };
+  const onMotion = (e) => { paused = !!(e.detail && e.detail.paused); engine.invalidate(); };
+  // across the phone breakpoint the card changes place (and whether one stays up)
+  const onResize = () => { xp.layout(); ex.show(); engine.invalidate(); };
+  document.addEventListener('tsamaya:motion', onMotion);
+  addEventListener('resize', onResize);
+  scene = { engine, xp, off: () => { document.removeEventListener('tsamaya:motion', onMotion); removeEventListener('resize', onResize); } };
   root.classList.add('is-live'); sceneEl.classList.add('is-live');
   xp.layout();
   ex.gl = { sync: xp.sync, fly: xp.fly, band: xp.band };
   ex.show();
-  document.addEventListener('tsamaya:motion', (e) => { paused = !!(e.detail && e.detail.paused); engine.invalidate(); });
-  addEventListener('resize', () => { if (xp) xp.layout(); engine.invalidate(); });
   if (full) engine.start();
   engine.invalidate();
   hook.ready = true;

@@ -125,7 +125,7 @@ export function initChapters({ engine, city, ctl }) {
   const T = engine.THREE, cam = engine.camera, doc = document.documentElement;
   const full = engine.tier === 'full';
   const cleanup = [];
-  let xp = null; // the explore map in the scene, once data/geo.json is in (scene/explore.js)
+  let xp = null, ewWas = 0; // the explore map in the scene, once data/geo.json is in (scene/explore.js)
   const exRoot = $('#explore');
   const on = (target, type, fn, opts) => { target.addEventListener(type, fn, opts); cleanup.push(() => target.removeEventListener(type, fn, opts)); };
   const inv = () => engine.invalidate();
@@ -393,7 +393,12 @@ export function initChapters({ engine, city, ctl }) {
     if (ml > 0.01) { aim(k, lean[0], lean[1], lean[2], lean[3], lean[4]); keep = declutter(); }
     const dist = aim(k, Math.sin(drift * Math.PI * 2 / 12) * 2.2 * driftAmp + lean[0], lean[1], lean[2], lean[3], lean[4], trk);
     city.apply(s, { c: cS, dist, phone: W < 768, spot: SP, sw });
-    if (xp) xp.uniforms(ew, s.grow, dist, trk);
+    if (xp) {
+      xp.uniforms(ew, s.grow, dist, trk);
+      // handing the pillars back: chapter 3's highlight is theirs again
+      if (ew === 0 && ewWas > 0) city.highlight(HL, HL._dim);
+      ewWas = ew;
+    }
     const A = city.anchors;
     place(co.a, A.a, s.coAB); place(co.b, A.b, s.coAB);
     place(co.hf, A.hf, s.coHero * intro.fast * (1 - 0.6 * SP.f));
@@ -701,13 +706,21 @@ export function initChapters({ engine, city, ctl }) {
   // with the scene). Until then the list and the card work on their own.
   let killed = false;
   const invX = () => { lastKey = ''; inv(); };
+  // Without them (the file failed to load) the section keeps its list and a
+  // card in its own place, and no map (.ex-flat).
+  const flat = (why) => {
+    if (killed || !ctl.ex) return;
+    if (window.console) console.warn('explore map not built', why);
+    ctl.ex.wait = false; exRoot.classList.add('ex-flat'); ctl.ex.show();
+  };
   if (exRoot && ctl.ex && ctl.geo) ctl.geo.then((geo) => {
-    if (killed || !geo) return;
+    if (killed) return;
+    if (!geo) { flat('no map data'); return; }
     xp = buildExplore({ engine, city, ex: ctl.ex, geo, root: exRoot, inv: invX, paused: () => paused, mulberry32 });
     ctl.ex.gl = { sync: () => { xp.sync(); placeName(cT); }, fly: xp.fly, band: xp.band };
     ctl.ex.show();
     invX();
-  }).catch((e) => { if (window.console) console.warn('explore map not built', e); });
+  }).catch((e) => { if (xp) { xp.kill(); xp = null; } ctl.ex.gl = null; flat(e); });
 
   // Undo everything, for the static tier (a lost context).
   function kill() {

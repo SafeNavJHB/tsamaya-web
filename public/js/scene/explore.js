@@ -92,7 +92,9 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
   const PM = { x: 0, y: 0, in: false, raf: 0 };
   const UW = { value: 0.5 }, UW2 = { value: 0.1 }, EXB = [], outl = [], fills = [];
   const tmp = new T.Vector3(), ray = new T.Raycaster(), ndc = new T.Vector2();
-  const small = () => W < 768;
+  // the stacked layout (styles.css): the map on top, the card under it; the
+  // same query as the CSS, so the scrollbar's width cannot split them
+  const stack = window.matchMedia('(max-width: 1023px)'), small = () => stack.matches;
   const scr = (x, y, z) => { tmp.set(x, y, z).project(cam); return [(tmp.x * 0.5 + 0.5) * W, (-tmp.y * 0.5 + 0.5) * H]; };
   const bump = () => inv();
   const cv = engine.renderer.domElement;
@@ -324,12 +326,16 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     if (i === ex.sel && ex.lvl === 'metro') [[B.x0, B.z0], [B.x1, B.z0], [B.x0, B.z1], [B.x1, B.z1]].forEach((q) => { const p = scr(q[0], 0, q[1]); grow(p[0], p[1]); });
     else if (ex.lvl === 'nat' && M[i].gt) [[GTB.x0, GTB.z0], [GTB.x1, GTB.z0], [GTB.x0, GTB.z1], [GTB.x1, GTB.z1]].forEach((q) => { const p = scr(q[0], 0, q[1]); grow(p[0] - 6, p[1] - 60); grow(p[0] + 6, p[1] + 6); });
     else { const p = scr(top(i).x, 0, top(i).z), u = scr(top(i).x, ht(i) * pil.PU.uHs.value * 1.15, top(i).z); l = p[0] - 8; r = p[0] + 8; t = u[1]; b = p[1] + 8; }
-    // beside the metro, flipping side near the edges; above or below it when neither side fits
-    const cw = card.offsetWidth, m = 12, roof = 76 - trk, floor = 96;
+    // beside the metro, flipping side near the edges; above or below it when
+    // neither side fits. Never left of the stage (the list is there), never
+    // under the header: v0..v1 is the canvas's part of the window (all of it on
+    // the home page; the coverage page's canvas scrolls with its section)
+    const cw = card.offsetWidth, m = 12, c = cv.getBoundingClientRect(), v0 = Math.max(0, -c.top), v1 = Math.min(H, innerHeight - c.top);
+    const lo = Math.max(m, SG.cx - SG.w / 2), hi = Math.max(lo, W - m - cw), roof = v0 + 76 - trk, floor = v1 - 96;
     let x = r + 20, y = (t + b) / 2 - ch / 2;
-    if (x + cw > W - m) x = l - 20 - cw;
-    if (x < m) { x = (l + r) / 2 - cw / 2; y = b + 14; if (y + ch > H - floor) y = t - 14 - ch; }
-    x = clamp(x, m, W - m - cw); y = clamp(y, roof, Math.max(roof, H - floor - ch));
+    if (x > hi) x = l - 20 - cw;
+    if (x < lo) { x = (l + r) / 2 - cw / 2; y = b + 14; if (y + ch > floor) y = t - 14 - ch; }
+    x = clamp(x, lo, hi); y = clamp(y, roof, Math.max(roof, floor - ch));
     card.style.transform = `translate3d(${(x - o[0]).toFixed(1)}px,${(y - o[1]).toFixed(1)}px,0)`;
   }
 

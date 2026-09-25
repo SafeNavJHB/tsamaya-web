@@ -46,9 +46,16 @@ export function initExplore({ root, tier }) {
 
   let sayT = 0;
   function say(t) { clearTimeout(sayT); live.textContent = ''; sayT = setTimeout(() => { live.textContent = t; }, 60); }
+  // the band in force now, on the switch and the card (checked each minute,
+  // so a boundary such as 17:30 moves both together)
   function mark() {
     const now = nowBand();
     cardRows.forEach((li, b) => { li.classList.toggle('sel', b === ex.band); $('em', li).textContent = b === now ? 'Now' : b === ex.band ? 'Selected' : ''; });
+    bandBtns.forEach((x) => {
+      const on = +x.dataset.b === now, chip = $('.now', x);
+      if (on && !chip) x.insertAdjacentHTML('beforeend', '<span class="now" aria-hidden="true">Now</span>');
+      else if (!on && chip) chip.remove();
+    });
   }
   function fill(i) {
     const m = M[i];
@@ -101,13 +108,21 @@ export function initExplore({ root, tier }) {
     if (ex.gl) ex.gl.band(b);
     if (!quiet && ex.sel >= 0) say(`${BN[b]}: ${fmt(M[ex.sel].r[b])} rated high risk in ${M[ex.sel].name}.`);
   }
+  // Stacked (phones and tablets, as in styles.css) the map sits above the
+  // list, so a row tapped low in the list brings the map and its card back
+  // into view. Not for Enter on the keyboard: focus stays in view where it is.
+  const stacked = window.matchMedia('(max-width: 1023px)');
+  function reveal() {
+    const hd = $('.site-header'), top = $('.ex-stage', root).getBoundingClientRect().top, head = hd ? hd.getBoundingClientRect().bottom : 0;
+    if (!stacked.matches || top >= head - 2) return;
+    const y = Math.round(scrollY + top - head), still = document.documentElement.classList.contains('motion-paused') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (window.lenis) window.lenis.scrollTo(y, still ? { immediate: true, force: true } : { duration: 0.8 });
+    else window.scrollTo({ top: y, behavior: still ? 'auto' : 'smooth' });
+  }
   Object.assign(ex, { show, hover, select, region, home, setBand, btns });
 
-  const now = nowBand();
-  bandBtns.forEach((x) => {
-    if (+x.dataset.b === now) x.insertAdjacentHTML('beforeend', '<span class="now" aria-hidden="true">Now</span>');
-    x.addEventListener('click', () => setBand(+x.dataset.b));
-  });
+  bandBtns.forEach((x) => x.addEventListener('click', () => setBand(+x.dataset.b)));
+  setInterval(mark, 60000);
   const mouse = (e) => e.pointerType === 'mouse' || e.pointerType === 'pen';
   btns.forEach((b, i) => {
     b.addEventListener('pointerenter', (e) => { if (mouse(e)) hover(i); });
@@ -115,11 +130,13 @@ export function initExplore({ root, tier }) {
     b.addEventListener('focus', () => { btns.forEach((o) => { o.tabIndex = o === b ? 0 : -1; }); hover(i); });
     // Tab from a row goes on into its card (the metro page link): keep it up
     b.addEventListener('blur', (e) => { if (ex.hov === i && !card.contains(e.relatedTarget)) hover(-1); });
-    b.addEventListener('click', () => select(i));
-    // one tab stop for the list: the arrows move along it, Home and End jump
+    b.addEventListener('click', (e) => { select(i); if (e.detail > 0) reveal(); });
+    // one tab stop for the list: up and down move along it, left and right
+    // cross between its two columns (it fills down the first, then the
+    // second), Home and End jump
     b.addEventListener('keydown', (e) => {
-      const n = btns.length, k = e.key;
-      const j = k === 'ArrowDown' || k === 'ArrowRight' ? (i + 1) % n : k === 'ArrowUp' || k === 'ArrowLeft' ? (i + n - 1) % n : k === 'Home' ? 0 : k === 'End' ? n - 1 : -1;
+      const n = btns.length, R = Math.ceil(n / 2), k = e.key;
+      const j = k === 'ArrowDown' ? (i + 1) % n : k === 'ArrowUp' ? (i + n - 1) % n : k === 'ArrowRight' ? Math.min(i + R, n - 1) : k === 'ArrowLeft' ? Math.max(i - R, 0) : k === 'Home' ? 0 : k === 'End' ? n - 1 : -1;
       if (j >= 0) { e.preventDefault(); btns[j].focus(); }
     });
   });
