@@ -31,7 +31,7 @@ const timeline = `
         <span class="hud chips-k">Show</span>
         ${FILTERS.map((f) => `<label class="chip" for="f-${f.key}">${esc(f.label)}<span class="num">${f.n}</span></label>`).join('')}
       </div>
-      <ol class="tl">
+      <ol class="up-tl">
         ${releases.map((r) => `<li class="rel"><h3 class="hud tl-d">${esc(r.date)}</h3><ul class="its">${r.items.map((it) => `<li class="it" data-c="${it.category}"><p class="hud tl-c">${ONE[it.category] || esc(it.category)}</p><h4>${esc(it.title)}</h4><p>${esc(it.body)}</p></li>`).join('')}</ul></li>`).join('\n        ')}
       </ol>
     </div>`;

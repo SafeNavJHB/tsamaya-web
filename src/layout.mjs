@@ -58,11 +58,28 @@ function hudStrip() {
 `;
 }
 
-// page: { slug, title, description, body, heroClass, hud, scripts, noindex, base }
+// page: { slug, title, description, body, heroClass, hud, scripts, noindex, root }
 //   hud: false hides the telemetry strip (pages with their own scene HUD).
 //   scripts: extra ES modules for this page only (the 3D scene, the map).
-//   base: a <base href> (the 404 page, which GitHub Pages serves at any depth).
+//   root: write every relative URL from this root instead (the 404 page, which
+//   GitHub Pages serves at any depth). Not a <base href>: that would also send
+//   the page's own #links, the skip link among them, to the home page.
 export function renderPage(page) {
+  const html = pageHtml(page);
+  return page.root ? fromRoot(html, page.root) : html;
+}
+
+// Relative URLs in href, src and srcset, rewritten from the given root. Page
+// fragments (#main), absolute URLs and mailto:/tel:/data: links are left alone.
+const LOCAL = /^(?![#/]|[a-z][a-z0-9+.-]*:)/i;
+function fromRoot(html, root) {
+  const fix = (u) => (LOCAL.test(u) ? root + u : u);
+  return html
+    .replace(/\b(href|src)="([^"]*)"/g, (m, a, u) => `${a}="${fix(u)}"`)
+    .replace(/\bsrcset="([^"]*)"/g, (m, v) => `srcset="${v.split(',').map((c) => c.trim().replace(/^\S+/, fix)).join(', ')}"`);
+}
+
+function pageHtml(page) {
   const titleFull = esc(
     page.slug === 'index.html'
       ? `${site.name}: ${site.tagline} Lower-risk routes for South African drivers`
@@ -81,7 +98,6 @@ export function renderPage(page) {
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  ${page.base ? `<base href="${page.base}"/>` : ''}
   <!-- Marks the document as script-capable before first paint. Every reveal
        animation is scoped to .js, so with JavaScript disabled or still loading
        nothing is hidden waiting for an observer that will never run. -->

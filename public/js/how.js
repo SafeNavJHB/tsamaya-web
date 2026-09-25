@@ -75,7 +75,9 @@ function stateAt(p) {
     fastA: lerp(0.82, 0.42, sstep(3.8, 4.4, p)),
     pulse: sstep(1.12, 1.85, p), pulseA: sstep(1.05, 1.14, p) * (1 - sstep(1.84, 1.95, p)),
     low: sstep(3.1, 3.9, p), lowA: 1,
-    carT: p < 5.05 ? -1 : clamp((p - 5.05) / 0.8, 0, 1),
+    // the drive is over by 5.5, while the last step's words are still in view and
+    // the city still pinned (the steps' padding holds it to about 5.7)
+    carT: p < 5.02 ? -1 : clamp((p - 5.02) / 0.48, 0, 1),
   };
 }
 

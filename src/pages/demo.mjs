@@ -17,6 +17,13 @@ import { pageHead, sec, getSec, linkQ, M } from '../kit.mjs';
 const card = JSON.parse(readFileSync(new URL('../data/route-card.json', import.meta.url), 'utf8'));
 const std = card.standard, low = card.lower;
 const km = (n) => n.toFixed(1);
+// Worded for any recapture, as on the home page: the lower-risk route is not
+// always the quicker one, and a count can be one.
+const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+const q = low.minutesQuicker;
+const timeLine = q > 0 ? `${plural(q, 'minute', 'minutes')} quicker` : q === 0 ? 'the same time' : `${plural(-q, 'minute', 'minutes')} longer`;
+const traffic = q > 0 ? `, and in that morning's traffic it was also the quicker one` : q === 0 ? `, and in that morning's traffic it took the same time` : '';
+const lowPasses = low.highRisk ? `passes ${plural(low.highRisk, 'high-risk area', 'high-risk areas')}` : low.mediumRisk ? `passes ${plural(low.mediumRisk, 'medium-risk area', 'medium-risk areas')} for ${low.mediumRiskKm} km` : 'passes no high- or medium-risk area';
 
 // hot: [x, y, w, h] as fractions of the screen, measured on the captures
 const STEPS = [
@@ -48,13 +55,13 @@ const STEPS = [
   {
     shot: 'route-result-detour-day',
     kick: 'Comparing the routes',
-    title: `${low.extraKm} km further, ${low.minutesQuicker} minutes quicker`,
-    text: `A morning trip across the north of Johannesburg. The standard route (grade ${std.grade}, ${std.minutes} min, ${km(std.km)} km) passes ${std.highRisk} high-risk areas. The lower-risk one goes the long way round on the freeway: grade ${low.grade}, ${low.minutes} min, ${km(low.km)} km, and in that morning's traffic it was also the quicker one.`,
+    title: `${low.extraKm} km further, ${timeLine}`,
+    text: `A morning trip across the north of Johannesburg. The standard route (grade ${std.grade}, ${std.minutes} min, ${km(std.km)} km) passes ${plural(std.highRisk, 'high-risk area', 'high-risk areas')}. The lower-risk one goes the long way round on the freeway: grade ${low.grade}, ${low.minutes} min, ${km(low.km)} km${traffic}.`,
     notes: [
       ['The routes', 'Blue is the option picked, grey the others. The overlay is off, so the map names no area as risky.', [0.0, 0.06, 1, 0.43]],
-      ['What it still passes', `The chosen route passes ${low.mediumRisk} medium-risk area for ${low.mediumRiskKm} km. When risk cannot be avoided, the card says so.`, [0.03, 0.535, 0.94, 0.056]],
-      ['The grade and the trade', `${low.label}: grade ${low.grade}, ${low.lessRiskPct}% less risk than the standard route, ${low.minutesQuicker} minutes quicker and ${low.extraKm} km further.`, [0.03, 0.603, 0.94, 0.112]],
-      ['The alternatives', `Standard, grade ${std.grade}: ${std.highRisk} high-risk areas for ${std.highRiskKm} km. Every option is graded A to E, and any high-risk area floors a route at D.`, [0.03, 0.718, 0.94, 0.17]],
+      ['What it still passes', `The chosen route ${lowPasses}. When risk cannot be avoided, the card says so.`, [0.03, 0.535, 0.94, 0.056]],
+      ['The grade and the trade', `${low.label}: grade ${low.grade}, ${low.lessRiskPct}% less risk than the standard route, ${timeLine} and ${low.extraKm} km further.`, [0.03, 0.603, 0.94, 0.112]],
+      ['The alternatives', `Standard, grade ${std.grade}: ${plural(std.highRisk, 'high-risk area', 'high-risk areas')} for ${std.highRiskKm} km. Every option is graded A to E, and any high-risk area floors a route at D.`, [0.03, 0.718, 0.94, 0.17]],
       ['Start', 'Drive it in the app, with voice and CarPlay or Android Auto.', [0.03, 0.9, 0.94, 0.062]],
     ],
   },
@@ -81,7 +88,7 @@ function step(s, i) {
   <div class="wrap see-in${i % 2 ? ' flip' : ''}">
     <figure class="see-f" data-reveal>
       <div class="see-phone">
-        ${picture({ name: s.shot, alt: altFor(s.shot), width: shotSize.width, height: shotSize.height, sizes: '(max-width: 760px) 80vw, 360px', loading: i === 0 ? 'eager' : 'lazy' })}
+        ${picture({ name: s.shot, alt: altFor(s.shot), width: shotSize.width, height: shotSize.height, sizes: '(max-width: 760px) 282px, 342px', widths: [300, 600], loading: i === 0 ? 'eager' : 'lazy' })}
         <div class="see-hots" aria-hidden="true">
           ${s.notes.map((n, k) => `<span class="hot" data-k="${k + 1}" style="left:${pct(n[2][0])};top:${pct(n[2][1])};width:${pct(n[2][2])};height:${pct(n[2][3])}"><b>${k + 1}</b></span>`).join('\n          ')}
         </div>
@@ -119,7 +126,7 @@ export default {
     pageHead({
       meta: `See it in action${M}the real app`,
       title: 'Two taps from "Where to?" to a lower-risk route.',
-      lead: 'A walk through the real app: set a destination, compare the routes, and drive the one that keeps you out of the high-risk areas.',
+      lead: 'A walk through the real app: set a destination, compare the routes, and drive the one with less risk on it.',
     }),
     STEPS.map(step).join('\n'),
     getSec({ title: 'Try it yourself.' }),

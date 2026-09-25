@@ -1,10 +1,10 @@
 import { pageHead, linkQ, M } from '../kit.mjs';
 
 // "Recalculating": GitHub Pages serves 404.html for any address it cannot find,
-// at any depth, so the page sets <base href="/"> to load its styles from the
-// root. The figure is a small street grid with a block missing: the grey route
-// runs into the gap, and the emerald one bends around it (CSS only; with reduced
-// motion it is simply drawn).
+// at any depth, so the page writes its links and files from the root
+// (renderPage's root option). The figure is a small street grid with a block
+// missing: the grey route runs into the gap, and the emerald one bends around
+// it (CSS only; with reduced motion it is simply drawn).
 const blocks = [];
 for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) if (!(c === 2 && r > 0)) blocks.push(`<rect x="${24 + c * 92}" y="${24 + r * 84}" width="72" height="64" rx="3"/>`);
 
@@ -28,7 +28,7 @@ export default {
   heroClass: 'sn page-404',
   hud: false,
   noindex: true,
-  base: '/',
+  root: '/',
   body: pageHead({
     meta: `404${M}not on the map`,
     title: 'Recalculating.',

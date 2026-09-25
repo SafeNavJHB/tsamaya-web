@@ -7,7 +7,7 @@ import { pageHead, sec, linkQ, M } from '../kit.mjs';
 
 const STACK = [
   ['React Native and Expo', 'Cross-platform app, New Architecture enabled. Expo Router for navigation, EAS for builds and over-the-air updates.'],
-  ['Mapbox', 'Map tiles, the Directions API for routing, and Geocoding for search and for naming the place you tap on the map.'],
+  ['Mapbox', 'Map tiles, the Directions API for routing, and Geocoding for naming the place you tap on the map. Search itself runs on Google Places.'],
   ['Supabase and PostGIS', 'Postgres with PostGIS geometry holds every rated area and road. The app reads it live; the editor writes through typed RPC functions.'],
   ['Python data pipeline', 'Map data fetched, scored for crime density, classified into rated areas and roads, staged, then promoted to live.'],
   ['Claude review', 'A second-opinion review pass flags questionable ratings for a human before anything reaches drivers.'],

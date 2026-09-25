@@ -95,15 +95,17 @@
    * 4. Copy-to-clipboard buttons (bank details, payment reference).
    * --------------------------------------------------------------------- */
   $$('.copy-btn').forEach(function (btn) {
+    // the resting icon and label, taken once: a second press inside the 1.4 s
+    // must not save the tick as the thing to go back to
+    var prev = btn.innerHTML, label = btn.getAttribute('aria-label'), undo = 0;
     btn.addEventListener('click', function () {
       var text = btn.getAttribute('data-copy') || '';
       var done = function () {
         btn.classList.add('copied');
-        var prev = btn.innerHTML, label = btn.getAttribute('aria-label');
         btn.setAttribute('aria-label', 'Copied');
-        setTimeout(function () { if (label) btn.setAttribute('aria-label', label); }, 1400);
         btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5 11-11"/></svg>';
-        setTimeout(function () { btn.classList.remove('copied'); btn.innerHTML = prev; }, 1400);
+        clearTimeout(undo);
+        undo = setTimeout(function () { btn.classList.remove('copied'); btn.innerHTML = prev; if (label) btn.setAttribute('aria-label', label); }, 1400);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(done, done);
@@ -239,6 +241,9 @@
       e.preventDefault();
       lenis.scrollTo(target, { offset: -80 });
       history.pushState(null, '', id);
+      // and move focus there, as the browser would have (the skip link most of all)
+      if (!target.matches('a[href], button, input, select, textarea, [tabindex]')) { target.setAttribute('tabindex', '-1'); target.setAttribute('data-anchor', ''); }
+      target.focus({ preventScroll: true });
     });
     // Anything that must stop the page scrolling (the menu) sets html.menu-open.
     new MutationObserver(function () {

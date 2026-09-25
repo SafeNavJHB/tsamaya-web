@@ -641,6 +641,9 @@ export function initChapters({ engine, city, ctl }) {
     e.stopPropagation();
     goY((PIN_OF[id] === 3 ? exST || pins[2] : pins[PIN_OF[id]]).start + 2);
     history.pushState(null, '', '#' + id);
+    // focus follows, as in site.js
+    const t = document.getElementById(id);
+    if (t) { if (!t.hasAttribute('tabindex')) { t.setAttribute('tabindex', '-1'); t.setAttribute('data-anchor', ''); } t.focus({ preventScroll: true }); }
   }, true);
 
   /* --- the hero: band preview, route spotlight, parallax --- */

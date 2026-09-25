@@ -2,9 +2,11 @@ import { site } from '../../site.config.mjs';
 import { pageHead, sec, linkQ } from '../kit.mjs';
 
 // The form composes an email (site.js, form.contact-form[data-mailto]): nothing
-// is sent anywhere from this page.
+// is sent anywhere from this page. Without JavaScript the browser hands the
+// fields to the email app itself (a mailto action, posted as plain text), so
+// they never end up in the page's address.
 const form = `
-      <form class="contact-form" data-mailto="${site.contactEmail}" data-reveal>
+      <form class="contact-form" data-mailto="${site.contactEmail}" action="mailto:${site.contactEmail}" method="post" enctype="text/plain" data-reveal>
         <h2 class="hud">Send a message</h2>
         <p class="form-note">This opens your email app with everything filled in. No account, no sign-up.</p>
         <label>Your name

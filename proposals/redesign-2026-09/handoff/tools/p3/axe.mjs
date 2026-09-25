@@ -1,4 +1,4 @@
-// node p3-axe.mjs [page.html ...]: axe-core accessibility scan of whole pages at
+// node p3/axe.mjs page.html [page.html ...]: axe-core accessibility scan of whole pages at
 // 1440 and 390 (violations only). Needs axe-core in node_modules (npm i axe-core).
 import { chromium } from 'playwright';
 import { readFileSync } from 'node:fs';

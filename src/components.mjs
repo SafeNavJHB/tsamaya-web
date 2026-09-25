@@ -348,8 +348,8 @@ export function deviceMockup(screen, label = '') {
  * wide). The browser picks the smallest format and size it can use; the JPEG at
  * the end is the fallback nothing fails to render.
  * ------------------------------------------------------------------------- */
-export function picture({ name, alt, width, height, sizes = '(max-width: 680px) 88vw, 320px', className = '', loading = 'lazy' }) {
-  const srcset = (ext) => [300, 600, 900].map((w) => `img/screens/${name}-${w}.${ext} ${w}w`).join(', ');
+export function picture({ name, alt, width, height, sizes = '(max-width: 680px) 88vw, 320px', widths = [300, 600, 900], className = '', loading = 'lazy' }) {
+  const srcset = (ext) => widths.map((w) => `img/screens/${name}-${w}.${ext} ${w}w`).join(', ');
   return `<picture>
     <source type="image/avif" srcset="${srcset('avif')}" sizes="${sizes}"/>
     <source type="image/webp" srcset="${srcset('webp')}" sizes="${sizes}"/>
