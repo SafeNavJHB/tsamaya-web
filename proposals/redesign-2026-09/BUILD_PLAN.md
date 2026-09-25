@@ -1,6 +1,6 @@
 # Build plan: the Sensor redesign of tsamayaapp.co.za
 
-Written 2026/09/25. Status: Phases 0 and 1 done (2026/09/25); Phase 2 next.
+Written 2026/09/25. Status: Phases 0 to 3 done (2026/09/25); Phase 4 next.
 Preview of the branch build (private): https://claude.ai/artifact/UML9VQcPGy26gfbXSJUjj7, republished at the end of each phase.
 Prototype: `proposals/redesign-2026-09/concept-4-sensor.html` (home and Johannesburg views, with the interactive map spike).
 Owner decisions were settled on 2026/09/25 and are recorded in section 10.
@@ -412,6 +412,52 @@ Accessibility scores 100 on both. The first coverage run had one 2-second task a
   - On a phone on its side (under about 420 px tall) the docked card covers most of the map, Back sits over the card's top edge, and the HUD clock can touch the card's corner. Phase 5 takes landscape phones, as it does for the hero.
   - At a metro's zoom on a phone, its pillar runs past the top of the map.
   - A short laptop window scrolled so deep that less than about 330 px of the map shows: there is no room for both the card and Back, so the card moves right and Back may sit over its left edge.
+
+### Phase 3 record (2026/09/25)
+
+Built in a local session on the Mac, in five batches, each published to the preview as it landed (versions 4 to 8).
+
+**Built:**
+- **A page kit** (`src/kit.mjs`): a page header (telemetry line, display headline, lead, and optionally a figure beside it), sections with a kick, the FAQ, the two store panels with the privacy line, arrow links, copy buttons, and a contents list for the legal text. The home page's flow-section styles now apply to every page with `body.sn` (the home page included), and every inner page sets `hud: false`: its header carries the telemetry line.
+- **Contact, Get the app, Support, Privacy and Terms.** Get the app lights the store panel for the visitor's phone without moving anything. Support leads with the free ways to help and shows the bank details as a spec sheet with copy buttons, and keeps the `#help`, `#donate` and `#sponsor` anchors other pages link to. The legal pages have a contents list beside the text; their words still come from the app repo's `legal/*.md`.
+- **A 404 page, "Recalculating"**: the grey route runs into a missing block and the emerald one bends round it. `noindex`, out of the sitemap, with `<base href="/">` so it styles itself at any depth on GitHub Pages.
+- **The 12 metro pages** and the coverage page's lower half. Each metro page draws the metro's own coverage outline with a dot fill (outline only), beside a band switch and one big number: the areas rated high risk in each part of the day, the band in force first, switching by crossfade between true figures (`public/js/metro.js`). Then its driving notes, questions, the store panels and the other metros. "Lower-risk driving routes in" stays above the name in the h1, for search.
+- **Updates**: the changelog as a timeline with its dates on the rail, filtered by CSS-only chips (radio buttons with `:checked` and `:has`), which work without JavaScript.
+- **Technical**: the stack and the routing rules as spec sheets, and the pipeline as five stages that an emerald pulse runs along once. The data model now names all three stored road types, closed roads included.
+- **About**: the name and the founder's story over a quiet dotted outline of South Africa (SVG only).
+- **See it**: four screens from the daytime set, each with numbered markers matched by a list; pointing at an item lights its part of the screen (CSS only). The older night captures, with risk colours over named suburbs, are no longer shown.
+- **How it works**: the six real steps as camera stops in the home page's illustrative city (`public/js/how.js` driving `scene/city.js`): the fastest route draws, a pulse tests it against the rated cells, the lower-risk route bends round them, and the car drives it. It moves with the scroll only. The static tier draws the same city flat.
+- **The live-trip tracker**: restyled with the same behaviour. It uses Mapbox's dark style with the route and driver in emerald and a light destination pin, and shows a state dot instead of emoji. It is still `noindex` with no referrer.
+- Copy on every page brought to the brand rules as it was rebuilt: straight quotes, "rated areas" for "risk zones", no safety promise, no suburb near a risk figure.
+
+**Verified** (tools in `handoff/tools/`):
+- `npm run check` passes on all 26 pages; `p1/pages.mjs` finds no script errors, sideways scroll or broken images at 360 and 1440, and a separate sweep finds no sideways scroll at 320 either.
+- `p3/axe.mjs` (axe-core, whole pages at 1440 and 390): no violations on any Phase 3 page.
+- `p3/metro.mjs`: the band switch with a mouse, the keyboard and no JavaScript, true figures only (sampled every frame), and the right band first at 10:00 SAST.
+- `p3/track.mjs`: every tracker state against a mocked trip (a missing token, active with an ETA, arrived, a waiting Guardian link polling every ~30 s, the next drive, SOS), with no emoji left.
+- The update filters with and without JavaScript and from the keyboard (counts match the data); See it's markers light only their own part of the screen.
+- How it works walked through all six steps at 1440 and 390, in the 3D and static tiers, with no page errors.
+
+**Review.** An independent reviewer tried to break the Phase 3 pages (brand and data, SEO, accessibility, layout, behaviour and budgets), and the full suite ran again. Nothing was rated high; everything rated medium was fixed, with the cheap low ones:
+- Two Phase 3 style rules leaked onto the home page once the page kit became `body.sn` for every page: About's pronunciation style (`.say`) shrank the home hero's own line into the HUD corner at four laptop sizes, and the Updates timeline's class `tl` drew a border on the HUD's top-left corner (also `tl`). About's rule is now scoped to its headline and the timeline is `up-tl`. A computed-style comparison of the home page against the Phase 2 stylesheet now differs only in the kit's "more" link row (same sizes), and the coverage page's map section, header and footer do not differ at all.
+- In-page links and the skip link now move keyboard focus to their target while the smooth scroll runs (`site.js`, and the home chapters' own links in `chapters.js`), without a focus ring round the whole section.
+- The 404 page writes its links and files from the site root (`renderPage`'s `root` option) instead of a `<base href>`, which had sent its skip link to the home page.
+- How it works: the car's drive is over by the middle of the last step, and the steps' padding holds the city pinned past it (checked at seven sizes).
+- See it: screenshots stop at 600 px wide with `sizes` matched to the frame (a 3x phone moves 118 KB of them instead of about 250 KB); the phone fits the window, so it stays in view while its notes are read; pointing at a note lights it instead of dimming the others (which failed contrast); its wording holds for any recapture of the route card (quicker, the same, or longer; one area or several); and the lead no longer reads as a promise ("the one with less risk on it").
+- Technical says search runs on Google Places (Mapbox names the place you tap); a double press on a copy button no longer sticks; without JavaScript the contact form hands the fields to the email app instead of putting them in the address.
+- After the fixes the whole suite passes again (`suite.sh`, both explore tests, `p3/metro.mjs`, `p3/track.mjs` and the new `p3/behaviour.mjs`), and axe finds nothing on the changed pages, See it's hovered notes included.
+
+**Style clean-up.** 344 rules of the old design that no built page or script uses were removed from `styles.css` (scripted: a rule goes only when every selector names a class or id that appears in no page and no script, with unused keyframes and the comments that only described removed rules). Every element on all 26 pages, and its `::before` and `::after`, computes the same style with the old and new stylesheet at 1440 and 390 wide. The stylesheet went from 34.5 to 26.6 KB gzipped.
+
+**Budgets** (gzipped): our own JS on the text pages is `site.js` alone (3.4 KB), plus 1 KB on the metro pages. HTML plus CSS is 29 to 39 KB on every page but two: the home page (49 of 60 KB, down from 59) and Updates (81 KB, because its 205 releases are the content).
+
+**Left for later:**
+- **A real shared trip.** The tracker is tested against a mocked trip only. The plan's "tested end to end with a real shared trip" needs a trip shared from the app on a phone, opened on the preview or the live site.
+- **The metro point cloud.** The plan asks for "a slowly turning point cloud" of the metro's outline. The prototype never built one, so the pages use the flat outline, which the plan specifies for the light tier anyway. A 3D version is a possible Phase 4 extra.
+- **Page weight.** Updates is over the 60 KB HTML-plus-CSS line (its whole changelog is inline; the fix is the newest releases inline and an archive page). See it moves about 320 KB on a desktop screen, over the 250 KB aimed at text pages, because its content is four 600 px screenshots (Chrome fetches lazy images well ahead of the window).
+- **Smaller notes.** On a 320 x 568 phone three of the How it works steps never sit whole below the pinned city. The Updates filter radios have no group name. See it's notes also quote what the screenshots show (43 in a 60, 280 m, 8 minutes), which no data file backs; they change only with a recapture.
+- **App changelog wording.** Updates mirrors the app's What's New word for word, and older entries there say "safer route" and "risk zones". Fix them in the app's `whatsNew.ts` if they should change here.
+- **Content decisions for Kyle.** Some metro blurbs name towns such as Umlazi, Ledig and Mogwase as covered, never as risky; that wording is from before the redesign. The legal texts still carry an em dash, "risk zones" and a quoted "Asambe" button label; those come from the app repo, and a separate session is re-syncing the Terms.
 
 ## 9. Risks and what we do about them
 

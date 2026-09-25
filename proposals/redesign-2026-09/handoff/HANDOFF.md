@@ -4,7 +4,9 @@ Written 2026/09/25, when the work moved from a Claude Code cloud session to Kyle
 
 > **Done (2026/09/25, local session).** Every item under "What is left for Phase 1" is finished; the results, the fixes made in review and the measured budgets are in the Phase 1 record in `../BUILD_PLAN.md` section 8. The test tools below now run on the Mac as they are. The rest of this note is kept as the record of the handover.
 >
-> **Phase 2 (the explore map) is done too,** on the home page and the coverage page: see the Phase 2 record in the same section. Its test is `node p2/explore.mjs home` or `node p2/explore.mjs coverage` (34 checks each). Next is Phase 3 (every other page).
+> **Phase 2 (the explore map) is done too,** on the home page and the coverage page: see the Phase 2 record in the same section. Its test is `node p2/explore.mjs home` or `node p2/explore.mjs coverage` (34 checks each).
+>
+> **Phase 3 (every other page) is done as well:** all 26 pages are on the new design. See the Phase 3 record in the same section. Its tests are `node p3/axe.mjs index.html about.html` and so on (accessibility), `node p3/metro.mjs` (the metro band switch) and `node p3/track.mjs` (the live-trip tracker against a mocked trip). The tracker still needs one test with a real trip shared from the app. Next is Phase 4 (polish and motion).
 
 ## Where things stand
 
@@ -56,8 +58,7 @@ Written 2026/09/25, when the work moved from a Claude Code cloud session to Kyle
 ## Follow-ups noticed (not Phase 1)
 
 - `npm audit` flags `sharp` (a devDependency, libvips advisories).
-- The other pages still have curly quotes, "risk zones" wording and long-form dates such as "24 September 2026". Leave them for the Phase 3 and 5 copy pass.
-- `about.html` loads the 50 KB `img/icon.png`.
+- Done in Phase 3: the other pages' curly quotes and "risk zones" wording, and `about.html` no longer loads the 50 KB `img/icon.png` (only its structured data names it). Left: long-form dates such as "24 September 2026" in the legal texts, which come from the app repo.
 
 ## Running it on the Mac
 
@@ -83,6 +84,7 @@ The scripts find the repo from their own location and write screenshots to `tool
 - `p1/fontshift.mjs`: does the hero move when the web fonts land; `p1/fontwidth.mjs`, `p1/monowidth.mjs` and `p1/platfont.mjs`: the fallback font measurements.
 - `p1/widths.mjs`, `p1/pages.mjs` (all 25 pages), `p1/fcp.mjs` and `p1/_shot.mjs`.
 - `p2/explore.mjs [home|coverage]`: every row of table 5.1 with a mouse, touch and the keyboard, in the 3D and static tiers.
+- `p3/axe.mjs page.html [...]`: axe-core over whole pages at 1440 and 390; `p3/metro.mjs`: the metro band switch (mouse, keyboard, no JavaScript, true figures only, the band in force first); `p3/track.mjs`: every tracker state against a mocked Supabase; `p3/behaviour.mjs`: focus after in-page links, the 404 at a deep path, copy buttons, the no-JavaScript contact form and See it's image sizes; `p3/cssdiff.mjs a.css b.css`: every element's computed style on every page under two stylesheets; `p3/prune-css.py`: removes style rules nothing can match (prove its output with `cssdiff`).
 - `suite.sh`: every Phase 1 check in one run (about 20 minutes; starts the two local servers if they are not up).
 
 ## Prompt to paste into Claude Code on the Mac
