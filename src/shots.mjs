@@ -77,10 +77,20 @@
 // driving the route at 12 m/s. Xcode 27 builds only after every pod target below
 // iOS 15 is raised to 15.1 in the generated ios/Podfile post_install.
 //
+// route-result-airport-day (08:51 SAST, same build and simulator) is a longer
+// trip, O.R. Tambo International Airport to Cresta Shopping Centre, picked to
+// show a detour: the Balanced and Lower-risk option leaves the airport to the
+// north past Kempton Park instead of south to the N12, for 3 minutes and 186 m
+// more and 26 per cent less risk. Every option is graded D because the one
+// high-risk area on all of them is the airport's own zone ("OR Tambo
+// International Airport", rated high in the daytime band), which no trip from
+// the terminal can avoid. The card does not name it (the caution list below the
+// fold does), so a caption must not suggest the risk lies along the freeways.
+//
 // simctl draws the Dynamic Island into a capture only some of the time. home-day
-// got it naturally; the other three had it drawn in afterwards from the
-// simulator's own `simctl io screenshot --mask=black` capture of the same screen.
-// Only the island's pixels were touched, so the set matches the older captures.
+// got it naturally; the others had it drawn in afterwards from the simulator's
+// own `simctl io screenshot --mask=black` capture of the same screen. Only the
+// island's pixels were touched, so the set matches the older captures.
 
 // Gallery entries for the demo page.
 export const shots = [
@@ -139,6 +149,8 @@ export const alts = {
     'Tsamaya ready to plan a daytime trip, with the start set to My location in Rosebank and the destination set to Melrose Arch, and an Add stop option and the Go button underneath',
   'route-result-day':
     'Tsamaya comparing two routes from Rosebank to Melrose Arch in the daytime. The first is the fastest, balanced and lower-risk option at once: graded A, 8 minutes and 3.9 km, with 1 km through low-risk areas. The alternative via the M30 is graded B, 2 minutes and 164 metres longer, and passes one medium-risk area for 0.3 km and 3 km of low-risk areas. A banner above them calls the first the lower-risk choice for this trip',
+  'route-result-airport-day':
+    'Tsamaya comparing three routes from O.R. Tambo International Airport to Cresta Shopping Centre in Randburg in the daytime. The balanced and lower-risk option, graded D, takes 58 minutes over 56.9 km, 3 minutes and 186 metres more than the fastest, and carries 26 per cent less risk: it passes one high-risk area for 3.2 km instead of 4.4 km. The fastest takes 55 minutes over 56.7 km and a third option via the N3 takes 57 minutes, both graded D. A banner warns that one high-risk area could not be avoided. On the map the lower-risk route leaves the airport to the north past Kempton Park, where the fastest leaves to the south, and both then follow the freeways around the north of Johannesburg',
   'navigation-day':
     'Tsamaya navigating on Oxford Road in Rosebank in the daytime, between 3D buildings. The next instruction is a left turn onto the M20 in 280 metres with lane guidance underneath, the speed reads 43 km/h against a 60 limit, the route is drawn green along Oxford Road and yellow for low risk on the M20 ahead, and the road the car is on is labelled Oxford Road, lower risk. The trip has 8 minutes and 3.8 km left',
 };
