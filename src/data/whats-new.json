@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-25.1",
+      "date": "25 September 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "The CarPlay mini map comes back on its own",
+          "body": "If the live mini map on the CarPlay dashboard could not start, a flat stand-in map without risk areas took its place until you unplugged, and with satellite imagery on it was dark in daylight. The live map now tries again within seconds, and the stand-in follows the time of day.",
+          "category": "fix"
+        },
+        {
+          "icon": "volume-high-outline",
+          "title": "Turn instructions after a reroute",
+          "body": "A turn instruction that had to wait behind another spoken line is now said with the right distance instead of being skipped, and a reroute stops the old route's instruction mid-sentence. Instructions for turns further ahead wait a little longer for the natural voice rather than switching to the phone's own voice.",
+          "category": "fix"
+        },
+        {
+          "icon": "notifications-outline",
+          "title": "No repeated warnings",
+          "body": "A hijacking or smash-and-grab hotspot is no longer announced again after a reroute, and the evening heads-up is said once per drive, even when CarPlay takes over a drive you started on the phone.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-24.2",
       "date": "24 September 2026",
       "items": [
