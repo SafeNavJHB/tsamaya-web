@@ -143,7 +143,17 @@ These rules apply to every interaction:
 - **What the toy router does:** a path search on the hex grid, where a high cell costs far more to cross. It draws the grey straight-line route and then the emerald bend, with a small readout: "2 high cells avoided, about +3 min".
 - **How it is labelled:** "A toy version of the idea. The app uses real roads, real ratings and a limit on detours." This is a teaching device, not the real router.
 
-### 5.5 Metro pages and everywhere else
+### 5.5 What the prototype taught us (2026/09/25)
+
+The map, hero chips, route spotlight and clickable day line are built in the prototype. They were tested with a mouse, touch at 390 px and the keyboard, with no page errors. Lessons to carry into the build:
+
+- **Band rings only on the national view.** Zoomed in, a ring sized for the whole country becomes a big red circle over a city, which reads like a risk zone drawn on real ground. The prototype now fades the rings out as the camera zooms in, and the card carries the numbers.
+- **Pillars shrink as the camera zooms in**, or they fill the view.
+- **On phones, the info card sits under the map** with the back button above it; there is no room beside the metro at 390 px.
+- **The "Three clocks" chapter only covers 05:00 to 23:00.** A click on the day line before 05:00 goes to the night end. In the build, either extend the chapter to 04:59 or label the line.
+- **The explore map scrolls with the section** once it passes the top of the screen, so pointer targets stay lined up with the pillars.
+
+### 5.6 Metro pages and everywhere else
 
 - **Metro band tabs:** the point cloud's light and the big number animate together.
 - **Everywhere else:** magnetic primary buttons on fine pointers, visible focus rings everywhere, the live time in the HUD, and a "Pause motion" control wherever something moves on its own for more than 5 seconds.
