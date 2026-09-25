@@ -1,0 +1,41 @@
+// node resize.mjs: desktop to phone and back while inside chapter 2.
+import { chromium } from 'playwright';
+const OUT = '/tmp/claude-0/-home-user/cc91829d-9738-5aed-8992-96cc2510c765/scratchpad/p1/';
+const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const p = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
+const errs = [];
+p.on('pageerror', (e) => errs.push(e.message));
+await p.goto('http://localhost:8795/', { waitUntil: 'load' });
+await p.waitForFunction(() => window.__home && window.__home.ready);
+await p.waitForTimeout(1500);
+let s = await p.evaluate(() => window.__home.state());
+await p.evaluate((y) => window.lenis.scrollTo(y, { immediate: true, force: true }), Math.round(s.pins[1][0] + 0.5 * (s.pins[1][1] - s.pins[1][0])));
+await p.waitForTimeout(1500);
+const before = await p.evaluate(() => window.__home.state());
+await p.setViewportSize({ width: 390, height: 844 });
+await p.waitForTimeout(2500);
+const mid = await p.evaluate(() => ({ s: window.__home.state(), sw: document.documentElement.scrollWidth, canvas: [document.getElementById('gl').width, document.getElementById('gl').height] }));
+await p.screenshot({ path: OUT + 'resize-to-390.png' });
+await p.setViewportSize({ width: 1440, height: 900 });
+await p.waitForTimeout(2500);
+const after = await p.evaluate(() => ({ s: window.__home.state(), canvas: [document.getElementById('gl').width, document.getElementById('gl').height] }));
+await p.screenshot({ path: OUT + 'resize-back-1440.png' });
+console.log('1440 in chapter 2:', before.c.toFixed(3), JSON.stringify(before.pins));
+console.log('-> 390:', mid.s.c.toFixed(3), JSON.stringify(mid.s.pins), 'canvas', mid.canvas.join('x'), 'scrollWidth', mid.sw);
+console.log('-> 1440:', after.s.c.toFixed(3), JSON.stringify(after.s.pins), 'canvas', after.canvas.join('x'));
+const ok = mid.s.pins[1][1] - mid.s.pins[1][0] === Math.round(844 * 1.7) && after.s.pins[1][1] - after.s.pins[1][0] === Math.round(900 * 2.6) && mid.s.c > 3 && mid.s.c < 4 && after.s.c > 3 && after.s.c < 4 && mid.sw <= 390;
+console.log(`${ok ? 'PASS' : 'FAIL'}  pins re-measure for the new size, the reader stays in chapter 2, no overflow`);
+
+// the same while reading the coverage section
+await p.evaluate(() => window.lenis.scrollTo(document.getElementById('coverage').getBoundingClientRect().top + scrollY + 120, { immediate: true, force: true }));
+await p.waitForTimeout(1200);
+const t0 = await p.evaluate(() => Math.round(document.getElementById('coverage').getBoundingClientRect().top));
+await p.setViewportSize({ width: 390, height: 844 });
+await p.waitForTimeout(2500);
+const t1 = await p.evaluate(() => Math.round(document.getElementById('coverage').getBoundingClientRect().top));
+await p.setViewportSize({ width: 1440, height: 900 });
+await p.waitForTimeout(2500);
+const t2 = await p.evaluate(() => Math.round(document.getElementById('coverage').getBoundingClientRect().top));
+console.log(`${Math.abs(t1 - t0) <= 2 && Math.abs(t2 - t0) <= 2 ? 'PASS' : 'FAIL'}  reading #coverage: its top stays at ${t0} / ${t1} / ${t2} px through both resizes`);
+console.log(errs.length ? 'errors: ' + errs.join(' | ') : 'no page errors');
+await b.close();

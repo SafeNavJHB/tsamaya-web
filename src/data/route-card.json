@@ -1,0 +1,24 @@
+{
+  "source": "Copied by hand from a real route card in the app: the screenshot route-result-detour-day (public/img/screens/route-result-detour-day-*), captured 2026/09/25 at 09:04 SAST with live traffic. Grades, times, distances, area counts, the percentage and the differences are exactly as the card shows them (the card's +9.8 km comes from unrounded distances, so it is copied, not worked out). The app labels the first option Standard, not Fastest, because that morning the lower-risk route was the quicker one. No place names are recorded here on purpose: the high-risk areas this trip avoids are in named suburbs, and the site never lets a reader connect a suburb to risk. Every page string that shows these figures reads this file.",
+  "captured": "2026/09/25",
+  "standard": {
+    "label": "Standard",
+    "grade": "E",
+    "minutes": 49,
+    "km": 42.4,
+    "highRisk": 4,
+    "highRiskKm": 10
+  },
+  "lower": {
+    "label": "Balanced, lower-risk",
+    "grade": "B",
+    "minutes": 47,
+    "km": 52.3,
+    "highRisk": 0,
+    "mediumRisk": 1,
+    "mediumRiskKm": 0.1,
+    "lessRiskPct": 99,
+    "extraKm": 9.8,
+    "minutesQuicker": 2
+  }
+}
