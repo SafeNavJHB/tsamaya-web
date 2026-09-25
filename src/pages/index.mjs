@@ -19,6 +19,7 @@ import { shotSize } from '../shots.mjs';
 import { faqNode } from '../seo.mjs';
 import { siteData } from '../sitedata.mjs';
 import { posterDefs, planSvg, saSvg, tagAnchors, metrosBySize } from '../poster.mjs';
+import { exploreSection } from '../explore.mjs';
 
 const card = JSON.parse(readFileSync(new URL('../data/route-card.json', import.meta.url), 'utf8'));
 const std = card.standard;
@@ -199,9 +200,10 @@ const ch3 = `
   </div>
 </section>`;
 
-// PHASE 2: the "04 / Explore" section (the interactive South Africa map) goes
-// here, between chapter 3 and the flow sections, inside the zone. chapters.js
-// has the matching seam where the chapter clock is extended past 6.
+// Chapter 4: explore the metros (src/explore.mjs, shared with the coverage
+// page): over the story's scene here, the camera handing over to it.
+const explore = exploreSection({ kick: '04 / Explore' });
+
 const zone = `
 <div class="zone" id="zone">
 ${stage}
@@ -210,6 +212,7 @@ ${hero}
 ${ch1}
 ${ch2}
 ${ch3}
+${explore}
 </div>`;
 
 /* ---------------------------------------------------------------------------

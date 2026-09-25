@@ -17,8 +17,12 @@
 //     drops the WebGL context, and keeps the reader's place when the layout
 //     changes under them.
 //
-// TEST HOOK: window.__home = { tier, ready, c(), state(), frames }.
+//  5. The explore section (explore.js) in every tier: in the static tier with
+//     its SVG map, with the scene live drawn by scene/explore.js.
+//
+// TEST HOOK: window.__home = { tier, ready, c(), state(), frames, ex(), xp() }.
 import { detectTier } from './scene/tier.js';
+import { initExplore } from './explore.js';
 
 const doc = document.documentElement;
 const $ = (s, r = document) => r.querySelector(s);
@@ -341,6 +345,15 @@ function setupSeq() {
 setupSeq();
 
 /* ---------------------------------------------------------------------------
+ * The explore section: the list, the card and the band switch work in every
+ * tier; the static tier draws its SVG map, the scene draws the 3D one.
+ * ------------------------------------------------------------------------ */
+const exRoot = $('#explore');
+const ex = exRoot ? initExplore({ root: exRoot, tier }) : null;
+ctl.ex = ex;
+if (ex && tier === 'static') ex.staticMap();
+
+/* ---------------------------------------------------------------------------
  * The static tier, and the way back to it.
  * ------------------------------------------------------------------------ */
 function toStatic(why) {
@@ -356,6 +369,7 @@ function toStatic(why) {
     doc.classList.add('tier-static');
     ctl.tier = 'static';
     ctl.onPreview = ctl.onSpot = null;
+    if (ex) { ex.gl = null; ex.wait = false; ex.act = true; ex.staticMap(); ex.show(); }
     if (window.ScrollTrigger) window.ScrollTrigger.refresh();
   });
   preview(ctl.pv.on ? ctl.pv.t : -1, true);
@@ -367,6 +381,9 @@ function toStatic(why) {
  * The 3D scene, at idle after first paint (full and light tiers only).
  * ------------------------------------------------------------------------ */
 async function loadScene() {
+  // the explore map's outlines, fetched with the scene (chapters.js builds the
+  // map when they are in; the list and the card do not wait for them)
+  ctl.geo = ex ? fetch('data/geo.json').then((r) => (r.ok ? r.json() : null)).catch(() => null) : null;
   const [eng, cityMod, chMod] = await Promise.all([import('./scene/engine.js'), import('./scene/city.js'), import('./scene/chapters.js')]);
   if (!window.gsap || !window.ScrollTrigger) throw new Error('GSAP did not load');
   if (ctl.tier === 'static') return;
@@ -419,6 +436,8 @@ const hook = window.__home = {
   get tier() { return ctl.tier; },
   ready: false,
   get frames() { return ctl.frames; },
+  ex: () => ex && { lvl: ex.lvl, sel: ex.sel, hov: ex.hov, band: ex.band, card: ex.card, act: ex.act, gl: !!ex.gl, svg: !!ex.svg },
+  xp: () => (scene && scene.ch ? scene.ch.xp() : null),
   c: () => (scene && scene.ch ? scene.ch.c() : 0),
   state: () => Object.assign(
     { tier: ctl.tier, band: ctl.pv.t, preview: ctl.pv.on, previewBand: ctl.pv.t, live: ctl.live, spot: ctl.spot, pinned: ctl.pinned },

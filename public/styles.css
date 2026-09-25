@@ -1331,6 +1331,153 @@ html:not(.is-cine) .page-home .pause { display: none; }
   .is-cine .ch-note { font-size: 10px; margin-top: 10px; }
 }
 
+/* ---------- chapter 4: explore the metros ----------
+ * Without JavaScript: the heading, a line and the metros as links to their
+ * pages. Static tier (reduced motion, no WebGL, a lost context): the band
+ * switch, an SVG map in the stage (explore.js builds it) and the card over its
+ * corner. With the scene live (.is-cine): the map is the 3D scene behind the
+ * page, framed into the stage, and the card follows the metro. */
+.ex { position: relative; z-index: 2; border-top: 1px solid var(--hairline); background: var(--night); }
+.ex-in { display: grid; grid-template-columns: minmax(0, 28rem) minmax(0, 1fr); grid-template-areas: "head stage" "body stage"; column-gap: clamp(32px, 5vw, 80px); align-content: center; padding: clamp(72px, 10vw, 136px) var(--gutter); }
+.ex-head, .ex-body, .ex-stage { position: relative; min-width: 0; }
+.ex-head { grid-area: head; align-self: end; }
+.ex-body { grid-area: body; }
+.ex-stage { grid-area: stage; align-self: center; }
+.js .ex-nojs, html:not(.js) .ex-js { display: none; }
+html:not(.js) .ex-stage, html:not(.js) .ex-card { display: none; }
+.ex .ch-p { margin-top: 14px; }
+/* one size in every tier: the headline's lines are split once for its reveal
+   (site.js), and a size change that keeps the width would leave them stale */
+.ex .ch-h { font-size: clamp(2rem, 3.3vw, 3rem); }
+.ex-bands { margin-top: 22px; display: inline-grid; grid-template-columns: repeat(3, auto); padding: 3px; border: 1px solid rgba(201, 214, 227, 0.26); border-radius: 999px; }
+.exb { position: relative; min-height: 44px; padding: 0 15px; border-radius: 999px; color: var(--fg-2); letter-spacing: inherit; text-transform: inherit; transition: background-color 0.18s var(--ease-ui), color 0.18s var(--ease-ui); }
+.exb:hover { color: var(--ink); }
+.exb[aria-pressed='true'] { background: var(--hud); color: var(--night); }
+.exb .now { position: absolute; left: 50%; top: -9px; transform: translateX(-50%); padding: 1px 5px; font-size: 8.5px; line-height: 1.4; border-radius: 3px; background: var(--night); color: var(--hud); border: 1px solid rgba(201, 214, 227, 0.26); }
+.ex-cap { margin-top: 16px; color: var(--fg-2); max-width: 30rem; }
+.ex-list { margin-top: 26px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(var(--rows, 6), auto); grid-auto-flow: column; column-gap: 22px; border-top: 1px solid var(--hairline); }
+.ex-list a, .ex-list button { position: relative; width: 100%; min-height: 44px; display: flex; justify-content: space-between; align-items: center; gap: 10px; border-bottom: 1px solid var(--hairline); font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-2); text-align: left; transition: color 0.18s var(--ease-ui); }
+.ex-list .num { color: var(--hud); }
+.ex-list a:hover, .ex-list button:hover, .ex-list button.hov, .ex-list button[aria-current='true'] { color: var(--ink); }
+.ex-list button::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--go); transform: scaleX(0); transform-origin: 0 50%; transition: transform 0.25s var(--ease-out); }
+.ex-list button.hov::after, .ex-list button[aria-current='true']::after { transform: scaleX(1); }
+.ex-back { position: absolute; left: 0; top: 0; z-index: 3; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; border: 1px solid rgba(201, 214, 227, 0.26); border-radius: 999px; background: rgba(10, 15, 28, 0.86); color: var(--ink); letter-spacing: inherit; text-transform: inherit; }
+.ex-back:hover { border-color: var(--hud); }
+.ex-back[hidden] { display: none; }
+.ex-stage.pt { cursor: pointer; }
+.ex-hint { position: fixed; left: 0; top: 0; z-index: 6; pointer-events: none; transform: translate(-50%, -100%); padding: 6px 10px; border: 1px solid rgba(201, 214, 227, 0.45); border-radius: 4px; background: rgba(10, 15, 28, 0.88); white-space: nowrap; opacity: 0; transition: opacity 0.18s var(--ease-ui); }
+.ex-hint.is-on { opacity: 1; }
+html:not(.is-cine) .ex:not(.is-live) .ex-hint { display: none; }
+/* the static map */
+.ex-map svg { display: block; width: 100%; height: auto; }
+.ex-map .exl { fill: rgba(201, 214, 227, 0.05); stroke: var(--road); stroke-width: 1.2; }
+.ex-map .exbd { fill: none; stroke: var(--road); stroke-width: 0.9; vector-effect: non-scaling-stroke; opacity: 0.7; }
+.ex-map .exo path { fill: rgba(201, 214, 227, 0.08); stroke: rgba(201, 214, 227, 0.6); stroke-width: 1; vector-effect: non-scaling-stroke; cursor: pointer; transition: fill 0.2s, stroke 0.2s; }
+.ex-map .exo path.on { fill: rgba(52, 211, 153, 0.22); stroke: var(--go); stroke-width: 2; }
+.ex-map .rg { fill: rgba(239, 68, 68, 0.08); stroke: rgba(239, 68, 68, 0.8); stroke-width: 1; vector-effect: non-scaling-stroke; pointer-events: none; transition: r 0.25s var(--ease-out); }
+.ex-map .dt { fill: var(--ink); pointer-events: none; }
+/* the card */
+.ex-card { grid-area: stage; align-self: start; justify-self: start; position: relative; z-index: 2; width: min(276px, calc(100vw - 32px)); padding: 16px 16px 6px; border: 1px solid rgba(201, 214, 227, 0.3); border-radius: 12px; background: rgba(10, 15, 28, 0.93); box-shadow: 0 18px 44px -18px rgba(0, 0, 0, 0.9); }
+.js .ex-card { transition: opacity 0.18s var(--ease-ui), visibility 0s linear 0.18s; }
+.js .ex-card:not(.is-on) { opacity: 0; visibility: hidden; }
+.ex-card.is-on { transition-delay: 0s; }
+.ex-card.is-pin { border-color: rgba(52, 211, 153, 0.6); }
+.exc-h { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.exc-h b { font-size: 1.35rem; line-height: 1.1; font-weight: 750; font-stretch: 112%; letter-spacing: -0.01em; color: var(--ink); }
+.exc-h .hud { color: var(--fg-2); font-size: 10px; text-align: right; }
+.exc-z { margin-top: 4px; color: var(--fg-2); font-size: 15px; }
+.exc-z b { color: var(--ink); font-weight: 650; }
+.exc-k { margin-top: 12px; color: var(--fg-2); font-size: 10px; }
+.exc-rows { margin-top: 6px; }
+.exc-rows li { display: grid; grid-template-columns: 70px minmax(0, 1fr) 40px; align-items: center; gap: 10px; min-height: 30px; opacity: 0.55; transition: opacity 0.18s var(--ease-ui); }
+.exc-rows li.sel { opacity: 1; }
+.exc-rows .hud { font-size: 10px; line-height: 1.3; }
+.exc-rows em { display: block; font-style: normal; font-size: 8.5px; color: var(--go); }
+.exc-rows i { display: block; height: 3px; border-radius: 2px; background: rgba(201, 214, 227, 0.18); overflow: hidden; }
+.exc-rows s { display: block; height: 100%; background: var(--risk-red); transform-origin: 0 50%; transform: scaleX(0); transition: transform 0.25s var(--ease-out); }
+.exc-rows b { text-align: right; font-weight: 650; font-size: 15px; font-variant-numeric: tabular-nums; color: var(--ink); }
+.exc-sc { margin-top: 2px; color: var(--fg-2); font-size: 9px; }
+.exc-l { margin-top: 10px; border-top: 1px solid var(--hairline); min-height: 44px; display: flex; align-items: center; font-size: 14px; }
+.exc-l a { min-height: 44px; display: inline-flex; align-items: center; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+/* the scene live: the map is drawn behind, the card follows the metro */
+.is-cine .ex { border-top: 0; background: none; }
+.is-cine .ex::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(10, 15, 28, 0.92) 0%, rgba(10, 15, 28, 0.7) calc(var(--edge) + 26rem), rgba(10, 15, 28, 0) calc(var(--edge) + 34rem)); }
+.is-cine .ex-in { min-height: 100vh; min-height: 100svh; padding: calc(var(--head) + 40px) var(--edge) clamp(96px, 15vh, 150px); max-width: none; }
+.is-cine .ex-map { display: none; }
+.is-cine .ex-stage { align-self: stretch; }
+.is-cine .ex-card { position: fixed; left: 0; top: 0; z-index: 6; pointer-events: none; }
+.is-cine .ex-card.is-pin { pointer-events: auto; }
+.is-cine .ex:not(.act) .ex-card, .is-cine .ex:not(.act) .ex-hint { opacity: 0; visibility: hidden; }
+@media (max-width: 767px) {
+  .ex-in { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "stage" "card" "body"; }
+  .ex .ch-h { font-size: 1.85rem; }
+  html:not(.is-cine) .ex:not(.ex-page) .ex-stage { margin-top: 24px; }
+  html:not(.is-cine) .ex:not(.ex-page) .ex-card { grid-area: card; margin-top: 12px; width: auto; justify-self: stretch; }
+  .ex-back { top: auto; bottom: 8px; }
+  .is-cine .ex-back { transition: transform 0.25s var(--ease-out); }
+  .is-cine .ex-in { grid-template-areas: "stage" "head" "body"; padding: 0 var(--edge) 72px; min-height: 0; }
+  .is-cine .ex-stage { height: 52vh; height: 52svh; margin-top: var(--head); }
+  .is-cine .ex::before { background: linear-gradient(180deg, rgba(10, 15, 28, 0) calc(var(--head) + 48svh), var(--night) calc(var(--head) + 56svh)); }
+  .ex-list { column-gap: 16px; margin-top: 18px; }
+  .ex-bands { margin-top: 14px; }
+  .ex-cap { margin-top: 12px; font-size: 10px; }
+  .is-cine .ex-card { left: 12px; width: calc(100% - 24px); }
+  .is-cine .ex-card, .ex-page .ex-card { padding: 10px 14px 0; }
+  .is-cine .exc-sc, .ex-page .exc-sc { display: none; }
+  .is-cine .exc-k, .ex-page .exc-k { margin-top: 8px; }
+  .is-cine .exc-rows, .ex-page .exc-rows { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 4px; }
+  .is-cine .exc-rows li, .ex-page .exc-rows li { grid-template-columns: 1fr auto; gap: 2px 6px; min-height: 0; }
+  .is-cine .exc-rows i, .ex-page .exc-rows i { grid-column: 1 / -1; order: 3; }
+  .is-cine .exc-rows b, .ex-page .exc-rows b { font-size: 14px; }
+  .is-cine .exc-rows em, .ex-page .exc-rows em { display: inline; margin-left: 4px; }
+  .is-cine .exc-l, .ex-page .exc-l { margin-top: 8px; }
+  .ex-list a, .ex-list button { font-size: 11px; letter-spacing: 0.03em; }
+}
+
+/* ---------- the coverage page: the explore map opens the page ----------
+ * One layout in every tier, so nothing moves when the 3D map arrives: the
+ * heading and the list on the left over a scrim, the map in the stage on the
+ * right (the SVG in the static tier; with the scene live, .is-live, a canvas
+ * behind the whole section framed into the stage). The card sits over the
+ * stage's corner, or follows the metro when the scene is live. On phones the
+ * map comes first, the card has its own place under it (explore.js keeps one
+ * up), then the heading and the list; the canvas covers the map only. */
+.ex-page { --edge: max(var(--gutter), calc((100% - var(--maxw)) / 2)); margin-top: calc(-1 * var(--head) - 1px); border-top: 0; }
+main :where(.ex-page) :where(h1, h2, p, ul, figure) { margin: 0; }
+main :where(.ex-page) :where(ul) { list-style: none; padding: 0; }
+main :where(.ex-page) button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.ex-page .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.ex-page .kick { display: flex; align-items: center; gap: 12px; }
+.ex-page .kick::before { content: ''; width: 8px; height: 8px; border: 1px solid currentColor; flex: none; }
+.ex-page .ch-h { margin-top: 18px; font-weight: 750; font-stretch: 116%; letter-spacing: -0.02em; line-height: 1; }
+.ex-page .ch-p { max-width: 32rem; }
+.ex-page .ex-scene { position: absolute; inset: 0; z-index: 0; }
+.ex-page::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(10, 15, 28, 0.92) 0%, rgba(10, 15, 28, 0.7) calc(var(--edge) + 26rem), rgba(10, 15, 28, 0) calc(var(--edge) + 34rem)); }
+.ex-page .ex-in { position: relative; z-index: 2; min-height: 100vh; min-height: 100svh; padding: calc(var(--head) + 40px) var(--edge) clamp(72px, 11vh, 120px); max-width: none; }
+html:not(.js) .ex-page .ex-in { min-height: 0; }
+.ex-page .ex-stage { align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+.ex-page .ex-map svg { max-height: calc(100vh - var(--head) - 150px); max-height: calc(100svh - var(--head) - 150px); }
+.ex-page .ex-card { position: absolute; grid-area: stage; left: 0; top: 0; z-index: 3; }
+.ex-page:not(.is-live) .ex-back { left: auto; right: 0; } /* the card has the corner */
+.ex-page.is-live .ex-card { grid-area: auto; pointer-events: none; }
+.ex-page.is-live .ex-card.is-pin { pointer-events: auto; }
+.ex-page.is-live .ex-hint { position: absolute; }
+/* the map drifts on its own in the full tier: a way to stop it (WCAG 2.2.2) */
+.ex-pause { display: none; }
+.tier-full .ex-page.is-live .ex-pause { position: absolute; right: 0; bottom: 0; z-index: 3; display: inline-flex; padding: 0 12px; margin-right: -12px; color: var(--hud); border-radius: 6px; font-size: 11px; }
+.ex-pause .pi { width: 10px; height: 10px; border-left: 3px solid currentColor; border-right: 3px solid currentColor; }
+.ex-pause[aria-pressed='true'] .pi { border: 0; width: 0; height: 0; border-left: 9px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+.ex-pause:hover { color: var(--ink); }
+@media (max-width: 767px) {
+  .ex-page .ex-in { grid-template-areas: "stage" "card" "head" "body"; padding: var(--head) var(--gutter) 56px; min-height: 0; }
+  .ex-page .ex-stage { aspect-ratio: 1000 / 880; }
+  .ex-page .ex-scene { bottom: auto; height: calc(var(--head) + (100vw - 2 * var(--gutter)) * 0.88 + 8px); }
+  .ex-page::before { display: none; }
+  .ex-page:not(.is-live) .ex-back { left: 0; right: auto; }
+  .ex-page .ex-card, .ex-page.is-live .ex-card { position: relative; grid-area: card; width: auto; justify-self: stretch; margin-top: 8px; pointer-events: auto; }
+  .ex-page .ex-head { margin-top: 28px; }
+}
+
 /* ---------- the flow sections ---------- */
 .page-home .home-flow { position: relative; z-index: 4; background: var(--night); }
 .is-cine .home-flow > .sec:first-child { border-top-color: transparent; }

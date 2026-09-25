@@ -9,8 +9,10 @@
 //   3 to 4   chapter 2 pinned, "Three clocks"
 //   4 to 5   the scroll to chapter 3: the city dissolves into South Africa
 //   5 to 6   chapter 3 pinned, the metros: the pillars grow
-//   6        after chapter 3 the South Africa view holds while "Inside the app"
-//            scrolls over it, and the scene fades out
+//   6 to 7   the scroll to chapter 4, "Explore": the camera hands over to the
+//            explore map (scene/explore.js), framed into the section's stage
+//   7 to 8   the explore section scrolls away, the map with it, and the scene
+//            fades out as "Inside the app" comes up
 // stateAt(c) turns c into scene values and camAt(c) into a camera. Scrolling
 // sets c; the frame loop eases a smoothed copy towards it, which gives the
 // scrub its weight and lets the whole story run backwards.
@@ -31,6 +33,9 @@
 //  - "Pause motion" (site.js) freezes what moves by itself: the idle drift,
 //    the intro and the pulses. Scrolling and the visitor's own hovers and taps
 //    still redraw.
+
+import { buildExplore } from './explore.js';
+import { mulberry32 } from './citygen.js';
 
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const sstep = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
@@ -120,6 +125,8 @@ export function initChapters({ engine, city, ctl }) {
   const T = engine.THREE, cam = engine.camera, doc = document.documentElement;
   const full = engine.tier === 'full';
   const cleanup = [];
+  let xp = null; // the explore map in the scene, once data/geo.json is in (scene/explore.js)
+  const exRoot = $('#explore');
   const on = (target, type, fn, opts) => { target.addEventListener(type, fn, opts); cleanup.push(() => target.removeEventListener(type, fn, opts)); };
   const inv = () => engine.invalidate();
   const tw = (target, vars) => G.to(target, Object.assign({ onUpdate: inv }, vars));
@@ -179,14 +186,14 @@ export function initChapters({ engine, city, ctl }) {
   /* --- the camera: keyframe k, leaned by yaw and pitch (degrees), its distance
    * scaled by dk, zoomed by zoom and moved dx pixels right. Returns the
    * distance. --- */
-  function aim(k, yaw, pit, dk, zoom, dx) {
+  function aim(k, yaw, pit, dk, zoom, dx, dy = 0) {
     yaw = (k.y + yaw) * D2R; pit = (k.p + pit) * D2R;
     const dist = k.d * dk;
     off.set(Math.cos(pit) * Math.sin(yaw), Math.sin(pit), Math.cos(pit) * Math.cos(yaw)).multiplyScalar(dist);
     cam.position.set(k.t[0] + off.x, k.t[1] + off.y, k.t[2] + off.z);
     cam.lookAt(k.t[0], k.t[1], k.t[2]);
     cam.fov = k.f; cam.near = 1; cam.far = 900; cam.aspect = W / H; cam.zoom = zoom;
-    cam.setViewOffset(W, H, -k.sx * W - dx, -k.sy * H, W, H);
+    cam.setViewOffset(W, H, -k.sx * W - dx, -k.sy * H + dy, W, H);
     cam.updateProjectionMatrix();
     cam.updateMatrixWorld();
     return dist;
@@ -207,7 +214,7 @@ export function initChapters({ engine, city, ctl }) {
    * and only the refresh re-pins it. --- */
   const NOFIT = { z: 1, dx: 0 }, ch3 = $('#metros');
   let FIT = NOFIT, fitKey = '';
-  const refit = () => { fitKey = ''; TAGS = null; lastKey = ''; inv(); };
+  const refit = () => { fitKey = ''; TAGS = null; lastKey = ''; if (xp) xp.layout(); inv(); };
   if (document.fonts) on(document.fonts, 'loadingdone', refit);
   ST.addEventListener('refresh', refit);
   cleanup.push(() => ST.removeEventListener('refresh', refit));
@@ -360,28 +367,33 @@ export function initChapters({ engine, city, ctl }) {
     if (!paused) {
       // the idle drift: a slow sway while nobody is scrolling (full tier only)
       const vel = window.lenis ? Math.abs(window.lenis.velocity || 0) : 0;
-      const want = full && vel < 0.2 && cS < 6.2 ? 1 : 0;
+      const want = full && vel < 0.2 && (cS < 6.2 || (xp && cS > 6.99 && xp.idle())) ? 1 : 0;
       driftAmp += (want - driftAmp) * (1 - Math.exp(-s1 / 0.6));
       if (driftAmp > 0.001) drift += s1;
     }
     W = engine.size.width; H = engine.size.height;
     const hw = 1 - sstep(0.4, 0.9, cS), sw = 1 - sstep(0.2, 0.5, cS);
+    // the explore map: how far it has taken over, and past the section's top,
+    // how far it has scrolled up with it
+    const ew = xp ? sstep(6, 7, cS) : 0, trk = xp && cT > 6.5 ? clamp(scrollNow() - exST.start, 0, exST.end - exST.start) : 0;
     const key = [cS.toFixed(4), driftAmp.toFixed(3), driftAmp > 0.001 ? drift.toFixed(2) : '', PP.x.toFixed(4), PP.y.toFixed(4),
       city.U.uReveal.value.toFixed(3), intro.dolly.toFixed(3), intro.fast.toFixed(3), intro.low.toFixed(3), intro.tags.toFixed(2),
-      W, H, ctl.live, PV.b.toFixed(3), SP.f.toFixed(3), SP.l.toFixed(3), SP.fp.toFixed(3), SP.lp.toFixed(3), SP.fa.toFixed(2), SP.la.toFixed(2), ctl.spot].join('|');
+      W, H, ctl.live, PV.b.toFixed(3), SP.f.toFixed(3), SP.l.toFixed(3), SP.fp.toFixed(3), SP.lp.toFixed(3), SP.fa.toFixed(2), SP.la.toFixed(2), ctl.spot, Math.round(trk)].join('|');
     if (key === lastKey) return false;
     lastKey = key;
     const s = stateAt(cS), k = camAt(Math.min(cS, 6), W < 768 ? KM : KD);
+    if (ew > 0) { const e = xp.curCam(); KEYS.forEach((q) => { k[q] = lerp(k[q], e[q], ew); }); for (let j = 0; j < 3; j++) k.t[j] = lerp(k.t[j], e.t[j], ew); }
     // camera: the keyframe, plus the drift, the intro dolly and the parallax
     // lean, and on wide screens the chapter 3 fit, eased in as the city turns
     // into the country
-    const fw = W < 768 ? 0 : sstep(4.3, 4.9, cS), fit = fw > 0 ? saFit() : NOFIT;
-    const ml = W < 768 ? 0 : s.labels, lean = [-PP.x * 5 * hw, 7 * intro.dolly + PP.y * 5 * hw, 1 + 0.24 * intro.dolly, lerp(1, fit.z, fw), fit.dx * fw];
+    const fw = W < 768 ? 0 : sstep(4.3, 4.9, cS) * (1 - ew), fit = fw > 0 ? saFit() : NOFIT;
+    const ml = W < 768 ? 0 : s.labels * (1 - sstep(6.05, 6.4, cS)), lean = [-PP.x * 5 * hw, 7 * intro.dolly + PP.y * 5 * hw, 1 + 0.24 * intro.dolly, lerp(1, fit.z, fw), fit.dx * fw];
     // chapter 3's labels: which show is decided without the drift (declutter)
     let keep = null;
     if (ml > 0.01) { aim(k, lean[0], lean[1], lean[2], lean[3], lean[4]); keep = declutter(); }
-    const dist = aim(k, Math.sin(drift * Math.PI * 2 / 12) * 2.2 * driftAmp + lean[0], lean[1], lean[2], lean[3], lean[4]);
+    const dist = aim(k, Math.sin(drift * Math.PI * 2 / 12) * 2.2 * driftAmp + lean[0], lean[1], lean[2], lean[3], lean[4], trk);
     city.apply(s, { c: cS, dist, phone: W < 768, spot: SP, sw });
+    if (xp) xp.uniforms(ew, s.grow, dist, trk);
     const A = city.anchors;
     place(co.a, A.a, s.coAB); place(co.b, A.b, s.coAB);
     place(co.hf, A.hf, s.coHero * intro.fast * (1 - 0.6 * SP.f));
@@ -392,11 +404,12 @@ export function initChapters({ engine, city, ctl }) {
     if (s.coRR > 0.01) A.rr.copy(city.fastC.getPointAt(clamp(s.pulse, 0.02, 0.98)));
     place(co.rr, A.rr, s.coRR);
     city.metroTags.forEach((m) => place(m.el, m.v, keep && keep.has(m.el.dataset.k) ? ml : 0));
+    if (xp) xp.place();
     return true;
   }
 
   /* --- DOM driven by c --- */
-  const stage = $('#scene'), hudLayer = $('#hud'), hudBL = $('.hud-c.bl'), chipsEl = $('.bchips');
+  const stage = $('#scene'), hudLayer = $('#hud'), hudBL = $('.hud-c.bl'), hudTL = $('.hud-c.tl'), chipsEl = $('.bchips');
   const steps = $$('#bend .ch-steps li'), railBtns = $$('#bend .rail-l button');
   const rail1 = $('#bend .rail-f'), rail3 = $('#metros .rail-f');
   const statEl = $('#stat'), statTo = $('#stat-to'), statFrom = $('#stat-from').textContent, statTrue = statTo.textContent;
@@ -419,6 +432,15 @@ export function initChapters({ engine, city, ctl }) {
     void el.offsetWidth;
     el.classList.add('is-flip');
   }
+
+  // The HUD names what the scene shows: the illustrative city, the country,
+  // and on the explore map the metro picked or the Gauteng cluster.
+  function placeName(c) {
+    const ex = xp && c >= 6.5 ? ctl.ex : null, m = ex && ex.sel >= 0 && ex.lvl === 'metro' ? ex.M[ex.sel] : null;
+    const place = c < 4.6 ? PLACE[0] : m ? m.name + ' \u00b7 ' + m.p : ex && ex.lvl === 'reg' ? REG : PLACE[1];
+    if (place !== ui.place) { ui.place = place; placeEl.textContent = place; }
+  }
+  const REG = (($('.ex-hint') || {}).textContent || '').split(':')[0];
 
   function updateUI(c) {
     // chapter 1: the step in focus, the rail, the stat
@@ -456,12 +478,11 @@ export function initChapters({ engine, city, ctl }) {
       }
     }
     if (rail3) rail3.style.transform = `scaleX(${clamp(c - 5, 0, 1).toFixed(4)})`;
-    // the HUD names what the scene shows
-    const place = PLACE[c < 4.6 ? 0 : 1];
-    if (place !== ui.place) { ui.place = place; placeEl.textContent = place; }
-    // after chapter 3 the scene holds, then fades as "Inside the app" covers it
-    // PHASE 2: key this to the end of the explore section instead.
-    const fade = c < 6 ? 1 : 1 - sstep(0.35, 0.85, (scrollNow() - pins[2].end) / innerHeight);
+    placeName(c);
+    // the scene holds through the explore section, and fades as it scrolls
+    // away and "Inside the app" comes up (without the section: after chapter 3)
+    const fade = exST ? (c < 7 ? 1 : sstep(0.3, 0.8, (8 - c) * (exST.end - exST.start) / innerHeight))
+      : c < 6 ? 1 : 1 - sstep(0.35, 0.85, (scrollNow() - pins[2].end) / innerHeight);
     if (fade !== ui.fade) {
       ui.fade = fade;
       const o = fade.toFixed(3), hide = fade < 0.01 ? 'hidden' : '';
@@ -471,6 +492,10 @@ export function initChapters({ engine, city, ctl }) {
       if (!hide !== ui.live) { ui.live = !hide; if (ui.live) { if (full) engine.start(); inv(); } else engine.stop(); }
     }
     hudBL.style.opacity = (1 - sstep(0.12, 0.5, c)).toFixed(3);
+    if (exST) hudTL.style.opacity = (1 - sstep(6.1, 6.5, c)).toFixed(3); // the explore heading takes its corner
+    // the explore map answers the pointer while it is the view
+    const ex = ctl.ex, act = !!ex && c >= 6.55 && fade > 0.35;
+    if (ex && act !== ex.act) { ex.act = act; exRoot.classList.toggle('act', act); if (!act) { ex.hover(-1); if (c < 6.55) ex.home(true); } }
     // a panel that has faded out after its pin stops taking the pointer (it
     // stays in the page for screen readers and the keyboard; see focusin)
     chPanels.forEach((pn, i) => {
@@ -505,14 +530,17 @@ export function initChapters({ engine, city, ctl }) {
     });
   });
 
-  // PHASE 2: the chapter 3 fit (saFit) eases in from c 4.3 and holds past 6;
-  // the explore section must ease it back out (fw in frame) before its own
-  // camera flights. The explore section also extends the clock past 6 here. Push its
-  // trigger's start and end onto K (6 to 7 until it reaches the top, 7 to 8
-  // while it scrolls away), and key the scene fade in updateUI to c > 7.
-  function chapterC() {
-    const y = scrollNow();
+  // The explore section extends the clock past 6 (see the top of this file);
+  // the chapter 3 fit (saFit) hands the camera to the explore map on the way.
+  const exST = exRoot ? ST.create({ trigger: exRoot, start: 'top top', end: 'bottom top' }) : null;
+  const clockK = () => {
     const K = [0, pins[0].start, pins[0].end, pins[1].start, pins[1].end, pins[2].start, pins[2].end];
+    if (exST) K.push(exST.start, exST.end);
+    return K;
+  };
+  const cMax = () => (exST ? 8 : 6);
+  function chapterC() {
+    const y = scrollNow(), K = clockK();
     if (y <= 0) return 0;
     for (let i = 0; i < K.length - 1; i++) if (y < K[i + 1]) return i + clamp((y - K[i]) / Math.max(1, K[i + 1] - K[i]), 0, 1);
     return K.length - 1;
@@ -525,7 +553,7 @@ export function initChapters({ engine, city, ctl }) {
     const c = chapterC();
     if (c !== cT) { cT = c; inv(); }
     updateUI(c);
-    const el = c >= 6 ? flowSecs.find((s) => s.getBoundingClientRect().bottom > 1) : null;
+    const el = c >= cMax() ? flowSecs.find((s) => s.getBoundingClientRect().bottom > 1) : null;
     lastFlow = el ? { el, off: el.getBoundingClientRect().top } : null;
   };
   const master = ST.create({ start: 0, end: 'max', onUpdate: onScroll, onRefresh: onScroll });
@@ -574,7 +602,7 @@ export function initChapters({ engine, city, ctl }) {
 
   // In-page links to a chapter land at the start of its pin (site.js would
   // stop 80 px short, which is still the scroll before the chapter).
-  const PIN_OF = { bend: 0, clocks: 1, metros: 2 };
+  const PIN_OF = { bend: 0, clocks: 1, metros: 2, explore: 3 };
   on(document, 'click', (e) => {
     const a = e.target.closest && e.target.closest('a[href^="#"]');
     if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
@@ -582,7 +610,7 @@ export function initChapters({ engine, city, ctl }) {
     if (!(id in PIN_OF)) return;
     e.preventDefault();
     e.stopPropagation();
-    goY(pins[PIN_OF[id]].start + 2);
+    goY((PIN_OF[id] === 3 ? exST || pins[2] : pins[PIN_OF[id]]).start + 2);
     history.pushState(null, '', '#' + id);
   }, true);
 
@@ -647,12 +675,12 @@ export function initChapters({ engine, city, ctl }) {
   // already reflowed, and by ScrollTrigger's refresh it is unpinned too.)
   let hold = null;
   const yAt = (c) => {
-    const K = [0, pins[0].start, pins[0].end, pins[1].start, pins[1].end, pins[2].start, pins[2].end], i = Math.min(5, Math.floor(c));
+    const K = clockK(), i = Math.min(K.length - 2, Math.floor(c));
     return K[i] + (c - i) * (K[i + 1] - K[i]);
   };
   on(window, 'resize', () => {
     const t = performance.now();
-    hold = window.scrollY < 2 ? null : cT < 6 ? { c: cT, t } : lastFlow && { el: lastFlow.el, off: lastFlow.off, t };
+    hold = window.scrollY < 2 ? null : cT < cMax() ? { c: cT, t } : lastFlow && { el: lastFlow.el, off: lastFlow.off, t };
   });
   const onRefreshed = () => {
     // only a refresh that follows the resize (phones skip some, see site.js)
@@ -669,8 +697,26 @@ export function initChapters({ engine, city, ctl }) {
   if (full) engine.start();
   inv();
 
+  // The explore map, once its outlines are in (home.js fetches data/geo.json
+  // with the scene). Until then the list and the card work on their own.
+  let killed = false;
+  const invX = () => { lastKey = ''; inv(); };
+  if (exRoot && ctl.ex && ctl.geo) ctl.geo.then((geo) => {
+    if (killed || !geo) return;
+    xp = buildExplore({ engine, city, ex: ctl.ex, geo, root: exRoot, inv: invX, paused: () => paused, mulberry32 });
+    ctl.ex.gl = { sync: () => { xp.sync(); placeName(cT); }, fly: xp.fly, band: xp.band };
+    ctl.ex.show();
+    invX();
+  }).catch((e) => { if (window.console) console.warn('explore map not built', e); });
+
   // Undo everything, for the static tier (a lost context).
   function kill() {
+    killed = true;
+    if (xp) { xp.kill(); xp = null; }
+    if (ctl.ex) { ctl.ex.gl = null; ctl.ex.act = true; }
+    if (exRoot) exRoot.classList.remove('act');
+    if (exST) exST.kill();
+    hudTL.style.opacity = '';
     cleanup.forEach((f) => f());
     fades.forEach((t) => { if (t.scrollTrigger) t.scrollTrigger.kill(); t.kill(); });
     master.kill();
@@ -692,6 +738,7 @@ export function initChapters({ engine, city, ctl }) {
   return {
     frame,
     redraw() { lastKey = ''; inv(); },
+    xp: () => xp, // for tests: where a metro is on screen (xp().screen), the cluster
     // after a jump (home.js keepPlace): show the new place at once, no camera flight
     snap() { onScroll(); cS = cT; lastKey = ''; inv(); },
     c: () => cT,
@@ -701,6 +748,7 @@ export function initChapters({ engine, city, ctl }) {
       step: ui.stage, fade: ui.fade, place: placeEl.textContent,
       pins: pins.map((p) => [Math.round(p.start), Math.round(p.end)]),
       counts: city.counts, degraded: engine.degraded, zoom: cam.zoom, fit: FIT, shown: MS.hover || MS.pin, pin: MS.pin,
+      ex: ctl.ex && { built: !!xp, ew: xp ? sstep(6, 7, cS) : 0, act: ctl.ex.act, lvl: ctl.ex.lvl, sel: ctl.ex.sel, hov: ctl.ex.hov, band: ctl.ex.band, card: ctl.ex.card, flying: !!xp && xp.flying() },
       labels: city.metroTags.filter((m) => m.el._a > 0).map((m) => m.el.dataset.k),
     }),
     kill,

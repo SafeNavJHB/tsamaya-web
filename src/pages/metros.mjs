@@ -13,12 +13,12 @@
 // Content rule: roads and driving context, never named residential areas.
 // See the editorial note at the top of src/data/metros.mjs.
 
-import { site, stats, fmt } from '../../site.config.mjs';
-import { section, eyebrow, icon, button, disclosure } from '../components.mjs';
+import { stats, fmt } from '../../site.config.mjs';
+import { section, eyebrow, icon, button } from '../components.mjs';
 import { metros as metroContent } from '../data/metros.mjs';
 import { faqNode, breadcrumbNode } from '../seo.mjs';
 import { bandBar, coverageBars } from '../charts.mjs';
-import { coverageMap, mappedMetros } from '../map.mjs';
+import { exploreSection } from '../explore.mjs';
 
 // Pair the editorial content with the live numbers for that metro.
 const joined = metroContent
@@ -144,26 +144,13 @@ function metroPage({ content, data }) {
 /* ---------------------------------------------------------------------------
  * The coverage index — the hub the seven metro pages hang off.
  * ------------------------------------------------------------------------ */
-const coverageHero = `
-<section class="page-hero">
-  <div class="wrap">
-    ${eyebrow('Where Tsamaya works')}
-    <h1>${stats.totals.metros} metros mapped, ${fmt(stats.totals.zones)} risk zones.</h1>
-    <p class="lede center-narrow">Tsamaya is live across ${site.coverageLive}. Every mapped area is rated for daytime, evening and night, and every figure on this page comes straight from the live database rather than being typed in.</p>
-  </div>
-</section>`;
-
-const coverageMapSection = section({
-  cls: 'band',
-  inner: `
-  ${eyebrow('The map')}
-  <h2>Twelve patches of a very large country</h2>
-  <p class="sub">Coverage is deliberately metro by metro rather than a thin national layer. On the map, each metro is drawn as its own risk zones dissolved into a single outline, read off the live database, so what you get is the actual ground the app has ratings for rather than a tidied-up version of it.</p>
-  ${disclosure({
-    closedLabel: 'See a map view',
-    openLabel: 'Hide the map view',
-    inner: coverageMap(mappedMetros(), 'coverage-map'),
-  })}`,
+// The coverage page opens on the explore map (BUILD_PLAN section 5.1): the
+// whole map interaction, with the page's h1 as its heading and its own scene.
+const coverageMapSection = exploreSection({
+  kick: 'Where Tsamaya works',
+  canvas: true,
+  h: 'h1',
+  lede: `Every one of the ${fmt(stats.totals.zones)} mapped areas is rated for daytime, evening and night, and every figure here comes straight from the live database.`,
 });
 
 const coverageGrid = section({
@@ -257,7 +244,9 @@ const coveragePage = {
       { name: 'Coverage', slug: 'coverage.html' },
     ]),
   ],
-  body: [coverageHero, coverageMapSection, coverageGrid, coverageChart, coverageFaq, coverageCta].join('\n'),
+  hud: false, // the map carries the page's opening
+  scripts: ['js/coverage.js'],
+  body: [coverageMapSection, coverageGrid, coverageChart, coverageFaq, coverageCta].join('\n'),
 };
 
 export default [coveragePage, ...joined.map(metroPage)];

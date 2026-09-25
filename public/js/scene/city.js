@@ -11,8 +11,9 @@
 //    tube and a band of light on the ground), each with draw-on, pulse and fade
 //    uniforms, and a chevron car that drives the lower-risk one.
 //  - South Africa for chapter 3: the first few thousand city points morph into
-//    the country's outline, and a pillar per metro grows from its point. Pillar
-//    height is rated areas: coverage, never risk.
+//    the country's outline, and a pillar per metro grows from its point (both
+//    from sa.js, which the coverage page shares). Pillar height is rated
+//    areas: coverage, never risk.
 //
 // Everything that changes over the story is a uniform set by apply(state, x);
 // the chapter clock and the camera live in chapters.js.
@@ -21,6 +22,7 @@
 // page (#sa-dots, written by the build from stats.json), and the country from
 // its #sa-land and #sa-borders paths. Nothing here is typed in.
 import { mulberry32, CITY, genCity, genCells } from './citygen.js';
+import { PT_VS, PT_FS, saTargets, saW, pathPolys, buildPillars } from './sa.js';
 
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const sstep = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
@@ -30,42 +32,6 @@ const sstep = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t 
  * start point A as uReveal runs 0 to 1. Bands blend as uBand runs 0 (daytime)
  * to 1 (evening) to 2 (night).
  * ------------------------------------------------------------------------ */
-// City points: kind 0 city, 1 inside South Africa, 2 its coast, 3 its borders.
-const PT_VS = `
-attribute vec3 aTarget; attribute vec2 aMeta;
-uniform float uReveal, uBand, uDissolve, uMorph, uPx, uAlpha, uSize, uFogN, uFogF;
-uniform vec2 uOrigin;
-varying vec3 vCol; varying float vA;
-void main() {
-  float kind = aMeta.x, rnd = aMeta.y;
-  float isSA = step(0.5, kind);
-  vec3 p = position;
-  float d = length(p.xz - uOrigin) / 150.0;
-  float fr = uReveal * 1.3;
-  float vis = 1.0 - smoothstep(fr - 0.05, fr, d);
-  float edge = (1.0 - smoothstep(0.0, 0.05, abs(d - fr + 0.035))) * (1.0 - step(0.999, uReveal));
-  float m = clamp(uMorph * 1.8 - rnd * 0.8, 0.0, 1.0); m = m * m * (3.0 - 2.0 * m); m *= isSA;
-  vec3 q = mix(p, aTarget, m);
-  q.y += sin(m * 3.14159) * (5.0 + rnd * 9.0);
-  float keep = mix(1.0 - uDissolve, 1.0, isSA);
-  vec4 mv = modelViewMatrix * vec4(q, 1.0);
-  gl_Position = projectionMatrix * mv;
-  float fog = 1.0 - smoothstep(uFogN, uFogF, -mv.z);
-  float b1 = clamp(uBand, 0.0, 1.0), b2 = clamp(uBand - 1.0, 0.0, 1.0);
-  vec3 col = mix(mix(vec3(0.80, 0.87, 0.95), vec3(0.97, 0.82, 0.62), b1), vec3(0.55, 0.67, 0.93), b2);
-  float br = mix(mix(1.0, 0.9, b1), 0.68, b2);
-  float hs = 0.5 + 0.5 * clamp(p.y / 9.0, 0.0, 1.0);
-  float saB = kind > 2.5 ? 0.5 : (kind > 1.5 ? 1.05 : 0.82);
-  col = mix(col * br * hs, kind > 3.5 ? vec3(0.3, 0.92, 0.68) : vec3(0.79, 0.84, 0.89) * saB, m);
-  col += edge * vec3(0.5, 0.6, 0.7);
-  gl_PointSize = uPx * uSize * (0.8 + 0.4 * rnd) * (1.0 + edge * 1.4) * mix(0.3 + 0.7 * keep, 1.0 + 0.25 * m, isSA);
-  vA = uAlpha * vis * keep * fog;
-  vCol = col;
-}`;
-const PT_FS = `
-varying vec3 vCol; varying float vA;
-void main() { if (vA < 0.004) discard; gl_FragColor = vec4(vCol, vA); }`;
-
 // Streets and long roads.
 const RD_VS = `
 attribute float aC;
@@ -166,90 +132,6 @@ void main() {
   gl_FragColor = vec4(uGo, exp(-x * x * 6.0) * 0.2 * uAlpha);
 }`;
 
-// Metro pillars: grow in order of size (aD), height from rated areas (aH).
-// aX is [highlight, brightness] per metro, for the explore map (Phase 2).
-const PL_VS = `
-attribute float aH; attribute float aD; attribute vec2 aX;
-uniform float uGrow, uFade, uK, uR, uZ, uHs;
-varying float vY; varying float vA; varying float vH;
-void main() {
-  float g = clamp(uGrow * 1.6 - aD * 0.6, 0.0, 1.0); g = 1.0 - pow(1.0 - g, 3.0);
-  vec3 p = position; p.y *= aH * g * uHs * (1.0 + 0.15 * aX.x) + 0.001; p.xz *= uR * uZ * (1.0 + 0.5 * aX.x);
-  vY = position.y; vA = g * uFade * uK * aX.y * (1.0 + 0.5 * aX.x); vH = aX.x;
-  gl_Position = projectionMatrix * modelViewMatrix * instanceMatrix * vec4(p, 1.0);
-}`;
-const PL_FS = `
-varying float vY; varying float vA; varying float vH;
-void main() { gl_FragColor = vec4(mix(vec3(0.86, 0.91, 0.97), vec3(0.2, 0.83, 0.6), vH), vA * (0.25 + 0.75 * pow(vY, 1.4))); }`;
-
-/* ---------------------------------------------------------------------------
- * South Africa target points, from the chapter 3 SVG paths.
- * ------------------------------------------------------------------------ */
-// M/L/H/V/Z paths, absolute or relative, as written by src/poster.mjs.
-function pathPolys(d) {
-  const out = [];
-  let cur = null, x = 0, y = 0, cmd = 'M', i = 0;
-  const tk = d.match(/[MLHVZmlhvz]|-?\d*\.?\d+(?:e-?\d+)?/g) || [];
-  while (i < tk.length) {
-    const t = tk[i];
-    if (/[A-Za-z]/.test(t)) {
-      cmd = t; i++;
-      if (t === 'Z' || t === 'z') { if (cur && cur.length) { cur.push(cur[0].slice()); x = cur[0][0]; y = cur[0][1]; } cur = null; }
-      continue;
-    }
-    const rel = cmd === cmd.toLowerCase(), C = cmd.toUpperCase();
-    if (C === 'H') x = (rel ? x : 0) + +tk[i++];
-    else if (C === 'V') y = (rel ? y : 0) + +tk[i++];
-    else { x = (rel ? x : 0) + +tk[i]; y = (rel ? y : 0) + +tk[i + 1]; i += 2; }
-    if (C === 'M') { cur = [[x, y]]; out.push(cur); cmd = rel ? 'l' : 'L'; } else if (cur) cur.push([x, y]);
-  }
-  return out;
-}
-// n points spaced evenly along a set of polylines.
-function alongPolys(polys, n) {
-  let L = 0;
-  const segs = [];
-  polys.forEach((p) => { for (let k = 1; k < p.length; k++) { const l = Math.hypot(p[k][0] - p[k - 1][0], p[k][1] - p[k - 1][1]); segs.push([p[k - 1], p[k], l]); L += l; } });
-  const out = [], step = L / n;
-  let acc = 0, next = 0;
-  for (const s of segs) {
-    while (next <= acc + s[2] && out.length < n) { const t = (next - acc) / (s[2] || 1); out.push([s[0][0] + (s[1][0] - s[0][0]) * t, s[0][1] + (s[1][1] - s[0][1]) * t]); next += step; }
-    acc += s[2];
-  }
-  return out;
-}
-// n points for the country: 62% filling the land on a jittered hex grid, 24% on
-// the coast, the rest on provincial borders. Each is [x, y, kind] in map units.
-function saTargets(n) {
-  const land = document.getElementById('sa-land'), brd = document.getElementById('sa-borders');
-  const res = [];
-  if (!land) return res;
-  const d = land.getAttribute('d');
-  const W = 500, H = 440, sc = 0.5;
-  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
-  const g = cv.getContext('2d', { willReadFrequently: true });
-  g.scale(sc, sc); g.fill(new Path2D(d), 'evenodd');
-  const px = g.getImageData(0, 0, W, H).data;
-  let area = 0;
-  for (let k = 3; k < px.length; k += 4) if (px[k] > 127) area++;
-  area /= sc * sc;
-  const nIn = Math.round(n * 0.62), nCo = Math.round(n * 0.24), nBr = n - nIn - nCo;
-  const sp = Math.sqrt(area / nIn / 0.866);
-  const R = mulberry32(5);
-  for (let y = sp / 2, row = 0; y < 880; y += sp * 0.866, row++) {
-    for (let x = (row % 2 ? sp / 2 : 0) + sp / 4; x < 1000; x += sp) {
-      const ix = Math.floor(x * sc), iy = Math.floor(y * sc);
-      if (px[(iy * W + ix) * 4 + 3] > 127) res.push([x + (R() - 0.5) * sp * 0.2, y + (R() - 0.5) * sp * 0.2, 1]);
-    }
-  }
-  alongPolys(pathPolys(d), nCo).forEach((p) => res.push([p[0], p[1], 2]));
-  if (brd) alongPolys(pathPolys(brd.getAttribute('d')), nBr).forEach((p) => res.push([p[0], p[1], 3]));
-  return res;
-}
-// Map units (1000 x 880, as the SVG) to scene units, centred on the city.
-const SAK = 0.125, SAX = 505, SAY = 440;
-const saW = (x, y) => [(x - SAX) * SAK, (y - SAY) * SAK];
-
 /* ---------------------------------------------------------------------------
  * The build. tier 'full' or 'light'; small: a phone-sized screen at load.
  * ------------------------------------------------------------------------ */
@@ -299,7 +181,8 @@ export function buildCity(engine, { tier, small }) {
   const P = buildPoints(NPTS);
   // the first points double as South Africa: each gets a target and a kind
   const tgt = new Float32Array(P.n * 3), meta = new Float32Array(P.n * 2);
-  const sa = saTargets(NSA);
+  const attr = (id, a) => { const e = document.getElementById(id); return e ? e.getAttribute(a) : ''; };
+  const sa = saTargets(NSA, attr('sa-land', 'd'), attr('sa-borders', 'd'));
   for (let i = 0; i < P.n; i++) {
     meta[i * 2 + 1] = R();
     if (i < sa.length) {
@@ -387,32 +270,9 @@ export function buildCity(engine, { tier, small }) {
   const car = new T.Mesh(carG, new T.MeshBasicMaterial({ color: 0x6EE7B7, transparent: true, depthWrite: false, side: T.DoubleSide }));
   car.visible = false; scn.add(car);
 
-  /* --- metro pillars (coverage size, never risk) --- */
-  const metros = Array.from(document.querySelectorAll('#sa-dots circle')).map((c) => ({ k: c.dataset.k, x: +c.getAttribute('cx'), y: +c.getAttribute('cy'), z: +c.dataset.z }));
-  const zMax = Math.max(1, ...metros.map((m) => m.z));
-  const NM = metros.length;
-  const pilG = new T.CylinderGeometry(0.34, 0.34, 1, 10, 1, true); pilG.translate(0, 0.5, 0);
-  const pH = new Float32Array(NM), pD = new Float32Array(NM), aXv = new Float32Array(NM * 2);
-  metros.forEach((m, i) => { pH[i] = 3 + (m.z / zMax) * 24; pD[i] = 1 - m.z / zMax; aXv[i * 2 + 1] = 1; });
-  pilG.setAttribute('aH', new T.InstancedBufferAttribute(pH, 1));
-  pilG.setAttribute('aD', new T.InstancedBufferAttribute(pD, 1));
-  pilG.setAttribute('aX', new T.InstancedBufferAttribute(aXv, 2));
-  const PU = { uGrow: { value: 0 }, uFade: { value: 1 }, uZ: { value: 1 }, uHs: { value: 1 } };
-  const pilMesh = (k, r) => {
-    const im = new T.InstancedMesh(pilG, new T.ShaderMaterial({ vertexShader: PL_VS, fragmentShader: PL_FS, transparent: true, depthWrite: false, blending: T.AdditiveBlending, uniforms: Object.assign({ uK: { value: k }, uR: { value: r } }, PU) }), NM);
-    metros.forEach((m, i) => { const w = saW(m.x, m.y); mtx.makeTranslation(w[0], 0, w[1]); im.setMatrixAt(i, mtx); });
-    im.frustumCulled = false; scn.add(im);
-  };
-  pilMesh(1, 1); pilMesh(0.22, 3.2); // the pillar and a wide soft halo round it
-  const mTop = metros.map((m, i) => { const w = saW(m.x, m.y); return new T.Vector3(w[0], pH[i], w[1]); });
-  const topG = new T.BufferGeometry(), topP = new Float32Array(NM * 3);
-  topG.setAttribute('position', new T.BufferAttribute(topP, 3));
-  const topM = new T.PointsMaterial({ color: 0xFFFFFF, size: 6, sizeAttenuation: false, transparent: true, opacity: 0, depthWrite: false });
-  const tops = new T.Points(topG, topM); tops.frustumCulled = false; scn.add(tops);
-  const capG = new T.BufferGeometry();
-  capG.setAttribute('position', new T.Float32BufferAttribute(mTop.flatMap((q) => [q.x, 0, q.z]), 3));
-  const capM = new T.PointsMaterial({ color: 0xE6EDF5, size: 5, sizeAttenuation: false, transparent: true, opacity: 0, depthWrite: false });
-  const caps = new T.Points(capG, capM); caps.frustumCulled = false; scn.add(caps);
+  /* --- metro pillars (coverage size, never risk), from the chapter 3 figure's dots --- */
+  const pillars = buildPillars(T, scn, Array.from(document.querySelectorAll('#sa-dots circle')).map((c) => ({ k: c.dataset.k, x: +c.getAttribute('cx'), y: +c.getAttribute('cy'), z: +c.dataset.z })));
+  const { metros, mTop, pH, PU, aX, aXv } = pillars;
 
   /* --- anchors for the callouts (chapters.js projects them) --- */
   const anchors = {
@@ -446,12 +306,7 @@ export function buildCity(engine, { tier, small }) {
     lu.uAlpha.value = gu.uAlpha.value = bu.uAlpha.value = s.lowA * (1 - 0.75 * sp.l * x.sw);
     lu.uPulse.value = gu.uPulse.value = sp.lp; lu.uPulseA.value = gu.uPulseA.value = sp.la * x.sw;
     lu.uPc.value.copy(MINT); gu.uPc.value.copy(MINT);
-    PU.uGrow.value = s.grow; capM.opacity = s.grow * 0.95; topM.opacity = s.grow;
-    for (let i = 0; i < NM; i++) {
-      let g = clamp(s.grow * 1.6 - pD[i] * 0.6, 0, 1); g = 1 - Math.pow(1 - g, 3);
-      topP[i * 3] = mTop[i].x; topP[i * 3 + 1] = pH[i] * g * PU.uHs.value * (1 + 0.15 * aXv[i * 2]); topP[i * 3 + 2] = mTop[i].z;
-    }
-    topG.attributes.position.needsUpdate = true;
+    pillars.update(s.grow);
     if (s.carT >= 0) {
       const t = clamp(s.carT, 0, 0.999), p = lowC.getPointAt(t), tg = lowC.getTangentAt(t);
       car.position.set(p.x, 1.1, p.z); car.rotation.y = Math.atan2(-tg.x, -tg.z); car.visible = true;
@@ -464,13 +319,18 @@ export function buildCity(engine, { tier, small }) {
 
   return {
     U, anchors, metroTags, fastC, coast,
+    // what the explore map (scene/explore.js) builds on: the pillars (in the
+    // order of the chapter 3 figure's dots, largest first), their shared
+    // per-metro [highlight, brightness] attribute, the point material for a
+    // metro's dot fill, and the map-to-scene projection
+    pil: { metros, mTop, pH, PU, aX, aXv, pointMat, saW, pathPolys },
     apply,
     // Light metros' pillars: v maps a metro's key to 0..1 (1 is emerald, a
     // little taller and wider); dim (0..1) fades the others toward 55%. Used by
     // chapter 3's list and labels (chapters.js), and by the explore map later.
     highlight(v, dim) {
       metros.forEach((m, i) => { const h = v[m.k] || 0; aXv[i * 2] = h; aXv[i * 2 + 1] = 1 - 0.45 * dim * (1 - h); });
-      pilG.attributes.aX.needsUpdate = true;
+      aX.needsUpdate = true;
     },
     // Adaptive quality (engine onDegrade): half the points, only the cells
     // that ever carry a rating, and point sizes for the new pixel ratio.
