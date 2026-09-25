@@ -326,7 +326,9 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     // phone on its side) they stop below it, over the card's edge
     let lift = sm && i >= 0 ? ch + 8 : 0, over = false;
     if (lift) {
-      const hd = document.querySelector('.site-header'), room = stage.getBoundingClientRect().bottom - 8 - back.offsetHeight - (hd ? hd.getBoundingClientRect().bottom : 0) - 4;
+      // from the stage's own height (its top meets the header at rest), so
+      // scrolling the list cannot change it
+      const room = stage.offsetHeight - 8 - back.offsetHeight - 4;
       if (lift > room) { lift = Math.max(0, room); over = true; }
     }
     back.style.transform = lift ? `translateY(${-lift.toFixed(1)}px)` : '';

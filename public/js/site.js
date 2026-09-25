@@ -87,7 +87,7 @@
     toggle.addEventListener('click', function () { setMenu(!sheet.classList.contains('open')); });
     $$('a', sheet).forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && sheet.classList.contains('open')) { setMenu(false); toggle.focus(); }
+      if (e.key === 'Escape' && sheet.classList.contains('open')) { e.preventDefault(); setMenu(false); toggle.focus(); }
     });
   }
 

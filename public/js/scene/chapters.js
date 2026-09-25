@@ -44,6 +44,8 @@ const pad = (n) => String(n).padStart(2, '0');
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const D2R = Math.PI / 180;
+// keyboard focus rather than a click's (Safari before 15.4 has no :focus-visible: count it as keyboard)
+const focusVisible = (el) => { try { return el.matches(':focus-visible'); } catch (e) { return true; } };
 const phone = () => innerWidth < 768;
 
 /* ---------------------------------------------------------------------------
@@ -363,7 +365,7 @@ export function initChapters({ engine, city, ctl }) {
     return b;
   });
   city.metroTags.forEach((m) => hover(m.el.firstElementChild, m.el.dataset.k));
-  on(document, 'keydown', (e) => { if (e.key === 'Escape' && (MS.pin || MS.hover)) { MS.hover = ''; showM('pin', ''); } });
+  on(document, 'keydown', (e) => { if (e.key === 'Escape' && (MS.pin || MS.hover)) { e.preventDefault(); MS.hover = ''; showM('pin', ''); } });
 
   /* --- the frame (engine onFrame): returns true while anything changed --- */
   function frame({ dt }) {
@@ -514,7 +516,7 @@ export function initChapters({ engine, city, ctl }) {
       // section's own Pause motion takes over under the map
       // (not while it has keyboard focus: it would drop to the page; a click
       // focuses it too, which is not what this is for)
-      const fe = document.activeElement, held = hudBR.contains(fe) && fe.matches(':focus-visible');
+      const fe = document.activeElement, held = hudBR.contains(fe) && focusVisible(fe);
       hudBR.style.opacity = sb && !held ? o : ''; hudBR.style.visibility = sb && !held && +o < 0.01 ? 'hidden' : '';
     }
     // the explore map answers the pointer while it is the view

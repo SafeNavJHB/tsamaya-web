@@ -112,10 +112,11 @@ export function initExplore({ root, tier }) {
   // list, so a row tapped low in the list brings the map and its card back
   // into view. Not for Enter on the keyboard: focus stays in view where it is.
   const stacked = window.matchMedia('(max-width: 1023px)');
-  function reveal() {
+  // (at once for keyboard focus, which must land in view before the next Tab)
+  function reveal(now) {
     const hd = $('.site-header'), top = $('.ex-stage', root).getBoundingClientRect().top, head = hd ? hd.getBoundingClientRect().bottom : 0;
     if (!stacked.matches || top >= head - 2) return;
-    const y = Math.round(scrollY + top - head), still = document.documentElement.classList.contains('motion-paused') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const y = Math.round(scrollY + top - head), still = now || document.documentElement.classList.contains('motion-paused') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (window.lenis) window.lenis.scrollTo(y, still ? { immediate: true, force: true } : { duration: 0.8 });
     else window.scrollTo({ top: y, behavior: still ? 'auto' : 'smooth' });
   }
@@ -143,12 +144,21 @@ export function initExplore({ root, tier }) {
   // and once focus leaves the card for anywhere but a row, the preview ends
   card.addEventListener('focusout', (e) => { if (ex.hov >= 0 && !card.contains(e.relatedTarget) && !btns.includes(e.relatedTarget)) hover(-1); });
   back.addEventListener('click', () => home());
-  // Escape backs out while the section is the view (ex.act), or, before a 3D
-  // map has taken over, while it is on screen
+  // Escape backs out while the section is the view (ex.act, or before a 3D map
+  // has taken over). With focus in the section it is always the map's; from
+  // elsewhere only while the section is on screen and nothing else used the
+  // key (the menu, the hero's route card and chapter 3's labels mark it
+  // handled; on window, so it hears them all first)
   const near = () => { const r = root.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && (ex.act || (!ex.gl && near())) && (ex.lvl !== 'nat' || ex.sel >= 0)) home(); });
+  window.addEventListener('keydown', (e) => {
+    const inside = root.contains(document.activeElement);
+    if (e.key !== 'Escape' || !(ex.act || !ex.gl) || !(inside || (near() && !e.defaultPrevented))) return;
+    if (ex.lvl !== 'nat' || ex.sel >= 0) home();
+  });
   // keyboard focus in the card: stacked, bring the map and its card into view
-  card.addEventListener('focusin', () => reveal());
+  // (not a mouse press on its link, which would move the link from under it)
+  const focusVisible = (el) => { try { return el.matches(':focus-visible'); } catch (e) { return true; } };
+  card.addEventListener('focusin', (e) => { if (focusVisible(e.target)) reveal(true); });
 
   // The static map: the country, each metro's coverage outline, and at its
   // point a dot and a ring sized by its high-risk count in the band picked, all
