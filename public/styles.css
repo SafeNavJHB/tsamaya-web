@@ -1409,7 +1409,13 @@ html:not(.js) .ex-stage, html:not(.js) .ex-card { display: none; }
 .ex.cine .ex-stage { align-self: stretch; }
 .ex.cine .ex-card { position: fixed; left: 0; top: 0; z-index: 6; pointer-events: none; }
 .ex.cine .ex-card.is-pin { pointer-events: auto; }
-.ex.cine:not(.act) .ex-card, .ex.cine:not(.act) .ex-hint { opacity: 0; visibility: hidden; }
+.ex.cine.gl:not(.act) .ex-card, .ex.cine.gl:not(.act) .ex-hint { opacity: 0; visibility: hidden; }
+/* the scene's layout before its map is built (.gl), or with no map at all (the
+   data file failed): the card sits in the stage's corner and shows a pick, and
+   there is nothing to go back from or to pause */
+.ex.cine .ex-in { position: relative; }
+.ex.cine:not(.gl) .ex-card { position: absolute; grid-area: stage; left: 0; top: 0; pointer-events: auto; }
+.ex.cine:not(.gl) .ex-back, .ex.cine:not(.gl) .ex-pause { display: none; }
 /* stacked, under 1024 wide (phones and tablets; the same query as
    scene/explore.js): the map on top, the card under it (docked over the map's
    foot on the home page), then the heading and the list. Beside the list, a
@@ -1429,6 +1435,7 @@ html:not(.js) .ex-stage, html:not(.js) .ex-card { display: none; }
   .ex.cine .ex-stage { height: 52vh; height: 52svh; margin-top: var(--head); }
   .ex.cine::before { background: linear-gradient(180deg, rgba(10, 15, 28, 0) calc(var(--head) + 48svh), var(--night) calc(var(--head) + 56svh)); }
   .ex.cine .ex-card { left: var(--edge); width: min(calc(100% - 2 * var(--edge)), 560px); }
+  .ex.cine:not(.gl) .ex-card { left: 0; top: auto; bottom: 8px; width: min(100%, 560px); }
   .ex.cine .ex-card, .ex-page .ex-card { padding: 10px 14px 0; }
   .ex.cine .exc-sc, .ex-page .exc-sc { display: none; }
   .ex.cine .exc-k, .ex-page .exc-k { margin-top: 8px; }
@@ -1436,14 +1443,16 @@ html:not(.js) .ex-stage, html:not(.js) .ex-card { display: none; }
   .ex.cine .exc-rows li, .ex-page .exc-rows li { grid-template-columns: 1fr auto; gap: 2px 6px; min-height: 0; }
   .ex.cine .exc-rows i, .ex-page .exc-rows i { grid-column: 1 / -1; order: 3; }
   .ex.cine .exc-rows b, .ex-page .exc-rows b { font-size: 14px; }
-  .ex.cine .exc-rows em, .ex-page .exc-rows em { display: inline; margin-left: 4px; }
+  /* "Now" and "Selected" on a line of their own, kept for all three, so a
+     narrow column never runs into the next and the card never changes height */
+  .ex.cine .exc-rows em, .ex-page .exc-rows em { min-height: 1.3em; line-height: 1.3; }
   .ex.cine .exc-l, .ex-page .exc-l { margin-top: 8px; }
 }
 /* the Gauteng data file missing on the home page: the list, and the card in its place, no map */
-.ex.cine.ex-flat .ex-card { position: relative; left: auto; top: auto; pointer-events: auto; }
-.ex.cine.ex-flat .ex-back { left: auto; right: 0; }
 @media (max-width: 767px) {
   .ex .ch-h { font-size: 1.85rem; }
+  .ex-pause { min-width: 44px; justify-content: center; margin-right: 0; padding: 0 10px; }
+  .ex-pause .motion-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   /* the pinned chapters' phone text (.is-cine .ch-h, .ch-p) reaches this
      heading too once the scene is up: the same from the start, so it never moves */
   .ex.cine .ch-h { margin-top: 10px; }

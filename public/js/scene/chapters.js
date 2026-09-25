@@ -126,6 +126,15 @@ export function initChapters({ engine, city, ctl }) {
   const full = engine.tier === 'full';
   const cleanup = [];
   let xp = null, ewWas = 0, resizeAt = -1e9; // the explore map in the scene, once data/geo.json is in (scene/explore.js)
+  // Leaving the explore section upward drops the pick, but not in the moment
+  // after a resize (a phone's toolbar coming back is one): the refresh can dip
+  // the clock out of the section until the hold puts it back. Checked again
+  // once that has settled, so a reader who really left still loses it.
+  function leaveHome() {
+    const ex = ctl.ex, wait = 1500 - (performance.now() - resizeAt);
+    if (wait <= 0) { ex.home(true); return; }
+    setTimeout(() => { if (!killed && !ex.act && cT < 6.55) ex.home(true); }, wait + 100);
+  }
   const exRoot = $('#explore');
   const on = (target, type, fn, opts) => { target.addEventListener(type, fn, opts); cleanup.push(() => target.removeEventListener(type, fn, opts)); };
   const inv = () => engine.invalidate();
@@ -503,11 +512,13 @@ export function initChapters({ engine, city, ctl }) {
       hudTL.style.opacity = o; // the explore heading takes its corner
       // stacked, the list runs under the bottom corner: it gives way, and the
       // section's own Pause motion takes over under the map
-      hudBR.style.opacity = sb ? o : ''; hudBR.style.visibility = sb && +o < 0.01 ? 'hidden' : '';
+      // (not while it has keyboard focus: it would drop to the page)
+      const held = hudBR.contains(document.activeElement);
+      hudBR.style.opacity = sb && !held ? o : ''; hudBR.style.visibility = sb && !held && +o < 0.01 ? 'hidden' : '';
     }
     // the explore map answers the pointer while it is the view
     const ex = ctl.ex, act = !!ex && c >= 6.55 && fade > 0.35;
-    if (ex && act !== ex.act) { ex.act = act; exRoot.classList.toggle('act', act); if (!act) { ex.hover(-1); if (c < 6.55 && performance.now() - resizeAt > 1500) ex.home(true); } }
+    if (ex && act !== ex.act) { ex.act = act; exRoot.classList.toggle('act', act); if (!act) { ex.hover(-1); if (c < 6.55) leaveHome(); } }
     // a panel that has faded out after its pin stops taking the pointer (it
     // stays in the page for screen readers and the keyboard; see focusin)
     chPanels.forEach((pn, i) => {
@@ -729,6 +740,7 @@ export function initChapters({ engine, city, ctl }) {
     // base: chapter 3's highlight, which the map blends from as it takes over
     const base = (k) => { const h = HL[k] || 0; return [h, 1 - 0.45 * HL._dim * (1 - h)]; };
     xp = buildExplore({ engine, city, ex: ctl.ex, geo, root: exRoot, inv: invX, paused: () => paused, mulberry32, base });
+    exRoot.classList.add('gl');
     ctl.ex.gl = { sync: () => { xp.sync(); placeName(cT); }, fly: xp.fly, band: xp.band };
     ctl.ex.show();
     invX();
@@ -739,7 +751,7 @@ export function initChapters({ engine, city, ctl }) {
     killed = true;
     if (xp) { xp.kill(); xp = null; }
     if (ctl.ex) { ctl.ex.gl = null; ctl.ex.act = true; }
-    if (exRoot) exRoot.classList.remove('act');
+    if (exRoot) exRoot.classList.remove('act', 'gl');
     if (exST) exST.kill();
     hudTL.style.opacity = hudBR.style.opacity = hudBR.style.visibility = '';
     cleanup.forEach((f) => f());
