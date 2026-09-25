@@ -41,6 +41,9 @@ const bandOf = (m) => TS.bands.indexOf(TS.bandAt(m));
 const forced = new URLSearchParams(location.search).get('tier');
 const tier = ['static', 'light', 'full'].includes(forced) ? forced : detectTier();
 doc.classList.add('tier-' + tier);
+// The explore section's 3D layout: set while the page was read in (the inline
+// script in src/explore.mjs, from a cheap guess), settled here by the tier.
+if (document.getElementById('explore')) document.getElementById('explore').classList.toggle('cine', tier !== 'static');
 
 // Shared with chapters.js once the scene is up.
 const ctl = {
@@ -369,7 +372,7 @@ function toStatic(why) {
     doc.classList.add('tier-static');
     ctl.tier = 'static';
     ctl.onPreview = ctl.onSpot = null;
-    if (ex) { ex.gl = null; ex.wait = false; ex.act = true; ex.staticMap(); ex.show(); }
+    if (ex) { exRoot.classList.remove('cine'); ex.gl = null; ex.wait = false; ex.act = true; ex.staticMap(); ex.show(); }
     if (window.ScrollTrigger) window.ScrollTrigger.refresh();
   });
   preview(ctl.pv.on ? ctl.pv.t : -1, true);
@@ -394,6 +397,7 @@ async function loadScene() {
       const engine = eng.createEngine({
         canvas: $('#gl'), stage: $('#scene'), tier: ctl.tier, fov: 36,
         onFrame: (f) => { ctl.frames++; return ch ? ch.frame(f) : false; },
+        onResize: () => { if (ch) ch.relayout(); },
         onDegrade: () => { if (city) city.degrade(); if (ch) ch.redraw(); },
         onLost: () => toStatic('the graphics context was lost'),
       });

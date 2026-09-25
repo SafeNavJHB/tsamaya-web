@@ -24,6 +24,7 @@ const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const sstep = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 const lerp = (a, b, t) => a + (b - a) * t;
 const D2R = Math.PI / 180;
+const NOB = [0, 1]; // no highlight: plain height, full brightness
 
 // a metro's coverage outline as a ribbon (uProg draws it on)
 const OL_VS = `
@@ -75,11 +76,13 @@ void main() {
 }`;
 
 // slot: on phones the card has a place of its own under the map (the coverage
-// page) rather than docking over the bottom of it (the home page)
-export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberry32, slot = false }) {
+// page) rather than docking over the bottom of it (the home page). base(k):
+// the pillar highlight [h, lit] the map blends from as it takes over (chapter
+// 3's, on the home page); none on the coverage page.
+export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberry32, slot = false, base = null }) {
   const T = engine.THREE, cam = engine.camera, scn = engine.scene, G = window.gsap;
   const pil = city.pil, M = ex.M, light = engine.tier === 'light';
-  const stage = root.querySelector('.ex-stage'), hintEl = root.querySelector('.ex-hint'), card = root.querySelector('.ex-card'), back = root.querySelector('.ex-back');
+  const stage = root.querySelector('.ex-stage'), hintEl = root.querySelector('.ex-hint'), card = root.querySelector('.ex-card'), back = root.querySelector('.ex-back'), pz = root.querySelector('.ex-pause');
   const GREY = new T.Color(0.79, 0.84, 0.89), GO = new T.Color(0.2, 0.83, 0.6);
   // list index -> pillar index, and back (the rings share the pillars' order)
   const pi = M.map((m) => pil.metros.findIndex((q) => q.k === m.k));
@@ -181,6 +184,9 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     const er = root.getBoundingClientRect(), sr = stage.getBoundingClientRect(), cr = cv.getBoundingClientRect(), sm = small();
     const x0 = sr.left - cr.left, x1 = sm ? sr.right - cr.left : W - 8, y0 = sm ? sr.top - er.top : 80, y1 = sm ? sr.bottom - er.top : Math.min(H, innerHeight) - 36;
     SG = { w: x1 - x0, h: y1 - y0, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 };
+    // a metro or the cluster in view is framed again for the new stage (a
+    // tablet turning round can switch layouts)
+    if (FL.kind !== 'nat' && FL.b) FL.b = viewCam(FL.kind, FL.i);
   }
   // a camera that frames a box in the stage: all of them, the cluster, or one metro
   function viewCam(kind, i) {
@@ -293,10 +299,10 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     UW.value = 5 * wpp; UW2.value = 0.9 * wpp;
     const idA = lerp(0.6, 0.16, sstep(60, 200, dist));
     ST.forEach((st, i) => {
-      const u = outl[i].material.uniforms, h = st.hi * ew, lit = lerp(1, st.lit, ew), j = pi[i];
+      const u = outl[i].material.uniforms, j = pi[i], bh = base ? base(M[i].k) : NOB;
       u.uA.value = ew * lerp(idA, 1, st.hi) * (0.45 + 0.55 * st.lit); u.uG.value = st.hi; u.uProg.value = st.draw;
       u.uC.value.copy(GREY).lerp(GO, st.hi); outl[i].visible = ew > 0.01;
-      if (j >= 0 && ew > 0) { pil.aXv[j * 2] = h; pil.aXv[j * 2 + 1] = lit; }
+      if (j >= 0 && ew > 0) { pil.aXv[j * 2] = lerp(bh[0], st.hi, ew); pil.aXv[j * 2 + 1] = lerp(bh[1], st.lit, ew); }
       const f = fills[i];
       if (f) { f.visible = st.fa > 0.003 && ew > 0.01; f.material.uniforms.uAlpha.value = st.fa * ew; f.material.uniforms.uReveal.value = st.rv; }
     });
@@ -315,8 +321,9 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     // phones: no room beside a metro, so the card docks along the bottom of the
     // map's stage, and the back button sits above it (or, with a slot, the card
     // keeps its own place under the map and the CSS has it)
-    if (sm && slot) { card.style.transform = back.style.transform = ''; return; }
+    if (sm && slot) { card.style.transform = back.style.transform = ''; if (pz) pz.style.transform = ''; return; }
     back.style.transform = sm && i >= 0 ? `translateY(${-(ch + 8)}px)` : '';
+    if (pz) pz.style.transform = back.style.transform;
     if (i < 0 || ew < 0.3 || !SG) return;
     const o = org(card);
     if (sm) { card.style.transform = `translate3d(${(-o[0]).toFixed(1)}px,${(SG.cy + SG.h / 2 - trk - 8 - ch - o[1]).toFixed(1)}px,0)`; return; }
@@ -344,7 +351,7 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     if (PM.raf) cancelAnimationFrame(PM.raf);
     G.killTweensOf([FL, RB, RP, ...ST]);
     hint(false); stage.classList.remove('pt');
-    card.style.transform = ''; back.style.transform = ''; hintEl.style.transform = '';
+    card.style.transform = ''; back.style.transform = ''; hintEl.style.transform = ''; if (pz) pz.style.transform = '';
   }
 
   return {

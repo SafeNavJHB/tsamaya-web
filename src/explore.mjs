@@ -18,6 +18,13 @@ import { metrosBySize } from './poster.mjs';
 // each is easy to pick. A layout fact, not data.
 export const GAUTENG = ['johannesburg', 'pretoria', 'ekurhuleni', 'west_rand', 'rustenburg', 'pilanesberg', 'secunda'];
 
+// On the home page the section takes the 3D scene's layout (.cine) while the
+// page is still being read in, so nothing moves when the scene arrives, even
+// for a reader who lands on it (a link to #explore, a reload). The likely
+// tier, cheaply: home.js decides for real (scene/tier.js) and takes the class
+// off again for the static tier.
+const PRE_CINE = `<script>(function(){var s=document.currentScript.parentNode;if(!/[?&]tier=static/.test(location.search)&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))s.classList.add('cine')})()</script>`;
+
 // kick: the small label over the heading. canvas: the section brings its own
 // scene (the coverage page); the home page draws it in the story's scene.
 // h: the heading's level ('h1' where the section opens its page). lede: a line
@@ -29,7 +36,7 @@ export function exploreSection({ kick, canvas = false, h = 'h2', lede = '' }) {
   const bands = siteData().bands, metros = metrosBySize(), n = stats.totals.metros, m0 = metros[0];
   const rows = metros.map((m) => `<li data-k="${m.key}" data-p="${m.province}" data-z="${m.zones}" data-r="${bands.map((b) => m.red[b.key]).join(' ')}"${GAUTENG.includes(m.key) ? ' data-gt' : ''}><a href="${m.slug}.html"><span>${m.name}</span><span class="num">${fmt(m.zones)}<span class="sr"> rated areas</span></span></a></li>`).join('\n          ');
   return `
-<section class="ex${canvas ? ' ex-page' : ''}" id="explore" aria-labelledby="ex-h">${canvas ? '\n  <div class="ex-scene scene-stage" aria-hidden="true"><canvas class="ex-gl"></canvas></div>' : ''}
+<section class="ex${canvas ? ' ex-page' : ''}" id="explore" aria-labelledby="ex-h">${canvas ? '\n  <div class="ex-scene scene-stage" aria-hidden="true"><canvas class="ex-gl"></canvas></div>' : `\n  ${PRE_CINE}`}
   <div class="ex-in wrap">
     <div class="ex-head">
       <p class="kick hud">${kick}</p>
@@ -41,8 +48,8 @@ export function exploreSection({ kick, canvas = false, h = 'h2', lede = '' }) {
     <div class="ex-stage" id="ex-stage">
       <figure class="ex-map" aria-hidden="true"></figure>
       <button class="ex-back hud" type="button" id="ex-back" hidden><span aria-hidden="true">&larr;</span> Back to all ${n}</button>
-      <p class="ex-hint hud" id="ex-hint" aria-hidden="true">Gauteng and surrounds: ${metros.filter((m) => GAUTENG.includes(m.key)).length} metros</p>${canvas ? `
-      <button class="ex-pause motion-toggle hud" type="button" aria-pressed="false" data-motion-toggle><span class="pi" aria-hidden="true"></span><span class="motion-label">Pause motion</span></button>` : ''}
+      <p class="ex-hint hud" id="ex-hint" aria-hidden="true">Gauteng and surrounds: ${metros.filter((m) => GAUTENG.includes(m.key)).length} metros</p>
+      <button class="ex-pause motion-toggle hud" type="button" aria-pressed="false" data-motion-toggle><span class="pi" aria-hidden="true"></span><span class="motion-label">Pause motion</span></button>
     </div>
     <div class="ex-body">
       <ul class="ex-list" id="ex-list" aria-label="The ${n} metros" style="--rows:${Math.ceil(metros.length / 2)}">

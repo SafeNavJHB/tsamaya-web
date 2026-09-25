@@ -136,7 +136,7 @@ export function initExplore({ root, tier }) {
     // second), Home and End jump
     b.addEventListener('keydown', (e) => {
       const n = btns.length, R = Math.ceil(n / 2), k = e.key;
-      const j = k === 'ArrowDown' ? (i + 1) % n : k === 'ArrowUp' ? (i + n - 1) % n : k === 'ArrowRight' ? Math.min(i + R, n - 1) : k === 'ArrowLeft' ? Math.max(i - R, 0) : k === 'Home' ? 0 : k === 'End' ? n - 1 : -1;
+      const j = k === 'ArrowDown' ? (i + 1) % n : k === 'ArrowUp' ? (i + n - 1) % n : k === 'ArrowRight' ? (i + R < n ? i + R : i) : k === 'ArrowLeft' ? (i - R >= 0 ? i - R : i) : k === 'Home' ? 0 : k === 'End' ? n - 1 : -1;
       if (j >= 0) { e.preventDefault(); btns[j].focus(); }
     });
   });

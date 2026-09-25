@@ -125,7 +125,7 @@ export function initChapters({ engine, city, ctl }) {
   const T = engine.THREE, cam = engine.camera, doc = document.documentElement;
   const full = engine.tier === 'full';
   const cleanup = [];
-  let xp = null, ewWas = 0; // the explore map in the scene, once data/geo.json is in (scene/explore.js)
+  let xp = null, ewWas = 0, resizeAt = -1e9; // the explore map in the scene, once data/geo.json is in (scene/explore.js)
   const exRoot = $('#explore');
   const on = (target, type, fn, opts) => { target.addEventListener(type, fn, opts); cleanup.push(() => target.removeEventListener(type, fn, opts)); };
   const inv = () => engine.invalidate();
@@ -414,7 +414,8 @@ export function initChapters({ engine, city, ctl }) {
   }
 
   /* --- DOM driven by c --- */
-  const stage = $('#scene'), hudLayer = $('#hud'), hudBL = $('.hud-c.bl'), hudTL = $('.hud-c.tl'), chipsEl = $('.bchips');
+  const stage = $('#scene'), hudLayer = $('#hud'), hudBL = $('.hud-c.bl'), hudTL = $('.hud-c.tl'), hudBR = $('.hud-c.br'), chipsEl = $('.bchips');
+  const stacked = window.matchMedia('(max-width: 1023px)'); // the explore section's stacked layout (styles.css)
   const steps = $$('#bend .ch-steps li'), railBtns = $$('#bend .rail-l button');
   const rail1 = $('#bend .rail-f'), rail3 = $('#metros .rail-f');
   const statEl = $('#stat'), statTo = $('#stat-to'), statFrom = $('#stat-from').textContent, statTrue = statTo.textContent;
@@ -497,10 +498,16 @@ export function initChapters({ engine, city, ctl }) {
       if (!hide !== ui.live) { ui.live = !hide; if (ui.live) { if (full) engine.start(); inv(); } else engine.stop(); }
     }
     hudBL.style.opacity = (1 - sstep(0.12, 0.5, c)).toFixed(3);
-    if (exST) hudTL.style.opacity = (1 - sstep(6.1, 6.5, c)).toFixed(3); // the explore heading takes its corner
+    if (exST) {
+      const o = (1 - sstep(6.1, 6.5, c)).toFixed(3), sb = stacked.matches;
+      hudTL.style.opacity = o; // the explore heading takes its corner
+      // stacked, the list runs under the bottom corner: it gives way, and the
+      // section's own Pause motion takes over under the map
+      hudBR.style.opacity = sb ? o : ''; hudBR.style.visibility = sb && +o < 0.01 ? 'hidden' : '';
+    }
     // the explore map answers the pointer while it is the view
     const ex = ctl.ex, act = !!ex && c >= 6.55 && fade > 0.35;
-    if (ex && act !== ex.act) { ex.act = act; exRoot.classList.toggle('act', act); if (!act) { ex.hover(-1); if (c < 6.55) ex.home(true); } }
+    if (ex && act !== ex.act) { ex.act = act; exRoot.classList.toggle('act', act); if (!act) { ex.hover(-1); if (c < 6.55 && performance.now() - resizeAt > 1500) ex.home(true); } }
     // a panel that has faded out after its pin stops taking the pointer (it
     // stays in the page for screen readers and the keyboard; see focusin)
     chPanels.forEach((pn, i) => {
@@ -684,7 +691,10 @@ export function initChapters({ engine, city, ctl }) {
     return K[i] + (c - i) * (K[i + 1] - K[i]);
   };
   on(window, 'resize', () => {
-    const t = performance.now();
+    // (and the explore map keeps its pick: the refresh measures the old scroll
+    // against the new pins, and the clock can dip out of the section until the
+    // hold puts it back)
+    const t = resizeAt = performance.now();
     hold = window.scrollY < 2 ? null : cT < cMax() ? { c: cT, t } : lastFlow && { el: lastFlow.el, off: lastFlow.off, t };
   });
   const onRefreshed = () => {
@@ -716,7 +726,9 @@ export function initChapters({ engine, city, ctl }) {
   if (exRoot && ctl.ex && ctl.geo) ctl.geo.then((geo) => {
     if (killed) return;
     if (!geo) { flat('no map data'); return; }
-    xp = buildExplore({ engine, city, ex: ctl.ex, geo, root: exRoot, inv: invX, paused: () => paused, mulberry32 });
+    // base: chapter 3's highlight, which the map blends from as it takes over
+    const base = (k) => { const h = HL[k] || 0; return [h, 1 - 0.45 * HL._dim * (1 - h)]; };
+    xp = buildExplore({ engine, city, ex: ctl.ex, geo, root: exRoot, inv: invX, paused: () => paused, mulberry32, base });
     ctl.ex.gl = { sync: () => { xp.sync(); placeName(cT); }, fly: xp.fly, band: xp.band };
     ctl.ex.show();
     invX();
@@ -729,7 +741,7 @@ export function initChapters({ engine, city, ctl }) {
     if (ctl.ex) { ctl.ex.gl = null; ctl.ex.act = true; }
     if (exRoot) exRoot.classList.remove('act');
     if (exST) exST.kill();
-    hudTL.style.opacity = '';
+    hudTL.style.opacity = hudBR.style.opacity = hudBR.style.visibility = '';
     cleanup.forEach((f) => f());
     fades.forEach((t) => { if (t.scrollTrigger) t.scrollTrigger.kill(); t.kill(); });
     master.kill();
@@ -751,6 +763,8 @@ export function initChapters({ engine, city, ctl }) {
   return {
     frame,
     redraw() { lastKey = ''; inv(); },
+    // the canvas changed size (engine onResize): the explore map's stage too
+    relayout() { if (xp) xp.layout(); lastKey = ''; inv(); },
     xp: () => xp, // for tests: where a metro is on screen (xp().screen), the cluster
     // after a jump (home.js keepPlace): show the new place at once, no camera flight
     snap() { onScroll(); cS = cT; lastKey = ''; inv(); },
