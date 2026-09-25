@@ -2,6 +2,8 @@
 
 Written 2026/09/25, when the work moved from a Claude Code cloud session to Kyle's Mac.
 
+> **Done (2026/09/25, local session).** Every item under "What is left for Phase 1" is finished; the results, the fixes made in review and the measured budgets are in the Phase 1 record in `../BUILD_PLAN.md` section 8. The test tools below now run on the Mac as they are. Next is Phase 2 (the explore map). The rest of this note is kept as the record of the handover.
+
 ## Where things stand
 
 - **Branch:** `claude/quirky-keller-3i1043`. Never push to `main` (it auto-deploys the live site). The launch is one merge, after Phase 5.
@@ -58,25 +60,26 @@ Written 2026/09/25, when the work moved from a Claude Code cloud session to Kyle
 ## Running it on the Mac
 
 ```bash
-cd ~/Desktop/tsamaya-web
+cd ~/Projects/tsamaya-web
 git fetch origin && git checkout claude/quirky-keller-3i1043 && git pull
 node build.mjs && npm run check
 python3 -m http.server 8795 --directory dist          # site at http://localhost:8795
 python3 -m http.server 8780 --directory proposals/redesign-2026-09   # prototype at http://localhost:8780/concept-4-sensor.html
 
-# test tools (once)
+# test tools (once; node_modules, out/ and the npm files stay out of git via tools/.gitignore)
 cd proposals/redesign-2026-09/handoff/tools
 npm init -y >/dev/null && npm install playwright lighthouse && npx playwright install chromium
 node gzserve.mjs ../../../../dist 8796                # gzip server, like GitHub Pages
-./run.sh http://localhost:8796/ home                  # throttled mobile Lighthouse
+./run.sh http://localhost:8796/ home                  # throttled mobile Lighthouse (real GPU; GL=swiftshader for the cloud's software rendering)
 node xfer.mjs http://localhost:8796/ 390 844          # bytes over a full scroll
+node p1/interact.mjs                                  # the interaction checklist (34 checks)
 ```
 
-The scripts were written in the cloud container, so some of them still contain its paths:
-- `/home/user/tsamaya-web` should become your repo path;
-- `/tmp/claude-0/.../scratchpad` should become any output folder.
-
-Playwright imports are already portable. On a Mac the SwiftShader launch flags are harmless and can be dropped.
+The scripts find the repo from their own location and write screenshots to `tools/out/` (set `OUT=` to change it). Scripts added in the local session:
+- `p1/herofit.mjs`: hero text against the HUD corners and the spotlight tags (12 px of air), at many sizes; `p1/herobudget.mjs`: the hero's text budget per width, behind the short-screen CSS.
+- `p1/fitprobe.mjs` and `p1/fitresize.mjs`: chapter 3's country, text and labels at many sizes, and after a resize; `p1/labels.mjs`: the metro labels and list (hover, focus, tap, pin, Escape).
+- `p1/fontshift.mjs`: does the hero move when the web fonts land; `p1/fontwidth.mjs`, `p1/monowidth.mjs` and `p1/platfont.mjs`: the fallback font measurements.
+- `p1/widths.mjs`, `p1/pages.mjs` (all 25 pages), `p1/fcp.mjs` and `p1/_shot.mjs`.
 
 ## Prompt to paste into Claude Code on the Mac
 

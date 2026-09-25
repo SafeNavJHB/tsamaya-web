@@ -1,6 +1,6 @@
 # Build plan: the Sensor redesign of tsamayaapp.co.za
 
-Written 2026/09/25. Status: Phase 0 done (2026/09/25); Phase 1 next.
+Written 2026/09/25. Status: Phases 0 and 1 done (2026/09/25); Phase 2 next.
 Preview of the branch build (private): https://claude.ai/artifact/UML9VQcPGy26gfbXSJUjj7, republished at the end of each phase.
 Prototype: `proposals/redesign-2026-09/concept-4-sensor.html` (home and Johannesburg views, with the interactive map spike).
 Owner decisions were settled on 2026/09/25 and are recorded in section 10.
@@ -246,6 +246,54 @@ Estimates are working days for one developer. With Claude building in sessions, 
 **Deviation from the plan:**
 - Three.js is imported by relative path (`../../vendor/three.scene.min.js`) instead of through an import map. Same result, one less moving part.
 - Pages that do not use the scene never request it.
+
+### Phase 1 record (2026/09/25)
+
+Built by an agent in the cloud session from `handoff/phase1-spec.md`, then reviewed, fixed and measured in a local session on the Mac (`handoff/HANDOFF.md`).
+
+**Built:**
+- The home page in the Sensor design (`src/pages/index.mjs`): hero, the three pinned chapters, inside the app, coverage, questions, get the app and ways to help, with a marked seam for the Phase 2 explore map.
+- `src/poster.mjs` and `public/js/scene/citygen.js`: one generator for the illustrative city, shared by the build-time SVG poster and the 3D scene (byte-identical in Node and the browser).
+- `public/js/home.js`, `scene/city.js` and `scene/chapters.js`: tiers, the scene, the chapter clock, the band chips, the route spotlight, pointer parallax and the clickable day line, which now covers the whole day from 05:00.
+- `src/data/route-card.json`: the chapter 1 figures (decision 8).
+
+**Fixed in review** (against the prototype and at more screen sizes than it was built for):
+- **Chapter 3 on wide screens.** The text column lines up with the header (130 px in at 1440 wide, 370 px at 1920), not the prototype's 56 px, and the country is sized by the screen's height, so the note and the Cape Town label ran over the west coast. The camera now fits South Africa beside the text: the largest zoom (at most 1) and the smallest shift that keep every coast point and metro label clear of the text and inside the frame, allowing for the idle sway (`saFit` in `chapters.js`). It is measured once per screen size and again after every re-pin, so it follows a window resize. The chapter 3 panel is narrowed to its text, so the progress rail stops short of the map too.
+- **Short laptop windows.** A 1366 x 768 laptop (the commonest size) shows about 625 to 660 px of page under the browser's toolbars, and there the buttons and the disclaimer ran into the fixed "12 metros" HUD line; the prototype has the same fault. Below 880 px tall the headline is now sized by the window's height as well as its width, from a measured text budget (`p1/herobudget.mjs`), with more room below it under 1024 px wide (where the disclaimer reaches under the "Illustrative city" and Pause motion corner) and tighter gaps under 660 px tall.
+- **Hero tags on the text.** At 375 x 667 (iPhone SE) the "Lower-risk" tag covered the "Tsamaya (say: ...)" line, and in desktop windows under about 1100 px wide the tags landed on the headline or the sub-text (the routes pass behind the text column there). A hero tag now never sits on a line of hero text: on phones the tags stay between the band chips and the text, side by side when there is room for one row only, and hide where there is none (320 x 568); on wider screens a tag moves right past the line it would cover, or hides if that would take it off screen. This holds while the hero scrolls away, too. The spotlight card used to flip left onto the headline in windows 768 to 1100 px wide; it now takes the first free place beside, under or above its tag, and only where there is none (a portrait tablet, an 800 x 600 window) does it open over the sub-text.
+- **Chapter 3's metro labels** (Kyle, in review). Six labels with their counts overlapped on smaller maps. A label now shows the metro's name; its count opens under it on hover, a tap or a click (which pins it), and the six-metro list with every count is now visible in the panel on desktop too, so nothing is hover-only. Each row is a button: hovering, focusing or pressing it opens that metro's label and lights its pillar emerald (the others dim), which is the same list-and-map pairing Phase 2's explore map will use (`highlight()` in `city.js`). Labels that would still overlap give way, larger metros first, and come back when their row is used; a label that would leave the screen or touch a HUD corner hides, and a count that would run into the bottom corner opens above its name. Which labels show is decided at the camera's pose without the idle sway, with a little hysteresis, so none of them blinks.
+- **Faded panels.** After its pin, each chapter's panel fades out but its buttons still took clicks. A faded panel now lets the pointer through; it stays in the page for screen readers, and tabbing back into it brings its chapter back into view.
+- **Layout shift when the fonts arrive.** With the fallback font the headline set in two lines and with Archivo in three, so the bottom-aligned hero jumped up by 40 px on phones and 118 px on desktop when Archivo landed. The headline's three lines are written in, the say line breaks where it wraps on phones, the button row always stacks below 350 px wide, and new fallback faces sized to the web fonts' widths keep every other line where it is: `Archivo Fallback` (Arial, Helvetica, Roboto) and `Martian Mono Fallback` (Menlo, Consolas and the other common monospace fonts), with `size-adjust` measured (`p1/fontwidth.mjs`, `p1/monowidth.mjs`) and Archivo's character range, so a glyph Archivo lacks (the arrow in "4 -> 0") still comes from the system font. Measured: no hero element moves at 21 screen sizes from 320 to 1920 wide.
+- **The header logo** was the 51 KB, 512 px `icon.png` shown at 30 px on every page; it is now a 1 KB 96 px copy (`img/icon-96.png`). The About page keeps the large one.
+- **Footer "Admin" link contrast** (every page): 2.37:1 with 45% opacity, now `--fg-2`, which passes AA.
+- **The test tools** in `handoff/tools/` run on the Mac: paths are relative to the repo, output goes to `tools/out/` (ignored), the CDN stub is a no-op, and Lighthouse uses the real GPU (`GL=swiftshader` restores the cloud's software rendering, which turns GPU work into CPU time and inflated the blocking time from about 0.15 s to 8.9 s).
+
+**Verified** (tools in `handoff/tools/`; numbers from the final run):
+- `npm run check` passes; the copy lint finds 0 hits on the home page, and no suburb name appears anywhere on it.
+- Interactions (`p1/interact.mjs`): 34 of 34 pass, with a mouse, a tap at 390 px and the keyboard, in the full and static tiers, including Pause motion, the lost-context fall back and the day line at 02:00.
+- Numbers only ever show true values (`p1/numbers.mjs`, sampled every frame at 1440 and 390): the stat is always 4 or 0, the count always 1 372, 1 524 or 2 525.
+- Panels hold at full opacity for their whole pin and fade after it; text over the scene passes AA; no sideways scroll at 360 px in any tier, with or without JavaScript.
+- Matches the prototype at 1440 x 900 and 390 x 844 (`p1/compare.mjs`), apart from the deliberate changes above and the header and footer from Phase 0.
+- Fallbacks: reduced motion, `?tier=static` and JavaScript off each give a complete, readable page, and reduced motion never requests Three.js.
+- All 25 pages load with no script errors, no sideways scroll and no broken images at 360 and 1440 wide (`p1/pages.mjs`).
+- The hero's text keeps at least 12 px from the HUD corners and the spotlight tags at every size probed from 320 x 568 to 1920 x 1080, laptop browser windows included (`p1/herofit.mjs`).
+- Chapter 3 keeps text, labels and country apart, with no label over another or off screen, from 800 x 600 to 3440 x 1440 and on portrait tablets (`p1/fitprobe.mjs`); its fit after a resize equals a fresh load (`p1/fitresize.mjs`); the label and list interactions pass with a mouse, the keyboard and a tap (`p1/labels.mjs`, 14 checks).
+- Five rounds of adversarial review by a separate agent, each attacking the previous round's fixes; every confirmed finding is fixed above, and a final pass re-ran every reproduction they wrote plus `tools/suite.sh`, all clean.
+
+**Performance** (throttled mobile Lighthouse: Moto G Power screen, 4x CPU slowdown, slow 4G):
+
+| Measure | Budget | Result |
+|---|---|---|
+| Largest paint | 2.5 s or less | 2.3 s simulated (three runs), 2.0 s with real throttling |
+| Layout shift | 0.1 or less | 0, with simulated and with real throttling |
+| Home transfer over a full scroll | about 600 KB | 423 KB phone, 456 KB desktop, 252 KB with reduced motion (no Three.js) |
+| Our own JS, gzipped | 45 KB or less | 43 KB: under budget, but Phase 2's map needs room, so plan a trim or a minify step for our own modules |
+| HTML + CSS, gzipped | 60 KB or less | 48 KB |
+
+Lighthouse scores on the final run: performance 93 to 97, accessibility 100, SEO 100, best practices 96. The best-practices points go to the analytics beacon refusing localhost (not an issue on the live domain) and to `vendor/lenis.min.js` naming a source map that was not vendored (strip that comment in `npm run vendor`). Measured on the real GPU; the cloud session's software rendering had shown 4.9 s and 8.9 s of blocking time, which was the rendering, not the page.
+
+**Deviation from the plan:**
+- Portrait tablets (768 to about 1100 px wide and taller than wide) get the desktop side-by-side layout, as in the prototype, and it does not suit them: callouts clip at the right edge, chapter 2's count crowds its label, and in chapter 3 the country is small (zoom 0.3) and one label gives way. Landscape phones (844 x 390 and the like, which are over 768 wide) and windows under 600 px tall overflow the hero under the HUD corners. Neither is part of Phase 1's "desktop and phone"; both are listed for Phase 5, where the device matrix gains a tablet and a landscape phone. The likely fix is the stacked phone layout for any screen taller than it is wide or under about 560 px tall.
 
 ## 9. Risks and what we do about them
 
