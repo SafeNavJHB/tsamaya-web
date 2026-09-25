@@ -216,13 +216,41 @@ for (const p of pages) {
 const stats = JSON.parse(await readFile(join(root, 'src', 'data', 'stats.json'), 'utf8'));
 const home = pages.find((p) => p.file === 'index.html');
 if (home) {
-  const zonesFormatted = String(stats.totals.zones).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  if (!home.html.includes(zonesFormatted)) {
-    warn(`home page does not mention the live zone count (${zonesFormatted}) — figures may be stale`);
+  // Figures use the South African format since the 2026/09 redesign: a space as
+  // the thousands separator, written as a non-breaking space (see fmt() in
+  // site.config.mjs). Accept the raw character or its HTML entity.
+  const group = (sep) => String(stats.totals.zones).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+  const zonesFormatted = group(' ');
+  if (!['\u00a0', '&nbsp;', ' '].some((sep) => home.html.includes(group(sep)))) {
+    warn(`home page does not mention the live zone count (${zonesFormatted}); figures may be stale`);
   }
   // Catch the specific stale numbers this site shipped for weeks.
   for (const stale of ['2,500+', '1,100+', 'five metros']) {
     if (home.html.includes(stale)) fail(`home page still contains the stale figure "${stale}"`);
+  }
+}
+
+// ---- 11. No em dashes in published copy ------------------------------------
+// House style since the 2026/09 redesign: commas, colons or full stops, never an
+// em dash. Scripts and styles are ignored; only what a reader can see counts.
+// The legal pages are exempt: they are verbatim copies of the app's legal text
+// (src/content/*.md, kept in step with the app repo's legal/*.md), and their
+// wording is changed there, not here.
+const LEGAL = new Set(['privacy.html', 'terms.html']);
+for (const p of pages) {
+  if (LEGAL.has(p.file)) continue;
+  const visible = p.html.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<style[\s\S]*?<\/style>/g, '');
+  const n = (visible.match(/\u2014|&mdash;|&#8212;/g) || []).length;
+  if (n) fail(`${p.file}: ${n} em dash${n > 1 ? 'es' : ''} in the page copy (use a comma, colon or full stop)`);
+}
+
+// ---- 12. The 3D library only where there is a scene ------------------------
+// Three.js is the heaviest file on the site (about 141 KB gzipped). A page that
+// loads it must have a <canvas> for it to draw on; anything else is a text page
+// paying for a scene it never shows, on a phone that pays for the data.
+for (const p of pages) {
+  if (/three\.scene\.min\.js/.test(p.html) && !/<canvas\b/.test(p.html)) {
+    fail(`${p.file}: loads the 3D library (vendor/three.scene.min.js) but has no <canvas>`);
   }
 }
 

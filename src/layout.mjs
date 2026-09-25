@@ -1,5 +1,5 @@
 // layout.mjs — the HTML shell wrapped around every page's body.
-import { site, nav, baseUrl, canonicalFor } from '../site.config.mjs';
+import { site, nav, baseUrl, canonicalFor, stats, fmt } from '../site.config.mjs';
 import { logoLockup, logoMark, icon } from './components.mjs';
 import { siteGraph } from './seo.mjs';
 import { analyticsSnippet } from './analytics.mjs';
@@ -9,11 +9,21 @@ const year = 2026; // build-time constant; Date.* is unavailable in the build sa
 
 function navLinks(active) {
   return nav
+    .filter((n) => n.primary)
     .map(
       (n) =>
         `<a href="${n.href}"${n.href === active ? ' aria-current="page"' : ''}>${n.label}</a>`,
     )
     .join('');
+}
+
+// The mobile menu: the primary items large, the secondary ones in a small row
+// underneath, so nothing in the old nine-item bar becomes unreachable on a phone.
+function mobileLinks(active) {
+  const cur = (n) => (n.href === active ? ' aria-current="page"' : '');
+  const primary = nav.filter((n) => n.primary).map((n) => `<a class="mnav-link" href="${n.href}"${cur(n)}>${n.label}</a>`).join('');
+  const more = nav.filter((n) => !n.primary).map((n) => `<a href="${n.href}"${cur(n)}>${n.label}</a>`).join('');
+  return `${primary}<div class="mnav-more">${more}</div>`;
 }
 
 // Every page links to every metro page from the footer. On a site this small that
@@ -33,7 +43,24 @@ function esc(str) {
     .replace(/"/g, '&quot;');
 }
 
-// page: { slug, title, description, body, heroClass }
+
+// The arrow on primary actions. It nudges right on hover (styles.css).
+const arrow = '<svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+// The telemetry strip under the header on content pages. The time and band are
+// filled in by site.js from the South African clock; without JavaScript the
+// strip still carries the coverage, which is written in at build time.
+function hudStrip() {
+  return `  <div class="wrap hud-strip" aria-label="Live status">
+    <span class="hud hud-live" data-sa-clock>South African time</span>
+    <span class="hud">${stats.totals.metros} metros \u00b7 ${fmt(stats.totals.zones)} rated areas \u00b7 3 time bands</span>
+  </div>
+`;
+}
+
+// page: { slug, title, description, body, heroClass, hud, scripts }
+//   hud: false hides the telemetry strip (pages with their own scene HUD).
+//   scripts: extra ES modules for this page only (the 3D scene, the map).
 export function renderPage(page) {
   const titleFull = esc(
     page.slug === 'index.html'
@@ -62,7 +89,7 @@ export function renderPage(page) {
   <meta name="referrer" content="no-referrer"/>
   <title>${titleFull}</title>
   <meta name="description" content="${desc}"/>
-  <meta name="theme-color" content="#0F172A"/>
+  <meta name="theme-color" content="#0A0F1C"/>
   ${noindex ? '<meta name="robots" content="noindex,nofollow"/>' : '<meta name="robots" content="index,follow,max-image-preview:large"/>'}
   ${canonical ? `<link rel="canonical" href="${canonical}"/>` : ''}
   ${site.verification.google ? `<meta name="google-site-verification" content="${esc(site.verification.google)}"/>` : ''}
@@ -84,12 +111,11 @@ export function renderPage(page) {
   <link rel="icon" type="image/png" sizes="48x48" href="img/favicon.png"/>
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg"/>
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png"/>
-  <!-- Fonts are self-hosted (public/fonts/). Previously these came from the
-       Google Fonts CDN, which meant a render-blocking request to a third party
-       on every page load, plus a DNS + TLS handshake before any text could paint.
-       Same files, one origin, preloaded. -->
-  <link rel="preload" href="fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin/>
-  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin/>
+  <!-- Fonts are self-hosted (public/fonts/): same origin, preloaded, no
+       render-blocking request to a third party. Archivo carries the text,
+       Martian Mono the small telemetry readouts. -->
+  <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin/>
+  <link rel="preload" href="fonts/martian-mono-latin.woff2" as="font" type="font/woff2" crossorigin/>
   <link rel="stylesheet" href="styles.css"/>
   ${siteGraph(page, titleFull, desc)}
 </head>
@@ -97,34 +123,34 @@ export function renderPage(page) {
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" id="top">
     <div class="wrap header-inner">
-      ${logoLockup(34)}
+      ${logoLockup(30)}
       <nav class="primary-nav" aria-label="Primary">
         ${navLinks(page.slug)}
       </nav>
-      <a class="btn btn-primary btn-sm header-cta" href="get-app.html">Get the app</a>
-      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <a class="btn btn-primary btn-sm header-cta btn-mag" href="get-app.html">Get the app ${arrow}</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
         <span></span><span></span><span></span>
       </button>
     </div>
-    <nav class="mobile-nav" aria-label="Mobile">
-      ${navLinks(page.slug)}
-      <a class="btn btn-primary" href="get-app.html">Get the app</a>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+      ${mobileLinks(page.slug)}
+      <a class="btn btn-primary btn-lg" href="get-app.html">Get the app ${arrow}</a>
+      <p class="hud"><span data-sa-clock>Live South African time</span></p>
     </nav>
   </header>
-
+${page.hud === false ? '' : hudStrip()}
   <main id="main">
     ${page.body}
   </main>
 
   <footer class="site-footer">
+    <div class="wrap footer-signoff">
+      <p class="signoff">Go well<span class="stop">.</span></p>
+      <p class="signoff-note"><em>Tsamaya</em> (say: ${site.pronunciation}) is Sesotho and Setswana for "go", from <em>tsamaya sentle</em>: go well. It is how people say goodbye here.</p>
+    </div>
     <div class="wrap footer-grid">
-      <div class="footer-brand">
-        ${logoMark(40)}
-        <p class="footer-tagline"><strong>${site.lockup}</strong></p>
-        <p class="footer-note">Driving routes planned around risk, for South African metros. <em>Tsamaya</em> (say: ${site.pronunciation}) is Sesotho/Setswana for “go”.</p>
-      </div>
       <div class="footer-col">
-        <h4>Explore</h4>
+        <h2>Explore</h2>
         <a href="how-it-works.html">How it works</a>
         <a href="demo.html">See it in action</a>
         <a href="coverage.html">Coverage</a>
@@ -133,30 +159,38 @@ export function renderPage(page) {
         <a href="about.html">About us</a>
       </div>
       <div class="footer-col">
-        <h4>Where it works</h4>
-        ${metroLinks()}
+        <h2>Where it works</h2>
+        <div class="footer-metros">${metroLinks()}</div>
       </div>
       <div class="footer-col">
-        <h4>Support</h4>
-        <a href="sponsor.html">Support us</a>
-        <a href="sponsor.html#donate">Donate</a>
+        <h2>Support</h2>
+        <a href="get-app.html">Get the app</a>
+        <a href="sponsor.html">Ways to help</a>
+        <a href="sponsor.html#donate">Chip in</a>
         <a href="contact.html">Contact</a>
-        <a href="get-app.html">Join the beta</a>
       </div>
       <div class="footer-col">
-        <h4>Legal</h4>
+        <h2>Legal</h2>
         <a href="${site.legal.privacy}">Privacy policy</a>
         <a href="${site.legal.terms}">Terms of use</a>
-        <a href="mailto:${site.contactEmail}">${icon('mail', 15)} Email us</a>
+        <a href="mailto:${site.contactEmail}">${icon('mail', 15)} ${site.contactEmail}</a>
       </div>
     </div>
     <div class="wrap footer-bottom">
-      <p>© ${year} Tsamaya. Built in Johannesburg. Routes consider risk. They are not a guarantee of safety.</p>
-      <p class="footer-admin"><a href="https://admin.tsamayaapp.co.za" rel="noopener nofollow" style="opacity:.35;font-size:12px;text-decoration:none" aria-label="Admin sign-in">Admin</a></p>
+      <p>© ${year} TSAMAYA (PTY) LTD. Built in Johannesburg. Routes consider risk. They are not a guarantee of safety.</p>
+      <p class="footer-admin"><a href="https://admin.tsamayaapp.co.za" rel="noopener nofollow" aria-label="Admin sign-in">Admin</a></p>
     </div>
   </footer>
 
-  <script src="app.js" defer></script>
+  <!-- Vendored libraries (public/vendor/README.md), then the site script. All
+       deferred, so they run in this order after the page has parsed. The page is
+       complete without any of them. -->
+  <script src="vendor/gsap.min.js" defer></script>
+  <script src="vendor/ScrollTrigger.min.js" defer></script>
+  <script src="vendor/SplitText.min.js" defer></script>
+  <script src="vendor/lenis.min.js" defer></script>
+  <script src="js/site.js" defer></script>
+  ${(page.scripts || []).map((src) => `<script type="module" src="${src}"></script>`).join('\n  ')}
   ${analyticsSnippet()}
 </body>
 </html>`;

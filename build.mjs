@@ -9,6 +9,7 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, extname } from 'node:path';
 import { renderPage } from './src/layout.mjs';
+import { siteData, geoData } from './src/sitedata.mjs';
 import { site, baseUrl, canonicalFor } from './site.config.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
@@ -83,6 +84,17 @@ async function build() {
     anonKey: process.env.SUPABASE_ANON_KEY || '',
     mapboxToken: process.env.MAPBOX_TOKEN || '',
   }), 'utf8');
+
+  // Data the browser reads (the 3D scene and the interactive map), generated from
+  // the committed live data so a data refresh never needs a code change. See
+  // src/sitedata.mjs for what goes in and the rule on what never does.
+  await mkdir(join(dist, 'data'), { recursive: true });
+  const dataFiles = { 'site.json': siteData(), 'geo.json': geoData() };
+  for (const [name, obj] of Object.entries(dataFiles)) {
+    const json = JSON.stringify(obj);
+    await writeFile(join(dist, 'data', name), json, 'utf8');
+    console.log(`  ✓ data/${name} (${Math.round(json.length / 1024)} KB)`);
+  }
 
   // 5. sitemap.xml + robots.txt (absolute URLs from the configured base).
   //

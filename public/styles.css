@@ -1,142 +1,211 @@
-/* Tsamaya — site styles. Brand: deep navy + emerald "go", with risk reds/oranges. */
+/* Tsamaya: site styles. The "Sensor" design (2026/09 redesign): a dim, navy
+   world where colour is reserved for intent. Emerald is your route and the main
+   action; amber and red appear only on risk data. Plan and rules:
+   proposals/redesign-2026-09/BUILD_PLAN.md. */
 
 /* ---------------------------------------------------------------------------
- * Self-hosted fonts.
+ * Self-hosted fonts (public/fonts/, SIL Open Font License; the OFL-*.txt files
+ * sit beside them).
  *
- * These used to load from the Google Fonts CDN, which cost a render-blocking
- * stylesheet request to a third-party origin (DNS + TLS + CSS + font, serially)
- * before any text could paint. Both families are variable fonts, so the whole
- * weight range is one file each: 74 KB total, same origin, preloaded in <head>.
+ * Archivo carries everything but the telemetry readouts. It is a variable font
+ * with a width axis: headlines are set wide (font-stretch 112 to 125%) and body
+ * text at normal width, from one file. Martian Mono sets the small HUD
+ * readouts: live time, bands, counts.
  *
- * Sora and Inter are both SIL Open Font License 1.1, which permits self-hosting.
- * Refresh with `npm run fonts` if Google ships a new version.
+ * Both files were trimmed with fontTools' instancer to the ranges the design
+ * uses (Archivo width 100 to 125% and weight 400 to 800; Martian Mono normal
+ * width, weight 300 to 500), then kept to the Latin subset: 79 KB for both.
+ * Widening a range means re-running the instancer on the original from Google
+ * Fonts, not editing these numbers.
  * ------------------------------------------------------------------------ */
 @font-face {
-  font-family: 'Sora';
+  font-family: 'Archivo';
   font-style: normal;
   font-weight: 400 800;
+  font-stretch: 100% 125%;
   font-display: swap;
-  src: url('fonts/sora-latin.woff2') format('woff2');
-  /* Latin only — the site has no non-Latin copy, and shipping the full range
-     would roughly triple the download for glyphs nothing renders. */
+  src: url('fonts/archivo-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: 'Inter';
+  font-family: 'Martian Mono';
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 300 500;
   font-display: swap;
-  src: url('fonts/inter-latin.woff2') format('woff2');
+  src: url('fonts/martian-mono-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* ---------------------------------------------------------------------------
+ * Tokens. One dark system: the site no longer switches with the OS theme,
+ * because the scene is a night-lit model and a light variant would be a second
+ * design to maintain.
+ *
+ * The first group is the Sensor palette. The second keeps the names the older
+ * page components use (they read --bg, --card, --text and friends), mapped onto
+ * the dark palette so every page reads correctly while it waits to be rebuilt.
+ * NOTE: --ink used to mean BOTH "heading text" and "dark fill". In a dark theme
+ * those split, so --ink is now light heading text and the old dark fills use
+ * --fill-deep instead.
+ * ------------------------------------------------------------------------ */
 :root {
-  --navy: #0f172a;
-  --navy-2: #12122a;
-  --navy-3: #1b2336;
-  --ink: #0b1020;
-  --emerald: #34d399;
-  --emerald-deep: #059669;
-  --emerald-text: #047857;
-  --safer: #50b46e;
-  --blue: #0a84ff;
+  /* Sensor palette */
+  --night: #0a0f1c;        /* page ground: navy-black, never pure black */
+  --night-2: #0e1526;      /* raised band */
+  --surface: #111a2e;      /* cards and panels */
+  --surface-2: #16213a;    /* hover, inputs */
+  --fill-deep: #070b15;    /* the darkest fill: chips, badges, bezels */
+  --hairline: #1e293b;     /* borders, rules */
+  --road: #414758;         /* roads and quiet lines in drawings */
+  --fg: #e6edf5;           /* body text */
+  --fg-2: #94a3b8;         /* secondary text (5.9:1 on --night) */
+  --hud: #c9d6e3;          /* telemetry readouts */
+  --go: #34d399;           /* emerald: your route and the main action ONLY */
+  --go-deep: #10b981;
+  --go-ink: #04231a;       /* text on emerald */
+  --risk-red: #ef4444;     /* risk data only, always with a word */
+  --risk-amber: #f59e0b;
+  --risk-yellow: #ebc846;
+
+  /* Names used by the older page components, mapped onto the palette */
+  --navy: var(--night);
+  --navy-2: var(--night-2);
+  --navy-3: var(--surface);
+  --ink: #f1f5fa;          /* headings and strong text */
+  --emerald: var(--go);
+  --emerald-deep: var(--go-deep);
+  --emerald-text: var(--go);
+  --safer: var(--go-deep);
+  --blue: #7fb3ff;
   --red: #dc3c50;
   --orange: #f09632;
   --yellow: #ebc846;
+  --bg: var(--night);
+  --bg-soft: var(--night-2);
+  --bg-band: #0c1322;
+  --text: var(--fg);
+  --text-soft: #b8c4d3;
+  --muted: var(--fg-2);
+  --line: var(--hairline);
+  --card: var(--surface);
 
-  --bg: #ffffff;
-  --bg-soft: #f4f6fb;
-  --bg-band: #f8fafc;
-  --text: #16203a;
-  --text-soft: #475069;
-  --muted: #5b6178;
-  --line: #e6e9f2;
-  --card: #ffffff;
-
-  --maxw: 1140px;
-  --radius: 16px;
-  --radius-lg: 24px;
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 6px 16px rgba(15, 23, 42, 0.05);
-  --shadow: 0 10px 30px rgba(15, 23, 42, 0.10);
-  --shadow-lg: 0 24px 60px rgba(15, 23, 42, 0.18);
-  --font: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  --display: 'Sora', var(--font);
+  --maxw: 1180px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --head: 68px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 6px 18px rgba(0, 0, 0, 0.28);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 14px 36px rgba(0, 0, 0, 0.36);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
+  --font: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --display: var(--font);
+  --mono: 'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);   /* expo.out: reveals */
+  --ease-ui: cubic-bezier(0.23, 1, 0.32, 1);   /* interface feedback */
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; background: var(--night); }
+/* Native smooth scrolling only when Lenis is not driving the page (site.js adds
+   .has-lenis); two smoothers fighting each other feel like lag. */
+html:not(.has-lenis) { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: var(--font);
-  color: var(--text);
-  background: var(--bg);
+  color: var(--fg);
+  background: var(--night);
   line-height: 1.6;
   font-size: 17px;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-img, svg, video { max-width: 100%; display: block; }
+img, svg, video, canvas { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
+::selection { background: rgba(52, 211, 153, 0.35); color: #fff; }
 
-.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+.wrap { width: 100%; max-width: calc(var(--maxw) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
 
-h1, h2, h3, h4 { font-family: var(--display); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 0.5em; color: var(--ink); }
-h1 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800; }
-h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 700; }
-h3 { font-size: 1.18rem; font-weight: 700; }
+/* Headlines are set wide. font-stretch drives Archivo's width axis. */
+h1, h2, h3, h4 { font-family: var(--display); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 0.5em; color: var(--ink); text-wrap: balance; }
+h1 { font-size: clamp(2.5rem, 1.2rem + 5.4vw, 5.4rem); font-weight: 800; font-stretch: 118%; }
+h2 { font-size: clamp(1.8rem, 1.1rem + 2.8vw, 3.2rem); font-weight: 750; font-stretch: 116%; }
+h3 { font-size: 1.16rem; font-weight: 700; font-stretch: 108%; letter-spacing: -0.01em; }
 p { margin: 0 0 1rem; }
 .muted { color: var(--muted); }
-.grad {
-  background: linear-gradient(100deg, var(--emerald), #6ee7b7 60%, var(--emerald));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
+/* Once gradient text; now plain emerald. Gradient headline text is one of the
+   most recognisable template tells, and emerald is reserved for "the way". */
+.grad { color: var(--go); }
+.num, .tnum { font-variant-numeric: tabular-nums; }
+
+/* Telemetry voice: small, uppercase, mono, and only ever real facts. */
+.hud { font-family: var(--mono); font-size: 11.5px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--hud); line-height: 1.5; }
 
 .skip-link { position: absolute; left: -999px; }
-.skip-link:focus { left: 16px; top: 12px; background: #fff; padding: 8px 14px; border-radius: 8px; z-index: 100; box-shadow: var(--shadow); }
-a:focus-visible, button:focus-visible, .btn:focus-visible, .copy-btn:focus-visible, .nav-toggle:focus-visible { outline: 3px solid var(--emerald-deep); outline-offset: 2px; border-radius: 8px; }
+.skip-link:focus { left: 16px; top: 12px; background: var(--go); color: var(--go-ink); padding: 8px 14px; border-radius: 8px; z-index: 100; font-weight: 700; }
+a:focus-visible, button:focus-visible, summary:focus-visible, .btn:focus-visible, .copy-btn:focus-visible, .nav-toggle:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--go); outline-offset: 3px; border-radius: 6px;
+}
 
 /* ---------- Header ---------- */
 .site-header {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: saturate(180%) blur(14px);
-  border-bottom: 1px solid var(--line);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background 0.25s var(--ease-ui), border-color 0.25s var(--ease-ui);
 }
-.header-inner { display: flex; align-items: center; gap: 16px; height: 66px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: 1.25rem; color: var(--ink); }
-.brand .logo-mark { border-radius: 9px; box-shadow: var(--shadow-sm); }
-.brand-word { letter-spacing: -0.03em; }
-/* nowrap so a two-word label like "How it works" never breaks across lines. */
-.primary-nav { display: flex; gap: 2px; margin-left: auto; white-space: nowrap; }
+/* Solid once the page has scrolled (site.js), or always without JavaScript. */
+.site-header.is-solid, html:not(.js) .site-header { background: rgba(10, 15, 28, 0.94); border-bottom-color: var(--hairline); }
+.header-inner { display: flex; align-items: center; gap: 20px; height: var(--head); }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-stretch: 112%; font-size: 1.2rem; color: var(--ink); letter-spacing: -0.02em; min-height: 44px; }
+.brand .logo-mark { border-radius: 8px; }
+.primary-nav { display: flex; gap: 4px; margin-left: auto; white-space: nowrap; }
 .primary-nav a {
-  padding: 8px 12px; border-radius: 10px; color: var(--text-soft); font-weight: 500; font-size: 0.95rem;
-  transition: color 0.15s, background 0.15s;
+  position: relative; padding: 10px 12px; color: var(--fg-2); font-weight: 500; font-size: 0.93rem;
+  border-radius: 8px; transition: color 0.18s var(--ease-ui);
 }
-.primary-nav a:hover { color: var(--ink); background: var(--bg-soft); }
-.primary-nav a[aria-current='page'] { color: var(--emerald-text); background: rgba(52, 211, 153, 0.12); }
-.header-cta { margin-left: 4px; }
+.primary-nav a::after {
+  content: ''; position: absolute; left: 12px; right: 12px; bottom: 4px; height: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.25s var(--ease-ui);
+}
+.primary-nav a:hover { color: var(--ink); }
+.primary-nav a:hover::after, .primary-nav a[aria-current='page']::after { transform: scaleX(1); }
+.primary-nav a[aria-current='page'] { color: var(--ink); }
+.header-cta { margin-left: 6px; }
 .nav-toggle { display: none; }
+
+/* HUD strip under the header on content pages: the live South African time and
+   band, and the coverage. Real facts only. */
+.hud-strip { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; padding-top: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--hairline); }
+.hud-strip .hud { color: var(--fg-2); }
+.hud-live { display: inline-flex; align-items: center; gap: 8px; }
+.hud-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--go); box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.18); }
+/* On phones the strip keeps the live time and band; the coverage line is in the
+   footer and on the coverage page, and three wrapped lines of telemetry is noise. */
+@media (max-width: 560px) { .hud-strip { padding-top: 10px; padding-bottom: 10px; } .hud-strip .hud:not(.hud-live) { display: none; } }
 
 /* ---------- Buttons ---------- */
 .btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  font-family: var(--display); font-weight: 700; font-size: 1rem;
-  padding: 13px 22px; border-radius: 999px; border: 1.5px solid transparent;
-  cursor: pointer; transition: transform 0.12s ease, box-shadow 0.15s, background 0.15s, border-color 0.15s;
-  white-space: nowrap;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: var(--font); font-weight: 650; font-stretch: 106%; font-size: 0.98rem; letter-spacing: -0.005em;
+  min-height: 46px; padding: 12px 22px; border-radius: 10px; border: 1px solid transparent;
+  cursor: pointer; white-space: nowrap;
+  transition: background 0.18s var(--ease-ui), border-color 0.18s var(--ease-ui), color 0.18s var(--ease-ui);
 }
-.btn:active { transform: translateY(1px); }
-.btn-primary { background: var(--emerald); color: #04231a; box-shadow: 0 8px 22px rgba(52, 211, 153, 0.35); }
-.btn-primary:hover { background: #2dd4a6; box-shadow: 0 10px 28px rgba(52, 211, 153, 0.45); }
-.btn-ghost { background: transparent; border-color: var(--line); color: var(--ink); }
-.btn-ghost:hover { border-color: var(--emerald); color: var(--emerald-text); background: rgba(52, 211, 153, 0.06); }
-.btn-ghost-light { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.4); color: #fff; }
-.btn-ghost-light:hover { background: rgba(255, 255, 255, 0.2); }
-.btn-sm { padding: 9px 16px; font-size: 0.9rem; }
-.btn-lg { padding: 16px 28px; font-size: 1.08rem; }
+.btn svg { transition: transform 0.25s var(--ease-ui); }
+.btn:hover svg { transform: translateX(3px); }
+.btn-primary { background: var(--go); color: var(--go-ink); }
+.btn-primary:hover { background: #5ee0b0; }
+.btn-ghost { background: transparent; border-color: #2a364c; color: var(--ink); }
+.btn-ghost:hover { border-color: var(--go); color: var(--go); }
+.btn-ghost-light { background: rgba(255, 255, 255, 0.04); border-color: rgba(230, 237, 245, 0.28); color: var(--ink); }
+.btn-ghost-light:hover { border-color: var(--go); color: var(--go); }
+.btn-sm { min-height: 40px; padding: 9px 16px; font-size: 0.9rem; }
+.btn-lg { min-height: 54px; padding: 15px 28px; font-size: 1.05rem; }
 .btn-block { width: 100%; }
 
 /* ---------- Generic section ---------- */
@@ -144,8 +213,8 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .copy-btn:focus-visib
 .band { background: var(--bg); }
 .band-soft { background: var(--bg-soft); }
 .eyebrow {
-  font-family: var(--display); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--emerald-text); margin: 0 0 0.7rem;
+  font-family: var(--mono); font-weight: 400; font-size: 11.5px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--hud); margin: 0 0 1rem;
 }
 .center { text-align: center; }
 .center-narrow { max-width: 720px; margin-left: auto; margin-right: auto; text-align: center; }
@@ -153,7 +222,7 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .copy-btn:focus-visib
 .big { font-size: 1.12rem; color: var(--text-soft); }
 .sub { color: var(--muted); max-width: 680px; margin-bottom: 1.6rem; }
 .footnote { color: var(--muted); font-size: 0.92rem; margin-top: 1.4rem; }
-.footnote code, .chip { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.footnote code, .chip { font-family: var(--mono); }
 /* svg is display:block site-wide, which drops a leading footnote icon onto a
    line of its own. Footnote icons are inline by intent. */
 .footnote .ic { display: inline; vertical-align: -2px; color: var(--emerald-deep); }
@@ -161,10 +230,7 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .copy-btn:focus-visib
 /* ---------- Hero ---------- */
 .hero {
   position: relative; overflow: hidden;
-  background:
-    radial-gradient(900px 500px at 78% -10%, rgba(52, 211, 153, 0.18), transparent 60%),
-    radial-gradient(700px 460px at 10% 120%, rgba(10, 132, 255, 0.16), transparent 60%),
-    linear-gradient(180deg, var(--navy) 0%, #131c34 100%);
+  background: radial-gradient(900px 520px at 80% -12%, rgba(52, 211, 153, 0.10), transparent 62%), var(--night);
   color: #eaf0ff; padding: 78px 0 64px;
 }
 .hero-inner { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
@@ -207,7 +273,7 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .copy-btn:focus-visib
 .device-real .device-notch { display: none; }
 .hero-device .device-img { width: 258px; }
 .device figcaption { font-size: 0.85rem; color: var(--muted); text-align: center; max-width: 220px; }
-.hero-device .device-frame { transform: rotate(2deg); }
+.hero-device .device-frame { transform: none; }
 .device-pair { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; }
 
 /* ---------- Splits & lists ---------- */
@@ -233,10 +299,10 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .copy-btn:focus-visib
 .feature p { color: var(--text-soft); margin: 0; font-size: 0.98rem; }
 
 /* ---------- CTA band ---------- */
-.cta-band { background: linear-gradient(120deg, var(--navy), #14233f 60%, #0d3b30); color: #fff; padding: 64px 0; }
+.cta-band { background: var(--night-2); border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); color: var(--ink); padding: 64px 0; }
 .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
-.cta-band h2 { color: #fff; margin-bottom: 6px; }
-.cta-band p { color: #b9c6e6; margin: 0; max-width: 520px; }
+.cta-band h2 { color: var(--ink); margin-bottom: 6px; }
+.cta-band p { color: var(--text-soft); margin: 0; max-width: 520px; }
 .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 /* `.center` is text-align, which a flex row ignores. The sponsor hero asks for
    centred buttons under a centred headline, so give it the flex equivalent. */
@@ -260,9 +326,9 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .copy-btn:focus-visib
 .band-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 .pill { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px; font-weight: 600; font-size: 0.9rem; border: 1px solid var(--line); }
 .pill .ic { opacity: 0.7; }
-.pill-day { background: #fff7e6; color: #9a6b00; border-color: #f4dca0; }
-.pill-eve { background: #eef0ff; color: #4b3fb0; border-color: #cfd3f5; }
-.pill-night { background: #0f172a; color: #cdd8ff; border-color: #2a3656; }
+.pill-day { background: rgba(235, 200, 70, 0.08); color: #f3dc8a; border-color: rgba(235, 200, 70, 0.35); }
+.pill-eve { background: rgba(240, 150, 50, 0.08); color: #f7b877; border-color: rgba(240, 150, 50, 0.35); }
+.pill-night { background: var(--fill-deep); color: var(--hud); border-color: #2a364c; }
 
 /* ---------- Tech page ---------- */
 .tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 28px; }
@@ -288,8 +354,8 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .copy-btn:focus-visib
 .info-card h3 { display: flex; align-items: center; gap: 8px; }
 .info-card .ic { color: var(--emerald-deep); }
 .info-card p { color: var(--text-soft); }
-.chip { display: inline-block; background: var(--ink); color: #c9f5e3; padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; }
-code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--bg-soft); padding: 2px 6px; border-radius: 6px; font-size: 0.88em; }
+.chip { display: inline-block; background: var(--fill-deep); color: #c9f5e3; border: 1px solid var(--hairline); padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; }
+code { font-family: var(--mono); background: var(--bg-soft); padding: 2px 6px; border-radius: 6px; font-size: 0.88em; }
 
 /* ---------- About page ---------- */
 .name-mark { display: flex; justify-content: center; }
@@ -299,7 +365,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .value { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow-sm); }
 .value-ic { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; color: var(--emerald-deep); background: rgba(52, 211, 153, 0.12); margin-bottom: 14px; }
 .value p { color: var(--text-soft); margin: 0; }
-.quote-card { background: linear-gradient(160deg, var(--navy), #15233e); color: #fff; border-radius: var(--radius-lg); padding: 34px; box-shadow: var(--shadow-lg); }
+.quote-card { background: var(--surface); border: 1px solid var(--hairline); color: var(--ink); border-radius: var(--radius-lg); padding: 34px; box-shadow: var(--shadow-lg); }
 .quote { font-family: var(--display); font-size: 1.3rem; line-height: 1.45; font-weight: 600; color: #eaf0ff; }
 .quote-by { color: #8ff0c9; margin: 0; }
 
@@ -317,7 +383,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .walk-step { display: grid; grid-template-columns: 260px 1fr; gap: 36px; align-items: center; }
 .walk-step.reverse { grid-template-columns: 1fr 260px; }
 .walk-step.reverse .device { order: 2; }
-.walk-num { font-family: var(--display); font-weight: 800; font-size: 1.1rem; color: var(--emerald); background: var(--ink); width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 12px; }
+.walk-num { font-family: var(--display); font-weight: 800; font-size: 1.1rem; color: var(--emerald); background: var(--fill-deep); border: 1px solid var(--hairline); width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 12px; }
 .walk-text h3 { margin-bottom: 8px; }
 .walk-text p { color: var(--text-soft); }
 .mini-legend { list-style: none; display: flex; gap: 18px; padding: 0; margin: 14px 0 0; flex-wrap: wrap; }
@@ -351,7 +417,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .use-link { margin-top: 14px !important; display: flex; align-items: center; gap: 8px; font-size: 0.94rem; }
 .use-link a { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; color: var(--emerald-text); }
 .use-link .ic { flex: none; }
-.use-url { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9rem; color: var(--text-soft); }
+.use-url { font-family: var(--mono); font-size: 0.9rem; color: var(--text-soft); }
 
 .ref-banner { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.35); color: var(--ink); padding: 12px 18px; border-radius: 12px; margin-bottom: 24px; font-size: 0.98rem; }
 .ref-banner .ic { color: var(--emerald-deep); }
@@ -363,7 +429,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .bank-grid-one { grid-template-columns: minmax(0, 460px); justify-content: center; }
 .bank-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 26px; box-shadow: var(--shadow-sm); }
 .bank-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
-.bank-logo { font-family: var(--display); font-weight: 800; font-size: 0.8rem; letter-spacing: 0.04em; background: var(--ink); color: #fff; width: 52px; height: 52px; border-radius: 13px; display: grid; place-items: center; flex: none; }
+.bank-logo { font-family: var(--display); font-weight: 800; font-size: 0.8rem; letter-spacing: 0.04em; background: var(--fill-deep); border: 1px solid var(--hairline); color: var(--ink); width: 52px; height: 52px; border-radius: 13px; display: grid; place-items: center; flex: none; }
 .bank-head h3 { margin: 0; } .bank-head p { margin: 0; color: var(--muted); font-size: 0.9rem; }
 .bank-row { display: flex; justify-content: space-between; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--line); }
 .bank-row:last-child { border-bottom: none; }
@@ -371,14 +437,14 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .bank-value { font-weight: 600; text-align: right; display: inline-flex; align-items: center; gap: 8px; font-variant-numeric: tabular-nums; }
 .copy-btn { border: 1px solid var(--line); background: var(--bg-soft); color: var(--muted); width: 32px; height: 32px; border-radius: 7px; display: inline-grid; place-items: center; cursor: pointer; flex: none; transition: all 0.15s; }
 .copy-btn:hover { color: var(--emerald-deep); border-color: var(--emerald); background: rgba(52, 211, 153, 0.08); }
-.copy-btn.copied { color: #fff; background: var(--emerald-deep); border-color: var(--emerald-deep); }
+.copy-btn.copied { color: var(--go-ink); background: var(--go); border-color: var(--go); }
 
 /* ---------- Contact page ---------- */
 .contact-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: start; }
 .contact-form { display: grid; gap: 16px; margin-top: 8px; }
 .contact-form label { display: grid; gap: 6px; font-weight: 600; font-size: 0.92rem; color: var(--ink); }
 .contact-form input, .contact-form select, .contact-form textarea {
-  font: inherit; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--text);
+  font: inherit; padding: 12px 14px; border: 1px solid #2a364c; border-radius: 10px; background: var(--surface-2); color: var(--text);
   font-weight: 400; transition: border-color 0.15s, box-shadow 0.15s;
 }
 .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
@@ -399,26 +465,65 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .beta-action { display: grid; gap: 12px; justify-items: center; }
 
 /* ---------- Footer ---------- */
-.site-footer { background: var(--ink); color: #aeb9d6; padding: 56px 0 28px; }
-/* Brand block plus four link columns (Explore / Where it works / Support / Legal).
-   auto-fit rather than a fixed count so adding a column does not silently squash
-   the others — which is exactly what happened when "Where it works" was added. */
-.footer-grid { display: grid; grid-template-columns: 1.7fr repeat(auto-fit, minmax(140px, 1fr)); gap: 30px; }
-@media (max-width: 900px) { .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 26px; } }
-@media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
-.footer-brand .logo-mark { border-radius: 11px; margin-bottom: 14px; }
-.footer-tagline { color: #fff; font-size: 1.05rem; margin: 0 0 8px; }
-.footer-note { font-size: 0.92rem; color: #8995b8; max-width: 320px; }
-.footer-note em { color: #cdd8ff; font-style: normal; }
-.footer-col h4 { color: #fff; font-size: 0.95rem; margin-bottom: 12px; }
-.footer-col a { display: flex; align-items: center; gap: 6px; color: #aeb9d6; padding: 5px 0; font-size: 0.94rem; transition: color 0.15s; }
-.footer-col a:hover { color: var(--emerald); }
+.site-footer { background: var(--fill-deep); color: var(--fg-2); padding: 0 0 28px; border-top: 1px solid var(--hairline); overflow: hidden; }
+/* The sign-off: the tagline set very large, wide and heavy. It is the last thing
+   on every page, the way people here say goodbye. */
+.footer-signoff { padding-top: clamp(56px, 9vw, 120px); padding-bottom: clamp(28px, 4vw, 48px); }
+.signoff {
+  margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%;
+  font-size: clamp(3.4rem, 1rem + 11vw, 11rem); line-height: 0.9; letter-spacing: -0.035em; color: var(--ink);
+}
+.signoff .stop { color: var(--road); }
+.signoff-note { margin: 18px 0 0; max-width: 46ch; color: var(--fg-2); font-size: 0.98rem; }
+.signoff-note em { font-style: normal; color: var(--ink); }
+.footer-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 30px; padding-top: 34px; border-top: 1px solid var(--hairline); }
+.footer-col h2 { font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-2); margin: 0 0 14px; font-stretch: normal; }
+.footer-col a { display: flex; align-items: center; gap: 6px; color: var(--text-soft); padding: 6px 0; font-size: 0.94rem; transition: color 0.15s var(--ease-ui); }
+.footer-col a:hover { color: var(--go); }
 .footer-col .ic { opacity: 0.7; }
-.footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 32px; padding-top: 20px; }
-.footer-bottom p { font-size: 0.86rem; color: #6c789c; margin: 0; }
+.footer-metros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; }
+.footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px 24px; border-top: 1px solid var(--hairline); margin-top: 32px; padding-top: 20px; }
+.footer-bottom p { font-size: 0.86rem; color: var(--fg-2); margin: 0; }
+.footer-admin a { opacity: 0.45; font-size: 12px; }
+.footer-admin a:hover { opacity: 0.8; }
+@media (max-width: 900px) { .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .footer-grid { grid-template-columns: minmax(0, 1fr); } .footer-metros { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
-/* ---------- Mobile nav ---------- */
+/* ---------- Mobile menu sheet ---------- */
 .mobile-nav { display: none; }
+/* Header measured with the real fonts: logo lockup 150 + five nav links 470 +
+   "Get the app" 150 + gaps, about 820px of content. The full bar therefore
+   fits from about 900px up with the gutter; below that the menu button takes
+   over. Change a nav label or add a link and re-measure `.header-inner`'s
+   visible children rather than assuming there is still room. */
+@media (max-width: 900px) {
+  .primary-nav, .header-cta { display: none; }
+  .nav-toggle {
+    display: inline-flex; flex-direction: column; justify-content: center; gap: 6px; margin-left: auto;
+    width: 46px; height: 46px; padding: 0 11px; background: none; border: 1px solid #2a364c; border-radius: 10px; cursor: pointer;
+  }
+  .nav-toggle span { width: 22px; height: 1.5px; background: var(--ink); border-radius: 2px; transition: transform 0.25s var(--ease-ui); }
+  .nav-toggle[aria-expanded='true'] span:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
+  .nav-toggle[aria-expanded='true'] span:nth-child(2) { transform: translateY(-3.75px) rotate(-45deg); }
+  .nav-toggle span:nth-child(3) { display: none; }
+  .mobile-nav {
+    position: fixed; inset: var(--head) 0 0 0; z-index: 49; display: flex; flex-direction: column;
+    padding: 28px var(--gutter) 32px; background: var(--night); overflow-y: auto;
+    visibility: hidden; opacity: 0; transform: translateY(-8px);
+    transition: opacity 0.25s var(--ease-ui), transform 0.35s var(--ease-out), visibility 0s linear 0.35s;
+  }
+  .mobile-nav.open { visibility: visible; opacity: 1; transform: none; transition: opacity 0.25s var(--ease-ui), transform 0.45s var(--ease-out), visibility 0s; }
+  .mobile-nav a.mnav-link {
+    display: block; padding: 12px 0; border-bottom: 1px solid var(--hairline);
+    font-family: var(--display); font-weight: 750; font-stretch: 118%; font-size: 1.9rem; letter-spacing: -0.02em; color: var(--ink);
+  }
+  .mobile-nav a.mnav-link[aria-current='page'] { color: var(--go); }
+  .mobile-nav .mnav-more { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 22px 0 0; }
+  .mobile-nav .mnav-more a { color: var(--fg-2); font-size: 0.95rem; padding: 8px 0; }
+  .mobile-nav .btn { margin-top: 26px; align-self: stretch; }
+  .mobile-nav .hud { margin-top: 18px; color: var(--fg-2); }
+  html.menu-open, html.menu-open body { overflow: hidden; }
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 920px) {
@@ -438,46 +543,6 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
   .walk-text { display: flex; flex-direction: column; align-items: center; }
   .mini-legend { justify-content: center; }
   .quote-card { order: -1; }
-}
-/* The header bar has to be measured, not guessed — twice now a guessed
-   breakpoint has left a band of laptop widths scrolling sideways (the hamburger
-   fired at 680px, then at 1000px, and both times the full bar still needed more
-   room than the widths just above). Measured on how-it-works.html with the real
-   fonts and the logo loaded:
-
-     logo lockup 129 + nine nav links 770 + "Get the app" 122 + gaps and margin
-       = 1057px of content, and .wrap adds a 22px gutter either side.
-
-   Above --maxw (1140px) the container stops growing, so that 1057px is measured
-   against a fixed 1096px content box: 39px of slack, at every width, for good.
-   Below it every further pixel comes out of the bar, so the bar is tightened
-   there. At 9px of link padding and a 12px flex gap the same nine links need
-   993px, which fits from a 1037px viewport up, and the hamburger takes over at
-   1080px, so the narrowest width that ever renders the full bar (1081px) still
-   has 44px in hand. Nine links plus a button genuinely do not fit a 1024px
-   laptop at a readable size, which is why that width gets the menu button.
-
-   Change a nav label or add a link and these numbers move. Re-measure
-   `.header-inner`'s visible children (with the logo loaded — an unloaded logo
-   reads 34px narrow and flatters the result) rather than assuming there is
-   still room. */
-@media (max-width: 1140px) {
-  .header-inner { gap: 12px; }
-  .primary-nav a { padding-left: 9px; padding-right: 9px; }
-  .header-cta { margin-left: 2px; }
-}
-@media (max-width: 1080px) {
-  .primary-nav, .header-cta { display: none; }
-  .nav-toggle { display: inline-flex; flex-direction: column; gap: 5px; margin-left: auto; background: none; border: none; cursor: pointer; padding: 8px; }
-  .nav-toggle span { width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
-  .nav-toggle[aria-expanded='true'] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .nav-toggle[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
-  .nav-toggle[aria-expanded='true'] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .mobile-nav { display: none; flex-direction: column; gap: 4px; padding: 10px 22px 18px; border-bottom: 1px solid var(--line); background: #fff; }
-  .mobile-nav.open { display: flex; }
-  .mobile-nav a { padding: 11px 8px; color: var(--text-soft); font-weight: 600; border-radius: 10px; }
-  .mobile-nav a[aria-current='page'] { color: var(--emerald-text); }
-  .mobile-nav .btn { margin-top: 8px; }
 }
 
 /* Small phones. The roomy card padding and the large button stop fitting side by
@@ -558,16 +623,16 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
   border: 1px solid transparent; transition: background 0.15s, color 0.15s, border-color 0.15s;
   user-select: none;
 }
-.up-tab:hover { background: #eaeef7; color: var(--ink); }
+.up-tab:hover { background: var(--surface-2); color: var(--ink); }
 .up-count {
   font-size: 0.78rem; font-variant-numeric: tabular-nums; padding: 1px 7px;
-  border-radius: 999px; background: rgba(0, 0, 0, 0.07); color: inherit;
+  border-radius: 999px; background: rgba(255, 255, 255, 0.08); color: inherit;
 }
 /* Active pill. The radios are siblings of the tab bar (not inside it), so these
    reach the label through the bar rather than with an adjacent-sibling combinator. */
 #tab-feature:checked ~ .up-tabbar label[for='tab-feature'],
 #tab-fix:checked ~ .up-tabbar label[for='tab-fix'],
-#tab-tweak:checked ~ .up-tabbar label[for='tab-tweak'] { background: var(--emerald-text); color: #fff; }
+#tab-tweak:checked ~ .up-tabbar label[for='tab-tweak'] { background: var(--go); color: var(--go-ink); }
 #tab-feature:checked ~ .up-tabbar label[for='tab-feature'] .up-count,
 #tab-fix:checked ~ .up-tabbar label[for='tab-fix'] .up-count,
 #tab-tweak:checked ~ .up-tabbar label[for='tab-tweak'] .up-count { background: rgba(255, 255, 255, 0.22); }
@@ -632,7 +697,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .bandbar-time { display: flex; flex-direction: column; line-height: 1.25; }
 .bandbar-time strong { font-weight: 700; font-size: 0.95rem; color: var(--text); }
 .bandbar-hint { font-size: 0.74rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.bandbar-top { font-weight: 700; font-size: 0.95rem; color: #c92a3f; text-align: right; font-variant-numeric: tabular-nums; }
+.bandbar-top { font-weight: 700; font-size: 0.95rem; color: var(--risk-red); text-align: right; font-variant-numeric: tabular-nums; }
 .bandbar-caption { margin: 12px 0 0; font-size: 0.82rem; color: var(--muted); }
 .bandbar-track { display: flex; gap: 2px; height: 34px; border-radius: 8px; overflow: hidden; background: var(--bg-soft); }
 .bandbar-seg { flex: 0 0 auto; width: var(--seg); background: var(--fill); transition: width 0.9s cubic-bezier(0.2, 0.7, 0.3, 1); }
@@ -803,36 +868,36 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 /* The haze printed maps carry along a coastline: the land outline drawn a
    second time underneath itself as a wide soft stroke, so the country does not
    look like a shape cut out with scissors. */
-.zamap-halo-land { fill: none; stroke: #dde4f0; stroke-width: 7; stroke-opacity: 0.55; stroke-linejoin: round; }
-.zamap-land { fill: #e8edf5; stroke: #d0d9ea; stroke-width: 1.2; stroke-linejoin: round; }
-.zamap-border { fill: none; stroke: #ffffff; stroke-width: 1.6; stroke-opacity: 0.9; stroke-linejoin: round; stroke-linecap: round; }
+.zamap-halo-land { fill: none; stroke: var(--night-2); stroke-width: 7; stroke-opacity: 0.55; stroke-linejoin: round; }
+.zamap-land { fill: var(--surface); stroke: var(--road); stroke-width: 1.2; stroke-linejoin: round; }
+.zamap-border { fill: none; stroke: var(--night); stroke-width: 1.6; stroke-opacity: 0.9; stroke-linejoin: round; stroke-linecap: round; }
 /* Decorative, and long: a leader that captured clicks would put a live link
    across empty country. */
-.zamap-leader { stroke: #9aa5bd; stroke-width: 1; pointer-events: none; }
+.zamap-leader { stroke: var(--road); stroke-width: 1; pointer-events: none; }
 /* The mapped ground itself: the metro's risk zones dissolved into one outline. */
 /* `pointer-events: fill` keeps the OUTLINE out of hit-testing. Metros share
    borders, and a stroke takes clicks by default, so each metro's outline was
    claiming a 1px band of its neighbour's ground: most of what was left of
    the West Rand's clicks going to Johannesburg. */
-.zamap-area { pointer-events: fill; fill: rgba(4, 120, 87, 0.34); stroke: var(--emerald-text); stroke-width: 1.1; stroke-linejoin: round; transition: fill 0.2s, stroke-width 0.2s; }
-.zamap-dot { fill: var(--emerald-text); stroke: #ffffff; stroke-width: 1.6; }
+.zamap-area { pointer-events: fill; fill: rgba(52, 211, 153, 0.22); stroke: var(--emerald-text); stroke-width: 1.1; stroke-linejoin: round; transition: fill 0.2s, stroke-width 0.2s; }
+.zamap-dot { fill: var(--emerald-text); stroke: var(--night); stroke-width: 1.6; }
 /* Grown on hover instead of animating the dot's radius: `r` as a CSS property is
    newer than this site's browser floor, and a ring reads better anyway. */
 /* Decorative. `opacity: 0` still takes clicks, and at its active size the ring
    reaches past its own hit disc onto a neighbour's coverage. */
 .zamap-ring { pointer-events: none; fill: none; stroke: var(--emerald-deep); stroke-width: 1.6; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0.5); transition: opacity 0.2s, transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1); }
 .zamap-hit { fill: transparent; }
-.zamap-label { font-family: var(--display); font-size: 21px; font-weight: 600; fill: var(--text); paint-order: stroke; stroke: #ffffff; stroke-width: 4.5px; stroke-linejoin: round; transition: fill 0.2s; }
+.zamap-label { font-family: var(--display); font-size: 21px; font-weight: 600; fill: var(--text); paint-order: stroke; stroke: var(--surface); stroke-width: 4.5px; stroke-linejoin: round; transition: fill 0.2s; }
 
 .zamap-metro { cursor: pointer; }
-.zamap-metro:hover .zamap-area, .zamap-metro.is-active .zamap-area { fill: rgba(4, 120, 87, 0.5); stroke-width: 1.8; }
+.zamap-metro:hover .zamap-area, .zamap-metro.is-active .zamap-area { fill: rgba(52, 211, 153, 0.42); stroke-width: 1.8; }
 .zamap-metro:hover .zamap-ring, .zamap-metro.is-active .zamap-ring { opacity: 1; transform: scale(1); }
 .zamap-metro:hover .zamap-label, .zamap-metro.is-active .zamap-label { fill: var(--emerald-text); }
 
 .zamap-key { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 20px; font-size: 0.84rem; color: var(--muted); }
 .zamap-key-item { display: inline-flex; align-items: center; }
-.zamap-swatch { width: 13px; height: 13px; margin-right: 7px; border-radius: 3px; background: rgba(4, 120, 87, 0.3); border: 1px solid var(--emerald-text); }
-.zamap-swatch.is-blank { background: #e8edf5; border-color: #d0d9ea; }
+.zamap-swatch { width: 13px; height: 13px; margin-right: 7px; border-radius: 3px; background: rgba(52, 211, 153, 0.22); border: 1px solid var(--emerald-text); }
+.zamap-swatch.is-blank { background: var(--surface); border-color: var(--road); }
 
 .zamap-group + .zamap-group { margin-top: 18px; }
 .zamap-region { margin: 0 0 7px; font-family: var(--font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
@@ -873,3 +938,23 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 @media (max-width: 460px) {
   .zamap-groups { grid-template-columns: 1fr; }
 }
+
+/* ---------------------------------------------------------------------------
+ * Scene stage (public/js/scene/engine.js).
+ *
+ * A stage holds a static poster (SVG, always in the HTML) and the WebGL canvas.
+ * The canvas stays invisible until the engine has drawn a real frame and adds
+ * .is-live; only then does it fade in over the poster. A lost graphics context
+ * (.is-lost) hands the stage back to the poster. So the stage is never empty:
+ * without JavaScript, on the static tier, or while the 3D library loads.
+ * ------------------------------------------------------------------------ */
+.scene-stage { position: relative; overflow: hidden; }
+.scene-stage > canvas, .scene-stage > .scene-poster { position: absolute; inset: 0; width: 100%; height: 100%; }
+.scene-stage > canvas { opacity: 0; transition: opacity 0.6s var(--ease-ui); }
+.scene-stage.is-live > canvas { opacity: 1; }
+.scene-stage.is-live > .scene-poster { opacity: 0; transition: opacity 0.6s var(--ease-ui); }
+.scene-stage.is-lost > canvas { display: none; }
+
+/* "Pause motion" controls share one look wherever they appear. */
+.motion-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 10px; background: none; border: 0; color: var(--fg-2); cursor: pointer; font: inherit; }
+.motion-toggle:hover { color: var(--ink); }

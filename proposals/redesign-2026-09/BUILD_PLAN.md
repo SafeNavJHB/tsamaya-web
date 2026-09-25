@@ -1,8 +1,9 @@
 # Build plan: the Sensor redesign of tsamayaapp.co.za
 
-Written 2026/09/25. Status: plan agreed in principle, build not started.
+Written 2026/09/25. Status: Phase 0 done (2026/09/25); Phase 1 next.
+Preview of the branch build (private): https://claude.ai/artifact/UML9VQcPGy26gfbXSJUjj7, republished at the end of each phase.
 Prototype: `proposals/redesign-2026-09/concept-4-sensor.html` (home and Johannesburg views, with the interactive map spike).
-Owner decisions still open are listed in section 10; the plan assumes the recommended option for each.
+Owner decisions were settled on 2026/09/25 and are recorded in section 10.
 
 ## 1. What we are building
 
@@ -123,7 +124,6 @@ These rules apply to every interaction:
 | Band switch (Daytime / Evening / Night) | A ring at the base of each pillar grows or shrinks with that metro's high-risk total for the band. Pillar height does not change |
 | Escape or "Back to all 12" | The camera flies back to the national view |
 | Metro list beside the map | Real buttons, synced both ways with the map. Arrow keys move, Enter flies in, and an `aria-live` line reads out the selection |
-| "Use my location" (optional) | Asks the browser for location and highlights the nearest covered metro. It is worked out on the phone and never sent anywhere or stored |
 | Reduced motion or no WebGL | The same list and card drive the SVG map: outlines highlight and no camera moves |
 
 ### 5.2 Hero
@@ -152,6 +152,10 @@ The map, hero chips, route spotlight and clickable day line are built in the pro
 - **On phones, the info card sits under the map** with the back button above it; there is no room beside the metro at 390 px.
 - **The "Three clocks" chapter only covers 05:00 to 23:00.** A click on the day line before 05:00 goes to the night end. In the build, either extend the chapter to 04:59 or label the line.
 - **The explore map scrolls with the section** once it passes the top of the screen, so pointer targets stay lined up with the pillars.
+- **No count-ups (found in Phase 0).** Today's `public/app.js` records why they were removed: a screenshot taken mid-count showed "117 risk zones" for Cape Town, which had 918. A site whose argument is that every figure comes from the live database must never display a number that is not true, even for a frame.
+  - The prototypes count through in-between values (1 372 up to 2 525, 4 down to 2).
+  - In the build, numbers switch between real values only: a quick digit flip or crossfade from one true figure to the next.
+  - Bars, rings, columns and light can still move smoothly.
 
 ### 5.6 Metro pages and everywhere else
 
@@ -203,7 +207,7 @@ Estimates are working days for one developer. With Claude building in sessions, 
 |---|---|---|---|
 | **0. Foundations** | Vendored libraries with versions and licences; fonts; tokens; the new layout shell (header, menu, HUD, footer); `site.json` and `geo.json` written by the build; the number format and the check update; engine skeleton with tiers, pausing and the poster | Every existing page builds in the new shell with its current content; `npm run check` passes; no page loads Three.js yet | 2 to 3 days |
 | **1. Home page** | Port the hero, the three chapters and the panel fades into modules. Hero band chips, route spotlight, parallax, clickable day line. Inside the app, questions, get the app, ways to help | Matches the prototype on desktop and phone; LCP and shift budgets met on a throttled run; reduced-motion and static tiers checked | 4 to 5 days |
-| **2. The map** | The explore map on home and the full coverage page: hover, click, fly-in, the Gauteng cluster, band rings, synced list, live region, SVG fallback, optional "Use my location" | Every row of table 5.1 works with a mouse, touch and keyboard; screen reader walk-through done | 3 to 4 days |
+| **2. The map** | The explore map on home and the full coverage page: hover, click, fly-in, the Gauteng cluster, band rings, synced list, live region, SVG fallback | Every row of table 5.1 works with a mouse, touch and keyboard; screen reader walk-through done | 3 to 4 days |
 | **3. Every other page** | Metro page template (12 pages), how it works, see it, updates, technical, about, support, contact, get the app, legal pages, tracker restyle, 404 | All pages on the new design; tracker tested end to end with a real shared trip | 5 to 6 days |
 | **4. Extras** | "Try it" toy router; new social image; fresh app screenshots in the See it page | Toy router labelled and working on touch; screenshots show no suburb names under risk colours | 2 to 3 days |
 | **5. Hardening and launch** | Device matrix (Galaxy A06 and A15, an older iPhone SE, a recent iPhone, a mid laptop on Chrome, Safari and Firefox); Lighthouse; accessibility pass; copy pass for banned words and dashes; staged review; merge to `main` | All "done means" items in section 1 are met and recorded | 2 to 3 days |
@@ -211,6 +215,37 @@ Estimates are working days for one developer. With Claude building in sessions, 
 **Total:** about 18 to 24 working days.
 
 **Branching:** build on one long-lived branch and merge to `main` once, at launch. The shell change touches every page, so a half-migrated live site would look broken.
+
+### Phase 0 record (2026/09/25)
+
+**Built:**
+- Vendored libraries and `npm run vendor`:
+  - GSAP 3.15.0 with ScrollTrigger and SplitText;
+  - Lenis 1.3.26;
+  - a trimmed Three.js r186 module at 141 KB gzipped.
+- Archivo and Martian Mono, self-hosted and trimmed with fontTools to 79 KB together.
+- The new layout shell:
+  - header with five primary items;
+  - full-screen phone menu;
+  - live South African time strip;
+  - "Go well." footer.
+- The dark token set, with the older components remapped onto it.
+- `public/js/site.js`, replacing `app.js` with every feature carried over.
+- The engine skeleton: `public/js/scene/tier.js` and `engine.js`.
+- The build now writes `data/site.json` and `data/geo.json`.
+- Numbers use the South African format.
+- `npm run check` has the number-format fix and two new checks: no em dash outside the legal pages, and no 3D library on a page without a canvas.
+
+**Verified:**
+- `npm run check` passes.
+- Both new checks fail on a planted em dash and on a planted script tag.
+- All 25 pages load with no script errors and no sideways scroll at 360 px.
+- The menu opens, moves focus and closes on Escape.
+- The engine was exercised in a test page: it renders, pauses on "Pause motion", resumes, and falls back to the poster on a lost graphics context.
+
+**Deviation from the plan:**
+- Three.js is imported by relative path (`../../vendor/three.scene.min.js`) instead of through an import map. Same result, one less moving part.
+- Pages that do not use the scene never request it.
 
 ## 9. Risks and what we do about them
 
@@ -224,15 +259,20 @@ Estimates are working days for one developer. With Claude building in sessions, 
 | Tracker regression | It is restyled only; its behaviour is tested with a real shared trip before launch |
 | Scope creep | Anything not in section 4 or 5 goes to a follow-up list, not into the launch |
 
-## 10. Decisions for Kyle (the plan assumes the recommendation)
+## 10. Decisions (settled with Kyle on 2026/09/25)
 
-1. **Build system.** Keep today's zero-dependency static build with vendored libraries (recommended), or move to a framework such as Astro. A framework buys little here and adds a dependency tree to maintain.
-2. **Preview links during the build.** Either private artifact links per phase (no setup, recommended to start), or connect Cloudflare Pages to the repository for automatic previews of every branch (free, about 15 minutes of setup).
-3. **"Try it" toy router on How it works.** Include it in Phase 4 (recommended). It is the most memorable interaction on the site, and it is labelled as a toy.
-4. **"Use my location" on the map.** Include it, processed on the phone only (recommended), or leave it out.
-5. **Launch.** Once, after Phase 5 (recommended), or home page first. Home-first means running two designs side by side for a while.
-6. **App screenshots.** New captures are needed. The June route-card capture still shows an old banner with a dash in it, and every capture is at night with suburb names under risk colours, so the site can only show cropped parts of them. A daytime set, taken in an area that shows no township names, would free the See it page.
-7. **The name line.** Check "tsamaya sentle" (Setswana) and "tsamaya hantle" (Sesotho) with a first-language speaker before the new About page repeats it.
+1. **Build system: keep the static build.** Kyle's brief is "professional and impressive". The look and the motion come from the design and the client code, which are identical on either build system. So we keep today's zero-dependency static build with vendored libraries. It loads fast, hosts free on GitHub Pages and has the least to maintain.
+2. **Previews: private artifact links per phase.** No Cloudflare setup.
+3. **"Try it" toy router: yes.** Phase 4, labelled as a toy.
+4. **"Use my location": no.** There are only 12 metros and people know their own area. Removed from section 5.1.
+5. **Launch: once, after Phase 5.** One merge to `main`.
+6. **App screenshots: Kyle captures a daytime set,** helped by a local Claude Code session driving the iOS simulator on the Mac. A cloud session cannot run the simulator. Brief:
+   - daytime (SAST);
+   - nothing where a residential area's name sits under a red or orange overlay;
+   - route options, turn-by-turn, CarPlay and the home screen.
+
+   Until then, the site uses the crops it has today.
+7. **The name line: either form is fine.** Keep the current wording ("tsamaya sentle", go well) and adjust if a first-language speaker suggests "tsamaya hantle" for Sesotho.
 
 ## 11. Out of scope for this build
 
