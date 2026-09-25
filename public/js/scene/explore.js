@@ -322,8 +322,16 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     // map's stage, and the back button sits above it (or, with a slot, the card
     // keeps its own place under the map and the CSS has it)
     if (sm && slot) { card.style.transform = back.style.transform = ''; if (pz) pz.style.transform = ''; return; }
-    back.style.transform = sm && i >= 0 ? `translateY(${-(ch + 8)}px)` : '';
-    if (pz) pz.style.transform = back.style.transform;
+    // lifted above the card, but never under the header: on a short stage (a
+    // phone on its side) they stop below it, over the card's edge
+    let lift = sm && i >= 0 ? ch + 8 : 0, over = false;
+    if (lift) {
+      const hd = document.querySelector('.site-header'), room = stage.getBoundingClientRect().bottom - 8 - back.offsetHeight - (hd ? hd.getBoundingClientRect().bottom : 0) - 4;
+      if (lift > room) { lift = Math.max(0, room); over = true; }
+    }
+    back.style.transform = lift ? `translateY(${-lift.toFixed(1)}px)` : '';
+    back.style.zIndex = over ? '7' : '';
+    if (pz) { pz.style.transform = back.style.transform; pz.style.zIndex = back.style.zIndex; }
     if (i < 0 || ew < 0.3 || !SG) return;
     const o = org(card);
     if (sm) { card.style.transform = `translate3d(${(-o[0]).toFixed(1)}px,${(SG.cy + SG.h / 2 - trk - 8 - ch - o[1]).toFixed(1)}px,0)`; return; }

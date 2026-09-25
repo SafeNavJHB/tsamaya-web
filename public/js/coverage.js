@@ -93,6 +93,7 @@ async function loadScene() {
   xp.layout();
   ex.gl = { sync: xp.sync, fly: xp.fly, band: xp.band };
   ex.show();
+  if (ex.lvl !== 'nat') xp.fly(ex.lvl, ex.sel); // a pick made before the map was built
   if (full) engine.start();
   engine.invalidate();
   hook.ready = true;

@@ -12,10 +12,12 @@
 //           A browser that does not report cores or memory is treated as
 //           unknown, not as weak.
 //   full    everything else
+// WebGL 2 only: the vendored Three.js (r186) has no WebGL 1 renderer, so a
+// WebGL 1 browser would load it only to fail and fall back every visit.
 export function webglAvailable() {
   try {
     const c = document.createElement('canvas');
-    return !!(c.getContext('webgl2') || c.getContext('webgl'));
+    return !!c.getContext('webgl2');
   } catch {
     return false;
   }

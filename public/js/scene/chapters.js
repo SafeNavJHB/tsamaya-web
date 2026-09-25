@@ -512,8 +512,9 @@ export function initChapters({ engine, city, ctl }) {
       hudTL.style.opacity = o; // the explore heading takes its corner
       // stacked, the list runs under the bottom corner: it gives way, and the
       // section's own Pause motion takes over under the map
-      // (not while it has keyboard focus: it would drop to the page)
-      const held = hudBR.contains(document.activeElement);
+      // (not while it has keyboard focus: it would drop to the page; a click
+      // focuses it too, which is not what this is for)
+      const fe = document.activeElement, held = hudBR.contains(fe) && fe.matches(':focus-visible');
       hudBR.style.opacity = sb && !held ? o : ''; hudBR.style.visibility = sb && !held && +o < 0.01 ? 'hidden' : '';
     }
     // the explore map answers the pointer while it is the view
@@ -580,6 +581,7 @@ export function initChapters({ engine, city, ctl }) {
     lastFlow = el ? { el, off: el.getBoundingClientRect().top } : null;
   };
   const master = ST.create({ start: 0, end: 'max', onUpdate: onScroll, onRefresh: onScroll });
+  on(hudBR, 'focusout', () => requestAnimationFrame(() => updateUI(cT))); // the corner held for focus can go now
 
   // Tabbing back into a panel that has faded after its pin brings the chapter
   // back to its middle, where the panel shows. Only when focus moved there from
@@ -743,6 +745,8 @@ export function initChapters({ engine, city, ctl }) {
     exRoot.classList.add('gl');
     ctl.ex.gl = { sync: () => { xp.sync(); placeName(cT); }, fly: xp.fly, band: xp.band };
     ctl.ex.show();
+    // a pick made before the map was built: fly to it now
+    if (ctl.ex.lvl !== 'nat') xp.fly(ctl.ex.lvl, ctl.ex.sel);
     invX();
   }).catch((e) => { if (xp) { xp.kill(); xp = null; } ctl.ex.gl = null; flat(e); });
 

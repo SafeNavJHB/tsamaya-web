@@ -41,8 +41,11 @@ const bandOf = (m) => TS.bands.indexOf(TS.bandAt(m));
 const forced = new URLSearchParams(location.search).get('tier');
 const tier = ['static', 'light', 'full'].includes(forced) ? forced : detectTier();
 doc.classList.add('tier-' + tier);
-// remembered for the next visit's first paint (the explore section's layout, below)
-if (!forced) try { localStorage.setItem('ts-tier', tier); } catch (e) { /* storage off */ }
+// remembered for the next visit's first paint (the explore section's layout,
+// below); not a static tier that reduced motion alone chose, which the early
+// guess checks for itself, so the next visit without it guesses right
+const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!forced && !reduced) try { localStorage.setItem('ts-tier', tier); } catch (e) { /* storage off */ }
 // The explore section's 3D layout: set while the page was read in (the inline
 // script in src/explore.mjs, from a cheap guess), settled here by the tier.
 if (document.getElementById('explore')) document.getElementById('explore').classList.toggle('cine', tier !== 'static');

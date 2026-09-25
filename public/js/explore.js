@@ -143,7 +143,12 @@ export function initExplore({ root, tier }) {
   // and once focus leaves the card for anywhere but a row, the preview ends
   card.addEventListener('focusout', (e) => { if (ex.hov >= 0 && !card.contains(e.relatedTarget) && !btns.includes(e.relatedTarget)) hover(-1); });
   back.addEventListener('click', () => home());
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && ex.act && (ex.lvl !== 'nat' || ex.sel >= 0)) home(); });
+  // Escape backs out while the section is the view (ex.act), or, before a 3D
+  // map has taken over, while it is on screen
+  const near = () => { const r = root.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && (ex.act || (!ex.gl && near())) && (ex.lvl !== 'nat' || ex.sel >= 0)) home(); });
+  // keyboard focus in the card: stacked, bring the map and its card into view
+  card.addEventListener('focusin', () => reveal());
 
   // The static map: the country, each metro's coverage outline, and at its
   // point a dot and a ring sized by its high-risk count in the band picked, all
