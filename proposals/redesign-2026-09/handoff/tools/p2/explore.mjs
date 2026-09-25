@@ -142,6 +142,23 @@ const live = (p) => p.waitForTimeout(150).then(() => p.evaluate(() => document.g
   check('390: a row tapped low in the list brings the map and card back into view', rv.sel === 11 && rv.top >= 60 && rv.top <= 76 && rv.card <= 844, JSON.stringify(rv));
   await ctx.close();
 }
+/* ---------- narrow side by side (1024 x 768): every pick keeps Back and the card's title clear ---------- */
+{
+  const { ctx, p } = await open(1024, 768);
+  const bad = [];
+  for (let i = 0; i < 12; i++) {
+    await p.click(`#ex-list button[data-m="${i}"]`); await settle(p);
+    const r = await p.evaluate(() => {
+      const ov = (a, q) => a.left < q.right && q.left < a.right && a.top < q.bottom && q.top < a.bottom;
+      const bk = document.getElementById('ex-back').getBoundingClientRect(), c = document.getElementById('ex-card').getBoundingClientRect(), n = document.getElementById('exc-n').getBoundingClientRect();
+      const e = document.elementFromPoint(bk.left + bk.width / 2, bk.top + bk.height / 2), t = document.elementFromPoint(n.left + 5, n.top + n.height / 2);
+      return !ov(bk, c) && !!(e && e.closest('#ex-back')) && bk.top >= 69 && bk.bottom <= innerHeight && !!(t && t.closest('#ex-card'));
+    });
+    if (!r) bad.push(i);
+  }
+  check('1024: for all 12 picks, Back is clear of the card, in view and pressable, and the card title shows', !bad.length, bad.length ? 'picks ' + bad.join(',') : '');
+  await p.keyboard.press('Escape'); await ctx.close();
+}
 /* ---------- tablet, stacked (under 1024 wide), touch ---------- */
 {
   const { ctx, p } = await open(820, 1180, '', { hasTouch: true });
