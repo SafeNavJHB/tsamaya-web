@@ -99,7 +99,9 @@
       var text = btn.getAttribute('data-copy') || '';
       var done = function () {
         btn.classList.add('copied');
-        var prev = btn.innerHTML;
+        var prev = btn.innerHTML, label = btn.getAttribute('aria-label');
+        btn.setAttribute('aria-label', 'Copied');
+        setTimeout(function () { if (label) btn.setAttribute('aria-label', label); }, 1400);
         btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5 11-11"/></svg>';
         setTimeout(function () { btn.classList.remove('copied'); btn.innerHTML = prev; }, 1400);
       };
@@ -281,4 +283,41 @@
       el.addEventListener('pointerleave', function () { xTo(0); yTo(0); });
     });
   }
+
+  /* ------------------------------------------------------------------------
+   * 12. Questions (.qa) on the inner pages: every answer is open in the HTML,
+   *     so the page reads without JavaScript; fold all but the one marked
+   *     data-open. The home page runs its own (home.js), which also keeps the
+   *     reader's place round its pinned scene.
+   * --------------------------------------------------------------------- */
+  if (!document.body.classList.contains('page-home')) {
+    var refresh = function () { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); };
+    $$('.qa').forEach(function (qa) {
+      var btn = $('button', qa), panel = $('.qa-a', qa);
+      if (!btn || !panel) return;
+      var open = qa.hasAttribute('data-open');
+      btn.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+      btn.addEventListener('click', function () {
+        var now = btn.getAttribute('aria-expanded') !== 'true';
+        btn.setAttribute('aria-expanded', String(now));
+        if (reduce || !gsap) { panel.hidden = !now; refresh(); return; }
+        gsap.killTweensOf(panel);
+        if (now) {
+          panel.hidden = false;
+          gsap.fromTo(panel, { height: 0 }, { height: 'auto', duration: 0.18, ease: 'power2.out', clearProps: 'height', onComplete: refresh });
+        } else {
+          gsap.to(panel, { height: 0, duration: 0.18, ease: 'power2.in', onComplete: function () { panel.hidden = true; gsap.set(panel, { clearProps: 'height' }); refresh(); } });
+        }
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+   * 13. The store panels ([data-platform]): light the one for the visitor's
+   *     phone. Only a border and a label: nothing moves.
+   * --------------------------------------------------------------------- */
+  var ua = navigator.userAgent || '';
+  var mine = /Android/i.test(ua) ? 'android' : /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ? 'ios' : '';
+  if (mine) $$('[data-platform="' + mine + '"]').forEach(function (el) { el.classList.add('is-mine'); });
 })();

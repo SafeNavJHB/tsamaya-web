@@ -58,9 +58,10 @@ function hudStrip() {
 `;
 }
 
-// page: { slug, title, description, body, heroClass, hud, scripts }
+// page: { slug, title, description, body, heroClass, hud, scripts, noindex, base }
 //   hud: false hides the telemetry strip (pages with their own scene HUD).
 //   scripts: extra ES modules for this page only (the 3D scene, the map).
+//   base: a <base href> (the 404 page, which GitHub Pages serves at any depth).
 export function renderPage(page) {
   const titleFull = esc(
     page.slug === 'index.html'
@@ -80,6 +81,7 @@ export function renderPage(page) {
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  ${page.base ? `<base href="${page.base}"/>` : ''}
   <!-- Marks the document as script-capable before first paint. Every reveal
        animation is scoped to .js, so with JavaScript disabled or still loading
        nothing is hidden waiting for an observer that will never run. -->

@@ -440,7 +440,7 @@ export default {
   slug: 'index.html',
   title: 'Home',
   description: site.description,
-  heroClass: 'page-home',
+  heroClass: 'sn page-home',
   hud: false, // the scene carries its own HUD corners
   scripts: ['js/home.js'],
   jsonLd: [faqNode(faqs)],
