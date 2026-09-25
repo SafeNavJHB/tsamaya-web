@@ -64,6 +64,23 @@
 // too as of September 2026: the dark map is what a driver sees on the trips this
 // app is for, and the orange risk ribbon reads better against it than it did on
 // the old light capture.
+//
+// DAYTIME SET (25 September 2026): home-day, route-card-day, route-result-day and
+// navigation-day. A Release build of app commit 111afbc on an iPhone 16 Pro
+// simulator (iOS 27.0), captured between 08:09 and 08:31 SAST with the city chip
+// reading Day. All four are in Rosebank or on the Rosebank to Melrose Arch trip,
+// with the risk overlay switched off (the eye icon on home and route result):
+// even in the daytime band orange suburbs sit close to every business district we
+// tried, and the site never shows a residential area as risky. The navigation map
+// draws no zone fills, only the risk-coloured route ribbon, so that frame is taken
+// on Oxford Road (lower risk) before the route reaches the M1, with the simulator
+// driving the route at 12 m/s. Xcode 27 builds only after every pod target below
+// iOS 15 is raised to 15.1 in the generated ios/Podfile post_install.
+//
+// simctl draws the Dynamic Island into a capture only some of the time. home-day
+// got it naturally; the other three had it drawn in afterwards from the
+// simulator's own `simctl io screenshot --mask=black` capture of the same screen.
+// Only the island's pixels were touched, so the set matches the older captures.
 
 // Gallery entries for the demo page.
 export const shots = [
@@ -116,10 +133,19 @@ export const alts = {
     'Tsamaya comparing two routes from Kempton Park to Mall of Africa: a combined balanced and lower-risk option at 25 minutes and 17.4 km, graded D, passing two high-risk areas and carrying 68 per cent less risk, against the fastest at 25 minutes and 18.0 km, graded E, passing four. Above them a warning says two high-risk areas could not be avoided',
   navigation:
     'Tsamaya navigating on Monument Road in Kempton Park at night. The road ahead is drawn in orange where the route carries risk, the next instruction is a left turn onto Highveld Road in 140 metres with lane guidance underneath, the speed reads 54 km/h against a 60 limit, and the road the car is on is labelled Monument Road, use caution. The trip has 38 minutes and 37.8 km left',
+  'home-day':
+    'The Tsamaya home screen in the daytime over Rosebank, Johannesburg. The city chip reads Johannesburg, Day, the Where to? search bar sits above a row of one-tap shortcuts, and the risk overlay is switched off, so the map shows only streets and places',
+  'route-card-day':
+    'Tsamaya ready to plan a daytime trip, with the start set to My location in Rosebank and the destination set to Melrose Arch, and an Add stop option and the Go button underneath',
+  'route-result-day':
+    'Tsamaya comparing two routes from Rosebank to Melrose Arch in the daytime. The first is the fastest, balanced and lower-risk option at once: graded A, 8 minutes and 3.9 km, with 1 km through low-risk areas. The alternative via the M30 is graded B, 2 minutes and 164 metres longer, and passes one medium-risk area for 0.3 km and 3 km of low-risk areas. A banner above them calls the first the lower-risk choice for this trip',
+  'navigation-day':
+    'Tsamaya navigating on Oxford Road in Rosebank in the daytime, between 3D buildings. The next instruction is a left turn onto the M20 in 280 metres with lane guidance underneath, the speed reads 43 km/h against a 60 limit, the route is drawn green along Oxford Road and yellow for low risk on the M20 ahead, and the road the car is on is labelled Oxford Road, lower risk. The trip has 8 minutes and 3.8 km left',
 };
 
 export const altFor = (name) => alts[name] || 'A screen from the Tsamaya app';
 
-// Intrinsic pixel size of every capture (iPhone 17 Pro at 3x). Used for the
+// Intrinsic pixel size of every capture (iPhone 17 Pro at 3x; the daytime set is
+// an iPhone 16 Pro, which has the same 1206 x 2622 screen). Used for the
 // width/height attributes that stop the page shifting as images load.
 export const shotSize = { width: 1206, height: 2622 };
