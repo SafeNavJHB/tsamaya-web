@@ -295,6 +295,124 @@ Lighthouse scores on the final run: performance 93 to 97, accessibility 100, SEO
 **Deviation from the plan:**
 - Portrait tablets (768 to about 1100 px wide and taller than wide) get the desktop side-by-side layout, as in the prototype, and it does not suit them: callouts clip at the right edge, chapter 2's count crowds its label, and in chapter 3 the country is small (zoom 0.3) and one label gives way. Landscape phones (844 x 390 and the like, which are over 768 wide) and windows under 600 px tall overflow the hero under the HUD corners. Neither is part of Phase 1's "desktop and phone"; both are listed for Phase 5, where the device matrix gains a tablet and a landscape phone. The likely fix is the stacked phone layout for any screen taller than it is wide or under about 560 px tall.
 
+### Phase 2 record (2026/09/25)
+
+Built and reviewed in a local session on the Mac. Preview: https://claude.ai/artifact/UML9VQcPGy26gfbXSJUjj7 (version 3).
+
+**Built:**
+- One "Explore the 12 metros" section (`src/explore.mjs`) on two pages:
+  - the home page, after chapter 3, drawn by the story's own scene;
+  - the coverage page, which now opens on it, full screen, with its h1 and a scene of its own inside the section.
+- Without JavaScript it is the metros as links to their pages. With it, `public/js/explore.js` runs the parts that work in every tier:
+  - the rows become buttons (one tab stop; the arrows, Home and End move along it);
+  - the band switch, the card, the Escape key and the "Back to all 12" button;
+  - an `aria-live` line that reads out each pick, the regional view and the way home;
+  - in the static tier, an SVG map drawn from `data/geo.json`, with each metro's real coverage outline, a dot and a ring.
+- `public/js/scene/explore.js` draws the 3D map on the pillars:
+  - each metro's coverage outline as a glowing ribbon that draws itself on when picked, then fills with faint emerald dots;
+  - a ring at each pillar's base for the band's high-risk count, at national scale only;
+  - one ripple on hover;
+  - the Gauteng cluster: pointing at it names the seven metros, a click flies to a regional view;
+  - camera flights of 1.2 s (a cut with Pause motion on), and the card following the metro.
+- On the coverage page, `scene/country.js` builds South Africa and its pillars with `scene/sa.js`, which is split out of the home page's `city.js`, so the two maps match point for point. `public/js/coverage.js` loads it at idle; the static tier never downloads Three.js.
+- The build now strips comments and indentation from our own scripts on their way into `dist/` (`scripts/strip-js.mjs`; `npm run check:js` proves with esbuild that every script means the same after). That took our own JS from 43 KB to 29 KB gzipped before the map was added.
+
+**Decided in the build:**
+- **The coverage page has one layout in every tier,** so nothing moves when the 3D map arrives: heading and list on the left, the map in the stage on the right. The card is written into the HTML with the first metro's figures, the ones the script shows first, so it keeps its height when the script takes over.
+- **Under 1024 px wide the section stacks** on both pages (phones and tablets): the map, then the card, then the heading and the list. The card docks over the foot of the map on the home page and has its own place under it on the coverage page. Beside the list, a map narrower than that left a pinned card nowhere to go but over the rows. In this layout, a row tapped low in the list scrolls the map and its card back into view.
+- **Keyboard:** the list is one tab stop. Up and down move along it, left and right cross its two columns, and Enter flies in. Tab from a row goes on into its card's link, and the card stays up around it. Enter never scrolls the page, so focus stays in view.
+- **Pause motion** sits under the coverage map, because its idle sway runs on its own in the full tier.
+
+**Fixed in review** (rounds of adversarial review by a separate agent, which reproduced its findings in the browser):
+- A pinned card could flip left over the list rows at 768 to 1150 px wide, where it also took the clicks meant for them. Fixed by the stacked layout under 1024, and on wider screens the card never goes left of the stage.
+- Chapter 3's pinned metro lost its emerald pillar after a trip into the explore map and back. The map now hands the pillars' highlight back.
+- In the static tier, "Back to all 12" sat on the card's title on the home page, and at 768 to 1000 px the coverage page's card covered the button and the Gauteng outlines.
+- The band switch's "Now" chip was set once at load, so across a band boundary (17:30, say) it disagreed with the card. Both now follow the clock.
+- On a short window, a card picked after scrolling the coverage page could open under the header.
+- Crossing the phone breakpoint (a phone turning round) left the coverage card in the wrong state.
+- If `data/geo.json` failed, the home page's card stuck at the window's corner under the header. The section now keeps its list and a card in its own place.
+- Round 2, mostly tablets (768 to 1023 px), which the stacked layout newly brought to the home page:
+  - the HUD's bottom corner and its Pause motion button sat over the list's right column. In chapter 4 that corner now fades out and the section's own Pause motion takes over, under the map;
+  - a window resize could drop the reader's pick, and a picked metro kept its old framing after a tablet turned round;
+  - chapter 3's pinned pillar turned white as soon as the explore map started to take over. It now blends across;
+  - landing on the section (a link to `#explore`, or a reload there) showed a layout shift of up to 1.0 when the scene arrived, because the section changed layout at that moment. It now takes the 3D layout while the page is read in;
+  - the static map pushed the list down when it loaded in the stacked layout (a shift of 0.20). Its place is now kept.
+- Round 3, mostly the moments before the map exists:
+  - with the scene's layout taken early, a pick made before the map was built showed no card, and a slow or missing data file left the card under the header or on top of Back. Until the map is built, the card now sits in the stage and shows the pick, and Back and Pause motion wait for the map;
+  - on common phones (360 to 430 px) the card's "Now" or "Selected" tag pushed one band's figure onto the next. The tag now has a line of its own;
+  - leaving the section just after a phone's toolbar came back (a resize) kept the pick on the way back into chapter 3;
+  - at 320 px Back and Pause motion overlapped; the HUD's Pause lost keyboard focus when it made way for the section's.
+- Round 4:
+  - a metro picked before the map was built was never flown to once the map arrived. It is now, on both pages;
+  - WebGL detection accepted WebGL 1, but the vendored Three.js needs WebGL 2, so a WebGL 1 browser (iOS 14 Safari, say) downloaded the scene only to fall back to the static tier on every visit. It now asks for WebGL 2 and gets the static tier straight away;
+  - after a click on the HUD's Pause (which focuses it), the corner stayed over the list. It is now only held for keyboard focus;
+  - on a phone on its side, Back and Pause were lifted under the header; with the card docked on a short screen, Tab into its link landed under the header too.
+- Round 5:
+  - closing the mobile menu with Escape also reset the map and announced "All 12 metros.". Escape now follows focus: inside the section it always belongs to the map; from elsewhere only when nothing else used it and the section is on screen;
+  - pressing the card's link with a mouse scrolled it out from under the pointer, so the click missed; a quick second Tab was overridden by the same scroll. That scroll now happens only for keyboard focus, and at once;
+  - on phones, Back and Pause stuck under the header over the card while the list scrolled.
+- Round 6:
+  - on a short laptop (1366 x 657), tabbing to the coverage map's Pause scrolled the map out of view, and the arrow keys centred each row, which did the same. Pause now sits in the first screen, the arrows scroll only as far as needed, and a picked metro is framed into the part of the map in the window;
+  - the card could cover "Back to all 12" (1024 to 1150 px wide), or open under the header after a scroll, and on the home page the HUD clock painted over its title;
+  - in the static tier on phones, Back covered the Western Cape metros on the map;
+  - a pin left in chapter 3 swallowed the first Escape meant for the explore map.
+- Round 7:
+  - round 6's "keep Back and the card in view" had no lower limit, so on the coverage page they followed the reader past the section and sat over "Pick a metro", where the pinned card blocked a link. They now stop at the stage's foot and scroll away with it;
+  - at common laptop sizes the pinned card covered the pillar of the metro just picked (11 or 12 picks of 12 at 1280 x 720). The card now keeps clear of the pillar, base to top;
+  - "Back to all 12" on a scrolled coverage page framed the country partly under the header; with motion paused, Back did not follow the scroll; a hover could stick after the pointer left the map.
+- Round 8:
+  - at iPad-landscape widths (1024 to about 1140 px) the stage is too narrow for the card beside a metro in its middle, so most picks still put the card on the pillar. A pick there now frames the metro (or the Gauteng cluster) to the left of the card's width;
+  - the coverage scene kept drawing at 60 frames a second while scrolled far off screen, because its idle sway kept the loop busy past the engine's off-screen pause. It now stops, and a scroll redraws only while the section is on screen;
+  - after "Back to all 12" on a scrolled page, scrolling back up left the country framed low.
+
+The review loop stopped after round 8. Every finding of rounds 1 to 8 is fixed; round 8's findings were fixed and re-checked with the reviewer's own probes, but no ninth round was run on those fixes. The rounds had narrowed to short windows and rare timing, and a real click-through is now the better check.
+
+**Verified** (tools in `handoff/tools/`):
+- `p2/explore.mjs home` and `p2/explore.mjs coverage`: 34 checks each, every row of table 5.1, all passing on both pages:
+  - with a mouse, the keyboard, and touch at 390 px (phone) and 820 px (tablet), plus every pick at 1024 px, where the stage is narrowest;
+  - in the 3D tier and the static tier;
+  - with no page errors.
+- The coverage page shows no layout shift on load at 1440 and 390 wide, in the full, light and static tiers.
+- A lost graphics context mid-session falls back to the SVG map and keeps the metro picked.
+- Without JavaScript, the coverage page lists all 12 metros as links, with no sideways scroll.
+- Screen reader walk-through (the accessibility tree, both tiers):
+  - the page's h1;
+  - the band group, with the pressed state;
+  - "The 12 metros" list, whose buttons read like "Cape Town 909 rated areas";
+  - the live line after a pick ("Johannesburg, Gauteng. 800 rated areas. Daytime: 315 rated high risk.");
+  - the card as a group named after its metro, ending in a link to the metro page.
+
+  The 3D and SVG maps are hidden from assistive tech, because the list and the card carry the same information.
+- Budgets (gzipped):
+
+  | Measure | Budget | Home | Coverage |
+  |---|---|---|---|
+  | Our own JS | 45 KB or less | 43.1 KB | 24.6 KB (8.7 KB in the static tier) |
+  | HTML + CSS | 60 KB or less | 53.2 KB | 36.1 KB |
+
+  The review fixes cost about 1.6 KB of the home page's JS, which leaves under 2 KB of headroom. Phase 3 adds no JS to the home page, but Phase 4's "Try it" router goes on How it works, so this is worth watching.
+
+**Performance** (throttled mobile Lighthouse as in Phase 1, on the real GPU):
+
+| Measure | Budget | Home | Coverage (three runs) |
+|---|---|---|---|
+| Largest paint | 2.5 s or less | 2.3 s | 2.0 to 2.1 s |
+| Layout shift | 0.1 or less | 0 | 0 |
+| Blocking time | (none set) | 130 ms | 60 ms and 160 ms, and 1.97 s on the first run |
+| Transfer on load | about 600 KB | 403 KB | 367 KB |
+| Performance score | | 97 | 99, 96, and 71 on the first run |
+
+Accessibility scores 100 on both. The first coverage run had one 2-second task at the scene's first frame, which the next two runs did not repeat. It looks like a cold start (the GPU compiling the shaders for the first time), which a first-time visitor could also meet. Compiling the shaders ahead of the first frame (`renderer.compileAsync`) is worth trying during the Phase 5 device checks, on both pages.
+
+**Left for later:**
+- The rest of the coverage page (the metro cards, the chart, the questions) keeps its current content until Phase 3. The copy lint's one hit on it, "Mapped risk zones per metro" in the chart, belongs to that pass.
+- `src/map.mjs`'s old `coverageMap()` has no caller now; remove it in Phase 3 along with its CSS.
+- Known edges, left as they are:
+  - A first visit that lands straight on `/#explore` with no WebGL 2, or where Three.js cannot load, shows one layout shift when the page settles on the static tier. Return visits remember the tier.
+  - On a phone on its side (under about 420 px tall) the docked card covers most of the map, Back sits over the card's top edge, and the HUD clock can touch the card's corner. Phase 5 takes landscape phones, as it does for the hero.
+  - At a metro's zoom on a phone, its pillar runs past the top of the map.
+  - A short laptop window scrolled so deep that less than about 330 px of the map shows: there is no room for both the card and Back, so the card moves right and Back may sit over its left edge.
+
 ## 9. Risks and what we do about them
 
 | Risk | Mitigation |

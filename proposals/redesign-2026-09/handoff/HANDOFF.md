@@ -2,7 +2,9 @@
 
 Written 2026/09/25, when the work moved from a Claude Code cloud session to Kyle's Mac.
 
-> **Done (2026/09/25, local session).** Every item under "What is left for Phase 1" is finished; the results, the fixes made in review and the measured budgets are in the Phase 1 record in `../BUILD_PLAN.md` section 8. The test tools below now run on the Mac as they are. Next is Phase 2 (the explore map). The rest of this note is kept as the record of the handover.
+> **Done (2026/09/25, local session).** Every item under "What is left for Phase 1" is finished; the results, the fixes made in review and the measured budgets are in the Phase 1 record in `../BUILD_PLAN.md` section 8. The test tools below now run on the Mac as they are. The rest of this note is kept as the record of the handover.
+>
+> **Phase 2 (the explore map) is done too,** on the home page and the coverage page: see the Phase 2 record in the same section. Its test is `node p2/explore.mjs home` or `node p2/explore.mjs coverage` (34 checks each). Next is Phase 3 (every other page).
 
 ## Where things stand
 
@@ -80,6 +82,8 @@ The scripts find the repo from their own location and write screenshots to `tool
 - `p1/fitprobe.mjs` and `p1/fitresize.mjs`: chapter 3's country, text and labels at many sizes, and after a resize; `p1/labels.mjs`: the metro labels and list (hover, focus, tap, pin, Escape).
 - `p1/fontshift.mjs`: does the hero move when the web fonts land; `p1/fontwidth.mjs`, `p1/monowidth.mjs` and `p1/platfont.mjs`: the fallback font measurements.
 - `p1/widths.mjs`, `p1/pages.mjs` (all 25 pages), `p1/fcp.mjs` and `p1/_shot.mjs`.
+- `p2/explore.mjs [home|coverage]`: every row of table 5.1 with a mouse, touch and the keyboard, in the 3D and static tiers.
+- `suite.sh`: every Phase 1 check in one run (about 20 minutes; starts the two local servers if they are not up).
 
 ## Prompt to paste into Claude Code on the Mac
 
