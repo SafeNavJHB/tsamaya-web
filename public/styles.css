@@ -1493,6 +1493,9 @@ html:not(.js) .ex-page .ex-in { min-height: 0; }
 .ex-page.is-live .ex-hint { position: absolute; }
 /* the map drifts on its own in the full tier: a way to stop it (WCAG 2.2.2) */
 .ex-pause { display: none; position: absolute; right: 0; bottom: 0; z-index: 3; padding: 0 12px; margin-right: -12px; color: var(--hud); border-radius: 6px; font-size: 11px; }
+/* on a short laptop the coverage section outgrows the window: Pause stays in
+   the first screen, where the map is framed (and where Tab finds it) */
+@media (min-width: 1024px) { .ex-page .ex-pause { bottom: auto; top: min(calc(100% - 44px), calc(100vh - var(--head) - 124px)); top: min(calc(100% - 44px), calc(100svh - var(--head) - 124px)); } }
 .tier-full .ex-page.is-live .ex-pause { display: inline-flex; }
 .ex-pause .pi { width: 10px; height: 10px; border-left: 3px solid currentColor; border-right: 3px solid currentColor; }
 .ex-pause[aria-pressed='true'] .pi { border: 0; width: 0; height: 0; border-left: 9px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
@@ -1505,7 +1508,8 @@ html:not(.js) .ex-page .ex-in { min-height: 0; }
   .ex-page .ex-map svg { width: 100%; height: 100%; max-height: none; }
   .ex-page .ex-scene { bottom: auto; height: calc(var(--head) + min(calc((100vw - 2 * var(--gutter)) * 0.88), 62vh) + 8px); height: calc(var(--head) + min(calc((100vw - 2 * var(--gutter)) * 0.88), 62svh) + 8px); }
   .ex-page::before { display: none; }
-  .ex:not(.cine):not(.is-live) .ex-back { left: 0; right: auto; }
+  /* the static map's top-left is empty (the Western Cape metros are at its foot) */
+  .ex:not(.cine):not(.is-live) .ex-back { left: 0; right: auto; top: 0; bottom: auto; }
   .ex-page .ex-card, .ex-page.is-live .ex-card { position: relative; grid-area: card; width: auto; max-width: 560px; justify-self: stretch; margin-top: 8px; pointer-events: auto; }
   .ex-page .ex-head { margin-top: 28px; }
 }

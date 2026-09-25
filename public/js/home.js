@@ -285,7 +285,14 @@ for (const q of ['f', 'l']) {
   b.addEventListener('blur', () => { if (ctl.spot === q) spot(''); });
   b.addEventListener('click', () => { if (ctl.spot !== q) spot(q, true); else if (!ctl.pinned) ctl.pinned = true; else spot(''); });
 }
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && ctl.spot) { e.preventDefault(); spot(''); } });
+// (the key is only claimed while the open card is on screen: Safari does not
+// focus a clicked button, so a card can stay open after the hero scrolls away)
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape' || !ctl.spot) return;
+  const r = spots[ctl.spot] && spots[ctl.spot].getBoundingClientRect();
+  if (r && r.bottom > 0 && r.top < innerHeight) e.preventDefault();
+  spot('');
+});
 
 // Static tier: the tags sit where the routes are drawn on the poster. The
 // poster is tilted in 3D by CSS, so each tag reads the screen position of a

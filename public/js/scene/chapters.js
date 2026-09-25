@@ -365,7 +365,9 @@ export function initChapters({ engine, city, ctl }) {
     return b;
   });
   city.metroTags.forEach((m) => hover(m.el.firstElementChild, m.el.dataset.k));
-  on(document, 'keydown', (e) => { if (e.key === 'Escape' && (MS.pin || MS.hover)) { e.preventDefault(); MS.hover = ''; showM('pin', ''); } });
+  // (the key is only claimed while chapter 3 is the view: a pin left behind
+  // there must not swallow an Escape meant for the explore map)
+  on(document, 'keydown', (e) => { if (e.key === 'Escape' && (MS.pin || MS.hover)) { if (cT < 6.3) e.preventDefault(); MS.hover = ''; showM('pin', ''); } });
 
   /* --- the frame (engine onFrame): returns true while anything changed --- */
   function frame({ dt }) {
@@ -425,7 +427,7 @@ export function initChapters({ engine, city, ctl }) {
   }
 
   /* --- DOM driven by c --- */
-  const stage = $('#scene'), hudLayer = $('#hud'), hudBL = $('.hud-c.bl'), hudTL = $('.hud-c.tl'), hudBR = $('.hud-c.br'), chipsEl = $('.bchips');
+  const stage = $('#scene'), hudLayer = $('#hud'), hudBL = $('.hud-c.bl'), hudTL = $('.hud-c.tl'), hudTR = $('.hud-c.tr'), hudBR = $('.hud-c.br'), chipsEl = $('.bchips');
   const stacked = window.matchMedia('(max-width: 1023px)'); // the explore section's stacked layout (styles.css)
   const steps = $$('#bend .ch-steps li'), railBtns = $$('#bend .rail-l button');
   const rail1 = $('#bend .rail-f'), rail3 = $('#metros .rail-f');
@@ -511,7 +513,7 @@ export function initChapters({ engine, city, ctl }) {
     hudBL.style.opacity = (1 - sstep(0.12, 0.5, c)).toFixed(3);
     if (exST) {
       const o = (1 - sstep(6.1, 6.5, c)).toFixed(3), sb = stacked.matches;
-      hudTL.style.opacity = o; // the explore heading takes its corner
+      hudTL.style.opacity = hudTR.style.opacity = o; // the explore heading takes one corner, the card roams near the other
       // stacked, the list runs under the bottom corner: it gives way, and the
       // section's own Pause motion takes over under the map
       // (not while it has keyboard focus: it would drop to the page; a click
@@ -759,7 +761,7 @@ export function initChapters({ engine, city, ctl }) {
     if (ctl.ex) { ctl.ex.gl = null; ctl.ex.act = true; }
     if (exRoot) exRoot.classList.remove('act', 'gl');
     if (exST) exST.kill();
-    hudTL.style.opacity = hudBR.style.opacity = hudBR.style.visibility = '';
+    hudTL.style.opacity = hudTR.style.opacity = hudBR.style.opacity = hudBR.style.visibility = '';
     cleanup.forEach((f) => f());
     fades.forEach((t) => { if (t.scrollTrigger) t.scrollTrigger.kill(); t.kill(); });
     master.kill();

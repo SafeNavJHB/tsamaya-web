@@ -188,14 +188,22 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     // tablet turning round can switch layouts)
     if (FL.kind !== 'nat' && FL.b) FL.b = viewCam(FL.kind, FL.i);
   }
-  // a camera that frames a box in the stage: all of them, the cluster, or one metro
+  // a camera that frames a box in the stage: all of them, the cluster, or one
+  // metro. Side by side, a metro or the cluster is framed into the part of the
+  // stage in the window when it is picked (the coverage page's section can
+  // outgrow a short window, and the list may have scrolled it up)
   function viewCam(kind, i) {
     if (!SG) layout();
     const B = kind === 'nat' ? { x0: -63, z0: -55, x1: 62, z1: 55 } : kind === 'reg' ? GTB : EXB[i];
     const sm = small(), p = kind === 'nat' ? 50 : kind === 'reg' ? 54 : 58, fr = kind === 'nat' ? 0.96 : kind === 'reg' ? 0.78 : sm ? 0.8 : 0.4;
-    const f = sm ? 46 : 34, th = 2 * Math.tan(f * D2R / 2), ck = kind === 'metro' && sm && !slot ? 204 : 0, sh = SG.h - ck;
+    let gh = SG.h, gy = SG.cy;
+    if (kind !== 'nat' && !sm) {
+      const v0 = Math.max(0, -cv.getBoundingClientRect().top), a = v0 + 80, z = Math.min(H, v0 + innerHeight) - 36;
+      if (z - a > 200) { gh = z - a; gy = (a + z) / 2; }
+    }
+    const f = sm ? 46 : 34, th = 2 * Math.tan(f * D2R / 2), ck = kind === 'metro' && sm && !slot ? 204 : 0, sh = gh - ck;
     const d = Math.max((B.x1 - B.x0) * H / (fr * SG.w * th), (B.z1 - B.z0) * Math.sin(p * D2R) * H / (fr * sh * th));
-    return { t: [(B.x0 + B.x1) / 2, 0, (B.z0 + B.z1) / 2], d: clamp(d, 10, 400), p, y: kind === 'nat' ? 0 : kind === 'reg' ? -4 : -9, f, sx: (SG.cx - W / 2) / W, sy: (SG.cy - ck / 2 - H / 2) / H };
+    return { t: [(B.x0 + B.x1) / 2, 0, (B.z0 + B.z1) / 2], d: clamp(d, 10, 400), p, y: kind === 'nat' ? 0 : kind === 'reg' ? -4 : -9, f, sx: (SG.cx - W / 2) / W, sy: (gy - ck / 2 - H / 2) / H };
   }
   const KEYS = ['d', 'p', 'y', 'f', 'sx', 'sy'];
   // the flight: the target eased, the zoom in log space, a lift and a slight tilt mid-way on long hops
@@ -334,6 +342,12 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     back.style.transform = lift ? `translateY(${-lift.toFixed(1)}px)` : '';
     back.style.zIndex = over ? '7' : '';
     if (pz) { pz.style.transform = back.style.transform; pz.style.zIndex = back.style.zIndex; }
+    // side by side, Back stays below the header while the list scrolls the
+    // stage up, as the card does
+    if (!sm && !back.hidden) {
+      const hd = document.querySelector('.site-header'), keep = (hd ? hd.getBoundingClientRect().bottom : 0) + 7 - stage.getBoundingClientRect().top;
+      if (keep > 0) back.style.transform = `translateY(${keep.toFixed(1)}px)`;
+    }
     if (i < 0 || ew < 0.3 || !SG) return;
     const o = org(card);
     if (sm) { card.style.transform = `translate3d(${(-o[0]).toFixed(1)}px,${(SG.cy + SG.h / 2 - trk - 8 - ch - o[1]).toFixed(1)}px,0)`; return; }
@@ -348,11 +362,28 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     // under the header: v0..v1 is the canvas's part of the window (all of it on
     // the home page; the coverage page's canvas scrolls with its section)
     const cw = card.offsetWidth, m = 12, c = cv.getBoundingClientRect(), v0 = Math.max(0, -c.top), v1 = Math.min(H, innerHeight - c.top);
-    const lo = Math.max(m, SG.cx - SG.w / 2), hi = Math.max(lo, W - m - cw), roof = v0 + 76 - trk, floor = v1 - 96;
+    const lo = Math.max(m, SG.cx - SG.w / 2), hi = Math.max(lo, W - m - cw), roof = v0 + 76, floor = v1 - 96;
     let x = r + 20, y = (t + b) / 2 - ch / 2;
     if (x > hi) x = l - 20 - cw;
     if (x < lo) { x = (l + r) / 2 - cw / 2; y = b + 14; if (y + ch > floor) y = t - 14 - ch; }
     x = clamp(x, lo, hi); y = clamp(y, roof, Math.max(roof, floor - ch));
+    // and clear of "Back to all 12" in the stage's top corner: beside it, else
+    // below it, as long as the metro stays clear too; failing both (a narrow
+    // stage), Back moves to the foot of the stage's part in the window
+    if (!back.hidden) {
+      const q = back.getBoundingClientRect(), bx0 = q.left - c.left - 8, bx1 = q.right - c.left + 8, by0 = q.top - c.top - 8, by1 = q.bottom - c.top + 8;
+      const onBack = (X, Y) => X < bx1 && X + cw > bx0 && Y < by1 && Y + ch > by0, onMetro = (X, Y) => X < r && X + cw > l && Y < b && Y + ch > t;
+      if (onBack(x, y)) {
+        const k = [[Math.min(Math.max(bx1, lo), hi), y], [x, by1]].find(([X, Y]) => !onBack(X, Y) && !onMetro(X, Y) && Y + ch <= Math.max(floor, roof + ch));
+        if (k) [x, y] = k;
+        else {
+          // (and never on the card: below it, if the window is that short)
+          const sr = stage.getBoundingClientRect(), bh = back.offsetHeight, foot = Math.min(sr.bottom, innerHeight) - bh - 16;
+          const top = Math.min(Math.max(foot, y + ch + c.top + 8), innerHeight - bh - 8);
+          back.style.transform = `translateY(${Math.max(0, top - sr.top).toFixed(1)}px)`;
+        }
+      }
+    }
     card.style.transform = `translate3d(${(x - o[0]).toFixed(1)}px,${(y - o[1]).toFixed(1)}px,0)`;
   }
 

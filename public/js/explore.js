@@ -138,7 +138,9 @@ export function initExplore({ root, tier }) {
     b.addEventListener('keydown', (e) => {
       const n = btns.length, R = Math.ceil(n / 2), k = e.key;
       const j = k === 'ArrowDown' ? (i + 1) % n : k === 'ArrowUp' ? (i + n - 1) % n : k === 'ArrowRight' ? (i + R < n ? i + R : i) : k === 'ArrowLeft' ? (i - R >= 0 ? i - R : i) : k === 'Home' ? 0 : k === 'End' ? n - 1 : -1;
-      if (j >= 0) { e.preventDefault(); btns[j].focus(); }
+      // only as far as needed into view (focus() alone centres the row, and
+      // on a short window that scrolls the map away)
+      if (j >= 0) { e.preventDefault(); btns[j].focus({ preventScroll: true }); btns[j].scrollIntoView({ block: 'nearest' }); }
     });
   });
   // and once focus leaves the card for anywhere but a row, the preview ends
@@ -171,7 +173,9 @@ export function initExplore({ root, tier }) {
       const byKey = Object.fromEntries(geo.metros.map((g) => [g.key, g]));
       const d = (rings, z = 'Z') => rings.map((r) => 'M' + r.map((p) => p.join(' ')).join('L') + z).join('');
       const paths = M.map((m) => byKey[m.k] ? `<path data-m="${m.i}" d="${d(byKey[m.k].rings)}"/>` : '').join('');
-      const marks = M.map((m) => { const p = byKey[m.k] ? byKey[m.k].point : [0, 0]; return `<circle class="rg" cx="${p[0]}" cy="${p[1]}" r="0"/><circle class="dt" cx="${p[0]}" cy="${p[1]}" r="4"/>`; }).join('');
+      // every ring, then every dot, so no ring is drawn across a neighbour's dot
+      const pt = (m) => (byKey[m.k] ? byKey[m.k].point : [0, 0]);
+      const marks = M.map((m) => `<circle class="rg" cx="${pt(m)[0]}" cy="${pt(m)[1]}" r="0"/>`).join('') + M.map((m) => `<circle class="dt" cx="${pt(m)[0]}" cy="${pt(m)[1]}" r="4"/>`).join('');
       fig.innerHTML = `<svg viewBox="0 0 ${geo.width} ${Math.ceil(geo.height)}" focusable="false"><path class="exl" fill-rule="evenodd" d="${d(geo.land)}"/><path class="exbd" d="${d(geo.borders, '')}"/><g class="exo">${paths}</g><g class="exr">${marks}</g></svg>`;
       ex.svg = $('svg', fig);
       $$('.exo path', ex.svg).forEach((p) => {
