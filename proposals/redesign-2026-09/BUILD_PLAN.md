@@ -272,7 +272,15 @@ Estimates are working days for one developer. With Claude building in sessions, 
    - route options, turn-by-turn, CarPlay and the home screen.
 
    Until then, the site uses the crops it has today.
+
+   **Delivered 2026/09/25** on `screens/daytime-2026-09`, merged into the redesign branch: `home-day`, `route-card-day`, `route-result-day`, `navigation-day`, `route-result-airport-day` and `route-result-detour-day`, each as AVIF, WebP and JPEG at 300, 600 and 900 wide, with alt text in `src/shots.mjs`. The airport shot is kept but not planned for use: every option is graded D because of the airport's own area, so it shows little of a detour.
 7. **The name line: either form is fine.** Keep the current wording ("tsamaya sentle", go well) and adjust if a first-language speaker suggests "tsamaya hantle" for Sesotho.
+8. **Chapter 1 tells the daytime detour (settled 2026/09/25).** The home page's route story uses the `route-result-detour-day` card:
+   - Standard: grade E, 49 min, 42.4 km, 4 high-risk areas.
+   - Balanced, lower-risk: grade B, 47 min, 52.3 km, 1 medium-risk area, 99% less risk.
+   - It is 9.8 km further but was 2 minutes quicker in that morning's traffic.
+
+   The figures live in `src/data/route-card.json`. The trip's place names are never printed next to them, because the areas it avoids are named suburbs. The illustrative city is tuned to match: the lower-risk route crosses no high cell.
 
 ## 11. Out of scope for this build
 
