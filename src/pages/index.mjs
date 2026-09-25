@@ -76,7 +76,7 @@ const stage = `
     <div class="co co-wide" data-co="f"><span class="co-tag hud">${std.label}${M}grade ${std.grade}${M}${std.minutes} min${M}${km(std.km)} km${M}${plural(std.highRisk, 'high-risk area', 'high-risk areas')}</span></div>
     <div class="co co-go" data-co="rr"><span class="co-tag hud">Re-routing</span></div>
     <div class="co co-go co-wide" data-co="l"><span class="co-tag hud">${low.label}${M}grade ${low.grade}${M}${low.minutes} min${M}${km(low.km)} km${M}${lowPasses}</span></div>
-    ${top6.map((m, i) => `<div class="co co-m${SIDE[m.key] || ''}" data-co="m${i}" data-k="${m.key}"${LIFT[m.key] ? ` data-lift="${LIFT[m.key]}"` : ''}><span class="co-tag hud"><b>${m.name}</b>${fmt(m.zones)} rated areas</span></div>`).join('\n    ')}
+    ${top6.map((m, i) => `<div class="co co-m${SIDE[m.key] || ''}" data-co="m${i}" data-k="${m.key}"${LIFT[m.key] ? ` data-lift="${LIFT[m.key]}"` : ''}><span class="co-tag hud"><b>${m.name}</b><span class="co-n">${fmt(m.zones)} rated areas</span></span></div>`).join('\n    ')}
   </div>
 </div>`;
 
@@ -94,11 +94,16 @@ const hud = `
   <div class="hud-c br hud"><span class="hud-txt" id="hud-place" data-alt="South Africa${M}${nMetros} metros">Illustrative city</span><button class="pause motion-toggle hud" type="button" aria-pressed="false" data-motion-toggle><span class="pi" aria-hidden="true"></span><span class="motion-label">Pause motion</span></button></div>
 </div>`;
 
+// The line breaks in the say line (phones only, styles.css) and the headline
+// are where Archivo and Martian Mono wrap them anyway. Written in, the fallback
+// fonts (narrower) wrap the same way, so nothing moves when the web fonts land:
+// the hero is bottom-aligned, and a headline that grew from two lines to three
+// lifted everything above it by up to 118 px.
 const hero = `
 <section class="home-hero" aria-labelledby="hero-h">
   <div class="home-hero-in">
-    <p class="say hud">Tsamaya (say: ${site.pronunciation})${M}Sesotho and Setswana for go</p>
-    <h1 class="hero-h" id="hero-h">Go where the trouble isn't.</h1>
+    <p class="say hud">Tsamaya (say: ${site.pronunciation})${M}<br>Sesotho and Setswana for go</p>
+    <h1 class="hero-h" id="hero-h">Go where <br>the trouble <br>isn't.</h1>
     <p class="hero-sub">Tsamaya checks your route against ${zones} rated areas in ${nMetros} South African metros, at the hour you drive, and bends it around the high-risk ones.</p>
     <div class="home-cta">
       <a class="btn btn-primary btn-lg btn-mag" href="#get">Get the app ${arrow}</a>
@@ -182,7 +187,7 @@ const ch3 = `
       <h2 class="ch-h" id="ch3-h" data-split>${nMetros} metros. <span class="nw">${zones}</span> rated areas.</h2>
       <p class="ch-p">Everywhere else it is a normal navigator.</p>
       <ol class="m-list hud">
-        ${top6.map((m) => `<li><span>${m.name}</span><span>${fmt(m.zones)}</span></li>`).join('')}
+        ${top6.map((m) => `<li data-k="${m.key}"><span>${m.name}</span><span>${fmt(m.zones)}<span class="sr"> rated areas</span></span></li>`).join('')}
       </ol>
       <p class="ch-note hud">Pillar height and dot size show how many rated areas each metro has. That is coverage, not risk.</p>
       <div class="rail"><div class="rail-t" aria-hidden="true"><i class="rail-f"></i></div></div>

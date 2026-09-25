@@ -29,6 +29,27 @@
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
+/* Fallbacks with the web fonts' widths. Until a web font arrives, its text is
+ * set in a system font; if that runs wider or narrower, paragraphs wrap to a
+ * different number of lines and jump when the web font swaps in (a layout
+ * shift: the home hero is bottom-aligned, so everything above a re-wrapped
+ * line moves). size-adjust scales each system font to the web font's width,
+ * measured 2026/09/25 with proposals/redesign-2026-09/handoff/tools/p1/
+ * fontwidth.mjs and monowidth.mjs:
+ *   Archivo, on the home page's body copy at 16 px: Arial and Helvetica (Mac,
+ *   iPhone, Windows) run 2% wider; Roboto (Android) 1.5% wider in regular and
+ *   4% narrower in bold. San Francisco (system-ui) cannot be named here.
+ *   Martian Mono advances 0.70 em a character: Consolas 0.55, the others 0.60.
+ * Each face carries its web font's unicode-range, so a character outside it
+ * (the arrow in "4 -> 0") still falls through to the system font once the web
+ * font has loaded. Text set wider than normal (font-stretch) cannot be matched
+ * this way: the home headline has its line breaks written in instead. */
+@font-face { font-family: 'Archivo Fallback'; font-weight: 400; src: local('Arial'), local('ArialMT'), local('Helvetica'); size-adjust: 98%; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 700; src: local('Arial Bold'), local('Arial-BoldMT'), local('Helvetica Bold'), local('Helvetica-Bold'); size-adjust: 97.7%; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Archivo Fallback Android'; font-weight: 400; src: local('Roboto'), local('Roboto-Regular'), local('Roboto Regular'); size-adjust: 98.5%; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Archivo Fallback Android'; font-weight: 700; src: local('Roboto Bold'), local('Roboto-Bold'); size-adjust: 104%; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Martian Mono Fallback Windows'; src: local('Consolas'); size-adjust: 127.3%; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Martian Mono Fallback'; src: local('Menlo'), local('Menlo-Regular'), local('DejaVu Sans Mono'), local('Droid Sans Mono'), local('Roboto Mono'), local('Liberation Mono'), local('Courier New'), local('CourierNewPSMT'); size-adjust: 116.6%; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face {
   font-family: 'Martian Mono';
   font-style: normal;
@@ -101,9 +122,9 @@
   --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 6px 18px rgba(0, 0, 0, 0.28);
   --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 14px 36px rgba(0, 0, 0, 0.36);
   --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
-  --font: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font: 'Archivo', 'Archivo Fallback', 'Archivo Fallback Android', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --display: var(--font);
-  --mono: 'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --mono: 'Martian Mono', 'Martian Mono Fallback Windows', 'Martian Mono Fallback', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);   /* expo.out: reveals */
   --ease-ui: cubic-bezier(0.23, 1, 0.32, 1);   /* interface feedback */
   color-scheme: dark;
@@ -484,8 +505,10 @@ code { font-family: var(--mono); background: var(--bg-soft); padding: 2px 6px; b
 .footer-metros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; }
 .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px 24px; border-top: 1px solid var(--hairline); margin-top: 32px; padding-top: 20px; }
 .footer-bottom p { font-size: 0.86rem; color: var(--fg-2); margin: 0; }
-.footer-admin a { opacity: 0.45; font-size: 12px; }
-.footer-admin a:hover { opacity: 0.8; }
+/* Understated by size, not by opacity: at 45% it measured 2.37:1 on the footer.
+   --fg-2 on --fill-deep clears AA (4.5:1) with room to spare. */
+.footer-admin a { color: var(--fg-2); font-size: 12px; }
+.footer-admin a:hover { color: var(--fg); }
 @media (max-width: 900px) { .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .footer-grid { grid-template-columns: minmax(0, 1fr); } .footer-metros { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
@@ -1027,7 +1050,23 @@ code { font-family: var(--mono); background: var(--bg-soft); padding: 2px 6px; b
 .page-home .co-m .co-tag::after { display: none; }
 .page-home .co-m.l.up .co-tag { transform: translate(calc(-100% - 14px), calc(-100% + 2px)); }
 .page-home .co-m.l.dn .co-tag { transform: translate(calc(-100% - 14px), 2px); }
-.page-home .co-m b { display: block; font-family: var(--font); font-size: 14px; letter-spacing: 0; text-transform: none; font-weight: 650; color: var(--fg); }
+.page-home .co-m b { display: block; font-family: var(--font); font-size: 14px; letter-spacing: 0; text-transform: none; font-weight: 650; color: var(--fg); transition: color 0.25s var(--ease-ui); }
+/* A metro label shows its name; the count opens under it while the label is
+   hovered or tapped, or the metro's row in the list is (chapters.js), so six
+   labels on a small map stay legible. The count sits outside the label's box,
+   so opening it never moves the label. */
+.page-home .co-m .co-n { position: absolute; top: 100%; left: 4px; margin-top: 2px; padding: 2px 6px; border-radius: 3px; background: rgba(10, 15, 28, 0.9); white-space: nowrap; opacity: 0; transition: opacity 0.25s var(--ease-ui); }
+.page-home .co-m.l .co-n { left: auto; right: 4px; }
+.page-home .co-m.up-n .co-n { top: auto; bottom: 100%; margin: 0 0 2px; } /* near the bottom corner it opens above */
+.page-home .co-m.show { z-index: 2; }
+.page-home .co-m.show .co-n { opacity: 1; }
+.page-home .co-m.show b { color: var(--go); }
+/* The labels live in the scene, under the pinned chapter: its empty space lets
+   the pointer through to them, and its panel keeps its own. */
+.is-cine .ch-3 { pointer-events: none; }
+.is-cine .pin-spacer:has(> .ch-3) { pointer-events: none; } /* on its own: a browser without :has() drops only this rule */
+.is-cine .ch-3 .ch-panel { pointer-events: auto; }
+.is-cine .co-m .co-tag { pointer-events: auto; cursor: pointer; }
 @media (max-width: 767px) {
   .page-home .co-wide .co-tag { max-width: 210px; font-size: 10px; }
   .page-home .co-m { display: none; }
@@ -1080,10 +1119,38 @@ html:not(.is-cine) .page-home .pause { display: none; }
   background: linear-gradient(90deg, rgba(10, 15, 28, 0.88) 0%, rgba(10, 15, 28, 0.62) 34%, rgba(10, 15, 28, 0) 60%), linear-gradient(0deg, rgba(10, 15, 28, 0.92) 0%, rgba(10, 15, 28, 0) 34%); }
 .page-home .home-hero-in { position: relative; width: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: calc(var(--head) + 72px) var(--edge) 108px; }
 .page-home .say { margin-bottom: 22px; max-width: 40rem; text-wrap: balance; }
+@media (min-width: 768px) { .page-home .say br { display: none; } } /* one line on wide screens */
 .page-home .hero-h { max-width: 7.2em; font-size: clamp(2.7rem, 10.6vw, 8rem); font-weight: 800; font-stretch: 118%; letter-spacing: -0.02em; line-height: 0.92; color: var(--ink); }
 .page-home .hero-sub { margin-top: 26px; max-width: 34rem; font-size: clamp(1.06rem, 1.35vw, 1.22rem); color: var(--fg); }
 .page-home .home-cta { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 26px; }
 .page-home .hero-note { margin-top: 22px; color: var(--hud); } /* the disclaimer: brighter than the prototype, for contrast over the scene */
+/* Short desktop windows (under 880 px tall: a 1366 x 768 laptop's browser shows
+   about 625 to 660): the 128 px headline and the text under it need about 880
+   px, so the buttons ran into the fixed HUD line at the bottom left (the
+   prototype has the same collision). Tighter padding, and the headline sized by
+   the height as well as the width, keep the whole hero, disclaimer included, on
+   the first screen and 18 px clear of that line. The budget (measured with
+   handoff/tools/p1/herobudget.mjs): 112 px above, 84 below and at most 290 of
+   other text, beside 2.76 headline heights (three lines at 0.92), so
+   2.76 F <= 100vh - 486px. */
+@media (min-width: 768px) and (max-height: 880px) {
+  .page-home .home-hero-in { padding-top: calc(var(--head) + 44px); padding-bottom: 84px; }
+  .page-home .hero-h { font-size: max(2.7rem, min(clamp(2.7rem, 10.6vw, 8rem), calc(36.2vh - 176px))); }
+}
+/* Below 1024 px wide the disclaimer runs under the bottom-right corner (its
+   place label and Pause motion button end 340 px from the right once the scene
+   is live), which needs 108 px below; the other text is shorter there (248 px). */
+@media (min-width: 768px) and (max-width: 1023px) and (max-height: 880px) {
+  .page-home .home-hero-in { padding-bottom: 108px; }
+  .page-home .hero-h { font-size: max(2.7rem, min(10.6vw, calc(36.2vh - 171px))); }
+}
+/* At 660 px and under, the headline meets its floor: close up the gaps instead. */
+@media (min-width: 768px) and (max-height: 660px) {
+  .page-home .say { margin-bottom: 12px; }
+  .page-home .hero-sub { margin-top: 16px; }
+  .page-home .home-cta { margin-top: 20px; }
+  .page-home .hero-note { margin-top: 14px; }
+}
 .page-home .spots { position: absolute; inset: 0 0 auto; height: 100vh; height: 100svh; z-index: 2; pointer-events: none; overflow: hidden; overflow: clip; }
 .is-cine .spots { position: fixed; inset: 0; height: auto; }
 .page-home .spot { visibility: hidden; }
@@ -1101,12 +1168,16 @@ html:not(.is-cine) .page-home .pause { display: none; }
 .page-home .co-go .sp-card { border-color: rgba(52, 211, 153, 0.45); }
 @media (max-width: 767px) {
   .page-home .home-hero::before { background: linear-gradient(0deg, rgba(10, 15, 28, 0.97) 0%, rgba(10, 15, 28, 0.9) 44%, rgba(10, 15, 28, 0) 70%); }
-  .page-home .home-hero-in { padding-bottom: 36px; }
+  .page-home .home-hero-in { padding-top: calc(var(--head) + 84px); padding-bottom: 36px; } /* 12 px under the band chips when the hero outgrows a short phone */
   .page-home .hero-sub { font-size: 1rem; margin-top: 18px; }
   .page-home .home-cta { margin-top: 22px; }
   .page-home .say { margin-bottom: 14px; font-size: 10px; }
   .page-home .sp-card { width: min(320px, calc(100vw - 24px)); }
 }
+/* The button and the link share a row from 345 px wide in Archivo but from 336
+   in the fallback (the button is set 6% wide), so in between the row would
+   re-wrap when the font lands. Below 350 they always stack. */
+@media (max-width: 349px) { .page-home .home-cta { flex-direction: column; align-items: flex-start; } }
 
 /* ---------- chapters, in normal flow (no JavaScript, static tier) ---------- */
 .page-home .ch { position: relative; z-index: 1; border-top: 1px solid var(--hairline); background: var(--night); }
@@ -1179,6 +1250,12 @@ html:not(.is-cine) .page-home .pause { display: none; }
 .page-home .bands .bb:hover .muted { color: var(--fg); }
 .page-home .m-list { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; max-width: 26rem; }
 .page-home .m-list li { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--hairline); padding: 6px 0; }
+/* With the scene live, each row is a button that shows its metro on the map. */
+.page-home .m-list li.hm { display: block; padding: 0; }
+.page-home .m-list .mb { position: relative; display: flex; justify-content: space-between; gap: 10px; width: 100%; padding: 6px 0; text-align: left; letter-spacing: inherit; text-transform: inherit; transition: color 0.18s var(--ease-ui); }
+.page-home .m-list .mb::before { content: ''; position: absolute; inset: -6px 0; } /* a taller target, over the gap between rows */
+.page-home .m-list .mb:hover, .page-home .m-list .mb.on { color: var(--ink); }
+.page-home .m-list .mb[aria-pressed='true'] { color: var(--go); }
 .page-home .ch-note { margin-top: 16px; color: var(--fg-2); max-width: 30rem; }
 .page-home .sa-fig path.land { fill: url(#sadots); stroke: #5d667a; stroke-width: 1.2; vector-effect: non-scaling-stroke; }
 .page-home .sa-fig path.brd { fill: none; stroke: var(--road); stroke-width: 0.9; vector-effect: non-scaling-stroke; }
@@ -1196,6 +1273,7 @@ html:not(.is-cine) .page-home .pause { display: none; }
 .is-cine .ch-in { position: absolute; inset: 0; width: auto; max-width: none; margin: 0; padding: 0; display: block; }
 .is-cine .ch .fig { display: none; }
 .is-cine .ch { --pw: min(33rem, 40vw); } /* the panel's width */
+.is-cine .ch-3 { --pw: min(30rem, 40vw); } /* its text is no wider, so the rail stops where the text does, clear of the country (chapters.js saFit) */
 /* The scrim keeps text over the city readable: dark across the whole panel,
    fading out beyond it. Keyed to the panel, which sits at the header's edge. */
 .is-cine .ch::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: var(--sc, 1); --dir: 90deg;
@@ -1214,8 +1292,8 @@ html:not(.is-cine) .page-home .pause { display: none; }
 .is-cine .ch-stat.on { opacity: 1; }
 .is-cine .bands li { opacity: 0.4; }
 .is-cine .bands li.on { opacity: 1; }
-/* the pillars' labels show these figures; the list stays for screen readers */
-.is-cine .ch-3 .m-list { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+/* the list shows the figures the map's labels keep closed */
+.is-cine .ch-3 .m-list { margin-top: 18px; font-size: 11px; }
 .is-cine .dayline { position: relative; cursor: pointer; border-radius: 4px; }
 .is-cine .dayline::before { content: ''; position: absolute; inset: -14px 0 -2px; }
 @media (max-width: 1100px) and (min-width: 768px) { .is-cine .ch { --pw: 44vw; } }
@@ -1249,7 +1327,7 @@ html:not(.is-cine) .page-home .pause { display: none; }
   .is-cine .cnt { margin-top: 12px; }
   .is-cine .cnt-n { font-size: 2.4rem; }
   .is-cine .bands { display: none; }
-  .is-cine .ch-3 .m-list { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; display: grid; margin-top: 12px; font-size: 10px; }
+  .is-cine .ch-3 .m-list { margin-top: 12px; font-size: 10px; }
   .is-cine .ch-note { font-size: 10px; margin-top: 10px; }
 }
 

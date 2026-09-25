@@ -53,6 +53,7 @@ const ctl = {
 };
 ctl.pv.t = ctl.live;
 let scene = null;                 // { engine, ch } once the 3D scene is live
+let fitKey = '', fitVal = null;   // where the hero's spotlight tags may go (tagFit)
 
 /* ---------------------------------------------------------------------------
  * Keep the reader's place across a layout change (the chapters pinning, a
@@ -67,6 +68,7 @@ function keepPlace(change) {
     if (el) off = boxOf(el).getBoundingClientRect().top;
   }
   change();
+  fitKey = ''; // the spotlight tags' limits (tagFit) move with the layout
   if (!el) return;
   const y = boxOf(el).getBoundingClientRect().top + window.scrollY - off;
   // Lenis caches the page height and would clamp to the old one
@@ -89,7 +91,12 @@ function preview(b, instant) {
   ctl.pv.on = !live;
   ctl.pv.t = live ? ctl.live : b;
   doc.classList.toggle('pv', ctl.pv.on);
-  chips.forEach((c) => { const v = +c.dataset.b; if (v < 0) c.hidden = live; else c.setAttribute('aria-pressed', String(v === ctl.pv.t)); });
+  let rows = false;
+  chips.forEach((c) => { const v = +c.dataset.b; if (v < 0) { rows = c.hidden !== live; c.hidden = live; } else c.setAttribute('aria-pressed', String(v === ctl.pv.t)); });
+  // "Back to live" came or went, and the chips may have changed rows: the
+  // spotlight tags' limits are taken again, and the static tier (which places
+  // its tags only on a resize) places them again, once this script has run
+  if (rows) { fitKey = ''; queueMicrotask(() => { if (ctl.tier === 'static') posterTags(); }); }
   if (refocus) chips[ctl.live].focus();
   if (posterCells) posterCells.setAttribute('href', '#pl-c' + ctl.pv.t);
   if (pvEl) {
@@ -120,63 +127,109 @@ const HEADROOM = 80; // keep cards clear of the header
 // overflow: clip; this catches browsers that only know overflow: hidden).
 const spotsLayer = $('#spots');
 if (spotsLayer) spotsLayer.addEventListener('scroll', () => { spotsLayer.scrollLeft = 0; spotsLayer.scrollTop = 0; });
-// Where a spotlight tag's point may go, so the whole tag stays on screen and,
-// on phones, below the band chips (the tag sits 14px above its point). Taken
-// again when the window or the fonts change.
-let fitKey = '', fitVal = null;
+// Where a spotlight tag may go: on screen, below the header and, on phones,
+// below the band chips; never on a line of the hero's text. On phones the tags
+// sit between the chips and the text (the tag's box ends 14 px above its
+// point, and keeps 12 px from the text); where there is no room for them there
+// (a 360 x 640 phone, where the text starts right under the chips) they stay
+// hidden, as chapter 1 carries the same figures. "Back to live" can wrap the chips to a second row, so showing
+// or hiding it takes the limits again.
+// On wider screens a tag that would land on a line of text (the city's routes
+// pass behind the text column in windows under about 1100 px) moves right past
+// that line, or hides if that would take it off screen. The text's lines are
+// taken with the page at the top (the layer is fixed once the scene is live,
+// and scrolls with the hero before), again whenever the window, the fonts or
+// the layout change (keepPlace). Once the scene is live the tag layer is fixed
+// while the text scrolls, so the checks move the lines by the scroll (the tags
+// fade out over the first third of a screen).
 function tagFit() {
   const k = innerWidth + 'x' + innerHeight;
   if (k === fitKey && fitVal) return fitVal;
   const b = spots.f && $('button', spots.f), chipsBox = $('.bchips'), phone = innerWidth < 768;
-  let top = phone ? 120 : 108;
-  if (phone && b && chipsBox && chipsBox.getClientRects().length && spotsLayer) {
-    top = Math.max(top, chipsBox.getBoundingClientRect().bottom - spotsLayer.getBoundingClientRect().top + 8 + 14 + b.offsetHeight);
+  let top = phone ? 120 : 108, bottom = Infinity;
+  const lines = [];
+  if (b && spotsLayer) {
+    const lay = spotsLayer.getBoundingClientRect().top, dy = (getComputedStyle(spotsLayer).position === 'fixed' ? window.scrollY : 0) - lay;
+    const rg = document.createRange(), add = (r, h1) => { if (r.width > 1) lines.push({ l: r.left, r: r.right, t: r.top + dy, b: r.bottom + dy, h1 }); };
+    $$('.home-hero-in > *').forEach((e) => {
+      if (e.classList.contains('home-cta')) { Array.from(e.children).forEach((c) => add(c.getBoundingClientRect())); return; }
+      rg.selectNodeContents(e);
+      Array.from(rg.getClientRects()).forEach((r) => add(r, e.id === 'hero-h'));
+    });
+    lines.sort((p, q) => p.r - q.r);
+    if (phone) {
+      if (chipsBox && chipsBox.getClientRects().length) top = Math.max(top, chipsBox.getBoundingClientRect().bottom - lay + 8 + 14 + b.offsetHeight);
+      if (lines.length) bottom = Math.min(...lines.map((r) => r.t)) - 12 + 14;
+    }
   }
   fitKey = k;
-  fitVal = { top, half: { f: spots.f ? $('button', spots.f).offsetWidth / 2 : 0, l: spots.l ? $('button', spots.l).offsetWidth / 2 : 0 } };
+  const fixed = !!spotsLayer && getComputedStyle(spotsLayer).position === 'fixed';
+  fitVal = { top, bottom, fixed, lines, th: b ? b.offsetHeight : 0, half: { f: spots.f ? $('button', spots.f).offsetWidth / 2 : 0, l: spots.l ? $('button', spots.l).offsetWidth / 2 : 0 } };
   return fitVal;
 }
 if (document.fonts) document.fonts.addEventListener('loadingdone', () => { fitKey = ''; });
 // Move a tag (or any callout) to x, y in its layer, at opacity a. A hidden
 // spotlight tag closes its card.
 function setTag(el, x, y, a) {
+  const q = el === spots.f ? 'f' : el === spots.l ? 'l' : '';
+  if (q && a >= 0.01) {
+    const fit = tagFit(), hw = fit.half[q] + 8, sy = fit.fixed ? window.scrollY : 0, bottom = fit.bottom - sy;
+    x = clamp(x, hw, Math.max(hw, innerWidth - hw));
+    y = clamp(y, fit.top, bottom);
+    // the tag's box, with 12 px of air, against each line of text (sorted by
+    // their right ends, so one pass clears them all), with the page at the
+    // top: the tag keeps that place while the hero scrolls away
+    const t0 = y - 14 - fit.th - 12, t1 = y - 14 + 12;
+    for (const r of fit.lines) if (r.t < t1 && r.b > t0 && r.l < x + hw && r.r > x - hw) x = r.r + hw;
+    // a still-fading tag that the scrolling text reaches hides, and stays
+    // hidden until the page is back above that point (no hopping, no blinking)
+    if (sy > 0 && fit.lines.some((r) => r.t - sy < t1 && r.b - sy > t0 && r.l < x + hw && r.r > x - hw)) el._hideY = Math.min(el._hideY == null ? Infinity : el._hideY, sy);
+    else if (el._hideY != null && sy < el._hideY) el._hideY = null;
+    if (bottom < fit.top || x > innerWidth - hw || el._hideY != null) a = 0;
+  }
   if (a < 0.01) {
     if (el._a !== 0) { el.style.opacity = '0'; el.style.visibility = 'hidden'; el._a = 0; }
     if (el.classList.contains('open')) spot('');
     return;
-  }
-  const q = el === spots.f ? 'f' : el === spots.l ? 'l' : '';
-  if (q) {
-    const fit = tagFit(), hw = fit.half[q] + 8;
-    x = clamp(x, hw, Math.max(hw, innerWidth - hw));
-    y = Math.max(y, fit.top);
   }
   el.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0)`;
   el.style.opacity = a.toFixed(3);
   el.style.visibility = 'visible';
   el._a = a; el._x = x; el._y = y;
 }
-// The open card sits beside its tag, flipping side near the screen's edges.
-// Where there is no room beside it (phones), it goes under the tag's point or
-// above the tag: the first that keeps clear of the hero text (the say line,
-// then at least the headline), preferring to keep clear of the band chips.
+// The open card goes beside its tag (right, then left), else under the tag's
+// point, else above the tag: the first that stays on screen and clear of every
+// line of the hero's text, the band chips and its own tag. Under and above, it
+// may slide right while it still spans the tag's point. (Flipping left used to
+// put it on the headline in windows 768 to 1100 px wide.) Where nothing fits
+// (phones, tall tablets), the same again allowing the band chips to be
+// covered, then any text but the headline, then its own tag (which the card
+// repeats); failing that, under the point.
 function placeCard() {
   const el = spots[ctl.spot];
   if (!el || !(el._a >= 0.01)) return;
-  const b = $('button', el), c = $('.sp-card', el), W = innerWidth, H = innerHeight;
+  const b = $('button', el), c = $('.sp-card', el), W = innerWidth, H = innerHeight, fit = tagFit();
   const tw = b.offsetWidth, th = b.offsetHeight, cw = c.offsetWidth, ch = c.offsetHeight, x = el._x, y = el._y;
-  let l = tw / 2 + 12, t = -14 - th / 2 - ch / 2;
-  if (x + l + cw > W - 12) l = -tw / 2 - 12 - cw;
-  if (x + l < 12) {
-    l = clamp(-cw / 2, 12 - x, W - 12 - cw - x);
-    const box = spotsLayer.getBoundingClientRect(), chipsBox = $('.bchips');
-    const topOf = (s) => { const e = $(s); return e ? e.getBoundingClientRect().top - box.top - 8 : H; };
-    const sayTop = topOf('.home-hero-in > *'), h1Top = topOf('#hero-h');
-    const roof = Math.max(HEADROOM, chipsBox && chipsBox.getClientRects().length ? chipsBox.getBoundingClientRect().bottom - box.top + 8 : 0);
-    const dn = 16, up = -14 - th - 10 - ch;
-    t = y + dn + ch <= sayTop ? dn : y + up >= roof ? up : y + dn + ch <= h1Top ? dn : y + up >= HEADROOM ? up : dn;
-  }
-  t = clamp(t, HEADROOM - y, H - 12 - ch - y);
+  const sy = fit.fixed ? window.scrollY : 0, lay = spotsLayer.getBoundingClientRect().top, chipsBox = $('.bchips');
+  const own = { l: x - tw / 2, r: x + tw / 2, t: y - 14 - th, b: y - 14 }; // the tag itself
+  const text = fit.lines.map((r) => ({ l: r.l, r: r.r, t: r.t - sy, b: r.b - sy, h1: r.h1 }));
+  const chips = chipsBox && chipsBox.getClientRects().length ? [chipsBox.getBoundingClientRect()].map((r) => ({ l: r.left, r: r.right, t: r.top - lay, b: r.bottom - lay })) : [];
+  const h1 = text.filter((r) => r.h1);
+  const passes = [text.concat(chips, own), text.concat(own), h1.concat(own), h1].map((a) => a.sort((p, q) => p.r - q.r));
+  const mid = clamp(-cw / 2, 12 - x, W - 12 - cw - x);
+  const tries = [[tw / 2 + 12, -14 - th / 2 - ch / 2], [-tw / 2 - 12 - cw, -14 - th / 2 - ch / 2], [mid, 16, 1], [mid, -14 - th - 10 - ch, 1]];
+  const fits = (blocks) => ([l, t, slide]) => {
+    t = clamp(t, HEADROOM - y, H - 12 - ch - y);
+    let x0 = x + l;
+    const y0 = y + t, xMax = Math.min(W - 12 - cw, slide ? x - 24 : x0);
+    // sorted by right edge, so one pass slides it past every block in its way
+    for (const k of blocks) if (x0 < k.r + 8 && k.l < x0 + cw + 8 && y0 < k.b + 8 && k.t < y0 + ch + 8) { if (!slide) return null; x0 = k.r + 8; }
+    if (x0 < 12 || x0 > xMax) return null;
+    return [x0 - x, t];
+  };
+  let lt = null;
+  for (const blocks of passes) if ((lt = tries.map(fits(blocks)).find(Boolean))) break;
+  const [l, t] = lt || [mid, clamp(16, HEADROOM - y, H - 12 - ch - y)];
   c.style.transform = `translate(${Math.round(l)}px,${Math.round(t)}px)`;
 }
 function spot(w, pin) {
@@ -192,7 +245,24 @@ function spot(w, pin) {
   if (w) placeCard();
   if (ctl.onSpot) ctl.onSpot(w);
 }
-Object.assign(ctl, { setTag, placeCard, spot });
+// Where the chips and the text leave room for one row of tags (a 360 x 660
+// phone), both tags clamp to the same height: spread them apart sideways about
+// their shared middle, keeping their order and staying on screen.
+function spreadSpots() {
+  const f = spots.f, l = spots.l;
+  if (!f || !l || !(f._a > 0) || !(l._a > 0)) return;
+  const bf = $('button', f), bl = $('button', l), gap = 8;
+  if (Math.abs(f._y - l._y) >= Math.max(bf.offsetHeight, bl.offsetHeight) + 4) return;
+  const [a, ba, b, bb] = f._x <= l._x ? [f, bf, l, bl] : [l, bl, f, bf];
+  const need = (ba.offsetWidth + bb.offsetWidth) / 2 + gap;
+  if (b._x - a._x >= need) return;
+  const lo = ba.offsetWidth / 2 + 8, hi = innerWidth - bb.offsetWidth / 2 - 8;
+  let xa = (a._x + b._x) / 2 - need / 2, xb = xa + need;
+  if (xa < lo) { xb += lo - xa; xa = lo; }
+  if (xb > hi) { xa -= xb - hi; xb = hi; }
+  for (const [el, x] of [[a, xa], [b, xb]]) { el._x = x; el.style.transform = `translate3d(${x.toFixed(1)}px,${el._y.toFixed(1)}px,0)`; }
+}
+Object.assign(ctl, { setTag, placeCard, spot, spreadSpots });
 for (const q of ['f', 'l']) {
   const b = spots[q] && $('button', spots[q]);
   if (!b) continue;
@@ -217,6 +287,7 @@ function posterTags() {
     const r = a.getBoundingClientRect();
     setTag(spots[q], clamp(r.left - box.left, 12, box.width - 12), clamp(r.top - box.top, innerWidth < 768 ? 120 : 108, box.height - 12), 1);
   }
+  spreadSpots();
   placeCard();
 }
 addEventListener('resize', posterTags);

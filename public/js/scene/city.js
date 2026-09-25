@@ -309,6 +309,11 @@ export function buildCity(engine, { tier, small }) {
       meta[i * 2 + 1] = clamp((sa[i][0] / 1000) * 0.7 + R() * 0.3, 0, 1);
     } else { tgt[i * 3] = P.pos[i * 3]; tgt[i * 3 + 1] = P.pos[i * 3 + 1]; tgt[i * 3 + 2] = P.pos[i * 3 + 2]; }
   }
+  // every fifth coast point (Lesotho's outline included; a few pixels apart on
+  // screen), where the morph puts it: chapters.js fits the country beside the
+  // chapter 3 text on wide screens
+  const coast = [];
+  sa.forEach((p, i) => { if (p[2] === 2 && i % 5 === 0) { const w = saW(p[0], p[1]); coast.push(new T.Vector3(w[0], 0, w[1])); } });
   const pg = new T.BufferGeometry();
   pg.setAttribute('position', new T.BufferAttribute(P.pos, 3));
   pg.setAttribute('aTarget', new T.BufferAttribute(tgt, 3));
@@ -444,7 +449,7 @@ export function buildCity(engine, { tier, small }) {
     PU.uGrow.value = s.grow; capM.opacity = s.grow * 0.95; topM.opacity = s.grow;
     for (let i = 0; i < NM; i++) {
       let g = clamp(s.grow * 1.6 - pD[i] * 0.6, 0, 1); g = 1 - Math.pow(1 - g, 3);
-      topP[i * 3] = mTop[i].x; topP[i * 3 + 1] = pH[i] * g * PU.uHs.value; topP[i * 3 + 2] = mTop[i].z;
+      topP[i * 3] = mTop[i].x; topP[i * 3 + 1] = pH[i] * g * PU.uHs.value * (1 + 0.15 * aXv[i * 2]); topP[i * 3 + 2] = mTop[i].z;
     }
     topG.attributes.position.needsUpdate = true;
     if (s.carT >= 0) {
@@ -458,8 +463,15 @@ export function buildCity(engine, { tier, small }) {
   }
 
   return {
-    U, anchors, metroTags, fastC,
+    U, anchors, metroTags, fastC, coast,
     apply,
+    // Light metros' pillars: v maps a metro's key to 0..1 (1 is emerald, a
+    // little taller and wider); dim (0..1) fades the others toward 55%. Used by
+    // chapter 3's list and labels (chapters.js), and by the explore map later.
+    highlight(v, dim) {
+      metros.forEach((m, i) => { const h = v[m.k] || 0; aXv[i * 2] = h; aXv[i * 2 + 1] = 1 - 0.45 * dim * (1 - h); });
+      pilG.attributes.aX.needsUpdate = true;
+    },
     // Adaptive quality (engine onDegrade): half the points, only the cells
     // that ever carry a rating, and point sizes for the new pixel ratio.
     degrade() { pg.setDrawRange(0, Math.floor(P.n / 2)); cellMesh.count = active; U.uPx.value = renderer.getPixelRatio(); },

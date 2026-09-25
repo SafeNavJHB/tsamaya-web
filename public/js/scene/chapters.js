@@ -176,6 +176,179 @@ export function initChapters({ engine, city, ctl }) {
     ctl.setTag(el, clamp((tmp.x * 0.5 + 0.5) * W, 12, W - 12), clamp((-tmp.y * 0.5 + 0.5) * H, W < 768 ? 120 : 108, H - 12), a);
   }
 
+  /* --- the camera: keyframe k, leaned by yaw and pitch (degrees), its distance
+   * scaled by dk, zoomed by zoom and moved dx pixels right. Returns the
+   * distance. --- */
+  function aim(k, yaw, pit, dk, zoom, dx) {
+    yaw = (k.y + yaw) * D2R; pit = (k.p + pit) * D2R;
+    const dist = k.d * dk;
+    off.set(Math.cos(pit) * Math.sin(yaw), Math.sin(pit), Math.cos(pit) * Math.cos(yaw)).multiplyScalar(dist);
+    cam.position.set(k.t[0] + off.x, k.t[1] + off.y, k.t[2] + off.z);
+    cam.lookAt(k.t[0], k.t[1], k.t[2]);
+    cam.fov = k.f; cam.near = 1; cam.far = 900; cam.aspect = W / H; cam.zoom = zoom;
+    cam.setViewOffset(W, H, -k.sx * W - dx, -k.sy * H, W, H);
+    cam.updateProjectionMatrix();
+    cam.updateMatrixWorld();
+    return dist;
+  }
+
+  /* --- chapter 3 on wide screens: South Africa beside the text, not under it.
+   * The desktop keyframes were tuned on the prototype, whose text starts 56 px
+   * from the left. Here the text lines up with the header (--edge: 130 px at
+   * 1440 wide, 370 at 1920) and the country is sized by the screen's height,
+   * so the note and the Cape Town label ran over the west coast. For the three
+   * poses chapter 3 holds (c 5, 5.5 and 6), take the largest zoom (at most 1)
+   * and the smallest sideways move that keep every coast point, metro top and
+   * metro label that is level with the panel's text clear of that text, and
+   * the whole country inside the screen, within a little of the HUD frame.
+   * The idle drift's sway is included. Measured once per screen size, and
+   * again when the fonts arrive and after every ScrollTrigger refresh: the
+   * first frame after a resize still sees the pinned section at its old width,
+   * and only the refresh re-pins it. --- */
+  const NOFIT = { z: 1, dx: 0 }, ch3 = $('#metros');
+  let FIT = NOFIT, fitKey = '';
+  const refit = () => { fitKey = ''; TAGS = null; lastKey = ''; inv(); };
+  if (document.fonts) on(document.fonts, 'loadingdone', refit);
+  ST.addEventListener('refresh', refit);
+  cleanup.push(() => ST.removeEventListener('refresh', refit));
+  function saFit() {
+    const key = W + 'x' + H;
+    if (key === fitKey) return FIT;
+    fitKey = key;
+    FIT = NOFIT;
+    const panel = $('.ch-panel', ch3);
+    if (W < 768 || !city.coast.length || !panel) return FIT;
+    // the text's extent while the chapter is pinned (its section's top is 0 then)
+    const top0 = ch3.getBoundingClientRect().top, rg = document.createRange();
+    const walk = document.createTreeWalker(panel, NodeFilter.SHOW_TEXT);
+    let tr = -1, tt = Infinity, tb = -Infinity;
+    for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+      if (!n.data.trim() || n.parentElement.closest('.sr, .rail')) continue;
+      rg.selectNodeContents(n);
+      for (const r of rg.getClientRects()) { tr = Math.max(tr, r.right); tt = Math.min(tt, r.top - top0); tb = Math.max(tb, r.bottom - top0); }
+    }
+    if (tr < 0) return FIT;
+    const edge = panel.getBoundingClientRect().left;
+    const L = tr + 32, T0 = tt - 24, B0 = tb + 24, R = Math.min(W - 16, W - edge + 40);
+    const tags = TAGS || measureTags();
+    const P = [5, 5.5, 6].map((c) => camAt(c, KD)), YAW = full ? [-2.2, 0, 2.2] : [0], v = new T.Vector3();
+    let best = null;
+    // down to 0.3: a portrait tablet has little width beside the text
+    for (let z = 1; z > 0.29; z -= 0.02) {
+      let need = -Infinity, room = Infinity;
+      // x0..x1 by y0..y1 on screen must keep clear of the text and inside R
+      const box = (x0, x1, y0, y1) => {
+        room = Math.min(room, R - x1);
+        need = Math.max(need, 16 - x0, y1 > T0 && y0 < B0 ? L - x0 : -Infinity);
+      };
+      for (const k of P) for (const yaw of YAW) {
+        aim(k, yaw, 0, 1, z, 0);
+        const at = (p) => { v.copy(p).project(cam); return [(v.x * 0.5 + 0.5) * W, (-v.y * 0.5 + 0.5) * H]; };
+        for (const p of city.coast) { const [x, y] = at(p); box(x, x, y, y); }
+        for (const t of tags) {
+          const [x, y] = at(t.v), b = labelBox(t, x, y);
+          box(Math.min(x, b.x0), Math.max(x, b.x1), Math.min(y, b.y0), Math.max(y, b.y1));
+        }
+      }
+      // move right only as far as the text needs, left only as far as the
+      // frame needs and never back over the text
+      best = { z, dx: need > 0 ? need : Math.max(need, Math.min(0, room)) };
+      if (need <= room) break;
+    }
+    // nothing fits: the smallest zoom tried, text clear (labels that would
+    // leave the screen then hide, in declutter)
+    FIT = best || NOFIT;
+    return FIT;
+  }
+
+  /* --- chapter 3: the metro labels and the list ---
+   * A label shows its metro's name; the count opens under it while the label
+   * is hovered, or once it is tapped or clicked (which pins it), or while the
+   * metro's row in the panel's list is hovered, focused or pressed. The shown
+   * metro's pillar lights up and the others dim. Labels that would overlap
+   * give way (the shown one first, then the larger metros), and a label that
+   * would leave the screen hides. The list holds every figure, so nothing is
+   * only on hover. --- */
+  let TAGS = null;
+  // each label's box against its anchor, as styles.css .co-m places it (the
+  // count hangs below, outside the box)
+  function measureTags() {
+    TAGS = city.metroTags.map((m) => {
+      const e = m.el.firstElementChild, c = m.el.classList;
+      return { el: m.el, k: m.el.dataset.k, v: m.v, w: e.offsetWidth, h: e.offsetHeight, nh: m.el.querySelector('.co-n').offsetHeight + 2, l: c.contains('l'), up: c.contains('up'), dn: c.contains('dn') };
+    });
+    return TAGS;
+  }
+  const labelBox = (t, x, y) => {
+    const y0 = t.up ? y - t.h + 2 : t.dn ? y + 2 : y - t.h / 2;
+    return t.l ? { x0: x - 14 - t.w, x1: x - 14, y0, y1: y0 + t.h } : { x0: x + 14, x1: x + 14 + t.w, y0, y1: y0 + t.h };
+  };
+  // Which labels show, decided at the pose without the idle drift (so a label
+  // near a neighbour does not blink as the camera sways), with hysteresis: a
+  // hidden label needs 12 px more room to come back than a shown one needs to
+  // stay. Obstacles are the labels already kept (the shown metro's first, its
+  // open count included, then the larger metros), the screen's edges and the
+  // HUD's corner readouts. A count that would run into the bottom corner or off
+  // the screen opens above its name instead. Returns the keys to show.
+  const VIS = {};
+  const hudBoxes = () => ['.hud-c.tl', '.hud-now', '.hud-c.br'].map((q) => { const e = $(q); return e && e.getClientRects().length ? e.getBoundingClientRect() : null; }).filter(Boolean)
+    .map((r) => ({ x0: r.left, x1: r.right, y0: r.top, y1: r.bottom }));
+  function declutter() {
+    const tags = TAGS || measureTags(), shown = MS.hover || MS.pin, keep = new Set();
+    const kept = hudBoxes(), v = new T.Vector3();
+    const order = tags.slice().sort((a, b) => (b.k === shown) - (a.k === shown)); // stable: then by size, as the page lists them
+    for (const t of order) {
+      v.copy(t.v).project(cam);
+      if (v.z > 1) { VIS[t.k] = false; continue; }
+      const x = clamp((v.x * 0.5 + 0.5) * W, 12, W - 12), y = clamp((-v.y * 0.5 + 0.5) * H, 108, H - 12);
+      const b = labelBox(t, x, y), m = VIS[t.k] ? 0 : 12, mx = 8 + m, my = 4 + m;
+      let flip = false;
+      if (t.k === shown) {
+        // the open count hangs below the name, or above it near the bottom
+        const below = { x0: b.x0, x1: b.x1, y0: b.y1, y1: b.y1 + t.nh };
+        flip = below.y1 > H - 12 || kept.some((o) => below.x0 < o.x1 && o.x0 < below.x1 && below.y0 < o.y1 && o.y0 < below.y1);
+        if (flip) b.y0 -= t.nh; else b.y1 += t.nh;
+      }
+      t.el.classList.toggle('up-n', flip);
+      const ok = b.x0 >= 8 + m && b.x1 <= W - 8 - m && b.y0 >= 8 && !kept.some((o) => b.x0 < o.x1 + mx && o.x0 < b.x1 + mx && b.y0 < o.y1 + my && o.y0 < b.y1 + my);
+      VIS[t.k] = ok || t.k === shown && b.x0 >= 0 && b.x1 <= W;
+      if (VIS[t.k]) { keep.add(t.k); kept.push(b); }
+    }
+    return keep;
+  }
+  const MS = { hover: '', pin: '' }, HL = { _dim: 0 };
+  const mLis = $$('#metros .m-list li[data-k]');
+  mLis.forEach((li) => { HL[li.dataset.k] = 0; });
+  function showM(which, k) {
+    MS[which] = k;
+    const shown = MS.hover || MS.pin;
+    city.metroTags.forEach((m) => m.el.classList.toggle('show', m.el.dataset.k === shown));
+    mBtns.forEach((b) => { const key = b.parentElement.dataset.k; b.classList.toggle('on', key === shown); b.setAttribute('aria-pressed', String(key === MS.pin)); });
+    const to = { _dim: shown ? 1 : 0 };
+    mLis.forEach((li) => { to[li.dataset.k] = li.dataset.k === shown ? 1 : 0; });
+    G.to(HL, Object.assign(to, { duration: 0.25, ease: 'expo.out', overwrite: 'auto', onUpdate: () => { city.highlight(HL, HL._dim); lastKey = ''; inv(); } }));
+    lastKey = ''; inv();
+  }
+  const hover = (el, k) => {
+    on(el, 'pointerenter', (e) => { if (e.pointerType === 'mouse') showM('hover', k); });
+    on(el, 'pointerleave', (e) => { if (e.pointerType === 'mouse' && MS.hover === k) showM('hover', ''); });
+    on(el, 'click', () => showM('pin', MS.pin === k ? '' : k));
+  };
+  // each row of the list becomes a button
+  const mBtns = mLis.map((li) => {
+    const b = document.createElement('button'), k = li.dataset.k;
+    b.type = 'button'; b.className = 'mb'; b.setAttribute('aria-pressed', 'false');
+    b.append(...li.childNodes); li.append(b); li.classList.add('hm');
+    hover(b, k);
+    // preview on keyboard focus only: a tap focuses the button too, and would
+    // leave the preview on after a second tap unpins it
+    on(b, 'focus', () => { let kb = true; try { kb = b.matches(':focus-visible'); } catch (e) { /* older browsers */ } if (kb) showM('hover', k); });
+    on(b, 'blur', () => { if (MS.hover === k) showM('hover', ''); });
+    return b;
+  });
+  city.metroTags.forEach((m) => hover(m.el.firstElementChild, m.el.dataset.k));
+  on(document, 'keydown', (e) => { if (e.key === 'Escape' && (MS.pin || MS.hover)) { MS.hover = ''; showM('pin', ''); } });
+
   /* --- the frame (engine onFrame): returns true while anything changed --- */
   function frame({ dt }) {
     // faded out below the chapters: nothing to draw, so report idle and let
@@ -199,27 +372,26 @@ export function initChapters({ engine, city, ctl }) {
     if (key === lastKey) return false;
     lastKey = key;
     const s = stateAt(cS), k = camAt(Math.min(cS, 6), W < 768 ? KM : KD);
-    // camera: the keyframe, plus the drift, the intro dolly and the parallax lean
-    const yaw = (k.y + Math.sin(drift * Math.PI * 2 / 12) * 2.2 * driftAmp - PP.x * 5 * hw) * D2R;
-    const pit = (k.p + 7 * intro.dolly + PP.y * 5 * hw) * D2R, dist = k.d * (1 + 0.24 * intro.dolly);
-    off.set(Math.cos(pit) * Math.sin(yaw), Math.sin(pit), Math.cos(pit) * Math.cos(yaw)).multiplyScalar(dist);
-    cam.position.set(k.t[0] + off.x, k.t[1] + off.y, k.t[2] + off.z);
-    cam.lookAt(k.t[0], k.t[1], k.t[2]);
-    cam.fov = k.f; cam.near = 1; cam.far = 900; cam.aspect = W / H;
-    cam.setViewOffset(W, H, -k.sx * W, -k.sy * H, W, H);
-    cam.updateProjectionMatrix();
-    cam.updateMatrixWorld();
+    // camera: the keyframe, plus the drift, the intro dolly and the parallax
+    // lean, and on wide screens the chapter 3 fit, eased in as the city turns
+    // into the country
+    const fw = W < 768 ? 0 : sstep(4.3, 4.9, cS), fit = fw > 0 ? saFit() : NOFIT;
+    const ml = W < 768 ? 0 : s.labels, lean = [-PP.x * 5 * hw, 7 * intro.dolly + PP.y * 5 * hw, 1 + 0.24 * intro.dolly, lerp(1, fit.z, fw), fit.dx * fw];
+    // chapter 3's labels: which show is decided without the drift (declutter)
+    let keep = null;
+    if (ml > 0.01) { aim(k, lean[0], lean[1], lean[2], lean[3], lean[4]); keep = declutter(); }
+    const dist = aim(k, Math.sin(drift * Math.PI * 2 / 12) * 2.2 * driftAmp + lean[0], lean[1], lean[2], lean[3], lean[4]);
     city.apply(s, { c: cS, dist, phone: W < 768, spot: SP, sw });
     const A = city.anchors;
     place(co.a, A.a, s.coAB); place(co.b, A.b, s.coAB);
     place(co.hf, A.hf, s.coHero * intro.fast * (1 - 0.6 * SP.f));
     place(co.hl, A.hl, s.coHero * intro.low * (1 - 0.6 * SP.l));
+    ctl.spreadSpots();
     if (ctl.spot) ctl.placeCard();
     place(co.f, A.f, s.coF); place(co.l, A.l, s.coL);
     if (s.coRR > 0.01) A.rr.copy(city.fastC.getPointAt(clamp(s.pulse, 0.02, 0.98)));
     place(co.rr, A.rr, s.coRR);
-    const ml = W < 768 ? 0 : s.labels;
-    city.metroTags.forEach((m) => place(m.el, m.v, ml));
+    city.metroTags.forEach((m) => place(m.el, m.v, keep && keep.has(m.el.dataset.k) ? ml : 0));
     return true;
   }
 
@@ -299,6 +471,12 @@ export function initChapters({ engine, city, ctl }) {
       if (!hide !== ui.live) { ui.live = !hide; if (ui.live) { if (full) engine.start(); inv(); } else engine.stop(); }
     }
     hudBL.style.opacity = (1 - sstep(0.12, 0.5, c)).toFixed(3);
+    // a panel that has faded out after its pin stops taking the pointer (it
+    // stays in the page for screen readers and the keyboard; see focusin)
+    chPanels.forEach((pn, i) => {
+      const gone = scrollNow() > pins[i].end + innerHeight * 0.38 + 1;
+      if (pn._gone !== gone) { pn._gone = gone; pn.style.pointerEvents = gone ? 'none' : ''; }
+    });
     // the band chips belong to the hero: they fade as chapter 1 comes up, and
     // a preview still showing is taken back to the live band
     const cv = 1 - sstep(0.3, 0.7, c);
@@ -308,7 +486,7 @@ export function initChapters({ engine, city, ctl }) {
   }
 
   /* --- the pins, and the panel fades --- */
-  const chs = $$('#zone > .ch');
+  const chs = $$('#zone > .ch'), chPanels = chs.map((sec) => $('.ch-panel', sec));
   const LD = [2.2, 2.6, 1.7], LM = [1.5, 1.7, 1.3]; // pin length, in screen heights
   const pins = chs.map((sec, i) => ST.create({
     trigger: sec, start: 'top top', end: () => '+=' + Math.round(innerHeight * (phone() ? LM[i] : LD[i])),
@@ -327,7 +505,9 @@ export function initChapters({ engine, city, ctl }) {
     });
   });
 
-  // PHASE 2: the explore section extends the clock past 6 here. Push its
+  // PHASE 2: the chapter 3 fit (saFit) eases in from c 4.3 and holds past 6;
+  // the explore section must ease it back out (fw in frame) before its own
+  // camera flights. The explore section also extends the clock past 6 here. Push its
   // trigger's start and end onto K (6 to 7 until it reaches the top, 7 to 8
   // while it scrolls away), and key the scene fade in updateUI to c > 7.
   function chapterC() {
@@ -349,6 +529,16 @@ export function initChapters({ engine, city, ctl }) {
     lastFlow = el ? { el, off: el.getBoundingClientRect().top } : null;
   };
   const master = ST.create({ start: 0, end: 'max', onUpdate: onScroll, onRefresh: onScroll });
+
+  // Tabbing back into a panel that has faded after its pin brings the chapter
+  // back to its middle, where the panel shows. Only when focus moved there from
+  // another element: the window getting focus back (a tab switch) refocuses
+  // the last button with no relatedTarget, and must not yank the page up.
+  chPanels.forEach((pn, i) => on(pn, 'focusin', (e) => {
+    if (!pn._gone || !e.relatedTarget) return;
+    const p = pins[i], y = Math.round((p.start + p.end) / 2);
+    if (window.lenis) window.lenis.scrollTo(y, { immediate: true, force: true }); else window.scrollTo(0, y);
+  }));
 
   /* --- chapter 1: the rail labels jump to their step --- */
   const STEP_AT = [0.14, 0.37, 0.6, 0.87];
@@ -486,12 +676,16 @@ export function initChapters({ engine, city, ctl }) {
     master.kill();
     pins.forEach((p) => p.kill(true));
     G.killTweensOf([intro, PV, SP, PP, city.U.uReveal]);
-    G.set(chs.map((s) => $('.ch-panel', s)).concat(chs), { clearProps: 'opacity,--sc' });
+    G.set(chPanels.concat(chs), { clearProps: 'opacity,--sc' });
+    chPanels.forEach((pn) => { pn.style.pointerEvents = ''; pn._gone = undefined; });
     [stage, hudLayer, chipsEl, hudBL].forEach((el) => { el.style.opacity = ''; el.style.visibility = ''; });
     $$('#callouts .co').forEach((el) => ctl.setTag(el, 0, 0, 0));
     ['role', 'tabindex', 'aria-label', 'aria-valuemin', 'aria-valuemax', 'aria-valuenow', 'aria-valuetext'].forEach((k) => dayl.removeAttribute(k));
     dayl.setAttribute('aria-hidden', 'true');
     bandBtns.forEach((b) => { const li = b.parentElement; li.append(...b.childNodes); b.remove(); li.classList.remove('hb'); });
+    mBtns.forEach((b) => { const li = b.parentElement; li.append(...b.childNodes); b.remove(); li.classList.remove('hm'); });
+    G.killTweensOf(HL);
+    city.metroTags.forEach((m) => m.el.classList.remove('show'));
     ctl.onPreview = ctl.onSpot = null;
   }
 
@@ -506,7 +700,8 @@ export function initChapters({ engine, city, ctl }) {
       clock: clockT.textContent, count: cntN.textContent, stat: statTo.textContent, statOn: ui.statOn,
       step: ui.stage, fade: ui.fade, place: placeEl.textContent,
       pins: pins.map((p) => [Math.round(p.start), Math.round(p.end)]),
-      counts: city.counts, degraded: engine.degraded,
+      counts: city.counts, degraded: engine.degraded, zoom: cam.zoom, fit: FIT, shown: MS.hover || MS.pin, pin: MS.pin,
+      labels: city.metroTags.filter((m) => m.el._a > 0).map((m) => m.el.dataset.k),
     }),
     kill,
   };
