@@ -142,6 +142,24 @@ const live = (p) => p.waitForTimeout(150).then(() => p.evaluate(() => document.g
   check('390: a row tapped low in the list brings the map and card back into view', rv.sel === 11 && rv.top >= 60 && rv.top <= 76 && rv.card <= 844, JSON.stringify(rv));
   await ctx.close();
 }
+/* ---------- tablet, stacked (under 1024 wide), touch ---------- */
+{
+  const { ctx, p } = await open(820, 1180, '', { hasTouch: true });
+  const low = await p.evaluate(() => Math.round(document.getElementById('ex-list').getBoundingClientRect().bottom + scrollY - innerHeight + 20));
+  await p.evaluate((y) => (window.lenis ? window.lenis.scrollTo(y, { immediate: true, force: true }) : scrollTo(0, y)), low);
+  await p.waitForTimeout(600);
+  const free = await p.evaluate(() => [...document.querySelectorAll('#ex-list button')].every((b) => { const r = b.getBoundingClientRect(); if (r.bottom > innerHeight || r.top < 70) return true; const e = document.elementFromPoint(r.right - 8, r.top + r.height / 2); return b.contains(e); }));
+  check("820 tablet: nothing covers the list's rows", free);
+  await p.tap('#ex-list button[data-m="11"]'); await p.waitForTimeout(1600); await settle(p);
+  const t = await p.evaluate(() => {
+    const ov = (a, q) => a.left < q.right && q.left < a.right && a.top < q.bottom && q.top < a.bottom;
+    const c = document.getElementById('ex-card').getBoundingClientRect(), bk = document.getElementById('ex-back').getBoundingClientRect(), rows = [...document.querySelectorAll('#ex-list button')].map((x) => x.getBoundingClientRect());
+    return { sel: window.__t.ex().sel, onRows: rows.some((r) => ov(c, r)), backOnCard: ov(bk, c), inView: c.top >= 60 && c.bottom <= innerHeight };
+  });
+  check('820 tablet: the pick brings the map back, its card clear of the rows and Back', t.sel === 11 && !t.onRows && !t.backOnCard && t.inView, JSON.stringify(t));
+  await p.screenshot({ path: OUT + PRE + 't-picked.png' });
+  await ctx.close();
+}
 /* ---------- static tier (reduced motion, no WebGL) ---------- */
 for (const [w, h] of [[1440, 900], [390, 844]]) {
   const { ctx, p } = await open(w, h, '?tier=static');
