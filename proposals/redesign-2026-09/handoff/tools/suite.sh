@@ -5,6 +5,11 @@
 set -u
 cd "$(dirname "$0")"
 root=../../../..
+# the servers the checks use: dist on 8795 (plain) and 8796 (gzip, like GitHub Pages)
+up() { lsof -ti tcp:$1 -sTCP:LISTEN >/dev/null 2>&1; }
+up 8795 || (python3 -m http.server 8795 --directory "$root/dist" >/dev/null 2>&1 &)
+up 8796 || (node gzserve.mjs "$(cd "$root" && pwd)/dist" 8796 >/dev/null 2>&1 &)
+sleep 1
 run() { echo "== $1"; shift; "$@" 2>&1 | grep -E "$FILTER" || true; }
 echo "== build and SEO gate"; (cd "$root" && node build.mjs >/dev/null && npm run check 2>&1 | grep -E "passed|✗|FAIL")
 FILTER='hit'; run "copy lint (home)" node copylint.mjs "$root/dist" index.html

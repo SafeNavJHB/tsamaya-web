@@ -14,9 +14,10 @@
     "changelog": "node scripts/sync-changelog.mjs",
     "images": "node scripts/optimise-images.mjs",
     "vendor": "node scripts/vendor.mjs",
-    "check": "node scripts/check-seo.mjs"
+    "check": "node scripts/check-seo.mjs",
+    "check:js": "node scripts/strip-js-check.mjs"
   },
-  "//": "The BUILD has no dependencies: `node build.mjs` runs on a clean checkout with no npm install, which is why CI needs nothing. The devDependencies are for manual steps whose output is committed: sharp for `npm run images`, and esbuild, three, gsap and lenis for `npm run vendor` (writes public/vendor/). Never move any of them to dependencies. `npm run shapes` needs Python and shapely (the pipeline venv, or set PYTHON) plus Supabase credentials in the environment; like `stats` and `bounds` it is a manual step whose output is committed.",
+  "//": "The BUILD has no dependencies: `node build.mjs` runs on a clean checkout with no npm install, which is why CI needs nothing. The devDependencies are for manual steps whose output is committed: sharp for `npm run images`, and esbuild, three, gsap and lenis for `npm run vendor` (writes public/vendor/); esbuild also backs `npm run check:js`, which proves the build's comment stripper (scripts/strip-js.mjs) changes no meaning. Never move any of them to dependencies. `npm run shapes` needs Python and shapely (the pipeline venv, or set PYTHON) plus Supabase credentials in the environment; like `stats` and `bounds` it is a manual step whose output is committed.",
   "devDependencies": {
     "esbuild": "0.25.10",
     "gsap": "3.15.0",

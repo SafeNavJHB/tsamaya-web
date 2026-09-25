@@ -11,6 +11,7 @@ import { dirname, join, extname } from 'node:path';
 import { renderPage } from './src/layout.mjs';
 import { siteData, geoData } from './src/sitedata.mjs';
 import { site, baseUrl, canonicalFor } from './site.config.mjs';
+import { stripJs } from './scripts/strip-js.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const dist = join(root, 'dist');
@@ -35,6 +36,15 @@ async function copyDir(from, to) {
   }
 }
 
+async function stripDir(dir) {
+  if (!existsSync(dir)) return;
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const p = join(dir, entry.name);
+    if (entry.isDirectory()) await stripDir(p);
+    else if (entry.name.endsWith('.js')) await writeFile(p, stripJs(await readFile(p, 'utf8')), 'utf8');
+  }
+}
+
 async function build() {
   // Clean slate
   if (existsSync(dist)) await rm(dist, { recursive: true, force: true });
@@ -42,6 +52,10 @@ async function build() {
 
   // 1. Copy static assets (css, js, images) verbatim.
   if (existsSync(publicDir)) await copyDir(publicDir, dist);
+  // ...except the site's own scripts, which lose their comments and indentation
+  // on the way (public/js/ keeps them; the vendored libraries are already
+  // minified). See scripts/strip-js.mjs, and `npm run check:js` for the proof.
+  await stripDir(join(dist, 'js'));
 
   // 2. Render every page module.
   // A page module's default export is either one page object, or an array of them
