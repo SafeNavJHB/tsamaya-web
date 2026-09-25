@@ -1,137 +1,70 @@
-// updates.mjs — the public changelog, mirroring the app's Settings › What's New.
+// updates.mjs: the public changelog, mirroring the app's Settings, What's New.
 //
 // Content comes from src/data/whats-new.json, which `npm run changelog` generates
 // from the app's own src/constants/whatsNew.ts. Same entries, same wording, same
-// three category tabs — nothing is written twice, so the page cannot drift from
-// what users see inside the app.
+// three categories: nothing is written twice, so the page cannot drift from what
+// users see inside the app. (Only the typographic quotes are made straight.)
 //
-// The tabs are CSS-only, built on radio inputs. No JavaScript is involved, which
-// means they work with scripting disabled, they are keyboard-navigable by default
-// (arrow keys move between radios in a group), and there is no flash of the wrong
-// tab while a script loads.
-
-import { section, eyebrow, icon, button, iconForIonicon } from '../components.mjs';
+// A timeline, newest first, each release's date on the rail. The filter chips are
+// radio buttons and CSS (:checked and :has), so they work without JavaScript and
+// with the keyboard (arrow keys move between radios in a group).
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { pageHead, sec, linkQ, straight, M } from '../kit.mjs';
 
-const data = JSON.parse(
-  readFileSync(join(dirname(dirname(fileURLToPath(import.meta.url))), 'data', 'whats-new.json'), 'utf8'),
-);
-
+const data = JSON.parse(readFileSync(new URL('../data/whats-new.json', import.meta.url), 'utf8'));
 const { categories, releases } = data;
 const latest = releases[0];
 const totalItems = releases.reduce((n, r) => n + r.items.length, 0);
 
-// Escape anything that lands in HTML — the copy comes from another repo and
-// contains apostrophes, ampersands and quotes.
-const esc = (s) =>
-  String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+// Escape anything that lands in HTML: the copy comes from another repo.
+const esc = (s) => straight(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const countFor = (key) => releases.reduce((n, r) => n + r.items.filter((i) => i.category === key).length, 0);
+const ONE = { feature: 'Feature', fix: 'Fix', tweak: 'Tweak' };
 
-const countFor = (key) =>
-  releases.reduce((n, r) => n + r.items.filter((i) => i.category === key).length, 0);
+const FILTERS = [{ key: 'all', label: 'All', n: totalItems }, ...categories.map((c) => ({ key: c.key, label: c.label, n: countFor(c.key) }))];
 
-// One panel per category: every release that has an item in that category.
-function panel(cat) {
-  const withItems = releases
-    .map((rel) => ({ ...rel, items: rel.items.filter((i) => i.category === cat.key) }))
-    .filter((rel) => rel.items.length > 0);
+const timeline = `
+    <h2 class="sr">Every update, newest first</h2>
+    <div class="up">
+      ${FILTERS.map((f, i) => `<input class="up-f" type="radio" name="up-f" id="f-${f.key}"${i === 0 ? ' checked' : ''}/>`).join('')}
+      <div class="chips" data-reveal>
+        <span class="hud chips-k">Show</span>
+        ${FILTERS.map((f) => `<label class="chip" for="f-${f.key}">${esc(f.label)}<span class="num">${f.n}</span></label>`).join('')}
+      </div>
+      <ol class="tl">
+        ${releases.map((r) => `<li class="rel"><h3 class="hud tl-d">${esc(r.date)}</h3><ul class="its">${r.items.map((it) => `<li class="it" data-c="${it.category}"><p class="hud tl-c">${ONE[it.category] || esc(it.category)}</p><h4>${esc(it.title)}</h4><p>${esc(it.body)}</p></li>`).join('')}</ul></li>`).join('\n        ')}
+      </ol>
+    </div>`;
 
-  if (!withItems.length) {
-    return `<div class="up-panel" id="panel-${cat.key}" role="tabpanel"><p class="muted">Nothing here yet.</p></div>`;
-  }
-
-  return `<div class="up-panel" id="panel-${cat.key}" role="tabpanel" aria-label="${esc(cat.label)}">
-    ${withItems
-      .map(
-        (rel) => `<section class="up-release">
-      <h3 class="up-date">${esc(rel.date)}</h3>
-      <ul class="up-list">
-        ${rel.items
-          .map(
-            (it) => `<li class="up-item">
-          <span class="up-icon">${icon(iconForIonicon(it.icon, it.category), 18)}</span>
-          <span class="up-text">
-            <strong>${esc(it.title)}</strong>
-            <span>${esc(it.body)}</span>
-          </span>
-        </li>`,
-          )
-          .join('')}
-      </ul>
-    </section>`,
-      )
-      .join('')}
-  </div>`;
-}
-
-const hero = `
-<section class="page-hero">
-  <div class="wrap">
-    ${eyebrow('Product updates')}
-    <h1>What’s new in Tsamaya</h1>
-    <p class="lede center-narrow">Every change that has shipped to the app, newest first. It’s the same list you see in Settings under What’s New. Last update <strong>${esc(latest.date)}</strong>.</p>
-    <div class="metro-figures">
-      <div class="stat"><span class="stat-value">${releases.length}</span><span class="stat-label">updates shipped</span></div>
-      <div class="stat"><span class="stat-value">${totalItems}</span><span class="stat-label">changes listed</span></div>
-      <div class="stat"><span class="stat-value">${esc(latest.date.replace(/ \d{4}$/, ''))}</span><span class="stat-label">most recent</span></div>
-    </div>
-  </div>
-</section>`;
-
-const tabs = section({
-  cls: 'band',
-  inner: `
-  <div class="up-tabs">
-    ${/* The radios sit here, as DIRECT siblings of both the tab bar and the
-          panels. That is load-bearing: the CSS reveals a panel with a sibling
-          combinator (#tab-x:checked ~ #panel-x), which only matches between
-          siblings. Nesting them inside the tab bar silently hides every panel. */ ''}
-    ${categories
-      .map(
-        (c, i) =>
-          `<input class="up-radio" type="radio" name="up-tab" id="tab-${c.key}"${i === 0 ? ' checked' : ''}/>`,
-      )
-      .join('')}
-    <div class="up-tabbar" role="tablist" aria-label="Filter updates by type">
-      ${categories
-        .map(
-          (c) =>
-            `<label class="up-tab" for="tab-${c.key}">${esc(c.label)}<span class="up-count">${countFor(c.key)}</span></label>`,
-        )
-        .join('')}
-    </div>
-    ${categories.map(panel).join('')}
-  </div>`,
-});
-
-const note = section({
-  cls: 'band-soft',
-  inner: `
-  <div class="note-card">
-    <h3>${icon('shield', 20)} How this page stays honest</h3>
-    <p>Updates are written once, in the app, and copied here by a script. Nothing on this page is typed out separately, so it cannot drift from what the app itself tells you. Every entry here has actually shipped. Tsamaya updates over the air, so you get these changes without reinstalling anything.</p>
-  </div>`,
-});
-
-const cta = `
-<section class="cta-band">
-  <div class="wrap cta-inner">
-    <div>
-      <h2>Want the next one first?</h2>
-      <p>Tsamaya is in open beta on iPhone and Android. Join and you’ll get every update as it ships.</p>
-    </div>
-    <div class="cta-actions">
-      ${button('Join the beta', 'get-app.html', 'primary')}
-      ${button('See it in action', 'demo.html', 'ghost-light')}
-    </div>
-  </div>
-</section>`;
+const stats = `
+    <div class="cov-stats up-stats">
+      <div data-reveal><b class="num">${releases.length}</b><span class="hud">Updates shipped</span></div>
+      <div data-reveal><b class="num">${totalItems}</b><span class="hud">Changes listed</span></div>
+      <div data-reveal><b class="num">${countFor('feature')}</b><span class="hud">New features</span></div>
+      <div data-reveal><b class="num up-last">${esc(latest.date.replace(/ \d{4}$/, ''))}</b><span class="hud">Most recent</span></div>
+    </div>`;
 
 export default {
   slug: 'updates.html',
   title: 'Updates',
   description: `Every update shipped to the Tsamaya app, newest first. ${releases.length} releases and ${totalItems} changes, the most recent on ${latest.date}.`,
-  heroClass: 'page-updates',
-  body: [hero, tabs, note, cta].join('\n'),
+  heroClass: 'sn page-updates',
+  hud: false,
+  body: [
+    pageHead({
+      meta: `Product updates${M}last update ${esc(latest.date)}`,
+      title: "What's new in Tsamaya",
+      lead: "Every change that has shipped to the app, newest first. It is the same list you see in Settings under What's New.",
+      after: stats,
+    }),
+    sec({ id: 'log', cls: 'log', head: false, inner: timeline }),
+    sec({
+      id: 'honest',
+      cls: 'tail',
+      kick: 'How this page stays honest',
+      title: 'Written once, in the app.',
+      lead: 'Updates are written in the app and copied here by a script. Nothing on this page is typed out separately, so it cannot drift from what the app itself tells you, and every entry here has shipped. Tsamaya updates over the air, so you get these changes without reinstalling anything.',
+      inner: `<p class="more" data-reveal>${linkQ('Get the app', 'get-app.html')}${linkQ('See it in action', 'demo.html')}</p>`,
+    }),
+  ].join('\n'),
 };

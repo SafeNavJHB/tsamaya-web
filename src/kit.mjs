@@ -15,19 +15,23 @@ const COPY = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
 // An underlined text link with an arrow (the site's quiet call to action).
 export const linkQ = (text, href, attrs = '') => `<a class="link-q" href="${href}"${attrs}><span>${text}</span>${ARROW}</a>`;
 
+// Typographic quotes from another repo's copy, made straight (brand rule 4).
+export const straight = (t) => String(t).replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"');
+
 // A copy-to-clipboard button (site.js wires every .copy-btn).
 export const copyBtn = (value, label) => `<button class="copy-btn" type="button" data-copy="${value}" aria-label="Copy ${label}">${COPY}</button>`;
 
 // The page header: an optional way back, a telemetry line, the h1 and a lead.
 // The h1 is not split for a reveal: it is the page's first paint.
-export function pageHead({ crumb, meta, title, lead, after = '' }) {
+// fig: a decorative figure beside the text on wide screens (below it on phones).
+export function pageHead({ crumb, meta, title, lead, after = '', fig = '' }) {
   return `
-<header class="ph" aria-labelledby="ph-h">
+<header class="ph${fig ? ' ph-split' : ''}" aria-labelledby="ph-h">
   <div class="wrap">
     ${crumb ? `<a class="crumb hud" href="${crumb.href}"><span aria-hidden="true">&larr;</span> ${crumb.label}</a>` : ''}
     ${meta ? `<p class="hud ph-meta">${meta}</p>` : ''}
     <h1 class="display" id="ph-h">${title}</h1>
-    ${lead ? `<p class="lead ph-lead">${lead}</p>` : ''}${after}
+    ${lead ? `<p class="lead ph-lead">${lead}</p>` : ''}${after}${fig ? `\n    <div class="ph-fig" aria-hidden="true">${fig}</div>` : ''}
   </div>
 </header>`;
 }
