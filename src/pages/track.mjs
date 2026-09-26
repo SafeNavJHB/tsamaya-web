@@ -36,7 +36,7 @@ export default {
     <p class="hud trk-k">Shared via Tsamaya</p>
     <h1 class="trk-h" id="trk-h">Live trip</h1>
     <p id="trip-status" class="trk-s" data-state="load" role="status">Loading</p>
-    <div id="map-wrap" class="trk-map scheme-dark">
+    <div id="map-wrap" class="trk-map scheme-dark" data-lenis-prevent>
       <div id="map"></div>
       <div id="arrived" class="trk-arr">
         <svg class="trk-ok" viewBox="0 0 48 48" width="56" height="56" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 24.5l7 7 13-14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -66,7 +66,7 @@ export default {
   function fetchTrip(){
     return fetch(cfg.supabaseUrl+'/rest/v1/rpc/get_live_trip',{method:'POST',headers:{'Content-Type':'application/json','apikey':cfg.anonKey,'Authorization':'Bearer '+cfg.anonKey},body:JSON.stringify({p_token:token})}).then(function(r){return r.ok?r.json():[];}).catch(function(){return [];});
   }
-  function setRoute(geo){
+  function setRoute(geo,now){
     if(!geo||!geo.coordinates||!geo.coordinates.length) return;
     // Cheap identity: a new drive (or a reroute) gets a new signature → update
     // the line + reframe once; identical polls are no-ops so the viewer can pan.
@@ -86,7 +86,8 @@ export default {
       routeSig=sig;
     }
     lastGeo=geo;
-    if(map.isStyleLoaded()) go(); else map.on('load',go);
+    // now: straight after a restyle ('style.load'), when 'load' will not fire again
+    if(now||map.isStyleLoaded()) go(); else map.on('load',go);
   }
   // the map follows the page's theme (unless the scenes are kept dark with
   // ?scenes=dark): a light Mapbox style with a deeper emerald in the light
@@ -97,7 +98,7 @@ export default {
   window.addEventListener('ts-theme',function(){
     if(!started||!map.setStyle) return;
     map.setStyle(C().style);
-    map.once('style.load',function(){ routeSig=null; if(lastGeo) setRoute(lastGeo); });
+    map.once('style.load',function(){ routeSig=null; if(lastGeo) setRoute(lastGeo,true); });
     // markers carry their colour from creation: made again
     var p=driver.getLngLat(); driver.remove(); driver=new mapboxgl.Marker({color:sos?'#dc3c50':C().driver}).setLngLat(p).addTo(map);
     if(destMarker){ var q=destMarker.getLngLat(); destMarker.remove(); destMarker=new mapboxgl.Marker({color:C().dest}).setLngLat(q).addTo(map); }

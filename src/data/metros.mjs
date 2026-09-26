@@ -285,7 +285,7 @@ export const metros = [
     intro:
       'Durban is the biggest addition since Cape Town and the first metro on the east coast. Coverage is the whole of eThekwini: the city and the beachfront, Pinetown and the Upper Highway, the south coast down to Umkomaas, and the north through Umhlanga and Tongaat to King Shaka airport. The N2 and the N3 tie all of it together, and they are what most trips here depend on.',
     context: [
-      'The N3 climb through Pinetown and Mariannhill and the N2 along the coast are both mapped end to end and rated for each time of day. Neither is waved through as a protected route, because both pass close to areas that carry a real penalty.',
+      'The N3 climb inland and the N2 along the coast are both mapped end to end and rated for each time of day. Neither is waved through as a protected route, because both pass close to rated areas that carry a real penalty.',
       'The M4 along the northern beachfront, the M7 and the M13 through Westville are the everyday roads for most of the metro, and all three are on the map.',
       'The beachfront changes character after dark. Several stretches that carry a modest rating at midday sit in the top band in the evening and at night, which is why the three time bands are rated separately.',
     ],

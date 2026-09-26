@@ -6,6 +6,7 @@
 
 import { readdir, mkdir, rm, copyFile, writeFile, readFile, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, extname } from 'node:path';
 import { renderPage } from './src/layout.mjs';
@@ -78,8 +79,23 @@ async function build() {
     seen.add(p.slug);
   }
 
+  // Stylesheet and script links carry a fingerprint of the file (?v=...), so a
+  // visitor whose browser still holds an older file under the same name (GitHub
+  // Pages lets browsers keep files for 10 minutes) gets the new one with the new
+  // page. Modules a script imports are not stamped: they load by their plain
+  // names, from files the stamped script names.
+  const stamps = new Map();
+  const ASSET = /\b(href|src)="(\/?)(styles\.css|js\/[\w./-]+\.js|vendor\/[\w./-]+\.js)"/g;
+  async function fingerprint(html) {
+    for (const m of html.matchAll(ASSET)) {
+      if (stamps.has(m[3])) continue;
+      try { stamps.set(m[3], createHash('sha256').update(await readFile(join(dist, m[3]))).digest('hex').slice(0, 10)); } catch { stamps.set(m[3], null); }
+    }
+    return html.replace(ASSET, (all, attr, slash, path) => (stamps.get(path) ? `${attr}="${slash}${path}?v=${stamps.get(path)}"` : all));
+  }
+
   for (const page of pages) {
-    const html = renderPage(page);
+    const html = await fingerprint(renderPage(page));
     const outPath = join(dist, page.slug);
     // Support nested slugs like 't/index.html' (gives a clean /t/ URL).
     await mkdir(dirname(outPath), { recursive: true });

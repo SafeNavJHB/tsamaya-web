@@ -166,7 +166,7 @@ function pageHtml(page) {
         <span></span><span></span><span></span>
       </button>
     </div>
-    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile" data-lenis-prevent>
       ${mobileLinks(page.slug)}
       <a class="btn btn-primary btn-lg" href="get-app.html">Get the app ${arrow}</a>
       <p class="hud"><span data-sa-clock>Live South African time</span></p>

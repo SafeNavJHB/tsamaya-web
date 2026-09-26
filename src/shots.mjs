@@ -93,13 +93,20 @@
 // Alt text for every capture, including the ones that only appear in the
 // walkthrough and so have no gallery entry to borrow a description from.
 // A screen reader should get the same information a sighted reader does.
+import { readFileSync } from 'node:fs';
+const card = JSON.parse(readFileSync(new URL('./data/route-card.json', import.meta.url), 'utf8'));
+const std = card.standard, low = card.lower;
+
 export const alts = {
   'home-day':
     'The Tsamaya home screen in the daytime over Rosebank, Johannesburg. The city chip reads Johannesburg, Day, the Where to? search bar sits above a row of one-tap shortcuts, and the risk overlay is switched off, so the map shows only streets and places',
   'route-card-day':
     'Tsamaya ready to plan a daytime trip, with the start set to My location in Rosebank and the destination set to Melrose Arch, and an Add stop option and the Go button underneath',
+  // Built from the route card (src/data/route-card.json), and naming no place
+  // on the trip: the high-risk areas the standard route passes are suburbs
+  // (launch review, 2026/09/26).
   'route-result-detour-day':
-    'Tsamaya comparing three routes from Kempton Park to Cresta Shopping Centre in Randburg in the daytime. The balanced and lower-risk option, graded B, takes 47 minutes over 52.3 km: 9.8 km further than the standard route but 2 minutes quicker in live traffic, with 99 per cent less risk, passing one medium-risk area for 0.1 km. The standard route, graded E, takes 49 minutes over 42.4 km and passes 4 high-risk areas for 10 km, and a third option via the N1, also graded E, passes 3. On the map the lower-risk route heads south past O.R. Tambo International Airport to the freeway where the standard route heads straight west, and both then follow the freeways around the north of Johannesburg',
+    `Tsamaya comparing three routes for a daytime trip across the north of Johannesburg. The ${low.label.toLowerCase()} option, graded ${low.grade}, takes ${low.minutes} minutes over ${low.km} km: ${low.extraKm} km further than the standard route but ${low.minutesQuicker} minutes quicker in live traffic, with ${low.lessRiskPct} per cent less risk, passing ${low.mediumRisk} medium-risk area for ${low.mediumRiskKm} km. The standard route, graded ${std.grade}, takes ${std.minutes} minutes over ${std.km} km and passes ${std.highRisk} high-risk areas for ${std.highRiskKm} km, and a third option via the N1 is also graded ${std.grade}. On the map the lower-risk route swings south to the freeway where the standard route heads straight west, and both then follow the freeways around the north of Johannesburg`,
   'navigation-day':
     'Tsamaya navigating on Oxford Road in Rosebank in the daytime, between 3D buildings. The next instruction is a left turn onto the M20 in 280 metres with lane guidance underneath, the speed reads 43 km/h against a 60 limit, the route is drawn green along Oxford Road and yellow for low risk on the M20 ahead, and the road the car is on is labelled Oxford Road, lower risk. The trip has 8 minutes and 3.8 km left',
 };

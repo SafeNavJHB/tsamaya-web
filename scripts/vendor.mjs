@@ -21,7 +21,7 @@
 // Versions are pinned exactly in package.json. Upgrading one is deliberate: bump
 // it there, run this script, test the pages that use it, update
 // public/vendor/README.md, commit.
-import { copyFile, mkdir, readFile, stat } from 'node:fs/promises';
+import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { gzipSync } from 'node:zlib';
@@ -55,7 +55,9 @@ const copies = [
 for (const [pkg, from, to] of copies) {
   const src = join(nm, pkg, from);
   await stat(src).catch(() => { throw new Error(`missing ${pkg}/${from}; run npm install`); });
-  await copyFile(src, join(out, to));
+  // without its sourceMappingURL line: the maps are not vendored, and a named
+  // map that is not there is a 404 in every visitor's developer tools
+  await writeFile(join(out, to), (await readFile(src, 'utf8')).replace(/\n?\/\/# sourceMappingURL=\S+\s*$/, '\n'));
 }
 
 await esbuild.build({

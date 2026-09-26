@@ -127,5 +127,5 @@ export function legalText(html) {
     items.push(`<li><a href="#${id}">${inner}</a></li>`);
     return `<h2 id="${id}">${inner}</h2>`;
   });
-  return { toc: `<nav class="toc" aria-label="Contents"><p class="hud">Contents</p><ol>${items.join('')}</ol></nav>`, html: out };
+  return { toc: `<nav class="toc" aria-label="Contents" data-lenis-prevent><p class="hud">Contents</p><ol>${items.join('')}</ol></nav>`, html: out };
 }

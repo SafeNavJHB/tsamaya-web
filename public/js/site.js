@@ -19,6 +19,7 @@
   'use strict';
 
   var doc = document.documentElement;
+  doc.classList.add('site-ok'); // switches off the stylesheet's own reveal failsafe
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -137,6 +138,8 @@
   function setMenu(open) {
     if (!toggle || !sheet) return;
     sheet.classList.toggle('open', open);
+    // the page behind the open menu is out of reach for Tab and screen readers
+    $$('main, .site-footer, .skip-link').forEach(function (el) { el.inert = open; });
     doc.classList.toggle('menu-open', open);
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
