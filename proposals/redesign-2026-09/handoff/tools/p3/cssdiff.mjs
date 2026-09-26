@@ -1,7 +1,8 @@
 // node p3/cssdiff.mjs <a.css> <b.css>: every element's computed style (and its
 // ::before / ::after) on every page, at 1440 and 390, with stylesheet A and then B
 // served in place of styles.css. Prints the elements whose styles differ
-// (PAGES=index.html,about.html for some pages only; MAX=n lines, default 40).
+// (PAGES=index.html,about.html for some pages only; MAX=n lines, default 40;
+// COLOR=light for the light theme, dark by default).
 // Reduced motion and a fixed clock keep the pages still between the two runs.
 // Used to prove the style clean-up (p3/prune-css.py) changed nothing, and to
 // find Phase 3 rules leaking onto the home page (against the Phase 2 styles).
@@ -13,7 +14,7 @@ const pages = process.env.PAGES ? process.env.PAGES.split(',') : readdirSync(dis
 const b = await chromium.launch();
 async function dump(cssFile, w, h) {
   const css = readFileSync(cssFile, 'utf8');
-  const ctx = await b.newContext({ viewport: { width: w, height: h }, reducedMotion: 'reduce' });
+  const ctx = await b.newContext({ viewport: { width: w, height: h }, reducedMotion: 'reduce', colorScheme: process.env.COLOR || 'dark' });
   await ctx.route('**/styles.css*', (r) => r.fulfill({ contentType: 'text/css', body: css }));
   await ctx.route(/mapbox|plausible|googletagmanager|analytics/, (r) => r.abort());
   const out = {};
@@ -31,7 +32,7 @@ async function dump(cssFile, w, h) {
           const cs = getComputedStyle(el, pseudo);
           if (pseudo && (cs.content === 'none' || cs.content === 'normal')) continue;
           const o = {};
-          for (let i = 0; i < cs.length; i++) { const n = cs[i]; o[n] = cs.getPropertyValue(n); }
+          for (let i = 0; i < cs.length; i++) { const n = cs[i]; if (!n.startsWith('--')) o[n] = cs.getPropertyValue(n); } // what is drawn, not the tokens' own text
           res[key(el) + (pseudo || '')] = o;
         }
       }
