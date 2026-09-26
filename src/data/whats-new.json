@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-26.7",
+      "date": "26 September 2026",
+      "items": [
+        {
+          "icon": "mic-outline",
+          "title": "Voice reports hear you better",
+          "body": "When you say \"police\" and your phone hears \"peace\" or \"polis\", Tsamaya now still files a police report. With Siri, say \"Hey Siri, report police in Tsamaya\".",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-26.6",
       "date": "26 September 2026",
       "items": [
@@ -39,7 +51,7 @@
         {
           "icon": "chatbubble-ellipses-outline",
           "title": "Or just ask Siri",
-          "body": "On iPhone and CarPlay you can also say \"Hey Siri, Tsamaya, police here\" during a drive. Siri tells you when the report is sent.",
+          "body": "On iPhone and CarPlay you can also say \"Hey Siri, report police in Tsamaya\" during a drive. Siri tells you when the report is sent.",
           "category": "feature"
         },
         {
