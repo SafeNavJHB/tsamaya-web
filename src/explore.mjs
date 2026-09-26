@@ -23,7 +23,7 @@ export const GAUTENG = ['johannesburg', 'pretoria', 'ekurhuleni', 'west_rand', '
 // for a reader who lands on it (a link to #explore, a reload). The tier: the
 // one home.js found last visit (a reload), or a cheap guess; home.js decides
 // for real (scene/tier.js) and takes the class off again for the static tier.
-const PRE_CINE = `<script>(function(){var s=document.currentScript.parentNode,q=location.search.match(/[?&]tier=(\\w+)/),t=null;try{t=localStorage.getItem('ts-tier')}catch(e){}if(q)t=q[1];else if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)t='static';if(t!=='static')s.classList.add('cine')})()</script>`;
+const PRE_CINE = `<script>(function(){var s=document.currentScript.parentNode,q=location.search.match(/[?&]tier=(\\w+)/),t=null;try{t=localStorage.getItem('ts-tier')}catch(e){}if(q)t=q[1];else if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches||innerHeight<500&&innerWidth>innerHeight)t='static';if(t!=='static')s.classList.add('cine')})()</script>`;
 
 // kick: the small label over the heading. canvas: the section brings its own
 // scene (the coverage page); the home page draws it in the story's scene.

@@ -33,6 +33,12 @@ export function detectTier() {
   return 'full';
 }
 
+// A window under 500 px tall and wider than it is tall (a phone on its side):
+// the home page's pinned chapters cannot fit it, so the home page tells its
+// story as the still version there (home.js). Not a tier of its own, and never
+// stored: turned upright on the next visit, the phone gets its usual tier.
+export const tooShortToPin = () => window.innerHeight < 500 && window.innerWidth > window.innerHeight;
+
 // Phones get a lower pixel-ratio ceiling: a 3x screen renders nine times the
 // pixels of a 1x one, and fill rate is what budget GPUs run out of first.
 export function pixelRatioFor(tier) {

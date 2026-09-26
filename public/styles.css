@@ -1627,3 +1627,29 @@ html:not(.js) .try { display: none; }
 :root[data-theme='light']:not([data-scenes='dark']) #sa-dots { fill: #334155; }
 /* the explore card's other bands fade less on a light ground, or their small type drops under AA */
 :root[data-theme='light']:not([data-scenes='dark']) .exc-rows li:not(.sel) { opacity: 0.8; }
+
+/* ---------- Home hero: phones on their side ----------
+   Wide but under 500 px tall, the desktop hero cannot fit: its text outgrew the
+   window and ran into the HUD corners, which sit on the window's edges. Here
+   the HUD is laid out as on a phone (the corner labels and the stats line go;
+   the clock, the band chips and Pause sit at the top), and the headline is
+   sized to the height, in the left part of the screen beside the city. */
+@media (min-width: 768px) and (max-height: 500px) {
+  .page-home .hud-c.bl, .page-home .hud-c.tl, .page-home .hud-frame, .page-home .hud-long { display: none; }
+  .page-home .hud-c.tr { top: calc(var(--head) + 10px); }
+  .page-home .hud-c.br { bottom: auto; right: auto; top: calc(var(--head) + 10px); left: var(--edge); gap: 4px; }
+  .page-home .hud-c.br .pause { margin-right: 0; padding: 0 10px; min-width: 44px; justify-content: center; }
+  .page-home .hud-c.br .motion-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .page-home .hud-c.tr, .page-home .hud-c.br { font-size: 10px; }
+  .pv .page-home .hud-c.br .hud-txt { visibility: hidden; }
+  .page-home .home-hero-in { max-width: 60%; padding-top: calc(var(--head) + 84px); padding-bottom: 28px; }
+  .page-home .hero-h { font-size: clamp(2rem, 13vh, 3.4rem); }
+  .page-home .say { margin-bottom: 10px; font-size: 10px; }
+  .page-home .hero-sub { margin-top: 14px; font-size: 0.98rem; }
+  .page-home .home-cta { margin-top: 16px; }
+  .page-home .hero-note { margin-top: 12px; }
+}
+/* chapter 1's flat figure labels its routes in the dark scene's colours; ink and deep emerald on the light ground */
+:root[data-theme='light']:not([data-scenes='dark']) .page-home .plan-lbl { fill: #3a475a; }
+:root[data-theme='light']:not([data-scenes='dark']) .page-home .plan-lbl text[fill='#E6EDF5'] { fill: #1c2533; }
+:root[data-theme='light']:not([data-scenes='dark']) .page-home .plan-lbl text[fill='#34D399'] { fill: #047857; }

@@ -21,7 +21,7 @@
 //     its SVG map, with the scene live drawn by scene/explore.js.
 //
 // TEST HOOK: window.__home = { tier, ready, c(), state(), frames, ex(), xp() }.
-import { detectTier } from './scene/tier.js';
+import { detectTier, tooShortToPin } from './scene/tier.js';
 import { initExplore } from './explore.js';
 
 const doc = document.documentElement;
@@ -39,13 +39,13 @@ const TS = window.Tsamaya || {
 const bandOf = (m) => TS.bands.indexOf(TS.bandAt(m));
 
 const forced = new URLSearchParams(location.search).get('tier');
-const tier = ['static', 'light', 'full'].includes(forced) ? forced : detectTier();
+const tier = ['static', 'light', 'full'].includes(forced) ? forced : tooShortToPin() ? 'static' : detectTier();
 doc.classList.add('tier-' + tier);
 // remembered for the next visit's first paint (the explore section's layout,
 // below); not a static tier that reduced motion alone chose, which the early
 // guess checks for itself, so the next visit without it guesses right
 const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (!forced && !reduced) try { localStorage.setItem('ts-tier', tier); } catch (e) { /* storage off */ }
+if (!forced && !reduced && !tooShortToPin()) try { localStorage.setItem('ts-tier', tier); } catch (e) { /* storage off; a sideways phone's still version is never stored */ }
 // The explore section's 3D layout: set while the page was read in (the inline
 // script in src/explore.mjs, from a cheap guess), settled here by the tier.
 if (document.getElementById('explore')) document.getElementById('explore').classList.toggle('cine', tier !== 'static');
@@ -310,6 +310,9 @@ function posterTags() {
   placeCard();
 }
 addEventListener('resize', posterTags);
+// turned on its side mid-visit: the still version from here on (the pinned
+// chapters cannot fit a window this short)
+addEventListener('resize', () => { if (ctl.tier !== 'static' && !forced && tooShortToPin()) toStatic('the window is too short for the pinned chapters'); });
 
 /* ---------------------------------------------------------------------------
  * FAQ: every answer is open in the HTML (so it reads without JavaScript);
