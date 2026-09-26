@@ -1,6 +1,6 @@
 # Build plan: the Sensor redesign of tsamayaapp.co.za
 
-Written 2026/09/25. Status: Phases 0 to 4 done (2026/09/26), with light mode; Phase 5 (hardening and launch) next.
+Written 2026/09/25. Status: Phases 0 to 4 done (2026/09/26), with light mode; Phase 5 (hardening and launch) in progress.
 Preview of the branch build (private): https://claude.ai/artifact/UML9VQcPGy26gfbXSJUjj7, republished at the end of each phase.
 Prototype: `proposals/redesign-2026-09/concept-4-sensor.html` (home and Johannesburg views, with the interactive map spike).
 Owner decisions were settled on 2026/09/25 and are recorded in section 10.
@@ -486,6 +486,18 @@ Built in the same local session, with four requests from Kyle on 2026/09/26 fold
 - **The archive page** repeats the app's older changelog wording ("risk zones", "safer route"), as Updates did before; the fix is in the app's `whatsNew.ts`.
 - The scroll report could not be reproduced; if it recurs, note the browser and the route taken.
 
+### Phase 5 record (2026/09/26, in progress)
+
+**Done so far:**
+- **Main merged in:** the Terms and Privacy re-sync (the only change on `main` since the branch started). The legal texts now carry no em dashes.
+- **Dots for the section markers** (Kyle: the outlined square beside the HUD's corner lines read as a broken image).
+- **Phones on their side** (under 500 px tall and wider than tall) get the still version of the home story: the pinned chapters cannot fit a 393 px window. Chosen at load and on turning sideways mid-visit, never stored; the hero lays its HUD out as on a phone. How it works and the coverage map already fit sideways.
+- **Device matrix, emulated** (`handoff/tools/p5/matrix.mjs`): Galaxy A06 and A15 class phones (Chromium, Android user agent, touch), iPhone SE and a recent iPhone (WebKit), a phone on its side, an iPad in portrait, and laptops in Chrome and Safari's engine. Nine pages each: no script or three.js errors, no sideways scroll, no broken images, header and headline on screen. Firefox could not be run (Playwright's Firefox does not start on this macOS, and Firefox is not installed); it is a gap, and real phones still have the last word on speed.
+- **Lighthouse** (throttled mobile, real GPU, served gzipped): largest paint 2.1 to 2.4 s on every page tested, layout shift 0 everywhere, accessibility and SEO 100. Blocking time on the 3D pages is 130 to 300 ms on home, 70 to 130 ms on coverage and 20 to 30 ms on How it works when warm; the first run after today's shader changes showed 1 to 2 s (the GPU compiling shaders once, as recorded in Phase 2), which a first-time visitor also pays once. Text pages 0 to 10 ms.
+- **Transfer:** home 454 KB (phone) to 487 KB (desktop) over a full scroll, against about 600; text pages 187 to 193 KB, See it 264 KB (its four screenshots); no text page loads Three.js.
+- **Copy pass:** the rules hold everywhere except content from the app (the mirrored changelog's older wording on the archive page, the legal texts' "risk zones" and quoted button label).
+- **Launch checks:** every address the live site serves still exists (what goes is the old design's `app.js`, fonts, `og.svg` and screenshots); `.well-known` is identical; the app's links (`track.html`, `privacy`, `sponsor.html`) resolve; a clean checkout builds under Node 20 with no install and passes the SEO gate, as CI will.
+
 ## 9. Risks and what we do about them
 
 | Risk | Mitigation |
@@ -521,7 +533,7 @@ Built in the same local session, with four requests from Kyle on 2026/09/26 fold
 
    The figures live in `src/data/route-card.json`. The trip's place names are never printed next to them, because the areas it avoids are named suburbs. The illustrative city is tuned to match: the lower-risk route crosses no high cell.
 
-9. **Light mode (Kyle, 2026/09/26).** The site follows the device's light or dark setting by default, and a sun and moon button in the header switches it and remembers the choice. Kyle first chose to keep the 3D city, the maps and the tracker's map dark in light mode (night panels in a light page), then asked for them in daylight too, to test a fully light page. Both are built: the scenes follow the theme by default, and `?scenes=dark` (remembered for the tab) shows the other way. **Open: which one ships.** Built in Phase 4.
+9. **Light mode (Kyle, 2026/09/26).** The site follows the device's light or dark setting by default, and a sun and moon button in the header switches it and remembers the choice. Kyle first chose to keep the 3D city, the maps and the tracker's map dark in light mode (night panels in a light page), then asked for them in daylight too, to test a fully light page. Both are built. **Settled 2026/09/26 (Kyle, after trying it on his iPhone): the scenes follow the theme, the light 3D city ships.** `?scenes=dark` (remembered for the tab) still shows the other way. Built in Phase 4.
 10. **Updates carries the newest 10 releases (Kyle, 2026/09/26),** with "Show earlier updates" for the rest, to keep the page light.
 
 ## 11. Out of scope for this build

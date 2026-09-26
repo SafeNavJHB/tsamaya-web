@@ -59,6 +59,10 @@ export function createEngine({ canvas, stage = canvas.parentElement, tier = 'ful
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     if (onResize) onResize({ width: w, height: h });
+    // Resizing a canvas clears it. Draw again now, before the browser paints
+    // (a ResizeObserver runs after layout and before paint), or the page shows
+    // the bare background for a frame; the next frame then catches up as usual.
+    if (live && !lost) renderer.render(scene, camera);
     dirty = true;
     kick();
   }

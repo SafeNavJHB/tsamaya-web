@@ -140,6 +140,7 @@
   --sel-bg: rgba(52, 211, 153, 0.35);
   --sel-fg: #fff;
   --sos: #ef6a7b;
+  --hud-plate: rgba(10, 15, 28, 0.72); /* behind HUD readouts over the scene */
   color-scheme: dark;
 }
 @supports (color: light-dark(#000, #fff)) {
@@ -175,6 +176,7 @@
     --sel-bg: light-dark(rgba(4, 120, 87, 0.22), rgba(52, 211, 153, 0.35));
     --sel-fg: light-dark(#0b1220, #fff);
     --sos: light-dark(#b91c1c, #ef6a7b);
+    --hud-plate: light-dark(rgba(244, 246, 249, 0.86), rgba(10, 15, 28, 0.72));
   }
   :root[data-theme='dark'] { color-scheme: dark; }
   :root[data-theme='light'] {
@@ -601,7 +603,12 @@ code { font-family: var(--mono); background: var(--bg-soft); padding: 2px 6px; b
 /* The zone slides up under the transparent header, as the prototype's did. */
 .page-home .zone { position: relative; margin-top: calc(-1 * var(--head) - 1px); } /* the header and its 1px rule */
 .page-home .scene { position: absolute; inset: 0 0 auto; height: 100vh; height: 100svh; z-index: 0; overflow: hidden; background: var(--night); pointer-events: none; }
-.is-cine .scene { position: fixed; inset: 0; height: auto; }
+.is-cine .scene { position: fixed; inset: 0 0 auto; height: 100vh; height: 100lvh; }
+/* The largest viewport height, not inset: 0. On a phone, a fixed box pinned to
+   all four edges grows and shrinks as the address bar slides away while
+   scrolling; the canvas followed it, and every resize cleared it for a frame
+   (Kyle, iPhone, 2026/09/26: "the visuals flash black, or white"). At 100lvh
+   it keeps one size; with the bar showing, its foot is simply below the fold. */
 .tier-static .scene > canvas { display: none; }
 .page-home .scene.is-live > .scene-poster { visibility: hidden; transition: opacity 0.6s var(--ease-ui), visibility 0s linear 0.6s; }
 .page-home .poster { overflow: hidden; }
@@ -744,7 +751,7 @@ html:not(.is-cine) .page-home .pause { display: none; }
 .page-home .co-go .sp-card { border-color: rgba(52, 211, 153, 0.45); }
 @media (max-width: 767px) {
   .page-home .home-hero::before { background: linear-gradient(0deg, rgba(10, 15, 28, 0.97) 0%, rgba(10, 15, 28, 0.9) 44%, rgba(10, 15, 28, 0) 70%); background: linear-gradient(0deg, light-dark(rgba(244, 246, 249, 0.97), rgba(10, 15, 28, 0.97)) 0%, light-dark(rgba(244, 246, 249, 0.9), rgba(10, 15, 28, 0.9)) 44%, light-dark(rgba(244, 246, 249, 0), rgba(10, 15, 28, 0)) 70%); }
-  .page-home .home-hero-in { padding-top: calc(var(--head) + 84px); padding-bottom: 36px; } /* 12 px under the band chips when the hero outgrows a short phone */
+  .page-home .home-hero-in { padding-top: calc(var(--head) + 90px); padding-bottom: 36px; } /* 12 px under the band chips (on their plates) when the hero outgrows a short phone */
   .page-home .hero-sub { font-size: 1rem; margin-top: 18px; }
   .page-home .home-cta { margin-top: 22px; }
   .page-home .say { margin-bottom: 14px; font-size: 10px; }
@@ -1653,3 +1660,18 @@ html:not(.js) .try { display: none; }
 :root[data-theme='light']:not([data-scenes='dark']) .page-home .plan-lbl { fill: #3a475a; }
 :root[data-theme='light']:not([data-scenes='dark']) .page-home .plan-lbl text[fill='#E6EDF5'] { fill: #1c2533; }
 :root[data-theme='light']:not([data-scenes='dark']) .page-home .plan-lbl text[fill='#34D399'] { fill: #047857; }
+
+/* ---------- Home HUD: readouts on a plate ----------
+   The clock, the place label, Pause and the band chips sit over the moving
+   city. On a phone, and most of all over the light city, dots and roads ran
+   behind the letters (Kyle, iPhone, 2026/09/26), and the route's end tag could
+   show through a chip. Each readout now has its own plate. */
+.page-home .hud-now, .page-home .hud-txt { padding: 3px 7px; border-radius: 5px; background: var(--hud-plate); }
+.page-home .pause { background: var(--hud-plate); }
+.page-home .bchip span { background: var(--hud-plate); }
+.page-home .bchip[aria-pressed='true'] span { background-color: var(--hud-plate); background-image: linear-gradient(rgba(201, 214, 227, 0.14), rgba(201, 214, 227, 0.14)); background-image: linear-gradient(light-dark(rgba(58, 71, 90, 0.15), rgba(201, 214, 227, 0.14)), light-dark(rgba(58, 71, 90, 0.15), rgba(201, 214, 227, 0.14))); }
+/* on phones Pause is an icon in a 44 px target: the plate goes round the icon, not the target */
+@media (max-width: 767px), (min-width: 768px) and (max-height: 500px) {
+  .page-home .hud-c.br .pause { background: none; }
+  .page-home .hud-c.br .pause .pi { box-shadow: 0 0 0 7px var(--hud-plate); border-radius: 1px; }
+}

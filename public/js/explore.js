@@ -113,14 +113,18 @@ export function initExplore({ root, tier }) {
   // into view. Not for Enter on the keyboard: focus stays in view where it is.
   const stacked = window.matchMedia('(max-width: 1023px)');
   // (at once for keyboard focus, which must land in view before the next Tab)
+  // Also after a tap on the map itself, and when the map's foot or the card
+  // runs off the bottom of the screen, not only when the map is above the
+  // header (Kyle, iPhone, 2026/09/26: a picked metro sat half under the header).
   function reveal(now) {
-    const hd = $('.site-header'), top = $('.ex-stage', root).getBoundingClientRect().top, head = hd ? hd.getBoundingClientRect().bottom : 0;
-    if (!stacked.matches || top >= head - 2) return;
+    const hd = $('.site-header'), st = $('.ex-stage', root).getBoundingClientRect(), head = hd ? hd.getBoundingClientRect().bottom : 0;
+    const top = st.top, foot = Math.max(st.bottom, card.getBoundingClientRect().bottom);
+    if (!stacked.matches || (top >= head - 2 && foot <= innerHeight + 2)) return;
     const y = Math.round(scrollY + top - head), still = now || document.documentElement.classList.contains('motion-paused') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (window.lenis) window.lenis.scrollTo(y, still ? { immediate: true, force: true } : { duration: 0.8 });
     else window.scrollTo({ top: y, behavior: still ? 'auto' : 'smooth' });
   }
-  Object.assign(ex, { show, hover, select, region, home, setBand, btns });
+  Object.assign(ex, { show, hover, select, region, home, setBand, btns, reveal });
 
   bandBtns.forEach((x) => x.addEventListener('click', () => setBand(+x.dataset.b)));
   setInterval(mark, 60000);

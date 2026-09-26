@@ -272,7 +272,7 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     if (!ex.act || e.target.closest('button')) return;
     const h = pick(...at(e));
     hint(false);
-    if (h === 99) ex.region(); else if (h >= 0) { if (h !== ex.sel) ex.select(h); } else ex.home();
+    if (h === 99) ex.region(); else if (h >= 0) { if (h !== ex.sel) { ex.select(h); if (ex.reveal) ex.reveal(); } } else ex.home();
   };
   stage.addEventListener('pointermove', onMove);
   stage.addEventListener('pointerleave', onLeave);
