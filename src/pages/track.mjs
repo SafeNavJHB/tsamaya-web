@@ -36,7 +36,7 @@ export default {
     <p class="hud trk-k">Shared via Tsamaya</p>
     <h1 class="trk-h" id="trk-h">Live trip</h1>
     <p id="trip-status" class="trk-s" data-state="load" role="status">Loading</p>
-    <div id="map-wrap" class="trk-map">
+    <div id="map-wrap" class="trk-map scheme-dark">
       <div id="map"></div>
       <div id="arrived" class="trk-arr">
         <svg class="trk-ok" viewBox="0 0 48 48" width="56" height="56" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 24.5l7 7 13-14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>

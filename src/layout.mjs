@@ -102,12 +102,18 @@ function pageHtml(page) {
        animation is scoped to .js, so with JavaScript disabled or still loading
        nothing is hidden waiting for an observer that will never run. -->
   <script>document.documentElement.className+=' js';</script>
+  <!-- Light or dark before first paint: the visitor's own choice if they made
+       one (the header's sun and moon button, site.js), else the device's.
+       Without JavaScript the stylesheet follows the device by itself. -->
+  <script>(function(){var t;try{t=localStorage.getItem('ts-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
+  <meta name="color-scheme" content="dark light"/>
   <!-- Never leak the URL (the live-trip tracker carries a bearer ?id= token) in
        the Referer header to Mapbox or any cross-origin request. -->
   <meta name="referrer" content="no-referrer"/>
   <title>${titleFull}</title>
   <meta name="description" content="${desc}"/>
-  <meta name="theme-color" content="#0A0F1C"/>
+  <meta name="theme-color" content="#0A0F1C" media="(prefers-color-scheme: dark)"/>
+  <meta name="theme-color" content="#F4F6F9" media="(prefers-color-scheme: light)"/>
   ${noindex ? '<meta name="robots" content="noindex,nofollow"/>' : '<meta name="robots" content="index,follow,max-image-preview:large"/>'}
   ${canonical ? `<link rel="canonical" href="${canonical}"/>` : ''}
   ${site.verification.google ? `<meta name="google-site-verification" content="${esc(site.verification.google)}"/>` : ''}
@@ -146,6 +152,10 @@ function pageHtml(page) {
         ${navLinks(page.slug)}
       </nav>
       <a class="btn btn-primary btn-sm header-cta btn-mag" href="get-app.html">Get the app ${arrow}</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode">
+        <svg class="tt-sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="tt-moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.2A8 8 0 0 1 9.8 4a8 8 0 1 0 10.2 10.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </button>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
         <span></span><span></span><span></span>
       </button>

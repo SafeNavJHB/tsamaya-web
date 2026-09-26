@@ -36,7 +36,7 @@ export function exploreSection({ kick, canvas = false, h = 'h2', lede = '' }) {
   const bands = siteData().bands, metros = metrosBySize(), n = stats.totals.metros, m0 = metros[0];
   const rows = metros.map((m) => `<li data-k="${m.key}" data-p="${m.province}" data-z="${m.zones}" data-r="${bands.map((b) => m.red[b.key]).join(' ')}"${GAUTENG.includes(m.key) ? ' data-gt' : ''}><a href="${m.slug}.html"><span>${m.name}</span><span class="num">${fmt(m.zones)}<span class="sr"> rated areas</span></span></a></li>`).join('\n          ');
   return `
-<section class="ex${canvas ? ' ex-page' : ''}" id="explore" aria-labelledby="ex-h">${canvas ? '\n  <div class="ex-scene scene-stage" aria-hidden="true"><canvas class="ex-gl"></canvas></div>' : `\n  ${PRE_CINE}`}
+<section class="ex scheme-dark${canvas ? ' ex-page' : ''}" id="explore" aria-labelledby="ex-h">${canvas ? '\n  <div class="ex-scene scene-stage" aria-hidden="true"><canvas class="ex-gl"></canvas></div>' : `\n  ${PRE_CINE}`}
   <div class="ex-in wrap">
     <div class="ex-head">
       <p class="kick hud">${kick}</p>

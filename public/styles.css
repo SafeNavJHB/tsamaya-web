@@ -62,9 +62,14 @@
 }
 
 /* ---------------------------------------------------------------------------
- * Tokens. One dark system: the site no longer switches with the OS theme,
- * because the scene is a night-lit model and a light variant would be a second
- * design to maintain.
+ * Tokens. Dark is the design; light is the same design on a light ground
+ * (2026/09/26). The values below are the dark ones. Where the browser has
+ * light-dark(), the @supports block after this one gives each colour its light
+ * value too, and `color-scheme` picks: the visitor's choice (html[data-theme],
+ * set before first paint in layout.mjs and by the header button in site.js), or
+ * the device's. The 3D city and the maps stay dark in either: `.scheme-dark`
+ * marks them, and everything inside resolves the dark values. Without
+ * light-dark() the site stays dark and the button is hidden.
  *
  * The first group is the Sensor palette. The second keeps the names the older
  * page components use (they read --bg, --card, --text and friends), mapped onto
@@ -127,8 +132,64 @@
   --mono: 'Martian Mono', 'Martian Mono Fallback Windows', 'Martian Mono Fallback', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);   /* expo.out: reveals */
   --ease-ui: cubic-bezier(0.23, 1, 0.32, 1);   /* interface feedback */
+  /* colours that had no token (header glass, fields, selection, SOS text) */
+  --head-bg: rgba(10, 15, 28, 0.94);
+  --field-line: #2a364c;
+  --go-hover: #5ee0b0;
+  --quote: #eaf0ff;
+  --sel-bg: rgba(52, 211, 153, 0.35);
+  --sel-fg: #fff;
+  --sos: #ef6a7b;
   color-scheme: dark;
 }
+@supports (color: light-dark(#000, #fff)) {
+  :root {
+    color-scheme: light dark;
+    --night: light-dark(#f4f6f9, #0a0f1c);
+    --night-2: light-dark(#eaeef3, #0e1526);
+    --surface: light-dark(#ffffff, #111a2e);
+    --surface-2: light-dark(#eef2f6, #16213a);
+    --fill-deep: light-dark(#e4e9ef, #070b15);
+    --hairline: light-dark(#d3dae3, #1e293b);
+    --road: light-dark(#a3acba, #414758);
+    --fg: light-dark(#1c2533, #e6edf5);
+    --fg-2: light-dark(#4b5667, #94a3b8);
+    --hud: light-dark(#3a475a, #c9d6e3);
+    --go: light-dark(#047857, #34d399);
+    --go-deep: light-dark(#065f46, #10b981);
+    --go-ink: light-dark(#ffffff, #04231a);
+    --risk-red: light-dark(#dc2626, #ef4444);
+    --risk-amber: light-dark(#b45309, #f59e0b);
+    --risk-yellow: light-dark(#a16207, #ebc846);
+    --ink: light-dark(#0b1220, #f1f5fa);
+    --blue: light-dark(#1d4ed8, #7fb3ff);
+    --red: light-dark(#c0263a, #dc3c50);
+    --orange: light-dark(#c2410c, #f09632);
+    --yellow: light-dark(#a16207, #ebc846);
+    --bg-band: light-dark(#eef1f5, #0c1322);
+    --text-soft: light-dark(#334155, #b8c4d3);
+    --head-bg: light-dark(rgba(244, 246, 249, 0.94), rgba(10, 15, 28, 0.94));
+    --field-line: light-dark(#b8c2cf, #2a364c);
+    --go-hover: light-dark(#065f46, #5ee0b0);
+    --quote: light-dark(#0b1220, #eaf0ff);
+    --sel-bg: light-dark(rgba(4, 120, 87, 0.22), rgba(52, 211, 153, 0.35));
+    --sel-fg: light-dark(#0b1220, #fff);
+    --sos: light-dark(#b91c1c, #ef6a7b);
+  }
+  :root[data-theme='dark'] { color-scheme: dark; }
+  :root[data-theme='light'] {
+    color-scheme: light;
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 6px 18px rgba(15, 23, 42, 0.07);
+    --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 14px 36px rgba(15, 23, 42, 0.1);
+    --shadow-lg: 0 24px 60px rgba(15, 23, 42, 0.16);
+  }
+  /* The dark areas in a light page: the scene and chapters on the home page, the
+     explore map, How it works' city, the tracker's map, and the header while
+     one of them is under it (site.js). Text colour is set again so it resolves
+     here rather than inheriting the light page's. */
+  .scheme-dark, .site-header.on-dark { color-scheme: dark; color: var(--fg); }
+}
+@supports not (color: light-dark(#000, #fff)) { .theme-toggle { display: none !important; } }
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; background: var(--night); }
@@ -147,7 +208,7 @@ body {
 }
 img, svg, video, canvas { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
-::selection { background: rgba(52, 211, 153, 0.35); color: #fff; }
+::selection { background: var(--sel-bg); color: var(--sel-fg); }
 
 .wrap { width: 100%; max-width: calc(var(--maxw) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
 
@@ -180,7 +241,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .btn:focus-visible
   transition: background 0.25s var(--ease-ui), border-color 0.25s var(--ease-ui);
 }
 /* Solid once the page has scrolled (site.js), or always without JavaScript. */
-.site-header.is-solid, html:not(.js) .site-header { background: rgba(10, 15, 28, 0.94); border-bottom-color: var(--hairline); }
+.site-header.is-solid, html:not(.js) .site-header { background: var(--head-bg); border-bottom-color: var(--hairline); }
 .header-inner { display: flex; align-items: center; gap: 20px; height: var(--head); }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-stretch: 112%; font-size: 1.2rem; color: var(--ink); letter-spacing: -0.02em; min-height: 44px; }
 .brand .logo-mark { border-radius: 8px; }
@@ -210,7 +271,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .btn:focus-visible
 .btn svg { transition: transform 0.25s var(--ease-ui); }
 .btn:hover svg { transform: translateX(3px); }
 .btn-primary { background: var(--go); color: var(--go-ink); }
-.btn-primary:hover { background: #5ee0b0; }
+.btn-primary:hover { background: var(--go-hover); }
 .btn-sm { min-height: 40px; padding: 9px 16px; font-size: 0.9rem; }
 .btn-lg { min-height: 54px; padding: 15px 28px; font-size: 1.05rem; }
 
@@ -265,14 +326,14 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .btn:focus-visible
 .tech { display: flex; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow-sm); }
 .tech h3 { margin-bottom: 4px; }
 .tech p { margin: 0; color: var(--text-soft); font-size: 0.96rem; }
-.chip { display: inline-block; background: var(--fill-deep); color: #c9f5e3; border: 1px solid var(--hairline); padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; }
+.chip { display: inline-block; background: var(--fill-deep); color: var(--go); border: 1px solid var(--hairline); padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; }
 code { font-family: var(--mono); background: var(--bg-soft); padding: 2px 6px; border-radius: 6px; font-size: 0.88em; }
 
 /* ---------- About page ---------- */
 
 .value { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow-sm); }
 .value p { color: var(--text-soft); margin: 0; }
-.quote { font-family: var(--display); font-size: 1.3rem; line-height: 1.45; font-weight: 600; color: #eaf0ff; }
+.quote { font-family: var(--display); font-size: 1.3rem; line-height: 1.45; font-weight: 600; color: var(--quote); }
 
 /* ---------- Demo page ---------- */
 
@@ -339,7 +400,7 @@ code { font-family: var(--mono); background: var(--bg-soft); padding: 2px 6px; b
   .primary-nav, .header-cta { display: none; }
   .nav-toggle {
     display: inline-flex; flex-direction: column; justify-content: center; gap: 6px; margin-left: auto;
-    width: 46px; height: 46px; padding: 0 11px; background: none; border: 1px solid #2a364c; border-radius: 10px; cursor: pointer;
+    width: 46px; height: 46px; padding: 0 11px; background: none; border: 1px solid var(--field-line); border-radius: 10px; cursor: pointer;
   }
   .nav-toggle span { width: 22px; height: 1.5px; background: var(--ink); border-radius: 2px; transition: transform 0.25s var(--ease-ui); }
   .nav-toggle[aria-expanded='true'] span:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
@@ -1118,7 +1179,7 @@ html:not(.js) .ex-page .ex-in { min-height: 0; }
 
 .sn .get-grid { margin-top: 48px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.9fr); gap: 16px; align-items: stretch; }
 .sn .gp { position: relative; padding: 30px 28px; border: 1px solid var(--hairline); border-radius: 16px; background: linear-gradient(180deg, var(--surface), var(--night-2)); display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
-.sn .gp::before { content: ''; position: absolute; left: 12%; right: 12%; top: -1px; height: 1px; background: linear-gradient(90deg, rgba(230, 237, 245, 0), rgba(230, 237, 245, 0.75), rgba(230, 237, 245, 0)); }
+.sn .gp::before { content: ''; position: absolute; left: 12%; right: 12%; top: -1px; height: 1px; background: linear-gradient(90deg, rgba(230, 237, 245, 0), rgba(230, 237, 245, 0.75), rgba(230, 237, 245, 0)); background: linear-gradient(90deg, light-dark(rgba(28, 37, 51, 0), rgba(230, 237, 245, 0)), light-dark(rgba(28, 37, 51, 0.4), rgba(230, 237, 245, 0.75)), light-dark(rgba(28, 37, 51, 0), rgba(230, 237, 245, 0))); }
 .sn .gp :is(h2, h3) { font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 800; font-stretch: 116%; letter-spacing: -0.02em; line-height: 1; }
 .sn .gp p:not(.hud) { color: var(--fg-2); }
 .sn .gp .btn { margin-top: auto; align-self: flex-start; }
@@ -1258,10 +1319,10 @@ html:not(.js) .ex-page .ex-in { min-height: 0; }
 .page-404 .ph .wrap > :not(.rc) { grid-column: 1; }
 .page-404 .rc { grid-column: 2; grid-row: 1 / span 4; }
 .page-404 .rc svg { width: 100%; height: auto; overflow: visible; }
-.rc-b rect { fill: rgba(201, 214, 227, 0.04); stroke: rgba(201, 214, 227, 0.2); stroke-width: 1; }
-.rc-gap { fill: rgba(10, 15, 28, 0.6); stroke: var(--hud); stroke-width: 1.2; stroke-dasharray: 5 5; }
+.rc-b rect { fill: rgba(201, 214, 227, 0.04); stroke: rgba(201, 214, 227, 0.2); fill: light-dark(rgba(58, 71, 90, 0.05), rgba(201, 214, 227, 0.04)); stroke: light-dark(rgba(58, 71, 90, 0.24), rgba(201, 214, 227, 0.2)); stroke-width: 1; }
+.rc-gap { fill: rgba(10, 15, 28, 0.6); fill: light-dark(rgba(244, 246, 249, 0.6), rgba(10, 15, 28, 0.6)); stroke: var(--hud); stroke-width: 1.2; stroke-dasharray: 5 5; }
 .rc-t { font-family: var(--mono); font-size: 13px; letter-spacing: 0.12em; fill: var(--hud); }
-.rc-old { fill: none; stroke: rgba(201, 214, 227, 0.45); stroke-width: 3; stroke-linecap: round; }
+.rc-old { fill: none; stroke: rgba(201, 214, 227, 0.45); stroke: light-dark(rgba(58, 71, 90, 0.42), rgba(201, 214, 227, 0.45)); stroke-width: 3; stroke-linecap: round; }
 .rc-go { fill: none; stroke: var(--go); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
 .rc-a { fill: var(--ink); }
 .rc-z { fill: var(--go); transform-box: fill-box; transform-origin: center; }
@@ -1293,7 +1354,7 @@ html:not(.js) .ex-page .ex-in { min-height: 0; }
 .sn .mx-map { padding: clamp(16px, 2.4vw, 28px); border: 1px solid var(--hairline); border-radius: 16px; background: var(--night-2); }
 .sn .mx-map svg { display: block; width: 100%; height: auto; max-height: 72vh; margin: 0 auto; }
 .sn .mx-fill { fill: url(#mx-dots); }
-.sn #mx-dots circle { fill: rgba(201, 214, 227, 0.42); }
+.sn #mx-dots circle { fill: rgba(201, 214, 227, 0.42); fill: light-dark(rgba(58, 71, 90, 0.38), rgba(201, 214, 227, 0.42)); }
 .sn .mx-line { fill: none; stroke: var(--hud); stroke-width: 1.6; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .sn .mx-map figcaption { margin-top: 14px; color: var(--fg-2); }
 .sn .tabs { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 3px; border: 1px solid var(--hairline); border-radius: 12px; }
@@ -1350,8 +1411,8 @@ html:not(.js) .sn .tabs { display: none; }
 /* ---------- About ---------- */
 .page-about .display { max-width: 18ch; font-size: clamp(2.4rem, 5vw, 4.4rem); }
 .ab-fill { fill: url(#ab-dots); }
-#ab-dots circle { fill: rgba(201, 214, 227, 0.3); }
-.ab-line { fill: none; stroke: rgba(201, 214, 227, 0.28); stroke-width: 1; vector-effect: non-scaling-stroke; }
+#ab-dots circle { fill: rgba(201, 214, 227, 0.3); fill: light-dark(rgba(58, 71, 90, 0.3), rgba(201, 214, 227, 0.3)); }
+.ab-line { fill: none; stroke: rgba(201, 214, 227, 0.28); stroke: light-dark(rgba(58, 71, 90, 0.32), rgba(201, 214, 227, 0.28)); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .page-about .display .say { font-family: var(--mono); font-size: 0.3em; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--hud); vertical-align: middle; white-space: nowrap; }
 .sn .about-name { margin-top: 28px; max-width: 46rem; }
 .sn .about-name > p + p { margin-top: 18px; color: var(--fg-2); }
@@ -1490,7 +1551,7 @@ html:not(.js) .sn .tabs { display: none; }
 .page-track .trk-s::before { content: ''; width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--fg-2); }
 .page-track .trk-s[data-state='live']::before { background: var(--go); box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.18); }
 .page-track .trk-s[data-state='arrived']::before { background: var(--go); }
-.page-track .trk-s[data-state='sos'] { color: #ef6a7b; font-weight: 700; }
+.page-track .trk-s[data-state='sos'] { color: var(--sos); font-weight: 700; }
 .page-track .trk-s[data-state='sos']::before { background: #dc3c50; box-shadow: 0 0 0 4px rgba(220, 60, 80, 0.25); }
 .page-track .trk-map { position: relative; height: 68vh; min-height: 320px; margin-top: 16px; border: 1px solid var(--hairline); border-radius: 16px; overflow: hidden; background: var(--night-2); }
 .page-track #map { position: absolute; inset: 0; }
@@ -1503,3 +1564,23 @@ html:not(.js) .sn .tabs { display: none; }
   .page-track .trk-s[data-state='live']::before { animation: trk-pulse 2s var(--ease-ui) 2; }
 }
 @keyframes trk-pulse { 50% { box-shadow: 0 0 0 7px rgba(52, 211, 153, 0.05); } }
+
+/* ---------- Updates: show earlier updates ---------- */
+.sn .up-more-row { margin-top: 32px; }
+.sn .up-more { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 20px; border: 1px solid var(--hairline); border-radius: 999px; color: var(--ink); font-weight: 600; transition: border-color 0.18s var(--ease-ui), background-color 0.18s var(--ease-ui); }
+.sn .up-more:hover { border-color: var(--go); background: rgba(52, 211, 153, 0.08); }
+.sn .up-more .num { font-family: var(--mono); font-size: 12px; color: var(--hud); }
+.sn .up-more[aria-busy='true'] { opacity: 0.6; }
+.sn .tl-d:focus { outline: none; }
+
+/* ---------- Light and dark: the header button (site.js) ----------
+   It shows where it goes: a sun in the dark, a moon in the light. */
+.theme-toggle { display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; padding: 0; border: 1px solid var(--field-line); border-radius: 10px; background: none; color: var(--ink); cursor: pointer; transition: border-color 0.18s var(--ease-ui), color 0.18s var(--ease-ui); }
+.theme-toggle:hover { border-color: var(--go); color: var(--go); }
+.theme-toggle svg { grid-area: 1 / 1; }
+.theme-toggle .tt-moon, :root[data-theme='light'] .theme-toggle .tt-sun { display: none; }
+:root[data-theme='light'] .theme-toggle .tt-moon { display: block; }
+html:not(.js) .theme-toggle { display: none; }
+@media (max-width: 900px) { .theme-toggle { margin-left: auto; } .nav-toggle { margin-left: 10px; } }
+/* the switch itself fades, briefly, rather than snapping (not with reduced motion) */
+html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after { transition: background-color 0.3s var(--ease-ui), color 0.3s var(--ease-ui), border-color 0.3s var(--ease-ui), fill 0.3s var(--ease-ui), stroke 0.3s var(--ease-ui) !important; }

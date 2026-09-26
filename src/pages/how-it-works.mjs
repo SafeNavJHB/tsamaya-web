@@ -27,7 +27,7 @@ const steps = `
       <p class="kick hud" data-reveal>The six steps</p>
       <h2 class="h2" id="steps-h" data-split>From destination to lower-risk route</h2>
     </header>
-    <div class="hw-stage" aria-hidden="true">
+    <div class="hw-stage scheme-dark" aria-hidden="true">
       <div class="hw-scene scene-stage">
         <div class="scene-poster hw-poster">${planSvg(2, { routes: true, cellsId: 'hw-cells' })}</div>
         <canvas class="hw-gl"></canvas>

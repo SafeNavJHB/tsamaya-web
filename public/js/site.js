@@ -24,6 +24,13 @@
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+  // A fresh visit to a page opens at its top, whatever the last page's scroll
+  // was. Back and forward (and a #link) keep the browser's own position.
+  try {
+    var navEntry = performance.getEntriesByType('navigation')[0];
+    if (navEntry && navEntry.type === 'navigate' && !location.hash && window.scrollY) window.scrollTo(0, 0);
+  } catch (e) {}
+
   /* ------------------------------------------------------------------------
    * 1. South African time and the ratings band in force.
    *
@@ -61,10 +68,56 @@
   window.Tsamaya = { saMinutes: saMinutes, bandAt: bandAt, bands: BANDS, reducedMotion: reduce };
 
   /* ------------------------------------------------------------------------
+   * 1b. Light and dark. The head script (layout.mjs) has already applied the
+   *     visitor's stored choice or the device's. The header button switches;
+   *     a choice that matches the device is not stored, so the site follows the
+   *     device again from then on. While a dark area (.scheme-dark: the scene,
+   *     the maps) is under the header, the header goes dark with it.
+   * --------------------------------------------------------------------- */
+  var themeBtn = $('[data-theme-toggle]');
+  var mqLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
+  var device = function () { return mqLight && mqLight.matches ? 'light' : 'dark'; };
+  var stored = function () { try { var t = localStorage.getItem('ts-theme'); return t === 'light' || t === 'dark' ? t : null; } catch (e) { return null; } };
+  function applyTheme(t, animate) {
+    if (animate && !reduce) { doc.classList.add('theme-anim'); setTimeout(function () { doc.classList.remove('theme-anim'); }, 350); }
+    doc.setAttribute('data-theme', t);
+    if (themeBtn) themeBtn.setAttribute('aria-label', t === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+    $$('meta[name="theme-color"]').forEach(function (m) { m.setAttribute('content', t === 'light' ? '#F4F6F9' : '#0A0F1C'); });
+  }
+  applyTheme(doc.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+  if (themeBtn) themeBtn.addEventListener('click', function () {
+    var next = doc.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    try { if (next === device()) localStorage.removeItem('ts-theme'); else localStorage.setItem('ts-theme', next); } catch (e) {}
+    applyTheme(next, true);
+  });
+  if (mqLight) {
+    var onDevice = function () { if (!stored()) applyTheme(device(), true); };
+    if (mqLight.addEventListener) mqLight.addEventListener('change', onDevice); else if (mqLight.addListener) mqLight.addListener(onDevice);
+  }
+
+  /* ------------------------------------------------------------------------
    * 2. Header: solid once the page has moved.
    * --------------------------------------------------------------------- */
   var header = $('.site-header');
   function onScroll() { if (header) header.classList.toggle('is-solid', window.scrollY > 24); }
+  // the header strip: is any dark area under it?
+  var darks = $$('.scheme-dark').filter(function (el) { return !header || !header.contains(el); });
+  if (header && darks.length && 'IntersectionObserver' in window) {
+    var under = new Set();
+    var headIo;
+    var watch = function () {
+      if (headIo) headIo.disconnect();
+      under.clear();
+      var h = header.offsetHeight || 68;
+      headIo = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) under.add(e.target); else under.delete(e.target); });
+        header.classList.toggle('on-dark', under.size > 0);
+      }, { rootMargin: '0px 0px ' + (h - window.innerHeight) + 'px 0px' });
+      darks.forEach(function (el) { headIo.observe(el); });
+    };
+    watch();
+    window.addEventListener('resize', watch);
+  }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
