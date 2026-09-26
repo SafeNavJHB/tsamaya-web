@@ -485,7 +485,7 @@ Built in a local session on the Mac, in five batches, each published to the prev
 
    Until then, the site uses the crops it has today.
 
-   **Delivered 2026/09/25** on `screens/daytime-2026-09`, merged into the redesign branch: `home-day`, `route-card-day`, `route-result-day`, `navigation-day`, `route-result-airport-day` and `route-result-detour-day`, each as AVIF, WebP and JPEG at 300, 600 and 900 wide, with alt text in `src/shots.mjs`. The airport shot is kept but not planned for use: every option is graded D because of the airport's own area, so it shows little of a detour.
+   **Delivered 2026/09/25** on `screens/daytime-2026-09`, merged into the redesign branch: `home-day`, `route-card-day`, `route-result-day`, `navigation-day`, `route-result-airport-day` and `route-result-detour-day`, each as AVIF, WebP and JPEG at 300, 600 and 900 wide, with alt text in `src/shots.mjs`. The airport shot is kept but not planned for use: every option is graded D because of the airport's own area, so it shows little of a detour. (2026/09/26: the two unused daytime shots, `route-result-day` and `route-result-airport-day`, were removed with the old night set in Phase 4; they are in git history.)
 7. **The name line: either form is fine.** Keep the current wording ("tsamaya sentle", go well) and adjust if a first-language speaker suggests "tsamaya hantle" for Sesotho.
 8. **Chapter 1 tells the daytime detour (settled 2026/09/25).** The home page's route story uses the `route-result-detour-day` card:
    - Standard: grade E, 49 min, 42.4 km, 4 high-risk areas.
@@ -493,6 +493,9 @@ Built in a local session on the Mac, in five batches, each published to the prev
    - It is 9.8 km further but was 2 minutes quicker in that morning's traffic.
 
    The figures live in `src/data/route-card.json`. The trip's place names are never printed next to them, because the areas it avoids are named suburbs. The illustrative city is tuned to match: the lower-risk route crosses no high cell.
+
+9. **Light mode (Kyle, 2026/09/26).** The site follows the device's light or dark setting by default, and a sun and moon button in the header switches it and remembers the choice. The 3D city, the maps and the tracker's map stay dark in light mode, as night panels inside a light page (chosen over a full daylight version of the scenes, which would have been a second look to design and test). Built in Phase 4.
+10. **Updates carries the newest 10 releases (Kyle, 2026/09/26),** with "Show earlier updates" for the rest, to keep the page light.
 
 ## 11. Out of scope for this build
 

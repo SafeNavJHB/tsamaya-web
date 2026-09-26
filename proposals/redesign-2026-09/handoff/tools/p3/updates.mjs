@@ -16,6 +16,8 @@ const rels = () => p.evaluate(() => document.querySelectorAll('.up-tl > .rel').l
 const total = await p.evaluate(() => +document.querySelector('.up-stats .num').textContent);
 ok(await rels() === 10, `the page opens with the newest 10 releases (of ${total})`);
 ok(!reqs.some((u) => u.includes('updates-archive')), 'nothing earlier is fetched until asked');
+const chipsTrue = () => p.evaluate(() => [...document.querySelectorAll('.chip[for^="f-"]')].every((c) => { const k = c.getAttribute('for').slice(2); return +c.querySelector('.num').textContent === document.querySelectorAll(k === 'all' ? '.up-tl .it' : `.up-tl .it[data-c="${k}"]`).length; }));
+ok(await chipsTrue(), 'the chips count what is on the page');
 let shown = 10, presses = 0;
 while (await p.locator('.up-more').count()) {
   await p.locator('.up-more').click(); presses++;
@@ -32,7 +34,17 @@ while (await p.locator('.up-more').count()) {
   if (presses > 40) break;
 }
 ok(shown === total, `every release reachable (${shown} of ${total}, ${presses} presses)`);
+ok(await chipsTrue(), 'the chips still count what is on the page');
 ok(reqs.filter((u) => u.includes('updates-archive')).length === 1, 'the archive is fetched once');
+// the last press with Bug fixes on keeps focus off the body (review 2026/09/26)
+{
+  const q = await ctx.newPage();
+  await q.goto(H + 'updates.html', { waitUntil: 'load' });
+  await q.locator('label[for=f-fix]').click();
+  while (await q.locator('.up-more').count()) { await q.locator('.up-more').focus(); await q.keyboard.press('Enter'); await q.waitForTimeout(120); }
+  ok(await q.evaluate(() => document.activeElement !== document.body), `after the last press, focus is on ${await q.evaluate(() => document.activeElement.className || document.activeElement.tagName)}`);
+  await q.close();
+}
 // filters over what was added
 await p.locator('label[for=f-fix]').click();
 const wrong = await p.evaluate(() => [...document.querySelectorAll('.up-tl .it')].filter((e) => e.offsetParent && e.dataset.c !== 'fix').length);

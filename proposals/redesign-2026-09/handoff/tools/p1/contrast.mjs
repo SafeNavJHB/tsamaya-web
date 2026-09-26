@@ -6,7 +6,7 @@
 import { chromium } from 'playwright';
 const [,, w = '1440', h = '900'] = process.argv;
 const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
-const ctx = await b.newContext({ viewport: { width: +w, height: +h } });
+const ctx = await b.newContext({ viewport: { width: +w, height: +h }, colorScheme: process.env.COLOR || 'light' }); // COLOR=dark for the dark theme
 const p = await ctx.newPage();
 const lab = await ctx.newPage();
 await p.goto('http://localhost:8795/', { waitUntil: 'load' });

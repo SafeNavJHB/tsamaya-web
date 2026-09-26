@@ -35,22 +35,51 @@ for (const dev of ['dark', 'light']) {
   await p.emulateMedia({ colorScheme: dev }); await p.waitForTimeout(500);
   await ctx.close();
 }
-// light: the dark areas stay dark, and the header over them
+// the canvas's own colour at a point (the renderer's clear colour where no dot is drawn)
+const px = async (p, sel, fx = 0.02, fy = 0.02) => {
+  const r = await p.locator(sel).boundingBox();
+  const buf = await p.screenshot({ clip: { x: r.x + r.width * fx, y: r.y + r.height * fy, width: 3, height: 3 } });
+  return p.evaluate(async (b64) => { const im = new Image(); im.src = 'data:image/png;base64,' + b64; await im.decode(); const c = document.createElement('canvas'); c.width = 3; c.height = 3; const g = c.getContext('2d'); g.drawImage(im, 0, 0); const d = g.getImageData(1, 1, 1, 1).data; return (0.2126 * d[0] + 0.7152 * d[1] + 0.0722 * d[2]) / 255; }, buf.toString('base64'));
+};
+// light: the 3D city and the maps are light too, and switch live with the button
 {
   const ctx = await b.newContext({ viewport: { width: 1280, height: 800 }, colorScheme: 'light' });
   await ctx.route(/cloudflareinsights/, (r) => r.abort());
   const p = await ctx.newPage();
+  const errs = []; p.on('pageerror', (e) => errs.push(e.message));
   await p.goto(H + 'index.html', { waitUntil: 'load' });
-  await p.waitForTimeout(1500);
+  await p.waitForFunction(() => window.__home && window.__home.ready, null, { timeout: 30000 });
+  await p.waitForTimeout(2500);
   const lum = (c) => { const m = c.match(/[\d.]+/g).map(Number); return (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255; };
   ok(lum(await bg(p, 'body')) > 0.8, 'light: the page ground is light');
-  ok(await p.evaluate(() => getComputedStyle(document.querySelector('.home-hero .hero-h')).color).then((c) => lum(c) > 0.8), 'light: the hero headline over the scene stays light text');
-  ok(await p.evaluate(() => document.querySelector('.site-header').classList.contains('on-dark')), 'light: the header is dark over the scene');
-  await p.evaluate(() => window.lenis.scrollTo(document.querySelector('.home-flow').getBoundingClientRect().top + scrollY + 200, { immediate: true, force: true }));
-  await p.waitForTimeout(800);
-  ok(!(await p.evaluate(() => document.querySelector('.site-header').classList.contains('on-dark'))), 'light: and light again over the light sections');
+  ok(await p.evaluate(() => getComputedStyle(document.querySelector('.home-hero .hero-h')).color).then((c) => lum(c) < 0.2), 'light: the hero headline over the scene is dark ink');
+  const sky = await px(p, '.scene canvas');
+  ok(sky > 0.8, `light: the 3D city is drawn on a light ground (${sky.toFixed(2)})`);
+  await p.locator('.theme-toggle').click(); await p.waitForTimeout(900);
+  const sky2 = await px(p, '.scene canvas');
+  ok(sky2 < 0.15, `the button switches the running city to dark (${sky2.toFixed(2)})`);
+  await p.locator('.theme-toggle').click(); await p.waitForTimeout(900);
+  ok(await px(p, '.scene canvas') > 0.8, 'and back to light');
+  ok(!errs.length, `no page errors ${errs.join(' | ')}`);
   await p.goto(H + 'how-it-works.html', { waitUntil: 'load' });
-  ok(lum(await bg(p, '.hw-scene')) < 0.1, 'light: How it works keeps its city on a dark stage');
+  ok(lum(await bg(p, '.hw-scene')) > 0.8, 'light: How it works draws its city on a light stage');
+  await ctx.close();
+}
+// ?scenes=dark: the other way, night panels in a light page (remembered for the tab)
+{
+  const ctx = await b.newContext({ viewport: { width: 1280, height: 800 }, colorScheme: 'light' });
+  await ctx.route(/cloudflareinsights/, (r) => r.abort());
+  const p = await ctx.newPage();
+  await p.goto(H + 'index.html?scenes=dark', { waitUntil: 'load' });
+  await p.waitForFunction(() => window.__home && window.__home.ready, null, { timeout: 30000 });
+  await p.waitForTimeout(2500);
+  const lum = (c) => { const m = c.match(/[\d.]+/g).map(Number); return (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255; };
+  ok(lum(await bg(p, 'body')) > 0.8, 'scenes=dark: the page ground is still light');
+  ok(await px(p, '.scene canvas') < 0.15, 'scenes=dark: the 3D city stays dark');
+  ok(await p.evaluate(() => getComputedStyle(document.querySelector('.home-hero .hero-h')).color).then((c) => lum(c) > 0.8), 'scenes=dark: the hero headline over it is light text');
+  ok(await p.evaluate(() => document.querySelector('.site-header').classList.contains('on-dark')), 'scenes=dark: the header is dark over the scene');
+  await p.goto(H + 'how-it-works.html', { waitUntil: 'load' });
+  ok(lum(await bg(p, '.hw-scene')) < 0.1, 'scenes=dark: remembered on the next page (How it works keeps a dark stage)');
   await ctx.close();
 }
 // no JavaScript: the stylesheet follows the device, and the button is not shown

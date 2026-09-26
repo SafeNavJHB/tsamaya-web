@@ -11,10 +11,13 @@ const ok = (c, m) => { console.log(`${c ? 'PASS' : 'FAIL'}  ${m}`); if (!c) fail
 const drawn = (p) => p.evaluate(() => {
   const T = window.__try, pts = (sel) => { const e = document.querySelector(sel); if (!e) return null; return e.getAttribute('d').slice(1).split('L').map((s) => s.split(' ').map(Number)); };
   const s = pts('.try-s'), l = pts('.try-l');
-  const count = (line, lv) => line ? T.crossed(line).filter((c) => T.lv(c) === lv).length : null;
+  // the trip's own start and end cells are on every route: not counted
+  const ends = new Set([T.cellAt(...T.A), T.cellAt(...T.B)]);
+  const count = (line, lv) => line ? T.crossed(line).filter((c) => !ends.has(c) && T.lv(c) === lv).length : null;
   return { out: document.querySelector('.try-out').textContent, sHigh: count(s, 3), lHigh: count(l, 3), lMed: count(l, 2), hot: document.querySelectorAll('.try-hot').length, hasL: !!l, sLen: s && T.len(s), lLen: l && T.len(l) };
 });
 const truthful = (d) => {
+  if (/same spot/.test(d.out)) return !d.hasL;
   if (!d.hasL) return /no high-risk cell/.test(d.out) ? d.sHigh === 0 : /too long/.test(d.out) && d.hot === d.sHigh && d.sHigh > 0;
   const m = d.out.match(/^(\d+) high-risk cells? avoided/);
   const un = d.out.match(/; (\d+) high-risk cells? could not/);
@@ -39,6 +42,16 @@ for (const [w, h, touch] of [[1440, 900, false], [390, 844, true]]) {
       ok(truthful(d), `${tag} band ${band} trip ${k + 1}: "${d.out}" (straight ${d.sHigh} high, route ${d.lHigh} high / ${d.lMed} medium)`);
     }
   }
+  // a start inside a high-risk cell (review 2026/09/26): its own cell does not
+  // count, and does not make every way round "too long"
+  await p.locator('.try-b[data-b="0"]').click();
+  await p.evaluate(() => { const t = document.querySelector('.try-trip'); t.dataset.a = '-20.71,18.25'; t.dataset.b = '10.86,18.77'; t.click(); });
+  let dd = await drawn(p);
+  ok(truthful(dd) && !/too long/.test(dd.out) && /sits in a high-risk cell/.test(dd.out), `${tag}: a start in a high-risk cell still gets its way round: "${dd.out}"`);
+  await p.evaluate(() => { const t = document.querySelector('.try-trip'); t.dataset.a = '-20.71,18.25'; t.dataset.b = '-20,18.6'; t.click(); });
+  dd = await drawn(p);
+  ok(/same spot/.test(dd.out) && !dd.hasL, `${tag}: the same spot twice: "${dd.out}"`);
+  await p.evaluate(() => { const t = document.querySelector('.try-trip'); t.dataset.a = '-44,44'; t.dataset.b = '44,-44'; });
   // two taps on the city itself, with the whole city in the window
   await p.evaluate(() => { const y = document.querySelector('.try-svg').getBoundingClientRect().top + scrollY - 76; if (window.lenis) window.lenis.scrollTo(y, { immediate: true, force: true }); else scrollTo(0, y); });
   await p.waitForTimeout(300);

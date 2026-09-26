@@ -9,8 +9,8 @@ let fails = 0;
 const check = (name, ok, detail = '') => { if (!ok) fails++; console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? '  (' + detail + ')' : ''}`); };
 const STUB = `window.mapboxgl={accessToken:'',Map:function(o){window.__style=o.style;return{on:function(){},isStyleLoaded:function(){return true},getSource:function(){return null},addSource:function(){},addLayer:function(l){window.__route=l.paint['line-color'];},fitBounds:function(){},easeTo:function(){}}},Marker:function(o){(window.__markers=window.__markers||[]).push(o.color);return{setLngLat:function(){return this},addTo:function(){return this}}},LngLatBounds:function(){return{extend:function(){}}}};`;
 const trip = (o) => [Object.assign({ lng: 28.05, lat: -26.1, dest_name: 'Melrose Arch', dest_lng: 28.07, dest_lat: -26.13, status: 'active', kind: 'drive', eta_epoch: Date.parse('2026-09-25T10:30:00Z'), route_geojson: { type: 'LineString', coordinates: [[28.05, -26.1], [28.07, -26.13]] } }, o)];
-async function open(query, seq) {
-  const ctx = await b.newContext({ viewport: { width: 1280, height: 900 } });
+async function open(query, seq, colorScheme = 'dark') {
+  const ctx = await b.newContext({ viewport: { width: 1280, height: 900 }, colorScheme });
   const p = await ctx.newPage();
   const errs = [];
   p.on('pageerror', (e) => errs.push(e.message));
@@ -22,6 +22,13 @@ async function open(query, seq) {
   await p.goto('http://localhost:8795/track.html' + query, { waitUntil: 'load' });
   await p.clock.runFor(500);
   return { ctx, p, errs, calls: () => n };
+}
+// the light theme: a light map, a deeper emerald, an ink destination pin
+{
+  const { ctx, p } = await open('?id=abc', [trip({})], 'light');
+  const map = await p.evaluate(() => ({ style: window.__style, route: window.__route, markers: window.__markers }));
+  check('light theme: light map, deeper emerald route and driver, ink destination pin', map.style === 'mapbox://styles/mapbox/light-v11' && map.route === '#059669' && map.markers[0] === '#047857' && map.markers[1] === '#1C2533', JSON.stringify(map));
+  await ctx.close();
 }
 const status = (p) => p.evaluate(() => { const s = document.getElementById('trip-status'); return { t: s.textContent, st: s.getAttribute('data-state'), arr: getComputedStyle(document.getElementById('arrived')).display }; });
 {
