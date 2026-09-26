@@ -91,12 +91,16 @@ async function build() {
   await writeFile(join(dist, '.nojekyll'), '', 'utf8');
 
   // 4. Runtime config for client pages (the live-trip tracker /t/). Values come
-  //    from CI secrets — kept OUT of source so nothing is committed. Absent
-  //    locally, so the tracker shows a friendly "being set up" message.
+  //    from CI secrets, kept OUT of source so nothing is committed. To test the
+  //    tracker locally, put the same three public client keys in a gitignored
+  //    config.local.json (same shape); without either, the tracker shows a
+  //    friendly "being set up" message.
+  let local = {};
+  try { local = JSON.parse(await readFile(join(root, 'config.local.json'), 'utf8')); } catch {}
   await writeFile(join(dist, 'config.json'), JSON.stringify({
-    supabaseUrl: process.env.SUPABASE_URL || '',
-    anonKey: process.env.SUPABASE_ANON_KEY || '',
-    mapboxToken: process.env.MAPBOX_TOKEN || '',
+    supabaseUrl: process.env.SUPABASE_URL || local.supabaseUrl || '',
+    anonKey: process.env.SUPABASE_ANON_KEY || local.anonKey || '',
+    mapboxToken: process.env.MAPBOX_TOKEN || local.mapboxToken || '',
   }), 'utf8');
 
   // Data the browser reads (the 3D scene and the interactive map), generated from
