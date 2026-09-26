@@ -33,15 +33,15 @@ const filtersFor = (list) => [{ key: 'all', label: 'All' }, ...categories].map((
 
 const rel = (r) => `<li class="rel"><h3 class="hud tl-d">${esc(r.date)}</h3><ul class="its">${r.items.map((it) => `<li class="it" data-c="${it.category}"><p class="hud tl-c">${ONE[it.category] || esc(it.category)}</p><h4>${esc(it.title)}</h4><p>${esc(it.body)}</p></li>`).join('')}</ul></li>`;
 
-// the chips count everything the page can show: on Updates that includes the
-// earlier releases "Show earlier updates" brings in
-const timeline = (list, counted, after = '') => `
+// the chips count what is on the page (updates.js recounts as earlier
+// releases come in), so a number never claims more than the reader can see
+const timeline = (list, after = '') => `
     <h2 class="sr">Every update, newest first</h2>
     <div class="up">
-      ${filtersFor(counted).map((f, i) => `<input class="up-f" type="radio" name="up-f" id="f-${f.key}"${i === 0 ? ' checked' : ''}/>`).join('')}
+      ${filtersFor(list).map((f, i) => `<input class="up-f" type="radio" name="up-f" id="f-${f.key}"${i === 0 ? ' checked' : ''}/>`).join('')}
       <div class="chips" data-reveal>
         <span class="hud chips-k">Show</span>
-        ${filtersFor(counted).map((f) => `<label class="chip" for="f-${f.key}">${esc(f.label)}<span class="num">${f.n}</span></label>`).join('')}
+        ${filtersFor(list).map((f) => `<label class="chip" for="f-${f.key}">${esc(f.label)}<span class="num">${f.n}</span></label>`).join('')}
       </div>
       <ol class="up-tl">
         ${list.map(rel).join('\n        ')}
@@ -76,7 +76,7 @@ const updatesPage = {
       lead: "Every change that has shipped to the app, newest first: the latest releases here, every earlier one a tap away. It is the same list you see in Settings under What's New.",
       after: stats,
     }),
-    sec({ id: 'log', cls: 'log', head: false, inner: timeline(recent, releases, more) }),
+    sec({ id: 'log', cls: 'log', head: false, inner: timeline(recent, more) }),
     sec({
       id: 'honest',
       cls: 'tail',
@@ -104,7 +104,7 @@ const archivePage = {
       title: 'Earlier updates',
       lead: `The ${earlier.length} releases before the newest ${NEWEST}, newest first. The latest are on the Updates page.`,
     }),
-    sec({ id: 'log', cls: 'log', head: false, inner: timeline(earlier, earlier, `<p class="more">${linkQ('The latest updates', 'updates.html')}</p>`) }),
+    sec({ id: 'log', cls: 'log', head: false, inner: timeline(earlier, `<p class="more">${linkQ('The latest updates', 'updates.html')}</p>`) }),
   ].join('\n'),
 };
 

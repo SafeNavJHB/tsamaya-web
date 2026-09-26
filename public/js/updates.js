@@ -20,13 +20,20 @@ if (link && list) {
     link.setAttribute('aria-busy', 'true');
     (pending || (pending = load())).then((rels) => {
       const next = rels.splice(0, step);
-      next.forEach((r) => list.appendChild(document.importNode(r, true)));
+      const added = next.map((r) => list.appendChild(document.importNode(r, true)));
+      // the chips count what is on the page
+      document.querySelectorAll('.chip[for^="f-"]').forEach((c) => {
+        const k = c.getAttribute('for').slice(2), n = c.querySelector('.num');
+        if (n) n.textContent = list.querySelectorAll(k === 'all' ? '.it' : `.it[data-c="${k}"]`).length;
+      });
       if (status) status.textContent = `${next.length} earlier release${next.length === 1 ? '' : 's'} added.`;
-      // keyboard and screen-reader users continue from the first one added
-      const h = next[0] && list.children[list.children.length - next.length].querySelector('.tl-d');
-      if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
-      if (rels.length) { if (count) count.textContent = `${rels.length} more`; }
-      else link.closest('.up-more-row').remove();
+      if (!rels.length) link.closest('.up-more-row').remove();
+      else if (count) count.textContent = `${rels.length} more`;
+      // keyboard and screen-reader users continue from the first one added that
+      // the filter shows; with none shown, from the list itself
+      const first = added.find((r) => r.offsetParent !== null);
+      const h = first ? first.querySelector('.tl-d') : list;
+      h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true });
       if (window.ScrollTrigger) window.ScrollTrigger.refresh();
     }).catch(() => { window.location.href = link.href; }) // could not fetch: go to the page itself
       .finally(() => { busy = false; link.removeAttribute('aria-busy'); });

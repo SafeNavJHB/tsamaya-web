@@ -61,7 +61,7 @@ if (svg) {
 
   function search(a, b) {
     // A* over the cells from a's cell to b's cell
-    const s = cellAt(...a), t = cellAt(...b);
+    const s = cellAt(...a), t = cellAt(...b), ends = new Set([s, t]);
     const g = new Map([[s, 0]]), from = new Map(), open = new Set([s]);
     const h = (i) => Math.hypot(cells[i].x - cells[t].x, cells[i].z - cells[t].z);
     const f = new Map([[s, h(s)]]);
@@ -81,13 +81,14 @@ if (svg) {
     // the tap points at the ends, the cell centres between
     const pts = [a, ...path.slice(1, -1).map((i) => [cells[i].x, cells[i].z]), b];
     // pull the line straight wherever that crosses nothing worse than the path
-    // it replaces did there
-    const worst = (i, j) => { let m = 0; for (let k = i; k <= j; k++) m = Math.max(m, lv(cellAt(...pts[k]))); return m; };
+    // it replaces did there (the start's and destination's own cells aside:
+    // every route has those, so they must not license a shortcut elsewhere)
+    const worst = (i, j) => { let m = 0; for (let k = i; k <= j; k++) { const c = cellAt(...pts[k]); if (!ends.has(c)) m = Math.max(m, lv(c)); } return m; };
     const pulled = [pts[0]];
     let i = 0;
     while (i < pts.length - 1) {
       let j = pts.length - 1;
-      for (; j > i + 1; j--) { const cap = worst(i, j); if (crossed([pts[i], pts[j]]).every((c) => lv(c) <= cap)) break; }
+      for (; j > i + 1; j--) { const cap = worst(i, j); if (crossed([pts[i], pts[j]]).every((c) => ends.has(c) || lv(c) <= cap)) break; }
       pulled.push(pts[j]); i = j;
     }
     return pulled;
@@ -112,14 +113,20 @@ if (svg) {
     if (!A || !B) return;
     marks.appendChild(el('circle', { class: 'try-z', cx: B[0], cy: B[1], r: 1.6 }));
     const straight = [A, B];
-    const sCells = crossed(straight), sHigh = sCells.filter((c) => lv(c) === 3);
+    // the cells the trip starts and ends in are on every route, so the counts
+    // leave them out, and say so when one of them is high-risk
+    const ends = new Set([cellAt(...A), cellAt(...B)]);
+    const sCells = crossed(straight).filter((c) => !ends.has(c)), sHigh = sCells.filter((c) => lv(c) === 3);
+    const endNote = [...ends].some((c) => lv(c) === 3) ? ` The ${lv(cellAt(...A)) === 3 ? (lv(cellAt(...B)) === 3 ? 'start and the destination sit' : 'start sits') : 'destination sits'} in a high-risk cell, which no route can avoid.` : '';
     const grey = marks.insertBefore(el('path', { class: 'try-s', d: pathOf(straight) }), marks.firstChild);
     if (!reduce) grey.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
     let msg;
-    if (!sHigh.length) {
+    if (Math.hypot(A[0] - B[0], A[1] - B[1]) < 4) {
+      msg = 'That is the same spot. Tap a destination further away.';
+    } else if (!sHigh.length) {
       msg = 'The straight line crosses no high-risk cell, so it stays: no detour.';
     } else {
-      const bend = search(A, B), bCells = crossed(bend);
+      const bend = search(A, B), bCells = crossed(bend).filter((c) => !ends.has(c));
       const bHigh = bCells.filter((c) => lv(c) === 3).length, bMed = bCells.filter((c) => lv(c) === 2).length;
       const extra = len(bend) - len(straight);
       // the detour limit, as in the app: at most about 1.6 times the direct line plus a little
@@ -138,7 +145,7 @@ if (svg) {
           (bMed ? `. It still passes ${plural(bMed, 'medium-risk cell', 'medium-risk cells')}.` : '.');
       }
     }
-    out.textContent = msg;
+    out.textContent = msg + (msg.startsWith('That is the same') ? '' : endNote);
   }
 
   // taps: the first sets the start, the second the destination, a third starts over
