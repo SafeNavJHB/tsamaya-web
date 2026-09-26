@@ -25,10 +25,12 @@
   var finePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   // A fresh visit to a page opens at its top, whatever the last page's scroll
-  // was. Back and forward (and a #link) keep the browser's own position.
+  // was. Back and forward (and a #link) keep the browser's own position, and so
+  // does a reader who has already scrolled (the head script notes the first
+  // wheel, touch or key: this file runs late, behind the libraries).
   try {
     var navEntry = performance.getEntriesByType('navigation')[0];
-    if (navEntry && navEntry.type === 'navigate' && !location.hash && window.scrollY) window.scrollTo(0, 0);
+    if (navEntry && navEntry.type === 'navigate' && !location.hash && window.scrollY && !window.__tsMoved) window.scrollTo(0, 0);
   } catch (e) {}
 
   /* ------------------------------------------------------------------------
@@ -80,7 +82,10 @@
   var stored = function () { try { var t = localStorage.getItem('ts-theme'); return t === 'light' || t === 'dark' ? t : null; } catch (e) { return null; } };
   function applyTheme(t, animate) {
     if (animate && !reduce) { doc.classList.add('theme-anim'); setTimeout(function () { doc.classList.remove('theme-anim'); }, 350); }
+    var changed = doc.getAttribute('data-theme') !== t;
     doc.setAttribute('data-theme', t);
+    // the 3D scenes recolour too (scene/theme.js)
+    if (changed) window.dispatchEvent(new Event('ts-theme'));
     if (themeBtn) themeBtn.setAttribute('aria-label', t === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
     $$('meta[name="theme-color"]').forEach(function (m) { m.setAttribute('content', t === 'light' ? '#F4F6F9' : '#0A0F1C'); });
   }
@@ -100,8 +105,10 @@
    * --------------------------------------------------------------------- */
   var header = $('.site-header');
   function onScroll() { if (header) header.classList.toggle('is-solid', window.scrollY > 24); }
-  // the header strip: is any dark area under it?
-  var darks = $$('.scheme-dark').filter(function (el) { return !header || !header.contains(el); });
+  // the header strip: is a dark area under it? (only with ?scenes=dark; the
+  // scenes follow the theme otherwise, and the CSS ignores .on-dark)
+  // (only the full-width ones: a framed panel beside the text leaves the header alone)
+  var darks = $$('.scheme-dark[data-bleed]');
   if (header && darks.length && 'IntersectionObserver' in window) {
     var under = new Set();
     var headIo;

@@ -23,6 +23,7 @@
 // its #sa-land and #sa-borders paths. Nothing here is typed in.
 import { mulberry32, CITY, genCity, genCells } from './citygen.js';
 import { PT_VS, PT_FS, saTargets, saW, pathPolys, buildPillars } from './sa.js';
+import { uLight, glow, follow } from './theme.js';
 
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const sstep = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
@@ -49,10 +50,10 @@ void main() {
   vC = aC;
 }`;
 const RD_FS = `
-uniform float uBand;
+uniform float uBand, uLight;
 varying float vA; varying float vC;
 void main() {
-  vec3 base = mix(vec3(0.255, 0.278, 0.345), vec3(0.42, 0.46, 0.55), vC);
+  vec3 base = mix(mix(vec3(0.255, 0.278, 0.345), vec3(0.42, 0.46, 0.55), vC), mix(vec3(0.72, 0.75, 0.80), vec3(0.50, 0.55, 0.62), vC), uLight);
   vec3 tint = mix(mix(vec3(1.0, 1.03, 1.08), vec3(1.1, 1.0, 0.9), clamp(uBand, 0.0, 1.0)), vec3(0.86, 0.94, 1.12), clamp(uBand - 1.0, 0.0, 1.0));
   gl_FragColor = vec4(base * tint, vA);
 }`;
@@ -60,7 +61,7 @@ void main() {
 // Risk cells: height and level per band in aH and aL, blended by uBand.
 const CL_VS = `
 attribute vec3 aH; attribute vec3 aL;
-uniform float uBand, uReveal, uDissolve, uFogN, uFogF;
+uniform float uBand, uReveal, uDissolve, uFogN, uFogF, uLight;
 uniform vec2 uOrigin;
 varying vec3 vCol; varying float vA; varying float vY; varying float vTop; varying float vSide;
 void main() {
@@ -79,21 +80,24 @@ void main() {
   vec4 mv = modelViewMatrix * instanceMatrix * vec4(p, 1.0);
   gl_Position = projectionMatrix * mv;
   float fog = 1.0 - smoothstep(uFogN, uFogF, -mv.z);
-  vec3 cN = vec3(0.79, 0.84, 0.89), cY = vec3(0.92, 0.78, 0.27), cA = vec3(0.96, 0.62, 0.04), cR = vec3(0.94, 0.27, 0.27);
+  // the risk colours a shade deeper on a pale ground, and unrated cells in grey ink
+  vec3 cN = mix(vec3(0.79, 0.84, 0.89), vec3(0.42, 0.47, 0.55), uLight), cY = mix(vec3(0.92, 0.78, 0.27), vec3(0.86, 0.66, 0.06), uLight);
+  vec3 cA = mix(vec3(0.96, 0.62, 0.04), vec3(0.92, 0.47, 0.02), uLight), cR = mix(vec3(0.94, 0.27, 0.27), vec3(0.84, 0.13, 0.13), uLight);
   vec3 col = l < 1.0 ? mix(cN, cY, l) : (l < 2.0 ? mix(cY, cA, l - 1.0) : mix(cA, cR, l - 2.0));
   float sat = mix(0.8, 1.0, clamp(uBand * 0.5, 0.0, 1.0));
   col = mix(vec3(dot(col, vec3(0.3, 0.59, 0.11))), col, sat);
   float act = smoothstep(0.05, 0.6, l);
-  vA = mix(0.045, 0.5 + 0.08 * b2, act) * fog * rise * mix(1.0, sink, act) * (1.0 - uDissolve * (1.0 - act));
+  vA = mix(0.045, (0.5 + 0.08 * b2) * (1.0 + 0.25 * uLight), act) * fog * rise * mix(1.0, sink, act) * (1.0 - uDissolve * (1.0 - act));
   vCol = col;
   vY = position.y;
   vTop = step(0.5, normal.y);
   vSide = 0.78 + 0.22 * dot(normalize(normal.xz + vec2(0.0001)), normalize(vec2(-0.5, 0.86)));
 }`;
 const CL_FS = `
+uniform float uLight;
 varying vec3 vCol; varying float vA; varying float vY; varying float vTop; varying float vSide;
 void main() {
-  float k = vTop > 0.5 ? 1.3 : (0.32 + 0.68 * vY) * vSide;
+  float k = vTop > 0.5 ? mix(1.3, 1.08, uLight) : (0.32 + 0.68 * vY) * vSide * mix(1.0, 1.35, uLight);
   float a = vA * (vTop > 0.5 ? 1.0 : 0.9 * (0.3 + 0.7 * vY));
   gl_FragColor = vec4(vCol * k, a);
 }`;
@@ -145,6 +149,7 @@ export function buildCity(engine, { tier, small }) {
   const U = {
     uReveal: { value: 0 }, uBand: { value: 0 }, uDissolve: { value: 0 }, uMorph: { value: 0 },
     uPx: { value: renderer.getPixelRatio() }, uOrigin: { value: new T.Vector2(CITY.A[0], CITY.A[1]) }, uFogN: { value: 120 }, uFogF: { value: 320 },
+    uLight,
   };
 
   /* --- city point cloud: points on building walls and roofs --- */
@@ -251,7 +256,7 @@ export function buildCity(engine, { tier, small }) {
   scn.add(new T.Mesh(new T.TubeGeometry(fastC, 360, 0.26, 6, false), fastM));
   const lowM = routeMat('#34D399');
   scn.add(new T.Mesh(new T.TubeGeometry(lowC, 420, 0.46, 8, false), lowM));
-  const glowM = routeMat('#34D399', { uGlow: { value: 1 } }); glowM.blending = T.AdditiveBlending;
+  const glowM = glow(T, routeMat('#34D399', { uGlow: { value: 1 } }));
   scn.add(new T.Mesh(new T.TubeGeometry(lowC, 420, 1.6, 10, false), glowM));
   const bandPts = lowC.getSpacedPoints(420), bp = [], buv = [], bi = [];
   for (let i = 0; i < bandPts.length; i++) {
@@ -263,7 +268,7 @@ export function buildCity(engine, { tier, small }) {
   }
   const bgeo = new T.BufferGeometry();
   bgeo.setAttribute('position', new T.Float32BufferAttribute(bp, 3)); bgeo.setAttribute('uv', new T.Float32BufferAttribute(buv, 2)); bgeo.setIndex(bi);
-  const bandM = new T.ShaderMaterial({ vertexShader: BD_VS, fragmentShader: BD_FS, transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide, uniforms: { uProg: { value: 0 }, uAlpha: { value: 1 }, uGo: { value: GO } } });
+  const bandM = glow(T, new T.ShaderMaterial({ vertexShader: BD_VS, fragmentShader: BD_FS, transparent: true, depthWrite: false, side: T.DoubleSide, uniforms: { uProg: { value: 0 }, uAlpha: { value: 1 }, uGo: { value: GO.clone() } } }));
   scn.add(new T.Mesh(bgeo, bandM));
   const sh = new T.Shape(); sh.moveTo(0, 1.9); sh.lineTo(1.3, -1.3); sh.lineTo(0, -0.55); sh.lineTo(-1.3, -1.3); sh.closePath();
   const carG = new T.ShapeGeometry(sh); carG.rotateX(-Math.PI / 2);
@@ -289,6 +294,19 @@ export function buildCity(engine, { tier, small }) {
 
   /* --- per-frame state --- */
   const bgD = new T.Color('#0B1323'), bgE = new T.Color('#100F1A'), bgN = new T.Color('#070B17'), bgP = new T.Color('#0A0F1C'), bg = new T.Color();
+  // the light ground: cool by day, warm in the evening, cooler at night, the page's own at the end
+  const lgD = new T.Color('#EEF2F7'), lgE = new T.Color('#F4EFE9'), lgN = new T.Color('#E6EAF2'), lgP = new T.Color('#F4F6F9'), lg = new T.Color();
+  // theme(light): the colours that are not in a shader
+  let MINT_P = MINT;
+  function theme(isL) {
+    fastM.uniforms.uCol.value.set(isL ? '#475569' : '#E6EDF5');
+    lowM.uniforms.uCol.value.set(isL ? '#059669' : '#34D399');
+    glowM.uniforms.uCol.value.set(isL ? '#10B981' : '#34D399');
+    bandM.uniforms.uGo.value.set(isL ? '#10B981' : '#34D399');
+    car.material.color.set(isL ? 0x047857 : 0x6EE7B7);
+    MINT_P = isL ? new T.Color('#6EE7B7') : MINT;
+    pillars.theme(isL);
+  }
   const fu = fastM.uniforms, lu = lowM.uniforms, gu = glowM.uniforms, bu = bandM.uniforms;
   // s: stateAt(c) from chapters.js. x: { c (smoothed clock), dist (camera
   // distance), phone, spot (the hero spotlight's eased values), sw (how much of
@@ -305,7 +323,7 @@ export function buildCity(engine, { tier, small }) {
     lu.uProg.value = gu.uProg.value = bu.uProg.value = s.low;
     lu.uAlpha.value = gu.uAlpha.value = bu.uAlpha.value = s.lowA * (1 - 0.75 * sp.l * x.sw);
     lu.uPulse.value = gu.uPulse.value = sp.lp; lu.uPulseA.value = gu.uPulseA.value = sp.la * x.sw;
-    lu.uPc.value.copy(MINT); gu.uPc.value.copy(MINT);
+    lu.uPc.value.copy(MINT_P); gu.uPc.value.copy(MINT_P);
     pillars.update(s.grow);
     if (s.carT >= 0) {
       const t = clamp(s.carT, 0, 0.999), p = lowC.getPointAt(t), tg = lowC.getTangentAt(t);
@@ -314,11 +332,14 @@ export function buildCity(engine, { tier, small }) {
     } else car.visible = false;
     const b1 = clamp(s.band, 0, 1), b2 = clamp(s.band - 1, 0, 1);
     bg.copy(bgD).lerp(bgE, b1).lerp(bgN, b2).lerp(bgP, s.dis);
+    if (uLight.value) { lg.copy(lgD).lerp(lgE, b1).lerp(lgN, b2).lerp(lgP, s.dis); bg.copy(lg); }
     renderer.setClearColor(bg, 1);
   }
 
+  follow(engine, theme);
+
   return {
-    U, anchors, metroTags, fastC, coast,
+    U, anchors, metroTags, fastC, coast, theme,
     // what the explore map (scene/explore.js) builds on: the pillars (in the
     // order of the chapter 3 figure's dots, largest first), their shared
     // per-metro [highlight, brightness] attribute, the point material for a

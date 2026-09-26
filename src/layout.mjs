@@ -105,7 +105,13 @@ function pageHtml(page) {
   <!-- Light or dark before first paint: the visitor's own choice if they made
        one (the header's sun and moon button, site.js), else the device's.
        Without JavaScript the stylesheet follows the device by itself. -->
-  <script>(function(){var t;try{t=localStorage.getItem('ts-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
+  <!-- (A browser without light-dark() stays dark: the stylesheet has no light
+       values for it. The first wheel, touch or key is noted for site.js, which
+       then leaves the scroll position alone.)
+       The 3D city and the maps follow the theme too. ?scenes=dark (remembered
+       for the tab) keeps them as night panels in a light page instead, the
+       other way to do light mode; ?scenes=light goes back. -->
+  <script>(function(){var d=document.documentElement,t,s;try{t=localStorage.getItem('ts-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';if(!(window.CSS&&CSS.supports&&CSS.supports('color','light-dark(#000,#fff)')))t='dark';d.setAttribute('data-theme',t);['wheel','touchstart','keydown','mousedown'].forEach(function(e){addEventListener(e,function(){window.__tsMoved=1},{once:true,passive:true})});try{s=new URLSearchParams(location.search).get('scenes');if(s)sessionStorage.setItem('ts-scenes',s);s=sessionStorage.getItem('ts-scenes')}catch(e){}if(s==='dark')d.setAttribute('data-scenes','dark')})();</script>
   <meta name="color-scheme" content="dark light"/>
   <!-- Never leak the URL (the live-trip tracker carries a bearer ?id= token) in
        the Referer header to Mapbox or any cross-origin request. -->

@@ -53,7 +53,7 @@ export default {
   var info=document.getElementById('trip-status');
   var arrivedEl=document.getElementById('arrived');
   if(!token){ if(info){ info.textContent='This link is missing its trip code.'; info.setAttribute('data-state','wait'); } return; }
-  var cfg=null, map=null, driver=null, destMarker=null, started=false, routeSig=null, waiting=false, slowSkip=0;
+  var cfg=null, map=null, driver=null, destMarker=null, started=false, routeSig=null, waiting=false, slowSkip=0, lastGeo=null, sos=false;
   function pad(n){ return (n<10?'0':'')+n; }
   function clock(ms){ var d=new Date(ms); return d.getHours()+':'+pad(d.getMinutes()); }
   function loadMapbox(cb){
@@ -79,18 +79,33 @@ export default {
       if(src){ src.setData(data); }
       else{
         map.addSource('route',{type:'geojson',data:data});
-        map.addLayer({id:'route-line',type:'line',source:'route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#34D399','line-width':5,'line-opacity':0.9}});
+        map.addLayer({id:'route-line',type:'line',source:'route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':C().route,'line-width':5,'line-opacity':0.9}});
       }
       var b=new mapboxgl.LngLatBounds(); c.forEach(function(p){ b.extend(p); });
       try{ map.fitBounds(b,{padding:60,duration:0}); }catch(e){}
       routeSig=sig;
     }
+    lastGeo=geo;
     if(map.isStyleLoaded()) go(); else map.on('load',go);
   }
+  // the map follows the page's theme (unless the scenes are kept dark with
+  // ?scenes=dark): a light Mapbox style with a deeper emerald in the light
+  function C(){
+    var d=document.documentElement, lite=d.getAttribute('data-theme')==='light'&&d.getAttribute('data-scenes')!=='dark';
+    return lite?{style:'mapbox://styles/mapbox/light-v11',route:'#059669',driver:'#047857',dest:'#1C2533'}:{style:'mapbox://styles/mapbox/dark-v11',route:'#34D399',driver:'#34D399',dest:'#E6EDF5'};
+  }
+  window.addEventListener('ts-theme',function(){
+    if(!started||!map.setStyle) return;
+    map.setStyle(C().style);
+    map.once('style.load',function(){ routeSig=null; if(lastGeo) setRoute(lastGeo); });
+    // markers carry their colour from creation: made again
+    var p=driver.getLngLat(); driver.remove(); driver=new mapboxgl.Marker({color:sos?'#dc3c50':C().driver}).setLngLat(p).addTo(map);
+    if(destMarker){ var q=destMarker.getLngLat(); destMarker.remove(); destMarker=new mapboxgl.Marker({color:C().dest}).setLngLat(q).addTo(map); }
+  });
   function setDest(trip){
     if(trip.dest_lng==null||trip.dest_lat==null) return;
     if(destMarker){ destMarker.setLngLat([trip.dest_lng,trip.dest_lat]); }
-    else{ destMarker=new mapboxgl.Marker({color:'#E6EDF5'}).setLngLat([trip.dest_lng,trip.dest_lat]).addTo(map); }
+    else{ destMarker=new mapboxgl.Marker({color:C().dest}).setLngLat([trip.dest_lng,trip.dest_lat]).addTo(map); }
   }
   function say(t,st){ if(info){ info.textContent=t; info.setAttribute('data-state',st); } }
   function render(trip){
@@ -104,11 +119,11 @@ export default {
       return;
     }
     var lng=trip.lng, lat=trip.lat;
-    var isSos = trip.kind==='sos';
+    var isSos = trip.kind==='sos'; sos=isSos;
     if(!started){
       mapboxgl.accessToken=cfg.mapboxToken;
-      map=new mapboxgl.Map({container:'map',style:'mapbox://styles/mapbox/dark-v11',center:[lng,lat],zoom:13});
-      driver=new mapboxgl.Marker({color:isSos?'#dc3c50':'#34D399'}).setLngLat([lng,lat]).addTo(map);
+      map=new mapboxgl.Map({container:'map',style:C().style,center:[lng,lat],zoom:13});
+      driver=new mapboxgl.Marker({color:isSos?'#dc3c50':C().driver}).setLngLat([lng,lat]).addTo(map);
       started=true;
     } else { driver.setLngLat([lng,lat]); if(!routeSig) map.easeTo({center:[lng,lat],duration:1200}); }
     setDest(trip);

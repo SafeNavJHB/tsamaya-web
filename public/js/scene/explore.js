@@ -20,6 +20,8 @@
 // space and lifts a little on long hops. chapters.js blends the chapter camera
 // into this one as the section comes up (ew) and hands over the frame.
 
+import { uLight, glow } from './theme.js';
+
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const sstep = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -36,14 +38,14 @@ void main() {
   gl_Position = projectionMatrix * modelViewMatrix * vec4(position + vec3(aN.x, 0.0, aN.y) * aS * uW, 1.0);
 }`;
 const OL_FS = `
-uniform float uProg, uA, uG; uniform vec3 uC;
+uniform float uProg, uA, uG, uLight; uniform vec3 uC;
 varying float vS; varying float vU;
 void main() {
   float s = abs(vS), on = step(vU, uProg);
   float head = on * (1.0 - smoothstep(0.0, 0.05, uProg - vU)) * (1.0 - step(0.999, uProg));
   float a = ((1.0 - smoothstep(0.1, 0.26, s)) + exp(-s * 3.5) * 0.55 * uG) * uA * mix(0.22, 1.0, on) + head * uA * 0.8;
   if (a < 0.004) discard;
-  gl_FragColor = vec4(uC + head * 0.35, a);
+  gl_FragColor = vec4(uC + head * mix(0.35, -0.15, uLight), a);
 }`;
 // the rings: radius per band in aRB, blended by uRB; brightness from the pillar's aX
 const RG_VS = `
@@ -57,22 +59,22 @@ void main() {
   gl_Position = projectionMatrix * modelViewMatrix * instanceMatrix * vec4(position * S, 1.0);
 }`;
 const RG_FS = `
-uniform float uW;
+uniform float uW, uLight;
 varying vec2 vL; varying float vR; varying float vA;
 void main() {
   float d = length(vL);
   float a = ((1.0 - smoothstep(uW * 0.5, uW * 1.5, abs(d - vR))) * 0.62 + (1.0 - smoothstep(vR - uW, vR, d)) * 0.05) * vA;
   if (a < 0.004) discard;
-  gl_FragColor = vec4(0.94, 0.3, 0.3, a);
+  gl_FragColor = vec4(mix(vec3(0.94, 0.3, 0.3), vec3(0.84, 0.13, 0.13), uLight), a);
 }`;
 // one soft ripple from a metro's base
 const RP_VS = 'uniform float uS; varying vec2 vL; void main() { vL = position.xz * uS; gl_Position = projectionMatrix * modelViewMatrix * vec4(position * uS, 1.0); }';
 const RP_FS = `
-uniform float uR, uW, uA; varying vec2 vL;
+uniform float uR, uW, uA, uLight; varying vec2 vL;
 void main() {
   float d = length(vL), a = ((1.0 - smoothstep(0.0, uW, abs(d - uR))) + (1.0 - smoothstep(0.0, uR, d)) * 0.15) * uA;
   if (a < 0.004) discard;
-  gl_FragColor = vec4(0.2, 0.83, 0.6, a);
+  gl_FragColor = vec4(mix(vec3(0.2, 0.83, 0.6), vec3(0.02, 0.5, 0.37), uLight), a);
 }`;
 
 // slot: on phones the card has a place of its own under the map (the coverage
@@ -83,7 +85,8 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
   const T = engine.THREE, cam = engine.camera, scn = engine.scene, G = window.gsap;
   const pil = city.pil, M = ex.M, light = engine.tier === 'light';
   const stage = root.querySelector('.ex-stage'), hintEl = root.querySelector('.ex-hint'), card = root.querySelector('.ex-card'), back = root.querySelector('.ex-back'), pz = root.querySelector('.ex-pause');
-  const GREY = new T.Color(0.79, 0.84, 0.89), GO = new T.Color(0.2, 0.83, 0.6);
+  // the outline colours: light on the dark ground, ink on the light one (theme())
+  const GREY = new T.Color(0.79, 0.84, 0.89), GO = new T.Color(0.2, 0.83, 0.6), GREY_L = new T.Color(0.3, 0.36, 0.46), GO_L = new T.Color(0.02, 0.5, 0.37);
   // list index -> pillar index, and back (the rings share the pillars' order)
   const pi = M.map((m) => pil.metros.findIndex((q) => q.k === m.k));
   const top = (i) => pil.mTop[pi[i]], ht = (i) => pil.pH[pi[i]];
@@ -129,7 +132,7 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     const g = new T.BufferGeometry();
     g.setAttribute('position', new T.Float32BufferAttribute(P, 3)); g.setAttribute('aN', new T.Float32BufferAttribute(N, 2));
     g.setAttribute('aS', new T.Float32BufferAttribute(S, 1)); g.setAttribute('aU', new T.Float32BufferAttribute(U, 1)); g.setIndex(I);
-    const o = new T.Mesh(g, new T.ShaderMaterial({ vertexShader: OL_VS, fragmentShader: OL_FS, transparent: true, depthWrite: false, blending: T.AdditiveBlending, uniforms: { uW: UW, uProg: { value: 1 }, uA: { value: 0 }, uG: { value: 0 }, uC: { value: GREY.clone() } } }));
+    const o = new T.Mesh(g, glow(T, new T.ShaderMaterial({ vertexShader: OL_VS, fragmentShader: OL_FS, transparent: true, depthWrite: false, uniforms: { uLight, uW: UW, uProg: { value: 1 }, uA: { value: 0 }, uG: { value: 0 }, uC: { value: GREY.clone() } } })));
     o.frustumCulled = false; o.renderOrder = 2; o.visible = false; scn.add(o); outl[i] = o;
     if (!polys.length) { const t = top(i); Object.assign(B, { x0: t.x - 1, x1: t.x + 1, z0: t.z - 1, z1: t.z + 1 }); }
     if (m.gt) { gb.x0 = Math.min(gb.x0, B.x0); gb.x1 = Math.max(gb.x1, B.x1); gb.z0 = Math.min(gb.z0, B.z0); gb.z1 = Math.max(gb.z1, B.z1); }
@@ -148,11 +151,11 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
   const NP = pil.metros.length, rg = plane(), rb = new Float32Array(NP * 3);
   M.forEach((m, i) => { if (pi[i] >= 0) for (let b = 0; b < 3; b++) rb[pi[i] * 3 + b] = 0.17 * Math.sqrt(m.r[b]); });
   rg.setAttribute('aRB', new T.InstancedBufferAttribute(rb, 3)); rg.setAttribute('aX', pil.aX);
-  const ringM = new T.ShaderMaterial({ vertexShader: RG_VS, fragmentShader: RG_FS, transparent: true, depthWrite: false, blending: T.AdditiveBlending, uniforms: { uRB: { value: RB.v }, uW: UW2, uA: { value: 0 } } });
+  const ringM = glow(T, new T.ShaderMaterial({ vertexShader: RG_VS, fragmentShader: RG_FS, transparent: true, depthWrite: false, uniforms: { uLight, uRB: { value: RB.v }, uW: UW2, uA: { value: 0 } } }));
   const rings = new T.InstancedMesh(rg, ringM, NP), mtx = new T.Matrix4();
   pil.mTop.forEach((q, j) => { mtx.makeTranslation(q.x, 0.05, q.z); rings.setMatrixAt(j, mtx); });
   rings.frustumCulled = false; rings.renderOrder = 1; scn.add(rings);
-  const ripM = new T.ShaderMaterial({ vertexShader: RP_VS, fragmentShader: RP_FS, transparent: true, depthWrite: false, blending: T.AdditiveBlending, uniforms: { uS: { value: 1 }, uR: { value: 0 }, uW: { value: 0.2 }, uA: { value: 0 } } });
+  const ripM = glow(T, new T.ShaderMaterial({ vertexShader: RP_VS, fragmentShader: RP_FS, transparent: true, depthWrite: false, uniforms: { uLight, uS: { value: 1 }, uR: { value: 0 }, uW: { value: 0.2 }, uA: { value: 0 } } }));
   const rip = new T.Mesh(plane(), ripM); rip.frustumCulled = false; rip.visible = false; scn.add(rip);
 
   // faint emerald dots inside a picked metro's outline: the city's point
@@ -320,7 +323,7 @@ export function buildExplore({ engine, city, ex, geo, root, inv, paused, mulberr
     ST.forEach((st, i) => {
       const u = outl[i].material.uniforms, j = pi[i], bh = base ? base(M[i].k) : NOB;
       u.uA.value = ew * lerp(idA, 1, st.hi) * (0.45 + 0.55 * st.lit); u.uG.value = st.hi; u.uProg.value = st.draw;
-      u.uC.value.copy(GREY).lerp(GO, st.hi); outl[i].visible = ew > 0.01;
+      u.uC.value.copy(uLight.value ? GREY_L : GREY).lerp(uLight.value ? GO_L : GO, st.hi); outl[i].visible = ew > 0.01;
       if (j >= 0 && ew > 0) { pil.aXv[j * 2] = lerp(bh[0], st.hi, ew); pil.aXv[j * 2 + 1] = lerp(bh[1], st.lit, ew); }
       const f = fills[i];
       if (f) { f.visible = st.fa > 0.003 && ew > 0.01; f.material.uniforms.uAlpha.value = st.fa * ew; f.material.uniforms.uReveal.value = st.rv; }

@@ -205,7 +205,7 @@ const ch3 = `
 const explore = exploreSection({ kick: '04 / Explore' });
 
 const zone = `
-<div class="zone scheme-dark" id="zone">
+<div class="zone scheme-dark" id="zone" data-bleed>
 ${stage}
 ${hud}
 ${hero}

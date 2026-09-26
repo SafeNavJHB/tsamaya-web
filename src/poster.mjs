@@ -74,7 +74,10 @@ const hexCorners = [0, 1, 2, 3, 4, 5].map((k) => [HEX_R * Math.sin((k * Math.PI)
 const hex = (x, z) => hexCorners.map(([hx, hz]) => [x + hx, z + hz]);
 const thin = (pts, step) => pts.filter((_, i) => i % step === 0 || i === pts.length - 1);
 
-// Risk colours are status colours: yellow, amber, red for levels 1 to 3.
+// Risk colours are status colours: yellow, amber, red for levels 1 to 3. These
+// are the dark scene's; in the light theme the classes (pl-*) take the light
+// colours from styles.css (the social image, drawn without the stylesheet,
+// keeps these).
 const CELL = [null, ['#EBC846', '.32'], ['#F59E0B', '.42'], ['#EF4444', '.55']];
 
 function cellGroup(band) {
@@ -83,7 +86,7 @@ function cellGroup(band) {
     const shapes = cells.filter((c) => c[3][band] === level).map((c) => hex(c[0], c[1]));
     if (!shapes.length) continue;
     const [col, op] = CELL[level];
-    out += `<path d="${pathD(shapes, true)}" fill="${col}" fill-opacity="${op}" stroke="${col}" stroke-opacity=".7" stroke-width=".25"/>`;
+    out += `<path class="pl-l${level}" d="${pathD(shapes, true)}" fill="${col}" fill-opacity="${op}" stroke="${col}" stroke-opacity=".7" stroke-width=".25"/>`;
   }
   return out + '</g>';
 }
@@ -96,12 +99,12 @@ const lowD = pathD([crSample(CITY.LOW, 90)], false);
 
 export function posterDefs() {
   return `<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false"><defs>` +
-    `<pattern id="pdots" width="1.2" height="1.2" patternUnits="userSpaceOnUse"><rect width=".5" height=".5" fill="#C9D6E3" fill-opacity=".55"/></pattern>` +
-    `<pattern id="sadots" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="3" height="3" fill="#C9D6E3" fill-opacity=".45"/></pattern>` +
-    `<g id="pl-base"><path d="${streets}" fill="none" stroke="#414758" stroke-width=".28"/><path d="${arterials}" fill="none" stroke="#5D667A" stroke-width=".5"/><path d="${boxes}" fill="url(#pdots)"/></g>` +
+    `<pattern id="pdots" width="1.2" height="1.2" patternUnits="userSpaceOnUse"><rect class="pl-dot" width=".5" height=".5" fill="#C9D6E3" fill-opacity=".55"/></pattern>` +
+    `<pattern id="sadots" width="9" height="9" patternUnits="userSpaceOnUse"><rect class="pl-dot" width="3" height="3" fill="#C9D6E3" fill-opacity=".45"/></pattern>` +
+    `<g id="pl-base"><path class="pl-st" d="${streets}" fill="none" stroke="#414758" stroke-width=".28"/><path class="pl-ar" d="${arterials}" fill="none" stroke="#5D667A" stroke-width=".5"/><path d="${boxes}" fill="url(#pdots)"/></g>` +
     cellGroup(0) + cellGroup(1) + cellGroup(2) +
-    `<path id="pl-fast" d="${fastD}" fill="none" stroke="#E6EDF5" stroke-opacity=".7" stroke-width=".55" stroke-dasharray="1.6 1.1"/>` +
-    `<g id="pl-low"><path d="${lowD}" fill="none" stroke="#34D399" stroke-opacity=".22" stroke-width="3.2" stroke-linecap="round"/><path d="${lowD}" fill="none" stroke="#34D399" stroke-width="1.1" stroke-linecap="round"/></g>` +
+    `<path id="pl-fast" class="pl-fp" d="${fastD}" fill="none" stroke="#E6EDF5" stroke-opacity=".7" stroke-width=".55" stroke-dasharray="1.6 1.1"/>` +
+    `<g id="pl-low"><path class="pl-go" d="${lowD}" fill="none" stroke="#34D399" stroke-opacity=".22" stroke-width="3.2" stroke-linecap="round"/><path class="pl-go" d="${lowD}" fill="none" stroke="#34D399" stroke-width="1.1" stroke-linecap="round"/></g>` +
     `</defs></svg>`;
 }
 

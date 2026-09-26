@@ -6,6 +6,7 @@
 // Pillar height is a metro's rated areas: coverage, never risk. Everything
 // here is read from the page or the build's data, nothing is typed in.
 import { mulberry32 } from './citygen.js';
+import { uLight, glow } from './theme.js';
 
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 
@@ -16,7 +17,7 @@ const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 // City points: kind 0 city, 1 inside South Africa, 2 its coast, 3 its borders.
 export const PT_VS = `
 attribute vec3 aTarget; attribute vec2 aMeta;
-uniform float uReveal, uBand, uDissolve, uMorph, uPx, uAlpha, uSize, uFogN, uFogF;
+uniform float uReveal, uBand, uDissolve, uMorph, uPx, uAlpha, uSize, uFogN, uFogF, uLight;
 uniform vec2 uOrigin;
 varying vec3 vCol; varying float vA;
 void main() {
@@ -39,8 +40,13 @@ void main() {
   float br = mix(mix(1.0, 0.9, b1), 0.68, b2);
   float hs = 0.5 + 0.5 * clamp(p.y / 9.0, 0.0, 1.0);
   float saB = kind > 2.5 ? 0.5 : (kind > 1.5 ? 1.05 : 0.82);
-  col = mix(col * br * hs, kind > 3.5 ? vec3(0.3, 0.92, 0.68) : vec3(0.79, 0.84, 0.89) * saB, m);
-  col += edge * vec3(0.5, 0.6, 0.7);
+  // light: dark ink on a pale ground, and what the dark scene dims (low points,
+  // borders) goes toward the ground instead
+  vec3 grd = vec3(0.93, 0.95, 0.97);
+  vec3 colL = mix(grd, mix(mix(vec3(0.22, 0.29, 0.38), vec3(0.42, 0.30, 0.17), b1), vec3(0.19, 0.25, 0.45), b2), hs);
+  vec3 saL = mix(grd, vec3(0.22, 0.28, 0.37), min(saB, 1.0));
+  col = mix(mix(col * br * hs, colL, uLight), kind > 3.5 ? mix(vec3(0.3, 0.92, 0.68), vec3(0.02, 0.47, 0.34), uLight) : mix(vec3(0.79, 0.84, 0.89) * saB, saL, uLight), m);
+  col += edge * mix(vec3(0.5, 0.6, 0.7), vec3(-0.12, -0.1, -0.06), uLight);
   gl_PointSize = uPx * uSize * (0.8 + 0.4 * rnd) * (1.0 + edge * 1.4) * mix(0.3 + 0.7 * keep, 1.0 + 0.25 * m, isSA);
   vA = uAlpha * vis * keep * fog;
   vCol = col;
@@ -63,8 +69,9 @@ void main() {
   gl_Position = projectionMatrix * modelViewMatrix * instanceMatrix * vec4(p, 1.0);
 }`;
 export const PL_FS = `
+uniform float uLight;
 varying float vY; varying float vA; varying float vH;
-void main() { gl_FragColor = vec4(mix(vec3(0.86, 0.91, 0.97), vec3(0.2, 0.83, 0.6), vH), vA * (0.25 + 0.75 * pow(vY, 1.4))); }`;
+void main() { gl_FragColor = vec4(mix(mix(vec3(0.86, 0.91, 0.97), vec3(0.2, 0.83, 0.6), vH), mix(vec3(0.27, 0.33, 0.43), vec3(0.02, 0.5, 0.37), vH), uLight), vA * (0.25 + 0.75 * pow(vY, 1.4)) * (1.0 + 0.4 * uLight)); }`;
 
 
 /* ---------------------------------------------------------------------------
@@ -148,9 +155,9 @@ export function buildPillars(T, scn, metros) {
   pilG.setAttribute('aH', new T.InstancedBufferAttribute(pH, 1));
   pilG.setAttribute('aD', new T.InstancedBufferAttribute(pD, 1));
   pilG.setAttribute('aX', new T.InstancedBufferAttribute(aXv, 2));
-  const PU = { uGrow: { value: 0 }, uFade: { value: 1 }, uZ: { value: 1 }, uHs: { value: 1 } };
+  const PU = { uGrow: { value: 0 }, uFade: { value: 1 }, uZ: { value: 1 }, uHs: { value: 1 }, uLight };
   const pilMesh = (k, r) => {
-    const im = new T.InstancedMesh(pilG, new T.ShaderMaterial({ vertexShader: PL_VS, fragmentShader: PL_FS, transparent: true, depthWrite: false, blending: T.AdditiveBlending, uniforms: Object.assign({ uK: { value: k }, uR: { value: r } }, PU) }), NM);
+    const im = new T.InstancedMesh(pilG, glow(T, new T.ShaderMaterial({ vertexShader: PL_VS, fragmentShader: PL_FS, transparent: true, depthWrite: false, uniforms: Object.assign({ uK: { value: k }, uR: { value: r } }, PU) })), NM);
     metros.forEach((m, i) => { const w = saW(m.x, m.y); mtx.makeTranslation(w[0], 0, w[1]); im.setMatrixAt(i, mtx); });
     im.frustumCulled = false; scn.add(im);
   };
@@ -166,6 +173,8 @@ export function buildPillars(T, scn, metros) {
   const caps = new T.Points(capG, capM); caps.frustumCulled = false; scn.add(caps);
   return {
     metros, mTop, pH, PU, aX: pilG.attributes.aX, aXv,
+    // the dots on the pillar tops and bases: white in the dark, ink in the light
+    theme(light) { topM.color.set(light ? 0x1c2533 : 0xFFFFFF); capM.color.set(light ? 0x334155 : 0xE6EDF5); },
     // grow 0 to 1: the pillars rise, largest first, and their dots follow the tops
     update(grow) {
       PU.uGrow.value = grow; capM.opacity = grow * 0.95; topM.opacity = grow;

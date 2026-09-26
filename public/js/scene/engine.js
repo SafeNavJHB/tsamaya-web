@@ -117,6 +117,10 @@ export function createEngine({ canvas, stage = canvas.parentElement, tier = 'ful
   document.addEventListener('visibilitychange', onVisibility);
   const onMotion = (e) => { paused = !!(e.detail && e.detail.paused); kick(); };
   document.addEventListener('tsamaya:motion', onMotion);
+  // light and dark (site.js fires 'ts-theme'): the scene recolours, then redraws
+  const themeFns = [];
+  const onTheme = () => { themeFns.forEach((f) => f()); dirty = true; kick(); };
+  window.addEventListener('ts-theme', onTheme);
 
   canvas.addEventListener('webglcontextlost', (e) => {
     e.preventDefault();
@@ -140,7 +144,10 @@ export function createEngine({ canvas, stage = canvas.parentElement, tier = 'ful
     stop() { running = false; },
     // Draw at least one more frame (after a change made while paused or idle).
     invalidate() { dirty = true; kick(); },
+    // fn() runs on every theme change, before the redraw
+    onTheme(fn) { themeFns.push(fn); },
     dispose() {
+      window.removeEventListener('ts-theme', onTheme);
       running = false;
       if (rafId) cancelAnimationFrame(rafId);
       ro.disconnect();

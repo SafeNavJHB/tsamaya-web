@@ -7,6 +7,7 @@
 // metros: [{ k, x, y, z }] in map units, z the rated areas, largest first.
 import { PT_VS, PT_FS, saTargets, saW, pathPolys, buildPillars } from './sa.js';
 import { mulberry32 } from './citygen.js';
+import { uLight, follow } from './theme.js';
 
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const pathD = (rings, close) => rings.map((r) => 'M' + r.map((p) => p.join(' ')).join('L') + (close ? 'Z' : '')).join('');
@@ -17,6 +18,7 @@ export function buildCountry(engine, { tier, geo, metros }) {
   const U = {
     uReveal: { value: 1 }, uBand: { value: 0 }, uDissolve: { value: 0 }, uMorph: { value: 1 },
     uPx: { value: renderer.getPixelRatio() }, uOrigin: { value: new T.Vector2(0, 0) }, uFogN: { value: 120 }, uFogF: { value: 320 },
+    uLight,
   };
   const pointMat = (alpha, size, extra) => new T.ShaderMaterial({ vertexShader: PT_VS, fragmentShader: PT_FS, transparent: true, depthWrite: false, uniforms: Object.assign({}, U, { uAlpha: { value: alpha }, uSize: { value: size } }, extra) });
 
@@ -38,10 +40,12 @@ export function buildCountry(engine, { tier, geo, metros }) {
 
   const pillars = buildPillars(T, scn, metros);
   const { mTop, pH, PU, aX, aXv } = pillars;
-  renderer.setClearColor(0x0a0f1c, 1);
+  // the ground: the page's own, dark or light, following the theme
+  const theme = (isL) => { renderer.setClearColor(isL ? 0xf4f6f9 : 0x0a0f1c, 1); pillars.theme(isL); };
+  follow(engine, theme);
 
   return {
-    U,
+    U, theme,
     pil: { metros, mTop, pH, PU, aX, aXv, pointMat, saW, pathPolys },
     // per frame: fog by the camera's distance, and the pillars shrink as it
     // closes in (or a metro's pillar would fill the view)
