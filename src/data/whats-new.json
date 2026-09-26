@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-26.8",
+      "date": "26 September 2026",
+      "items": [
+        {
+          "icon": "speedometer-outline",
+          "title": "Speed dial back in the corner on Android Auto",
+          "body": "The speed dial sits in the top corner of the map again, and slides down out of the way only while the Android Auto buttons are showing.",
+          "category": "tweak"
+        },
+        {
+          "icon": "car-outline",
+          "title": "Your car sits nearer you on CarPlay",
+          "body": "In a right-hand drive car, where CarPlay puts its turn card on the right, your car and the road ahead now sit closer to that side during a drive, with the road name underneath.",
+          "category": "tweak"
+        },
+        {
+          "icon": "document-text-outline",
+          "title": "Send just the drive you mean",
+          "body": "When you send your drive log from Settings, you can now pick the last 3, 6, 12 or 24 hours, so the file covers only the trip that went wrong.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-26.7",
       "date": "26 September 2026",
       "items": [
