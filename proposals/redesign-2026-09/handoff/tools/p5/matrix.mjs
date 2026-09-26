@@ -27,7 +27,9 @@ const only = process.env.ONLY ? process.env.ONLY.split(',') : null;
 let bad = 0;
 for (const pr of PROFILES.filter((x) => !only || only.includes(x.n))) {
   const args = pr.e === chromium ? ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] : [];
-  const b = await pr.e.launch({ args });
+  // a browser that cannot start here (Playwright's Firefox on macOS 27) is reported, not fatal
+  let b;
+  try { b = await pr.e.launch({ args }); } catch (e) { console.log(`== ${pr.n}: could not launch ${pr.e.name()} here (${e.message.split('\n')[0].slice(0, 80)})`); continue; }
   const opts = { viewport: { width: pr.v[0], height: pr.v[1] }, deviceScaleFactor: pr.dpr, hasTouch: !!pr.touch, colorScheme: process.env.COLOR || 'dark' };
   if (pr.e !== firefox && pr.touch) opts.isMobile = true;
   if (pr.ua) opts.userAgent = pr.ua;

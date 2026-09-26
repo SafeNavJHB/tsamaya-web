@@ -1,6 +1,6 @@
 # Build plan: the Sensor redesign of tsamayaapp.co.za
 
-Written 2026/09/25. Status: Phases 0 to 4 done (2026/09/26), with light mode; Phase 5 (hardening and launch) in progress.
+Written 2026/09/25. Status: Phases 0 to 5 done (2026/09/26); ready to launch on Kyle's go-ahead (one merge to `main`).
 Preview of the branch build (private): https://claude.ai/artifact/UML9VQcPGy26gfbXSJUjj7, republished at the end of each phase.
 Prototype: `proposals/redesign-2026-09/concept-4-sensor.html` (home and Johannesburg views, with the interactive map spike).
 Owner decisions were settled on 2026/09/25 and are recorded in section 10.
@@ -486,7 +486,7 @@ Built in the same local session, with four requests from Kyle on 2026/09/26 fold
 - **The archive page** repeats the app's older changelog wording ("risk zones", "safer route"), as Updates did before; the fix is in the app's `whatsNew.ts`.
 - The scroll report could not be reproduced; if it recurs, note the browser and the route taken.
 
-### Phase 5 record (2026/09/26, in progress)
+### Phase 5 record (2026/09/26)
 
 **Done so far:**
 - **Main merged in:** the Terms and Privacy re-sync (the only change on `main` since the branch started). The legal texts now carry no em dashes.
@@ -497,6 +497,24 @@ Built in the same local session, with four requests from Kyle on 2026/09/26 fold
 - **Transfer:** home 454 KB (phone) to 487 KB (desktop) over a full scroll, against about 600; text pages 187 to 193 KB, See it 264 KB (its four screenshots); no text page loads Three.js.
 - **Copy pass:** the rules hold everywhere except content from the app (the mirrored changelog's older wording on the archive page, the legal texts' "risk zones" and quoted button label).
 - **Launch checks:** every address the live site serves still exists (what goes is the old design's `app.js`, fonts, `og.svg` and screenshots); `.well-known` is identical; the app's links (`track.html`, `privacy`, `sponsor.html`) resolve; a clean checkout builds under Node 20 with no install and passes the SEO gate, as CI will.
+- **Kyle's iPhone test (2026/09/26):**
+  - The scene flashed black (white in light mode) while scrolling: the fixed canvas was pinned to all four edges, so it resized with the sliding address bar, and every resize clears a canvas. It now keeps the largest viewport height, and the engine redraws straight after any resize, before the paint.
+  - A metro picked on the map, or with its card running off the bottom, now brings the map and card into view on stacked layouts.
+  - The HUD readouts sit on plates, so the light city no longer runs through the letters.
+  - Updates says what its list holds ("The 10 most recent updates · 22 to 25 September 2026", following as more load).
+  - Decision 9 settled: the light 3D city ships.
+- **Launch-readiness review** (independent, whole site against the live one): no blocker. Fixed:
+  - Stylesheet and script links carry a content fingerprint (`?v=...`, written by the build), so the 10 minutes browsers may keep GitHub Pages files cannot pair the new pages with the old `styles.css`.
+  - If `site.js` never runs, CSS shows the reveal-hidden content after 4 s by itself (rule 5).
+  - The tracker's map, the phone menu and the legal contents list opt out of Lenis. The menu then scrolls on a phone on its side; the review also saw the wheel over the tracker's real map scroll the page, which could not be reproduced here in either engine, with or without the opt-out.
+  - With the phone menu open, the page behind is inert, so Tab stays in the menu (also on the live site before).
+  - The See it detour screenshot's alt text named the suburbs beside its risk figures; it now names no place and takes its figures from the route card. The copy lint now reads alt text. The Durban page no longer names two suburbs beside the penalty wording (also live before).
+  - The tracker's route line comes back at once after a theme switch; `vendor/lenis.min.js` no longer names an unpublished source map.
+- **Merged from `main`:** the Terms and Privacy re-sync, and two What's New entries.
+- **Final verification (on the merged tree):** the full suite, both explore tests, `p3/metro`, `p3/track`, `p3/behaviour` (with the review fixes), `p3/updates`, `p3/theme` and `p4/try` pass; contrast over the scene meets AA in both themes; axe finds nothing on all 27 pages in both themes at 1440 and 390; the device matrix loads every page clean on every profile it can run (Firefox cannot start here and is untested); a clean checkout builds under Node 20 with no install and passes the SEO gate; the copy lint (now reading alt text) flags only the app's own copy.
+
+**Left for Kyle before the merge:** a real shared trip on the tracker (on a local build, see the handoff); Firefox and a real Android phone if wanted; the app's older changelog wording on the archive page ("risk zones", "safer route", and two entries naming suburbs), which is fixed in the app's `whatsNew.ts`; and the go-ahead for the merge to `main`, which is the launch.
+
 
 ## 9. Risks and what we do about them
 
