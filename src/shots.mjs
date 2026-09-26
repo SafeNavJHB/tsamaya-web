@@ -5,15 +5,17 @@
 // real Mapbox tiles, real zones and corridors from Supabase, real Google Places
 // search, real routing.
 //
-// jhb-map, capetown-map and route-card: 28 July 2026.
-// route-result and navigation: re-captured 10 September 2026, on a Kempton Park
-// to Mall of Africa drive. The navigation shot is taken with the simulator
-// DRIVING the route (see the location note below), which is what puts the car
-// marker, a real speed and a rated road on screen at once.
+// The site uses the four daytime captures below (home-day, route-card-day,
+// route-result-detour-day, navigation-day). The older night set (jhb-map,
+// capetown-map, route-card, route-result, navigation, from July and September)
+// and two unused daytime captures were removed on 2026/09/26: the night map
+// shots showed risk colours over named suburbs, which the site never does, and
+// they were still published as files. They are in git history before then.
 //
 // `name` refers to the optimised variants in public/img/screens/ produced by
-// `npm run images` from the raw PNGs in public/img/screens/src/. Each name has
-// AVIF, WebP and JPEG at 300/600/900 wide; the browser picks one.
+// `npm run images` from the raw PNGs in assets/screens-src/ (outside public/,
+// so the raw captures are never deployed). Each name has AVIF, WebP and JPEG at
+// 300/600/900 wide; the browser picks one.
 //
 // ---------------------------------------------------------------------------
 // HOW TO REFRESH THESE
@@ -51,24 +53,20 @@
 //    app repo prints a route's geometry), thinned to about one every 100 m.
 //
 // 3. Drive the UI, then capture at device resolution:
-//      xcrun simctl io <UDID> screenshot public/img/screens/src/<name>.png
+//      xcrun simctl io <UDID> screenshot assets/screens-src/<name>.png
 //
 // 4. npm run images   → writes the AVIF/WebP/JPEG variants. Commit both the raw
 //    PNG and the variants.
 //
 // TIME BAND. The app follows the real clock, so the palette in a capture depends
-// on when it was taken. The map shots are deliberately NIGHT: after dark the
-// ratings climb and the overlays actually show the risk data, which is the whole
-// point of those screens. Captured at 06:39 the same map is nearly empty, because
-// Sandton genuinely rates low in the daytime band. The navigation shot is night
-// too as of September 2026: the dark map is what a driver sees on the trips this
-// app is for, and the orange risk ribbon reads better against it than it did on
-// the old light capture.
+// on when it was taken. The site shows daytime captures with the risk overlay
+// off: a night map with the overlay on shows risk colours over named suburbs,
+// which the site never does (the reason the older night set was removed).
 //
-// DAYTIME SET (25 September 2026): home-day, route-card-day, route-result-day and
-// navigation-day. A Release build of app commit 111afbc on an iPhone 16 Pro
-// simulator (iOS 27.0), captured between 08:09 and 08:31 SAST with the city chip
-// reading Day. All four are in Rosebank or on the Rosebank to Melrose Arch trip,
+// DAYTIME SET (25 September 2026): home-day, route-card-day and navigation-day.
+// A Release build of app commit 111afbc on an iPhone 16 Pro simulator (iOS
+// 27.0), captured between 08:09 and 08:31 SAST with the city chip reading Day.
+// All three are in Rosebank or on the Rosebank to Melrose Arch trip,
 // with the risk overlay switched off (the eye icon on home and route result):
 // even in the daytime band orange suburbs sit close to every business district we
 // tried, and the site never shows a residential area as risky. The navigation map
@@ -76,16 +74,6 @@
 // on Oxford Road (lower risk) before the route reaches the M1, with the simulator
 // driving the route at 12 m/s. Xcode 27 builds only after every pod target below
 // iOS 15 is raised to 15.1 in the generated ios/Podfile post_install.
-//
-// route-result-airport-day (08:51 SAST, same build and simulator) is a longer
-// trip, O.R. Tambo International Airport to Cresta Shopping Centre, picked to
-// show a detour: the Balanced and Lower-risk option leaves the airport to the
-// north past Kempton Park instead of south to the N12, for 3 minutes and 186 m
-// more and 26 per cent less risk. Every option is graded D because the one
-// high-risk area on all of them is the airport's own zone ("OR Tambo
-// International Airport", rated high in the daytime band), which no trip from
-// the terminal can avoid. The card does not name it (the caution list below the
-// fold does), so a caption must not suggest the risk lies along the freeways.
 //
 // route-result-detour-day (09:04 SAST) starts in central Kempton Park, about
 // 4 km north of the terminal, and shows the detour far better: the Balanced and
@@ -102,65 +90,14 @@
 // own `simctl io screenshot --mask=black` capture of the same screen. Only the
 // island's pixels were touched, so the set matches the older captures.
 
-// Gallery entries for the demo page.
-export const shots = [
-  {
-    name: 'jhb-map',
-    alt: 'Tsamaya over Sandton, Johannesburg, showing risk zones, checked corridors and a flagged hijacking hotspot on the live map',
-    title: 'The live risk map',
-    caption: 'Sandton and Illovo, with zones, corridors and hotspots rated for the current time of day',
-  },
-  {
-    name: 'capetown-map',
-    alt: 'Tsamaya over the Cape Town city centre with risk overlays across District Six, Vredehoek and the Foreshore',
-    title: 'Multi-metro',
-    caption: 'Cape Town, the largest map we run',
-  },
-  {
-    name: 'route-result',
-    alt: 'Tsamaya comparing a lower-risk route against the fastest one on a Kempton Park to Mall of Africa drive, each option graded and showing how many high-risk areas it passes',
-    title: 'Compare before you drive',
-    caption: 'Kempton Park to Mall of Africa: the same 25 minutes, half a kilometre shorter, and half the high-risk areas, with an honest warning about the ones it could not avoid',
-  },
-  {
-    name: 'navigation',
-    alt: 'Tsamaya mid-drive on Monument Road in Kempton Park, the route ribbon coloured orange for risk, showing the next turn with lane guidance, the current speed against the limit, and the road rated Use caution',
-    title: 'Turn-by-turn, in the app',
-    caption: 'The route coloured by risk as you drive, the next turn with its lanes, and the road you are on named and rated',
-  },
-];
-
-// Which capture backs each step of the annotated walkthrough. A step with no
-// entry here falls back to the drawn SVG mockup in components.mjs.
-export const walkthrough = {
-  home: 'jhb-map',
-  route: 'route-card',
-  result: 'route-result',
-  navigation: 'navigation',
-};
-
 // Alt text for every capture, including the ones that only appear in the
 // walkthrough and so have no gallery entry to borrow a description from.
 // A screen reader should get the same information a sighted reader does.
 export const alts = {
-  'jhb-map':
-    'The Tsamaya app over Sandton, Johannesburg, with risk zones shaded on the live map, checked corridors in green, and a flagged hijacking hotspot',
-  'capetown-map':
-    'Tsamaya over the Cape Town city centre, with risk overlays across District Six, Vredehoek and the Foreshore',
-  'route-card':
-    'Tsamaya with the start set to the driver’s location and the destination set to Maboneng Precinct, ready to plan the route',
-  'route-result':
-    'Tsamaya comparing two routes from Kempton Park to Mall of Africa: a combined balanced and lower-risk option at 25 minutes and 17.4 km, graded D, passing two high-risk areas and carrying 68 per cent less risk, against the fastest at 25 minutes and 18.0 km, graded E, passing four. Above them a warning says two high-risk areas could not be avoided',
-  navigation:
-    'Tsamaya navigating on Monument Road in Kempton Park at night. The road ahead is drawn in orange where the route carries risk, the next instruction is a left turn onto Highveld Road in 140 metres with lane guidance underneath, the speed reads 54 km/h against a 60 limit, and the road the car is on is labelled Monument Road, use caution. The trip has 38 minutes and 37.8 km left',
   'home-day':
     'The Tsamaya home screen in the daytime over Rosebank, Johannesburg. The city chip reads Johannesburg, Day, the Where to? search bar sits above a row of one-tap shortcuts, and the risk overlay is switched off, so the map shows only streets and places',
   'route-card-day':
     'Tsamaya ready to plan a daytime trip, with the start set to My location in Rosebank and the destination set to Melrose Arch, and an Add stop option and the Go button underneath',
-  'route-result-day':
-    'Tsamaya comparing two routes from Rosebank to Melrose Arch in the daytime. The first is the fastest, balanced and lower-risk option at once: graded A, 8 minutes and 3.9 km, with 1 km through low-risk areas. The alternative via the M30 is graded B, 2 minutes and 164 metres longer, and passes one medium-risk area for 0.3 km and 3 km of low-risk areas. A banner above them calls the first the lower-risk choice for this trip',
-  'route-result-airport-day':
-    'Tsamaya comparing three routes from O.R. Tambo International Airport to Cresta Shopping Centre in Randburg in the daytime. The balanced and lower-risk option, graded D, takes 58 minutes over 56.9 km, 3 minutes and 186 metres more than the fastest, and carries 26 per cent less risk: it passes one high-risk area for 3.2 km instead of 4.4 km. The fastest takes 55 minutes over 56.7 km and a third option via the N3 takes 57 minutes, both graded D. A banner warns that one high-risk area could not be avoided. On the map the lower-risk route leaves the airport to the north past Kempton Park, where the fastest leaves to the south, and both then follow the freeways around the north of Johannesburg',
   'route-result-detour-day':
     'Tsamaya comparing three routes from Kempton Park to Cresta Shopping Centre in Randburg in the daytime. The balanced and lower-risk option, graded B, takes 47 minutes over 52.3 km: 9.8 km further than the standard route but 2 minutes quicker in live traffic, with 99 per cent less risk, passing one medium-risk area for 0.1 km. The standard route, graded E, takes 49 minutes over 42.4 km and passes 4 high-risk areas for 10 km, and a third option via the N1, also graded E, passes 3. On the map the lower-risk route heads south past O.R. Tambo International Airport to the freeway where the standard route heads straight west, and both then follow the freeways around the north of Johannesburg',
   'navigation-day':
