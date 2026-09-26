@@ -16,7 +16,8 @@ export const uLight = { value: isLight() ? 1 : 0 };
 
 const glows = new Set();
 export function glow(T, material) { glows.add(material); setBlend(T, material); return material; }
-function setBlend(T, m) { const b = uLight.value ? T.NormalBlending : T.AdditiveBlending; if (m.blending !== b) { m.blending = b; m.needsUpdate = true; } }
+// NormalBlending is 1 in three.js; the trimmed build (vendor/three.scene.min.js) exports only AdditiveBlending
+function setBlend(T, m) { const b = uLight.value ? 1 : T.AdditiveBlending; if (m.blending !== b) { m.blending = b; m.needsUpdate = true; } }
 
 // follow(engine, fn): fn(light) now and on every theme change (through the
 // engine, which stops listening when it is disposed), after the uniform and

@@ -47,6 +47,8 @@ const px = async (p, sel, fx = 0.02, fy = 0.02) => {
   await ctx.route(/cloudflareinsights/, (r) => r.abort());
   const p = await ctx.newPage();
   const errs = []; p.on('pageerror', (e) => errs.push(e.message));
+  // three.js reports a bad material on the console, not as a page error
+  p.on('console', (m) => { if ((m.type() === 'error' || m.type() === 'warning') && /THREE|WebGL/.test(m.text())) errs.push(m.text()); });
   await p.goto(H + 'index.html', { waitUntil: 'load' });
   await p.waitForFunction(() => window.__home && window.__home.ready, null, { timeout: 30000 });
   await p.waitForTimeout(2500);
@@ -60,7 +62,7 @@ const px = async (p, sel, fx = 0.02, fy = 0.02) => {
   ok(sky2 < 0.15, `the button switches the running city to dark (${sky2.toFixed(2)})`);
   await p.locator('.theme-toggle').click(); await p.waitForTimeout(900);
   ok(await px(p, '.scene canvas') > 0.8, 'and back to light');
-  ok(!errs.length, `no page errors ${errs.join(' | ')}`);
+  ok(!errs.length, `no page or three.js errors ${errs.slice(0, 2).join(' | ')}`);
   await p.goto(H + 'how-it-works.html', { waitUntil: 'load' });
   ok(lum(await bg(p, '.hw-scene')) > 0.8, 'light: How it works draws its city on a light stage');
   await ctx.close();
