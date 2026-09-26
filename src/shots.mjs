@@ -5,15 +5,17 @@
 // real Mapbox tiles, real zones and corridors from Supabase, real Google Places
 // search, real routing.
 //
-// jhb-map, capetown-map and route-card: 28 July 2026.
-// route-result and navigation: re-captured 10 September 2026, on a Kempton Park
-// to Mall of Africa drive. The navigation shot is taken with the simulator
-// DRIVING the route (see the location note below), which is what puts the car
-// marker, a real speed and a rated road on screen at once.
+// The site uses the four daytime captures below (home-day, route-card-day,
+// route-result-detour-day, navigation-day). The older night set (jhb-map,
+// capetown-map, route-card, route-result, navigation, from July and September)
+// and two unused daytime captures were removed on 2026/09/26: the night map
+// shots showed risk colours over named suburbs, which the site never does, and
+// they were still published as files. They are in git history before then.
 //
 // `name` refers to the optimised variants in public/img/screens/ produced by
-// `npm run images` from the raw PNGs in public/img/screens/src/. Each name has
-// AVIF, WebP and JPEG at 300/600/900 wide; the browser picks one.
+// `npm run images` from the raw PNGs in assets/screens-src/ (outside public/,
+// so the raw captures are never deployed). Each name has AVIF, WebP and JPEG at
+// 300/600/900 wide; the browser picks one.
 //
 // ---------------------------------------------------------------------------
 // HOW TO REFRESH THESE
@@ -51,75 +53,67 @@
 //    app repo prints a route's geometry), thinned to about one every 100 m.
 //
 // 3. Drive the UI, then capture at device resolution:
-//      xcrun simctl io <UDID> screenshot public/img/screens/src/<name>.png
+//      xcrun simctl io <UDID> screenshot assets/screens-src/<name>.png
 //
 // 4. npm run images   → writes the AVIF/WebP/JPEG variants. Commit both the raw
 //    PNG and the variants.
 //
 // TIME BAND. The app follows the real clock, so the palette in a capture depends
-// on when it was taken. The map shots are deliberately NIGHT: after dark the
-// ratings climb and the overlays actually show the risk data, which is the whole
-// point of those screens. Captured at 06:39 the same map is nearly empty, because
-// Sandton genuinely rates low in the daytime band. The navigation shot is night
-// too as of September 2026: the dark map is what a driver sees on the trips this
-// app is for, and the orange risk ribbon reads better against it than it did on
-// the old light capture.
-
-// Gallery entries for the demo page.
-export const shots = [
-  {
-    name: 'jhb-map',
-    alt: 'Tsamaya over Sandton, Johannesburg, showing risk zones, checked corridors and a flagged hijacking hotspot on the live map',
-    title: 'The live risk map',
-    caption: 'Sandton and Illovo, with zones, corridors and hotspots rated for the current time of day',
-  },
-  {
-    name: 'capetown-map',
-    alt: 'Tsamaya over the Cape Town city centre with risk overlays across District Six, Vredehoek and the Foreshore',
-    title: 'Multi-metro',
-    caption: 'Cape Town, the largest map we run',
-  },
-  {
-    name: 'route-result',
-    alt: 'Tsamaya comparing a lower-risk route against the fastest one on a Kempton Park to Mall of Africa drive, each option graded and showing how many high-risk areas it passes',
-    title: 'Compare before you drive',
-    caption: 'Kempton Park to Mall of Africa: the same 25 minutes, half a kilometre shorter, and half the high-risk areas, with an honest warning about the ones it could not avoid',
-  },
-  {
-    name: 'navigation',
-    alt: 'Tsamaya mid-drive on Monument Road in Kempton Park, the route ribbon coloured orange for risk, showing the next turn with lane guidance, the current speed against the limit, and the road rated Use caution',
-    title: 'Turn-by-turn, in the app',
-    caption: 'The route coloured by risk as you drive, the next turn with its lanes, and the road you are on named and rated',
-  },
-];
-
-// Which capture backs each step of the annotated walkthrough. A step with no
-// entry here falls back to the drawn SVG mockup in components.mjs.
-export const walkthrough = {
-  home: 'jhb-map',
-  route: 'route-card',
-  result: 'route-result',
-  navigation: 'navigation',
-};
+// on when it was taken. The site shows daytime captures with the risk overlay
+// off: a night map with the overlay on shows risk colours over named suburbs,
+// which the site never does (the reason the older night set was removed).
+//
+// DAYTIME SET (25 September 2026): home-day, route-card-day and navigation-day.
+// A Release build of app commit 111afbc on an iPhone 16 Pro simulator (iOS
+// 27.0), captured between 08:09 and 08:31 SAST with the city chip reading Day.
+// All three are in Rosebank or on the Rosebank to Melrose Arch trip,
+// with the risk overlay switched off (the eye icon on home and route result):
+// even in the daytime band orange suburbs sit close to every business district we
+// tried, and the site never shows a residential area as risky. The navigation map
+// draws no zone fills, only the risk-coloured route ribbon, so that frame is taken
+// on Oxford Road (lower risk) before the route reaches the M1, with the simulator
+// driving the route at 12 m/s. Xcode 27 builds only after every pod target below
+// iOS 15 is raised to 15.1 in the generated ios/Podfile post_install.
+//
+// route-result-detour-day (09:04 SAST) starts in central Kempton Park, about
+// 4 km north of the terminal, and shows the detour far better: the Balanced and
+// Lower-risk route (graded B) heads south past the airport to the freeway
+// instead of straight west, 9.8 km further but 2 minutes quicker in that
+// morning's traffic, with 99 per cent less risk than the standard route (graded
+// E, 4 high-risk areas). Because the lower-risk route was also the quicker one,
+// the app labels the other "Standard" rather than "Fastest". The high-risk areas
+// it avoids are Kempton Park suburbs; neither the card nor the map names them,
+// so a caption must not name them either.
+//
+// simctl draws the Dynamic Island into a capture only some of the time. home-day
+// got it naturally; the others had it drawn in afterwards from the simulator's
+// own `simctl io screenshot --mask=black` capture of the same screen. Only the
+// island's pixels were touched, so the set matches the older captures.
 
 // Alt text for every capture, including the ones that only appear in the
 // walkthrough and so have no gallery entry to borrow a description from.
 // A screen reader should get the same information a sighted reader does.
+import { readFileSync } from 'node:fs';
+const card = JSON.parse(readFileSync(new URL('./data/route-card.json', import.meta.url), 'utf8'));
+const std = card.standard, low = card.lower;
+
 export const alts = {
-  'jhb-map':
-    'The Tsamaya app over Sandton, Johannesburg, with risk zones shaded on the live map, checked corridors in green, and a flagged hijacking hotspot',
-  'capetown-map':
-    'Tsamaya over the Cape Town city centre, with risk overlays across District Six, Vredehoek and the Foreshore',
-  'route-card':
-    'Tsamaya with the start set to the driver’s location and the destination set to Maboneng Precinct, ready to plan the route',
-  'route-result':
-    'Tsamaya comparing two routes from Kempton Park to Mall of Africa: a combined balanced and lower-risk option at 25 minutes and 17.4 km, graded D, passing two high-risk areas and carrying 68 per cent less risk, against the fastest at 25 minutes and 18.0 km, graded E, passing four. Above them a warning says two high-risk areas could not be avoided',
-  navigation:
-    'Tsamaya navigating on Monument Road in Kempton Park at night. The road ahead is drawn in orange where the route carries risk, the next instruction is a left turn onto Highveld Road in 140 metres with lane guidance underneath, the speed reads 54 km/h against a 60 limit, and the road the car is on is labelled Monument Road, use caution. The trip has 38 minutes and 37.8 km left',
+  'home-day':
+    'The Tsamaya home screen in the daytime over Rosebank, Johannesburg. The city chip reads Johannesburg, Day, the Where to? search bar sits above a row of one-tap shortcuts, and the risk overlay is switched off, so the map shows only streets and places',
+  'route-card-day':
+    'Tsamaya ready to plan a daytime trip, with the start set to My location in Rosebank and the destination set to Melrose Arch, and an Add stop option and the Go button underneath',
+  // Built from the route card (src/data/route-card.json), and naming no place
+  // on the trip: the high-risk areas the standard route passes are suburbs
+  // (launch review, 2026/09/26).
+  'route-result-detour-day':
+    `Tsamaya comparing three routes for a daytime trip across the north of Johannesburg. The ${low.label.toLowerCase()} option, graded ${low.grade}, takes ${low.minutes} minutes over ${low.km} km: ${low.extraKm} km further than the standard route but ${low.minutesQuicker} minutes quicker in live traffic, with ${low.lessRiskPct} per cent less risk, passing ${low.mediumRisk} medium-risk area for ${low.mediumRiskKm} km. The standard route, graded ${std.grade}, takes ${std.minutes} minutes over ${std.km} km and passes ${std.highRisk} high-risk areas for ${std.highRiskKm} km, and a third option via the N1 is also graded ${std.grade}. On the map the lower-risk route swings south to the freeway where the standard route heads straight west, and both then follow the freeways around the north of Johannesburg`,
+  'navigation-day':
+    'Tsamaya navigating on Oxford Road in Rosebank in the daytime, between 3D buildings. The next instruction is a left turn onto the M20 in 280 metres with lane guidance underneath, the speed reads 43 km/h against a 60 limit, the route is drawn green along Oxford Road and yellow for low risk on the M20 ahead, and the road the car is on is labelled Oxford Road, lower risk. The trip has 8 minutes and 3.8 km left',
 };
 
 export const altFor = (name) => alts[name] || 'A screen from the Tsamaya app';
 
-// Intrinsic pixel size of every capture (iPhone 17 Pro at 3x). Used for the
+// Intrinsic pixel size of every capture (iPhone 17 Pro at 3x; the daytime set is
+// an iPhone 16 Pro, which has the same 1206 x 2622 screen). Used for the
 // width/height attributes that stop the page shifting as images load.
 export const shotSize = { width: 1206, height: 2622 };

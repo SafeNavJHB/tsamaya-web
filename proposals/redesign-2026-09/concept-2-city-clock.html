@@ -1,0 +1,941 @@
+<title>Tsamaya City Clock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&family=Atkinson+Hyperlegible+Next:wght@400;600;700&display=swap">
+<style>
+@property --ground{syntax:'<color>';inherits:true;initial-value:#0B1220}
+@property --ground-2{syntax:'<color>';inherits:true;initial-value:#111A2E}
+@property --ink{syntax:'<color>';inherits:true;initial-value:#EAF0F7}
+@property --ink-2{syntax:'<color>';inherits:true;initial-value:#A9B6C8}
+@property --accent{syntax:'<color>';inherits:true;initial-value:#FFB347}
+@property --accent-t{syntax:'<color>';inherits:true;initial-value:#FFB347}
+@property --action{syntax:'<color>';inherits:true;initial-value:#34D399}
+@property --action-ink{syntax:'<color>';inherits:true;initial-value:#04231A}
+@property --line{syntax:'<color>';inherits:true;initial-value:rgba(234,240,247,.22)}
+@property --cov{syntax:'<color>';inherits:true;initial-value:rgba(255,179,71,.2)}
+@property --w1{syntax:'<color>';inherits:true;initial-value:#22324A}
+@property --wm{syntax:'<color>';inherits:true;initial-value:#46576C}
+@property --w2{syntax:'<color>';inherits:true;initial-value:#8FA2B2}
+
+:root{
+  --disp:'Anybody',Arial,sans-serif;
+  --text:'Atkinson Hyperlegible Next','Atkinson Hyperlegible',Verdana,sans-serif;
+  --g:clamp(16px,4vw,48px);--max:1200px;--rail:76px;--hh:64px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --wash:clamp(112px,12vw,176px);
+}
+@media (min-width:1100px){:root{--hh:72px}}
+
+/* the three lights, plus the footer's deeper night */
+[data-light=day]{--ground:#E4ECEF;--ground-2:#D3DFE3;--ink:#0F1B2D;--ink-2:#3D4B5E;--accent:#B8871B;--accent-t:#8C6A14;--action:#0B6E4F;--action-ink:#FFFFFF;--line:rgba(15,27,45,.22);--cov:rgba(184,135,27,.34);--w1:#E4ECEF;--wm:#E4ECEF;--w2:#E4ECEF;--hw:600}
+[data-light=evening]{--ground:#E8A46C;--ground-2:#D98A5A;--ink:#241510;--ink-2:#4A2E22;--accent:#7A2E1E;--accent-t:#7A2E1E;--action:#0F1B2D;--action-ink:#FFFFFF;--line:rgba(36,21,16,.26);--cov:rgba(122,46,30,.2);--w1:#E6B994;--wm:#E4C4A8;--w2:#E2D6CB;--hw:700}
+[data-light=night]{--ground:#0B1220;--ground-2:#111A2E;--ink:#EAF0F7;--ink-2:#A9B6C8;--accent:#FFB347;--accent-t:#FFB347;--action:#34D399;--action-ink:#04231A;--line:rgba(234,240,247,.2);--cov:rgba(255,179,71,.2);--w1:#1F2E45;--wm:#46576C;--w2:#8397A9;--hw:800}
+[data-light=deep]{--ground:#060B14;--ground-2:#0B1220;--ink:#EAF0F7;--ink-2:#A9B6C8;--accent:#FFB347;--accent-t:#FFB347;--action:#34D399;--action-ink:#04231A;--line:rgba(234,240,247,.18);--hw:800}
+
+html,body{margin:0;background:#060B14}
+.cc{font-family:var(--text);font-size:1.0625rem;line-height:1.55;color:var(--ink);background:#060B14;-webkit-text-size-adjust:100%;overflow-x:clip}
+@media (min-width:700px){.cc{font-size:1.125rem}}
+.cc *,.cc *::before,.cc *::after{box-sizing:border-box}
+.cc [hidden]{display:none!important}
+.cc img{max-width:100%;height:auto;display:block}
+.cc a{color:inherit;text-underline-offset:.2em;text-decoration-thickness:1px}
+.cc p{margin:0 0 1em;max-width:62ch}
+.cc h1,.cc h2,.cc h3{font-family:var(--disp);font-stretch:100%;line-height:1.04;text-wrap:balance;margin:0;letter-spacing:-.01em}
+.cc h2{font-size:clamp(2rem,1.25rem + 2.6vw,3.5rem);font-weight:var(--hw);max-width:21ch;margin-bottom:.6em}
+.cc h3{font-size:1.25rem;font-weight:700;letter-spacing:0;line-height:1.2}
+.cc :focus-visible{outline:3px solid var(--action);outline-offset:3px}
+.cc button{font:inherit;color:inherit}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.cc .skip{position:absolute;left:12px;top:-60px;z-index:60;background:#0F1B2D;color:#fff;padding:12px 16px;border-radius:6px;font-weight:700}
+.skip:focus{top:12px}
+.wrap{margin-inline:max(var(--g),calc((100% - var(--max))/2))}
+@media (min-width:1100px){.wrap{margin-left:max(calc(var(--rail) + var(--g)),calc((100% - var(--max))/2))}}
+.num,.t,.hour time,.now{font-variant-numeric:tabular-nums}
+.cc [id]{scroll-margin-top:112px}
+@media (min-width:1100px){.cc [id]{scroll-margin-top:88px}}
+
+/* buttons */
+.cc .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:6px;background:var(--action);color:var(--action-ink);font-weight:700;text-decoration:none;border:0;cursor:pointer;transition:transform .1s linear}
+.btn:active,.bands button:active,.store:active{transform:translateY(1px)}
+.cc .btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.quiet{font-weight:700;text-decoration:underline;text-underline-offset:.25em;min-height:48px;display:inline-flex;align-items:center;padding:0 4px}
+
+/* header: takes the light of the section under it */
+.top{position:sticky;top:0;z-index:40;color:var(--ink);background:var(--ground);background:color-mix(in srgb,var(--ground) 92%,transparent);border-bottom:1px solid var(--line);transition:--ground .25s,--ink .25s,--ink-2 .25s,--action .25s,--action-ink .25s,--line .25s}
+.top.deep{background:color-mix(in srgb,var(--ground-2) 92%,transparent)}
+.hdr{min-height:var(--hh);display:flex;align-items:center;gap:12px;position:relative}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--disp);font-weight:800;font-stretch:110%;font-size:1.375rem;letter-spacing:-.01em;min-height:44px;margin-right:auto}
+.brand img{width:34px;height:34px}
+.nav{display:flex;gap:2px}
+.nav a{display:flex;align-items:center;min-height:44px;padding:0 12px;text-decoration:none;font-weight:600;font-size:1rem;border-radius:6px}
+.nav a:hover{text-decoration:underline}
+.nav a[aria-current]{text-decoration:underline;text-decoration-thickness:2px}
+.hdr .btn{min-height:44px;padding:0 16px;font-size:1rem}
+.menu-b{display:none;justify-content:center;min-height:44px;min-width:44px;padding:0;border-radius:6px;border:1px solid var(--line);background:transparent;cursor:pointer}
+@media (max-width:959px){
+  .hdr{flex-wrap:wrap;column-gap:8px}
+  .brand{font-size:1.25rem}
+  .hdr .btn{padding:0 14px}
+  .nav{order:3;width:100%;flex-wrap:wrap;padding-bottom:8px}
+  .js .nav{display:none;z-index:5;position:absolute;left:calc(-1 * var(--g));right:calc(-1 * var(--g));top:100%;flex-direction:column;padding:8px var(--g) 16px;background:var(--ground);border-bottom:1px solid var(--line)}
+  .js .top.open .nav{display:flex}
+  .js .menu-b{display:inline-flex;align-items:center}
+  .top.open{background:var(--ground)}
+}
+@media (max-width:959px){.nav{margin-left:0}}
+@media (min-width:960px){.nav{margin-left:auto;margin-right:8px}.brand{margin-right:0}}
+
+/* clock rail: desktop column on the left, sticky bar on mobile */
+.hourbar{display:flex;align-items:center;gap:14px;height:38px;border-top:1px solid var(--line);font-size:.9375rem;font-weight:700}
+.hb-text{white-space:nowrap}
+.hb-text b{font-family:var(--disp);font-stretch:112%;font-weight:800}
+.hb-line{position:relative;flex:1;height:14px;overflow:hidden}
+.hb-line .segs{position:absolute;left:0;right:0;top:4px;height:6px}
+.segs i{position:absolute;top:0;bottom:0;left:calc(var(--a) / 24 * 100%);width:calc((var(--b) - var(--a)) / 24 * 100%);box-shadow:inset 0 0 0 1px var(--line)}
+.s-d{background:#E4ECEF}.s-e{background:#E8A46C}.s-n{background:#0B1220}
+.hb-mark,.rail-mark{position:absolute;inset:0;transition:transform .3s var(--ease)}
+.hb-mark{transform:translateX(calc(var(--p,.5) * 100%))}
+.hb-mark::before{content:'';position:absolute;left:-1.5px;top:0;bottom:0;width:3px;background:var(--ink)}
+.rail{display:none}
+@media (min-width:1100px){
+  .hourbar{display:none}
+  .rail{display:block;position:fixed;z-index:30;left:0;top:var(--hh);bottom:0;width:var(--rail);color:var(--ink);background:var(--ground);background:color-mix(in srgb,var(--ground) 92%,transparent);border-right:1px solid var(--line);transition:--ground .25s,--ink .25s,--ink-2 .25s,--line .25s}
+  .rail.deep{background:color-mix(in srgb,var(--ground-2) 92%,transparent)}
+}
+.rail-read{padding:16px 0 0 14px;line-height:1.1}
+.rail-read b{display:block;font-family:var(--disp);font-weight:800;font-stretch:112%;font-size:1.0625rem}
+.rail-read span{font-size:.75rem;font-weight:700;color:var(--ink-2)}
+.rail-scale{position:absolute;left:0;right:0;top:74px;bottom:86px;overflow:hidden}
+.rail-in{position:absolute;left:0;right:0;top:8px;bottom:8px}
+.rail .segs{position:absolute;left:14px;width:6px;top:0;bottom:0}
+.rail .segs i{left:0;right:0;width:auto;top:calc(var(--a) / 24 * 100%);height:calc((var(--b) - var(--a)) / 24 * 100%)}
+.rail-tick{position:absolute;left:24px;top:calc(var(--t) / 24 * 100%);transform:translateY(-50%);display:flex;align-items:center;gap:5px;font-family:var(--disp);font-stretch:108%;font-size:.75rem;font-weight:700;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.rail-tick::before{content:'';width:6px;height:1px;background:currentColor}
+.rail-mark{transform:translateY(calc(var(--p,.4) * 100%))}
+.rail-mark::before{content:'';position:absolute;left:6px;top:-1.5px;width:22px;height:3px;background:var(--ink)}
+.rail-mark::after{content:'';position:absolute;left:2px;top:-5px;border:5px solid transparent;border-left:6px solid var(--ink);border-right:0}
+
+/* sections */
+.sec{background:var(--ground);color:var(--ink)}
+.sec.deep{background:var(--ground-2)}
+.sec>.wrap{padding-block:clamp(56px,8vw,112px)}
+.hour{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:18px;row-gap:4px;max-width:none!important;margin:0 0 clamp(18px,2.4vw,28px)!important;padding-top:14px;border-top:1px solid var(--accent)}
+.hour time{font-family:var(--disp);font-weight:800;font-stretch:150%;font-size:clamp(3.25rem,1.9rem + 5.2vw,7rem);line-height:.9;letter-spacing:-.02em;color:var(--accent-t)}
+.hour span{font-weight:700;font-size:1.0625rem;color:var(--ink-2)}
+.wash-eve::after,.wash-night::after,#evening::before,#night::before,#about::before{content:'';display:block;height:calc(var(--wash) / 2)}
+.wash-eve::after{background:linear-gradient(#D3DFE3,#DCD8D0 64%,#E1CBB3)}
+#evening::before{background:linear-gradient(#E1CBB3,#E4C2A0 24%,#E7AF81 68%,#E8A46C)}
+.wash-night::after{background:linear-gradient(#E8A46C,#D98A5A 36%,#A9644A 76%,#805040)}
+#night::before{background:linear-gradient(#805040,#5E3F37 20%,#22222B 64%,#0B1220)}
+[data-hb=night] #about::before{background:linear-gradient(#46576C,#8397A9 44%,#E4ECEF)}
+[data-hb=evening] #about::before{background:linear-gradient(#E4C4A8,#E2D6CB 44%,#E4ECEF)}
+[data-hb=day] #about::before{height:0}
+.cols{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(28px,5vw,72px)}
+@media (min-width:900px){.cols{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}.cols.even{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.cols.rev{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}}
+.lede{font-size:1.1875rem}
+.note{font-size:.9375rem;color:var(--ink-2)}
+
+/* hero */
+.hero{background:var(--ground);color:var(--ink);transition:--ground .4s var(--ease),--ground-2 .4s,--ink .4s var(--ease),--ink-2 .4s var(--ease),--accent .4s,--accent-t .4s var(--ease),--action .4s,--action-ink .4s,--line .4s,--cov .4s,--w1 .4s,--wm .4s,--w2 .4s}
+.hero>.wrap{padding-top:clamp(28px,4.5vw,64px)}
+.hero::after{content:'';display:block;height:calc(var(--wash) / 2);margin-top:clamp(36px,5vw,64px);background:linear-gradient(var(--ground),var(--w1) 72%,var(--wm))}
+.hero[data-band=day]::after{height:1px;background:var(--line)}
+#about>.wrap{padding-top:clamp(40px,5vw,72px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
+.clock,.big,.jcount,.night-h{container-type:inline-size}
+.hero h1{font-size:clamp(2.4rem,1.1rem + 3.9vw,4.6rem);font-weight:800;line-height:1}
+.t{color:var(--accent-t);font-stretch:128%}
+.deck p{margin-bottom:.8em}
+.lrnnr{font-family:var(--disp);font-weight:700;font-size:1.375rem;line-height:1.2;margin:14px 0 22px!important}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px}
+.clock{padding-top:24px;border-top:1px solid var(--line)}
+.clock-line{font-size:1.1875rem;margin-bottom:6px!important;max-width:40ch!important}
+.now{font-family:var(--disp);font-weight:800;font-stretch:115%}
+.num{display:block;font-family:var(--disp);font-weight:900;font-stretch:150%;font-size:clamp(3rem,19cqi,8.5rem);line-height:.86;letter-spacing:-.025em;color:var(--accent-t);margin:6px 0 10px;white-space:nowrap}
+.count-cap{font-size:1.1875rem;margin-bottom:0!important}
+.clock-next{font-weight:700;margin:4px 0 0!important}
+.to-now{margin-top:6px;padding:0 2px;min-height:44px;border:0;background:none;font-weight:700;text-decoration:underline;text-underline-offset:.25em;cursor:pointer}
+@media (min-width:980px){
+  .hero-grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:clamp(40px,5vw,80px);row-gap:40px}
+  .deck{align-self:end}
+  .clock{grid-column:1}
+  .za-fig{grid-column:2;grid-row:2;align-self:start;margin-top:8px!important}
+}
+
+/* 24-hour strip */
+.strip{position:relative;margin-top:26px;padding-top:28px}
+.strip-bar{position:relative;height:40px}
+.sg{position:absolute;top:0;bottom:0;left:calc(var(--a) / 24 * 100% + 1px);width:calc((var(--b) - var(--a)) / 24 * 100% - 2px);display:flex;align-items:center;justify-content:center;font-size:.8125rem;font-weight:700;box-shadow:inset 0 0 0 1px var(--line);white-space:nowrap}
+.sg.s-d{color:#0F1B2D}.sg.s-e{color:#241510}.sg.s-n{color:#EAF0F7}
+[data-band=day] .sg.s-d,[data-band=evening] .sg.s-e,[data-band=night] .sg.s-n{box-shadow:inset 0 0 0 2px var(--ink)}
+.strip-ticks{position:relative;height:30px;font-family:var(--disp);font-stretch:108%;font-size:.8125rem;font-weight:700;color:var(--ink-2)}
+.strip-ticks::before{content:'';position:absolute;left:0;right:0;top:0;height:6px;background:repeating-linear-gradient(to right,var(--ink-2) 0 1px,transparent 1px calc(100% / 24));border-right:1px solid var(--ink-2)}
+.strip-ticks span{position:absolute;top:9px;left:calc(var(--t) / 24 * 100%);transform:translateX(-50%);font-variant-numeric:tabular-nums}
+.strip-ticks .st0{transform:none}.strip-ticks .st24{transform:translateX(-100%)}
+.strip-now{position:absolute;top:0;bottom:22px;left:calc(var(--p,.8) * 100%);width:2px;margin-left:-1px;background:var(--ink)}
+.now-tag{position:absolute;top:0;left:8px;font-size:.875rem;font-weight:700;white-space:nowrap;line-height:1.3}
+.flip .now-tag{left:auto;right:8px}
+.sg-e-lbl{display:none}
+@media (max-width:599px){
+  .strip-ticks .st0,.strip-ticks .st24{display:none}
+  .strip-ticks .st17{transform:translateX(-100%)}.strip-ticks .st19{transform:none}
+  .sg.s-e span{display:none}
+  .sg-e-lbl{display:block;position:absolute;top:96px;left:calc(18.5 / 24 * 100%);transform:translateX(-50%);font-size:.8125rem;font-weight:700;color:var(--ink)}
+  .strip{padding-bottom:22px}
+}
+.bands-lbl{font-size:.9375rem;font-weight:700;color:var(--ink-2);margin:18px 0 8px!important}
+.bands{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.bands button{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:9px;min-height:58px;padding:8px 12px;text-align:left;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;transition:transform .1s linear}
+.bands button:hover{border-color:var(--ink)}
+.bands .sw{grid-row:span 2;width:14px;height:14px;border-radius:3px;box-shadow:0 0 0 1px var(--line)}
+.bn{font-weight:700;font-size:1rem;line-height:1.2}
+.bt{font-size:.8125rem;color:var(--ink-2);line-height:1.25;font-variant-numeric:tabular-nums}
+.bands button[aria-pressed=true]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.bands button[aria-pressed=true] .bt{color:var(--ground)}
+.bands button[aria-pressed=true] .sw{box-shadow:0 0 0 1px var(--ground)}
+@media (max-width:420px){.bands button{grid-template-columns:1fr;padding:8px 10px}.bands .sw{display:none}}
+.js-only{display:none}
+.js .js-only{display:block}
+
+/* South Africa map */
+.za-fig{margin:0}
+.za{display:block;width:100%;height:auto;overflow:visible}
+.za .land{fill:none;stroke:var(--ink);stroke-width:1.2;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.za .cov path{fill:var(--cov)}
+.za .dot{fill:#E04A5F;fill-opacity:.8;stroke:var(--ground);stroke-width:1.5;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:center;transform:scale(var(--n));transition:transform .5s var(--ease)}
+[data-band=day] .za .dot{transform:scale(var(--d))}
+[data-band=evening] .za .dot{transform:scale(var(--e))}
+[data-light=evening] .za .dot{stroke:#241510;stroke-width:1}
+.za text{font-family:var(--text);font-size:31px;fill:var(--ink);paint-order:stroke;stroke:var(--ground);stroke-width:7px;stroke-linejoin:round}
+.za .lb-v{font-weight:700;font-family:var(--disp);font-stretch:115%;font-size:33px}
+.za .ld{fill:none;stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+.za .key circle{fill:none;stroke:var(--ink-2);stroke-width:1;vector-effect:non-scaling-stroke}
+.za .key text{font-size:28px;fill:var(--ink-2)}
+@media (max-width:600px){.za text{font-size:40px;stroke-width:8px}.za .lb-v{font-size:42px}.za .key text{font-size:36px}}
+.za-fig figcaption{font-size:.9375rem;color:var(--ink-2);margin-top:12px;max-width:44ch}
+
+/* screenshots */
+.shot{margin:0}
+.frame{border:1px solid var(--ink);background:#fff}
+.frame img{width:100%}
+.crop{aspect-ratio:600/620;overflow:hidden}
+.crop img{height:100%;object-fit:cover;object-position:50% 100%}
+.shot figcaption{font-size:.9375rem;color:var(--ink-2);margin-top:10px;max-width:40ch}
+.shot figcaption b{color:var(--ink)}
+
+/* 05:00 almanac */
+.alm{margin:0;border-top:1px solid var(--ink)}
+.alm div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.alm dt{font-size:1rem}
+.alm dd{margin:0;font-family:var(--disp);font-weight:800;font-stretch:125%;font-size:1.625rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.name-note{margin-top:32px}
+.name-note h3{margin-bottom:.5em}
+
+/* 07:30 steps */
+.steps{list-style:none;margin:0;padding:0;position:relative;counter-reset:s;border-left:1px solid var(--ink-2)}
+.steps::before{content:'';position:absolute;left:0;top:0;bottom:0;width:7px;background:repeating-linear-gradient(to bottom,var(--ink-2) 0 1px,transparent 1px 14px)}
+.steps li{position:relative;padding:0 0 30px 74px;counter-increment:s}
+.steps li:last-child{padding-bottom:0}
+.steps li::before{content:'';position:absolute;left:0;top:13px;width:20px;height:2px;background:var(--ink)}
+.steps li::after{content:counter(s);position:absolute;left:30px;top:-3px;font-family:var(--disp);font-weight:800;font-stretch:135%;font-size:1.75rem;line-height:1;color:var(--accent-t)}
+.steps h3{margin:0 0 .35em;font-size:1.1875rem}
+.steps p{margin:0}
+.how-fig{display:grid;gap:18px;align-content:start}
+@media (min-width:900px){.how-fig{position:sticky;top:calc(var(--hh) + 32px)}}
+.card-wrap{display:grid;grid-template-columns:minmax(0,300px);gap:16px}
+.calls{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.calls li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;font-size:.9375rem;line-height:1.4}
+.grade{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:5px;background:#DC3C50;color:#fff;font-family:var(--disp);font-weight:800;font-size:1.1875rem}
+@media (min-width:1180px){
+  .card-wrap{grid-template-columns:310px 1fr;column-gap:0;align-items:start}
+  .calls{position:relative;display:block;height:100%}
+  .calls li{position:absolute;left:0;right:0;top:var(--y);transform:translateY(-50%);padding-left:30px}
+  .calls li::before{content:'';position:absolute;left:0;top:50%;width:22px;height:1px;background:var(--ink)}
+}
+
+/* 12:00 trade-off */
+.trade{margin:8px 0 36px;max-width:900px}
+.tr-rows{display:grid;grid-template-columns:auto 1fr;column-gap:16px;row-gap:14px;align-items:center}
+.tr-name{font-weight:700;font-size:1rem;line-height:1.2}
+.tr-name small{display:block;font-weight:400;font-size:.875rem;color:var(--ink-2)}
+.tr-track{position:relative;height:44px}
+.tr-bar{position:absolute;left:0;top:10px;height:24px;width:calc(var(--m) / 24 * 100%);border-radius:0 4px 4px 0;background:var(--ink-2)}
+.tr-bar.low{background:var(--action)}
+.tr-bar.low i{position:absolute;right:0;top:0;bottom:0;width:calc(3 / 19 * 100%);border-radius:0 4px 4px 0;background:repeating-linear-gradient(135deg,var(--action) 0 5px,#5FA88D 5px 8px)}
+.hz{position:absolute;top:0;bottom:0;left:calc(var(--a) * 100%);width:calc((var(--b) - var(--a)) * 100%);background:repeating-linear-gradient(45deg,#E04A5F 0 5px,#9E2436 5px 8px)}
+.tr-val{position:absolute;top:50%;left:calc(var(--m) / 24 * 100% + 10px);transform:translateY(-50%);font-family:var(--disp);font-weight:800;font-stretch:115%;font-size:1.125rem;white-space:nowrap}
+.tr-guide{position:absolute;top:-6px;bottom:-6px;left:calc(16 / 24 * 100%);border-left:1px solid var(--ink)}
+.tr-axis{grid-column:2;position:relative;height:30px;font-family:var(--disp);font-stretch:108%;font-weight:600;font-size:.8125rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.tr-axis::before{content:'';position:absolute;left:0;right:0;top:0;height:6px;border-top:1px solid var(--ink-2);background:repeating-linear-gradient(to right,var(--ink-2) 0 1px,transparent 1px calc(100% / 24))}
+.tr-axis span{position:absolute;top:9px;left:calc(var(--t) / 24 * 100%);transform:translateX(-50%)}
+.tr-axis span:first-child{transform:none}
+.tr-delta{font-family:var(--disp);font-weight:700;font-size:clamp(1.375rem,1rem + 1.2vw,1.875rem);line-height:1.15;margin:18px 0 8px!important}
+@media (max-width:599px){.tr-rows{grid-template-columns:minmax(0,1fr);row-gap:2px}.tr-axis{grid-column:1;margin-top:10px}.tr-track{margin-bottom:8px}}
+.tr-legend{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.9375rem;color:var(--ink-2);margin:0}
+.tr-legend span{display:inline-flex;align-items:center;gap:8px}
+.tr-legend i{width:22px;height:12px;display:inline-block}
+
+/* 17:30 evening, 19:30 night */
+.big .num{font-size:clamp(3.5rem,19cqi,13rem);margin:4px 0 22px}
+.night-h{font-size:clamp(2rem,1.25rem + 2.6vw,3.5rem)!important;max-width:none!important}
+.night-h .num{margin-top:8px}
+.feat{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--line)}
+.feat li{padding:14px 0;border-bottom:1px solid var(--line);max-width:58ch}
+.feat b{display:block}
+.night-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
+.nav-fig{max-width:300px}
+.feat{margin-top:0}
+@media (min-width:900px){
+  .night-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;column-gap:clamp(40px,5vw,72px);row-gap:28px}
+  .nav-fig{grid-column:1;grid-row:1 / 3;max-width:340px}
+  .nt1,.nt2{grid-column:2}
+}
+
+/* 21:00 metros */
+.metros{list-style:none;margin:0;padding:0;columns:2;column-gap:clamp(20px,5vw,72px);max-width:920px;border-top:1px solid var(--ink)}
+.metros li{break-inside:avoid;border-bottom:1px solid var(--line)}
+.metros a{display:flex;justify-content:space-between;align-items:baseline;gap:10px;min-height:52px;padding:13px 0;text-decoration:none;font-weight:700}
+.metros a:hover .mn{text-decoration:underline}
+.metros .mc{font-family:var(--disp);font-weight:700;font-stretch:115%;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.metros .jb .mn{text-decoration:underline;text-decoration-thickness:1px}
+.metros-head{display:flex;justify-content:space-between;max-width:920px!important;font-size:.9375rem;color:var(--ink-2);margin-bottom:8px!important}
+@media (max-width:359px){.metros{columns:1}}
+
+/* 22:00 questions */
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:first-child{border-top:1px solid var(--ink)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:60px;padding:14px 0;cursor:pointer;font-weight:700;font-size:1.1875rem;line-height:1.3}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';flex:none;font-family:var(--disp);font-weight:600;font-size:1.75rem;line-height:1;color:var(--accent-t)}
+.faq details[open] summary::after{content:'\2212'}
+.faq details p{padding-bottom:10px}
+
+/* 23:00 get + help */
+.stores{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0 16px}
+.store{display:inline-flex;flex-direction:column;justify-content:center;min-height:60px;padding:8px 22px;border-radius:6px;text-decoration:none;line-height:1.25;transition:transform .1s linear}
+.store span{font-size:.875rem;font-weight:600}
+.store b{font-size:1.0625rem}
+@media (max-width:599px){.store{flex:1 1 220px}}
+.cc .store.p{background:var(--action);color:var(--action-ink)}
+.store.s{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.priv{font-size:1rem}
+.priv b{display:block;font-size:1.0625rem}
+.help-list{margin:0 0 28px;padding-left:1.1em}
+.help-list li{margin-bottom:6px}
+.money{margin:0 0 18px;border-top:1px solid var(--line)}
+.money div{display:grid;grid-template-columns:6.5em 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.money dt{font-family:var(--disp);font-weight:800;font-stretch:120%;font-size:1.25rem;white-space:nowrap}
+.money dd{margin:0}
+.block+.block{border-top:1px solid var(--line);padding-top:clamp(40px,5vw,56px)}
+@media (min-width:900px){.pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,96px)}.pair .block+.block{border-top:0;padding-top:0}}
+
+/* footer */
+.foot{background:var(--ground);color:var(--ink)}
+.foot>.wrap{padding-block:clamp(48px,7vw,96px) 40px}
+.gowell{font-family:var(--disp);font-weight:900;font-stretch:150%;font-size:clamp(3.1rem,0.6rem + 11vw,11rem);line-height:.86;letter-spacing:-.035em;color:#FFB347;margin:0 0 28px!important;max-width:none!important;white-space:nowrap}
+.lockup{display:flex;align-items:center;gap:12px;font-family:var(--disp);font-weight:800;font-stretch:110%;font-size:1.375rem;margin:0 0 6px!important}
+.lockup img{width:34px;height:34px}
+.fcols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 24px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+.fcols>div:first-child{grid-column:1 / -1}
+@media (min-width:800px){.fcols{grid-template-columns:2fr 1fr 1fr}.fcols>div:first-child{grid-column:auto}}
+.fcols h2{font-family:var(--text);font-size:.9375rem;font-weight:700;color:var(--ink-2);letter-spacing:0;margin:0 0 8px;max-width:none}
+.fcols ul{list-style:none;margin:0;padding:0}
+.fcols .mlist{columns:2;column-gap:24px}
+.fcols a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;font-size:1rem}
+.fcols a:hover{text-decoration:underline}
+.small{font-size:.9375rem;color:var(--ink-2)}
+.fine{margin-top:36px;padding-top:20px;border-top:1px solid var(--line)}
+.fine p{margin-bottom:.4em;font-size:.9375rem;color:var(--ink-2)}
+.fine .disc{color:var(--ink);font-weight:700}
+.tag{display:inline-flex;align-items:center;gap:8px;margin:24px 0 0!important;padding:7px 11px;border-radius:6px;background:#0F1B2D;color:#EAF0F7;border:1px solid rgba(234,240,247,.24);font-size:.8125rem;font-weight:700;line-height:1.2}
+.tag i{display:inline-block;width:8px;height:8px;border-radius:2px}
+.tag .sep{font-weight:700}
+@media (min-width:1100px){.cc .tag{position:fixed;left:6px;bottom:10px;z-index:50;margin:0!important;pointer-events:none;display:grid;grid-template-columns:repeat(3,8px) 1fr;gap:4px;padding:6px 7px;font-size:.6rem;width:max-content;max-width:100px}.tag b{grid-column:1 / -1;font-weight:700;white-space:nowrap}.tag .sep{display:none}}
+
+/* Johannesburg */
+.jv{background:var(--ground);color:var(--ink);transition:--ground .4s var(--ease),--ground-2 .4s,--ink .4s var(--ease),--ink-2 .4s var(--ease),--accent .4s,--accent-t .4s var(--ease),--action .4s,--action-ink .4s,--line .4s,--cov .4s}
+.jv .sec{background:transparent}
+.jv .sec+.sec>.wrap{border-top:1px solid var(--line)}
+.jhero>.wrap{padding-top:clamp(24px,3.5vw,48px)}
+.back{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700;text-decoration:none;margin-bottom:18px}
+.back:hover{text-decoration:underline}
+.back svg{width:18px;height:18px}
+.meta{font-weight:700;color:var(--ink-2);margin-bottom:10px!important}
+.jhero h1{font-size:clamp(2.4rem,1.1rem + 3.9vw,4.6rem);font-weight:800;line-height:1;margin-bottom:24px}
+.jgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:8px 36px}
+.jfig{margin-bottom:28px!important}
+.jb{order:2}
+@media (min-width:900px){.jgrid{grid-template-columns:minmax(0,1fr) minmax(220px,300px);grid-template-rows:auto 1fr;column-gap:clamp(40px,6vw,96px)}.ja,.jb{grid-column:1}.jfig{grid-column:2;grid-row:1 / 3;margin-bottom:0!important}}
+.jband .bands{max-width:560px}
+.jcount{margin-top:22px}
+.jcount .num{margin:0 0 8px}
+.dist{margin:26px 0 30px;max-width:560px}
+.dist-bar{display:flex;gap:2px;height:20px}
+.dist-bar i{display:block;min-width:2px}
+.dist-bar .r{background:#E04A5F}.dist-bar .o{background:#F09632}.dist-bar .y{background:#EBC846}.dist-bar .c{background:#059669}
+.dist-bar i:last-child{border-radius:0 4px 4px 0}
+.dist ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 20px;font-size:.9375rem}
+.dist li{display:inline-flex;align-items:center;gap:7px}
+.dist li i{width:12px;height:12px;border-radius:2px;display:inline-block;box-shadow:0 0 0 1px var(--line)}
+.dist li b{font-variant-numeric:tabular-nums}
+.jfig{margin:0;justify-self:center;width:min(100%,270px)}
+.jfig svg{display:block;width:100%;height:auto}
+.jfig path{fill:var(--cov);fill-opacity:.7;stroke:var(--ink);stroke-width:1.3;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+[data-light=night] .jfig path{fill-opacity:.4}
+.jfig .north{fill:var(--ink);stroke:none}
+.scalebar{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:.8125rem;font-weight:700;color:var(--ink-2)}
+.scalebar i{display:block;width:15%;height:6px;border:1px solid var(--ink);border-top:0}
+.jfig figcaption{font-size:.9375rem;color:var(--ink-2);margin-top:10px}
+@media (max-width:899px){.jfig{width:min(62%,230px)}}
+.cc .proof{font-size:clamp(2rem,1.2rem + 2.9vw,3.75rem);line-height:1.06;max-width:22ch;margin:0 0 .5em}
+.notes{display:grid;gap:28px;margin-top:36px}
+@media (min-width:800px){.notes{grid-template-columns:1fr 1fr;column-gap:56px}}
+.notes p{margin:0}
+.notes h3{margin-bottom:.4em}
+.roads{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 0;max-width:900px;font-family:var(--disp);font-weight:700;font-stretch:112%;font-size:clamp(1.375rem,1rem + 1.2vw,2rem);line-height:1.3}
+.roads li{white-space:nowrap}
+.roads li:not(:last-child)::after{content:"\00B7";margin:0 .45em;color:var(--accent)}
+
+@media (prefers-reduced-motion:reduce){
+  .cc *,.cc *::before,.cc *::after{transition:none!important;animation:none!important}
+}
+</style>
+
+<div class="cc">
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="top" data-light="night" id="top">
+  <div class="wrap">
+    <header class="hdr">
+      <a class="brand" href="#home" aria-label="Tsamaya, home"><img src="img/favicon.svg" alt="" width="34" height="34">Tsamaya</a>
+      <nav class="nav" id="nav" aria-label="Main">
+        <a href="#how">How it works</a>
+        <a href="#coverage">Coverage</a>
+        <a href="#home">Updates</a>
+        <a href="#about">About</a>
+        <a href="#help">Support</a>
+      </nav>
+      <a class="btn" href="#get">Get the app</a>
+      <button class="menu-b" type="button" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="sr">Menu</span></button>
+    </header>
+    <div class="hourbar" aria-hidden="true">
+      <span class="hb-text"><b class="hb-time">19:30</b> &middot; <span class="hb-band">Night</span></span>
+      <span class="hb-line"><span class="segs"><i class="s-n" style="--a:0;--b:5"></i><i class="s-d" style="--a:5;--b:17.5"></i><i class="s-e" style="--a:17.5;--b:19.5"></i><i class="s-n" style="--a:19.5;--b:24"></i></span><span class="hb-mark"></span></span>
+    </div>
+  </div>
+</div>
+
+<aside class="rail" data-light="night" aria-hidden="true">
+  <div class="rail-read"><b class="rail-time">19:30</b><span class="rail-band">Night</span></div>
+  <div class="rail-scale"><div class="rail-in">
+    <span class="segs"><i class="s-n" style="--a:0;--b:5"></i><i class="s-d" style="--a:5;--b:17.5"></i><i class="s-e" style="--a:17.5;--b:19.5"></i><i class="s-n" style="--a:19.5;--b:24"></i></span>
+    <span class="rail-tick" style="--t:5">05</span>
+    <span class="rail-tick" style="--t:7">07</span>
+    <span class="rail-tick" style="--t:12">12</span>
+    <span class="rail-tick" style="--t:17.5">17:30</span>
+    <span class="rail-tick" style="--t:19.5">19:30</span>
+    <span class="rail-tick" style="--t:21">21</span>
+    <span class="rail-tick" style="--t:23">23</span>
+    <span class="rail-mark"></span>
+  </div></div>
+</aside>
+
+<main id="main">
+<div data-view="home" data-hb="night">
+
+<section class="hero" id="now" data-light="night" data-band="night" data-hour="now" aria-labelledby="h1">
+  <div class="wrap hero-grid">
+    <h1 id="h1">The same road is a different road at <span class="t">19:30</span>.</h1>
+    <div class="deck">
+      <p class="lede">Tsamaya (say: tsa-MAH-ya) is a free navigation app for South African drivers. It plans your route around the areas where vehicle crime happens, using the ratings for the hour you are driving in.</p>
+      <p class="lrnnr">Lower risk is not no risk.</p>
+      <div class="acts"><a class="btn" href="#get">Get the app</a><a class="quiet" href="#how">See how it works</a></div>
+    </div>
+
+    <div class="clock">
+      <p class="clock-line" id="clock-line">At 19:30 the ratings change.</p>
+      <p class="count-cap"><span class="num" id="hero-num" aria-hidden="true">2&nbsp;525</span><span class="sr" id="hero-num-sr">2 525</span> <span id="count-cap">areas are rated high risk across 12 metros at night.</span></p>
+      <p class="clock-next" id="clock-next">Night ratings run until 05:00. Daytime has 1&nbsp;372.</p>
+      <button type="button" class="to-now" id="to-now" hidden>Back to the ratings for now</button>
+
+      <div class="strip" id="strip" role="img" aria-label="A day split into rating bands: night from 00:00 to 05:00, daytime from 05:00 to 17:30, evening from 17:30 to 19:30, night from 19:30 to 24:00.">
+        <div class="strip-now js-only" id="strip-now"><span class="now-tag">Now <b class="now js-now">19:30</b></span></div>
+        <div class="strip-bar">
+          <span class="sg s-n" style="--a:0;--b:5"><span>Night</span></span>
+          <span class="sg s-d" style="--a:5;--b:17.5"><span>Daytime</span></span>
+          <span class="sg s-e" style="--a:17.5;--b:19.5"><span>Evening</span></span>
+          <span class="sg s-n" style="--a:19.5;--b:24"><span>Night</span></span>
+        </div>
+        <div class="strip-ticks"><span class="st0" style="--t:0">00:00</span><span style="--t:5">05:00</span><span style="--t:12">12:00</span><span class="st17" style="--t:17.5">17:30</span><span class="st19" style="--t:19.5">19:30</span><span class="st24" style="--t:24">24:00</span></div>
+        <span class="sg-e-lbl">Evening</span>
+      </div>
+
+      <p class="bands-lbl" id="bands-lbl">See the ratings for</p>
+      <div class="bands" role="group" aria-labelledby="bands-lbl" data-for="home">
+        <button type="button" data-set="day" aria-pressed="false"><i class="sw s-d"></i><span class="bn">Daytime</span><span class="bt">05:00 to 17:30</span></button>
+        <button type="button" data-set="evening" aria-pressed="false"><i class="sw s-e"></i><span class="bn">Evening</span><span class="bt">17:30 to 19:30</span></button>
+        <button type="button" data-set="night" aria-pressed="true"><i class="sw s-n"></i><span class="bn">Night</span><span class="bt">19:30 to 05:00</span></button>
+      </div>
+      <p class="sr" aria-live="polite" id="hero-live"></p>
+    </div>
+
+    <figure class="za-fig">
+      <svg class="za" viewBox="0 0 1000 880" role="img" aria-labelledby="za-cap" aria-describedby="za-desc">
+        <g class="cov"><path fill-rule="evenodd" d="M721.9 262.2l0.3-0.6l1.6 0.1l-0.1-0.6l1.6-0.8l-1.1-0.7l0.8-0.4l2.2 3.7l-3.3 2.1l-0.9-0.3l-1.1-2.5zM690.8 297.5l0.7-1.5l0.9-0.2l0.3-1.3l0.7-0.3l0.8 0.2l0.1 0.8l0.8 0.2l0.2-0.7l-0.5-0.9l0.8 0l0.5-0.9l0.6 0.4l2.9-0.7l0.3-1.2l3.1 1l0.2-0.8l1.7 0.3l0.5 1.1l0.2-0.7l0.9-0.5l0.9-0.5l0-0.9l0.6-0.5l1.2-0.6l0.1 2.7l-0.9 0.8l-1.3 4l-0.1 1.8l1-0.5l-0.2 1.2l0.8 0.2l0.4-0.8l0.4 0.7l-0.3 0.7l0.9 1l0.8 0l0.3-0.6l-0.4-1.3l1.2-0.4l1.7-1.6l0 0.7l0.8 0l-1.1 1l0.6 0.6l1.3-1.3l0.7 0.1l-1.3 2l-0.8-0.7l-2 3.1l0 2.2l0.6 1.2l-2-0.3l-0.9 2.4l2.3 0.4l1.6-0.3l2.8 4.8l0.6-1.3l1.5-0.6l1.3 3.7l3.4-0.9l0.9 0.1l2.5-1.9l0.4 1.3l-1 4.3l0.6 0l0.8 3.1l-3.5 0.8l-0.3 0.8l-1.5 0.5l0.3 3.4l-0.9 2.6l-1.6-0.1l0-0.9l-1.2 0.1l-0.1 0.6l-1.4-0.1l-0.5-0.7l-0.5 0.4l0.1 1l-0.7 0.5l0.4 1.1l-0.7-0.4l-0.3-0.7l-0.7-0.7l0.9-0.4l-0.7-0.6l0.6-0.4l0.3-2.1l-1.1 0.3l-0.8 1.3l-0.8-0.5l0.7-0.6l0-0.6l0.8-1l-1.8-1.5l-1.2-0.3l0.1 2.2l1 0.5l0.1 1.3l0.5 1.5l0.2 1.4l-3.1 0.1l-0.3-0.9l0.4-1.4l-0.4-0.8l-2.4-0.8l-1.5-1.3l-0.4-1l-1.8-0.4l0.8-0.9l-1.3-0.8l-0.9-2.9l0.5-1.7l0.3 0.8l0.7 0.1l0-1.3l0.3-1.3l-1.2-0.2l0.1-0.7l0.7 0.5l-0.2-1l1.4 0.6l0.4 1.8l0.5-0.8l0.7 0.2l-0.1-2l0.8-1l-0.9-0.1l0-1.4l1.2 0.8l2.4-0.9l-0.6-2.3l-2.3 1.8l-1.7-0.9l1.8-0.8l-1.2-1.4l0.8-0.2l1.8-0.3l0.4-0.6l-1.9-1.5l0-2.9l0.5-0.7l-0.6 0.2l-0.4 0.9l-2.2-0.2l-0.3 0.8l-2.6-1.9l-3.5 1.2l-1.6 3.8l-0.6 0.4l-1.8-0.6l0.1-0.6l-1 1.6l-0.6-0.9l-0.6 0l-0.7-0.7l0.3-2.4l0.8-0.2l-0.1-0.9l1.7-2.7l-1.1 0.2l-0.2-1.2l-1.4-0.4zM709.8 302.8l-0.2 2.2l1.6 0l0-1.1l0.2-1.1l-1.6 0zM702.4 297.7l1.6 1.5l0.3 2.2l1.7 0l0.7-0.7l-0.6-0.1l-0.2-0.6l0.9-0.2l-2.2-0.4l-1.4-1.9l-0.8 0.2zM699.3 297.6l1.2 0.3l-0.4-1.7l1.2 0.2l0.1-0.7l1-0.1l-1.5-0.8l-1.1 1.4l-0.5 1.4zM715.3 241.6l3.4-0.6l2.2 0.5l-1.5 2.7l-0.2-0.6l-3-0.3l0-1.5l-0.9-0.2zM715.4 284.4l1.1-0.9l0.4 0.5l-1.5 0.4zM713.2 264l0.5-2.5l1.4 0.5l-1 0.9l0.6 0.3l0 0.6l-1.5 0.2zM687.5 283.4l0.4-0.7l0.7 0.2l-0.7-0.7l-0.1-1.6l1.1-0.4l-0.9-1l2.3 0.3l-0.7-1l1.1-0.9l-0.7 0.2l-0.7-0.1l-0.1 1l-1-0.7l0.6-0.7l0-1.4l0.7 0l1.1 0.9l1-0.1l-0.3-0.6l-0.7-0.2l0-0.8l-1.2-0.9l1.3-1.6l1.5-0.1l1.7-3l-0.1-1.3l-2.4-0.9l0.6-0.4l-0.3-1.5l2.7-1.3l0.4-1.3l0.8 0.1l0-0.7l0.8-0.4l-0.6-1.7l0.6-0.1l0-2.8l2.3-0.3l-0.7-0.9l0.8-0.3l1.8 3.5l0.6-0.2l0.3 2.4l-1 0.6l-1-0.3l-0.3 0.6l-0.8 0.1l0.6 0.9l-0.7 0.6l-0.1 0.7l-0.9 0.5l-0.2-0.6l0.5-0.9l0.9-0.5l-1.6 0.1l0.1 1.1l-0.7 0.7l0.7 1.1l1.2 0.1l-0.3 0.8l0.5 0.5l-0.6 0.6l0 0.9l0.4-0.5l0.9 0.2l0.2-1l-0.5-0.4l0.8 0l0.2-1.1l0.4-0.8l0.6-0.2l1.1 0.4l-0.3 1.6l1.3-0.8l0.8 0.5l0.2 1l1.1-1.1l-0.6-0.4l-0.3 0.7l-0.7-0.4l0.5-1.8l1-0.6l-0.1 0.7l0.8-0.7l-0.5-0.4l1 0.2l1-0.8l-0.5 2.4l1.9 0.6l0-1.3l1.1 0.6l-0.6-0.1l-0.2 0.7l0.9 0.1l0.5-1.5l0.8 0.3l-0.3 1.6l1 0.8l0.7 0.3l1.5 0l-2.6 1.9l-0.7-0.7l-0.4 0.7l1.3 1.4l-2.2 1.4l0.4 1l1.2 0.6l0 1.2l0.5-0.5l0.7 0l0.7 0.3l1 0.5l0.7 0.1l-0.2 1l-0.4 1l-1.1 0.2l-1 0.9l-0.9-1.9l0.5-1.3l-1.3-0.2l-0.8 0.5l0.6 0.8l-0.6 0.5l-0.8 1.3l-0.6 1.2l-0.2 1.2l0.8 0.1l-1.6 0.8l1.3 0.6l-0.4 0.7l1.4 0.4l0.1 1.2l-2.5 0.6l-0.6-0.6l0.2 1.9l-1.6 0.8l0.3 0.8l0.9-0.2l0.5 1.1l-0.8 0.1l0.6 0.8l-3.5 0.8l-0.5-0.9l0.4-0.7l-0.2-1.4l-1.8-0.3l-0.4 1.2l-0.6-0.1l-0.7 0.7l-1.2-0.2l-0.3 0.6l-0.9-0.1l0.3 1l-0.8 0.1l-0.4-1.4l-3.2-0.7l-1.3-2.6l-2.3 0.6l-0.3-3l-1.1-0.2zM695.3 276.5l1 1l0.7 0.1l0.9-1.4l-0.6 0.1l-0.6-0.1l-0.3-1.6l-0.5 1.3l-0.6 0.6zM702.7 264l0.5-1.3l0.9-0.5l-0.4 2l-1-0.2zM695 292.7l0.7-1.3l0.7 0.4l-0.4 1.1l-1-0.2zM692.5 290.9l0.6-1.5l1.3 0.5l0 0.7l1 0.6l-0.7 0.8l-0.8 0.1l0-1.1l-0.7-0.3l-0.7 0.2zM686.6 291l0.3-3l2-0.1l0.4 1.6l-1.7 0.5l0.7 0.3l-0.2 0.6l-1.5 0.1z"/><path fill-rule="evenodd" d="M112.4 783.8l24.9 0l-0.6 0.2l-0.5 1.1l0.6 0.7l1-0.4l2.3 0.7l0.2-1.1l-0.8-0.8l12.6-0.4l0.1 0.8l-0.9 0.3l-0.3 1.7l0.3 0.6l0 1.5l-0.1 1.7l-2.3 0.4l-0.4 1.4l-1.9 0.2l-1.3 0.2l-0.3 1.8l-1.1-0.6l-1.8 2.9l2.1 0.3l-1.7 2.6l0 1.9l1 0.5l0.7-0.4l-0.2 1l0.8 1.1l-1.4 0.2l0.1 1.2l-1.3 0.6l1.2 1l-1.5 1.5l0.3 1.2l-2.2 1l0 1l-0.5 0.8l0.4 2.2l-2.1 0.4l-0.5 1.5l2.1 0.8l-0.9 2.5l1.4 2.6l-0.6 0.5l1.5 2.2l1.4 0.6l0.9 0l0.9-0.9l1.4 0.5l1.1-0.6l1.5-0.3l2.2-1.4l0.4-1l2.5 1.4l0.2 2.2l-0.5 1.6l0.3 1l-0.9 2.1l-1.4 1.9l1.8-1.5l2.4-0.7l0 2.2l-0.6-0.1l1.2 0.6l-0.7 0.2l-0.6 0.4l0.7 0.3l0 7l-3.2-1.6l-0.1-1.2l0.6-1.2l-1.5-0.5l-1.9 0.9l0 0.8l-1.4 0.1l0.2 1.3l-0.9 1.1l-1.2 0.4l0.6-1.2l-0.2-0.8l-1.4-1.7l-0.7-1.8l0.7-0.9l2.3-1.3l-0.7-0.5l-2.7-3.5l-2.4-1.2l-1.9-0.5l-6.5-0.2l-9.5 2.3l-2.7 2.2l0.4 0.7l-0.5 0.8l-0.3 1.9l0.7-0.2l2.4 3.3l0 1.6l-0.8 0.6l0.7 1l-0.9 2.9l0.6 1.3l1.7 1.3l-1.6 0l-1-1.3l-1.7-0.6l-1.6-1.5l-0.3-1.4l-1.1-1.1l-0.6-5.5l-0.9-1.1l-1 0l-1.2-2.1l1.8-1.6l0.4-1.2l-0.3-1.1l1.2-1.9l-0.6-1.1l-1.2 1l-2-1.6l0.6-0.5l0.8-0.5l1.1-2.5l1.4-1l0.4-1.8l-0.4-0.5l0.4-1.3l1.6-1.5l1.9-0.2l1.2 1l0.8 0l1.2-2.3l0.1-1.9l-2.5-5l-0.8-3l0.4-1.7l-0.7-2.2l-0.6-1.5l-1.5-2.3l-1.1-0.3l-0.6-1.3l-0.7-0.1l0.3-0.7l-0.7-0.9l-0.8-0.5l-1 0.4l-0.7-0.7l0.2-1.7l0.2-0.6l0.6-1l-0.7-0.6l0.7-0.3l-0.9-0.5l-0.6-1.6l0-1.6zM134.2 785.7l0.3 1.3l1.9 0.5l-0.2-1.3l-1.1-1l-0.6-0.1l-0.3 0.6zM115.9 808.1l0.3-0.8l0.6 0.1l0.5 1.8l-1.1-0.1l-0.3-1z"/><path fill-rule="evenodd" d="M698.6 262.9l2.9-1.5l-0.3-2.3l-0.6 0.2l-1.8-3.6l1.2-0.3l-0.1-1l0.3-1l-0.8-1.9l1.8-0.5l-1.9-3.9l0.6-0.2l-0.4-1.5l0.4-1.9l0.4-0.6l1-0.2l-0.2-0.9l-1.2 0.2l-0.5-1.1l0.7-0.3l-0.2-0.6l0.4-0.9l0.6-1.4l-0.7-0.7l1.7 0l1.1 0.1l4-0.3l6.5 0.2l-0.7-2.1l1.7 0.1l0.1 1.5l2.3 0.1l0.5 0.5l1.3-0.1l8.3 0l-0.1 1.4l1 0.5l1.9 2.5l0 12l1.3 1.5l-1.3 1.2l0 6.6l-1.9 1.3l0.1 0.6l-0.8 0.1l-0.5-0.5l0.8-0.9l-2.5-4.1l-0.8 0.5l1.1 0.5l-1.6 0.9l0.2 0.6l-1.6-0.1l-0.1 0.6l-3.3 0.2l0.1 0.6l-0.6 0l0.8 0.6l0.2 0.8l-0.7-0.4l-0.9 0.9l-3.1-0.2l1.6-2.1l-2.6-1.1l0-0.8l-1.2 0l-1 2.7l-1 0.1l-0.7 2.8l-3.3-0.6l1-2.1l-1.4 0.6l-0.8-0.7l0.3 0.7l-0.4 0.5l-1.3 0.2l-0.4 1.2l-2.7-0.9l0.1-1.1l-1.6 0.4l-0.1-1.1l-0.6-0.5zM715.4 241.5l0.8 0.2l0 1.6l3 0.3l0.2 0.6l1.5-2.6l-2.2-0.6l-3.3 0.5zM702.8 264l0.5 0.6l1.5-1.5l-0.5-1l-1.1 0.6l-0.4 1.3z"/><path fill-rule="evenodd" d="M704.8 287.5l0.6-0.6l1-0.3l-0.2-1.9l0.7 0.5l2.3-0.6l-0.1-1.2l-1.4-0.3l0-0.6l-0.8-0.3l1.5-1l-0.7-0.3l0.6-0.9l0.3-1l1-1.3l0.2-0.7l-0.5-0.6l1.6-1.1l0-1.2l-1.2-0.6l-0.4-1l2.2-1.4l-1.4-1.4l0.5-0.8l0.7 0.7l2.5-1.7l-0.9 0.1l-0.8-0.8l-1.5-0.6l0.4-1.4l-1-0.5l0.5-0.9l1-0.4l1-2.7l1.2 0.2l0 0.8l-0.8-0.3l0.1 0.6l0.6 0.2l-0.4 1.8l1.5-0.1l0.4-1.9l1.2 0.5l-0.6 0.7l0.4 0.5l0.6-0.3l0.1 1.5l1.1 0l0.9-0.9l0.6 0.4l-0.3-0.8l-0.7-0.1l0-0.6l0.6 0l-0.1-0.6l3-0.1l1.1 2.5l0.9 0.3l3.3-2.1l-0.5 1.3l0.7 0.8l2.2 0.7l0.7-0.5l0.6 0.4l-1.3 1.9l0 1.9l1.1-0.4l0 0.9l-1.4 1.6l1.7 2.1l2.1-1l0.8 1.2l-0.9 0.6l0.2 0.6l-0.5 0.4l-0.4 1.5l1.9 1.3l0.3 2.2l0.3 3.4l5.5 1.6l0.3 3l2.8 1.3l0 0.7l2.3 1.4l1.8-1.2l4-1.2l0.7 2.7l1.3-0.3l1.4 4l-4.4 1.9l-0.3 0.8l0.1 0.8l-1.2 1.5l-0.2 3.2l-7.4-0.7l-0.6 1.2l0.4 1.5l-3.2-0.6l0-1.2l-0.5 0.4l-0.3-0.7l-1.8-0.6l-0.9-0.4l-0.1 4.2l0.4 1.1l-0.3 0.8l-1.3 0l0.1 1l-1.4 0.4l-0.2 0.7l0.5 1l-2.8 0.3l0 1.1l-1.8 0.1l-0.9-0.1l-0.4-1.3l-2.5 1.9l-0.9-0.1l-3.4 1l-1.3-3.8l-1.5 0.6l-0.6 1.3l-2.8-4.8l1.5-0.7l0.1-0.9l1-0.7l2.7-0.1l1 0l0.9-0.6l-0.2-1.3l0.7-0.6l1 0.9l0.8-0.1l1 0.9l-0.6 1.2l0.7-0.8l1.1 0.4l-0.3-0.7l1.2-1l-0.3-1.5l0.6-0.6l-2.4-3.3l-0.5 1.9l-0.7 0.5l0.8 1.3l-1.3-0.9l-0.5 0.5l-1.2-0.8l-0.8 0.2l-0.7 1.5l-1.4-0.8l-0.7 0.2l-0.7-1.5l-1.6-0.6l1.3-2l-0.7-0.1l-1.3 1.3l-0.6-0.6l1-0.9l-0.8-0.1l0.1-0.7l-1.7 1.6l-1.1 0.4l-1.4 0.2l-0.4-0.6l-0.3 0.6l-0.9 0l0.4-1.2l-1.2 0.4l0.1-1.7l1.4-4.4l0.4-0.8l0.3-2.3l-2.3-0.4l-0.1 0.8l-1.1-0.6l0.8-0.2l-0.5-1l-0.9 0.2l-0.3-0.7zM734.1 287.1l0 3.6l5.8-1.5l-1.1-2.1l-0.5 0.5l-0.8-0.7l-3.4 0.2zM721.3 306.6l0.4 0.5l-0.2 0.6l0.6 0.6l1-1.8l-0.8-0.7l-1 0.8zM710.9 276.3l0.9 2.5l2-1.1l-0.1-1l0.6 0.1l0.3-0.7l-1.8-1l-0.7-0.7l-0.7 0.4l-0.3 0.6l-0.2 0.9zM706.6 277.8l0.3-0.7l0.8-0.2l0.1 0.9l-0.9 0.4z"/><path fill-rule="evenodd" d="M667.5 274.4l0.8-5.2l0.7 0.1l0.1-0.7l2.7 0.2l0.4-0.6l1.2-0.3l1.7 0.9l1-0.1l0-0.9l-0.8-0.2l-0.8-1.2l1.5-0.4l0.1-1.8l-2.5 0.5l-0.9-0.5l-1-0.1l2-0.9l-1.3-0.5l-0.4-1.4l-1.3 0.4l-1-2.7l3.2-0.5l1.1-0.7l0.9 0.1l1.7-1.1l1.9-1.9l2.3-0.9l0.2 3.1l0.5 0.4l0.5-0.4l1.3 2.4l3.5-1.7l-0.3 1.6l-1.4 1l0.6 1.3l2 2.1l1-0.8l1.1-0.3l0-3.2l2.4-1l0.7-0.7l-0.1 1.3l3.5-0.6l0.1 1.6l-0.6 0.1l0.2 1.4l-0.4 0.6l0 0.7l-0.8-0.1l-0.4 1.3l-2.7 1.3l0.3 1.5l-1.3 0.8l-0.7 1.3l-2.8 0.5l-0.4 0.5l-1.1-0.2l0.2 0.7l-1.1 1.4l0.4 1.4l0.3 0.6l1.5 1.7l0.2 1l0.5-0.4l1.3-0.5l-1 3.7l1 0.4l-1.2 0.9l0.4 1.1l0.6 0.7l-0.9 0.2l-0.4 0.7l1.1 0.1l0.3 3l2.3-0.5l1.4 2.5l3.2 0.8l-0.1 1.1l1.1 0.1l-0.2-0.9l0.9 0.1l0.3-0.6l1.2 0.2l0.6-0.7l0.7 0.1l0.1-1.1l2.1 0.1l0.2 1.6l-0.4 0.6l0.1 0.7l4.4-0.8l0.1-0.7l1.3 0.3l-0.8 1l0 0.9l-0.8 0.2l-1 0.8l-0.2 0.8l-0.5-1.2l-1.7-0.2l-0.2 0.7l-3.1-1l-0.3 1.2l-2.9 0.8l-0.6-0.5l-0.5 0.9l-0.8 0l0 0.7l0.3 0.9l-0.8-0.2l-0.1-0.8l-0.6-0.3l-0.8 0.4l-0.4 1.4l-0.9 0.1l-0.7 1.5l1.4 0.3l0.2 1.3l1.2-0.3l-2.2 2.8l0.5 0.9l-0.8 0.3l-0.4 2.8l1.3 0.8l-0.8 0.3l-0.1 0.6l0.9-0.1l-0.3 1.4l-1.4 0.1l1.3 0.4l-0.3 0.7l-1.1-0.9l0.5 1l-0.2 1.1l0.6 0l-0.2 0.8l-0.9-1l-1.1 0.3l0 0.7l0.6 0l1 1.2l-0.7 1.7l-0.9 0.2l-0.5-2.8l-1.2 0.8l-0.3 0.7l1.3 0.2l0.2 1.1l-2.2 0.6l-0.3 1l0.8 0.4l-0.8 1.1l0.9 0.3l-2.1-0.4l1.7 1.5l-0.3 0.7l-1.2-1.4l-0.6 1.1l-0.2-0.8l-0.5 1.5l0.4-0.7l0.9 0.1l0.1-0.6l0.3 1l-1.3 0l-0.2 0.7l-1.2 0.6l-2.5 0l0.2-1.4l-0.1-1.1l-1.7-0.5l-0.2-2.4l-1.7 1.5l-0.3-4.7l0.8-3.6l-2.3-1.5l3.6 1.2l0.5-4l-0.6-0.2l0.3-2.7l1.1 0.1l0.3-2.8l-0.9-0.7l-0.2 0.6l-3.4 0.4l-0.7-1.5l-0.3 1l-1-1.6l-0.6 0.4l-0.3-0.6l-1.5-0.3l-0.1-1.4l1.2-0.3l0.6 0.5l-0.4-1.3l2.7 0.2l0-1.5l-1.5-0.2l0-4.1l-2.6-1.2l-0.6-2.5l-0.4-3.4l1.4-5l-1.2-2.4l-2.7-0.2zM692.5 290.9l1.5 0.1l-0.3 1.1l1-0.1l0.6-0.8l-1-0.6l0.1-0.7l-1.3-0.5l-0.6 1.5zM693.6 262.9l-1.8-2.5l-0.7 0.5l1.8 2.6l0.7-0.6zM686.9 288.1l-0.2 2.9l1.4-0.1l0.2-0.6l-0.7-0.3l1.7-0.6l-0.5-1.5l-1.9 0.2zM686.1 308.7l1.6-1l-0.7-1.9l-0.6 0.1l-0.3 2.8zM681.1 317.5l2.4-0.6l0.7 0.6l0.9-2.2l-3.8-0.2l-0.2 2.4zM678.6 269l2.2 1.7l-1 0.2l0.8 1.3l0.8-0.2l0.6-2.7l-1.5-1.2l-1.1 0.8l-0.1-0.9l-0.8 0.5zM701.6 267.2l0.2-1.5l1.7 0.4l-0.1 0.6l0.7 0.3l0.3-0.7l0.7 0.5l-1.2 1.1l-0.2-0.9l-0.8-0.5l-1.3 0.7zM703.7 264.2l0.2-1.6l0.4-0.6l0.6 1.1l-1.2 1.1zM696.2 265l0.7-0.7l0-1.2l1.9 0.1l-1.1 0.4l-0.6 0.9l0.2 0.6l0.9-0.5l0.5-1.2l0.6 1.1l1.7-0.5l-0.2 1.2l-0.6 0.3l0.1 0.8l-0.3 0.6l-0.4 0.5l-0.8-0.1l0.6 0.4l-0.5 0.7l-0.7 0.2l0.1-1.5l-0.5-0.9l-1-0.1l-0.6-1.1zM695.3 276.5l0.3-0.6l0.7-1l0.7 0.9l0.7-0.1l-0.6 2l-0.8-0.2l-1-1z"/><path fill-rule="evenodd" d="M776.9 313.7l1.4-0.1l0.1-0.7l2.6-0.4l2.1 1.4l2.3-0.3l0 1.4l-8.2 0l-0.3-1.3zM766.7 305.9l0.2-1l0.6-0.4l-0.6-0.2l0.5-1.1l1.1-0.3l-0.7 0.5l0.1 0.8l0.5-0.5l0.8 0.6l0.2-0.7l0-1.6l-1.3-0.3l0.1-1l-1.1-1l0.6-0.3l1.4-0.5l1.8 0.4l2 0.9l1.7-0.1l-0.1 0.9l1.1 0.5l1.2-1.7l-1.3-3.2l0.3-2.3l2 0.2l0 1.1l1.3 0.2l-0.1 1.8l-1.3 2.3l1.9 1.3l-0.8 2.6l-0.9 0l0 1.3l-1.6 0.9l0.3 1.5l0 1.1l0.3 0.8l0.8 0.3l0 1l-1.8 0.2l0-0.8l-2.4-1.2l-1.6 1l-2.2-2.1l-2.6-0.3l0.3-0.8l-0.7-0.8zM766.7 295.7l1.8 1.2l1.1 0.2l0.5-0.4l0.5 0.5l-0.5 0.7l-0.6-0.4l-0.6 0.3l-0.2-0.6l-1.5-0.4l-0.5-1.1zM765.9 302.3l0-1.5l0.6-0.4l0 2.4l-0.6-0.5z"/><path fill-rule="evenodd" d="M137.3 816.5l0.5-1.7l1.7-0.8l0-1.9l0.5-0.7l0-1l4.1-1.6l0.1-0.9l0.7 0.6l2.2-0.7l2-0.1l-0.4 0.7l-0.1 2.5l2.2 2.5l2-1.1l0.5-1.3l1.1 0.7l2.2-0.9l1.2 0l0.6 1.2l2.3-1.8l3 2.1l1.3 0.4l3-0.8l1.8 2.8l-2.2 3.7l-1-0.2l-1.6 1.6l-1.1-1l-1.2 0.4l-6.1 4l-2.5 1.1l-1.9-1.8l-1.6-0.7l-0.6 0.6l-2 1.8l-1.6-0.2l-1 1.1l-1.4-0.5l-0.8 0.7l0.6 0.3l-0.4 0.6l-0.2-0.6l-2.4-0.8l-1.4-1.3l-0.1-0.7l0.6-0.7l-1.4-2.5l0.9-2.4l-2.1-0.7z"/><path fill-rule="evenodd" d="M645.7 235.8l3-1.7l3.1 3.7l0.6-4.3l0.9-0.2l1 1.4l0.8-1.2l1-0.2l1 1.1l1.6-0.6l0.9 1.5l0.8 0.2l-0.3 1.2l0.3 0.8l1.1 0.5l-0.6 0.8l0.3 0.8l-0.8 0.3l1.3 2.4l0.9-0.1l-0.4 2.2l0.6 0.7l-0.7 0l1.1 0.2l1.8 0.7l-0.1 0.7l2 0.5l0.4-0.8l2.1 0.2l0.7-0.8l0.5 1.4l-0.6 0.6l0.7 0.2l0.3 0.8l1.7 0.3l0.2 2.8l-2.7-0.9l-1.1 2.5l-1.1-0.5l-0.5 1.1l-2-2.5l-2.1-0.1l-1.1 0.6l-0.9-0.6l-1.3-0.2l-0.6 0.6l-1.1 0l-0.1-0.8l-0.9 0.1l-0.7-1.1l-1.5-0.2l-0.3-1.2l-0.2 2.4l-1.3-0.1l-1.6-2.1l-2.8 2.1l4.6 1.6l0.4 0.9l1.8 0.4l1.4 2.2l-5.4 0l-2.1-1.1l-1.6-8.2l-0.9-2.4l2.4-2l-0.3-0.6l-1.5-1.5l-0.8-1.6l-1.3-2.9zM665.2 238.4l0.7-0.8l0.9 1.1l-0.8 0.4l-0.4-0.7zM663.4 244l0.7 0l0.1-1l0.8 1.6l-1.3 0.6l-0.3-1.2zM662.3 236.8l0.9-1.3l1.3 0.4l-1 0.8l-1.2 0.1z"/><path fill-rule="evenodd" d="M657.6 217.6l0.1-1l0.6 0.1l0.2-1l0.8-0.5l0.9 0.1l0.3 1l-1.2 0.4l0 1.1l0.6 0.2l-1.1 0.3l-0.2-0.7l-1 0zM657.9 220.9l0.3-0.9l0.7 0.7l1 0.1l0.6 1.3l-0.7-0.3l-0.5 0.6l-1-0.4l-0.4-1.1zM657.6 223.9l0.4-1.2l1.1 0.1l0 1l-1 0.4zM637.6 214.3l1.3-1.1l0.6-1.7l1.3-1.1l0.7-1.5l1.3 0.2l1.3-0.9l0.5-0.4l1.6 0.3l1.2 1.1l0.5-0.7l0.9 0.2l1.1 0.9l-0.5 0.4l0.4 0.7l0.2-1l1.1 0l1.4-0.8l0.4 0.5l-0.4-1.7l-0.6-0.6l0.8-0.2l0.9-0.7l-0.1-0.9l0.4 0.9l0.7 1.2l-0.1 1.5l-1.2 0.5l0.5 1.2l1 1.2l1.4-0.4l0 0.7l0.4-1.5l0.3 0.9l2-0.5l-1.2 2.8l-0.5-0.9l-0.4 0.5l-0.9 0.6l0.5 0.7l-0.6 0.1l0-0.6l-0.9-0.2l0.9 1.2l0.1 1.2l-1.1 1.3l0.8-0.1l0.4-0.5l0.6 1.6l-1-0.1l-1.3-0.2l-0.5 0.9l0.5 0.8l-0.8-0.1l-3.7 3.7l-2.3 0.5l-0.1-0.6l-1.3 0.1l0.2 1.3l-0.4 0.8l-0.8-0.3l-0.1-0.7l-2.2-2.1l-2-0.5l-2-5.3l0.9-2.9l-0.6-0.5l-0.1 0.6l-0.7 1l-0.7-0.8zM651.5 212.2l0.8 0.9l1-0.4l0.8 0.8l-0.6-1.6l-0.8-0.3l-1.2 0.6zM641.7 226.5l1.5-0.7l-0.3 1l-1.2-0.3zM633.4 208.7l0.5-2.3l2.4-0.3l1.8 0.9l-0.3 2l-1.6 0.9l-2.8-1.2zM635.8 213.1l0.9-0.1l-0.2 1.2l0.4 1.8l-1-0.4l-0.1-2.5zM635.4 218.1l0.6-0.8l-0.5-0.7l0.8 0.5l0.2 1.5l-1.1-0.5z"/><path fill-rule="evenodd" d="M315.6 821.7l1.1-2.4l-0.3-3.3l0.7-0.1l0.6-0.9l0.1-1.3l-0.8-0.1l2.3-2l9.9 0.2l4.2 0.7l3.2 0.1l1.9-0.5l1.6 1.7l1.3-0.1l0.7-2.3l2.9-0.2l0.7 1.6l2.2 0l2.6 1.3l1.2 0l0 1l2.1 1.5l-0.5 2.5l0.2 1.4l0.9 0.7l-0.4 1l0.5 1.1l-1 1l0.1 0.8l2.5-0.1l0.8-0.2l0.2 0.6l1.9 0.1l-0.1-0.8l0.2 0.8l-0.7 0.1l-3-0.2l-3.3 0.4l-5.2 2l-1.7 2l-0.9 2.2l0.1 1.2l1.6 1l1.2 0.2l-0.9 1l-2.9 0.5l-0.5 0.4l-1.8-0.3l-4.2 0.7l-1.7 0l0.3 0.6l-2.1 1.4l-0.5-0.5l-0.6 0.5l0 0.8l-0.2 1.3l0.1 1l2 0.8l-2.2 1.2l-0.3 1l0.6 0.5l-1.7 0.3l-0.9 1.2l-0.5-0.9l0.4-0.8l-1-0.2l-1.6-1.5l-0.2-1l0.6-0.4l-2.8-0.5l-1.2-1.9l-1.1-3l-1.1-0.4l-0.2-3l0.8-0.5l-1.5-2l-2.3-0.4l0.6-2.3l2.5 0.1l0.2 0.8l0.7-0.1l0.1-1.4l-1.8-0.2l0-1.7l1.2-1.3l-1.1-0.3l-0.3 1.1l-1 0.4l-0.2-2.4l-1.4 0l-0.3-0.6l-1.1 0.2l-0.5-0.9z"/><path fill-rule="evenodd" d="M856.6 553.2l0.9-0.3l0.2 0.7l0.6-0.1l-0.3-1.1l0.8 0.1l-0.1-1.3l1.2-0.6l0.8-0.9l0.8 0.2l0.6-1.1l0.6-0.2l-1.3-0.6l0.3-0.7l1.4-0.7l1-2.7l1.9-0.4l0.6 0.4l-0.2-1.3l1.4-0.8l0.7 0.5l0.6-0.5l-0.4-0.9l-1 0.5l-2.9-0.1l0.4-1.6l-0.8 0l-0.3-1.1l0-0.9l-0.7 0.7l-1.6-1.9l-1.4-0.2l-1-1.4l1.2-0.3l0.7 0.4l0.2-0.8l-0.3-0.6l-2.1 0.8l0.7-4.6l-0.1-1.4l-0.5-1l-0.7 0l0.3-0.9l-0.6-0.3l0.8-1.5l0.8-4l-1 0.5l0.1-1.2l0.6-0.9l0.1-0.6l-0.4-0.5l1-0.5l-0.5 0.9l0.4 0.6l1.8 1.1l0.6-0.4l-0.5-0.9l-0.6-0.1l0.3-0.6l-0.5-0.8l2 0.1l0.3-0.6l-1.9-1.4l0.9-0.6l3 1.4l1.4-0.2l0.4-3.7l1 0.5l1.2-0.5l0 0.7l2.1 1.4l0.2-1.2l0.2-1.3l0.8-0.4l0.2 0.9l0.7-0.1l0 1.1l-0.4 1.2l0.9 0.4l0.9-0.4l-0.1 0.6l0.1 1.4l0.6 0.9l0.6-1l1.2-0.6l1-0.6l0.5-0.5l-0.5-0.7l0.1-1.4l0.8 0.1l-0.1 0.9l0.6 0.5l1.3-0.3l0.8 0.3l0.6-1.5l-0.3-1l-0.6-0.2l1.9-1.5l0.3 0.6l1.3 0.5l0.5 0.6l0.9-0.2l0.6 0.6l1.3-0.5l1.7 0.4l0.5 1.1l0.7 0.3l0.5-2.4l1.3-0.5l2.9 1.8l-0.7 0.5l-0.2 0.7l0.3 1.5l0.7 0.3l-0.2-1l0.7-0.9l-0.1-0.7l0.3 2l-3.9 6l-5.2 10.2l-0.5 3.1l0.5 1.7l1.1 0l-0.3 1l-5.5 7.1l-5.1 5.2l-4.9 9.7l-0.4 1.6l-2.4 4l-0.2-0.8l-0.3-0.9l-0.5 0.8l-3.6-0.1l0.1-0.9l-0.8-0.3l-1.5-4.8l0.2-0.9l-0.8 0.4l-2.1-0.4l-0.8-1l-0.9 0.3l-0.5-0.5l0.4-0.5l-1.2-0.4l-1.2-1.1zM864.7 545.6l0 1.2l3 0.7l1.1 0.9l-0.7-0.9l0.7-1.6l1.7-0.1l-0.3-1.2l0.7-0.3l-2.8 0.2l-1.4-0.4l-0.4 0.9l-1.6 0.6zM862.9 542.3l1.4-0.2l-0.3 0.7l-1.1-0.5zM859.5 547.4l0.6-0.5l0.4 0.5l-0.2 0.6l0.8 0.7l-1.1-0.6l-0.5-0.7z"/><path fill-rule="evenodd" d="M531.7 816.4l1.2-2.6l2.6 0.1l-2.2-0.6l1.6-0.9l-1.2-1.1l2.2-3.2l0.7-2l1.6-0.1l0.3-0.6l-1.2-0.7l1-1.8l-2.9-2.4l-0.8 0l0.5-0.6l1.6 0.4l-0.4 0.6l2 0.4l-0.2 0.8l1.8 0.7l0.6-1.1l0.8 0.3l0-0.8l-1.2-0.9l1-1.3l-2.4-2.2l1.8-0.2l-1-1l1.5-4.4l3.6 0.3l2-0.6l4.3 1.3l-0.8 2.7l3.6 1.2l0.2-2.2l4.5-0.3l-0.2 1.2l2.4 0.3l0.7 1l0-1.5l0.5-0.4l0.8 1.8l2.1 0.1l0.2 2l2.4 2.3l0.8 0.3l0-0.8l3.6-1.2l1.1 2.3l-1.2 1.6l-3.6 1.5l-5.2 3.2l-2.4 2.2l-1.9 3l-1.2 3.7l-0.1 2l0.8 0.6l0.9-0.1l-0.6 0.4l0.9 0.2l0.2 0.8l1.5 0.6l1.9 3.3l-2.7-0.3l-1.9 1.5l-1.2-0.3l-1.7 0.4l-2.8-0.6l0.5-0.5l-3.8-0.6l-4.4 0.7l-6.2-3l-5.1-1.5l-0.6-0.4l0.9-0.8l-0.2-1l-0.9-1.2l-1 0z"/></g>
+        <path class="land" d="M79 625l-3-6l-1-5l-5-6l-2-4l-2-5l-1-3l-3-4l-1-2l-1-2l0-2l-2-2l0-2l-2-2l-1-3l-5-9l0-3l-2-4l-1-5l-2-2l-1-6l-1-2l0-2l-2-4l-1-3l-2-5l-1-4l0-4l-1-3l-1-2l-2-4l-1-4l0-5l-2-2l-1-3l-3-5l-1-3l-1-2l0-2l-2-6l-2-3l-2-1l-2-3l0-2l-2-3l-5-4l-2-7l0-3l-2-2l-1-2l-4-3l0-2l2-2l7-3l1-2l3-2l2 0l0 2l2 0l1-2l2-2l-1-3l3-2l-4-4l0-2l2-1l3 0l-2-3l4-1l-2-2l3 0l0-6l2-1l3 0l3 0l1-2l3-1l3 2l1 2l3 1l0 2l-1 5l2 3l3-1l3-1l2 0l3 5l-1 2l3 4l-2 4l-2 0l-1 3l2 2l1 4l2 0l0 6l-1 4l5-1l3 0l2-1l2 1l1 4l2 1l2 0l1-2l2 1l3 0l2 0l6 1l3 1l2 2l3 4l2 0l3 2l2 0l2 1l2-1l2 0l0-2l6 1l4 1l3-1l2 0l2-1l4-1l5-1l3-1l3 1l4 0l5 1l4 2l1 3l2 0l1 2l2 0l3 0l3-1l3-3l2 1l1-3l-2 0l-1-4l1-5l2-1l3 1l4 0l3-3l2-1l1-6l2-1l0-3l3-1l2-1l3 1l4-3l5 2l1-2l1-2l4-1l3-1l2 0l0-253l2 1l0 2l2 0l1 3l2 0l0 2l2 0l2 2l2 0l3 1l1 2l1 2l5 3l0 2l2 2l1 2l0 3l2-1l0 2l-1 2l2 2l1 2l2 2l-1 2l2 0l0 2l1 3l2 0l0 3l2-1l-1 2l2 1l2-1l0 2l-2 0l-1 3l3 2l1 3l-2 1l0 2l2 0l-1 3l3 3l0 3l2 1l-1 3l2-1l1 3l1 3l0 2l2 2l-2 4l2 2l0 3l1 3l-2 4l0 2l-2 4l-2 1l-1 2l-3 4l0 2l-3 2l-2 1l0 5l0 3l1 2l1 5l-2 2l1 2l0 2l0 3l1 3l2 0l0 2l1 3l1-3l3 0l2-2l2 0l5-3l2 2l2-1l2 3l5 0l3 2l2-1l3-1l3-1l2 1l2-2l3 1l6 0l3 2l2-1l2 0l2 1l2 0l2 0l5-4l1-2l0-4l-2-2l2-1l2-1l3 1l4 0l5-3l2 0l1-4l2 0l0-2l2 0l0-2l1-2l2-1l0-2l0-3l3-2l0-2l3 0l2-1l3 0l0-3l2-1l0-2l3-1l1-2l4 2l3-2l0-4l2-1l1-2l2-2l0-4l4 0l0-4l1-2l-2-1l1-2l0-2l3-1l-3-3l2 0l0-4l2-1l1-2l1-2l-2-2l3-1l-2-3l2-3l1-2l0-2l2 1l-1-2l2-3l4-3l0-2l2-1l0-2l3-1l0 2l2 0l3 0l3-3l3 0l2 0l2 1l3 0l4 2l1-3l2 0l-1 2l2 1l1 2l2 0l1 2l2 0l2 1l1 3l2-1l0 2l2 0l2 0l1 2l1 2l3 1l0 2l2 0l2 2l2 2l2 2l2-1l2 0l0 2l3 0l3-1l2-1l3 0l1 2l2 1l1 2l2 0l0 2l2-1l0 2l2 1l2 0l2 0l2-1l7 3l2 1l5 2l3-1l4 1l4-1l2 0l1-2l2-1l3-2l2-1l2 1l2 0l1 2l2-1l2 1l9 0l6-2l3-3l2-1l4-3l3-7l3-9l2-8l1-2l8-23l2-1l-1-2l0-4l-2-3l1-2l3 0l4 0l2-2l24-6l2-1l3-2l2-7l3-3l2-3l3-2l2-2l2-2l3-1l2 0l2-2l2-2l0-2l2-2l-2-1l0-3l0-2l2-1l0-2l1-2l1-4l0-4l2-3l-1-2l1-2l1-3l0-5l2-1l-1-2l2-1l1 2l2 0l1-2l-2-2l2 0l1-3l2 0l0-2l2-1l2 1l-1-2l2-2l2-1l2 0l3-5l1 2l2-2l2 2l2-3l5 0l2-3l0-2l1-3l1-3l3 0l2-2l2 1l2 2l1-3l1-2l-1-2l3 0l0-2l4-1l4-3l0-6l6-4l0-5l3-1l2-2l2-2l0-3l2-2l1-2l2 0l2-3l3-1l1-2l9 0l2 1l3-2l5 0l1-2l4-2l6-1l2-2l4 0l3-6l-1-4l1-2l2-1l0-3l2-1l6 0l3-2l2 0l2 1l4-1l1 2l5-2l3-1l3 1l1-2l3-1l3 0l2 0l6 0l2 2l4 1l4 1l2 2l3 0l1 2l2 0l4 4l2-1l4 0l4 4l5 0l7-3l4 1l2 0l3 1l2-2l2 0l8-1l3 1l3-1l3 2l6 2l5-2l3 3l3 0l1 2l2 2l15 53l0 15l0 5l7 8l1 2l0 7l5 11l7 5l1 15l5 9l2 10l-1 17l2 30l-1 17l-3 7l1 3l1 9l0 2l-4 11l2 8l-6 3l-28-19l-6 1l-3 5l-8 8l-1 4l-9 19l-5 4l-2 5l-1 2l-2 4l-1 7l0 10l1 7l1 2l2-2l2-1l1 4l4 3l1 3l-2 3l2 3l5 4l5 7l21 8l29 0l0-14l1-8l2-13l2 1l3-1l1 2l4 2l2-2l2 1l4 0l2 0l20 1l13 0l-1 10l-2 7l-2 4l-1 4l-7 20l0 2l-5 19l0 6l0 2l-2 11l0 4l-8 15l-1 10l-3 4l-21 21l-16 7l-11 13l-7 7l-1 2l-6 6l-7 9l0 2l-3 2l-3 6l-5 10l-1 3l1 2l-5 8l-5 5l-6 13l-2 2l-1 5l-2 2l-5 10l-4 6l-8 13l-2 3l-5 7l-1 2l-4 5l-2 3l-2 4l-2 1l-1 2l-3 3l-4 6l-2 0l0 2l-4 3l-2 3l-2 1l-4 0l-2 2l-1 2l-3 3l-2 1l-1 2l-4 2l0 2l-3 1l-5 2l-1 3l-3 2l0 3l-2 0l-4 4l-1 2l-2 4l-2 0l-2 3l-1 2l-2 3l-2 2l-2 2l-2 3l-3 2l0 2l-3 1l-1 3l-3 2l-3 2l-2 2l0 2l-5 4l-1 2l-2 1l-2 2l-2 2l-1 2l-6 3l-1 2l-3 2l-2 1l-4 4l-8 3l-1 2l-2 4l-1 2l-7 4l-2 2l0 2l-6 3l-6 3l-2 2l-2 1l-3 4l-5 2l-3 3l-15 10l-5 3l-2 3l-4 1l-3 2l-4 1l-4 3l-8 2l-7 4l-2 1l-2 1l-6 2l-5-1l-4 1l-10-4l-7-1l-9 1l-6 2l-6 4l-3 5l-2 3l0 2l2 1l2 2l2 3l-3 0l-2 1l-3 0l-6-1l-4 0l-6-3l-7-1l-6-1l-5 1l-3 1l-2 2l-1 4l-5 5l0 2l2 2l-2 0l-2 0l-4-1l-6-1l-2 1l-7-2l-7-4l-4 0l-7-3l-4 0l-14-2l-3 0l-12-3l-6 0l-2 1l-4 0l-3 1l-1 2l-1 2l0 2l2 0l-7 0l-6-1l-8 0l-3-1l-2 0l-3 0l-8-3l-2 0l-6-2l-6 0l-5 3l-6 1l-7 0l-7 2l-2 2l-1 3l2 1l-3 2l-4 0l-4 2l-2 1l-1 2l2 2l-2 1l-1 2l-3 2l-9 1l-7-2l-3 0l-6 1l-4 3l-2 1l-2 0l-12-4l-10-1l-3 1l-2 2l1 3l-2 2l-7-2l-5 0l-5 1l-5 2l-3 2l-2 3l-9 6l-1 3l-4 0l-5 3l-2 3l1 2l-2 0l-4 1l-6-4l-8 0l-3 0l-2 1l-1-2l-2 0l-1-2l-2-1l-2-2l-5-2l-2-3l-7 2l2-2l2-3l-1-7l-3-3l-3-1l-2 2l-3-1l-3 0l1-2l-2-1l-3-3l-3 1l-2 1l-3 0l-3 0l0 2l-2-1l-2-2l2-1l-1-2l1-2l1-2l-2-4l3-2l-4-4l-5-2l-7 0l-8 2l-2 2l-1 4l3 3l-1 6l2 3l-2-2l-2-1l-3-3l0-6l-2-1l-1-2l1-2l0-2l2-2l-2-1l-2 0l2-4l2-1l0-4l4-1l2 1l1-2l0-3l-2-3l-1-4l0-2l-2-6l-3-2l-3-2l1-4l-1-2l-4-5l-6-4l1-2l-3-6l-6-6l-3-1l-1-2l2-1l0-2l2 2l-2 0l2 0l0 2l1 2l4 4l2-1l-3-1l1-2l-4-3l0-2l1-2l-1-2l-2-1l-1 2l1-2l-2-1l-1 2l2 1l-2-1l-2 2l-2-1l0-2l0-2l0-2l-1-3l1-2l-2-3l2-1l2-3l-1-2l1-2l2 0l2-1l0 2l2 1l3 3l5-1l6-7l4-6l1-4l1-4l-2-11l2 0l0-2l-3-12l1-2l-3-10l1-3l-3-5l0-5l-5-6l-2-4l0-2l-13-15l-1-3l0-2l-1-2l-3-2l-4-5zM665 568l4-1l2 3l2 2l2 1l1 2l2 1l1 2l1 2l4 2l0 2l3 3l3 1l5 0l2-1l2 3l4 1l5-1l1 2l0-5l3-2l0-2l1-2l0-2l-1-2l2-2l2 0l2-1l1-2l0-3l-1-2l-2-1l1-3l2-1l2 1l2-2l2-4l2-2l4 1l2-1l3-2l7 2l5-2l3 0l4-2l2-1l2-2l4-1l1-2l3-1l1-2l2 1l0-2l4-2l-1-2l-1-2l-2 0l1-2l0-4l1-2l0-2l1-2l2-1l3-2l3 0l0-2l0-2l2 0l-1-2l-1-2l0-2l2 0l0-2l2 0l3-1l0-2l1-2l2-2l0-2l-1-2l0-3l-2-2l-1-2l-2 0l-1-4l-2-5l-2 0l-3-1l-1-2l-2-2l-2-1l-1-2l-2-2l-3-1l-1-2l-3 2l0-2l-2-2l0-2l0-2l-2-3l-3 0l-3 1l-1-2l1-2l-4-2l-3-1l0-2l0-2l-1-2l-2-1l-2 1l-2 2l-3-1l-2 1l-2 0l-4 1l-2 3l-1 2l-3 0l-4 0l-3 1l-2 1l-2 1l-1 2l-2 3l-1 2l-2 1l-2 1l-3-2l-1 2l-2 0l0 2l-3 0l-2 1l-3-1l0 3l-2 0l0 2l-1 3l-2-1l-1 2l-1 2l2 0l-1 2l-1 2l-3 1l1 2l-2 0l0 2l-4 2l0 2l2 0l-2 2l-2 2l-2-1l1 2l-2 1l0 3l-2-1l2 3l-2 0l-1 2l-2 1l1 2l-2 0l-2 1l0 3l-3 0l-2 1l-4 1l-2 1l-1 2l-2-1l-1 3l-1-2l-1 2l-1 2l6 4l7 19l3 2l2 2l2 6l4 0l-1 2l0 2l-1 5l1 2l0 2z"/>
+        <g class="dots"><circle class="dot" cx="131.7" cy="808.9" r="32" style="--d:0.692;--e:0.697;--n:1" data-name="Cape Town" data-day="278" data-evening="282" data-night="581"><title>Cape Town: 581 areas rated high risk at night</title></circle><circle class="dot" cx="709.5" cy="311.5" r="32" style="--d:0.736;--e:0.749;--n:0.958" data-name="Johannesburg" data-day="315" data-evening="326" data-night="533"><title>Johannesburg: 533 areas rated high risk at night</title></circle><circle class="dot" cx="874.6" cy="532.8" r="32" style="--d:0.603;--e:0.677;--n:0.89" data-name="Durban" data-day="211" data-evening="266" data-night="460"><title>Durban: 460 areas rated high risk at night</title></circle><circle class="dot" cx="725.9" cy="289.2" r="32" style="--d:0.699;--e:0.73;--n:0.881" data-name="Ekurhuleni" data-day="284" data-evening="310" data-night="451"><title>Ekurhuleni: 451 areas rated high risk at night</title></circle><circle class="dot" cx="714.5" cy="250.4" r="32" style="--d:0.48;--e:0.484;--n:0.569" data-name="Pretoria" data-day="134" data-evening="136" data-night="188"><title>Pretoria: 188 areas rated high risk at night</title></circle><circle class="dot" cx="549.9" cy="808.2" r="32" style="--d:0.227;--e:0.332;--n:0.417" data-name="Gqeberha" data-day="30" data-evening="64" data-night="101"><title>Gqeberha: 101 areas rated high risk at night</title></circle><circle class="dot" cx="682.4" cy="286" r="32" style="--d:0.212;--e:0.238;--n:0.313" data-name="West Rand" data-day="26" data-evening="33" data-night="57"><title>West Rand: 57 areas rated high risk at night</title></circle><circle class="dot" cx="773.5" cy="303.4" r="32" style="--d:0.223;--e:0.223;--n:0.293" data-name="Secunda" data-day="29" data-evening="29" data-night="50"><title>Secunda: 50 areas rated high risk at night</title></circle><circle class="dot" cx="657" cy="244.8" r="32" style="--d:0.256;--e:0.275;--n:0.29" data-name="Rustenburg" data-day="38" data-evening="44" data-night="49"><title>Rustenburg: 49 areas rated high risk at night</title></circle><circle class="dot" cx="151.6" cy="816.7" r="32" style="--d:0.144;--e:0.15;--n:0.195" data-name="Stellenbosch" data-day="12" data-evening="13" data-night="22"><title>Stellenbosch: 22 areas rated high risk at night</title></circle><circle class="dot" cx="647.4" cy="215.7" r="32" style="--d:0.093;--e:0.124;--n:0.171" data-name="Pilanesberg" data-day="5" data-evening="9" data-night="17"><title>Pilanesberg: 17 areas rated high risk at night</title></circle><circle class="dot" cx="333.9" cy="824.8" r="32" style="--d:0.131;--e:0.144;--n:0.166" data-name="Mossel Bay" data-day="10" data-evening="12" data-night="16"><title>Mossel Bay: 16 areas rated high risk at night</title></circle></g>
+        <g class="lbls"><text x="178" y="792" text-anchor="start"><tspan>Cape Town</tspan><tspan class="lb-v" x="178" dy="1.12em" data-lbl data-day="278" data-evening="282" data-night="581">581</tspan></text><path class="ld" d="M667 346L688 331"/><text x="662" y="360" text-anchor="end"><tspan>Johannesburg</tspan><tspan class="lb-v" x="662" dy="1.12em" data-lbl data-day="315" data-evening="326" data-night="533">533</tspan></text><path class="ld" d="M750 266L767 243"/><text x="772" y="230" text-anchor="start"><tspan>Ekurhuleni</tspan><tspan class="lb-v" x="772" dy="1.12em" data-lbl data-day="284" data-evening="310" data-night="451">451</tspan></text><text x="836" y="522" text-anchor="end"><tspan>Durban</tspan><tspan class="lb-v" x="836" dy="1.12em" data-lbl data-day="211" data-evening="266" data-night="460">460</tspan></text></g>
+        <g class="key" aria-hidden="true"><circle cx="70" cy="120.3" r="29.7"/><circle cx="70" cy="136.7" r="13.3"/><path class="ld" d="M70 90.6H120M70 123.4H120"/><text x="128" y="99.6">500 areas</text><text x="128" y="132.4">100</text></g>
+      </svg>
+      <figcaption id="za-cap">Circles show how many areas in each metro are rated high risk at that time of day. Counted from the live ratings on 24&nbsp;September 2026.</figcaption>
+      <p class="sr" id="za-desc">Areas rated high risk at night: Cape Town 581, Johannesburg 533, Durban 460, Ekurhuleni 451, Pretoria 188, Gqeberha 101, West Rand 57, Secunda 50, Rustenburg 49, Stellenbosch 22, Pilanesberg 17, Mossel Bay 16.</p>
+    </figure>
+  </div>
+</section>
+
+<section class="sec" id="about" data-light="day" data-hour="05:00" aria-labelledby="h-about">
+  <div class="wrap">
+    <p class="hour"><time>05:00</time><span>Before the day starts &middot; daytime ratings</span></p>
+    <div class="cols">
+      <div>
+        <h2 id="h-about">A map that checks what your route drives through</h2>
+        <p class="lede">Most maps work out the quickest way there. Tsamaya also works out what you would be driving through, and steers you around the areas where vehicle crime happens.</p>
+        <p>It is free, and in open beta on Android and iPhone. There are ratings for 12 metros, from Cape Town and Mossel Bay to Durban, Johannesburg and Pilanesberg. Outside them it still works as an ordinary map and navigator.</p>
+        <div class="name-note">
+          <h3>Where the name comes from</h3>
+          <p>Tsamaya is Sesotho and Setswana for "go". It comes from "tsamaya sentle", go well, which is what you say to someone as they leave. In kasi football it is also the move that sends the defender the wrong way.</p>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:.6em">What the ratings rest on</h3>
+        <dl class="alm">
+          <div><dt>Rated areas</dt><dd>4&nbsp;396</dd></div>
+          <div><dt>Road stretches checked and rated as lower-risk cover</dt><dd>2&nbsp;180</dd></div>
+          <div><dt>Road stretches flagged</dt><dd>4&nbsp;874</dd></div>
+          <div><dt>Metros</dt><dd>12</dd></div>
+          <div><dt>Time bands, set by the clock</dt><dd>3</dd></div>
+        </dl>
+        <p class="note" style="margin-top:14px">From the live database, 24&nbsp;September 2026. The ratings start from published South African crime statistics, scored against OpenStreetMap road data. Every metro gets a review pass before anything goes live, and drivers correct it from there.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="how" data-light="day" data-hour="07:30" aria-labelledby="h-how">
+  <div class="wrap">
+    <p class="hour"><time>07:30</time><span>The commute &middot; daytime ratings</span></p>
+    <h2 id="h-how">How Tsamaya plans a drive</h2>
+    <div class="cols even">
+      <ol class="steps">
+        <li><h3>Pick where you are going</h3><p>Search, tap the map, or press and hold to drop a pin.</p></li>
+        <li><h3>It tests the quickest route</h3><p>Tsamaya takes the quickest route and checks it against every rated area, using the ratings for this hour.</p></li>
+        <li><h3>It moves you off the worst of it</h3><p>If the route runs through a high-risk area, Tsamaya shifts it onto roads we have checked, and tells you what it went around.</p></li>
+        <li><h3>The detour has to earn its place</h3><p>It is only offered if it cuts your exposure. A detour that adds too much distance is thrown out, even when it carries less risk.</p></li>
+        <li><h3>No detour for show</h3><p>When there is no good alternative, Tsamaya says so and gives you the normal route with the risky stretches marked.</p></li>
+        <li><h3>Drive it</h3><p>Turn-by-turn with voice, on CarPlay or Android Auto. Or hand it to Google Maps with the detour points already in place.</p></li>
+      </ol>
+      <figure class="shot how-fig">
+        <div class="card-wrap">
+          <div class="frame crop"><img src="img/route-result-600.webp" width="600" height="1304" loading="lazy" alt="The route card in the Tsamaya app. A note says the route passes through 2 high-risk areas that could not be avoided. Balanced, lower-risk, grade D: 25 min, 17.4 km, 68% less risk than the fastest route. Fastest, grade E: 25 min, 18.0 km, passes 4 high-risk areas."></div>
+          <ul class="calls" aria-label="The two options on the card">
+            <li style="--y:27%"><span class="grade">D</span><span><b>Balanced, lower-risk.</b> 25 min, 17.4&nbsp;km, 2 high-risk areas.</span></li>
+            <li style="--y:47.5%"><span class="grade">E</span><span><b>Fastest.</b> 25 min, 18.0&nbsp;km, 4 high-risk areas.</span></li>
+          </ul>
+        </div>
+        <figcaption><b>The route card in the app. Captured at 20:16.</b> Each option gets a grade from A to E, and A is the lowest risk. A route through any high-risk area can do no better than D. Here the lower-risk option carries 68% less risk for the same 25 minutes.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec deep wash-eve" id="trade" data-light="day" data-deep="1" data-hour="12:00" aria-labelledby="h-trade">
+  <div class="wrap">
+    <p class="hour"><time>12:00</time><span>The trade-off &middot; daytime ratings</span></p>
+    <h2 id="h-trade">It usually costs a few minutes.</h2>
+    <figure class="trade">
+      <div class="tr-rows">
+        <span class="tr-name">Fastest</span>
+        <div class="tr-track" style="--m:16"><div class="tr-bar"><i class="hz" style="--a:.24;--b:.36"></i><i class="hz" style="--a:.6;--b:.7"></i></div><span class="tr-val">16 min</span><span class="tr-guide"></span></div>
+        <span class="tr-name">Lower-risk</span>
+        <div class="tr-track" style="--m:19"><div class="tr-bar low"><i></i></div><span class="tr-val">19 min</span><span class="tr-guide"></span></div>
+        <div class="tr-axis" aria-hidden="true"><span style="--t:0">0</span><span style="--t:5">5</span><span style="--t:10">10</span><span style="--t:15">15</span><span style="--t:20">20 min</span></div>
+      </div>
+      <p class="tr-delta">+3 min &middot; 2 high-risk areas avoided</p>
+      <figcaption class="tr-legend"><span><i style="background:repeating-linear-gradient(45deg,#E04A5F 0 5px,#9E2436 5px 8px)"></i>High-risk area on the way</span><span><i style="background:repeating-linear-gradient(135deg,var(--action) 0 5px,#5FA88D 5px 8px)"></i>The extra minutes</span><span>One typical trip, drawn to scale. An illustration, not a live route.</span></figcaption>
+    </figure>
+    <div class="cols even">
+      <p>A detour is only offered if it cuts your exposure. If it adds too much distance it gets thrown out, even when it carries less risk. Sometimes the cost is nothing at all: on the route card above, both options take 25 minutes.</p>
+      <p>When there is no better way, Tsamaya tells you so and marks the risky stretches on the normal route. It will not invent a detour to look busy.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec wash-night" id="evening" data-light="evening" data-hour="17:30" aria-labelledby="h-eve">
+  <div class="wrap">
+    <p class="hour"><time>17:30</time><span>Sun going down &middot; evening ratings</span></p>
+    <h2 id="h-eve">At 17:30 the evening ratings take over.</h2>
+    <div class="big">
+      <span class="num">1&nbsp;524</span>
+    </div>
+    <div class="cols even">
+      <p class="lede">areas are rated high risk across 12 metros between 17:30 and 19:30. That is 152 more than in the daytime.</p>
+      <div>
+        <p>Evening gets its own band because the light changes the road. Load-shedding makes it sharper: a dark intersection is a different proposition from a lit one, which is why evening and night are rated separately.</p>
+        <p>Tsamaya reads your phone's clock and switches on its own. There is no setting to remember.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="night" data-light="night" data-hour="19:30" aria-labelledby="h-night">
+  <div class="wrap">
+    <p class="hour"><time>19:30</time><span>Streetlights on &middot; night ratings</span></p>
+    <div class="night-grid">
+      <div class="nt1">
+        <h2 class="night-h" id="h-night">At 19:30, <span class="num">2&nbsp;525.</span></h2>
+        <p class="lede">From 19:30 to 05:00, 2&nbsp;525 areas are rated high risk. That is nearly double the daytime count, and the app switches to it without being asked.</p>
+      </div>
+      <figure class="shot nav-fig">
+        <div class="frame"><img src="img/navigation-600.webp" width="600" height="1304" loading="lazy" alt="Tsamaya's turn-by-turn screen at night. In 140 m, turn left onto Highveld Road. The speed readout shows 54 km/h in a 60 zone, and a 'Use caution' chip sits under the road name, Monument Road. 38 minutes to go."></div>
+        <figcaption><b>Turn-by-turn in the app. Captured at 20:24.</b></figcaption>
+      </figure>
+      <div class="nt2">
+        <ul class="feat">
+          <li><b>Voice guidance</b>Turn-by-turn, so your eyes can stay on the road. Works on CarPlay and Android Auto.</li>
+          <li><b>Police and roadblock notices from other drivers</b>They show for an hour and are spoken when they are ahead of you. They never change your route.</li>
+          <li><b>Share a live trip</b>Someone at home can follow your drive on the website until you arrive.</li>
+          <li><b>Speed limit on screen</b>With a gentle chime if you go over.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="coverage" data-light="night" data-hour="21:00" aria-labelledby="h-cov">
+  <div class="wrap">
+    <p class="hour"><time>21:00</time><span>Where it works &middot; night ratings</span></p>
+    <h2 id="h-cov">Rated in 12 metros. Everywhere else it is a normal map.</h2>
+    <p class="metros-head"><span>Metro</span><span>Rated areas</span></p>
+    <ul class="metros">
+      <li><a href="#home" title="prototype: Johannesburg only"><span class="mn">Cape Town</span><span class="mc">909</span></a></li>
+      <li class="jb"><a href="#johannesburg"><span class="mn">Johannesburg</span><span class="mc">800</span></a></li>
+      <li><a href="#home" title="prototype: Johannesburg only"><span class="mn">Durban</span><span class="mc">791</span></a></li>
+      <li><a href="#home" title="prototype: Johannesburg only"><span class="mn">Ekurhuleni</span><span class="mc">732</span></a></li>
+      <li><a href="#home" title="prototype: Johannesburg only"><span class="mn">Pretoria</span><span class="mc">486</span></a></li>
+      <li><a href="#home" title="prototype: Johannesburg only"><span class="mn">Gqeberha</span><span class="mc">254</span></a></li>
+      <li><a href="#home" title="prototype: Johannesburg only"><span class="mn">West Rand</span><span class="mc">130</span></a></li>
+      <li><a href="#home" title="prototype: Johannesburg only"><span class="mn">Rustenburg</span><span class="mc">98</span></a></li>
+      <li><a href="#home" title="prototype: Johannesburg only"><span class="mn">Secunda</span><span class="mc">63</span></a></li>
+      <li><a href="#home" title="prototype: Johannesburg only"><span class="mn">Mossel Bay</span><span class="mc">58</span></a></li>
+      <li><a href="#home" title="prototype: Johannesburg only"><span class="mn">Pilanesberg</span><span class="mc">43</span></a></li>
+      <li><a href="#home" title="prototype: Johannesburg only"><span class="mn">Stellenbosch</span><span class="mc">32</span></a></li>
+    </ul>
+    <p style="margin-top:22px">4&nbsp;396 rated areas in all. Outside these metros Tsamaya still plans routes and talks you through the turns. It just has no risk data there. Want your city next? <a href="#help">Here is how to help.</a></p>
+  </div>
+</section>
+
+<section class="sec deep" id="faq" data-light="night" data-deep="1" data-hour="22:00" aria-labelledby="h-faq">
+  <div class="wrap">
+    <p class="hour"><time>22:00</time><span>Questions &middot; night ratings</span></p>
+    <div class="cols rev">
+      <h2 id="h-faq">What people ask before they install it</h2>
+      <div class="faq">
+        <details><summary>Is it free?</summary><p>Yes. No ads, and we do not sell anything about you.</p></details>
+        <details><summary>Does a lower-risk route take much longer?</summary><p>Usually a few minutes. Anything dramatically longer than the direct route is rejected.</p></details>
+        <details><summary>Does it guarantee I will be safe?</summary><p>No, and we will never tell you otherwise. It cuts your exposure to areas with a history of vehicle crime. Crime is not predictable. Treat it as better information for a choice you were going to make anyway, and stay alert. Lower risk is not no risk.</p></details>
+        <details><summary>What happens outside the 12 metros?</summary><p>It works as a normal map and navigator, without risk data.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="before" data-light="night" data-hour="23:00" aria-label="Get the app and ways to help">
+  <div class="wrap">
+    <p class="hour"><time>23:00</time><span>Before you go &middot; night ratings</span></p>
+    <div class="pair">
+      <div class="block" id="get">
+        <h2>Get the app. It is free.</h2>
+        <p>Tsamaya is in open beta on Android and iPhone. Install it from the test programmes below.</p>
+        <div class="stores">
+          <a class="store p" href="https://play.google.com/store/apps/details?id=com.tsamaya.app" rel="noopener"><span>Android</span><b>Google Play open test</b></a>
+          <a class="store s" href="https://testflight.apple.com/join/BZmAqy4v" rel="noopener"><span>iPhone</span><b>TestFlight beta</b></a>
+        </div>
+        <p class="priv"><b>No account. No trip history kept. No ads.</b>Your location is used on your phone to show the map and plan routes. Route requests send bare coordinates to the map provider, never your name.</p>
+      </div>
+      <div class="block" id="help">
+        <h2>Ways to help</h2>
+        <p>The free ones matter most.</p>
+        <ul class="help-list">
+          <li>Drive with it.</li>
+          <li>Tell one other driver.</li>
+          <li>Report a corner we got wrong, from inside the app.</li>
+          <li>Tell us when it annoys you.</li>
+        </ul>
+        <h3 style="margin-bottom:.6em">If you want to put money in</h3>
+        <p>A once-off EFT, no tiers.</p>
+        <dl class="money">
+          <div><dt>R&nbsp;100</dt><dd>goes into running costs: map tiles, geocoding, the database.</dd></div>
+          <div><dt>R&nbsp;1&nbsp;000</dt><dd>and we will ask which metro you want next.</dd></div>
+          <div><dt>R&nbsp;2&nbsp;500</dt><dd>sponsors a whole new city.</dd></div>
+        </dl>
+        <p class="small">Nedbank, account name TSAMAYA (PTY) LTD. Use the reference "Tsamaya + your name". Any amount is fine, including none.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div data-view="johannesburg" hidden>
+<div class="jv" id="jv" data-light="night" data-band="night">
+  <section class="sec jhero" data-hour="now" aria-labelledby="h-jhb">
+    <div class="wrap">
+      <a class="back" href="#home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>All 12 metros</a>
+      <div class="jgrid">
+        <div class="ja">
+          <p class="meta">Gauteng &middot; 800 rated areas</p>
+          <h1 id="h-jhb">Johannesburg, by the hour</h1>
+          <div class="jband">
+            <p class="bands-lbl" id="jbands-lbl" style="margin-top:0">Ratings for</p>
+            <div class="bands" role="group" aria-labelledby="jbands-lbl" data-for="jhb">
+              <button type="button" data-set="day" aria-pressed="false"><i class="sw s-d"></i><span class="bn">Daytime</span><span class="bt">315 high risk</span></button>
+              <button type="button" data-set="evening" aria-pressed="false"><i class="sw s-e"></i><span class="bn">Evening</span><span class="bt">326 high risk</span></button>
+              <button type="button" data-set="night" aria-pressed="true"><i class="sw s-n"></i><span class="bn">Night</span><span class="bt">533 high risk</span></button>
+            </div>
+          </div>
+          <div class="jcount">
+            <span class="num" id="j-num" aria-hidden="true">533</span>
+            <p class="lede"><span class="sr" id="j-num-sr">533</span> <span id="j-cap">of Johannesburg's 800 rated areas are in the top band at night, from 19:30 to 05:00.</span></p>
+            <p class="clock-next" id="j-now">At 19:30 the ratings change.</p>
+            <p class="sr" aria-live="polite" id="j-live"></p>
+          </div>
+          <div class="dist">
+            <div class="dist-bar" aria-hidden="true"><i class="r" style="flex-grow:533"></i><i class="o" style="flex-grow:155"></i><i class="y" style="flex-grow:99"></i><i class="c" style="flex-grow:13"></i></div>
+            <ul aria-label="All 800 areas by rating">
+              <li><i style="background:#E04A5F"></i>High risk <b data-k="r">533</b></li>
+              <li><i style="background:#F09632"></i>Elevated <b data-k="o">155</b></li>
+              <li><i style="background:#EBC846"></i>Caution <b data-k="y">99</b></li>
+              <li><i style="background:#059669"></i>Checked, no penalty <b data-k="c">13</b></li>
+            </ul>
+          </div>
+        </div>
+        <div class="jb">
+          <p>Johannesburg is where Tsamaya started and it is still the busiest part of the map. Almost everything funnels through a handful of roads: the M1 and M2, Empire, Louis Botha, Oxford. Those roads run close to the places where vehicle crime concentrates. Plan purely for speed and you will be sent through the worst of it at the worst time of night, without being told.</p>
+        </div>
+        <figure class="jfig">
+          <svg viewBox="0 0 600 1301" aria-hidden="true"><path d="M520.9 307.1l5.3-9l23.5 1.9l-2-9l23.1-12l-16.2-9.3l12.3-6l33.1 53.8l-49.2 30.6l-12.8-4.6l-17.1-36.4zM61.4 818.1l11.1-21.5l12.7-2.7l5.3-18.8l9.3-5.5l12 3.6l2.2 12l10.7 1.9l3.7-10.1l-7.7-2.3l-0.2-10.1l12.4 0.2l7.2-13.4l9.3 6.6l42.5-10.5l3.6-18.2l46 15.3l2.9-11.3l25.4 3.2l7.7 16.3l2.6-9.5l14-7.1l-0.1-5l13.3-3l-1-13.2l9.5-7.3l-0.3-6.9l18.5-1.3l1.1 39.2l-6.2-3.8l-6.9 14.9l-19.2 58.3l-1.9 26.1l6.2 1.6l9.4-9l-3.9 17.4l12.2 2.1l6-10.5l5.2 9.2l-4.3 11.3l13.3 13.5l11.9-0.2l5.1-8.2l-6.9-18.3l18.2-6.8l25.3-22.8l0.2 10.3l11.5-0.3l-15.6 14.2l7.8 9.2l19.2-18.6l10.6 1.6l-19.5 28l-10.7-9.5l-29.9 44.5l-0.7 32l8.6 18.1l-29.5-4.7l-13.3 35l34.2 5.9l23.9-5.3l40.9 70.5l9.5-19.1l21.8-9.2l20 54.4l49.6-14.3l13.1 1.9l37.5-27.5l5.8 19.1l-15.1 61.7l9.6 0.2l11.5 45l-51.9 11.1l-5 12.7l-21.3 7.4l4.8 48.3l-14 38.4l-23.3-2.4l-0.1-12.6l-17.7 2l-1.6 8.7l-21.2-2.5l-6.8-9.4l-7.9 6l1.3 13.5l-10.4 7.4l6.9 15.9l-10.2-4.7l-3.6 4.8l-1.9-15.9l-9.2-10.3l12.9-5.5l-10.5-8.4l9.4-6.2l3.6-30.4l-16.5 5.2l1.7 5.5l-13 12.1l-11.6-6.9l10.3-8.3l-0.3-9.3l11.7-14.2l-26.1-21.6l-18-4.1l1.2 32l15.2 7.4l1.3 18.1l-5.4 5.9l12.4 16.1l3.2 19.7l-46.2 2.7l-3.8-13.4l5.2-20.6l-5.8-11.2l-34.7-12.3l-22.7-18.3l-4.8-14.1l-27.4-5.8l11.9-13.8l-19.1-11.1l-13.6-41.8l7.6-24.3l4.1 11.1l10.4 1.5l-0.1-19.3l7.4-1.9l-2.9-16.4l-17.3-3.7l1.4-10.2l10.8 7.7l4.3-1.1l-7.1-12.7l20.6 8.2l4.7 26.4l7.5-11.7l11.4 1.9l-2.2-28.8l12.5-14.1l-13.4-0.8l-0.8-20.2l17.9 10.6l35.3-13.2l-8.6-32.8l-34.4 26.9l-25.2-13.8l27.6-11.5l-17.7-19.9l11.1-2.6l1.6-5.8l25.6 0.5l6-9l-28.8-20.5l0.4-43.1l6.9-9.4l-9 3.2l-5.2 12.5l-32.1-2.6l-4.7 11.3l-38.7-27.6l-51.1 17.3l-24.9 54.5l-3.2-2.5l-4.8 9.1l-4-7.6l-22.7-1.7l1.5-8.3l-7.8 1.1l-7.3 22.4l-7.9-4.5l-0.5-8.2l-9.7-0.1l-9.5-11l4.9-33.9l11.4-3.7l-1.6-13.3l-6.3 1.9l30.9-39.9l-16.2 2.2l-2.8-17.7l-20.9-5.2zM342.4 894.2l-2.3 33.1l23.3-1.2l-0.8-15.2l-7.7-1.3l10.8-15.1l-23.3-0.3zM233.3 821.4l23.4 21.3l3.9 32.4l26.2-0.3l10.5-10.1l0.6-7.1l-10.8 4.7l-1.6-8.2l12.1-2.1l0.6-5.6l-32.3-1.1l-20.7-27.2l-11.9 3.3zM187.6 819.8l17 4.4l-5.1-24.8l17.9 3.3l1.3-10.9l14.2-1.8l-22.7-10.9l-16.2 20l-6.4 20.7zM423.8 9.5l49.7-9.5l32.6 7.9l-21.9 38.9l-3.6-9l-43.7-3.6l0.4-22.9l-13.5-1.8zM425.7 629.2l0.2-7.2l15.3-7.1l6.4 7.9l-1.8 6.9l-20.1-0.5zM392.3 333.9l8.1-37.1l19.7 7.9l-13.9 12.1l8.7 4.5l-0.1 9.5l-22.5 3.1zM12.3 613.6l6.8-9.5l9.9 2.8l2.3-4.5l-12.7-5.2l4.7-6.1l-6.5-17l17.5-6l0.9-6.3l-14.8-8.6l34.2 3.9l-10.4-13.8l16.5-13.2l-4.2-6.2l-6.6 9l-10.6-1.8l-1 14.3l-7.7-2.9l-6.9-6.7l8-10.6l1.3-19.9l10.1 0.1l16.3 13.2l14-1.3l-4.6-9.5l-10-3l-0.6-10.6l-6.9 0.3l-10.3-13l19.8-24.3l22.2-0.9l25.2-42.8l-2.2-19.5l-35.1-13l9-5.7l-5.1-22.2l39.8-18.5l6.8-18.8l10.8 1.7l0.8-10.9l12.2-5l-6.4-2.5l-3.1-21.7l8.1-1.9l1-41.4l33.7-4.1l-11-12.6l12.9-4.4l26 51.2l9.5-3.5l3.9 35.5l-15.3 8.1l-14.6-4.6l-3.6 8.6l-12.1 1.4l8 13.8l-9.7 7.6l-1 10.6l-14.2 7.3l-2.5-8l7.8-13l12.7-7.5l-23.6 0.5l1.1 16.6l-10.1 10.5l10.2 15.6l18.1 1.4l-4.1 11.9l5.5-0.1l1.8 6.9l-8.9 8.7l-0.6 12.9l7-6.5l12 2.3l-3.3-4.3l7-9.6l-7.5-6.5l12.3 0.8l5-6.8l-3.2-9.5l7.9 0.7l-1.7-12l9.8-3.1l15 5.3l-3.7 23.2l19.4-11.3l0.1 5.1l12.1 2.3l1.8 13.7l17.5-16.1l-9.2-5.7l-4.2 10.2l-10.6-5.5l6.3-26.6l14.9-8.4l-1.4 10l7.4 2.3l-2.1-4.9l6.9-7.5l-7.6-5.3l3.5-5.9l11.1 9.5l14.6-13l7.4 4.6l-14.8 31l28.7 8l0.4-18.1l5.7-1.7l9.7 9.8l-8-1l-4 9.4l14.3 2.6l7.4-21.6l11.7 4.5l-4.9 21.8l15 11.6l5.2-3.9l5.5 9.2l22.1 0.1l-38.5 26.6l-11-9.7l-6.1 10l20.3 21l-32.6 19.6l5.4 15l17.4 7.9l0.4 18.4l7.7-8.2l9.9-0.2l1.3-6.4l9.2 11.4l6.2-2.8l9 10l9.3 1.1l2 7.6l-4 7.6l-8.2 0.7l2.2 13l-16 3.4l-15.8 12.7l-13.4-27.1l8.3-19.1l-18.8-3.6l-12.6 7.4l0.8 7.9l8.5 4.7l-9.1 7l4.7 6.8l-15.8 11.2l1.5 7.5l-11.3 10.5l5.7 3.5l-7.9 13.3l11 1.4l-1 4.2l-21.7 7.2l1.5 6.4l17 2.8l-6.3 10l20.5 5.7l-3.5 5l4.9 12.2l-35.8 8.7l-9.8-8.1l4 27.8l-23.6 11.4l4.4 11.8l12.6-3.2l7.8 15.2l-12.1 2.4l8.3 11.5l-50.4 11.9l-7.9-13.3l-0.1-9l6.2-0.7l-3.5-21.6l-25.7-4.2l-5.6 2.6l-1.1 15.9l-9.3-1.3l-10.5 10l-17.3-3.6l-3.5 8.6l-13.6-1.3l3.5 14.1l-12 1.2l-5.6-2.6l0.7-17.1l-46.8-10.7l-20.2-36.5l-34.3 7.6l-3.2-43.3l-17.6-2.8zM128.1 513.7l14.6 15.4l11.4 1.4l11.8-20.9l-2.7-5.3l-5.2 7.1l-9.1-1.7l4.4-5.6l-8.7-17.1l-7.1 19.1l-5.8-0.7l-3.6 8.3zM238.2 333.7l6-19l13.5-8.2l-5.5 29.8l-6.4 6.1l-7.6-8.7zM124.4 749.2l9-19.8l11.2 6.5l-6.7 15.5l-13.5-2.2zM86.6 723l9-21.9l18.9 6.8l3.6 3.5l-3.7 6.4l14.8 9l-9.3 12.3l-13 0.4l1.3-16.2l-11.5-4.3l-10.1 4zM0 723.7l4.1-42.5l29.3-1.9l6.6 22.7l-24.9 8l10 3.4l-2.8 8.8l-22.3 1.5z" fill-rule="evenodd"/><g class="north"><path d="M548 20l16 46h-32z"/><text x="548" y="102" text-anchor="middle" style="font:700 34px var(--text);fill:var(--ink)">N</text></g></svg>
+          <div class="scalebar"><i></i><span>10&nbsp;km</span></div>
+          <figcaption>Rated ground in Johannesburg. We never name suburbs as risky. About 66&nbsp;km across.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" data-hour="now" aria-labelledby="h-jdrive">
+    <div class="wrap">
+      <h2 class="proof" id="h-jdrive">Several roads that carry no penalty at midday sit in the top band after <span class="t">19:30</span>.</h2>
+      <p class="lede">Ratings move sharply between day and night here. That is the whole reason Tsamaya reads the clock.</p>
+      <div class="notes">
+        <div><h3>The M1 and M2</h3><p>Through the inner city they carry more flagged stretches than any other road we map. Most of it is smash-and-grab and robbery at off-ramps and traffic lights.</p></div>
+        <div><h3>Load-shedding</h3><p>A dark intersection is a different proposition from a lit one, which is why evening and night are rated separately.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" data-hour="now" aria-labelledby="h-roads">
+    <div class="wrap">
+      <h2 id="h-roads">Roads we map here</h2>
+      <ul class="roads">
+        <li>M1</li><li>M2</li><li>Empire Road</li><li>Louis Botha Avenue</li><li>Oxford Road</li><li>N1</li><li>N3</li><li>N12</li><li>N17</li>
+      </ul>
+      <p style="margin-top:20px">The major freeways carry protective ratings, so the app will not push you off a freeway onto side roads to shave a score.</p>
+    </div>
+  </section>
+
+  <section class="sec" data-hour="now" aria-labelledby="h-jfaq">
+    <div class="wrap">
+      <div class="cols rev">
+        <h2 id="h-jfaq">Johannesburg questions</h2>
+        <div class="faq">
+          <details><summary>Does it cover Soweto and the southern suburbs?</summary><p>Yes. Coverage spans the whole municipal area.</p></details>
+          <details><summary>Will it route me the long way round?</summary><p>Only within limits. Most lower-risk routes across Johannesburg add a few minutes.</p></details>
+          <details><summary>Does it work on the highways out of Joburg?</summary><p>Yes. The N1, N3, N12 and N17 are mapped, and the major freeways carry protective ratings, so the app will not push you off a freeway onto side roads to shave a score.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" data-hour="now" aria-labelledby="h-jget">
+    <div class="wrap">
+      <h2 id="h-jget">Drive Johannesburg with it tonight</h2>
+      <p>Free, in open beta. No account, no trip history kept, no ads.</p>
+      <div class="stores">
+        <a class="store p" href="https://play.google.com/store/apps/details?id=com.tsamaya.app" rel="noopener"><span>Android</span><b>Google Play open test</b></a>
+        <a class="store s" href="https://testflight.apple.com/join/BZmAqy4v" rel="noopener"><span>iPhone</span><b>TestFlight beta</b></a>
+      </div>
+      <a class="back" href="#home" style="margin:10px 0 0"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>All 12 metros</a>
+    </div>
+  </section>
+</div>
+</div>
+</main>
+
+<footer class="foot" data-light="deep" data-hour="23:00">
+  <div class="wrap">
+    <p class="gowell" lang="en">Go well.</p>
+    <p class="lockup"><img src="img/favicon.svg" alt="" width="34" height="34">Tsamaya. Go well.</p>
+    <p class="small">Tsamaya sentle. It is how people say goodbye here.</p>
+    <div class="fcols">
+      <div>
+        <h2>Metros</h2>
+        <ul class="mlist">
+          <li><a href="#home" title="prototype: Johannesburg only">Cape Town</a></li>
+          <li><a href="#johannesburg">Johannesburg</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Durban</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Ekurhuleni</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Pretoria</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Gqeberha</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">West Rand</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Rustenburg</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Secunda</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Mossel Bay</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Pilanesberg</a></li>
+          <li><a href="#home" title="prototype: Johannesburg only">Stellenbosch</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>The app</h2>
+        <ul>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#coverage">Coverage</a></li>
+          <li><a href="#home">Updates</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#help">Support</a></li>
+          <li><a href="#get">Get the app</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="#home">Privacy</a></li>
+          <li><a href="#home">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fine">
+      <p class="disc">Routes consider risk. They are not a guarantee of safety.</p>
+      <p>Built in Johannesburg by Kyle Kimble. Independent and self-funded. TSAMAYA (PTY) LTD.</p>
+      <p class="tag"><i style="background:#E4ECEF"></i><i style="background:#E8A46C"></i><i style="background:#0B1220;box-shadow:0 0 0 1px #A9B6C8"></i><b>Concept 2 of 3</b><span class="sep">&middot;</span><b>City clock</b></p>
+    </div>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+var d=document,R=d.documentElement;R.classList.add('js');
+function $(s,c){return (c||d).querySelector(s)}
+function $$(s,c){return Array.prototype.slice.call((c||d).querySelectorAll(s))}
+var RM=matchMedia('(prefers-reduced-motion: reduce)');
+var B={day:{n:'Daytime',f:'05:00',t:'17:30',w:600},evening:{n:'Evening',f:'17:30',t:'19:30',w:700},night:{n:'Night',f:'19:30',t:'05:00',w:800}};
+var NAT={day:1372,evening:1524,night:2525};
+var JD={day:[315,237,235,13],evening:[326,228,233,13],night:[533,155,99,13]};
+var ADJ={day:'in the daytime',evening:'in the evening',night:'at night'};
+function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'\u00a0')}
+var tf=new Intl.DateTimeFormat('en-ZA',{timeZone:'Africa/Johannesburg',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+function now(){var p=tf.formatToParts(new Date()),h=0,m=0;p.forEach(function(x){if(x.type==='hour')h=+x.value%24;if(x.type==='minute')m=+x.value});return{min:h*60+m,s:(h<10?'0':'')+h+':'+(m<10?'0':'')+m}}
+function bandAt(m){return m>=300&&m<1050?'day':(m>=1050&&m<1170?'evening':'night')}
+function countTo(el,to){
+  var from=+(el.getAttribute('data-v')||to);el.setAttribute('data-v',to);
+  cancelAnimationFrame(el._r);
+  if(RM.matches||from===to){el.textContent=fmt(to);return}
+  var t0=performance.now();
+  (function step(t){var k=Math.min(1,(t-t0)/600),e=1-Math.pow(1-k,3);el.textContent=fmt(Math.round(from+(to-from)*e));if(k<1)el._r=requestAnimationFrame(step)})(t0);
+}
+var cur=bandAt(now().min),hs=cur,js=cur,hero=$('#now'),jv=$('#jv'),topEl=$('#top'),rail=$('.rail'),topSec=null,railSec=null;
+var heroNum=$('#hero-num'),jNum=$('#j-num');
+heroNum.setAttribute('data-v',2525);jNum.setAttribute('data-v',533);
+$('#h1').style.fontWeight=B[cur].w;$('#h-jhb').style.fontWeight=B[cur].w;
+
+function pressed(group,b){$$('button',group).forEach(function(x){x.setAttribute('aria-pressed',x.getAttribute('data-set')===b?'true':'false')})}
+function renderHero(announce){
+  var t=now(),b=hs,X=B[b];
+  hero.setAttribute('data-light',b);hero.setAttribute('data-band',b);hero.parentNode.setAttribute('data-hb',b);
+  pressed($('[data-for=home]'),b);
+  $('#clock-line').innerHTML=b===cur?'It is <b class="now">'+t.s+'</b> in Johannesburg. '+X.n+' ratings apply:':'It is <b class="now">'+t.s+'</b> in Johannesburg. From '+X.f+' to '+X.t+', '+X.n.toLowerCase()+' ratings apply:';
+  $('#count-cap').textContent='areas are rated high risk across 12 metros.';
+  $('#clock-next').textContent=b===cur?'Next change at '+B[cur].t+'.':'';
+  $('#clock-next').hidden=b!==cur;
+  $('#to-now').hidden=b===cur;
+  $('#hero-num-sr').textContent=fmt(NAT[b]);
+  countTo(heroNum,NAT[b]);
+  $$('.za [data-lbl]').forEach(function(el){el.textContent=fmt(el.getAttribute('data-'+b))});
+  $$('.za .dot').forEach(function(c){c.firstChild.textContent=c.getAttribute('data-name')+': '+c.getAttribute('data-'+b)+' areas rated high risk '+ADJ[b]});
+  $('#za-desc').textContent='Areas rated high risk '+ADJ[b]+': '+$$('.za .dot').map(function(c){return c.getAttribute('data-name')+' '+c.getAttribute('data-'+b)}).join(', ')+'.';
+  if(announce)$('#hero-live').textContent=X.n+' ratings: '+fmt(NAT[b])+' areas rated high risk across 12 metros.';
+  if(topSec===hero)paint(topEl,hero);if(railSec===hero)paint(rail,hero);
+}
+function renderJ(announce){
+  var t=now(),b=js,v=JD[b];
+  jv.setAttribute('data-light',b);jv.setAttribute('data-band',b);
+  pressed($('[data-for=jhb]'),b);
+  countTo(jNum,v[0]);$('#j-num-sr').textContent=v[0];
+  $('#j-cap').textContent="of Johannesburg's 800 rated areas are in the top band "+ADJ[b]+', from '+B[b].f+' to '+B[b].t+'.';
+  $('#j-now').textContent=b===cur?'It is '+t.s+' here, so these ratings apply right now.':'It is '+t.s+' here, so '+B[cur].n.toLowerCase()+' ratings apply right now.';
+  var bars=$$('.dist-bar i');['r','o','y','c'].forEach(function(k,i){bars[i].style.flexGrow=v[i];$('.dist [data-k='+k+']').textContent=v[i]});
+  if(announce)$('#j-live').textContent=B[b].n+': '+v[0]+' of 800 areas rated high risk.';
+  if(topSec&&jv.contains(topSec))paint(topEl,topSec);if(railSec&&jv.contains(railSec))paint(rail,railSec);
+}
+$$('.bands').forEach(function(g){g.addEventListener('click',function(e){var btn=e.target.closest('button[data-set]');if(!btn)return;var b=btn.getAttribute('data-set');if(g.getAttribute('data-for')==='home'){hs=b;renderHero(true)}else{js=b;renderJ(true)}})});
+$('#to-now').addEventListener('click',function(){hs=cur;renderHero(true)});
+
+/* strip marker, rail and header */
+function lightOf(s){var l=s.closest('[data-light]');return l?l.getAttribute('data-light'):'night'}
+function paint(el,s){el.setAttribute('data-light',lightOf(s));el.classList.toggle('deep',s.hasAttribute('data-deep'))}
+function railSet(s){
+  railSec=s;paint(rail,s);var t=now(),live=s.getAttribute('data-hour')==='now',h=live?t.s:s.getAttribute('data-hour');
+  var mins=+h.slice(0,2)*60+ +h.slice(3),b=live?cur:bandAt(mins);
+  var word=live?'Now':B[b].n;
+  $('.rail-time').textContent=h;$('.rail-band').textContent=word;
+  $('.hb-time').textContent=live?'Now '+h:h;$('.hb-band').textContent=B[b].n;
+  var p=String(mins/1440);$('.rail-mark').style.setProperty('--p',p);$('.hb-mark').style.setProperty('--p',p);
+}
+var io1,io2;
+function observe(){
+  if(!('IntersectionObserver' in window))return;
+  if(io1){io1.disconnect();io2.disconnect()}
+  var view=$('[data-view]:not([hidden])'),secs=$$('[data-hour]',view).concat([$('.foot')]),hh=topEl.offsetHeight;
+  io1=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)railSet(e.target)})},{rootMargin:'-45% 0px -54% 0px'});
+  io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){topSec=e.target;paint(topEl,e.target)}})},{rootMargin:'-'+hh+'px 0px -'+Math.max(0,innerHeight-hh-2)+'px 0px'});
+  secs.forEach(function(s){io1.observe(s);io2.observe(s)});
+}
+function tick(){
+  var t=now(),b=bandAt(t.min),was=cur;
+  if(b!==was){cur=b;if(hs===was)hs=b;if(js===was)js=b}
+  $$('.js-now').forEach(function(e){e.textContent=t.s});
+  var p=t.min/1440,sn=$('#strip-now');sn.style.setProperty('--p',p);sn.classList.toggle('flip',p>.78);
+  $('#strip').setAttribute('aria-label','A day split into rating bands: night from 00:00 to 05:00, daytime from 05:00 to 17:30, evening from 17:30 to 19:30, night from 19:30 to 24:00. It is now '+t.s+' in Johannesburg.');
+  renderHero(false);renderJ(false);
+  if(railSec&&railSec.getAttribute('data-hour')==='now')railSet(railSec);
+}
+
+/* menu */
+var mb=$('.menu-b');
+mb.addEventListener('click',function(){var o=topEl.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+$$('#nav a').forEach(function(a){a.addEventListener('click',function(){topEl.classList.remove('open');mb.setAttribute('aria-expanded','false')})});
+
+/* router */
+function route(){
+  var h=location.hash.slice(1),view='home',target=null;
+  if(h==='johannesburg')view='johannesburg';
+  else if(h&&h!=='home'){var el=d.getElementById(h);if(el){var v=el.closest('[data-view]');if(v)view=v.getAttribute('data-view');target=el}}
+  $$('[data-view]').forEach(function(v){v.hidden=v.getAttribute('data-view')!==view});
+  $$('.nav a').forEach(function(a){if(view==='johannesburg'&&a.getAttribute('href')==='#coverage')a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  if(target)target.scrollIntoView();else window.scrollTo(0,0);
+  observe();
+}
+addEventListener('hashchange',route);
+var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(observe,200)});
+tick();route();setInterval(tick,30000);
+})();
+</script>

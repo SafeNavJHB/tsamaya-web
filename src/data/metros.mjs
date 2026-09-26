@@ -87,7 +87,7 @@ export const metros = [
       'Pretoria sits at the top of the busiest commuter run in the country, and a good share of the driving here is the daily trip down the Ben Schoeman and back. The city has a tight, dense centre wrapped in long arterial roads, which gives it a very different shape from Johannesburg.',
     context: [
       'The Ben Schoeman and the N4 both carry protective ratings. An early version of the data flagged a stretch of the Ben Schoeman badly enough that it would have pushed traffic onto side roads. A validation check caught it before it shipped.',
-      'Most of Pretoria’s flagged areas sit in the middle and caution bands rather than the top one, so a lot of what you see on the map is marked without changing your route.',
+      'Most of Pretoria\'s flagged areas sit in the middle and caution bands rather than the top one, so a lot of what you see on the map is marked without changing your route.',
       'The CBD and the areas immediately around it change rating between the daytime and evening bands more often than the outer suburbs do.',
     ],
     faqs: [
@@ -285,7 +285,7 @@ export const metros = [
     intro:
       'Durban is the biggest addition since Cape Town and the first metro on the east coast. Coverage is the whole of eThekwini: the city and the beachfront, Pinetown and the Upper Highway, the south coast down to Umkomaas, and the north through Umhlanga and Tongaat to King Shaka airport. The N2 and the N3 tie all of it together, and they are what most trips here depend on.',
     context: [
-      'The N3 climb through Pinetown and Mariannhill and the N2 along the coast are both mapped end to end and rated for each time of day. Neither is waved through as a protected route, because both pass close to areas that carry a real penalty.',
+      'The N3 climb inland and the N2 along the coast are both mapped end to end and rated for each time of day. Neither is waved through as a protected route, because both pass close to rated areas that carry a real penalty.',
       'The M4 along the northern beachfront, the M7 and the M13 through Westville are the everyday roads for most of the metro, and all three are on the map.',
       'The beachfront changes character after dark. Several stretches that carry a modest rating at midday sit in the top band in the evening and at night, which is why the three time bands are rated separately.',
     ],

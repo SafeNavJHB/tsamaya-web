@@ -1,0 +1,5 @@
+# local test setup (see ../HANDOFF.md): installed per machine, never committed
+out/
+node_modules
+package.json
+package-lock.json

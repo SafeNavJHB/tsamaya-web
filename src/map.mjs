@@ -82,6 +82,11 @@ const px = (lng) => (lng - B.lngMin) * LNG_SQUEEZE * SCALE;
 const py = (lat) => (B.latMax - lat) * SCALE;
 const r1 = (n) => Math.round(n * 10) / 10;
 
+// The projection, shared with src/sitedata.mjs so the data files the 3D scene
+// reads (dist/data/geo.json) line up exactly with this map. Output is in map
+// units: x from 0 to COUNTRY_W (1000), y from 0 downwards (south is larger).
+export const projection = { width: COUNTRY_W, height: COUNTRY_H, x: px, y: py };
+
 /* Point-to-segment distance, and a point-in-rings test, both in projected units.
  * Needed to size a marker's hit area against the SHAPES around it rather than
  * only against the other markers. */

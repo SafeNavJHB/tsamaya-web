@@ -2,3 +2,5 @@
 dist/
 node_modules/
 .DS_Store
+# The tracker's three public client keys for local testing (build.mjs); CI uses secrets.
+config.local.json

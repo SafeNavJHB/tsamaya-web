@@ -28,27 +28,32 @@ export default {
   // the sitemap, but a sitemap exclusion is not a noindex — a crawler that finds
   // the link anywhere else will happily index it. This emits the actual directive.
   noindex: true,
+  heroClass: 'sn page-track',
+  hud: false,
   body: `
-<section class="wrap" style="padding:28px 0;">
-  <h1 style="margin:0 0 4px;">Live trip</h1>
-  <p id="trip-status" style="font-size:16px;font-weight:600;">Loading…</p>
-  <div id="map-wrap" style="position:relative;height:68vh;min-height:320px;border-radius:16px;overflow:hidden;background:#eef;margin-top:12px;">
-    <div id="map" style="position:absolute;inset:0;"></div>
-    <div id="arrived" style="position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(255,255,255,0.96);padding:24px;">
-      <div style="font-size:56px;line-height:1;">✅</div>
-      <h2 id="arrived-title" style="margin:14px 0 6px;">Arrived</h2>
-      <p id="arrived-sub" style="margin:0;opacity:.65;"></p>
+<section class="trk" aria-labelledby="trk-h">
+  <div class="wrap">
+    <p class="hud trk-k">Shared via Tsamaya</p>
+    <h1 class="trk-h" id="trk-h">Live trip</h1>
+    <p id="trip-status" class="trk-s" data-state="load" role="status">Loading</p>
+    <div id="map-wrap" class="trk-map scheme-dark" data-lenis-prevent>
+      <div id="map"></div>
+      <div id="arrived" class="trk-arr">
+        <svg class="trk-ok" viewBox="0 0 48 48" width="56" height="56" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 24.5l7 7 13-14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h2 id="arrived-title">Arrived</h2>
+        <p id="arrived-sub"></p>
+      </div>
     </div>
+    <p class="trk-note">The map updates roughly every 10 to 15 seconds while a drive is active. Between drives the page waits and picks up the next one automatically, so you can bookmark it.</p>
   </div>
-  <p style="margin-top:12px;opacity:.6;font-size:13px;">Shared via Tsamaya. The map updates roughly every 10 to 15 seconds while a drive is active. Between drives the page waits and picks up the next one automatically, so you can bookmark it.</p>
 </section>
 <script>
 (function(){
   var token=new URLSearchParams(location.search).get('id');
   var info=document.getElementById('trip-status');
   var arrivedEl=document.getElementById('arrived');
-  if(!token){ if(info) info.textContent='This link is missing its trip code.'; return; }
-  var cfg=null, map=null, driver=null, destMarker=null, started=false, routeSig=null, waiting=false, slowSkip=0;
+  if(!token){ if(info){ info.textContent='This link is missing its trip code.'; info.setAttribute('data-state','wait'); } return; }
+  var cfg=null, map=null, driver=null, destMarker=null, started=false, routeSig=null, waiting=false, slowSkip=0, lastGeo=null, sos=false;
   function pad(n){ return (n<10?'0':'')+n; }
   function clock(ms){ var d=new Date(ms); return d.getHours()+':'+pad(d.getMinutes()); }
   function loadMapbox(cb){
@@ -61,7 +66,7 @@ export default {
   function fetchTrip(){
     return fetch(cfg.supabaseUrl+'/rest/v1/rpc/get_live_trip',{method:'POST',headers:{'Content-Type':'application/json','apikey':cfg.anonKey,'Authorization':'Bearer '+cfg.anonKey},body:JSON.stringify({p_token:token})}).then(function(r){return r.ok?r.json():[];}).catch(function(){return [];});
   }
-  function setRoute(geo){
+  function setRoute(geo,now){
     if(!geo||!geo.coordinates||!geo.coordinates.length) return;
     // Cheap identity: a new drive (or a reroute) gets a new signature → update
     // the line + reframe once; identical polls are no-ops so the viewer can pan.
@@ -74,35 +79,52 @@ export default {
       if(src){ src.setData(data); }
       else{
         map.addSource('route',{type:'geojson',data:data});
-        map.addLayer({id:'route-line',type:'line',source:'route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#0A84FF','line-width':5,'line-opacity':0.9}});
+        map.addLayer({id:'route-line',type:'line',source:'route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':C().route,'line-width':5,'line-opacity':0.9}});
       }
       var b=new mapboxgl.LngLatBounds(); c.forEach(function(p){ b.extend(p); });
       try{ map.fitBounds(b,{padding:60,duration:0}); }catch(e){}
       routeSig=sig;
     }
-    if(map.isStyleLoaded()) go(); else map.on('load',go);
+    lastGeo=geo;
+    // now: straight after a restyle ('style.load'), when 'load' will not fire again
+    if(now||map.isStyleLoaded()) go(); else map.on('load',go);
   }
+  // the map follows the page's theme (unless the scenes are kept dark with
+  // ?scenes=dark): a light Mapbox style with a deeper emerald in the light
+  function C(){
+    var d=document.documentElement, lite=d.getAttribute('data-theme')==='light'&&d.getAttribute('data-scenes')!=='dark';
+    return lite?{style:'mapbox://styles/mapbox/light-v11',route:'#059669',driver:'#047857',dest:'#1C2533'}:{style:'mapbox://styles/mapbox/dark-v11',route:'#34D399',driver:'#34D399',dest:'#E6EDF5'};
+  }
+  window.addEventListener('ts-theme',function(){
+    if(!started||!map.setStyle) return;
+    map.setStyle(C().style);
+    map.once('style.load',function(){ routeSig=null; if(lastGeo) setRoute(lastGeo,true); });
+    // markers carry their colour from creation: made again
+    var p=driver.getLngLat(); driver.remove(); driver=new mapboxgl.Marker({color:sos?'#dc3c50':C().driver}).setLngLat(p).addTo(map);
+    if(destMarker){ var q=destMarker.getLngLat(); destMarker.remove(); destMarker=new mapboxgl.Marker({color:C().dest}).setLngLat(q).addTo(map); }
+  });
   function setDest(trip){
     if(trip.dest_lng==null||trip.dest_lat==null) return;
     if(destMarker){ destMarker.setLngLat([trip.dest_lng,trip.dest_lat]); }
-    else{ destMarker=new mapboxgl.Marker({color:'#E5484D'}).setLngLat([trip.dest_lng,trip.dest_lat]).addTo(map); }
+    else{ destMarker=new mapboxgl.Marker({color:C().dest}).setLngLat([trip.dest_lng,trip.dest_lat]).addTo(map); }
   }
+  function say(t,st){ if(info){ info.textContent=t; info.setAttribute('data-state',st); } }
   function render(trip){
     if(!trip){
       // Permanent (Guardian) links spend most of their life with no live row —
       // keep waiting rather than declaring the link dead.
       waiting=true;
-      if(info) info.textContent=started
+      say(started
         ? 'Drive over. This page picks up their next shared drive automatically.'
-        : 'No live drive right now. Leave this page open and the next shared drive appears automatically.';
+        : 'No live drive right now. Leave this page open and the next shared drive appears automatically.','wait');
       return;
     }
     var lng=trip.lng, lat=trip.lat;
-    var isSos = trip.kind==='sos';
+    var isSos = trip.kind==='sos'; sos=isSos;
     if(!started){
       mapboxgl.accessToken=cfg.mapboxToken;
-      map=new mapboxgl.Map({container:'map',style:'mapbox://styles/mapbox/streets-v12',center:[lng,lat],zoom:13});
-      driver=new mapboxgl.Marker({color:isSos?'#dc3c50':'#0A84FF'}).setLngLat([lng,lat]).addTo(map);
+      map=new mapboxgl.Map({container:'map',style:C().style,center:[lng,lat],zoom:13});
+      driver=new mapboxgl.Marker({color:isSos?'#dc3c50':C().driver}).setLngLat([lng,lat]).addTo(map);
       started=true;
     } else { driver.setLngLat([lng,lat]); if(!routeSig) map.easeTo({center:[lng,lat],duration:1200}); }
     setDest(trip);
@@ -111,21 +133,21 @@ export default {
     var at=trip.dest_name?(' at '+trip.dest_name):'';
     if(trip.status==='arrived'){
       waiting=true;
-      if(info) info.textContent='\\u2705 Arrived'+at+'.';
+      say('Arrived'+at+'.','arrived');
       if(arrivedEl){
         document.getElementById('arrived-title').textContent=(trip.dest_name?trip.dest_name:'Arrived');
         document.getElementById('arrived-sub').textContent=trip.arrived_at?('Arrived at '+clock(new Date(trip.arrived_at).getTime())+'.'):'';
         arrivedEl.style.display='flex';
       }
     }
-    else if(trip.status==='ended'){ waiting=true; if(info) info.textContent='Sharing ended. This page picks up their next shared drive automatically.'; }
+    else if(trip.status==='ended'){ waiting=true; say('Sharing ended. This page picks up their next shared drive automatically.','wait'); }
     else {
       // An active drive (re)appeared — leave waiting mode and reset the
       // previous drive's leftovers so drive #2 renders cleanly.
       waiting=false;
       if(arrivedEl) arrivedEl.style.display='none';
-      if(isSos){ if(info){ info.textContent='\\u26A0\\uFE0F Emergency. Following their live location.'; info.style.color='#dc3c50'; info.style.fontWeight='700'; } }
-      else { var eta=''; if(trip.eta_epoch){ eta=' \\u00b7 ETA ~'+clock(Number(trip.eta_epoch)); } if(info) info.textContent='\\uD83D\\uDE97 On the way'+to+eta+'.'; }
+      if(isSos){ say('Emergency. Following their live location.','sos'); }
+      else { var eta=''; if(trip.eta_epoch){ eta=' \\u00b7 ETA ~'+clock(Number(trip.eta_epoch)); } say('On the way'+to+eta+'.','live'); }
     }
   }
   // Active drive: poll every 10 s. Waiting (no trip / ended / arrived): every

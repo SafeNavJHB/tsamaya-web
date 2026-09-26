@@ -1,0 +1,203 @@
+// explore.js: the "Explore the metros" section (BUILD_PLAN section 5.1), the
+// part that works in every tier: the list, the band switch, the card, the
+// announcements, the keyboard, and in the static tier an SVG map. With the 3D
+// scene live, scene/explore.js draws the map instead and hooks in through
+// ex.gl (sync, fly, band): this module owns the state, the scene follows it.
+//
+// STATE
+//   hov   the metro being pointed at or focused (-1 for none)
+//   sel   the metro picked (-1 for none); the camera flies to it
+//   lvl   'nat' (all of them), 'reg' (the Gauteng cluster) or 'metro'
+//   band  the time band the rings and the card's marker show (0, 1, 2)
+//
+// FIGURES. Every number is read from the list rows' data attributes, which the
+// build writes from the live data (src/pages/index.mjs). The card switches
+// between true values; only its bars move.
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); // as site.config.mjs
+const TS = window.Tsamaya;
+
+export function initExplore({ root, tier }) {
+  const list = $('.ex-list', root);
+  if (!list) return null;
+  const rows = $$('li[data-k]', list);
+  const bandBtns = $$('.exb', root), card = $('.ex-card', root), back = $('.ex-back', root), live = $('#ex-live', root);
+  const cardRows = $$('.exc-rows li', card);
+  const BN = bandBtns.map((b) => b.textContent);
+  const M = rows.map((li, i) => ({
+    i, k: li.dataset.k, p: li.dataset.p, z: +li.dataset.z, r: li.dataset.r.split(' ').map(Number), gt: li.hasAttribute('data-gt'),
+    name: $('span', li).textContent, href: $('a', li).getAttribute('href'),
+  }));
+  const nowBand = () => (TS ? TS.bands.indexOf(TS.bandAt(TS.saMinutes())) : 0);
+  // wait: a 3D map is on its way (ex.gl is still null). keep(): a card stays up
+  // with nothing picked (the coverage page's phone layout gives it a place)
+  const ex = { M, band: nowBand(), hov: -1, sel: -1, lvl: 'nat', card: -2, last: 0, act: tier === 'static', gl: null, svg: null, wait: tier !== 'static', keep: () => false };
+
+  // each row's link becomes a button that works the map; the metro's page is
+  // one step on, in the card (without JavaScript the rows stay links)
+  const btns = rows.map((li, i) => {
+    const a = $('a', li), b = document.createElement('button');
+    b.type = 'button'; b.dataset.m = i; b.tabIndex = i ? -1 : 0;
+    b.append(...a.childNodes); a.replaceWith(b);
+    return b;
+  });
+
+  let sayT = 0;
+  function say(t) { clearTimeout(sayT); live.textContent = ''; sayT = setTimeout(() => { live.textContent = t; }, 60); }
+  // the band in force now, on the switch and the card (checked each minute,
+  // so a boundary such as 17:30 moves both together)
+  function mark() {
+    const now = nowBand();
+    cardRows.forEach((li, b) => { li.classList.toggle('sel', b === ex.band); $('em', li).textContent = b === now ? 'Now' : b === ex.band ? 'Selected' : ''; });
+    bandBtns.forEach((x) => {
+      const on = +x.dataset.b === now, chip = $('.now', x);
+      if (on && !chip) x.insertAdjacentHTML('beforeend', '<span class="now" aria-hidden="true">Now</span>');
+      else if (!on && chip) chip.remove();
+    });
+  }
+  function fill(i) {
+    const m = M[i];
+    $('#exc-n', card).textContent = m.name; $('#exc-p', card).textContent = m.p;
+    $('#exc-z', card).textContent = $('#exc-s', card).textContent = fmt(m.z);
+    cardRows.forEach((li, b) => { $('s', li).style.transform = `scaleX(${(m.r[b] / m.z).toFixed(3)})`; $('b', li).textContent = fmt(m.r[b]); });
+    const a = $('#exc-a', card); a.href = m.href; a.textContent = `Open the ${m.name} page`;
+    mark();
+  }
+  // bring every surface in line with the state: card, rows, static map, back
+  // button, and the scene (ex.gl.sync)
+  function show() {
+    let i = ex.hov >= 0 ? ex.hov : ex.sel;
+    if (i < 0 && (ex.keep() || (!ex.gl && !ex.wait))) i = ex.last; // the static tier keeps a card up
+    if (i >= 0) ex.last = i;
+    if (i !== ex.card) { ex.card = i; if (i >= 0) fill(i); }
+    card.classList.toggle('is-on', i >= 0);
+    card.classList.toggle('is-pin', i >= 0 && i === ex.sel);
+    btns.forEach((b, j) => { b.classList.toggle('hov', j === ex.hov); if (j === ex.sel) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+    if (ex.svg) $$('.exo path', ex.svg).forEach((p) => p.classList.toggle('on', +p.dataset.m === i || +p.dataset.m === ex.sel));
+    back.hidden = ex.lvl === 'nat' && ex.sel < 0;
+    if (ex.gl) ex.gl.sync();
+  }
+  const hover = (i) => { if (i !== ex.hov) { ex.hov = i; show(); } };
+  function select(i) {
+    const m = M[i];
+    ex.sel = i; ex.lvl = 'metro';
+    say(`${m.name}, ${m.p}. ${fmt(m.z)} rated areas. ${BN[ex.band]}: ${fmt(m.r[ex.band])} rated high risk.`);
+    if (ex.gl) ex.gl.fly('metro', i);
+    show();
+  }
+  function region() {
+    ex.sel = -1; ex.lvl = 'reg';
+    say(`Gauteng and surrounds: ${M.filter((m) => m.gt).length} metros.`);
+    if (ex.gl) ex.gl.fly('reg');
+    show();
+  }
+  function home(quiet) {
+    if (ex.lvl === 'nat' && ex.sel < 0) return;
+    ex.sel = -1; ex.lvl = 'nat';
+    if (!quiet) say(`All ${M.length} metros.`);
+    if (ex.gl) ex.gl.fly('nat');
+    show();
+  }
+  function setBand(b, quiet) {
+    ex.band = b;
+    bandBtns.forEach((x) => x.setAttribute('aria-pressed', String(+x.dataset.b === b)));
+    if (ex.svg) $$('.rg', ex.svg).forEach((c, i) => c.setAttribute('r', (1.36 * Math.sqrt(M[i].r[b])).toFixed(1)));
+    mark();
+    if (ex.gl) ex.gl.band(b);
+    if (!quiet && ex.sel >= 0) say(`${BN[b]}: ${fmt(M[ex.sel].r[b])} rated high risk in ${M[ex.sel].name}.`);
+  }
+  // Stacked (phones and tablets, as in styles.css) the map sits above the
+  // list, so a row tapped low in the list brings the map and its card back
+  // into view. Not for Enter on the keyboard: focus stays in view where it is.
+  const stacked = window.matchMedia('(max-width: 1023px)');
+  // (at once for keyboard focus, which must land in view before the next Tab)
+  // Also after a tap on the map itself, and when the map's foot or the card
+  // runs off the bottom of the screen, not only when the map is above the
+  // header (Kyle, iPhone, 2026/09/26: a picked metro sat half under the header).
+  function reveal(now) {
+    const hd = $('.site-header'), st = $('.ex-stage', root).getBoundingClientRect(), head = hd ? hd.getBoundingClientRect().bottom : 0;
+    const top = st.top, foot = Math.max(st.bottom, card.getBoundingClientRect().bottom);
+    if (!stacked.matches || (top >= head - 2 && foot <= innerHeight + 2)) return;
+    const y = Math.round(scrollY + top - head), still = now || document.documentElement.classList.contains('motion-paused') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (window.lenis) window.lenis.scrollTo(y, still ? { immediate: true, force: true } : { duration: 0.8 });
+    else window.scrollTo({ top: y, behavior: still ? 'auto' : 'smooth' });
+  }
+  Object.assign(ex, { show, hover, select, region, home, setBand, btns, reveal });
+
+  bandBtns.forEach((x) => x.addEventListener('click', () => setBand(+x.dataset.b)));
+  setInterval(mark, 60000);
+  const mouse = (e) => e.pointerType === 'mouse' || e.pointerType === 'pen';
+  btns.forEach((b, i) => {
+    b.addEventListener('pointerenter', (e) => { if (mouse(e)) hover(i); });
+    b.addEventListener('pointerleave', (e) => { if (mouse(e) && ex.hov === i && document.activeElement !== b) hover(-1); });
+    b.addEventListener('focus', () => { btns.forEach((o) => { o.tabIndex = o === b ? 0 : -1; }); hover(i); });
+    // Tab from a row goes on into its card (the metro page link): keep it up
+    b.addEventListener('blur', (e) => { if (ex.hov === i && !card.contains(e.relatedTarget)) hover(-1); });
+    b.addEventListener('click', (e) => { select(i); if (e.detail > 0) reveal(); });
+    // one tab stop for the list: up and down move along it, left and right
+    // cross between its two columns (it fills down the first, then the
+    // second), Home and End jump
+    b.addEventListener('keydown', (e) => {
+      const n = btns.length, R = Math.ceil(n / 2), k = e.key;
+      const j = k === 'ArrowDown' ? (i + 1) % n : k === 'ArrowUp' ? (i + n - 1) % n : k === 'ArrowRight' ? (i + R < n ? i + R : i) : k === 'ArrowLeft' ? (i - R >= 0 ? i - R : i) : k === 'Home' ? 0 : k === 'End' ? n - 1 : -1;
+      // only as far as needed into view (focus() alone centres the row, and
+      // on a short window that scrolls the map away)
+      if (j >= 0) { e.preventDefault(); btns[j].focus({ preventScroll: true }); btns[j].scrollIntoView({ block: 'nearest' }); }
+    });
+  });
+  // and once focus leaves the card for anywhere but a row, the preview ends
+  card.addEventListener('focusout', (e) => { if (ex.hov >= 0 && !card.contains(e.relatedTarget) && !btns.includes(e.relatedTarget)) hover(-1); });
+  back.addEventListener('click', () => home());
+  // Escape backs out while the section is the view (ex.act, or before a 3D map
+  // has taken over). With focus in the section it is always the map's; from
+  // elsewhere only while the section is on screen and nothing else used the
+  // key (the menu, the hero's route card and chapter 3's labels mark it
+  // handled; on window, so it hears them all first)
+  const near = () => { const r = root.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
+  window.addEventListener('keydown', (e) => {
+    const inside = root.contains(document.activeElement);
+    if (e.key !== 'Escape' || !(ex.act || !ex.gl) || !(inside || (near() && !e.defaultPrevented))) return;
+    if (ex.lvl !== 'nat' || ex.sel >= 0) home();
+  });
+  // keyboard focus in the card: stacked, bring the map and its card into view
+  // (not a mouse press on its link, which would move the link from under it)
+  const focusVisible = (el) => { try { return el.matches(':focus-visible'); } catch (e) { return true; } };
+  card.addEventListener('focusin', (e) => { if (focusVisible(e.target)) reveal(true); });
+
+  // The static map: the country, each metro's coverage outline, and at its
+  // point a dot and a ring sized by its high-risk count in the band picked, all
+  // from data/geo.json, fetched when the section comes near.
+  ex.staticMap = () => {
+    if (ex.svg || ex.svgLoading) return;
+    ex.svgLoading = true;
+    const fig = $('.ex-map', root);
+    const load = () => fetch('data/geo.json').then((r) => r.json()).then((geo) => {
+      const byKey = Object.fromEntries(geo.metros.map((g) => [g.key, g]));
+      const d = (rings, z = 'Z') => rings.map((r) => 'M' + r.map((p) => p.join(' ')).join('L') + z).join('');
+      const paths = M.map((m) => byKey[m.k] ? `<path data-m="${m.i}" d="${d(byKey[m.k].rings)}"/>` : '').join('');
+      // every ring, then every dot, so no ring is drawn across a neighbour's dot
+      const pt = (m) => (byKey[m.k] ? byKey[m.k].point : [0, 0]);
+      const marks = M.map((m) => `<circle class="rg" cx="${pt(m)[0]}" cy="${pt(m)[1]}" r="0"/>`).join('') + M.map((m) => `<circle class="dt" cx="${pt(m)[0]}" cy="${pt(m)[1]}" r="4"/>`).join('');
+      fig.innerHTML = `<svg viewBox="0 0 ${geo.width} ${Math.ceil(geo.height)}" focusable="false"><path class="exl" fill-rule="evenodd" d="${d(geo.land)}"/><path class="exbd" d="${d(geo.borders, '')}"/><g class="exo">${paths}</g><g class="exr">${marks}</g></svg>`;
+      ex.svg = $('svg', fig);
+      $$('.exo path', ex.svg).forEach((p) => {
+        const i = +p.dataset.m;
+        p.addEventListener('pointerenter', (e) => { if (mouse(e)) hover(i); });
+        p.addEventListener('pointerleave', () => { if (ex.hov === i) hover(-1); });
+        p.addEventListener('click', () => select(i));
+      });
+      setBand(ex.band, true);
+      show();
+    }).catch(() => { ex.svgLoading = false; });
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); load(); } }, { rootMargin: '600px 0px' });
+      io.observe(root);
+    } else load();
+  };
+
+  setBand(ex.band, true);
+  show();
+  return ex;
+}

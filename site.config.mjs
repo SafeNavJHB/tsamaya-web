@@ -15,8 +15,10 @@ export const stats = JSON.parse(
   readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'src', 'data', 'stats.json'), 'utf8'),
 );
 
-// Formats 3254 as "3,254" — thousands separators, no locale dependency.
-export const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+// Formats 3254 as "3 254", the South African style: a space as the thousands
+// separator. It is a NON-BREAKING space (U+00A0), so a number never wraps across
+// two lines. No locale dependency, so the build output is the same on any machine.
+export const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
 
 export const site = {
   name: 'Tsamaya',
@@ -191,14 +193,18 @@ export const colors = {
 
 // Primary navigation. `href` values are relative so the site is host/path agnostic.
 export const nav = [
+  // primary: shown in the header bar and large in the mobile menu. The header
+  // was measured for exactly these five (see the note above .mobile-nav in
+  // styles.css); adding a sixth means re-measuring it.
+  { href: 'how-it-works.html', label: 'How it works', primary: true },
+  { href: 'coverage.html', label: 'Coverage', primary: true },
+  { href: 'updates.html', label: 'Updates', primary: true },
+  { href: 'about.html', label: 'About', primary: true },
+  { href: 'sponsor.html', label: 'Support', primary: true },
+  // secondary: in the footer, and in the small row under the mobile menu.
   { href: 'index.html', label: 'Home' },
-  { href: 'how-it-works.html', label: 'How it works' },
   { href: 'demo.html', label: 'See it' },
-  { href: 'coverage.html', label: 'Coverage' },
-  { href: 'updates.html', label: 'Updates' },
   { href: 'technical.html', label: 'Technical' },
-  { href: 'about.html', label: 'About' },
-  { href: 'sponsor.html', label: 'Support' },
   { href: 'contact.html', label: 'Contact' },
 ];
 

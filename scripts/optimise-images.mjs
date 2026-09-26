@@ -7,8 +7,9 @@
 // same pixels as a desktop, and paid for the ones it could not display.
 //
 // WHAT IT DOES
-// For every PNG/JPG in public/img/screens/src/, writes AVIF + WebP + a JPEG
-// fallback at three widths into public/img/screens/. The site references them
+// For every PNG/JPG in assets/screens-src/, writes AVIF + WebP + a JPEG
+// fallback at three widths into public/img/screens/. The raw captures live
+// outside public/ so they are never deployed (they are 10 MB of PNG). The site references them
 // through <picture> with srcset, so a browser picks the smallest format and size
 // it can actually use.
 //
@@ -24,7 +25,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join, extname, basename } from 'node:path';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const srcDir = join(root, 'public', 'img', 'screens', 'src');
+const srcDir = join(root, 'assets', 'screens-src');
 const outDir = join(root, 'public', 'img', 'screens');
 
 // Widths a phone screenshot is actually displayed at on this site: the demo grid

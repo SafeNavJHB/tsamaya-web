@@ -5,8 +5,13 @@ import { colors } from '../site.config.mjs';
  * Brand mark — the genuine Tsamaya app icon (green swerve arrow threading
  * between the red & amber risk hotspots on a deep-navy tile). `size` in px.
  * ------------------------------------------------------------------------- */
+// The 512 px icon.png is 51 KB. The header and footer show the mark at 30 to 40
+// px, so small sizes take icon-96.png (1 KB, 96 px covers 3x screens up to 32
+// px and 2x up to 48). Made from icon.png with sharp (a devDependency):
+//   node -e "require('sharp')('public/img/icon.png').resize(96).png({compressionLevel:9,palette:true,quality:90}).toFile('public/img/icon-96.png')"
 export function logoMark(size = 40) {
-  return `<img class="logo-mark" src="img/icon.png" width="${size}" height="${size}" alt="Tsamaya icon" loading="eager"/>`;
+  const src = size <= 48 ? 'img/icon-96.png' : 'img/icon.png';
+  return `<img class="logo-mark" src="${src}" width="${size}" height="${size}" alt="Tsamaya icon" loading="eager"/>`;
 }
 
 // Full lockup: mark + wordmark, used in the nav and footer.
@@ -343,8 +348,8 @@ export function deviceMockup(screen, label = '') {
  * wide). The browser picks the smallest format and size it can use; the JPEG at
  * the end is the fallback nothing fails to render.
  * ------------------------------------------------------------------------- */
-export function picture({ name, alt, width, height, sizes = '(max-width: 680px) 88vw, 320px', className = '', loading = 'lazy' }) {
-  const srcset = (ext) => [300, 600, 900].map((w) => `img/screens/${name}-${w}.${ext} ${w}w`).join(', ');
+export function picture({ name, alt, width, height, sizes = '(max-width: 680px) 88vw, 320px', widths = [300, 600, 900], className = '', loading = 'lazy' }) {
+  const srcset = (ext) => widths.map((w) => `img/screens/${name}-${w}.${ext} ${w}w`).join(', ');
   return `<picture>
     <source type="image/avif" srcset="${srcset('avif')}" sizes="${sizes}"/>
     <source type="image/webp" srcset="${srcset('webp')}" sizes="${sizes}"/>

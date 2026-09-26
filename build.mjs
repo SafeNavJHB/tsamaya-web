@@ -6,10 +6,13 @@
 
 import { readdir, mkdir, rm, copyFile, writeFile, readFile, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, extname } from 'node:path';
 import { renderPage } from './src/layout.mjs';
+import { siteData, geoData } from './src/sitedata.mjs';
 import { site, baseUrl, canonicalFor } from './site.config.mjs';
+import { stripJs } from './scripts/strip-js.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const dist = join(root, 'dist');
@@ -34,6 +37,15 @@ async function copyDir(from, to) {
   }
 }
 
+async function stripDir(dir) {
+  if (!existsSync(dir)) return;
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const p = join(dir, entry.name);
+    if (entry.isDirectory()) await stripDir(p);
+    else if (entry.name.endsWith('.js')) await writeFile(p, stripJs(await readFile(p, 'utf8')), 'utf8');
+  }
+}
+
 async function build() {
   // Clean slate
   if (existsSync(dist)) await rm(dist, { recursive: true, force: true });
@@ -41,6 +53,10 @@ async function build() {
 
   // 1. Copy static assets (css, js, images) verbatim.
   if (existsSync(publicDir)) await copyDir(publicDir, dist);
+  // ...except the site's own scripts, which lose their comments and indentation
+  // on the way (public/js/ keeps them; the vendored libraries are already
+  // minified). See scripts/strip-js.mjs, and `npm run check:js` for the proof.
+  await stripDir(join(dist, 'js'));
 
   // 2. Render every page module.
   // A page module's default export is either one page object, or an array of them
@@ -63,8 +79,23 @@ async function build() {
     seen.add(p.slug);
   }
 
+  // Stylesheet and script links carry a fingerprint of the file (?v=...), so a
+  // visitor whose browser still holds an older file under the same name (GitHub
+  // Pages lets browsers keep files for 10 minutes) gets the new one with the new
+  // page. Modules a script imports are not stamped: they load by their plain
+  // names, from files the stamped script names.
+  const stamps = new Map();
+  const ASSET = /\b(href|src)="(\/?)(styles\.css|js\/[\w./-]+\.js|vendor\/[\w./-]+\.js)"/g;
+  async function fingerprint(html) {
+    for (const m of html.matchAll(ASSET)) {
+      if (stamps.has(m[3])) continue;
+      try { stamps.set(m[3], createHash('sha256').update(await readFile(join(dist, m[3]))).digest('hex').slice(0, 10)); } catch { stamps.set(m[3], null); }
+    }
+    return html.replace(ASSET, (all, attr, slash, path) => (stamps.get(path) ? `${attr}="${slash}${path}?v=${stamps.get(path)}"` : all));
+  }
+
   for (const page of pages) {
-    const html = renderPage(page);
+    const html = await fingerprint(renderPage(page));
     const outPath = join(dist, page.slug);
     // Support nested slugs like 't/index.html' (gives a clean /t/ URL).
     await mkdir(dirname(outPath), { recursive: true });
@@ -76,13 +107,28 @@ async function build() {
   await writeFile(join(dist, '.nojekyll'), '', 'utf8');
 
   // 4. Runtime config for client pages (the live-trip tracker /t/). Values come
-  //    from CI secrets — kept OUT of source so nothing is committed. Absent
-  //    locally, so the tracker shows a friendly "being set up" message.
+  //    from CI secrets, kept OUT of source so nothing is committed. To test the
+  //    tracker locally, put the same three public client keys in a gitignored
+  //    config.local.json (same shape); without either, the tracker shows a
+  //    friendly "being set up" message.
+  let local = {};
+  try { local = JSON.parse(await readFile(join(root, 'config.local.json'), 'utf8')); } catch {}
   await writeFile(join(dist, 'config.json'), JSON.stringify({
-    supabaseUrl: process.env.SUPABASE_URL || '',
-    anonKey: process.env.SUPABASE_ANON_KEY || '',
-    mapboxToken: process.env.MAPBOX_TOKEN || '',
+    supabaseUrl: process.env.SUPABASE_URL || local.supabaseUrl || '',
+    anonKey: process.env.SUPABASE_ANON_KEY || local.anonKey || '',
+    mapboxToken: process.env.MAPBOX_TOKEN || local.mapboxToken || '',
   }), 'utf8');
+
+  // Data the browser reads (the 3D scene and the interactive map), generated from
+  // the committed live data so a data refresh never needs a code change. See
+  // src/sitedata.mjs for what goes in and the rule on what never does.
+  await mkdir(join(dist, 'data'), { recursive: true });
+  const dataFiles = { 'site.json': siteData(), 'geo.json': geoData() };
+  for (const [name, obj] of Object.entries(dataFiles)) {
+    const json = JSON.stringify(obj);
+    await writeFile(join(dist, 'data', name), json, 'utf8');
+    console.log(`  ✓ data/${name} (${Math.round(json.length / 1024)} KB)`);
+  }
 
   // 5. sitemap.xml + robots.txt (absolute URLs from the configured base).
   //
