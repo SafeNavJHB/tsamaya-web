@@ -42,6 +42,46 @@ const steps = `
   </div>
 </section>`;
 
+// "Try it" (Phase 4, public/js/try.js): the toy router on the flat plan of the
+// same city. Tap a start and a destination; a path search on the hex cells,
+// where a high-risk cell costs far more to cross, bends the route. Labelled as a
+// toy on the panel itself. It needs JavaScript, so without it the section is
+// not shown (the steps above already tell the whole story).
+// The example trips (also the way in for the keyboard): one that bends in every
+// band, one that bends only at night, and one that never needs to.
+const TRIPS = [
+  ['Corner to corner', [-44, 44], [44, -44]],
+  ['West to east', [-48, -48], [36, -12]],
+  ['Down the west side', [-48, -48], [-48, 36]],
+];
+const trySec = `
+<section class="sec try" id="try" aria-labelledby="try-h">
+  <div class="wrap try-in">
+    <div class="try-t">
+      <p class="kick hud" data-reveal>Try it</p>
+      <h2 class="h2" id="try-h" data-split>Route it yourself</h2>
+      <p class="lead" data-reveal>Tap a start, then a destination, anywhere on the city. The straight line goes in grey; if it crosses high-risk cells, the lower-risk way round goes in emerald. Switch the ratings to Night: some trips only bend after dark.</p>
+      <div class="try-c" data-reveal>
+        <p class="hud try-k" id="try-bk">Ratings for</p>
+        <div class="try-bands" role="group" aria-labelledby="try-bk">
+          ${siteData().bands.map((b, i) => `<button type="button" class="try-b" data-b="${i}" aria-pressed="false">${b.name}</button>`).join('')}
+        </div>
+        <p class="hud try-k" id="try-ek">Or pick a trip</p>
+        <div class="try-trips" role="group" aria-labelledby="try-ek">
+          ${TRIPS.map(([n, a, b]) => `<button type="button" class="try-trip" data-a="${a}" data-b="${b}">${n}</button>`).join('')}
+        </div>
+        <p class="try-out" role="status" aria-live="polite">Tap a start point on the city.</p>
+      </div>
+    </div>
+    <figure class="try-f">
+      <div class="try-panel scheme-dark">
+        ${planSvg(2, { cellsId: 'try-cells', attrs: 'class="try-svg" viewBox="-56 -56 112 112" role="img" aria-label="The illustrative city, with its rated cells. Tap two points to plan a trip."', extra: '<g class="try-marks"></g>' })}
+      </div>
+      <figcaption class="hud try-note">A toy version of the idea${M}The app uses real roads, real ratings and a limit on detours</figcaption>
+    </figure>
+  </div>
+</section>`;
+
 const bands = siteData().bands;
 const WHY = {
   day: 'Most areas sit lower in the daytime. Plenty of roads that carry a penalty at night carry none at midday.',
@@ -67,7 +107,7 @@ export default {
     'How Tsamaya plans a lower-risk route: fetch the fastest route, test it against every rated area for this hour, prefer checked roads, find a way round, and throw out any detour that costs too much.',
   heroClass: 'sn page-how',
   hud: false,
-  scripts: ['js/how.js'],
+  scripts: ['js/how.js', 'js/try.js'],
   body: [
     posterDefs(),
     pageHead({
@@ -76,6 +116,7 @@ export default {
       lead: 'Tsamaya puts a risk check on top of ordinary turn-by-turn routing. Here is the whole thing, from the moment you pick a destination to the route on your screen.',
     }),
     steps,
+    trySec,
     hours,
     getSec({ title: 'See it on your own roads.' }),
     sec({
