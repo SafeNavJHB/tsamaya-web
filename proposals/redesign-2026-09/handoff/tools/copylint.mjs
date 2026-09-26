@@ -23,6 +23,8 @@ const visible = (html) => html
   .replace(/<script[\s\S]*?<\/script>/gi, ' ')
   .replace(/<style[\s\S]*?<\/style>/gi, ' ')
   .replace(/<svg[\s\S]*?<\/svg>/gi, (m) => (m.match(/<(title|text)[^>]*>[\s\S]*?<\/\1>/gi) || []).join(' '))
+  // alt text is read aloud and indexed: it keeps the same rules (launch review, 2026/09/26)
+  .replace(/<img\b[^>]*?\balt="([^"]*)"[^>]*>/gi, ' $1 ')
   .replace(/<[^>]+>/g, ' ')
   .replace(/&nbsp;/g, ' ').replace(/&middot;/g, '·').replace(/&amp;/g, '&').replace(/&#39;|&apos;/g, "'").replace(/&quot;/g, '"')
   .replace(/&rsquo;/g, '’').replace(/&lsquo;/g, '‘').replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”').replace(/&mdash;/g, '—').replace(/&ndash;/g, '–')

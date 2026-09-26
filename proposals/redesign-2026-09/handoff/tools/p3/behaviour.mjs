@@ -120,5 +120,83 @@ const active = (p) => p.evaluate(() => { const a = document.activeElement; retur
   console.log('      s1 phone top while reading:', s1.join(', '));
   await c2.close();
 }
+// --- the launch review's fixes (2026/09/26) ---
+// the wheel over the tracker's map stays with the map (a stub map that takes
+// the wheel as Mapbox's scroll zoom does, by cancelling it)
+{
+  const STUB = `window.mapboxgl={accessToken:'',Map:function(o){document.getElementById(o.container).addEventListener('wheel',function(e){e.preventDefault()},{passive:false});return{on:function(){},once:function(){},isStyleLoaded:function(){return true},getSource:function(){return null},addSource:function(){},addLayer:function(){},fitBounds:function(){},easeTo:function(){},setStyle:function(){}}},Marker:function(){var m={setLngLat:function(){return m},addTo:function(){return m},getLngLat:function(){return[0,0]},remove:function(){}};return m},LngLatBounds:function(){return{extend:function(){}}}};`;
+  const ctx = await b.newContext({ viewport: { width: 1440, height: 800 } });
+  const p = await ctx.newPage();
+  await p.route('**/config.json', (r) => r.fulfill({ json: { supabaseUrl: 'https://mock.supabase', anonKey: 'a', mapboxToken: 'pk.x' } }));
+  await p.route('https://api.mapbox.com/**', (r) => r.fulfill(r.request().url().endsWith('.js') ? { body: STUB, contentType: 'text/javascript' } : { body: '', contentType: 'text/css' }));
+  await p.route('https://mock.supabase/**', (r) => r.fulfill({ json: [{ lng: 28.05, lat: -26.1, dest_name: 'X', dest_lng: 28.07, dest_lat: -26.13, status: 'active', kind: 'drive', route_geojson: { type: 'LineString', coordinates: [[28.05, -26.1], [28.07, -26.13]] } }] }));
+  await p.goto(H + 'track.html?id=abc', { waitUntil: 'load' }); await p.waitForTimeout(1500);
+  const box = await p.locator('#map-wrap').boundingBox();
+  await p.mouse.move(box.x + box.width / 2, box.y + Math.min(box.height / 2, 300));
+  for (let i = 0; i < 5; i++) { await p.mouse.wheel(0, 300); await p.waitForTimeout(60); }
+  await p.waitForTimeout(800);
+  // (the review saw Lenis scroll the page while a real Mapbox map zoomed; that
+  // could not be reproduced here with or without the fix, so what is held is
+  // the opt-out itself, plus a map that takes the wheel keeping the page still)
+  ok(await p.evaluate(() => document.getElementById('map-wrap').hasAttribute('data-lenis-prevent') && document.querySelector('.mobile-nav').hasAttribute('data-lenis-prevent')), 'tracker map and phone menu opt out of Lenis (data-lenis-prevent)');
+  ok(await p.evaluate(() => scrollY) === 0, `tracker: a map that takes the wheel keeps the page still (${await p.evaluate(() => scrollY)})`);
+  await ctx.close();
+}
+// a phone on its side: the open menu scrolls, and Tab stays in it
+{
+  const ctx = await b.newContext({ viewport: { width: 852, height: 393 }, hasTouch: true });
+  const p = await ctx.newPage();
+  await p.goto(H + 'about.html', { waitUntil: 'load' }); await p.waitForTimeout(1200);
+  await p.locator('.nav-toggle').click(); await p.waitForTimeout(500);
+  const nav = p.locator('.mobile-nav'), nb = await nav.boundingBox();
+  await p.mouse.move(nb.x + nb.width / 2, nb.y + nb.height / 2);
+  for (let i = 0; i < 4; i++) { await p.mouse.wheel(0, 150); await p.waitForTimeout(60); }
+  await p.waitForTimeout(600);
+  ok(await nav.evaluate((e) => e.scrollTop) > 50, `sideways: the open menu scrolls (${await nav.evaluate((e) => e.scrollTop)} px)`);
+  let out = 0;
+  // (past the last link focus goes to the browser's own controls: the body, not a page element)
+  for (let i = 0; i < 14; i++) { await p.keyboard.press('Tab'); if (!(await p.evaluate(() => document.activeElement === document.body || !!document.activeElement.closest('.site-header')))) out++; }
+  ok(out === 0, `Tab stays in the header and its menu while the menu is open (${out} stops outside)`);
+  ok(await p.evaluate(() => document.querySelector('main').inert), 'the page behind the open menu is inert');
+  await p.locator('.nav-toggle').click(); await p.waitForTimeout(300);
+  ok(await p.evaluate(() => !document.querySelector('main').inert), 'and live again once the menu closes');
+  await ctx.close();
+}
+// the legal contents list scrolls under the wheel
+{
+  const ctx = await b.newContext({ viewport: { width: 1366, height: 657 } });
+  const p = await ctx.newPage();
+  await p.goto(H + 'privacy.html', { waitUntil: 'load' }); await p.waitForTimeout(1200);
+  // read down the page first, so the list is stuck under the header
+  await p.evaluate(() => (window.lenis ? window.lenis.scrollTo(900, { immediate: true, force: true }) : scrollTo(0, 900))); await p.waitForTimeout(500);
+  const toc = p.locator('nav.toc');
+  if (await toc.evaluate((e) => e.scrollHeight > e.clientHeight + 2)) {
+    const tb = await toc.boundingBox();
+    await p.mouse.move(tb.x + tb.width / 2, tb.y + Math.min(tb.height / 2, 200));
+    await p.mouse.wheel(0, 200); await p.waitForTimeout(500);
+    ok(await toc.evaluate((e) => e.scrollTop) > 0, 'privacy: the contents list scrolls under the wheel');
+  } else ok(true, 'privacy: the contents list fits (nothing to scroll)');
+  await ctx.close();
+}
+// site.js blocked: the stylesheet shows the reveal-hidden content by itself
+{
+  const ctx = await b.newContext({ viewport: { width: 1280, height: 800 } });
+  await ctx.route('**/js/site.js*', (r) => r.abort());
+  const p = await ctx.newPage();
+  await p.goto(H + 'sponsor.html', { waitUntil: 'load' });
+  await p.waitForTimeout(4800);
+  const hidden = await p.evaluate(() => [...document.querySelectorAll('[data-reveal]')].filter((e) => +getComputedStyle(e).opacity < 0.99).length);
+  ok(hidden === 0, `site.js blocked: nothing left hidden after 4 s (${hidden})`);
+  await ctx.close();
+}
+// every stylesheet and script link carries its fingerprint
+{
+  const ctx = await b.newContext();
+  const p = await ctx.newPage();
+  await p.goto(H + 'index.html', { waitUntil: 'load' });
+  const bare = await p.evaluate(() => [...document.querySelectorAll('link[rel=stylesheet][href], script[src]')].map((e) => e.getAttribute('href') || e.getAttribute('src')).filter((u) => !/^https?:/.test(u) && !/\?v=[0-9a-f]{10}$/.test(u)));
+  ok(!bare.length, `home: every stylesheet and script link is fingerprinted ${bare.join(' ')}`);
+  await ctx.close();
+}
 console.log(fails ? `FAIL  ${fails}` : 'every fix check passes');
 await b.close();
