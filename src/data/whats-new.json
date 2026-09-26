@@ -15,6 +15,78 @@
   ],
   "releases": [
     {
+      "version": "2026-09-26.7",
+      "date": "26 September 2026",
+      "items": [
+        {
+          "icon": "mic-outline",
+          "title": "Voice reports hear you better",
+          "body": "When you say \"police\" and your phone hears \"peace\" or \"polis\", Tsamaya now still files a police report. With Siri, say \"Hey Siri, report police in Tsamaya\".",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-26.6",
+      "date": "26 September 2026",
+      "items": [
+        {
+          "icon": "image-outline",
+          "title": "A cleaner start",
+          "body": "While Tsamaya opens, it now shows the last frame of the intro: the logo, \"Go well.\" and the sponsor credit, instead of the old compass screen.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-26.5",
+      "date": "26 September 2026",
+      "items": [
+        {
+          "icon": "mic-outline",
+          "title": "Report by voice",
+          "body": "Tap Report, then Speak, and say what you see: \"police\", \"roadblock\", \"speed camera\", \"crash\". It works on your phone, CarPlay and Android Auto, and the report goes through the same Undo as a tap. The microphone is used only while you speak, and no audio is kept.",
+          "category": "feature"
+        },
+        {
+          "icon": "chatbubble-ellipses-outline",
+          "title": "Or just ask Siri",
+          "body": "On iPhone and CarPlay you can also say \"Hey Siri, report police in Tsamaya\" during a drive. Siri tells you when the report is sent.",
+          "category": "feature"
+        },
+        {
+          "icon": "navigate-circle-outline",
+          "title": "Turn prompts over other apps on CarPlay",
+          "body": "With music or another app full screen on CarPlay, your next turn now appears as a banner, once as it comes up and again just before you reach it.",
+          "category": "feature"
+        },
+        {
+          "icon": "share-outline",
+          "title": "Open places from other apps",
+          "body": "Share a location from WhatsApp, Google Maps or Apple Maps to Tsamaya and it opens as your destination. On Android you can also tap a map link and choose Tsamaya.",
+          "category": "feature"
+        },
+        {
+          "icon": "play-circle-outline",
+          "title": "A new welcome",
+          "body": "The first time you open Tsamaya each day, a short intro plays: the drive that becomes the logo. Tap it to skip.",
+          "category": "tweak"
+        },
+        {
+          "icon": "volume-high-outline",
+          "title": "Directions on the car's navigation volume",
+          "body": "On Android Auto, spoken directions now use the car's navigation volume and lower your music while they play, like other navigation apps.",
+          "category": "fix"
+        },
+        {
+          "icon": "bug-outline",
+          "title": "A rare crash after an update",
+          "body": "On some Android phones the app could close by itself just after installing an update. That is fixed.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-25.1",
       "date": "25 September 2026",
       "items": [
