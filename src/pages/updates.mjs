@@ -33,12 +33,23 @@ const filtersFor = (list) => [{ key: 'all', label: 'All' }, ...categories].map((
 
 const rel = (r) => `<li class="rel"><h3 class="hud tl-d">${esc(r.date)}</h3><ul class="its">${r.items.map((it) => `<li class="it" data-c="${it.category}"><p class="hud tl-c">${ONE[it.category] || esc(it.category)}</p><h4>${esc(it.title)}</h4><p>${esc(it.body)}</p></li>`).join('')}</ul></li>`;
 
+// the date range a list covers: "22 to 25 September 2026" (updates.js has the same)
+const range = (a, b) => {
+  if (a === b) return a;
+  const [da, ma, ya] = a.split(' '), [db, mb, yb] = b.split(' ');
+  return ya === yb ? (ma === mb ? `${db} to ${da} ${ma} ${ya}` : `${db} ${mb} to ${da} ${ma} ${ya}`) : `${b} to ${a}`;
+};
+// what the list holds, said above the chips (Kyle, 2026/09/26: the page should
+// say how the list is cut); updates.js rewrites it as earlier releases come in
+const scope = (list, what) => `${what}${M}${esc(range(list[0].date, list[list.length - 1].date))}`;
+
 // the chips count what is on the page (updates.js recounts as earlier
 // releases come in), so a number never claims more than the reader can see
-const timeline = (list, after = '') => `
+const timeline = (list, after = '', said = '') => `
     <h2 class="sr">Every update, newest first</h2>
     <div class="up">
       ${filtersFor(list).map((f, i) => `<input class="up-f" type="radio" name="up-f" id="f-${f.key}"${i === 0 ? ' checked' : ''}/>`).join('')}
+      ${said ? `<p class="hud up-scope" data-scope data-total="${releases.length}">${said}</p>` : ''}
       <div class="chips" data-reveal>
         <span class="hud chips-k">Show</span>
         ${filtersFor(list).map((f) => `<label class="chip" for="f-${f.key}">${esc(f.label)}<span class="num">${f.n}</span></label>`).join('')}
@@ -76,7 +87,7 @@ const updatesPage = {
       lead: "Every change that has shipped to the app, newest first: the latest releases here, every earlier one a tap away. It is the same list you see in Settings under What's New.",
       after: stats,
     }),
-    sec({ id: 'log', cls: 'log', head: false, inner: timeline(recent, more) }),
+    sec({ id: 'log', cls: 'log', head: false, inner: timeline(recent, more, scope(recent, earlier.length ? `The ${recent.length} most recent updates` : `All ${recent.length} updates`)) }),
     sec({
       id: 'honest',
       cls: 'tail',
@@ -104,7 +115,7 @@ const archivePage = {
       title: 'Earlier updates',
       lead: `The ${earlier.length} releases before the newest ${NEWEST}, newest first. The latest are on the Updates page.`,
     }),
-    sec({ id: 'log', cls: 'log', head: false, inner: timeline(earlier, `<p class="more">${linkQ('The latest updates', 'updates.html')}</p>`) }),
+    sec({ id: 'log', cls: 'log', head: false, inner: timeline(earlier, `<p class="more">${linkQ('The latest updates', 'updates.html')}</p>`, scope(earlier, `The ${earlier.length} updates before the latest ${NEWEST}`)) }),
   ].join('\n'),
 };
 

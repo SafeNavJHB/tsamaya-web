@@ -26,6 +26,14 @@ if (link && list) {
         const k = c.getAttribute('for').slice(2), n = c.querySelector('.num');
         if (n) n.textContent = list.querySelectorAll(k === 'all' ? '.it' : `.it[data-c="${k}"]`).length;
       });
+      // and the line above them says what the list now holds
+      const sc = document.querySelector('[data-scope]'), ds = list.querySelectorAll(':scope > .rel > .tl-d');
+      if (sc && ds.length) {
+        const a = ds[0].textContent.trim(), z = ds[ds.length - 1].textContent.trim(), n = list.children.length;
+        const [da, ma, ya] = a.split(' '), [dz, mz, yz] = z.split(' ');
+        const span = a === z ? a : ya === yz ? (ma === mz ? `${dz} to ${da} ${ma} ${ya}` : `${dz} ${mz} to ${da} ${ma} ${ya}`) : `${z} to ${a}`;
+        sc.textContent = `${n === +sc.dataset.total ? `All ${n} updates` : `The ${n} most recent updates`} · ${span}`;
+      }
       if (status) status.textContent = `${next.length} earlier release${next.length === 1 ? '' : 's'} added.`;
       if (!rels.length) link.closest('.up-more-row').remove();
       else if (count) count.textContent = `${rels.length} more`;

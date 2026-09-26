@@ -1442,6 +1442,7 @@ html:not(.js) .sn .tabs { display: none; }
 .sn .sec.log { padding-top: 0; border-top: 0; }
 .sn .up-f { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 .sn .chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.sn .up-scope { margin-bottom: 16px; color: var(--fg-2); } /* what the list holds: the most recent updates and their dates */
 .sn .chips-k { margin-right: 8px; color: var(--fg-2); }
 .sn .chip { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--hairline); border-radius: 999px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-2); cursor: pointer; transition: color 0.18s var(--ease-ui), border-color 0.18s var(--ease-ui), background-color 0.18s var(--ease-ui); }
 .sn .chip:hover { color: var(--ink); border-color: var(--hud); }
