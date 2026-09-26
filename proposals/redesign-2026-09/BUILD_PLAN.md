@@ -1,6 +1,6 @@
 # Build plan: the Sensor redesign of tsamayaapp.co.za
 
-Written 2026/09/25. Status: Phases 0 to 3 done (2026/09/25); Phase 4 next.
+Written 2026/09/25. Status: Phases 0 to 4 done (2026/09/26), with light mode; Phase 5 (hardening and launch) next.
 Preview of the branch build (private): https://claude.ai/artifact/UML9VQcPGy26gfbXSJUjj7, republished at the end of each phase.
 Prototype: `proposals/redesign-2026-09/concept-4-sensor.html` (home and Johannesburg views, with the interactive map spike).
 Owner decisions were settled on 2026/09/25 and are recorded in section 10.
@@ -459,6 +459,33 @@ Built in a local session on the Mac, in five batches, each published to the prev
 - **App changelog wording.** Updates mirrors the app's What's New word for word, and older entries there say "safer route" and "risk zones". Fix them in the app's `whatsNew.ts` if they should change here.
 - **Content decisions for Kyle.** Some metro blurbs name towns such as Umlazi, Ledig and Mogwase as covered, never as risky; that wording is from before the redesign. The legal texts still carry an em dash, "risk zones" and a quoted "Asambe" button label; those come from the app repo, and a separate session is re-syncing the Terms.
 
+### Phase 4 record (2026/09/26)
+
+Built in the same local session, with four requests from Kyle on 2026/09/26 folded in (light mode, load more on Updates, the page opening at the top, and the tracker on a local build).
+
+**Built:**
+- **"Try it"** on How it works (`public/js/try.js`, section 5.4): tap a start and a destination on the flat plan of the illustrative city (the same cells as the 3D scene, from `citygen.js`). The straight line goes in grey; if it crosses high-risk cells, an A* search on the hex cells (a high-risk cell costs about 30 times an ordinary one, medium 3.5, yellow barely) finds the way round, pulled straight wherever that crosses nothing worse, in emerald. The readout counts the high-risk cells avoided and the extra minutes, measured on the lines drawn; the cells the trip starts and ends in are on every route and are left out (and named when high-risk). A detour past the limit is thrown out, as in the app. Day, evening and night; three example trips (one bends in every band, one only at night, one never), which are also the keyboard's way in. Labelled as a toy on the panel. Not shown without JavaScript. 2.9 KB of its own.
+- **A new social image** (`public/img/og.png`, drawn by `handoff/tools/p4/og.mjs` from the site's fonts, icon and the tilted plan of the illustrative city): 1200 x 630, 128 KB (was 424 KB, the old design, with an em dash), and no counted figures, which would date.
+- **Screenshots.** Every page already used the fresh daytime set (Phase 3). The old night captures, with risk colours over named suburbs, and two unused daytime ones were still published as files; they are removed, and the raw captures move from `public/img/screens/src/` (10 MB that shipped with every deploy) to `assets/screens-src/`. The built site went from 16 MB to 5.2 MB.
+- **Light mode.** Every colour token has a light value through CSS `light-dark()`, chosen by `color-scheme`; a head script applies the visitor's stored choice or the device's before first paint; the header's sun and moon button switches, remembers, and forgets again once the choice matches the device. The 3D scenes follow through one shared shader uniform (`scene/theme.js`): ink dots and roads on a pale ground, deeper risk colours, a slate fastest route and a deeper emerald; the glows blend normally in the light (additive light washes out to white). They switch live. The flat plan and the country figure, the tracker's Mapbox map, and the fixed colours round the scenes all have light versions. Browsers without `light-dark()` (Safari before 17.5, Chrome before 123) stay dark, with no button. `?scenes=dark` shows the scenes as night panels in a light page instead (decision 9 is open).
+- **Updates** carries the newest 10 releases (HTML plus CSS 81 to 37 KB); "Show earlier updates" links to the new `updates-archive.html`, and with JavaScript fetches it once and adds 10 a press. The filter chips count what is on the page.
+- **Smaller things:** a fresh visit opens at the top (the reported case could not be reproduced in Chromium or WebKit); the tracker reads its three public keys from a gitignored `config.local.json` on a local build (it said "being set up" because the keys only exist as deploy secrets); and opening the phone menu after scrolling no longer sends the header, with its close button, off the screen (an older bug the review found).
+
+**Verified** (tools in `handoff/tools/`):
+- The full suite, both explore tests, `p3/metro`, `p3/track` (with a light-map check), `p3/behaviour`, `p3/updates`, `p3/theme` (device default, remembering and forgetting, first frame, the running city switching both ways, `?scenes=dark`, no JavaScript), `p4/try` (every band and example trip, mouse and touch, the readout re-measured on the drawn lines, a start in a high-risk cell, the same spot twice).
+- axe finds nothing on any of the 27 pages in either theme at 1440 and 390; the home page's text over the scene meets AA in both themes at both sizes (`p1/contrast.mjs`, `COLOR=dark` for the dark run).
+- Dark mode is unchanged: every element on every page computes the same style as at the end of Phase 3, apart from the new button (and the 10 px it moves the nav), Try it, and the Updates button (`p3/cssdiff.mjs`).
+- An independent review of light mode and Phase 4 (before the daylight scenes) found no high-severity issue; both medium ones (Try it's false "too long", the phone header without JavaScript or `light-dark()`) and the low ones were fixed, as listed above.
+
+**Budgets** (gzipped): styles 29.6 KB (26.6 before light mode). HTML plus CSS: home 53 of 60 KB, How it works 40, Updates 37; the archive page is 82 KB, but only fetched when asked. Own JS: text pages 4.1 KB (site.js); How it works 22.8 KB; **home 44.5 of 45 KB**, the tightest it has been (the theme code and shader changes cost about 1.8 KB).
+
+**Left for Phase 5, or for Kyle:**
+- **Which light mode ships** (decision 9): scenes in daylight (the default now) or scenes kept dark (`?scenes=dark`).
+- **A real shared trip on the tracker**, on a local build: `node build.mjs`, serve `dist`, and open the shared link with `https://tsamayaapp.co.za/` replaced by `http://localhost:8795/`.
+- **Home's JS budget:** 0.5 KB of headroom. A minify step for our own modules (not just comment stripping) would buy several KB back.
+- **The archive page** repeats the app's older changelog wording ("risk zones", "safer route"), as Updates did before; the fix is in the app's `whatsNew.ts`.
+- The scroll report could not be reproduced; if it recurs, note the browser and the route taken.
+
 ## 9. Risks and what we do about them
 
 | Risk | Mitigation |
@@ -494,7 +521,7 @@ Built in a local session on the Mac, in five batches, each published to the prev
 
    The figures live in `src/data/route-card.json`. The trip's place names are never printed next to them, because the areas it avoids are named suburbs. The illustrative city is tuned to match: the lower-risk route crosses no high cell.
 
-9. **Light mode (Kyle, 2026/09/26).** The site follows the device's light or dark setting by default, and a sun and moon button in the header switches it and remembers the choice. The 3D city, the maps and the tracker's map stay dark in light mode, as night panels inside a light page (chosen over a full daylight version of the scenes, which would have been a second look to design and test). Built in Phase 4.
+9. **Light mode (Kyle, 2026/09/26).** The site follows the device's light or dark setting by default, and a sun and moon button in the header switches it and remembers the choice. Kyle first chose to keep the 3D city, the maps and the tracker's map dark in light mode (night panels in a light page), then asked for them in daylight too, to test a fully light page. Both are built: the scenes follow the theme by default, and `?scenes=dark` (remembered for the tab) shows the other way. **Open: which one ships.** Built in Phase 4.
 10. **Updates carries the newest 10 releases (Kyle, 2026/09/26),** with "Show earlier updates" for the rest, to keep the page light.
 
 ## 11. Out of scope for this build

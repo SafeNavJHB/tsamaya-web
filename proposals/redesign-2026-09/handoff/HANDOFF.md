@@ -6,7 +6,9 @@ Written 2026/09/25, when the work moved from a Claude Code cloud session to Kyle
 >
 > **Phase 2 (the explore map) is done too,** on the home page and the coverage page: see the Phase 2 record in the same section. Its test is `node p2/explore.mjs home` or `node p2/explore.mjs coverage` (34 checks each).
 >
-> **Phase 3 (every other page) is done as well:** all 26 pages are on the new design. See the Phase 3 record in the same section. Its tests are `node p3/axe.mjs index.html about.html` and so on (accessibility), `node p3/metro.mjs` (the metro band switch) and `node p3/track.mjs` (the live-trip tracker against a mocked trip). The tracker still needs one test with a real trip shared from the app. Next is Phase 4 (polish and motion).
+> **Phase 3 (every other page) is done as well:** all 26 pages are on the new design. See the Phase 3 record in the same section. Its tests are `node p3/axe.mjs index.html about.html` and so on (accessibility), `node p3/metro.mjs` (the metro band switch) and `node p3/track.mjs` (the live-trip tracker against a mocked trip). The tracker still needs one test with a real trip shared from the app.
+>
+> **Phase 4 is done too (2026/09/26),** with light mode (the 3D scenes follow it; `?scenes=dark` keeps them as night panels, and which way ships is Kyle's call), load more on Updates, "Try it" on How it works and a new social image: see the Phase 4 record. To test the tracker on a local build, put the three public client keys in a gitignored `config.local.json` at the repo root (same shape as `dist/config.json`; the live site's `/config.json` has them). Next is Phase 5 (hardening and launch).
 
 ## Where things stand
 
@@ -85,6 +87,7 @@ The scripts find the repo from their own location and write screenshots to `tool
 - `p1/widths.mjs`, `p1/pages.mjs` (all 25 pages), `p1/fcp.mjs` and `p1/_shot.mjs`.
 - `p2/explore.mjs [home|coverage]`: every row of table 5.1 with a mouse, touch and the keyboard, in the 3D and static tiers.
 - `p3/axe.mjs page.html [...]`: axe-core over whole pages at 1440 and 390; `p3/metro.mjs`: the metro band switch (mouse, keyboard, no JavaScript, true figures only, the band in force first); `p3/track.mjs`: every tracker state against a mocked Supabase; `p3/behaviour.mjs`: focus after in-page links, the 404 at a deep path, copy buttons, the no-JavaScript contact form and See it's image sizes; `p3/cssdiff.mjs a.css b.css`: every element's computed style on every page under two stylesheets; `p3/prune-css.py`: removes style rules nothing can match (prove its output with `cssdiff`).
+- `p3/theme.mjs`: light and dark, the button, the device default, the running 3D city switching, `?scenes=dark`; `p3/updates.mjs`: load more; `p4/try.mjs`: the toy router; `p4/og.mjs`: draws `public/img/og.png`. `p1/contrast.mjs` takes `COLOR=dark`; `p3/axe.mjs` scans both themes; `p3/cssdiff.mjs` compares in dark unless `COLOR=light`.
 - `suite.sh`: every Phase 1 check in one run (about 20 minutes; starts the two local servers if they are not up).
 
 ## Prompt to paste into Claude Code on the Mac
