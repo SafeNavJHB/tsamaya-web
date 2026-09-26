@@ -580,7 +580,7 @@ code { font-family: var(--mono); background: var(--bg-soft); padding: 2px 6px; b
 .sn .nw { white-space: nowrap; }
 .sn .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 .sn .kick { display: flex; align-items: center; gap: 12px; }
-.sn .kick::before { content: ''; width: 8px; height: 8px; border: 1px solid currentColor; flex: none; }
+.sn .kick::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex: none; } /* a dot: the old outlined square read as a broken image beside the HUD's corner lines (Kyle, 2026/09/26) */
 .sn .h2 { font-size: clamp(2.1rem, 5.2vw, 4.6rem); font-weight: 750; font-stretch: 116%; letter-spacing: -0.02em; line-height: 0.98; }
 .sn .lead { font-size: clamp(1.06rem, 1.4vw, 1.2rem); color: var(--fg); max-width: 38rem; }
 .sn .link-q { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; color: var(--fg); font-weight: 500; }
@@ -661,7 +661,7 @@ code { font-family: var(--mono); background: var(--bg-soft); padding: 2px 6px; b
 .page-home .hud-c.tr { top: calc(var(--head) + 18px); right: var(--edge); flex-direction: column; align-items: flex-end; gap: 2px; }
 .page-home .hud-c.bl { bottom: 52px; left: var(--edge); }
 .page-home .hud-c.br { bottom: 52px; right: var(--edge); }
-.page-home .hud-c i { width: 6px; height: 6px; border: 1px solid currentColor; display: inline-block; }
+.page-home .hud-c i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; display: inline-block; }
 .page-home .hud-now { display: flex; align-items: center; gap: 10px; }
 .page-home .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--hud); opacity: 0.8; }
 .js .page-home .hud-nojs, html:not(.js) .page-home .hud-clock { display: none; }
@@ -1053,7 +1053,7 @@ main :where(.ex-page) :where(ul) { list-style: none; padding: 0; }
 main :where(.ex-page) button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 .ex-page .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 .ex-page .kick { display: flex; align-items: center; gap: 12px; }
-.ex-page .kick::before { content: ''; width: 8px; height: 8px; border: 1px solid currentColor; flex: none; }
+.ex-page .kick::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex: none; }
 .ex-page .ch-h { margin-top: 18px; font-weight: 750; font-stretch: 116%; letter-spacing: -0.02em; line-height: 1; }
 .ex-page .ch-p { max-width: 32rem; }
 .ex-page .ex-scene { position: absolute; inset: 0; z-index: 0; }
