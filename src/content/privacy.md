@@ -1,8 +1,8 @@
 # Tsamaya Privacy Policy
 
-**Status: v1.1, prepared 2026-09-09 (corrected §4a, which said the stored metro is chosen from six areas when the service covers twelve, and aligned the §1 description and §3a wording with the definition of "lower-risk" in the Terms of Use). v1.0, prepared 2026-08-25 (enabled crash reporting and disclosed it before switching it on, as v0.9 undertook to do: §4 now describes what a crash report contains, that the event trail is filtered on-device to remove coordinates, place names and destinations, and that the data is stored in the EU; §5 adds Sentry as a processor). Earlier revisions: v0.9, prepared 2026-08-09 (added §4a disclosing optional push notifications: the device push token, platform and coarse metro stored per device, the two independent opt-in switches, and Expo/APNs/FCM as delivery processors); v0.8 moved the responsible party from Kyle Guy Kimble personally to Tsamaya (Pty) Ltd, unified contact on info@tsamayaapp.co.za, added Google Play as an Android distribution processor, and generalised iOS-only wording, all ahead of the Google Play listing under the company's developer account; v0.7 corrected live-trip link expiry to match implementation (active trips 12 h rolling, ended/arrived trips ~30 min, SOS links 24 h), §3a/§6; v0.6 disclosed optional live trip sharing, §3a/§2/§5/§6; v0.5 added Google Places API as the place-search processor, §1/§5. This text is not legal advice and remains subject to review by a South African attorney. Items still open for that review are tracked as notes in the source document.**
+**Status: v1.3, prepared 2026-09-27 (added HERE as a backup place-search provider in §1 and §5: when Google's search cannot answer, for example because it is over its daily limit, your search text and an approximate area are sent to HERE through our server, and HERE's own End User Terms and Privacy Policy apply to that search). v1.2, prepared 2026-09-26 (added §3b on voice reports: the microphone and speech recognition are used only when you tap Speak or ask Siri to make a report, and no audio is kept; §3 now describes the two report types that carry a position, live police and roadblock notices and speed camera reports; §1, §2 and §5 updated to match). v1.1, prepared 2026-09-09 (corrected §4a, which said the stored metro is chosen from six areas when the service covers twelve, and aligned the §1 description and §3a wording with the definition of "lower-risk" in the Terms of Use). v1.0, prepared 2026-08-25 (enabled crash reporting and disclosed it before switching it on, as v0.9 undertook to do: §4 now describes what a crash report contains, that the event trail is filtered on-device to remove coordinates, place names and destinations, and that the data is stored in the EU; §5 adds Sentry as a processor). Earlier revisions: v0.9, prepared 2026-08-09 (added §4a disclosing optional push notifications: the device push token, platform and coarse metro stored per device, the two independent opt-in switches, and Expo/APNs/FCM as delivery processors); v0.8 moved the responsible party from Kyle Guy Kimble personally to Tsamaya (Pty) Ltd, unified contact on info@tsamayaapp.co.za, added Google Play as an Android distribution processor, and generalised iOS-only wording, all ahead of the Google Play listing under the company's developer account; v0.7 corrected live-trip link expiry to match implementation (active trips 12 h rolling, ended/arrived trips ~30 min, SOS links 24 h), §3a/§6; v0.6 disclosed optional live trip sharing, §3a/§2/§5/§6; v0.5 added Google Places API as the place-search processor, §1/§5. This text is not legal advice and remains subject to review by a South African attorney. Items still open for that review are tracked as notes in the source document.**
 
-**Effective date:** 9 September 2026
+**Effective date:** 27 September 2026
 **Responsible party (POPIA):** Tsamaya (Pty) Ltd (reg. K2023990736), South Africa ("we", "us")
 **Contact:** info@tsamayaapp.co.za
 
@@ -16,6 +16,7 @@ Tsamaya is a navigation app for South African metros that suggests driving route
 - We keep **no server-side history of where you are or where you go**, with one exception you control: an optional **live trip you choose to share**, visible only via a private link (see §3a).
 - During the beta we collect **anonymous, aggregate usage events** (such as the app being opened, or a route requested/accepted/completed) tied only to a random installation id, never your location history, name, or account. See section 4.
 - If you choose to **send a report or feedback**, we store what you submit (and your email only if you choose to provide it). See "User reports and feedback" below.
+- **Voice reports are optional.** When you tap **Speak** (or ask Siri) to report something on the road, your phone's own speech service turns what you say into text so the app can choose the report. Tsamaya **never records or keeps audio**; only the report itself is sent. See §3b.
 - Notifications are **optional**. If you switch them on, we store a delivery token for your device and the metro you are in (such as "Cape Town") so that a closure alert reaches the right city, **never your coordinates**. There are two separate switches and you can turn either off at any time. See section 4a.
 
 ## 1. Information we process, and why
@@ -23,11 +24,12 @@ Tsamaya is a navigation app for South African metros that suggests driving route
 | Information | Where it goes | Purpose | Lawful basis (POPIA s11) |
 |---|---|---|---|
 | Precise device location (while using the app) | Processed on-device; sent as bare coordinates to Mapbox (our mapping provider) when you request a route, search, or reverse-geocode | Show your position; calculate routes from where you are | Consent (the location permission you grant) and our legitimate interest in providing the service you request |
-| Destination searches | Search text + approximate location bias sent to Google (Places API) to find places; Mapbox Directions builds the route from chosen coordinates | Find places; build the route | Performance of the service you request |
+| Destination searches | Search text + approximate location bias sent to Google (Places API) to find places. When Google cannot answer, the same search text and an area rounded to about 100 m are sent to HERE (our backup search provider) through our server, which keeps neither. Mapbox Directions builds the route from chosen coordinates | Find places; build the route | Performance of the service you request |
 | Saved places (Home, Work, favourites), settings, onboarding state | Your device only (local app storage) | Convenience features | Consent |
 | Technical request metadata (IP address, basic device info) | Our service providers (Mapbox; Supabase, which hosts our public zone/corridor dataset) receive standard network metadata when the app calls them | Operating and securing the services | Legitimate interest |
 | Reviewer account email (admin/editor users only, not drivers) | Supabase authentication | Restricting data-editing tools to authorised reviewers | Performance of contract |
 | Reports and feedback you choose to submit (see section 3) | Supabase (our hosted database) | Reviewing and improving the risk dataset and the app | Consent (you tap Send) |
+| Your voice, only while you make a voice report (see section 3b) | Your phone's speech service (Apple on iPhone; usually Google on Android) turns it into text; the audio is not recorded, kept or sent to us | Choosing the report type you said | Consent (the microphone and speech permissions, and your tap on Speak) |
 
 We do **not** process: names, contact lists, payment details, advertising identifiers, or background location when the app is closed.
 
@@ -37,6 +39,7 @@ We do **not** process: names, contact lists, payment details, advertising identi
 - No advertising or ad-tech SDKs.
 - No sale or sharing of personal information for marketing.
 - No profiling or automated decision-making about you.
+- No audio recording. The microphone is used only while you are making a voice report (§3b), and nothing it hears is kept.
 
 ## 3. User reports and feedback
 
@@ -51,6 +54,19 @@ The beta lets you suggest updates to risk areas, rate trips, and send feedback o
 Post-trip ratings store only coarse trip statistics (such as a distance bucket, the time band, and whether a reroute happened), **never your start or end locations**.
 
 Reports are suggestions for human review; they never change the live dataset automatically. They are retained until reviewed and actioned, and are deletable on request via the contact address above.
+
+Two kinds of report carry a position, because the position is the report:
+
+- **Police and roadblock notices** are public: other drivers nearby see "Police reported ahead" for about an hour. We store the spot where your car was when you reported, its direction of travel and the time. Your random installation identifier is kept apart from the notice, only to merge repeat reports and to limit abuse, and is never shown to anyone. Notices are deleted about a day after they expire.
+- **Speed camera reports** store the spot you reported, the speed limit if you gave one, and the random installation identifier, until the review team confirms or rejects the camera.
+
+## 3b. Voice reports (optional)
+
+If you tap **Speak** in the report screen (on your phone, CarPlay or Android Auto), Tsamaya asks for microphone and speech recognition access, then listens for a few seconds for what you say, such as "police" or "speed camera". Your phone's own speech service turns the words into text: Apple's speech recognition on an iPhone, and the speech recognition service on an Android phone (usually Google's). Depending on the phone and the language, that service may process the audio on the phone or on the provider's servers, under the provider's own privacy terms.
+
+Tsamaya uses the text only to choose the report type, and then files exactly the report a tap would (see section 3). **We do not record, store or send the audio, and we do not keep the text.** If you ask Siri instead ("report police in Tsamaya"), Siri does the listening and passes Tsamaya only the report type.
+
+You can refuse or withdraw microphone and speech access at any time in your phone's settings. Every report can still be made by tapping.
 
 ## 3a. Live trip sharing (optional)
 
@@ -91,8 +107,10 @@ We do not use notifications for advertising, and we do not send them for anyone 
 |---|---|---|
 | Mapbox, Inc. (USA) | Map tiles, routing, reverse-geocoding | Coordinates, IP, device metadata (see Mapbox's privacy policy) |
 | Google LLC (USA) | Place search / autocomplete (Google Maps Platform, Places API) | Destination search text + approximate location bias (see Google's privacy policy) |
+| HERE Europe B.V. (Netherlands) | Backup place search, only when Google's search cannot answer (for example when it is over its daily limit) | Destination search text + an approximate location rounded to about 100 m, sent through our server (Supabase), which keeps neither. HERE's End User Terms (www.here.com/en-gb/terms/here-end-user-terms) and Privacy Policy (legal.here.com/en-gb/privacy) apply to those searches. Places found this way are kept on your device for at most 30 days unless refreshed, as HERE's terms require |
 | Supabase (cloud hosting) | Hosts our public risk-zone dataset, user reports, reviewer authentication, anonymous usage events, and any live trip you choose to share (while active) | IP/request metadata; report contents (incl. optional emails); reviewer emails (admins only); anonymous usage events; shared-trip location while active |
 | Apple Inc. (USA) | App distribution (App Store, TestFlight) | Per Apple's terms |
+| Apple Inc. (USA) / Google LLC (USA) | Speech to text for voice reports, only while you make one (§3b) | The few seconds of speech while the app listens, under the provider's own terms. Tsamaya receives only the recognised text and keeps none of it |
 | Google LLC (USA) | App distribution on Android (Google Play) | Per Google Play's terms |
 | Functional Software, Inc. dba Sentry (EU data region, Germany) | Crash and error reporting | The error and its stack trace, device model, OS version, app and update version, the random installation identifier, and a filtered trail of recent app events. Never coordinates, place names, start/end points or other personal information |
 | Expo (650 Industries, Inc., USA) | Push-notification delivery, if you opt in (§4a) | Device push token, notification title/text |

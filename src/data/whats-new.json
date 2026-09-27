@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-27.3",
+      "date": "27 September 2026",
+      "items": [
+        {
+          "icon": "search-outline",
+          "title": "Search keeps finding places on busy days",
+          "body": "When Google search is over its daily limit, Tsamaya now searches with HERE instead, so malls, garages, police stations and hospitals still turn up. Those results say \"Results by HERE\" underneath. The Privacy Policy explains what a search sends.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-27.2",
       "date": "27 September 2026",
       "items": [
