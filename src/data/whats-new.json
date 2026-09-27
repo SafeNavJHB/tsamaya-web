@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-27.5",
+      "date": "27 September 2026",
+      "items": [
+        {
+          "icon": "chatbubble-ellipses-outline",
+          "title": "Siri commands happen once",
+          "body": "A report you make through Siri is now sent once, and \"Take me home\" plans the trip once. Before, the same Siri command could sometimes run again a moment later.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-27.4",
       "date": "27 September 2026",
       "items": [
