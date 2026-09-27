@@ -82,6 +82,7 @@ from shapely.ops import unary_union
 METROS = [
     "johannesburg", "cape_town", "pretoria", "ekurhuleni", "west_rand", "secunda",
     "stellenbosch", "rustenburg", "pilanesberg", "mossel_bay", "durban", "gqeberha",
+    "kruger",
 ]
 
 PAGE = 500  # rows per request; zone geometry is large, so keep the pages small

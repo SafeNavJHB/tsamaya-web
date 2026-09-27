@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-27.2",
+      "date": "27 September 2026",
+      "items": [
+        {
+          "icon": "chatbubble-ellipses-outline",
+          "title": "Clearer wording when you tap an area",
+          "body": "A low-risk area no longer says crime there is frequent. It now lists what has been reported in the area, and keeps \"frequent\" for high-risk areas.",
+          "category": "fix"
+        },
+        {
+          "icon": "map-outline",
+          "title": "Kruger villages checked again",
+          "body": "Around 80 villages in Bushbuckridge, Acornhoek and Masoyi now carry the rating their second check gave them, which is higher during the day in most of them.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-27.1",
       "date": "27 September 2026",
       "items": [

@@ -325,6 +325,35 @@ export const metros = [
       },
     ],
   },
+  {
+    key: 'kruger',
+    slug: 'kruger',
+    name: 'Kruger & Lowveld',
+    region: 'Mpumalanga and Limpopo',
+    blurb:
+      'Driving routes to all nine Kruger National Park gates, covering the N4, the R40, the R536 and R538, and the roads north to Punda Maria and Pafuri.',
+    intro:
+      'Kruger is the first place on the map that is not a city. Coverage takes in the whole park, all nine entrance gates and the towns on the roads to them: Mbombela, White River, Hazyview, Bushbuckridge, Hoedspruit, Phalaborwa, Malalane and Komatipoort, up to Punda Maria and Pafuri in the far north. Most people driving here are heading for a gate, so the stretch that matters most is the last few kilometres before it.',
+    context: [
+      'The R569 to Numbi Gate and the R538 between White River and Hazyview carry the highest rating of any road to the park. UK and US travel advice has warned visitors away from Numbi Gate since a tourist was killed on the approach in 2022, and Phabeni or Paul Kruger Gate are the usual alternatives.',
+      'The R536 from Hazyview to Phabeni and Paul Kruger Gate, the R40 north of Hazyview and the N4 from Malalane to Komatipoort are rated a step lower. The N4 east of Malalane is best driven in daylight, because the incidents on record there happen after dark.',
+      'The tar roads inside the park are all mapped and carry no risk penalty. The gates close between 17:30 and 18:30 depending on the month, and Phabeni, Phalaborwa and Pafuri turn latecomers away, so plan to arrive in daylight.',
+    ],
+    faqs: [
+      {
+        q: 'Does Tsamaya know where the Kruger gates are?',
+        a: 'Yes. All nine entrance gates are places you can tap on the map: Malelane, Crocodile Bridge, Numbi, Phabeni, Paul Kruger, Orpen, Phalaborwa, Punda Maria and Pafuri. Each one shows its approach road, what time it closes and a read on the drive in.',
+      },
+      {
+        q: 'Does it cover the drive from Kruger Mpumalanga International Airport?',
+        a: 'Yes. The airport outside Mbombela is inside the mapped area, so the drive from the terminal to White River, Hazyview or a gate is planned with risk data from the first turn.',
+      },
+      {
+        q: 'Does it cover the private reserves?',
+        a: 'Yes. The Sabi Sand, Timbavati, Klaserie, Manyeleti and Balule reserves are inside the mapped area, along with the roads to their gates.',
+      },
+    ],
+  },
 ];
 
 // Look up the editorial entry for a metro key from stats.json.

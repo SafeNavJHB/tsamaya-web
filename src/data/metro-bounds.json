@@ -169,6 +169,20 @@
         25.6,
         -33.96
       ]
+    },
+    {
+      "key": "kruger",
+      "name": "Kruger & Lowveld",
+      "bbox": {
+        "lngMin": 30.8,
+        "lngMax": 32.05,
+        "latMin": -25.62,
+        "latMax": -22.3
+      },
+      "center": [
+        31.55,
+        -24.99
+      ]
     }
   ]
 }

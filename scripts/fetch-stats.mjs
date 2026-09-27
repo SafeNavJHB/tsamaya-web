@@ -72,6 +72,7 @@ const METROS = [
   { key: 'mossel_bay', name: 'Mossel Bay', slug: 'mossel-bay' },
   { key: 'durban', name: 'Durban', slug: 'durban' },
   { key: 'gqeberha', name: 'Gqeberha', slug: 'gqeberha' },
+  { key: 'kruger', name: 'Kruger & Lowveld', slug: 'kruger' },
 ];
 
 const BANDS = ['red', 'orange', 'yellow', 'none'];

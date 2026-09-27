@@ -154,6 +154,7 @@ const SA_LABEL = {
   ekurhuleni: [16, 6, 'start'],
   pretoria: [12, -12, 'start'],
   gqeberha: [14, 26, 'start'],
+  kruger: [-16, 5, 'end'],
 };
 
 // The metros sorted by rated areas, largest first, with their map points.

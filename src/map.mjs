@@ -191,6 +191,9 @@ const LABELS = {
   mossel_bay: { dx: 10, dy: 36, anchor: 'start' },
   gqeberha: { dx: 12, dy: 36, anchor: 'start' },
   durban: { dx: 20, dy: 4, anchor: 'start' },
+  // The north-east corner: the country's edge is just east of the park, so the
+  // label sits to the WEST of the marker.
+  kruger: { dx: -18, dy: 5, anchor: 'end' },
 };
 const DEFAULT_LABEL = { dx: 18, dy: 5, anchor: 'start' };
 
