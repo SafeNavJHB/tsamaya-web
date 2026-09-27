@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-27.1",
+      "date": "27 September 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Kruger and the Lowveld are on the map",
+          "body": "Kruger National Park and the towns on the roads to its gates are now covered: Mbombela, White River, Hazyview, Bushbuckridge, Acornhoek, Hoedspruit, Phalaborwa, Malalane and Komatipoort, up to Punda Maria and Pafuri in the far north. Every village and gate road has been rated against SAPS data for the police stations that serve it and checked a second time, and your location is now trusted anywhere in the region.",
+          "category": "feature"
+        },
+        {
+          "icon": "location-outline",
+          "title": "All nine Kruger gates on the map",
+          "body": "Malelane, Crocodile Bridge, Numbi, Phabeni, Paul Kruger, Orpen, Phalaborwa, Punda Maria and Pafuri gates are now places you can tap. Each one shows its approach road, what time the gates close and a read on the drive in.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-26.8",
       "date": "26 September 2026",
       "items": [
