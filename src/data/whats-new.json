@@ -15,6 +15,36 @@
   ],
   "releases": [
     {
+      "version": "2026-09-27.4",
+      "date": "27 September 2026",
+      "items": [
+        {
+          "icon": "location-outline",
+          "title": "Nearby places come from HERE first",
+          "body": "Police stations, hospitals, fuel and the other Nearby categories, and the nearest branch of a chain, now come from HERE first. That keeps Google search free for the places you type, and every phone gets a fair share of it each day.",
+          "category": "tweak"
+        },
+        {
+          "icon": "information-circle-outline",
+          "title": "A heads-up when your Google searches run out",
+          "body": "Once a day, when this phone's Google searches are used up, Tsamaya says why and shows ways to find a place without a search: drop a pin, save the places you go to often, or find it in Google Maps and share it to Tsamaya.",
+          "category": "feature"
+        },
+        {
+          "icon": "share-outline",
+          "title": "Places shared from Google Maps keep their name",
+          "body": "A place you share from Google Maps now arrives with the name you picked, straight from the link.",
+          "category": "fix"
+        },
+        {
+          "icon": "cloud-download-outline",
+          "title": "Less data used",
+          "body": "Tsamaya no longer downloads every risk area again each week. It only fetches what changed.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-27.3",
       "date": "27 September 2026",
       "items": [
