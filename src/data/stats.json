@@ -9,29 +9,29 @@
     "riskBands": 3
   },
   "bands": {
-    "orange": 1480,
-    "red": 2626,
-    "none": 274,
-    "yellow": 461
+    "yellow": 461,
+    "orange": 1467,
+    "red": 2639,
+    "none": 274
   },
   "byTime": {
     "day": {
-      "yellow": 1445,
+      "red": 1385,
       "none": 331,
-      "red": 1382,
-      "orange": 1683
+      "orange": 1720,
+      "yellow": 1405
     },
     "evening": {
-      "red": 1549,
       "none": 306,
-      "orange": 1730,
-      "yellow": 1256
+      "yellow": 1133,
+      "orange": 1831,
+      "red": 1571
     },
     "night": {
-      "orange": 1480,
-      "none": 274,
       "yellow": 461,
-      "red": 2626
+      "orange": 1467,
+      "none": 274,
+      "red": 2639
     }
   },
   "metros": [
@@ -43,28 +43,28 @@
       "corridors": 3703,
       "bands": {
         "yellow": 99,
+        "orange": 155,
         "red": 533,
-        "none": 13,
-        "orange": 155
+        "none": 13
       },
       "byTime": {
         "day": {
-          "yellow": 235,
           "red": 315,
+          "none": 13,
           "orange": 237,
-          "none": 13
+          "yellow": 235
         },
         "evening": {
-          "red": 326,
-          "yellow": 233,
           "orange": 228,
+          "yellow": 233,
+          "red": 326,
           "none": 13
         },
         "night": {
           "red": 533,
-          "yellow": 99,
           "orange": 155,
-          "none": 13
+          "none": 13,
+          "yellow": 99
         }
       }
     },
@@ -75,29 +75,29 @@
       "zones": 909,
       "corridors": 1650,
       "bands": {
-        "orange": 241,
+        "red": 587,
+        "orange": 234,
         "yellow": 43,
-        "red": 580,
         "none": 45
       },
       "byTime": {
         "day": {
-          "yellow": 275,
+          "red": 280,
+          "orange": 318,
           "none": 45,
-          "red": 277,
-          "orange": 312
+          "yellow": 266
         },
         "evening": {
-          "red": 281,
-          "orange": 327,
-          "none": 45,
-          "yellow": 256
+          "orange": 371,
+          "red": 296,
+          "yellow": 197,
+          "none": 45
         },
         "night": {
-          "orange": 241,
-          "red": 580,
-          "yellow": 43,
-          "none": 45
+          "red": 587,
+          "orange": 234,
+          "none": 45,
+          "yellow": 43
         }
       }
     },
@@ -108,28 +108,28 @@
       "zones": 486,
       "corridors": 821,
       "bands": {
+        "yellow": 97,
         "red": 188,
         "orange": 153,
-        "yellow": 97,
         "none": 48
       },
       "byTime": {
         "day": {
-          "red": 134,
           "orange": 128,
           "yellow": 176,
+          "red": 134,
           "none": 48
         },
         "evening": {
-          "none": 48,
+          "yellow": 174,
+          "orange": 128,
           "red": 136,
-          "yellow": 175,
-          "orange": 127
+          "none": 48
         },
         "night": {
-          "orange": 153,
           "none": 48,
           "yellow": 97,
+          "orange": 153,
           "red": 188
         }
       }
@@ -141,29 +141,29 @@
       "zones": 732,
       "corridors": 0,
       "bands": {
-        "red": 451,
-        "orange": 185,
+        "red": 457,
+        "yellow": 73,
         "none": 23,
-        "yellow": 73
+        "orange": 179
       },
       "byTime": {
         "day": {
           "red": 284,
+          "yellow": 160,
           "none": 24,
-          "orange": 253,
-          "yellow": 171
+          "orange": 264
         },
         "evening": {
-          "red": 310,
-          "yellow": 131,
+          "red": 312,
+          "orange": 285,
           "none": 23,
-          "orange": 268
+          "yellow": 112
         },
         "night": {
-          "orange": 185,
+          "red": 457,
+          "orange": 179,
           "yellow": 73,
-          "none": 23,
-          "red": 451
+          "none": 23
         }
       }
     },
@@ -181,22 +181,22 @@
       },
       "byTime": {
         "day": {
-          "orange": 45,
           "red": 26,
+          "orange": 45,
           "none": 20,
           "yellow": 39
         },
         "evening": {
-          "red": 33,
           "orange": 54,
+          "red": 33,
           "yellow": 23,
           "none": 20
         },
         "night": {
-          "red": 57,
           "yellow": 10,
-          "none": 20,
-          "orange": 43
+          "red": 57,
+          "orange": 43,
+          "none": 20
         }
       }
     },
@@ -207,29 +207,29 @@
       "zones": 63,
       "corridors": 54,
       "bands": {
-        "red": 50,
         "orange": 6,
         "yellow": 4,
-        "none": 3
+        "none": 3,
+        "red": 50
       },
       "byTime": {
         "day": {
           "red": 29,
           "orange": 21,
-          "none": 3,
-          "yellow": 10
+          "yellow": 10,
+          "none": 3
         },
         "evening": {
-          "none": 3,
+          "yellow": 10,
           "red": 29,
           "orange": 21,
-          "yellow": 10
+          "none": 3
         },
         "night": {
+          "none": 3,
           "red": 50,
-          "orange": 6,
           "yellow": 4,
-          "none": 3
+          "orange": 6
         }
       }
     },
@@ -240,28 +240,28 @@
       "zones": 32,
       "corridors": 49,
       "bands": {
-        "yellow": 4,
-        "red": 22,
         "orange": 6,
+        "red": 22,
+        "yellow": 4,
         "none": 0
       },
       "byTime": {
         "day": {
+          "red": 12,
           "orange": 11,
           "yellow": 6,
-          "red": 12,
           "none": 3
         },
         "evening": {
-          "none": 2,
-          "yellow": 3,
           "orange": 14,
-          "red": 13
+          "yellow": 3,
+          "red": 13,
+          "none": 2
         },
         "night": {
           "red": 22,
-          "yellow": 4,
           "orange": 6,
+          "yellow": 4,
           "none": 0
         }
       }
@@ -274,28 +274,28 @@
       "corridors": 67,
       "bands": {
         "red": 49,
+        "orange": 39,
         "none": 3,
-        "yellow": 7,
-        "orange": 39
+        "yellow": 7
       },
       "byTime": {
         "day": {
-          "yellow": 38,
-          "none": 4,
           "red": 38,
-          "orange": 18
+          "orange": 18,
+          "none": 4,
+          "yellow": 38
         },
         "evening": {
-          "yellow": 22,
-          "orange": 29,
           "red": 44,
+          "orange": 30,
+          "yellow": 21,
           "none": 3
         },
         "night": {
-          "yellow": 7,
-          "orange": 39,
           "red": 49,
-          "none": 3
+          "orange": 39,
+          "none": 3,
+          "yellow": 7
         }
       }
     },
@@ -306,28 +306,28 @@
       "zones": 43,
       "corridors": 5,
       "bands": {
-        "yellow": 0,
         "red": 17,
         "orange": 10,
+        "yellow": 0,
         "none": 16
       },
       "byTime": {
         "day": {
-          "yellow": 8,
           "none": 16,
-          "red": 5,
-          "orange": 14
+          "yellow": 5,
+          "orange": 17,
+          "red": 5
         },
         "evening": {
-          "yellow": 7,
-          "orange": 11,
-          "none": 16,
-          "red": 9
+          "orange": 16,
+          "yellow": 2,
+          "red": 9,
+          "none": 16
         },
         "night": {
-          "orange": 10,
           "yellow": 0,
           "red": 17,
+          "orange": 10,
           "none": 16
         }
       }
@@ -339,29 +339,29 @@
       "zones": 58,
       "corridors": 25,
       "bands": {
-        "none": 9,
-        "yellow": 20,
+        "orange": 13,
         "red": 16,
-        "orange": 13
+        "none": 9,
+        "yellow": 20
       },
       "byTime": {
         "day": {
           "orange": 16,
           "red": 10,
-          "none": 12,
-          "yellow": 20
+          "yellow": 20,
+          "none": 12
         },
         "evening": {
           "red": 12,
-          "none": 12,
           "yellow": 19,
-          "orange": 15
+          "orange": 15,
+          "none": 12
         },
         "night": {
-          "orange": 13,
           "red": 16,
+          "yellow": 20,
           "none": 9,
-          "yellow": 20
+          "orange": 13
         }
       }
     },
@@ -374,21 +374,21 @@
       "bands": {
         "yellow": 10,
         "red": 460,
-        "none": 65,
-        "orange": 256
+        "orange": 256,
+        "none": 65
       },
       "byTime": {
         "day": {
           "red": 211,
-          "yellow": 169,
-          "orange": 341,
+          "orange": 349,
+          "yellow": 161,
           "none": 70
         },
         "evening": {
-          "none": 68,
-          "red": 266,
-          "orange": 321,
-          "yellow": 136
+          "orange": 335,
+          "red": 268,
+          "yellow": 120,
+          "none": 68
         },
         "night": {
           "red": 460,
@@ -407,27 +407,27 @@
       "bands": {
         "red": 101,
         "orange": 141,
-        "none": 6,
-        "yellow": 6
+        "yellow": 6,
+        "none": 6
       },
       "byTime": {
         "day": {
+          "orange": 101,
           "red": 30,
-          "orange": 92,
-          "yellow": 126,
-          "none": 6
+          "none": 6,
+          "yellow": 117
         },
         "evening": {
-          "red": 64,
-          "yellow": 113,
-          "none": 6,
-          "orange": 71
+          "red": 67,
+          "orange": 90,
+          "yellow": 91,
+          "none": 6
         },
         "night": {
           "red": 101,
-          "yellow": 6,
+          "none": 6,
           "orange": 141,
-          "none": 6
+          "yellow": 6
         }
       }
     },
@@ -438,17 +438,17 @@
       "zones": 445,
       "corridors": 162,
       "bands": {
-        "orange": 232,
         "red": 102,
-        "none": 23,
-        "yellow": 88
+        "orange": 232,
+        "yellow": 88,
+        "none": 23
       },
       "byTime": {
         "day": {
+          "orange": 195,
           "red": 11,
-          "yellow": 172,
           "none": 67,
-          "orange": 195
+          "yellow": 172
         },
         "evening": {
           "red": 26,
@@ -457,10 +457,10 @@
           "none": 47
         },
         "night": {
-          "orange": 232,
           "red": 102,
-          "none": 23,
-          "yellow": 88
+          "orange": 232,
+          "yellow": 88,
+          "none": 23
         }
       }
     }
