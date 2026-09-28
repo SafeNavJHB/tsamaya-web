@@ -48,10 +48,12 @@ jobs:
       - name: List changed pages for IndexNow
         id: changed
         continue-on-error: true
+        timeout-minutes: 3
         run: |
+          node scripts/indexnow.mjs changed > "$RUNNER_TEMP/indexnow-urls.txt" || : > "$RUNNER_TEMP/indexnow-urls.txt"
           {
             echo 'urls<<INDEXNOW_EOF'
-            node scripts/indexnow.mjs changed
+            cat "$RUNNER_TEMP/indexnow-urls.txt"
             echo 'INDEXNOW_EOF'
           } >> "$GITHUB_OUTPUT"
       - uses: actions/configure-pages@v5
@@ -78,6 +80,7 @@ jobs:
     if: needs.build.outputs.changed != ''
     runs-on: ubuntu-latest
     continue-on-error: true
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

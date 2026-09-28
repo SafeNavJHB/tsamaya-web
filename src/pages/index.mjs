@@ -225,7 +225,7 @@ const STEPS = [
   ['Move it onto checked roads', 'If the route runs through a high-risk area, it moves it onto roads we have checked, and tells you what it went around.'],
   ['Throw out bad detours', 'A detour only gets offered if it cuts your exposure. One that adds too much distance is thrown out, even when it carries less risk.'],
   ["Say so when there's no better way", 'When there is no good alternative, Tsamaya says so and gives you the normal route with the risky stretches marked. It will not invent a detour to look busy.'],
-  ['Drive it', 'Turn-by-turn with voice, CarPlay and Android Auto in the app. Or hand it to Google Maps with the detour points already in place.'],
+  ['Drive it', 'Turn-by-turn with voice, on the phone or Apple CarPlay (Android Auto is in testing). Or hand it to Google Maps with the detour points already in place.'],
 ];
 // The feature grid reads the shared list (src/facts.mjs), which also feeds the
 // app's structured data and /llms.txt, so the three can never disagree.
@@ -335,11 +335,11 @@ const faqs = [
   },
   {
     q: 'Does Tsamaya have an SOS or panic button?',
-    a: 'Yes. The SOS button on the drive screen calls 10111 (the police) or 112 (any mobile), or opens a ready-written text to your emergency contact with your coordinates and a link to follow your location live for the next 24 hours. It does not send armed response or an ambulance itself. If you want private armed response, keep an emergency response app such as Namola, or the one from your insurer or bank, on your phone as well.',
+    a: 'Yes. The SOS button on the phone\'s drive screen calls 10111 (the police) or 112 (any mobile), or opens a text to your emergency contact, ready to send, with your coordinates and a link that follows you live while you drive and stays up for 24 hours. The button is not shown while a drive is on CarPlay. Tsamaya does not send armed response or an ambulance itself, so keep a dedicated emergency app as well, such as Namola, or the panic button your insurer, bank or security company offers.',
   },
   {
     q: 'Can someone at home follow my drive?',
-    a: 'Yes. Share a trip and they get a link that opens in any browser, with no app to install: your route, where you are now, your arrival time, and an Arrived screen when you get there. Guardian keeps one standing link for your emergency contact, so from CarPlay a single tap starts sharing.',
+    a: 'Yes. Share a trip and they get a link that opens in any browser, with no app to install: your route, where you are now, your arrival time, and an Arrived screen when you get there. If you drive with CarPlay, Guardian keeps one standing link for your emergency contact, and a tap on the car screen starts sharing to it.',
   },
   {
     q: 'I am visiting South Africa. Is Tsamaya useful to me?',

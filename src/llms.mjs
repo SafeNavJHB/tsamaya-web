@@ -52,14 +52,14 @@ ${NOT_A}
 ## Key facts
 
 - Name: ${site.name} (say: ${site.pronunciation}), Sesotho and Setswana for "go", from "tsamaya sentle", go well. Tagline: "${site.tagline}"
-- What it is: a navigation app for drivers in South Africa that plans lower-risk routes around areas with a history of vehicle crime, then guides you turn by turn with voice, on the phone, Apple CarPlay or Android Auto.
-- Safety tools: an SOS button (calls 10111 or 112, or opens a ready-written text to an emergency contact with your location and a 24-hour live link), live trip sharing that anyone can follow in a web browser, and Guardian, a standing link for an emergency contact.
-- Price: free. No account, no ads, no trip history kept on the server unless the driver shares a live trip.
-- Platforms and status: open beta. Android on Google Play (${site.androidPlayLink}), iPhone through TestFlight (${site.testflightPublicLink}).
+- What it is: a navigation app for drivers in South Africa that plans lower-risk routes around areas with a history of vehicle crime, then guides you turn by turn with voice, on the phone or Apple CarPlay. Android Auto is in testing and not yet in the public Google Play build.
+- Safety tools: an SOS button on the phone's drive screen (it calls 10111 or 112, or opens a text to an emergency contact, ready to send, with your location and a link that follows you live while you drive and stays up for 24 hours; it is not shown while a drive is on CarPlay), live trip sharing that anyone can follow in a web browser, and Guardian, a standing link for an emergency contact that a tap on the CarPlay screen starts sharing to.
+- Price: free, with no account and no ads. Routing around risk, the SOS button and trip sharing stay free. No trip history is kept on the server unless the driver shares a live trip.
+- Platforms and status: open beta. Android on Google Play open testing (${site.androidPlayLink}), iPhone through a public TestFlight link (${site.testflightPublicLink}).
 - Coverage: ${t.metros} South African metros with ${fmt(t.zones).replace(/ /g, ' ')} rated areas, ${fmt(t.corridorsSafe).replace(/ /g, ' ')} checked road stretches and ${fmt(t.corridorsDanger).replace(/ /g, ' ')} flagged road stretches: ${coverageList}. Outside them it works as an ordinary map and navigator with no risk data.
-- Time of day: every area has three ratings, daytime 05:00 to 17:30, evening 17:30 to 19:30 and night 19:30 to 05:00 (South African time), and the app uses the one for the hour you drive.
+- Time of day: every area has three ratings, daytime 05:00 to 17:30, evening 17:30 to 19:30 and night 19:30 to 05:00, and the app uses the one for the hour you drive.
 - Route options: Fastest, Balanced and Lower-risk, each graded A (lowest risk) to E. A detour is only offered when it cuts exposure and stays within a distance limit; when there is no sensible way round, the app says so and marks the risky stretches.
-- Risk data: published South African Police Service crime statistics scored against OpenStreetMap roads, reviewed (an AI second opinion, then a person approves) before going live, and corrected from drivers' reports in the app.
+- Risk data: published South African Police Service crime statistics scored against OpenStreetMap roads, checked by an AI second opinion, with disputed ratings decided by a person, before going live, and corrected from drivers' reports in the app.
 - Made by: ${site.name} (Pty) Ltd, Johannesburg, South Africa. Founder: Kyle Kimble. Contact: ${site.contactEmail}
 - Visitors: it needs no account, works in rental cars, and people at home can follow a shared trip in a browser. Emergency numbers in South Africa: 10111 (police), 112 (any mobile), 10177 (ambulance).
 

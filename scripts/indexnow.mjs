@@ -53,10 +53,13 @@ async function changed() {
   const urls = await siteUrls();
   const out = [];
   for (const url of urls) {
-    const local = await readFile(fileFor(url), 'utf8');
+    let local;
+    try { local = await readFile(fileFor(url), 'utf8'); } catch { out.push(url); continue; }
     let live = null;
     try {
-      const res = await fetch(url, { redirect: 'follow', headers: { 'cache-control': 'no-cache' } });
+      // Ten seconds a page: this runs before the deploy, so a slow live site
+      // must never be able to hold the deploy up.
+      const res = await fetch(url, { redirect: 'follow', headers: { 'cache-control': 'no-cache' }, signal: AbortSignal.timeout(10_000) });
       if (res.ok) live = await res.text();
     } catch {
       // Unreachable counts as changed: better one ping too many than a new page
@@ -84,6 +87,7 @@ async function submit(list) {
     method: 'POST',
     headers: { 'content-type': 'application/json; charset=utf-8' },
     body: JSON.stringify(body),
+    signal: AbortSignal.timeout(30_000),
   });
   // 200 = accepted, 202 = accepted while the key file is being checked.
   // 403 = the key file is not live (yet), 422 = a URL is not on this host,

@@ -15,19 +15,20 @@ import { pageHead, sec, faqSec, getSec, linkQ, M } from '../kit.mjs';
 // Brand rules as everywhere: lower-risk language, never "safe" as a promise, no
 // suburb named as risky (roads and regions only), no em dashes, figures from
 // stats.json only. Claims about other apps stay at the level of what KIND of app
-// they are; this page never describes a competitor's features.
+// they are; this page never describes a competitor's features (Namola appears
+// only as an example of a dedicated emergency app, which is what it is).
 
 const nMetros = stats.totals.metros;
 
 const DOES = [
   ['Routes around risk', `Every trip is checked against the rated areas in the ${nMetros} metros we map and bent around the high-risk ones when a sensible detour exists. When none does, it says so and marks the risky stretches.`],
   ['Rated by the hour', 'Daytime, evening and night each carry their own ratings, and the route card warns you when a trip will land after dark.'],
-  ['SOS', 'One button on the drive screen calls 10111 or 112, or opens a ready-written text to your emergency contact with where you are and a live location link that lasts 24 hours.'],
+  ['SOS', 'One button on the phone\'s drive screen calls 10111 or 112, or opens a text to your emergency contact, ready to send, with where you are and a live link. It is not shown while a drive is on CarPlay, so dial 112 from the phone there.'],
   ['Family can follow', 'Send a trip link to anyone, anywhere. It opens in a browser, with no app to install: your route, where you are, your arrival time, then Arrived.'],
-  ['Any car', 'It is a phone app, so it works in a rental. If the car has CarPlay or Android Auto, Tsamaya runs on the car\'s screen as well.'],
-  ['No account', 'Nothing to sign up for, and nothing to pay. Your trips are not kept on our servers unless you choose to share one.'],
+  ['Any car', 'It is a phone app, so it works in a rental. If the car has Apple CarPlay, Tsamaya runs on the car\'s screen as well; Android Auto is in testing.'],
+  ['No account', 'Nothing to sign up for. Routing, SOS and trip sharing are free, and your trips are not kept on our servers unless you choose to share one.'],
   ['Offline maps', 'Download the map around where you are staying for the places where the signal drops. Planning a new route needs a connection.'],
-  ['Closures and notices', 'Road closures and protests are picked up daily and routed around. Police and roadblock notices from other drivers are spoken when they are ahead of you.'],
+  ['Closures and notices', 'Road closures and protests are picked up daily, and the Balanced and Lower-risk routes go around them. Police and roadblock notices from other drivers are spoken when they are ahead of you.'],
 ];
 
 const does = sec({
@@ -43,7 +44,7 @@ const does = sec({
 
 const STEPS = [
   ['Install it', `Free on Google Play for Android, and through Apple's TestFlight app for iPhone. Both links are on the <a href="get-app.html">get the app</a> page.`],
-  ['Add an emergency contact', 'In Settings, under Sharing &amp; privacy. The SOS button can then send them your live location, and Guardian gives them one link that follows every drive you share.'],
+  ['Add an emergency contact', 'In Settings, under Sharing &amp; privacy. The SOS button can then text them your location and a live link. If you drive with CarPlay, share your Guardian link with them once too; a tap on the car screen then lets them follow that drive.'],
   ['Save a map for where you are staying', 'In Settings, under Places, then Offline maps. Frame the area and download it, on Wi-Fi if you can.'],
   ['Look before you leave', 'Check the route card before you set off, especially late in the day. It shows each option with its grade and what it goes around, and warns when a trip will land after dark.'],
 ];
@@ -82,9 +83,9 @@ const where = sec({
 // says what Tsamaya does and what it does not, and names the others only by the
 // kind of app they are.
 const ROWS = [
-  ['Get from A to B', 'Turn-by-turn with voice, on the phone, CarPlay or Android Auto. It can also hand its route to Google Maps with the detour points in place.', 'Any navigator: Google Maps, Waze, Apple Maps.'],
+  ['Get from A to B', 'Turn-by-turn with voice, on the phone or Apple CarPlay. It can also hand its route to Google Maps with the detour points in place.', 'Any navigator: Google Maps, Waze, Apple Maps.'],
   ['Keep away from high-risk areas', `Routes around rated areas, with separate ratings for day, evening and night, in ${nMetros} metros.`, 'Ask where you are staying which roads locals avoid.'],
-  ['Get help in an emergency', 'The SOS button calls 10111 or 112 and alerts your emergency contact. It does not dispatch anyone itself.', 'For private armed or medical response, an emergency response app such as Namola, or the one from your insurer or bank.'],
+  ['Get help in an emergency', 'The SOS button calls 10111 or 112, or opens a ready-to-send text to your emergency contact. It does not dispatch anyone itself.', 'A dedicated emergency app, such as Namola, or the panic button your insurer, bank or security company offers.'],
   ['Let people know where you are', 'A live trip link that opens in any browser, with your arrival time and an Arrived screen.', 'Live location in WhatsApp.'],
 ];
 
@@ -118,11 +119,11 @@ const faqs = [
   },
   {
     q: 'What are the emergency numbers in South Africa?',
-    a: '10111 for the police, 112 from any mobile phone, and 10177 for an ambulance. The SOS button in Tsamaya calls 10111 or 112 for you, or sends your emergency contact your location with a live tracking link.',
+    a: '10111 for the police, 112 from any mobile phone, and 10177 for an ambulance. The SOS button in Tsamaya calls 10111 or 112 for you, or opens a text to your emergency contact, ready to send, with your location and a live tracking link.',
   },
   {
     q: 'Does Tsamaya work without mobile data?',
-    a: 'Partly. Download offline maps for your area and the map keeps drawing where the signal drops, and the risk ratings are kept on your phone once loaded. Planning a new route, sharing a trip and the SOS live location link need data; the SOS call and text only need signal.',
+    a: 'Partly. Download offline maps for your area and the map keeps drawing where the signal drops, and the risk ratings are kept on your phone once loaded. Planning a new route, sharing a trip and the live link in an SOS text need data. The SOS call needs only signal; the SOS text needs signal too, and carries the live link when there is data.',
   },
   {
     q: 'Does it cover the Kruger National Park and the Garden Route?',

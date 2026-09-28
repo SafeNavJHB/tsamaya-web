@@ -62,7 +62,7 @@ const STEPS = [
       ['What it still passes', `The chosen route ${lowPasses}. When risk cannot be avoided, the card says so.`, [0.03, 0.535, 0.94, 0.056]],
       ['The grade and the trade', `${low.label}: grade ${low.grade}, ${low.lessRiskPct}% less risk than the standard route, ${timeLine} and ${low.extraKm} km further.`, [0.03, 0.603, 0.94, 0.112]],
       ['The alternatives', `Standard, grade ${std.grade}: ${plural(std.highRisk, 'high-risk area', 'high-risk areas')} for ${std.highRiskKm} km. Every option is graded A to E, and any high-risk area floors a route at D.`, [0.03, 0.718, 0.94, 0.17]],
-      ['Start', 'Drive it in the app, with voice and CarPlay or Android Auto.', [0.03, 0.9, 0.94, 0.062]],
+      ['Start', 'Drive it in the app, with voice and Apple CarPlay.', [0.03, 0.9, 0.94, 0.062]],
     ],
   },
   {

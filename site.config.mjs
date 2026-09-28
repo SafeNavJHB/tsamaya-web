@@ -30,7 +30,7 @@ export const site = {
   // search results and AI assistants quote first (an assistant that read the old
   // line concluded the app had no SOS and no live sharing).
   description:
-    'Tsamaya is a free South African navigation app that routes drivers around crime hotspots by time of day, with SOS, live trip sharing, CarPlay and Android Auto.',
+    'Tsamaya is a free South African navigation app that routes drivers around crime hotspots by time of day, with SOS, live trip sharing and Apple CarPlay.',
 
   // No custom domain registered yet → relative URLs, hosted on GitHub Pages for now.
   // When tsamayaapp.co.za is registered & DNS is pointed, set `domain` (e.g.
