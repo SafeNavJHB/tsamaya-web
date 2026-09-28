@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-28.12",
+      "date": "28 September 2026",
+      "items": [
+        {
+          "icon": "stats-chart-outline",
+          "title": "See your search usage",
+          "body": "Settings › Places now shows how many detailed searches you have used today and over the last week, so you can see whether your daily share is enough.",
+          "category": "feature"
+        },
+        {
+          "icon": "time-outline",
+          "title": "Your latest drive, kept on your phone",
+          "body": "Settings › Places › Trip history shows your latest guided drive: where, when, how far and the route option you took. It stays on your phone.",
+          "category": "feature"
+        },
+        {
+          "icon": "star-outline",
+          "title": "More for Tsamaya Premium",
+          "body": "When Premium goes on sale it will also bring your full trip history, Arrive by, each trip's fuel cost from the official price and your car's own average (in km/L or L/100 km), and a heads-up the day before fuel prices change. Routes around risk stay free for everyone.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-28.11",
       "date": "28 September 2026",
       "items": [
