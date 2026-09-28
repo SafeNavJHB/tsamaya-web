@@ -105,7 +105,7 @@ We do not use notifications for advertising, and we do not send them for anyone 
 
 ## 4b. Tsamaya Premium (optional subscription)
 
-Tsamaya Premium is an optional subscription (Terms of Use section 6). If you never subscribe, the only part of this section that applies to you is that the app asks RevenueCat whether this device has Premium, which sends RevenueCat the random id and device details described below.
+Tsamaya Premium is an optional subscription (Terms of Use section 6). If you never subscribe, the only part of this section that applies to you is that the app asks RevenueCat whether this device has Premium, which sends RevenueCat the random id and device details described below. On an iPhone, the first such check after installing also sends Apple's record of the app's own download (not a payment), so that a subscription already on the same Apple ID comes back without a tap.
 
 When you subscribe, you pay Apple (App Store) or Google (Google Play) under their own terms. **We never see your card or bank details, your name or your email address.**
 
