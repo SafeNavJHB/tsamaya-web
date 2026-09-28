@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-28.1",
+      "date": "28 September 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Bloemfontein is on the map",
+          "body": "The whole of Mangaung is now covered: Bloemfontein from the city centre out to Langenhoven Park and Bainsvlei, the Mangaung townships, Botshabelo and Thaba Nchu along the N8, and Dewetsdorp, Wepener and Van Stadensrus in the south-east. Every suburb, village and main road has been rated against SAPS data for the police stations that serve it and checked a second time, and your location is now trusted anywhere in the metro.",
+          "category": "feature"
+        },
+        {
+          "icon": "location-outline",
+          "title": "Places to discover in Bloemfontein",
+          "body": "Naval Hill and its giraffe, the Anglo-Boer War Museum and the Women's Monument, Oliewenhuis, the National Museum, the Botanical Garden, Loch Logan, the stadium, the university, the airport and the Windmill Casino are now places you can tap, each with a read on getting there.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-27.5",
       "date": "27 September 2026",
       "items": [
