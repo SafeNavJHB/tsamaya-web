@@ -93,7 +93,7 @@ We use crash reports only to fix faults. They are not used to profile you and ar
 
 ## 4a. Push notifications (optional)
 
-If you allow notifications, Tsamaya can tell you about road closures, protests and race-day disruption in your city. A second, separate switch covers news about new app features. Both are off unless you allow them, and either can be switched off on its own at any time under Settings › General › Notifications. Switch both off and we delete this device's registration.
+If you allow notifications, Tsamaya can tell you about road closures, protests and race-day disruption in your city. A second, separate switch covers news about new app features. Both are off unless you allow them, and either can be switched off on its own at any time under Settings › Alerts › Notifications. Switch both off and we delete this device's registration.
 
 To deliver a notification we store, for each device:
 
