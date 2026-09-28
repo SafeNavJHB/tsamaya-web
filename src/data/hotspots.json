@@ -680,9 +680,9 @@
       "id": "seed-angelo-informal-settlement-traffic-lights-boksburg",
       "type": "smash_and_grab",
       "city": "ekurhuleni",
-      "label": "Traffic lights (road name to be confirmed)",
-      "lng": 28.20964,
-      "lat": -26.232511
+      "label": "Main Reef Road & Field Road",
+      "lng": 28.2159,
+      "lat": -26.1984
     },
     {
       "id": "seed-boeing-road-william-nicol-drive-bedfordview",
