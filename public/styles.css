@@ -1390,6 +1390,38 @@ html:not(.js) .sn .tabs { display: none; }
 .sn .tp-all .hud { color: var(--fg-2); }
 .sn .tp-all b { font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink); }
 @media (max-width: 900px) { .sn .mx-in { grid-template-columns: minmax(0, 1fr); } }
+/* Hotspot markers on the metro map and the list under it: red for hijacking,
+ * amber for smash-and-grab (risk colours, always with a word: the legend and
+ * the list). Points on roads, never an area. */
+.sn .mx-hs .hs { cursor: pointer; }
+.sn .mx-hs .hj { --hs: var(--risk-red); }
+.sn .mx-hs .sg { --hs: var(--risk-amber); }
+.sn .hs-halo { fill: var(--hs); fill-opacity: 0.16; transition: fill-opacity 0.18s var(--ease-ui); }
+.sn .hs-dot { fill: var(--hs); stroke: var(--night-2); stroke-width: 2; transform-box: fill-box; transform-origin: center; transition: transform 0.18s var(--ease-ui); }
+.sn .hs:hover .hs-halo, .sn .hs.is-on .hs-halo { fill-opacity: 0.42; }
+.sn .hs.is-on .hs-dot { transform: scale(1.55); }
+.sn .mx-hs.no-hj .hj, .sn .mx-hs.no-sg .sg { display: none; }
+.sn .mx-key { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.sn .mk { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid var(--hairline); border-radius: 999px; color: var(--ink); transition: opacity 0.18s var(--ease-ui), border-color 0.18s var(--ease-ui); }
+.sn .mk:hover { border-color: var(--fg-2); }
+.sn .mk i { width: 10px; height: 10px; border-radius: 50%; background: var(--hs); border: 2px solid var(--hs); }
+.sn .mk.hj, .sn .hs-sw.hj { --hs: var(--risk-red); }
+.sn .mk.sg, .sn .hs-sw.sg { --hs: var(--risk-amber); }
+.sn .mk b { color: var(--fg-2); font-weight: 500; }
+.sn .mk[aria-pressed='false'] { opacity: 0.5; }
+.sn .mk[aria-pressed='false'] i { background: transparent; }
+html:not(.js) .sn .mx-key { pointer-events: none; }
+.sn .mx-tip { margin-top: 12px; min-height: 1.6em; color: var(--ink); }
+.sn .hs-cols { margin-top: 36px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px clamp(28px, 5vw, 72px); align-items: start; }
+.sn .hs-h { display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--hairline); color: var(--ink); }
+.sn .hs-h .num { margin-left: auto; color: var(--fg-2); }
+.sn .hs-sw { width: 10px; height: 10px; border-radius: 50%; background: var(--hs); flex: none; }
+.sn .hs-list li { position: relative; padding: 11px 0 11px 20px; border-bottom: 1px solid var(--hairline); color: var(--fg); cursor: pointer; transition: color 0.18s var(--ease-ui), background-color 0.18s var(--ease-ui); }
+.sn .hs-list li::before { content: ''; position: absolute; left: 2px; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 50%; background: var(--fg-2); transition: background-color 0.18s var(--ease-ui); }
+.sn .hs-list li:hover, .sn .hs-list li.is-on { color: var(--ink); background: var(--surface); }
+.sn .hs-col:has(.hj) .hs-list li:is(:hover, .is-on)::before { background: var(--risk-red); }
+.sn .hs-col:has(.sg) .hs-list li:is(:hover, .is-on)::before { background: var(--risk-amber); }
+@media (max-width: 760px) { .sn .hs-cols { grid-template-columns: minmax(0, 1fr); } }
 .sn .card .card-p { margin-top: 12px; color: var(--fg); }
 .sn .mlist { margin-top: 36px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 28px; border-top: 1px solid var(--hairline); }
 .sn .mlist a { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 52px; border-bottom: 1px solid var(--hairline); font-family: var(--mono); font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-2); transition: color 0.18s var(--ease-ui); }

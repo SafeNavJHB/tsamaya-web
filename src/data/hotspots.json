@@ -1,0 +1,816 @@
+{
+  "_generated": "scripts/sync-hotspots.mjs, do not hand-edit",
+  "_source": "SafeNav app, assets/data/hotspots_v1.json (2026-06-26)",
+  "_positions": "bundled seed (no Supabase credentials, admin moves not applied)",
+  "attribution": "Compiled from public reporting (SAPS, NHPA/Arrive Alive, regional news). Approximate and not a complete list.",
+  "hotspots": [
+    {
+      "id": "seed-cnr-kelvin-street-cr-swart-drive-kelvin",
+      "type": "hijacking",
+      "city": "ekurhuleni",
+      "label": "cnr Kelvin Street & CR Swart Drive",
+      "lng": 28.22058,
+      "lat": -26.101013
+    },
+    {
+      "id": "seed-cnr-grayston-drive-rivonia-road-sandton",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr Grayston Drive & Rivonia Road",
+      "lng": 28.057749,
+      "lat": -26.098164
+    },
+    {
+      "id": "seed-cnr-rivonia-road-witkoppen-road-paulshof",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr Rivonia Road & Witkoppen Road",
+      "lng": 28.061141,
+      "lat": -26.037402
+    },
+    {
+      "id": "seed-woodmead-and-buccleuch-interchange-n1-m1",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "Woodmead and Buccleuch interchange, N1/M1",
+      "lng": 28.09576,
+      "lat": -26.04754
+    },
+    {
+      "id": "seed-cnr-christiaan-de-wet-road-wilgerood-road-roodepoort",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr Christiaan de Wet Road & Wilgerood Road",
+      "lng": 27.893428,
+      "lat": -26.139377
+    },
+    {
+      "id": "seed-cnr-old-pretoria-main-road-1st-avenue-alexandra",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr Old Pretoria Main Road & 1st Avenue",
+      "lng": 28.097,
+      "lat": -26.0965
+    },
+    {
+      "id": "seed-william-nicol-drive-off-ramp-n1-fourways",
+      "type": "smash_and_grab",
+      "city": "johannesburg",
+      "label": "William Nicol Drive off-ramp, N1",
+      "lng": 27.916059,
+      "lat": -26.157534
+    },
+    {
+      "id": "seed-new-road-off-ramp-n1-midrand",
+      "type": "smash_and_grab",
+      "city": "johannesburg",
+      "label": "New Road off-ramp, N1",
+      "lng": 28.126246,
+      "lat": -25.980127
+    },
+    {
+      "id": "seed-riviera-road-off-ramp-m1-near-killarney-mall",
+      "type": "smash_and_grab",
+      "city": "johannesburg",
+      "label": "Riviera Road off-ramp, M1",
+      "lng": 28.055731,
+      "lat": -26.165685
+    },
+    {
+      "id": "seed-louis-botha-avenue-between-alexandra-and-hillbrow",
+      "type": "smash_and_grab",
+      "city": "johannesburg",
+      "label": "Louis Botha Avenue",
+      "lng": 28.068,
+      "lat": -26.162
+    },
+    {
+      "id": "seed-atterbury-road-off-ramp-n1-menlyn",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "Atterbury Road off-ramp, N1",
+      "lng": 28.271762,
+      "lat": -25.778056
+    },
+    {
+      "id": "seed-lynnwood-road-off-ramp-n1-pretoria-east",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "Lynnwood Road off-ramp, N1",
+      "lng": 28.275251,
+      "lat": -25.765945
+    },
+    {
+      "id": "seed-john-vorster-drive-off-ramp-n1-lyttelton",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "John Vorster Drive off-ramp, N1",
+      "lng": 28.192725,
+      "lat": -25.866817
+    },
+    {
+      "id": "seed-jean-avenue-off-ramp-r28-centurion",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "Jean Avenue off-ramp, R28",
+      "lng": 28.182949,
+      "lat": -25.838536
+    },
+    {
+      "id": "seed-rigel-avenue-off-ramp-n1-erasmuskloof",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "Rigel Avenue off-ramp, N1",
+      "lng": 28.258788,
+      "lat": -25.809296
+    },
+    {
+      "id": "seed-university-road-and-lynnwood-road-intersection-hatfield",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "University Road and Lynnwood Road intersection",
+      "lng": 28.225214,
+      "lat": -25.755956
+    },
+    {
+      "id": "seed-lynnwood-road-and-hans-strijdom-drive-intersection-garsfontein",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "Lynnwood Road and Hans Strijdom Drive intersection",
+      "lng": 28.344061,
+      "lat": -25.778465
+    },
+    {
+      "id": "seed-nelson-mandela-drive-traffic-lights-sunnyside",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "Nelson Mandela Drive traffic lights",
+      "lng": 28.195156,
+      "lat": -25.765684
+    },
+    {
+      "id": "seed-walker-street-traffic-lights-sunnyside",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "Walker Street traffic lights",
+      "lng": 28.210604,
+      "lat": -25.759372
+    },
+    {
+      "id": "seed-de-villebois-mareuil-drive-and-garsfontein-road-intersection-pretoria-east",
+      "type": "smash_and_grab",
+      "city": "pretoria",
+      "label": "De Villebois Mareuil Drive and Garsfontein Road intersection",
+      "lng": 28.3078,
+      "lat": -25.8208
+    },
+    {
+      "id": "seed-nossob-street-and-delmas-road-intersection-pretoria-east",
+      "type": "smash_and_grab",
+      "city": "pretoria",
+      "label": "Nossob Street and Delmas Road intersection",
+      "lng": 28.2656,
+      "lat": -25.81754
+    },
+    {
+      "id": "seed-n1-and-garsfontein-road-interchange-pretoria-east",
+      "type": "smash_and_grab",
+      "city": "pretoria",
+      "label": "N1 and Garsfontein Road interchange",
+      "lng": 28.2745,
+      "lat": -25.7895
+    },
+    {
+      "id": "seed-fountains-circle-pretoria",
+      "type": "smash_and_grab",
+      "city": "pretoria",
+      "label": "Fountains Circle",
+      "lng": 28.199488,
+      "lat": -25.773614
+    },
+    {
+      "id": "seed-n2-off-ramp-to-jakes-gerwel-drive-bonteheuwel",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "N2 off-ramp to Jakes Gerwel Drive",
+      "lng": 18.540985,
+      "lat": -33.955104
+    },
+    {
+      "id": "seed-jakes-gerwel-drive-jakkalsvlei-avenue-bonteheuwel",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "Jakes Gerwel Drive & Jakkalsvlei Avenue",
+      "lng": 18.54287,
+      "lat": -33.944766
+    },
+    {
+      "id": "seed-robert-sobukwe-road-35th-avenue-bishop-lavis",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "Robert Sobukwe Road & 35th Avenue",
+      "lng": 18.598073,
+      "lat": -33.947966
+    },
+    {
+      "id": "seed-owen-road-35th-street-elsies-river",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "Owen Road & 35th Street",
+      "lng": 18.587,
+      "lat": -33.935657
+    },
+    {
+      "id": "seed-borcherds-quarry-road-off-ramp-n2-nyanga",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "Borcherds Quarry Road off-ramp, N2",
+      "lng": 18.587683,
+      "lat": -33.98228
+    },
+    {
+      "id": "seed-n1-highway-after-lower-church-street-bridge-cape-town-cbd",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "N1 highway after Lower Church Street bridge",
+      "lng": 18.4475,
+      "lat": -33.9285
+    },
+    {
+      "id": "seed-baden-powell-drive-between-n2-and-swartklip-road-khayelitsha-mitchells-plain",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "Baden Powell Drive between N2 and Swartklip Road",
+      "lng": 18.724372,
+      "lat": -34.039467
+    },
+    {
+      "id": "seed-jakes-gerwel-drive-samora-machel-drive-philippi",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "Jakes Gerwel Drive & Samora Machel Drive",
+      "lng": 18.5563,
+      "lat": -34.0066
+    },
+    {
+      "id": "seed-n2-to-r300-off-ramp-interchange-cape-town",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "N2 to R300 off-ramp interchange",
+      "lng": 18.632958,
+      "lat": -34.001175
+    },
+    {
+      "id": "seed-prince-george-drive-military-road-intersection-lavender-hill",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "Prince George Drive & Military Road intersection",
+      "lng": 18.479559,
+      "lat": -34.075055
+    },
+    {
+      "id": "seed-r300-between-az-berman-drive-and-van-riebeeck-interchange-mitchells-plain",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "R300 between AZ Berman Drive and Van Riebeeck interchange",
+      "lng": 18.60706,
+      "lat": -34.018636
+    },
+    {
+      "id": "seed-n2-hell-run-between-jakes-gerwel-and-baden-powell-interchanges-cape-town",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "N2 between the Jakes Gerwel and Baden Powell interchanges",
+      "lng": 18.5955,
+      "lat": -34.0095
+    },
+    {
+      "id": "seed-great-north-road-dann-road-kempton-park",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Great North Road & Dann Road",
+      "lng": 28.25141,
+      "lat": -26.097903
+    },
+    {
+      "id": "seed-snake-road-off-ramp-at-the-n12-benoni",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Snake Road off-ramp at the N12",
+      "lng": 28.333402,
+      "lat": -26.17561
+    },
+    {
+      "id": "seed-n17-off-ramp-to-black-reef-road-germiston",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "N17 off-ramp to Black Reef Road",
+      "lng": 28.164236,
+      "lat": -26.289237
+    },
+    {
+      "id": "seed-lower-boksburg-road-simon-bekker-street-germiston",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Lower Boksburg Road & Simon Bekker Street",
+      "lng": 28.190275,
+      "lat": -26.213417
+    },
+    {
+      "id": "seed-jack-road-refinery-road-germiston",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Jack Road & Refinery Road",
+      "lng": 28.153888,
+      "lat": -26.217461
+    },
+    {
+      "id": "seed-m2-off-ramp-to-refinery-road-germiston",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "M2 off-ramp to Refinery Road",
+      "lng": 28.150733,
+      "lat": -26.215789
+    },
+    {
+      "id": "seed-johan-rissik-road-junction-road-germiston",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Johan Rissik Road & Junction Road",
+      "lng": 28.15325,
+      "lat": -26.205222
+    },
+    {
+      "id": "seed-knights-road-bridge-near-good-hope-informal-settlement-germiston",
+      "type": "hijacking",
+      "city": "ekurhuleni",
+      "label": "Knights Road bridge",
+      "lng": 28.176394,
+      "lat": -26.199284
+    },
+    {
+      "id": "seed-beyers-naude-off-ramp-n1-northcliff",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "Beyers Naude off-ramp N1",
+      "lng": 27.954023,
+      "lat": -26.114597
+    },
+    {
+      "id": "seed-n1-at-lower-church-street-off-ramp-woodstock",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "N1 at Lower Church Street off-ramp",
+      "lng": 18.449313,
+      "lat": -33.922104
+    },
+    {
+      "id": "seed-cnr-elgin-road-pretoria-road-sunninghill",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr Elgin Road & Pretoria Road",
+      "lng": 28.0625,
+      "lat": -26.0285
+    },
+    {
+      "id": "seed-cnr-harrow-road-saratoga-avenue-berea",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr Harrow Road & Saratoga Avenue",
+      "lng": 28.05459,
+      "lat": -26.19246
+    },
+    {
+      "id": "seed-cnr-harrow-road-abel-road-berea",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr Harrow Road & Abel Road",
+      "lng": 28.057819,
+      "lat": -26.187641
+    },
+    {
+      "id": "seed-cnr-jan-smuts-avenue-st-andrews-road-parktown",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr Jan Smuts Avenue & St Andrews Road",
+      "lng": 28.031611,
+      "lat": -26.18324
+    },
+    {
+      "id": "seed-cnr-17th-street-krause-street-pageview",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr 17th Street & Krause Street",
+      "lng": 28.015497,
+      "lat": -26.198067
+    },
+    {
+      "id": "seed-jan-smuts-avenue-william-nicol-drive-split-hyde-park",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "Jan Smuts Avenue & William Nicol Drive split",
+      "lng": 28.03333,
+      "lat": -26.12538
+    },
+    {
+      "id": "seed-linksfield-road-off-ramp-n3",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "Linksfield Road off-ramp, N3",
+      "lng": 28.131381,
+      "lat": -26.149381
+    },
+    {
+      "id": "seed-booysens-road-off-ramp-m1",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "Booysens Road off-ramp, M1",
+      "lng": 28.019591,
+      "lat": -26.229685
+    },
+    {
+      "id": "seed-houghton-drive-off-ramp-m1",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "Houghton Drive off-ramp, M1",
+      "lng": 28.073676,
+      "lat": -26.169689
+    },
+    {
+      "id": "seed-heidelberg-road-off-ramp-n17",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "Heidelberg Road off-ramp, N17",
+      "lng": 28.321621,
+      "lat": -26.255175
+    },
+    {
+      "id": "seed-nelson-mandela-bridge-braamfontein",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "Nelson Mandela Bridge",
+      "lng": 28.034211,
+      "lat": -26.196945
+    },
+    {
+      "id": "seed-wolmarans-street-between-claim-and-nugget-streets-hillbrow",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "Wolmarans Street between Claim and Nugget Streets",
+      "lng": 28.049724,
+      "lat": -26.194172
+    },
+    {
+      "id": "seed-woodmead-drive-off-ramp-m1",
+      "type": "smash_and_grab",
+      "city": "johannesburg",
+      "label": "Woodmead Drive off-ramp, M1",
+      "lng": 28.091158,
+      "lat": -26.063782
+    },
+    {
+      "id": "seed-witkoppen-road-off-ramp-n1",
+      "type": "smash_and_grab",
+      "city": "johannesburg",
+      "label": "Witkoppen Road off-ramp, N1",
+      "lng": 28.012,
+      "lat": -26.026
+    },
+    {
+      "id": "seed-malibongwe-drive-off-ramp-n1",
+      "type": "smash_and_grab",
+      "city": "johannesburg",
+      "label": "Malibongwe Drive off-ramp, N1",
+      "lng": 27.973733,
+      "lat": -26.072911
+    },
+    {
+      "id": "seed-marlboro-off-ramp-n3",
+      "type": "smash_and_grab",
+      "city": "johannesburg",
+      "label": "Marlboro off-ramp, N3",
+      "lng": 28.114685,
+      "lat": -26.082221
+    },
+    {
+      "id": "seed-delfi-avenue-and-garsfontein-road-intersection-garsfontein",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "Delfi Avenue and Garsfontein Road intersection",
+      "lng": 28.3008,
+      "lat": -25.8072
+    },
+    {
+      "id": "seed-simon-vermooten-road-and-lynnwood-road-intersection-silverton",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "Simon Vermooten Road and Lynnwood Road intersection",
+      "lng": 28.321112,
+      "lat": -25.766842
+    },
+    {
+      "id": "seed-paul-kruger-street-wonderboompoort",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "Paul Kruger Street",
+      "lng": 28.1875,
+      "lat": -25.7055
+    },
+    {
+      "id": "seed-e-skia-mphahlele-drive-near-marabastad",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "E'skia Mphahlele Drive",
+      "lng": 28.1745,
+      "lat": -25.7485
+    },
+    {
+      "id": "seed-r55-erasmia",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "R55",
+      "lng": 28.094441,
+      "lat": -25.812375
+    },
+    {
+      "id": "seed-n14-eufees-off-ramp-pretoria",
+      "type": "smash_and_grab",
+      "city": "pretoria",
+      "label": "N14 Eufees off-ramp",
+      "lng": 28.191174,
+      "lat": -25.781756
+    },
+    {
+      "id": "seed-roger-dyson-eeufees-road-traffic-lights-pretoria",
+      "type": "smash_and_grab",
+      "city": "pretoria",
+      "label": "Roger Dyson / Eeufees Road traffic lights",
+      "lng": 28.1535,
+      "lat": -25.7585
+    },
+    {
+      "id": "seed-burnett-street-and-hilda-street-brooklyn",
+      "type": "smash_and_grab",
+      "city": "pretoria",
+      "label": "Burnett Street and Hilda Street",
+      "lng": 28.23517,
+      "lat": -25.750594
+    },
+    {
+      "id": "seed-35th-street-bishop-lavis-drive-bishop-lavis",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "35th Street & Bishop Lavis Drive",
+      "lng": 18.594462,
+      "lat": -33.945289
+    },
+    {
+      "id": "seed-adam-tas-avenue-stellenbosch-arterial-road-belhar",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "Adam Tas Avenue & Stellenbosch Arterial Road",
+      "lng": 18.635683,
+      "lat": -33.952826
+    },
+    {
+      "id": "seed-malibongwe-drive-n7-intersection-du-noon",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "Malibongwe Drive & N7 intersection",
+      "lng": 18.547408,
+      "lat": -33.809567
+    },
+    {
+      "id": "seed-van-riebeeck-road-near-elwood-high-school-beaconvale",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "Van Riebeeck Road near Elwood High School",
+      "lng": 18.5806,
+      "lat": -33.9163
+    },
+    {
+      "id": "seed-new-eisleben-road-sheffield-road-philippi",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "New Eisleben Road & Sheffield Road",
+      "lng": 18.593325,
+      "lat": -34.007896
+    },
+    {
+      "id": "seed-white-hart-lane-heinz-park-philippi",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "White Hart Lane",
+      "lng": 18.5955,
+      "lat": -34.0165
+    },
+    {
+      "id": "seed-hindle-road-at-the-r300-interchange-blue-downs",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "Hindle Road at the R300 interchange",
+      "lng": 18.652657,
+      "lat": -33.978797
+    },
+    {
+      "id": "seed-r300-between-stellenbosch-arterial-and-n2-exits-cape-flats",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "R300 between Stellenbosch Arterial and N2 exits",
+      "lng": 18.657198,
+      "lat": -33.954414
+    },
+    {
+      "id": "seed-voortrekker-road-between-bellville-and-parow",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "Voortrekker Road",
+      "lng": 18.59886,
+      "lat": -33.90379
+    },
+    {
+      "id": "seed-elgin-road-pretoria-road-kempton-park",
+      "type": "hijacking",
+      "city": "ekurhuleni",
+      "label": "Elgin Road & Pretoria Road",
+      "lng": 28.233435,
+      "lat": -26.06916
+    },
+    {
+      "id": "seed-main-reef-road-snake-road-benoni",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Main Reef Road & Snake Road",
+      "lng": 28.331332,
+      "lat": -26.193243
+    },
+    {
+      "id": "seed-bunyan-street-on-and-off-ramps-benoni",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Bunyan Street on- and off-ramps",
+      "lng": 28.313733,
+      "lat": -26.188845
+    },
+    {
+      "id": "seed-range-view-road-dewalt-hattingh-road-benoni",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Range View Road & Dewalt Hattingh Road",
+      "lng": 28.322036,
+      "lat": -26.207031
+    },
+    {
+      "id": "seed-pretoria-road-shamrock-road-primrose",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Pretoria Road & Shamrock Road",
+      "lng": 28.160957,
+      "lat": -26.19315
+    },
+    {
+      "id": "seed-rietfontein-road-shamrock-road-primrose",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Rietfontein Road & Shamrock Road",
+      "lng": 28.159984,
+      "lat": -26.189532
+    },
+    {
+      "id": "seed-angelo-informal-settlement-traffic-lights-boksburg",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Traffic lights (road name to be confirmed)",
+      "lng": 28.20964,
+      "lat": -26.232511
+    },
+    {
+      "id": "seed-boeing-road-william-nicol-drive-bedfordview",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Boeing Road & William Nicol Drive",
+      "lng": 28.124558,
+      "lat": -26.174344
+    },
+    {
+      "id": "seed-n14-between-ventersdorp-and-krugersdorp",
+      "type": "hijacking",
+      "city": "west_rand",
+      "label": "N14 between Ventersdorp and Krugersdorp",
+      "lng": 27.591767,
+      "lat": -26.132451
+    },
+    {
+      "id": "seed-cradlestone-mall-traffic-light-n14-muldersdrift",
+      "type": "hijacking",
+      "city": "west_rand",
+      "label": "Cradlestone Mall traffic light, N14",
+      "lng": 27.837016,
+      "lat": -26.060945
+    },
+    {
+      "id": "seed-r28-stop-sign-randfontein",
+      "type": "hijacking",
+      "city": "west_rand",
+      "label": "R28 stop sign",
+      "lng": 27.724636,
+      "lat": -26.151123
+    },
+    {
+      "id": "seed-cnr-pretoria-road-cr-swart-wynberg",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr Pretoria Road & CR Swart",
+      "lng": 28.224873,
+      "lat": -26.100872
+    },
+    {
+      "id": "seed-cnr-old-pretoria-road-1st-avenue-alexandra",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr Old Pretoria Road & 1st Avenue",
+      "lng": 28.12886,
+      "lat": -25.9954
+    },
+    {
+      "id": "seed-cnr-witkoppen-road-cambridge-road-fourways",
+      "type": "smash_and_grab",
+      "city": "johannesburg",
+      "label": "cnr Witkoppen Road & Cambridge Road",
+      "lng": 28.048038,
+      "lat": -26.036316
+    },
+    {
+      "id": "seed-cnr-barry-hertzog-avenue-napier-road-richmond",
+      "type": "smash_and_grab",
+      "city": "johannesburg",
+      "label": "cnr Barry Hertzog Avenue & Napier Road",
+      "lng": 28.017287,
+      "lat": -26.182213
+    },
+    {
+      "id": "seed-cnr-simon-vermooten-road-pretoria-street-silverton",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "cnr Simon Vermooten Road & Pretoria Street",
+      "lng": 28.329446,
+      "lat": -25.737874
+    },
+    {
+      "id": "seed-hans-strydom-off-ramp-n4-pretoria-east",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "Hans Strydom off-ramp N4",
+      "lng": 28.341,
+      "lat": -25.776
+    },
+    {
+      "id": "seed-cnr-prestwich-road-ebenezer-road-green-point",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "cnr Prestwich Road & Ebenezer Road",
+      "lng": 18.41798,
+      "lat": -33.912313
+    },
+    {
+      "id": "seed-r300-under-n1-bridges-bishop-lavis",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "R300 under N1 bridges",
+      "lng": 18.575833,
+      "lat": -33.948611
+    },
+    {
+      "id": "seed-n2-between-nelson-mandela-boulevard-and-sir-lowry-s-pass",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "N2 between Nelson Mandela Boulevard and Sir Lowry's Pass",
+      "lng": 18.675954,
+      "lat": -34.031207
+    },
+    {
+      "id": "seed-snake-road-benoni",
+      "type": "hijacking",
+      "city": "ekurhuleni",
+      "label": "Snake Road",
+      "lng": 28.334473,
+      "lat": -26.17683
+    },
+    {
+      "id": "seed-n17-near-dalpark-toll-plaza-brakpan",
+      "type": "hijacking",
+      "city": "ekurhuleni",
+      "label": "N17 near Dalpark Toll Plaza",
+      "lng": 28.341407,
+      "lat": -26.259676
+    },
+    {
+      "id": "seed-cnr-winnie-mandela-drive-uranium-road-witkoppen",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr Winnie Mandela Drive & Uranium Road",
+      "lng": 28.011838,
+      "lat": -26.008226
+    }
+  ]
+}
