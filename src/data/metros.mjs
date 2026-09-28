@@ -354,6 +354,31 @@ export const metros = [
       },
     ],
   },
+  {
+    key: 'bloemfontein',
+    slug: 'bloemfontein',
+    name: 'Bloemfontein',
+    region: 'Free State',
+    blurb:
+      'Driving routes around Bloemfontein and the whole of Mangaung, covering the N1 western bypass, the N8 to Botshabelo and Thaba Nchu, the N6 and the R702 south-east.',
+    intro:
+      'Bloemfontein is the first Free State city on the map, and coverage is the whole of Mangaung rather than the old city limits: Bloemfontein itself, Botshabelo and Thaba Nchu out along the N8, and Dewetsdorp, Wepener and Van Stadensrus in the south-east. The N1 skirts the city to the west, and most trips between the suburbs, the city centre and the airport cross a handful of arterials: Nelson Mandela Drive, Curie Avenue and Alexandra Avenue.',
+    context: [
+      'The N1 western bypass and the N6 carry no risk penalty, and the ramps between them are mapped as well, so a trip that only needs to get round Bloemfontein can stay on them.',
+      'The N8 east to Botshabelo, Thaba Nchu and the Lesotho border is rated a step above the other national roads here. Cash-in-transit heists on it near Botshabelo are on record, and it is the only road east, so the app plans it with caution rather than around it.',
+      'Nelson Mandela Drive, Curie Avenue and the arterials through the city centre carry a raised rating all day, and Dr Belcher Road and Rudolf Greyling Road carry the highest. Every road is rated separately for day, evening and night, and most of the city steps up a band after dark.',
+    ],
+    faqs: [
+      {
+        q: 'Does Tsamaya cover Botshabelo and Thaba Nchu?',
+        a: 'Yes. Both are inside the mapped area, along with the N8 that links them to Bloemfontein and the villages around Thaba Nchu.',
+      },
+      {
+        q: 'Does it cover the drive from the airport?',
+        a: 'Yes. Bram Fischer International Airport sits inside the mapped area, so the trip from the terminal to the city or the suburbs is planned with risk data from the first turn.',
+      },
+    ],
+  },
 ];
 
 // Look up the editorial entry for a metro key from stats.json.

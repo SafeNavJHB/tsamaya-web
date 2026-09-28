@@ -183,6 +183,20 @@
         31.55,
         -24.99
       ]
+    },
+    {
+      "key": "bloemfontein",
+      "name": "Bloemfontein",
+      "bbox": {
+        "lngMin": 25.71,
+        "lngMax": 27.23,
+        "latMin": -30.12,
+        "latMax": -28.64
+      },
+      "center": [
+        26.21,
+        -29.12
+      ]
     }
   ]
 }
