@@ -45,6 +45,42 @@
       ]
     },
     {
+      "version": "2026-09-27.9",
+      "date": "27 September 2026",
+      "items": [
+        {
+          "icon": "mic-outline",
+          "title": "Voice reports hear the report words",
+          "body": "When you tap Speak, your phone now listens out for Tsamaya's report words, like police, roadblock and speed camera, so what you say comes back right more often.",
+          "category": "fix"
+        },
+        {
+          "icon": "chatbubble-ellipses-outline",
+          "title": "Siri reports that land",
+          "body": "On iPhone, say \"Hey Siri, report police in Tsamaya\" or \"Hey Siri, log a crash in Tsamaya\". Siri no longer mistakes a report for a call to the police.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-outline",
+          "title": "Arrival time you can read on CarPlay",
+          "body": "Over the satellite map or a dark map, the CarPlay card with your arrival time, time left and distance now turns dark, so its text stays readable.",
+          "category": "fix"
+        },
+        {
+          "icon": "image-outline",
+          "title": "A cleaner start on iPhone",
+          "body": "Tsamaya now opens straight onto the \"Go well.\" screen.",
+          "category": "tweak"
+        },
+        {
+          "icon": "construct-outline",
+          "title": "Up to date underneath",
+          "body": "Tsamaya now runs on the newest versions of the tools it is built with, ready for iOS 27 and the latest Android phones.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-27.5",
       "date": "27 September 2026",
       "items": [
