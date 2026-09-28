@@ -93,7 +93,7 @@ We use crash reports only to fix faults. They are not used to profile you and ar
 
 ## 4a. Push notifications (optional)
 
-If you allow notifications, Tsamaya can tell you about road closures, protests and race-day disruption in your city. A second, separate switch covers news about new app features, and with Tsamaya Premium a third tells you, the day before fuel prices change, whether to fill up or wait. Nothing arrives unless your phone lets Tsamaya send notifications (you are asked first; older Android versions allow it when the app is installed). Each switch can be turned off on its own at any time under Settings › Alerts › Notifications (the fuel price alert is on for a Premium device until you turn it off). Turn all of them off, or block Tsamaya's notifications in your phone's own settings, and we delete this device's registration (in the second case, the next time the app runs).
+If you allow notifications, Tsamaya can tell you about road closures, protests and race-day disruption in your city. A second, separate switch covers news about new app features, and with Tsamaya Premium a third tells you, the day before fuel prices change, whether to fill up or wait. Nothing arrives unless your phone lets Tsamaya send notifications (you are asked first; older Android versions allow it when the app is installed). Each switch can be turned off on its own at any time under Settings › Alerts › Notifications (the fuel price alert is on for a Premium device until you turn it off). Turn all of them off, or block Tsamaya's notifications in your phone's own settings, and we delete this device's registration (in the second case, the next time you open the app).
 
 To deliver a notification we store, for each device:
 
@@ -150,7 +150,7 @@ These providers process data outside South Africa. POPIA s72 permits cross-borde
 - Shared live trips: visible via the private link while the trip is active (up to 12 hours after the last update; SOS links up to 24 hours); once you arrive or end the trip the link expires about 30 minutes later. Deletable on request.
 - On-device data (saved places, settings, trip history, search counts): retained until you delete it or uninstall the app. Trip history keeps at most the last 12 months, and you can delete it at any time in the app (Trip history, Delete trip history); search counts keep the last 14 days. Your phone's own backup (iCloud or Google) may include this data; it stays in your own account and we cannot see it.
 - User reports and feedback: retained until reviewed and actioned; deletable on request via the contact address.
-- Push registrations (§4a): retained while notifications are switched on. Deleted immediately when you turn all the notification switches off, and retired when the delivery service reports the app has been uninstalled.
+- Push registrations (§4a): retained while notifications are switched on. Deleted immediately when you turn all the notification switches off, or the next time you open the app after blocking Tsamaya's notifications in your phone's settings, and retired when the delivery service reports the app has been uninstalled.
 - Premium records (section 4b): kept by RevenueCat and on our server while they are needed to provide Premium and answer billing questions, and deleted on request where the law allows.
 - Reviewer accounts: retained while the reviewer is authorised.
 
