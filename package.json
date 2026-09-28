@@ -12,6 +12,7 @@
     "bounds": "node scripts/sync-metro-bounds.mjs",
     "shapes": "${PYTHON:-$HOME/Projects/SafeNav/pipeline/.venv/bin/python} scripts/make-coverage-shapes.py",
     "changelog": "node scripts/sync-changelog.mjs",
+    "hotspots": "node scripts/sync-hotspots.mjs",
     "images": "node scripts/optimise-images.mjs",
     "vendor": "node scripts/vendor.mjs",
     "check": "node scripts/check-seo.mjs",

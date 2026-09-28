@@ -13,6 +13,7 @@ tsamaya-web/  (this repo — site lives at the root)
 ├── scripts/
 │   ├── fetch-stats.mjs   ← pulls live coverage figures from Supabase
 │   ├── sync-metro-bounds.mjs ← copies the app's metro bounding boxes over
+│   ├── sync-hotspots.mjs ← copies the app's hijacking / smash-and-grab hotspots over
 │   ├── make-coverage-shapes.py ← dissolves each metro's live risk zones into one outline
 │   ├── make-land-outline.py  ← regenerates the country outline (run once, ever)
 │   ├── optimise-images.mjs ← screenshots → AVIF/WebP/JPEG at three widths
@@ -28,6 +29,7 @@ tsamaya-web/  (this repo — site lives at the root)
 │   │   ├── stats.json    ← LIVE FIGURES (generated — do not hand-edit)
 │   │   ├── metro-bounds.json ← metro bounding boxes (generated — do not hand-edit)
 │   │   ├── metro-shapes.json ← coverage outlines (generated — do not hand-edit)
+│   │   ├── hotspots.json ← hotspot points, road-only labels (generated — do not hand-edit)
 │   │   ├── za-land.json  ← the country outline (generated — do not hand-edit)
 │   │   └── metros.mjs    ← per-metro editorial copy for the landing pages
 │   └── pages/*.mjs       ← one file per page; metros.mjs emits thirteen at once (twelve metros plus the coverage index)
@@ -80,6 +82,17 @@ settlements. Showing a driver a risk overlay for the road ahead is the product;
 publishing a permanent, indexable list of those place names is a redline map. The
 metro pages carry counts, band distributions, roads and driving context — never a
 list of neighbourhoods. See the editorial note at the top of `src/data/metros.mjs`.
+
+The **hotspot markers** on the metro maps follow the same rule. They are the app's own
+list of reported hijacking and smash-and-grab spots (`assets/data/hotspots_v1.json` in
+the app repo), copied by `npm run hotspots`. The app's names carry a locality
+("..., Philippi"); the site labels each hotspot by its road only. The script strips
+place names, takes hand-written labels for the few that need one (`LABELS` in
+`scripts/sync-hotspots.mjs`), and refuses to write a label that still names a place.
+Run it whenever the app's hotspot list changes, then commit `src/data/hotspots.json`.
+With `SUPABASE_URL` and `SUPABASE_ANON_KEY` set it also applies the positions admins
+have moved in the app (`hotspot_overrides`). Hotspots are awareness only: the copy says
+so, as the app does, and they never feed a figure.
 
 ## Before you push
 

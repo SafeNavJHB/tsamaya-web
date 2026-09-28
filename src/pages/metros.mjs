@@ -32,8 +32,9 @@ const bandLabel = (b) => `areas rated high risk ${BAND_LINE[b.key] || b.name.toL
 
 // A metro's coverage outline (its rated areas dissolved into one shape, from
 // src/data/metro-shapes.json), projected on its own: longitude scaled by the
-// cosine of the latitude, the longer side 600 units. Outline only: it shows
-// where ratings exist, never which parts are high risk.
+// cosine of the latitude, the longer side 600 units. The outline shows where
+// ratings exist, never which parts are high risk. `at` projects a point the
+// same way, for the hotspot markers.
 const SHAPES = JSON.parse(readFileSync(new URL('../data/metro-shapes.json', import.meta.url), 'utf8')).metros;
 function outline(key) {
   const rings = (SHAPES[key] && SHAPES[key].rings) || [];
@@ -44,8 +45,33 @@ function outline(key) {
   const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
   const sc = 600 / Math.max(x1 - x0, y1 - y0), pad = 14;
   const W = Math.round((x1 - x0) * sc + pad * 2), H = Math.round((y1 - y0) * sc + pad * 2);
-  const d = rings.map((r) => 'M' + r.map((p) => `${((p[0] * k - x0) * sc + pad).toFixed(1)} ${((-p[1] - y0) * sc + pad).toFixed(1)}`).join('L') + 'Z').join('');
-  return { W, H, d };
+  const at = (lng, lat) => [(lng * k - x0) * sc + pad, (-lat - y0) * sc + pad];
+  const d = rings.map((r) => 'M' + r.map((p) => at(p[0], p[1]).map((v) => v.toFixed(1)).join(' ')).join('L') + 'Z').join('');
+  return { W, H, d, at };
+}
+
+// Reported hijacking and smash-and-grab hotspots (src/data/hotspots.json, copied
+// from the app by scripts/sync-hotspots.mjs). Points on roads, labelled by the
+// road only: the editorial rule above still holds. Awareness only, as in the
+// app: they never change a route, and the list is not complete.
+const HOTSPOT_DATA = JSON.parse(readFileSync(new URL('../data/hotspots.json', import.meta.url), 'utf8'));
+const HS_KIND = {
+  hijacking: { word: 'Hijacking', cls: 'hj' },
+  smash_and_grab: { word: 'Smash-and-grab', cls: 'sg' },
+  both: { word: 'Hijacking and smash-and-grab', cls: 'hj' },
+};
+const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+for (const h of HOTSPOT_DATA.hotspots) {
+  if (!HS_KIND[h.type]) throw new Error(`hotspots.json: ${h.id} has unknown type "${h.type}"`);
+  if (!metroContent.some((m) => m.key === h.city)) throw new Error(`hotspots.json: ${h.id} is in "${h.city}", which has no metro page`);
+}
+// Hijacking first, then smash-and-grab, each by road name: the list and the
+// markers share this order, and the index links a row to its marker.
+function hotspotsIn(key) {
+  const order = ['hijacking', 'both', 'smash_and_grab'];
+  return HOTSPOT_DATA.hotspots
+    .filter((h) => h.city === key)
+    .sort((a, b) => order.indexOf(a.type) - order.indexOf(b.type) || a.label.localeCompare(b.label));
 }
 
 function metroPage({ content, data }) {
@@ -53,6 +79,14 @@ function metroPage({ content, data }) {
   const red = RED[content.key], z = data.zones, name = content.name;
   const night = BANDS[BANDS.length - 1];
   const o = outline(content.key);
+  const hs = o ? hotspotsIn(content.key) : [];
+  // A marker off the drawing would be clipped without a word; the site's rule is
+  // that missing data is loud (see the note on shapes in README.md).
+  for (const h of hs) {
+    const [x, y] = o.at(h.lng, h.lat);
+    if (x < 0 || y < 0 || x > o.W || y > o.H) throw new Error(`hotspots.json: ${h.id} (${h.lng}, ${h.lat}) falls outside the ${name} map. Check its position in the app, or re-run npm run shapes.`);
+  }
+  const nHj = hs.filter((h) => h.type !== 'smash_and_grab').length, nSg = hs.length - nHj;
 
   // The figure and the numbers. Without JavaScript the list shows every band
   // and the big number shows night; metro.js switches the big number to the
@@ -62,9 +96,17 @@ function metroPage({ content, data }) {
         <svg viewBox="0 0 ${o.W} ${o.H}" role="img" aria-label="Outline of the rated ground in ${name}" focusable="false">
           <defs><pattern id="mx-dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="1.2"/></pattern></defs>
           <path class="mx-fill" fill-rule="evenodd" d="${o.d}"/>
-          <path class="mx-line" d="${o.d}"/>
-        </svg>
-        <figcaption class="hud">Rated ground in ${name}. We never name suburbs as risky.</figcaption>
+          <path class="mx-line" d="${o.d}"/>${hs.length ? `
+          <g class="mx-hs">
+            ${hs.map((h, i) => { const [x, y] = o.at(h.lng, h.lat); return `<g class="hs ${HS_KIND[h.type].cls}" data-h="${i}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle class="hs-halo" r="13"/><circle class="hs-dot" r="5.5"/><title>${HS_KIND[h.type].word}: ${esc(h.label)}</title></g>`; }).join('\n            ')}
+          </g>` : ''}
+        </svg>${hs.length ? `
+        <div class="mx-key" role="group" aria-label="Show on the map">
+          <button class="mk hj hud" type="button" data-t="hj" aria-pressed="true"><i aria-hidden="true"></i>Hijacking <b class="num">${nHj}</b></button>
+          <button class="mk sg hud" type="button" data-t="sg" aria-pressed="true"><i aria-hidden="true"></i>Smash-and-grab <b class="num">${nSg}</b></button>
+        </div>
+        <p class="mx-tip hud" id="mx-tip" aria-live="polite" hidden></p>` : ''}
+        <figcaption class="hud">Rated ground in ${name}${hs.length ? `, with ${hs.length} reported hotspots` : ''}. We never name suburbs as risky.</figcaption>
       </figure>` : '';
   const panel = `
       <div class="mx-panel">
@@ -89,6 +131,26 @@ function metroPage({ content, data }) {
   <div class="wrap mx-in">${figure}${panel}
   </div>
 </section>`;
+
+  const hotspots = hs.length ? sec({
+    id: 'hotspots',
+    kick: 'Hotspots',
+    title: `${hs.length} reported hotspots in ${name}`,
+    lead: `Off-ramps, intersections and stretches of road where hijackings and smash-and-grabs have been reported. The app marks them on the map and gives a spoken heads-up as you approach one. They are awareness only: a hotspot never changes your route, and this is not a complete list.`,
+    inner: `
+    <div class="hs-cols" data-reveal>${[['hj', 'Hijacking', (h) => h.type !== 'smash_and_grab'], ['sg', 'Smash-and-grab', (h) => h.type === 'smash_and_grab']].map(([cls, word, pick]) => {
+      const rows = hs.map((h, i) => [h, i]).filter(([h]) => pick(h));
+      return rows.length ? `
+      <div class="hs-col">
+        <h3 class="hs-h hud"><i class="hs-sw ${cls}" aria-hidden="true"></i>${word}<span class="num">${rows.length}</span></h3>
+        <ul class="hs-list">
+          ${rows.map(([h, i]) => `<li data-h="${i}" tabindex="0">${esc(h.label)}</li>`).join('\n          ')}
+        </ul>
+      </div>` : '';
+    }).join('')}
+    </div>
+    <p class="fine" data-reveal>${esc(HOTSPOT_DATA.attribution)} Positions are approximate. Each hotspot is labelled by its road: Tsamaya names roads, never the neighbourhoods around them.</p>`,
+  }) : '';
 
   const driving = sec({
     id: 'driving',
@@ -134,6 +196,7 @@ function metroPage({ content, data }) {
         lead: content.intro,
       }),
       numbers,
+      hotspots,
       driving,
       faqSec({ id: 'faq', title: `${name}, asked`, faqs: content.faqs }),
       getSec({ title: `Drive ${name} with it tonight.` }),
