@@ -123,7 +123,11 @@ export const site = {
   // `npm run check` fails if it goes missing, precisely so that cannot happen quietly.
   verification: {
     google: 'rTbWXci5jDpgA5KzHoly-_DLJzKFaInplMgdGfvlTnM',
-    bing: '',
+    // Bing Webmaster Tools, property https://tsamayaapp.co.za/, HTML meta tag
+    // method, added 28 September 2026. Bing is the index Copilot answers from,
+    // and on that day it held no page of this site at all. Same rule as the
+    // Google value: Bing re-checks it, so never remove it.
+    bing: '4FCC8CBFF6DE710AD94AB28DF61CBEC6',
   },
 
   // IndexNow key (https://www.indexnow.org). IndexNow is how a site tells Bing,

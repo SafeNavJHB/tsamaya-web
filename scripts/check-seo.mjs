@@ -163,6 +163,14 @@ for (const p of pages) {
   } else {
     warn('no Google Search Console verification token set — search data will not be collected');
   }
+  // The same for Bing Webmaster Tools (the index behind Copilot): a lost tag
+  // un-verifies the site there just as quietly.
+  if (cfg.verification?.bing) {
+    const home = pages.find((p) => p.file === 'index.html');
+    if (home && !home.html.includes(`<meta name="msvalidate.01" content="${cfg.verification.bing}"/>`)) {
+      fail('the Bing Webmaster Tools verification token is configured but missing from the home page');
+    }
+  }
 }
 
 // ---- 8c. Image rules that set width must also set height ---------------------
