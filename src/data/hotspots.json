@@ -78,7 +78,7 @@
     },
     {
       "id": "seed-louis-botha-avenue-between-alexandra-and-hillbrow",
-      "type": "smash_and_grab",
+      "type": "both",
       "city": "johannesburg",
       "label": "Louis Botha Avenue",
       "lng": 28.068,
@@ -681,8 +681,8 @@
       "type": "smash_and_grab",
       "city": "ekurhuleni",
       "label": "Main Reef Road & Field Road",
-      "lng": 28.2159,
-      "lat": -26.1984
+      "lng": 28.215911,
+      "lat": -26.198445
     },
     {
       "id": "seed-boeing-road-william-nicol-drive-bedfordview",
@@ -811,6 +811,118 @@
       "label": "cnr Winnie Mandela Drive & Uranium Road",
       "lng": 28.011838,
       "lat": -26.008226
+    },
+    {
+      "id": "seed-grayston-drive-off-ramp-m1",
+      "type": "smash_and_grab",
+      "city": "johannesburg",
+      "label": "Grayston Drive off-ramp, M1",
+      "lng": 28.07719,
+      "lat": -26.108891
+    },
+    {
+      "id": "seed-rivonia-off-ramp-n1-sunninghill",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "Rivonia off-ramp N1",
+      "lng": 28.060598,
+      "lat": -26.039746
+    },
+    {
+      "id": "seed-cnr-grayston-drive-11th-street-sandton",
+      "type": "hijacking",
+      "city": "johannesburg",
+      "label": "cnr Grayston Drive & 11th Street",
+      "lng": 28.049096,
+      "lat": -26.101373
+    },
+    {
+      "id": "seed-r300-jakes-gerwel-drive-intersection-cape-flats",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "R300 & Jakes Gerwel Drive intersection",
+      "lng": 18.574187,
+      "lat": -34.024246
+    },
+    {
+      "id": "seed-r300-between-jakes-gerwel-drive-and-stock-road-philippi",
+      "type": "hijacking",
+      "city": "cape_town",
+      "label": "R300 between Jakes Gerwel Drive and Stock Road",
+      "lng": 18.590722,
+      "lat": -34.021331
+    },
+    {
+      "id": "seed-cnr-jakes-gerwel-drive-bluegum-avenue-bonteheuwel",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "cnr Jakes Gerwel Drive & Bluegum Avenue",
+      "lng": 18.542233,
+      "lat": -33.951356
+    },
+    {
+      "id": "seed-cnr-jakes-gerwel-drive-bofors-circle-epping",
+      "type": "smash_and_grab",
+      "city": "cape_town",
+      "label": "cnr Jakes Gerwel Drive & Bofors Circle",
+      "lng": 18.543104,
+      "lat": -33.939244
+    },
+    {
+      "id": "seed-power-road-refinery-road-germiston",
+      "type": "smash_and_grab",
+      "city": "ekurhuleni",
+      "label": "Power Road & Refinery Road",
+      "lng": 28.160504,
+      "lat": -26.223866
+    },
+    {
+      "id": "seed-hans-strijdom-drive-and-r21-intersection-pretoria-east",
+      "type": "hijacking",
+      "city": "pretoria",
+      "label": "Hans Strijdom Drive and R21 intersection",
+      "lng": 28.234431,
+      "lat": -25.814263
+    },
+    {
+      "id": "seed-simon-vermooten-road-and-n4-intersection-pretoria-east",
+      "type": "smash_and_grab",
+      "city": "pretoria",
+      "label": "Simon Vermooten Road and N4 intersection",
+      "lng": 28.32644,
+      "lat": -25.750491
+    },
+    {
+      "id": "seed-cnr-silverglen-drive-bulbul-drive-chatsworth",
+      "type": "hijacking",
+      "city": "durban",
+      "label": "cnr Silverglen Drive & Bulbul Drive",
+      "lng": 30.918082,
+      "lat": -29.933229
+    },
+    {
+      "id": "seed-m4-margaret-mncadi-avenue-durban-cbd",
+      "type": "smash_and_grab",
+      "city": "durban",
+      "label": "M4 & Margaret Mncadi Avenue",
+      "lng": 31.011615,
+      "lat": -29.864202
+    },
+    {
+      "id": "seed-cnr-julius-nyerere-avenue-anton-lembede-street-durban-cbd",
+      "type": "hijacking",
+      "city": "durban",
+      "label": "cnr Julius Nyerere Avenue & Anton Lembede Street",
+      "lng": 31.009633,
+      "lat": -29.861434
+    },
+    {
+      "id": "seed-r29-r547-intersection-kinross",
+      "type": "hijacking",
+      "city": "secunda",
+      "label": "R29 & R547 intersection",
+      "lng": 29.089929,
+      "lat": -26.418431
     }
   ]
 }
