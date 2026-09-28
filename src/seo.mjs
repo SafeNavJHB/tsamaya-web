@@ -20,6 +20,7 @@
 // Rich Results Test before shipping.
 
 import { site, stats, baseUrl, canonicalFor } from '../site.config.mjs';
+import { FEATURES, SUMMARY } from './facts.mjs';
 
 // Stable @id anchors. The trailing fragment is conventional and lets other nodes
 // point at these without duplicating them.
@@ -45,6 +46,10 @@ function organisation() {
     },
     email: site.contactEmail,
     slogan: site.tagline,
+    // Profiles that are verifiably this company. They are how a search engine or
+    // an assistant tells this Tsamaya apart from the others (a government transport
+    // programme and a street in Mamelodi share the name).
+    sameAs: site.profiles,
     description: site.description,
     foundingLocation: {
       '@type': 'Place',
@@ -94,20 +99,21 @@ function application() {
     applicationSubCategory: 'Navigation',
     // Both platforms, because every page of this site says both. Declaring iOS
     // only told crawlers the opposite of the page text and made the app node
-    // ineligible for Android-intent results.
-    operatingSystem: 'iOS 16.0 or later, Android',
-    description: site.description,
+    // ineligible for Android-intent results. iOS 16.4 is the floor since build 27.
+    operatingSystem: 'iOS 16.4 or later, Android',
+    // The long summary, not the one-line meta description: this node is what an
+    // assistant reads when asked what the app does.
+    description: SUMMARY,
     publisher: { '@id': ID.org },
     author: { '@id': ID.org },
     inLanguage: 'en-ZA',
     screenshot: `${baseUrl}/img/og.png`,
-    featureList: [
-      'Risk-aware route planning for South African metros',
-      'Time-of-day risk bands for day, evening and night',
-      'Turn-by-turn navigation with a live risk readout',
-      'CarPlay support',
-      'Live trip sharing with a trusted contact',
-    ],
+    // Where to install it: the Play listing and the TestFlight invite.
+    installUrl: [site.androidPlayLink, site.testflightPublicLink],
+    sameAs: [site.androidPlayLink],
+    isAccessibleForFree: true,
+    // One entry per feature, from the same list the home page shows (facts.mjs).
+    featureList: FEATURES.map(([t, d]) => `${t}: ${d}`),
     // Honest: the app is genuinely free, and there is no public rating to claim.
     // Never invent an aggregateRating — fabricated review markup is a manual-action
     // penalty, and there is no version of that trade that is worth it.
@@ -183,7 +189,7 @@ export function siteGraph(page, title, description) {
   // The app node belongs on pages that are actually about the product, not on
   // the sponsor or contact pages — repeating it everywhere dilutes rather than
   // reinforces, and gives crawlers conflicting signals about what each page is.
-  const APP_PAGES = new Set(['index.html', 'how-it-works.html', 'demo.html', 'technical.html', 'coverage.html']);
+  const APP_PAGES = new Set(['index.html', 'how-it-works.html', 'demo.html', 'technical.html', 'coverage.html', 'driving-in-south-africa.html']);
   if (APP_PAGES.has(page.slug)) graph.push(application());
 
   for (const node of page.jsonLd || []) if (node) graph.push(node);

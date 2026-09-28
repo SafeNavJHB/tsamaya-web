@@ -26,8 +26,11 @@ export const site = {
   tagline: 'Go well.',
   lockup: 'Tsamaya. Go well.',
   // Short meta description used site-wide unless a page overrides it.
+  // Says what the app does AND names the safety tools, because this line is what
+  // search results and AI assistants quote first (an assistant that read the old
+  // line concluded the app had no SOS and no live sharing).
   description:
-    'Tsamaya plans driving routes around known crime hotspots in South African metros, using published crime statistics and local knowledge.',
+    'Tsamaya is a free South African navigation app that routes drivers around crime hotspots by time of day, with SOS, live trip sharing, CarPlay and Android Auto.',
 
   // No custom domain registered yet → relative URLs, hosted on GitHub Pages for now.
   // When tsamayaapp.co.za is registered & DNS is pointed, set `domain` (e.g.
@@ -75,6 +78,13 @@ export const site = {
   // this site would only ever go stale.
   androidPlayLink: 'https://play.google.com/store/apps/details?id=com.tsamaya.app',
 
+  // Public profiles that are verifiably this company (the Organization node's
+  // sameAs in src/seo.mjs). Only add one you have checked is ours: a wrong entry
+  // tells search engines two different things are the same company.
+  profiles: [
+    'https://www.linkedin.com/company/tsamaya',
+  ],
+
   // Legal pages now live on THIS site (src/pages/privacy.mjs + terms.mjs, text
   // rendered from src/content/*.md). They used to be a separate GitHub Pages
   // site — which meant tsamayaapp.co.za/privacy 404'd, and that is the URL the
@@ -115,6 +125,15 @@ export const site = {
     google: 'rTbWXci5jDpgA5KzHoly-_DLJzKFaInplMgdGfvlTnM',
     bing: '',
   },
+
+  // IndexNow key (https://www.indexnow.org). IndexNow is how a site tells Bing,
+  // and through it Copilot, that a page changed, instead of waiting weeks for a
+  // re-crawl: on 2026-09-28 Copilot was still describing a four-metro site. The
+  // key is PUBLIC by design (the build publishes it at /<key>.txt so the search
+  // engine can confirm the ping came from the site's owner), so it lives here in
+  // plain sight. scripts/indexnow.mjs does the pinging from the deploy workflow.
+  // Changing it is harmless: the next deploy publishes the new file.
+  indexNowKey: 'd4ee8e31ee1e86ad9459a40c38349d51',
 
   // Web analytics. OFF by default — set `provider` and the matching field to switch it on.
   //
@@ -204,6 +223,7 @@ export const nav = [
   // secondary: in the footer, and in the small row under the mobile menu.
   { href: 'index.html', label: 'Home' },
   { href: 'demo.html', label: 'See it' },
+  { href: 'driving-in-south-africa.html', label: 'Visiting SA' },
   { href: 'technical.html', label: 'Technical' },
   { href: 'contact.html', label: 'Contact' },
 ];
