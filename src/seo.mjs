@@ -99,10 +99,10 @@ function application() {
     applicationSubCategory: 'Navigation',
     // Both platforms, because every page of this site says both. Declaring iOS
     // only told crawlers the opposite of the page text and made the app node
-    // ineligible for Android-intent results. No version floor: the public
-    // TestFlight build and the next one differ (iOS 15.1 and 16.4 on
-    // 2026-09-28), and a stale number is worse than none.
-    operatingSystem: 'iOS, Android',
+    // ineligible for Android-intent results. iOS 16.4 is the floor from 1.7.0
+    // (build 27) on, which is what the public TestFlight link is moving to
+    // (Kyle, 2026-09-28; 1.6.0 still ran on 15.1).
+    operatingSystem: 'iOS 16.4 or later, Android',
     // The long summary, not the one-line meta description: this node is what an
     // assistant reads when asked what the app does.
     description: SUMMARY,

@@ -335,7 +335,7 @@ const faqs = [
   },
   {
     q: 'Does Tsamaya have an SOS or panic button?',
-    a: 'Yes. The SOS button on the phone\'s drive screen calls 10111 (the police) or 112 (any mobile), or opens a text to your emergency contact, ready to send, with your coordinates and a link that follows you live while you drive and stays up for 24 hours. The button is not shown while a drive is on CarPlay. Tsamaya does not send armed response or an ambulance itself, so keep a dedicated emergency app as well, such as Namola, or the panic button your insurer, bank or security company offers.',
+    a: 'Yes. The SOS button on the phone\'s drive screen calls 10111 (the police) or 112 (any mobile), or opens a text to your emergency contact, ready to send, with your coordinates and a link that follows you live while you drive and stays up for 24 hours. The button is not shown while a drive is on CarPlay. Tsamaya does not send armed response or an ambulance itself, so keep a dedicated emergency app as well, such as the panic button your insurer, bank or security company offers.',
   },
   {
     q: 'Can someone at home follow my drive?',

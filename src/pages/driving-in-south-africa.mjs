@@ -15,8 +15,8 @@ import { pageHead, sec, faqSec, getSec, linkQ, M } from '../kit.mjs';
 // Brand rules as everywhere: lower-risk language, never "safe" as a promise, no
 // suburb named as risky (roads and regions only), no em dashes, figures from
 // stats.json only. Claims about other apps stay at the level of what KIND of app
-// they are; this page never describes a competitor's features (Namola appears
-// only as an example of a dedicated emergency app, which is what it is).
+// they are; this page never describes a competitor's features, and never names
+// another safety or emergency app (Kyle's call, 2026-09-28).
 
 const nMetros = stats.totals.metros;
 
@@ -85,7 +85,7 @@ const where = sec({
 const ROWS = [
   ['Get from A to B', 'Turn-by-turn with voice, on the phone or Apple CarPlay. It can also hand its route to Google Maps with the detour points in place.', 'Any navigator: Google Maps, Waze, Apple Maps.'],
   ['Keep away from high-risk areas', `Routes around rated areas, with separate ratings for day, evening and night, in ${nMetros} metros.`, 'Ask where you are staying which roads locals avoid.'],
-  ['Get help in an emergency', 'The SOS button calls 10111 or 112, or opens a ready-to-send text to your emergency contact. It does not dispatch anyone itself.', 'A dedicated emergency app, such as Namola, or the panic button your insurer, bank or security company offers.'],
+  ['Get help in an emergency', 'The SOS button calls 10111 or 112, or opens a ready-to-send text to your emergency contact. It does not dispatch anyone itself.', 'A dedicated emergency app, such as the panic button your insurer, bank or security company offers.'],
   ['Let people know where you are', 'A live trip link that opens in any browser, with your arrival time and an Arrived screen.', 'Live location in WhatsApp.'],
 ];
 
