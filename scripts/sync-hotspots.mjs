@@ -80,9 +80,6 @@ const ROADISH =
 // renamed hotspot falls back to roadLabel() and meets the guard below.
 const LABELS = {
   'seed-knights-road-bridge-near-good-hope-informal-settlement-germiston': 'Knights Road bridge',
-  // The source names only the settlement. Replace with the road once someone
-  // has checked the spot on a map.
-  'seed-angelo-informal-settlement-traffic-lights-boksburg': 'Traffic lights (road name to be confirmed)',
   'seed-louis-botha-avenue-between-alexandra-and-hillbrow': 'Louis Botha Avenue',
   'seed-voortrekker-road-between-bellville-and-parow': 'Voortrekker Road',
   "seed-e-skia-mphahlele-drive-near-marabastad": "E'skia Mphahlele Drive",
