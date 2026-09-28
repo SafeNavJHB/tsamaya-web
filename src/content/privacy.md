@@ -1,8 +1,8 @@
 # Tsamaya Privacy Policy
 
-**Status: v1.3, prepared 2026-09-27 (added HERE as a backup place-search provider in §1 and §5: when Google's search cannot answer, for example because it is over its daily limit, your search text and an approximate area are sent to HERE through our server, and HERE's own End User Terms and Privacy Policy apply to that search). v1.2, prepared 2026-09-26 (added §3b on voice reports: the microphone and speech recognition are used only when you tap Speak or ask Siri to make a report, and no audio is kept; §3 now describes the two report types that carry a position, live police and roadblock notices and speed camera reports; §1, §2 and §5 updated to match). v1.1, prepared 2026-09-09 (corrected §4a, which said the stored metro is chosen from six areas when the service covers twelve, and aligned the §1 description and §3a wording with the definition of "lower-risk" in the Terms of Use). v1.0, prepared 2026-08-25 (enabled crash reporting and disclosed it before switching it on, as v0.9 undertook to do: §4 now describes what a crash report contains, that the event trail is filtered on-device to remove coordinates, place names and destinations, and that the data is stored in the EU; §5 adds Sentry as a processor). Earlier revisions: v0.9, prepared 2026-08-09 (added §4a disclosing optional push notifications: the device push token, platform and coarse metro stored per device, the two independent opt-in switches, and Expo/APNs/FCM as delivery processors); v0.8 moved the responsible party from Kyle Guy Kimble personally to Tsamaya (Pty) Ltd, unified contact on info@tsamayaapp.co.za, added Google Play as an Android distribution processor, and generalised iOS-only wording, all ahead of the Google Play listing under the company's developer account; v0.7 corrected live-trip link expiry to match implementation (active trips 12 h rolling, ended/arrived trips ~30 min, SOS links 24 h), §3a/§6; v0.6 disclosed optional live trip sharing, §3a/§2/§5/§6; v0.5 added Google Places API as the place-search processor, §1/§5. This text is not legal advice and remains subject to review by a South African attorney. Items still open for that review are tracked as notes in the source document.**
+**Status: v1.4, prepared 2026-09-28 (added §4b on Tsamaya Premium, the optional subscription: Apple or Google take the payment, RevenueCat checks subscriptions using a random id it creates and the store's purchase records, on iPhone RevenueCat also sends Apple's identifier for vendor, and our server keeps each subscription's status; RevenueCat added to §5, Premium to §1 and §6). v1.3, prepared 2026-09-27 (added HERE as a backup place-search provider in §1 and §5: when Google's search cannot answer, for example because it is over its daily limit, your search text and an approximate area are sent to HERE through our server, and HERE's own End User Terms and Privacy Policy apply to that search). v1.2, prepared 2026-09-26 (added §3b on voice reports: the microphone and speech recognition are used only when you tap Speak or ask Siri to make a report, and no audio is kept; §3 now describes the two report types that carry a position, live police and roadblock notices and speed camera reports; §1, §2 and §5 updated to match). v1.1, prepared 2026-09-09 (corrected §4a, which said the stored metro is chosen from six areas when the service covers twelve, and aligned the §1 description and §3a wording with the definition of "lower-risk" in the Terms of Use). v1.0, prepared 2026-08-25 (enabled crash reporting and disclosed it before switching it on, as v0.9 undertook to do: §4 now describes what a crash report contains, that the event trail is filtered on-device to remove coordinates, place names and destinations, and that the data is stored in the EU; §5 adds Sentry as a processor). Earlier revisions: v0.9, prepared 2026-08-09 (added §4a disclosing optional push notifications: the device push token, platform and coarse metro stored per device, the two independent opt-in switches, and Expo/APNs/FCM as delivery processors); v0.8 moved the responsible party from Kyle Guy Kimble personally to Tsamaya (Pty) Ltd, unified contact on info@tsamayaapp.co.za, added Google Play as an Android distribution processor, and generalised iOS-only wording, all ahead of the Google Play listing under the company's developer account; v0.7 corrected live-trip link expiry to match implementation (active trips 12 h rolling, ended/arrived trips ~30 min, SOS links 24 h), §3a/§6; v0.6 disclosed optional live trip sharing, §3a/§2/§5/§6; v0.5 added Google Places API as the place-search processor, §1/§5. This text is not legal advice and remains subject to review by a South African attorney. Items still open for that review are tracked as notes in the source document.**
 
-**Effective date:** 27 September 2026
+**Effective date:** 28 September 2026
 **Responsible party (POPIA):** Tsamaya (Pty) Ltd (reg. K2023990736), South Africa ("we", "us")
 **Contact:** info@tsamayaapp.co.za
 
@@ -17,6 +17,7 @@ Tsamaya is a navigation app for South African metros that suggests driving route
 - During the beta we collect **anonymous, aggregate usage events** (such as the app being opened, or a route requested/accepted/completed) tied only to a random installation id, never your location history, name, or account. See section 4.
 - If you choose to **send a report or feedback**, we store what you submit (and your email only if you choose to provide it). See "User reports and feedback" below.
 - **Voice reports are optional.** When you tap **Speak** (or ask Siri) to report something on the road, your phone's own speech service turns what you say into text so the app can choose the report. Tsamaya **never records or keeps audio**; only the report itself is sent. See §3b.
+- **Tsamaya Premium is optional.** If you subscribe, Apple or Google takes the payment and **we never see your card**. RevenueCat, the service that checks subscriptions for us, receives your store purchase records and a random id it creates, so Premium stays on the account that paid. See section 4b.
 - Notifications are **optional**. If you switch them on, we store a delivery token for your device and the metro you are in (such as "Cape Town") so that a closure alert reaches the right city, **never your coordinates**. There are two separate switches and you can turn either off at any time. See section 4a.
 
 ## 1. Information we process, and why
@@ -29,9 +30,10 @@ Tsamaya is a navigation app for South African metros that suggests driving route
 | Technical request metadata (IP address, basic device info) | Our service providers (Mapbox; Supabase, which hosts our public zone/corridor dataset) receive standard network metadata when the app calls them | Operating and securing the services | Legitimate interest |
 | Reviewer account email (admin/editor users only, not drivers) | Supabase authentication | Restricting data-editing tools to authorised reviewers | Performance of contract |
 | Reports and feedback you choose to submit (see section 3) | Supabase (our hosted database) | Reviewing and improving the risk dataset and the app | Consent (you tap Send) |
+| Premium purchases, only if you subscribe (see section 4b) | Apple or Google take the payment. RevenueCat receives the store's purchase and renewal records, a random RevenueCat id and basic device details. Our server (Supabase) keeps the subscription's status against that id | Selling Premium and keeping it on the store account that paid for it | Performance of contract (the subscription you buy) |
 | Your voice, only while you make a voice report (see section 3b) | Your phone's speech service (Apple on iPhone; usually Google on Android) turns it into text; the audio is not recorded, kept or sent to us | Choosing the report type you said | Consent (the microphone and speech permissions, and your tap on Speak) |
 
-We do **not** process: names, contact lists, payment details, advertising identifiers, or background location when the app is closed.
+We do **not** process: names, contact lists, payment details (Apple and Google take payment for Premium; we never see card or bank details), advertising identifiers, or background location when the app is closed.
 
 ## 2. What we deliberately do not do
 
@@ -101,6 +103,24 @@ To deliver a notification we store, for each device:
 
 We do not use notifications for advertising, and we do not send them for anyone else. A person writes and approves every notification before it goes out. Nothing is sent automatically because of where you are or where you drive. If the delivery service tells us a token no longer works, for example after you uninstall the app, we stop using it.
 
+## 4b. Tsamaya Premium (optional subscription)
+
+Tsamaya Premium is an optional subscription (Terms of Use section 6). If you never subscribe, the only part of this section that applies to you is that the app asks RevenueCat whether this device has Premium, which sends RevenueCat the random id and device details described below.
+
+When you subscribe, you pay Apple (App Store) or Google (Google Play) under their own terms. **We never see your card or bank details, your name or your email address.**
+
+To check that a subscription is real, and to keep Premium on the right account, the app uses **RevenueCat**, a subscription service. RevenueCat receives:
+
+- a random **RevenueCat id** that the app creates on your device. It is not an account, and it is not the installation identifier in section 3;
+- the store's **purchase and renewal records** for Tsamaya Premium: which plan, when it started, when it renews or ends, and whether a free trial or a billing problem applies;
+- basic **device details** sent with each request: the device model, operating system and app version, language and store country. On an iPhone, RevenueCat's software also sends Apple's **identifier for vendor**, an id that is the same for every app from one developer on that phone. Tsamaya does not give RevenueCat any advertising identifier.
+
+On Android, Google's backup service may keep a paying subscriber's RevenueCat id so that Premium comes back after a reinstall.
+
+RevenueCat tells our server (Supabase) when a subscription starts, renews, ends or moves to another phone. We keep that status (the RevenueCat id, the plan, the store and the dates) so that we can count subscribers and answer billing questions. It contains no name, email or location.
+
+We use this information only to provide Premium. It is not used for advertising or profiling.
+
 ## 5. Third-party processors
 
 | Provider | Role | Data touched |
@@ -109,9 +129,10 @@ We do not use notifications for advertising, and we do not send them for anyone 
 | Google LLC (USA) | Place search / autocomplete (Google Maps Platform, Places API) | Destination search text + approximate location bias (see Google's privacy policy) |
 | HERE Europe B.V. (Netherlands) | Backup place search, only when Google's search cannot answer (for example when it is over its daily limit) | Destination search text + an approximate location rounded to about 100 m, sent through our server (Supabase), which keeps neither. HERE's End User Terms (www.here.com/en-gb/terms/here-end-user-terms) and Privacy Policy (legal.here.com/en-gb/privacy) apply to those searches. Places found this way are kept on your device for at most 30 days unless refreshed, as HERE's terms require |
 | Supabase (cloud hosting) | Hosts our public risk-zone dataset, user reports, reviewer authentication, anonymous usage events, and any live trip you choose to share (while active) | IP/request metadata; report contents (incl. optional emails); reviewer emails (admins only); anonymous usage events; shared-trip location while active |
-| Apple Inc. (USA) | App distribution (App Store, TestFlight) | Per Apple's terms |
+| Apple Inc. (USA) | App distribution (App Store, TestFlight), and payment for Premium on iPhone | Per Apple's terms |
+| RevenueCat, Inc. (USA) | Checks Premium subscriptions with Apple and Google (section 4b) | A random RevenueCat id, the store's purchase and renewal records, device model, OS and app version, language and store country; on iPhone, Apple's identifier for vendor |
 | Apple Inc. (USA) / Google LLC (USA) | Speech to text for voice reports, only while you make one (§3b) | The few seconds of speech while the app listens, under the provider's own terms. Tsamaya receives only the recognised text and keeps none of it |
-| Google LLC (USA) | App distribution on Android (Google Play) | Per Google Play's terms |
+| Google LLC (USA) | App distribution on Android (Google Play), and payment for Premium on Android | Per Google Play's terms |
 | Functional Software, Inc. dba Sentry (EU data region, Germany) | Crash and error reporting | The error and its stack trace, device model, OS version, app and update version, the random installation identifier, and a filtered trail of recent app events. Never coordinates, place names, start/end points or other personal information |
 | Expo (650 Industries, Inc., USA) | Push-notification delivery, if you opt in (§4a) | Device push token, notification title/text |
 | Apple Inc. (USA) / Google LLC (USA) | Push delivery to the device itself (APNs / Firebase Cloud Messaging) | Device push token, notification title/text |
@@ -125,6 +146,7 @@ These providers process data outside South Africa. POPIA s72 permits cross-borde
 - On-device data (saved places, settings): retained until you delete it or uninstall the app.
 - User reports and feedback: retained until reviewed and actioned; deletable on request via the contact address.
 - Push registrations (§4a): retained while notifications are switched on. Deleted immediately when you turn both notification switches off, and retired when the delivery service reports the app has been uninstalled.
+- Premium records (section 4b): kept by RevenueCat and on our server while they are needed to provide Premium and answer billing questions, and deleted on request where the law allows.
 - Reviewer accounts: retained while the reviewer is authorised.
 
 ## 7. Security
