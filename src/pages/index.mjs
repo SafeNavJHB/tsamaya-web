@@ -17,6 +17,7 @@ import { site, stats, fmt } from '../../site.config.mjs';
 import { deviceShot } from '../components.mjs';
 import { shotSize } from '../shots.mjs';
 import { faqNode } from '../seo.mjs';
+import { FEATURES, SUMMARY } from '../facts.mjs';
 import { siteData } from '../sitedata.mjs';
 import { posterDefs, planSvg, saSvg, tagAnchors, metrosBySize } from '../poster.mjs';
 import { exploreSection } from '../explore.mjs';
@@ -224,18 +225,10 @@ const STEPS = [
   ['Move it onto checked roads', 'If the route runs through a high-risk area, it moves it onto roads we have checked, and tells you what it went around.'],
   ['Throw out bad detours', 'A detour only gets offered if it cuts your exposure. One that adds too much distance is thrown out, even when it carries less risk.'],
   ["Say so when there's no better way", 'When there is no good alternative, Tsamaya says so and gives you the normal route with the risky stretches marked. It will not invent a detour to look busy.'],
-  ['Drive it', 'Turn-by-turn with voice, CarPlay and Android Auto in the app. Or hand it to Google Maps with the detour points already in place.'],
+  ['Drive it', 'Turn-by-turn with voice, on the phone or Apple CarPlay (Android Auto is in testing). Or hand it to Google Maps with the detour points already in place.'],
 ];
-const FEATURES = [
-  ['Three options', 'Fastest, Balanced and Lower-risk, each with an A to E grade.'],
-  ['Live overlay', 'Turn it on to see every rated area and road, colour-coded.'],
-  ['Driver notices', 'Police and roadblock notices from other drivers, shown for an hour and spoken when they are ahead. They never change your route.'],
-  ['Closures', 'Road closures and protest reports are picked up daily and routed around.'],
-  ['Speed', 'A speed limit readout and a gentle over-speed chime.'],
-  ['Share a trip', 'Someone at home can follow your live trip on the website.'],
-  ['Report a corner', 'Tell us where we got it wrong, from inside the app.'],
-  ['Outside the metros', 'An ordinary map and navigator. It just has no risk data there.'],
-];
+// The feature grid reads the shared list (src/facts.mjs), which also feeds the
+// app's structured data and /llms.txt, so the three can never disagree.
 // Two daytime captures (src/shots.mjs, 2026/09/25). Their alt text is written
 // here, not taken from altFor(): the shared alts name the suburbs the trips ran
 // through, and the home page names no suburbs, least of all beside a risk figure.
@@ -317,12 +310,16 @@ const coverage = `
   </div>
 </section>`;
 
-// Today's six questions, word for word. The same list feeds the FAQ JSON-LD, so
-// the structured data always matches what is on the page.
+// The questions, word for word. The same list feeds the FAQ JSON-LD, so the
+// structured data always matches what is on the page. Assistants such as Copilot
+// and ChatGPT lift these answers almost verbatim, so each one says the whole
+// thing in its first sentence and none leans on the one before it. The SOS,
+// trip-sharing and visitor questions were added on 2026-09-28, after an
+// assistant told a traveller Tsamaya had neither an SOS button nor live sharing.
 const faqs = [
   {
     q: 'What is Tsamaya?',
-    a: 'A free navigation app for South African drivers. It plans routes around the places where vehicle crime is known to happen, instead of only working out the quickest way there. It is in open beta on iPhone and Android at the moment.',
+    a: SUMMARY,
   },
   {
     q: 'Where does the risk data come from?',
@@ -337,8 +334,20 @@ const faqs = [
     a: 'Usually a few minutes. A detour is only offered when it cuts your exposure, and anything dramatically longer than the direct route is rejected outright.',
   },
   {
+    q: 'Does Tsamaya have an SOS or panic button?',
+    a: 'Yes. The SOS button on the phone\'s drive screen calls 10111 (the police) or 112 (any mobile), or opens a text to your emergency contact, ready to send, with your coordinates and a link that follows you live while you drive and stays up for 24 hours. The button is not shown while a drive is on CarPlay. Tsamaya does not send armed response or an ambulance itself, so keep a dedicated emergency app as well, such as the panic button your insurer, bank or security company offers.',
+  },
+  {
+    q: 'Can someone at home follow my drive?',
+    a: 'Yes. Share a trip and they get a link that opens in any browser, with no app to install: your route, where you are now, your arrival time, and an Arrived screen when you get there. If you drive with CarPlay, Guardian keeps one standing link for your emergency contact, and a tap on the car screen starts sharing to it.',
+  },
+  {
+    q: 'I am visiting South Africa. Is Tsamaya useful to me?',
+    a: 'Yes, if you will be driving. There is no account to create, it works in any car including a rental, and it covers the places most visitors drive: Johannesburg, Pretoria, Cape Town and Stellenbosch, Durban, the Kruger National Park area, Pilanesberg and Mossel Bay on the Garden Route. People at home can follow your drives in a browser. <a href="driving-in-south-africa.html">A visitor\'s guide to driving here</a>.',
+  },
+  {
     q: 'Is Tsamaya free?',
-    a: 'Yes. It is paid for out of pocket, with help from anyone who chips in. There are no ads, and we do not sell anything about you.',
+    a: 'Yes. Everything that routes you around risk, the SOS button and trip sharing included, is free and stays free. It is paid for out of pocket, with help from anyone who chips in. There are no ads, and we do not sell anything about you.',
   },
   {
     q: 'Does it guarantee I will be safe?',

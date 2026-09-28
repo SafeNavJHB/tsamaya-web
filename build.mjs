@@ -13,6 +13,7 @@ import { renderPage } from './src/layout.mjs';
 import { siteData, geoData } from './src/sitedata.mjs';
 import { site, baseUrl, canonicalFor } from './site.config.mjs';
 import { stripJs } from './scripts/strip-js.mjs';
+import { llmsTxt } from './src/llms.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const dist = join(root, 'dist');
@@ -157,6 +158,16 @@ async function build() {
       'utf8',
     );
     console.log(`  ✓ sitemap.xml (${indexable.length} URLs, lastmod ${buildDate})`);
+
+    // /llms.txt: the site's facts in one Markdown file for AI assistants
+    // (src/llms.mjs says why). Built from the same pages and data as the site.
+    const llms = llmsTxt(pages, buildDate);
+    await writeFile(join(dist, 'llms.txt'), llms, 'utf8');
+    console.log(`  ✓ llms.txt (${Math.round(llms.length / 1024)} KB)`);
+
+    // The IndexNow key file (site.config.mjs, indexNowKey): its presence at the
+    // site root is what proves an IndexNow ping (scripts/indexnow.mjs) is ours.
+    if (site.indexNowKey) await writeFile(join(dist, `${site.indexNowKey}.txt`), site.indexNowKey, 'utf8');
   }
 
   console.log(`\nBuilt ${pages.length} pages → ${dist}`);

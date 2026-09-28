@@ -17,7 +17,8 @@ tsamaya-web/  (this repo — site lives at the root)
 │   ├── make-coverage-shapes.py ← dissolves each metro's live risk zones into one outline
 │   ├── make-land-outline.py  ← regenerates the country outline (run once, ever)
 │   ├── optimise-images.mjs ← screenshots → AVIF/WebP/JPEG at three widths
-│   └── check-seo.mjs     ← guards the SEO invariants (runs in CI, gates deploy)
+│   ├── check-seo.mjs     ← guards the SEO invariants (runs in CI, gates deploy)
+│   └── indexnow.mjs      ← tells Bing which pages changed after each deploy (runs in CI)
 ├── src/
 │   ├── layout.mjs        ← the shared page shell (header + footer + meta + JSON-LD)
 │   ├── seo.mjs           ← structured data (Organization, app, FAQ, breadcrumbs)
@@ -32,7 +33,9 @@ tsamaya-web/  (this repo — site lives at the root)
 │   │   ├── hotspots.json ← hotspot points, road-only labels (generated — do not hand-edit)
 │   │   ├── za-land.json  ← the country outline (generated — do not hand-edit)
 │   │   └── metros.mjs    ← per-metro editorial copy for the landing pages
-│   └── pages/*.mjs       ← one file per page; metros.mjs emits thirteen at once (twelve metros plus the coverage index)
+│   ├── facts.mjs         ← what the app does, once: feeds the home grid, the app's JSON-LD and llms.txt
+│   ├── llms.mjs          ← writes /llms.txt, the site's facts in one Markdown file for AI assistants
+│   └── pages/*.mjs       ← one file per page; metros.mjs emits one page per metro plus the coverage index
 ├── public/               ← static assets copied as-is (styles.css, app.js, fonts, images)
 └── dist/                 ← the built site (created by build.mjs; safe to delete)
 ```
