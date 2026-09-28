@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-28.2",
+      "date": "28 September 2026",
+      "items": [
+        {
+          "icon": "layers-outline",
+          "title": "New risk areas show up on the map straight away",
+          "body": "When risk areas are added or re-rated, the home map now draws them as soon as they download. Before, it could keep drawing the old areas, even after a restart, until the data was refreshed by hand, although routes already used the new ones.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-28.1",
       "date": "28 September 2026",
       "items": [
