@@ -87,6 +87,7 @@ function metroPage({ content, data }) {
     if (x < 0 || y < 0 || x > o.W || y > o.H) throw new Error(`hotspots.json: ${h.id} (${h.lng}, ${h.lat}) falls outside the ${name} map. Check its position in the app, or re-run npm run shapes.`);
   }
   const nHj = hs.filter((h) => h.type !== 'smash_and_grab').length, nSg = hs.length - nHj;
+  const nHs = `${hs.length} reported hotspot${hs.length === 1 ? '' : 's'}`;
 
   // The figure and the numbers. Without JavaScript the list shows every band
   // and the big number shows night; metro.js switches the big number to the
@@ -102,11 +103,11 @@ function metroPage({ content, data }) {
           </g>` : ''}
         </svg>${hs.length ? `
         <div class="mx-key" role="group" aria-label="Show on the map">
-          <button class="mk hj hud" type="button" data-t="hj" aria-pressed="true"><i aria-hidden="true"></i>Hijacking <b class="num">${nHj}</b></button>
-          <button class="mk sg hud" type="button" data-t="sg" aria-pressed="true"><i aria-hidden="true"></i>Smash-and-grab <b class="num">${nSg}</b></button>
+          ${nHj ? `<button class="mk hj hud" type="button" data-t="hj" aria-pressed="true"><i aria-hidden="true"></i>Hijacking <b class="num">${nHj}</b></button>` : ''}
+          ${nSg ? `<button class="mk sg hud" type="button" data-t="sg" aria-pressed="true"><i aria-hidden="true"></i>Smash-and-grab <b class="num">${nSg}</b></button>` : ''}
         </div>
         <p class="mx-tip hud" id="mx-tip" aria-live="polite" hidden></p>` : ''}
-        <figcaption class="hud">Rated ground in ${name}${hs.length ? `, with ${hs.length} reported hotspots` : ''}. We never name suburbs as risky.</figcaption>
+        <figcaption class="hud">Rated ground in ${name}${hs.length ? `, with ${nHs}` : ''}. We never name suburbs as risky.</figcaption>
       </figure>` : '';
   const panel = `
       <div class="mx-panel">
@@ -135,7 +136,7 @@ function metroPage({ content, data }) {
   const hotspots = hs.length ? sec({
     id: 'hotspots',
     kick: 'Hotspots',
-    title: `${hs.length} reported hotspots in ${name}`,
+    title: `${nHs} in ${name}`,
     lead: `Off-ramps, intersections and stretches of road where hijackings and smash-and-grabs have been reported. The app marks them on the map and gives a spoken heads-up as you approach one. They are awareness only: a hotspot never changes your route, and this is not a complete list.`,
     inner: `
     <div class="hs-cols" data-reveal>${[['hj', 'Hijacking', (h) => h.type !== 'smash_and_grab'], ['sg', 'Smash-and-grab', (h) => h.type === 'smash_and_grab']].map(([cls, word, pick]) => {
