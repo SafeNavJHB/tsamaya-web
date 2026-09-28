@@ -1,10 +1,10 @@
 # Tsamaya Terms of Use
 
-**Status: v0.4, prepared 2026-08-06 (provider moved from Kyle Guy Kimble personally to Tsamaya (Pty) Ltd and the contact address unified on info@tsamayaapp.co.za, ahead of the Google Play listing under the company's developer account; v0.3 added the user-reports sentence to §3 for the TestFlight beta). Not legal advice; remains subject to review by a South African attorney (specific attention: Consumer Protection Act 68 of 2008 limits on disclaimers/indemnities, and the POPIA cross-references). Items still open for that review are tracked as notes in the source document.**
+**Status: v0.5, prepared 2026-09-28 (added §6 Tsamaya Premium, the optional subscription sold through the App Store and Google Play; the sections after it are renumbered 7 to 10, and §7's liability cap now names what a subscriber paid). v0.4, prepared 2026-08-06 (provider moved from Kyle Guy Kimble personally to Tsamaya (Pty) Ltd and the contact address unified on info@tsamayaapp.co.za, ahead of the Google Play listing under the company's developer account; v0.3 added the user-reports sentence to §3 for the TestFlight beta). Not legal advice; remains subject to review by a South African attorney (specific attention: Consumer Protection Act 68 of 2008 limits on disclaimers/indemnities, and the POPIA cross-references). Items still open for that review are tracked as notes in the source document.**
 
 **Provider:** Tsamaya (Pty) Ltd (reg. K2023990736), South Africa ("Tsamaya", "we").
 **Contact:** info@tsamayaapp.co.za
-**Effective:** 6 August 2026
+**Effective:** 28 September 2026
 
 By using the Tsamaya app you agree to these terms. If you do not agree, do not use the app.
 
@@ -35,25 +35,38 @@ The app, its design, brand ("Tsamaya", the mark, "Go well"), and its curated ris
 
 The app is provided "as available." Features, coverage areas, and data may change, break, or be withdrawn without notice: this is a beta-stage product. We may suspend the service for maintenance or at our discretion.
 
-## 6. Limitation of liability
+## 6. Tsamaya Premium (optional subscription)
+
+Tsamaya Premium is an optional, auto-renewing subscription that adds extras for the drive, such as more detailed place search and additional vehicle markers. Every feature that routes you around risk (all route options, risk alerts, Guardian, reports, CarPlay and Android Auto) stays free and never depends on Premium.
+
+- **Where you buy it.** Premium is sold through the Apple App Store or Google Play. The store takes the payment under its own terms; we never see your card or bank details.
+- **Prices and trials.** The plans, their prices and any free trial are shown in the app before you confirm. A free trial is offered once per Apple ID or Google account, and you are charged when it ends unless you cancel in time: on the App Store at least 24 hours before it ends, on Google Play before it ends.
+- **Renewal and cancelling.** Premium renews automatically at the end of each period. On the App Store, turn off auto-renew at least 24 hours before the period ends; on Google Play, cancel before the renewal date. Both are done in your store account's subscription settings (the app links to them). Cancelling stops the next renewal; Premium stays on until the end of the period you paid for.
+- **Whose it is.** Premium belongs to the Apple ID or Google account that bought it and works on that account's devices on the same platform. It does not carry over between Apple and Android devices. Restore Purchases in the app brings it back after a reinstall or on a new phone.
+- **Refunds.** Refunds are handled by Apple or Google under their refund policies. Nothing in these terms limits a right you have under the Consumer Protection Act or the Electronic Communications and Transactions Act.
+- **Limits and changes.** Premium features rely on third-party services that have daily limits (for example Google search); when a limit is reached the app uses its free alternatives for the rest of that day. We may improve or change Premium's features; if we remove a significant one, we will say so in the app, and you may cancel. A price change for future periods is announced by the store in advance, and where the store requires it you are asked to agree.
+
+[ATTORNEY: confirm the auto-renewal wording against CPA s14 (fixed-term agreements) and the ECTA s44 cooling-off period for electronic transactions, and whether the store's own refund process satisfies them.]
+
+## 7. Limitation of liability
 
 To the maximum extent permitted by South African law (including the Consumer Protection Act, where it applies):
 
 - the app is provided **without warranties** of any kind, express or implied, including fitness for a particular purpose and accuracy of data;
 - we are **not liable** for any loss, damage, injury, or death arising from use of, reliance on, or inability to use the app or its route suggestions, except to the extent such liability cannot lawfully be excluded;
-- where liability cannot be excluded, it is limited to the amount you paid us for the app in the preceding 12 months (currently: nothing).
+- where liability cannot be excluded, it is limited to the amount you paid us in the preceding 12 months (for most users nothing; for a Premium subscriber, what they paid for Premium).
 
 [ATTORNEY: confirm CPA s48–s51 and s61 posture; adjust the carve-outs accordingly. Note that the in-app risk warnings in §2 are also CPA s49 notices. Confirm prominence/acknowledgement mechanics.]
 
-## 7. Indemnity
+## 8. Indemnity
 
 To the extent permitted by law, you indemnify us against claims arising from your unlawful use of the app or your breach of these terms.
 
-## 8. Termination
+## 9. Termination
 
-You may stop using the app at any time; uninstalling removes all on-device data. We may suspend access for breach.
+You may stop using the app at any time; uninstalling removes all on-device data. Uninstalling does not cancel a Premium subscription: cancel it in your store account (§6). We may suspend access for breach.
 
-## 9. General
+## 10. General
 
 South African law governs these terms. If any clause is unenforceable, the rest survive. These terms plus the Privacy Policy are the whole agreement. We may update these terms; continued use after an in-app notice is acceptance.
 
