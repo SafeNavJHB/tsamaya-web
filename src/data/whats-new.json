@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-28.11",
+      "date": "28 September 2026",
+      "items": [
+        {
+          "icon": "alert-circle-outline",
+          "title": "More hotspots, and the first ones in Durban",
+          "body": "Fourteen more reported hijacking and smash-and-grab spots are on the map, each on its real intersection or off-ramp: the first ones in Durban, the R29 and R547 intersection in the Secunda area, and spots that were missing in Johannesburg, Pretoria, Ekurhuleni and Cape Town, such as the M1 off-ramp at Grayston Drive and the R300 at Jakes Gerwel Drive. You get the same heads-up as you approach one. Hotspots are awareness only and never change your route.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-28.10",
       "date": "28 September 2026",
       "items": [
