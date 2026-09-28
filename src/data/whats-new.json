@@ -15,6 +15,42 @@
   ],
   "releases": [
     {
+      "version": "2026-09-28.10",
+      "date": "28 September 2026",
+      "items": [
+        {
+          "icon": "construct-outline",
+          "title": "Tsamaya Premium, ready for the stores",
+          "body": "Fixes to the optional Premium subscription before it goes on sale: a subscription already on your Apple ID comes back reliably after a reinstall, clearer trial terms, and a tidier Settings banner and vehicle marker. Premium is not on sale yet.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-28.9",
+      "date": "28 September 2026",
+      "items": [
+        {
+          "icon": "star-outline",
+          "title": "Getting ready for Tsamaya Premium",
+          "body": "This version can offer Tsamaya Premium, an optional subscription with more detailed place search and a garage of 3D vehicles in six colours. It switches on once the App Store and Google Play approve it. Routes around risk, risk alerts, Guardian, reports, CarPlay and Android Auto stay free for everyone.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-28.3",
+      "date": "28 September 2026",
+      "items": [
+        {
+          "icon": "alert-circle-outline",
+          "title": "Main Reef Road hotspot in the right place",
+          "body": "The smash-and-grab hotspot where Main Reef Road meets Field Road, on the East Rand, now sits on that intersection. It was marked almost 4 km away, so its heads-up came in the wrong place.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-28.2",
       "date": "28 September 2026",
       "items": [
