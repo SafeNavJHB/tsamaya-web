@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-29.7",
+      "date": "29 September 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Android Auto map labels stay put",
+          "body": "On the satellite map in Android Auto, the Mapbox logo and its info button now keep one place in each view instead of moving when the car screen shows its buttons.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-09-29.6",
+      "date": "29 September 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "A calmer Android Auto map",
+          "body": "On Android Auto the speedometer now sits in the bottom-left corner, as in Google Maps, so the turn banner and the car screen buttons never cover it. The car sits a little lower to show more of the road ahead, and the map stays still when you touch the screen.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-29.5",
       "date": "29 September 2026",
       "items": [
