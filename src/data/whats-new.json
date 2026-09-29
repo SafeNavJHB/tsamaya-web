@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-29.1",
+      "date": "29 September 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "CarPlay no longer sticks on the Tsamaya logo",
+          "body": "When CarPlay started Tsamaya before you opened it on your phone, the CarPlay map, the dashboard mini map and the phone itself could stay on the Tsamaya logo for the whole drive. All three now open properly, whichever one starts first.",
+          "category": "fix"
+        },
+        {
+          "icon": "chatbox-outline",
+          "title": "Traffic notices fit on the car screen",
+          "body": "On CarPlay the heavy traffic and reroute notices no longer squeeze into a thin column beside the route panel. The speedometer steps aside for the few seconds a notice shows.",
+          "category": "fix"
+        },
+        {
+          "icon": "time-outline",
+          "title": "Arrival times that match the route you picked",
+          "body": "When the lower-risk route had no traffic reading of its own, the drive could start with an arrival time that assumed empty roads. It now uses the same traffic estimate the route card shows.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-28.12",
       "date": "28 September 2026",
       "items": [
