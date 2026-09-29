@@ -15,6 +15,36 @@
   ],
   "releases": [
     {
+      "version": "2026-09-29.3",
+      "date": "29 September 2026",
+      "items": [
+        {
+          "icon": "search-outline",
+          "title": "Search shows the place first",
+          "body": "Picking a search result now shows the place on the map with its rating, opening hours and distance. Tap Directions to choose where you start from before the route is planned, or Go to plan it from where you are, as before.",
+          "category": "feature"
+        },
+        {
+          "icon": "location-outline",
+          "title": "Attraction badges are easier to tap",
+          "body": "Tapping an attraction badge now opens the attraction, even where it sits inside a rated area. Before, a tap slightly off the badge often opened the area instead.",
+          "category": "fix"
+        },
+        {
+          "icon": "lock-closed-outline",
+          "title": "Ending a drive clears the Lock Screen",
+          "body": "When you end a drive, its Lock Screen and Dynamic Island card now goes straight away. After arriving on its own it shows \"Arrived\" for two minutes, and a card left behind when the app was closed is cleared the next time it opens.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "A tidier Premium vehicle picker",
+          "body": "The Premium vehicles in Settings › Customise now line up in one row that scrolls sideways, each the same size with its name underneath.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-29.2",
       "date": "29 September 2026",
       "items": [
