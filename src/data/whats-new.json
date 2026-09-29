@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-09-29.2",
+      "date": "29 September 2026",
+      "items": [
+        {
+          "icon": "alert-circle-outline",
+          "title": "SOS during CarPlay and Android Auto drives",
+          "body": "The SOS button now stays on your phone’s drive screen while CarPlay or Android Auto is connected, so a passenger, or you once you have stopped, can still call 10111 or 112 or alert your emergency contact. On a weak data connection the text to your contact now opens within about three seconds with your coordinates. If the live link is ready later, the SOS button offers to send it.",
+          "category": "feature"
+        },
+        {
+          "icon": "car-outline",
+          "title": "An SOS button on the car screen",
+          "body": "On the CarPlay and Android Auto map, the Guardian shield is now an SOS button. It opens an Emergency menu that holds Guardian, so your emergency contact can follow the drive live. In CarPlay the button is red, and green while Guardian is on. Where this version cannot place a call from the car screen, the menu shows what to say instead: “Hey Siri, call 112” or “Hey Google, call 112”.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-29.1",
       "date": "29 September 2026",
       "items": [
