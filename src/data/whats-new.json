@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-29.5",
+      "date": "29 September 2026",
+      "items": [
+        {
+          "icon": "speedometer-outline",
+          "title": "Speedometer stays in view on Android Auto",
+          "body": "On Android Auto the speedometer no longer gets stuck behind the turn banner or the End route button, or partway down the map. It now moves as soon as the car screen changes, in full screen and split screen, and in free drive it keeps its corner when the car screen shows its buttons.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-29.4",
       "date": "29 September 2026",
       "items": [
