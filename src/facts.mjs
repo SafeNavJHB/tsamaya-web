@@ -19,10 +19,17 @@ export const FEATURES = [
   // the zone and corridor overlay on the home map
   ['Live overlay', 'Turn it on to see every rated area and road, colour-coded.'],
   // SosSheet.tsx + sosAlertContact in app/navigation.tsx
-  // The button is on the PHONE's drive screen and hidden while CarPlay is
-  // connected (navigation.tsx, !carPlayConnected). The text opens ready to send;
-  // the driver sends it. The link updates while the drive screen is open, then
-  // shows the last position until it expires after 24 hours.
+  // The button is on the PHONE's drive screen. Before 1.8 it hides while
+  // CarPlay is connected (navigation.tsx, !carPlayConnected); from 1.8 (build
+  // 28, SafeNavJHB/SafeNav#253, 2026-09-29) it stays, and the car map's
+  // Guardian shield became an SOS button whose menu holds Guardian
+  // (src/carplay/sosFlow.ts; Call 112 from the car screen from build 29).
+  // 1.8 is on INTERNAL testing only, so index.mjs, driving-in-south-africa.mjs
+  // and llms.mjs say "in the current release ... from version 1.8, in testing
+  // now". Once 1.8 or later reaches external TestFlight and Play open testing,
+  // drop the old half. The text opens ready to send; the driver sends it. The
+  // link updates while the drive screen is open, then shows the last position
+  // until it expires after 24 hours.
   ['SOS', 'One button on the phone\'s drive screen calls 10111 or 112, or opens a text to your emergency contact, ready to send, with where you are and a link that follows you live while you drive and stays up for 24 hours.'],
   // liveTrips.ts + the tracker page (track.html)
   ['Share a trip', 'Send someone a link and they follow your drive live in any browser, down to an Arrived screen. They need no app.'],

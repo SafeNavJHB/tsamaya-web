@@ -23,7 +23,7 @@ const nMetros = stats.totals.metros;
 const DOES = [
   ['Routes around risk', `Every trip is checked against the rated areas in the ${nMetros} metros we map and bent around the high-risk ones when a sensible detour exists. When none does, it says so and marks the risky stretches.`],
   ['Rated by the hour', 'Daytime, evening and night each carry their own ratings, and the route card warns you when a trip will land after dark.'],
-  ['SOS', 'One button on the phone\'s drive screen calls 10111 or 112, or opens a text to your emergency contact, ready to send, with where you are and a live link. It is not shown while a drive is on CarPlay, so dial 112 from the phone there.'],
+  ['SOS', 'One button on the phone\'s drive screen calls 10111 or 112, or opens a text to your emergency contact, ready to send, with where you are and a live link. In the current release it is not shown while a drive is on CarPlay, so dial 112 from the phone there. From version 1.8, in testing now, it stays on the phone during a CarPlay drive, and the car map gets an SOS button whose menu holds Guardian.'],
   ['Family can follow', 'Send a trip link to anyone, anywhere. It opens in a browser, with no app to install: your route, where you are, your arrival time, then Arrived.'],
   ['Any car', 'It is a phone app, so it works in a rental. If the car has Apple CarPlay, Tsamaya runs on the car\'s screen as well; Android Auto is in testing.'],
   ['No account', 'Nothing to sign up for. Routing, SOS and trip sharing are free, and your trips are not kept on our servers unless you choose to share one.'],
@@ -44,7 +44,7 @@ const does = sec({
 
 const STEPS = [
   ['Install it', `Free on Google Play for Android, and through Apple's TestFlight app for iPhone. Both links are on the <a href="get-app.html">get the app</a> page.`],
-  ['Add an emergency contact', 'In Settings, under Sharing &amp; privacy. The SOS button can then text them your location and a live link. If you drive with CarPlay, share your Guardian link with them once too; a tap on the car screen then lets them follow that drive.'],
+  ['Add an emergency contact', 'In Settings, under Sharing &amp; privacy. The SOS button can then text them your location and a live link. If you drive with CarPlay, share your Guardian link with them once too; switching Guardian on from the car screen then lets them follow that drive.'],
   ['Save a map for where you are staying', 'In Settings, under Places, then Offline maps. Frame the area and download it, on Wi-Fi if you can.'],
   ['Look before you leave', 'Check the route card before you set off, especially late in the day. It shows each option with its grade and what it goes around, and warns when a trip will land after dark.'],
 ];
