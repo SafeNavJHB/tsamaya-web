@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-30.5",
+      "date": "30 September 2026",
+      "items": [
+        {
+          "icon": "information-circle-outline",
+          "title": "Why search has a daily limit",
+          "body": "When most of your detailed searches for the day are used, the search screen says so in one line, with tips to find a place without a search: drop a pin, save the places you go to, or share from Google Maps. The Search limits page explains why the limits keep Tsamaya free.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-30.4",
       "date": "30 September 2026",
       "items": [
