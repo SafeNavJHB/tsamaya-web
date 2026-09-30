@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-09-30.2",
+      "date": "30 September 2026",
+      "items": [
+        {
+          "icon": "cash-outline",
+          "title": "Fuel price alerts for everyone",
+          "body": "Before fuel prices change, a heads-up whether to fill up or wait, and by how much: at noon the day before, or earlier, usually on the Monday, with Tsamaya Premium. Choose your fuel in Settings › Alerts › Notifications.",
+          "category": "feature"
+        },
+        {
+          "icon": "ticket-outline",
+          "title": "Toll prices on your route",
+          "body": "With Premium, the route screen shows the toll gates on a route and what your vehicle class pays, next to the fuel cost. Tap it for each gate, or to change the class. Tariffs update every 1 March.",
+          "category": "feature"
+        },
+        {
+          "icon": "briefcase-outline",
+          "title": "A SARS logbook from your trips",
+          "body": "With Premium, tap a trip in your trip history to mark it business or personal, with where from, where to and why. Drives without a route are kept too, in free drive or with CarPlay or Android Auto connected. Then export your business trips for a tax year, or any months, as a spreadsheet for SARS.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-09-30.1",
       "date": "30 September 2026",
       "items": [
