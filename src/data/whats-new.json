@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-30.4",
+      "date": "30 September 2026",
+      "items": [
+        {
+          "icon": "search-outline",
+          "title": "Your everyday searches, counted too",
+          "body": "Settings › Places › Search usage now shows the places you pick from the suggestions as you type, which have no daily limit of your own, above your detailed searches, and says which searches are detailed.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-30.3",
       "date": "30 September 2026",
       "items": [
