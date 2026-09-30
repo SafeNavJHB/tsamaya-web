@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-30.3",
+      "date": "30 September 2026",
+      "items": [
+        {
+          "icon": "chatbox-ellipses-outline",
+          "title": "Tsamaya-styled messages on Android",
+          "body": "The Premium welcome and other Premium messages, the search prompts and trip history now use the same Tsamaya dialog as the rest of the app on Android.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-30.2",
       "date": "30 September 2026",
       "items": [
