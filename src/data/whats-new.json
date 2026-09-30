@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-09-30.6",
+      "date": "30 September 2026",
+      "items": [
+        {
+          "icon": "search-outline",
+          "title": "Search opens once",
+          "body": "Tapping \"Where to?\" twice in quick succession no longer opens two search screens on top of each other. Settings and Saved places open once per tap too.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-09-30.5",
       "date": "30 September 2026",
       "items": [
