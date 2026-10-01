@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-01.2",
+      "date": "1 October 2026",
+      "items": [
+        {
+          "icon": "rainy-outline",
+          "title": "Rain? Headlights on",
+          "body": "When it is raining where you are driving in daylight, or about to, Tsamaya reminds you once to switch your headlights on and leave a bigger gap. Weather from Apple Weather. Turn it off in Settings › Alerts.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-01.1",
       "date": "1 October 2026",
       "items": [
