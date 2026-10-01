@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-01.10",
+      "date": "1 October 2026",
+      "items": [
+        {
+          "icon": "star-outline",
+          "title": "Premium searches kept apart",
+          "body": "When Premium is on sale, its detailed searches will run on their own allowance, kept apart from the searches everyone else shares.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-01.9",
       "date": "1 October 2026",
       "items": [
