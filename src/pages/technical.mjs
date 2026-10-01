@@ -10,14 +10,14 @@ const STACK = [
   ['Mapbox', 'Map tiles, the Directions API for routing, and Geocoding for naming the place you tap on the map. Search itself runs on Google Places.'],
   ['Supabase and PostGIS', 'Postgres with PostGIS geometry holds every rated area and road. The app reads it live; the editor writes through typed RPC functions.'],
   ['Python data pipeline', 'Map data fetched, scored for crime density, classified into rated areas and roads, staged, then promoted to live.'],
-  ['Claude review', 'A second-opinion review pass flags questionable ratings for a human before anything reaches drivers.'],
+  ['Claude review', 'An AI second opinion on the ratings, researched against local reporting. A person then sense-checks the results and looks closely at any rating that stands out.'],
   ['GitHub and EAS', 'Versioned SQL migrations keep the database reproducible; TestFlight and Google Play open testing get builds to testers.'],
 ];
 
 const PIPE = [
-  ['Sources', 'OpenStreetMap, published SAPS crime statistics, local knowledge'],
+  ['Sources', 'OpenStreetMap, published SAPS crime statistics, drivers\' reports'],
   ['Pipeline', 'Fetch, score for density, classify areas and roads, stage'],
-  ['Review', 'A Claude second opinion, then a person approves or rejects'],
+  ['Review', 'A Claude second opinion, then a person sense-checks what stands out'],
   ['Live database', 'Rated areas and roads in Supabase (PostGIS)'],
   ['App', 'Tsamaya reads it live and plans the route'],
 ];

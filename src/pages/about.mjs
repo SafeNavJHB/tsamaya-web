@@ -28,7 +28,7 @@ const name = sec({
 
 const PRINCIPLES = [
   ['Honest about risk', 'We never say "safe". Routes are lower-risk, built from statistics and local knowledge. We tell you what we went around and trust you to make the call.'],
-  ['Local knowledge counts', 'Data alone misses the corner everyone nearby already avoids. Roads that drivers have checked fold real human knowledge into the model.'],
+  ['Local knowledge counts', 'Data alone misses the corner everyone nearby already avoids. Drivers\' reports fold that knowledge back in: a person reads every one, and the map gets better as more people report.'],
   ['Built for South Africa', 'Made in Johannesburg, for the way people actually drive here. It is not a global template with our cities bolted onto the side.'],
   ['Nothing hidden', 'Open rules, visible ratings, a clear disclaimer. You can always see why a route bends the way it does.'],
 ];

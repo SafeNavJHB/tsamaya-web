@@ -303,7 +303,7 @@ const coverage = `
     <div class="cov-tables" data-reveal>${covTable(metros.slice(0, half), 1)}${covTable(metros.slice(half), 2)}
     </div>
     <div class="cov-src">
-      <p data-reveal><span class="hud">Where the ratings come from</span><br>Published South African crime statistics, scored against OpenStreetMap road data to find where vehicle crime concentrates. Every metro gets a review pass before anything goes live, and drivers correct it from there.</p>
+      <p data-reveal><span class="hud">Where the ratings come from</span><br>Published South African crime statistics, scored against OpenStreetMap road data to find where vehicle crime concentrates. Every metro gets an AI review and a person's sense-check before anything goes live, and drivers' reports refine it from there.</p>
       <p data-reveal><span class="hud">Rated by the hour</span><br>Every area carries three ratings: ${bands.map((b) => `${b.name.toLowerCase()} ${b.from} to ${b.to}`).join(', ').replace(/, ([^,]*)$/, ' and $1')}. Yellow means caution: it is shown on the map but never forces a detour.</p>
     </div>
     <p class="more" data-reveal><a class="link-q" href="coverage.html"><span>Coverage by metro</span>${arrow}</a></p>
@@ -323,7 +323,7 @@ const faqs = [
   },
   {
     q: 'Where does the risk data come from?',
-    a: 'Published South African crime statistics, scored against map data to work out where vehicle crime concentrates. Everything then gets reviewed and corrected against local knowledge before it goes anywhere near the app.',
+    a: 'Published South African crime statistics, scored against map data to work out where vehicle crime concentrates. An AI review gives a second opinion on the ratings, and a person sense-checks the results, looking closely at any that stand out. After that, drivers\' reports refine the map: a person reads each one before anything changes, so local knowledge keeps improving it.',
   },
   {
     q: 'Which cities does it cover?',
