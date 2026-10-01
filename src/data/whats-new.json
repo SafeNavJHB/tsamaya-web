@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-10-01.7",
+      "date": "1 October 2026",
+      "items": [
+        {
+          "icon": "warning-outline",
+          "title": "Hotspot warnings that know the time",
+          "body": "From 17:30, when hijackings are most common, the spoken warning for a hijacking or smash-and-grab hotspot is firmer about what to do: doors locked, windows up, and a gap to the car ahead.",
+          "category": "tweak"
+        },
+        {
+          "icon": "location-outline",
+          "title": "Four more hotspots",
+          "body": "Two smash-and-grab spots in Durban (Phoenix and Berea) and two hijacking spots on the West Rand (Pinehaven and Westonaria), each named by police or local news.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-01.6",
       "date": "1 October 2026",
       "items": [
