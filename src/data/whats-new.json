@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-01.1",
+      "date": "1 October 2026",
+      "items": [
+        {
+          "icon": "chatbubble-ellipses-outline",
+          "title": "Rate the roads you drove",
+          "body": "After a drive, the \"How did they feel?\" list now includes the rated roads you drove along, not only the areas. Mark one as felt fine or felt risky, and anything that felt risky goes to the review team.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-09-30.6",
       "date": "30 September 2026",
       "items": [
