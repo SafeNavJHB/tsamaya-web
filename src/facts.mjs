@@ -16,6 +16,9 @@
 export const FEATURES = [
   // getSafeRoute + withOrderedOptions (src/services/routing.ts)
   ['Three options', 'Fastest, Balanced and Lower-risk, each with an A to E grade.'],
+  // planRoute (src/services/routing.ts): MAX_STOPS = 4 intermediate stops, each
+  // leg planned and risk-checked on its own; stops are announced by name.
+  ['Stops', 'Add up to four stops to a trip. Each leg is risk-checked on its own, and each stop is announced by name.'],
   // the zone and corridor overlay on the home map
   ['Live overlay', 'Turn it on to see every rated area and road, colour-coded.'],
   // SosSheet.tsx + sosAlertContact in app/navigation.tsx
@@ -35,6 +38,14 @@ export const FEATURES = [
   ['Share a trip', 'Send someone a link and they follow your drive live in any browser, down to an Arrived screen. They need no app.'],
   // src/lib/liveIncidents.ts
   ['Driver notices', 'Police and roadblock notices from other drivers, shown for an hour and spoken when they are ahead. They never change your route.'],
+  // speed cameras: assets/data/speed_cameras_v1.json plus the admin camera tool;
+  // report flow (ReportSheet / reportFlow) files a fixed camera or a van.
+  // The list is NOT exhaustive (the file says so): never promise coverage.
+  ['Speed cameras', 'Known fixed speed cameras show on the map with a spoken heads-up. Drivers can report permanent cameras and camera vans. It is a list of the cameras we know about, not a complete one.'],
+  // assets/data/hotspots_v1.json; awareness only, no routing impact
+  ['Hotspots', 'Reported hijacking and smash-and-grab spots show on the map, with a spoken heads-up as you approach one. They are awareness only and never change your route.'],
+  // NavReportSheet + reportFlow + src/lib/voiceReport.ts (26 Sep 2026)
+  ['Report as you drive', 'Tap Report, or say it: police, roadblock, speed camera or crash. It works on the phone and on the car screen, with a few seconds to Undo.'],
   // protest watch → temporary corridors, closed-road corridors
   // The Fastest option still drives a closure and marks it (routing.ts, the
   // blocked-road rules); the other two go around one where a way round exists.
@@ -45,6 +56,8 @@ export const FEATURES = [
   ['Before dark', 'The route card warns when a trip will arrive after dark, and when time is tight, how soon to leave to arrive in daylight.'],
   // app/offline-maps.tsx
   ['Offline maps', 'Download the map for an area so it keeps drawing where the signal drops.'],
+  // Discover tour + LandmarkLayer (29 Jul 2026); decorative, never a routing input
+  ['Discover', 'A guided flyover of your metro, landmark to landmark, with a quick guide at each stop. Landmarks never change your route.'],
   // src/carplay/*. Android Auto is only on Play's INTERNAL track: the open-test
   // download (the one the public can install) is built without it. Say
   // "in testing" until an Android Auto build reaches open testing.
@@ -66,3 +79,33 @@ export const SUMMARY =
 // assistant needs to place it next to emergency apps correctly.
 export const NOT_A =
   'Tsamaya is not an emergency response service. Its SOS button calls the public emergency numbers (10111 for the police, 112 from any mobile) and opens a text to your own contact; it does not dispatch armed response or an ambulance itself. It aims to lower your exposure to areas with a history of vehicle crime; it cannot guarantee safety.';
+
+// COMING SOON: Tsamaya Premium (build 28, docs/PREMIUM_TIER.md in the app repo).
+// Built, in testing, and NOT on sale: it opens when Apple and Google approve the
+// subscriptions. Deliberately kept OUT of FEATURES (the home grid, the app's
+// featureList) because those must only list what installs today. The features
+// page and llms.txt show it under "Coming soon", with no prices (they are not
+// final). When Premium goes live: move these into a Premium section of the
+// features page (Kyle, 2026-10-01: "a premium tab/comparison"), delete this
+// export and the "Coming soon" wording, and keep routing, SOS and trip sharing
+// listed as free. Source for each line is named beside it.
+export const PREMIUM_SOON = [
+  // searchAllowance.ts: Premium 25 detailed searches a day against the free share
+  ['More detailed searches', 'A bigger daily allowance of detailed place searches than the free share.'],
+  // vehicleChoice.ts, constants/vehicles.ts
+  ['3D vehicles', 'A garage of 3D vehicles in six colours for the map.'],
+  // tripHistory.ts: the latest trip stays free
+  ['Trip history', 'Your whole history on the phone with 30-day totals. The latest trip stays free.'],
+  // logbook.ts, logbookExport.ts
+  ['SARS logbook', 'Tag a trip business or personal and export a logbook in the order of SARS\'s own eLogbook.'],
+  // leaveBy.ts
+  ['Arrive by', 'Pick when you want to arrive and Tsamaya works out when to leave, with a reminder.'],
+  // fuelCost.ts, fuelPrices.ts
+  ['Fuel cost', 'The fuel cost of a trip from the official fuel price and your car\'s consumption.'],
+  // tollCost.ts
+  ['Toll prices', 'The toll gates on your route and what they cost for your vehicle class.'],
+  // PUSH_NOTIFICATIONS.md §2b: Monday for Premium, the eve for everyone else
+  ['Fuel price alert, earlier', 'The alert before a fuel price change arrives a day earlier than it does for free phones.'],
+];
+export const PREMIUM_NOTE =
+  'Tsamaya Premium is an optional subscription that is built and in testing. It is not on sale yet, and it is not needed for anything listed above: routing around risk, the SOS button and trip sharing stay free.';

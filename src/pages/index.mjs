@@ -272,6 +272,7 @@ const how = `
     <dl class="feat-grid">
       ${FEATURES.map(([t, d]) => `<div data-reveal><dt class="hud">${t}</dt><dd>${d}</dd></div>`).join('\n      ')}
     </dl>
+    <p class="ph-links" data-reveal><a class="link-q" href="features.html"><span>Every feature, in detail</span>${arrow}</a><a class="link-q" href="faq.html"><span>Questions answered</span>${arrow}</a></p>
   </div>
 </section>`;
 

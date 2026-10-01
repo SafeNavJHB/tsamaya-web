@@ -22,6 +22,10 @@
 import { site, stats, baseUrl, canonicalFor } from '../site.config.mjs';
 import { FEATURES, SUMMARY } from './facts.mjs';
 
+// The product topic pages (src/pages/*, built with src/topic.mjs) are about the
+// app, so they carry the app node like the other product pages do.
+const TOPIC_PAGES = ['features.html', 'closures-and-protests.html', 'speed-cameras.html', 'hijacking-hotspots.html', 'carplay-android-auto.html', 'live-trip-sharing.html', 'night-driving-gauteng.html', 'compare-waze.html', 'compare-google-maps.html', 'faq.html'];
+
 // Stable @id anchors. The trailing fragment is conventional and lets other nodes
 // point at these without duplicating them.
 export const ID = {
@@ -176,6 +180,9 @@ function webPage(page, title, description) {
     about: { '@id': ID.app },
     publisher: { '@id': ID.org },
     inLanguage: 'en-ZA',
+    // Only topic pages carry a date (src/topic.mjs): the newest changelog entry
+    // they were written against, never a hand-typed value.
+    ...(page.modified ? { dateModified: page.modified } : {}),
   };
 }
 
@@ -191,7 +198,7 @@ export function siteGraph(page, title, description) {
   // The app node belongs on pages that are actually about the product, not on
   // the sponsor or contact pages — repeating it everywhere dilutes rather than
   // reinforces, and gives crawlers conflicting signals about what each page is.
-  const APP_PAGES = new Set(['index.html', 'how-it-works.html', 'demo.html', 'technical.html', 'coverage.html', 'driving-in-south-africa.html']);
+  const APP_PAGES = new Set(['index.html', 'how-it-works.html', 'demo.html', 'technical.html', 'coverage.html', 'driving-in-south-africa.html', ...TOPIC_PAGES]);
   if (APP_PAGES.has(page.slug)) graph.push(application());
 
   for (const node of page.jsonLd || []) if (node) graph.push(node);

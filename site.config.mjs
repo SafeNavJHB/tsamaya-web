@@ -227,7 +227,9 @@ export const nav = [
   // secondary: in the footer, and in the small row under the mobile menu.
   { href: 'index.html', label: 'Home' },
   { href: 'demo.html', label: 'See it' },
+  { href: 'features.html', label: 'Features' },
   { href: 'driving-in-south-africa.html', label: 'Visiting SA' },
+  { href: 'faq.html', label: 'FAQ' },
   { href: 'technical.html', label: 'Technical' },
   { href: 'contact.html', label: 'Contact' },
 ];

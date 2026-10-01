@@ -28,6 +28,23 @@ const buildDate = new Date(
   .toISOString()
   .slice(0, 10);
 
+// Per-page <lastmod>: the date each page's rendered HTML last CHANGED. The hash of
+// every page is kept in src/data/lastmod.json (committed); a build whose page
+// hashes differently from the stored one stamps today's date and updates the
+// file, so commit it with the change. It works from the committed file alone, so
+// a CI checkout (one commit deep, where file dates all read the same) gives the
+// same dates as a local build. A page nobody touched keeps its old date, which
+// is the signal a search engine wants from lastmod.
+const lastmodPath = join(root, 'src', 'data', 'lastmod.json');
+let lastmodStore = {};
+try { lastmodStore = JSON.parse(await readFile(lastmodPath, 'utf8')); } catch {}
+const lastmodNext = {};
+function noteLastmod(slug, html) {
+  const hash = createHash('sha256').update(html).digest('hex').slice(0, 16);
+  const prev = lastmodStore[slug];
+  lastmodNext[slug] = prev && prev.hash === hash ? prev : { hash, date: buildDate };
+}
+
 async function copyDir(from, to) {
   await mkdir(to, { recursive: true });
   for (const entry of await readdir(from, { withFileTypes: true })) {
@@ -97,6 +114,7 @@ async function build() {
 
   for (const page of pages) {
     const html = await fingerprint(renderPage(page));
+    noteLastmod(page.slug, html);
     const outPath = join(dist, page.slug);
     // Support nested slugs like 't/index.html' (gives a clean /t/ URL).
     await mkdir(dirname(outPath), { recursive: true });
@@ -145,7 +163,7 @@ async function build() {
         // Priority is a weak hint at best, but "the home page matters most, then
         // the metro pages, then everything else" is at least an honest one.
         const priority = p.slug === 'index.html' ? '1.0' : p.slug.startsWith('coverage') ? '0.8' : '0.7';
-        return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${buildDate}</lastmod>\n    <priority>${priority}</priority>\n  </url>`;
+        return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmodNext[p.slug].date}</lastmod>\n    <priority>${priority}</priority>\n  </url>`;
       })
       .join('\n');
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
@@ -157,7 +175,8 @@ async function build() {
       `User-agent: *\nAllow: /\nDisallow: /track.html\n\nSitemap: ${baseUrl}/sitemap.xml\n`,
       'utf8',
     );
-    console.log(`  ✓ sitemap.xml (${indexable.length} URLs, lastmod ${buildDate})`);
+    const dates = [...new Set(indexable.map((p) => lastmodNext[p.slug].date))].sort();
+    console.log(`  ✓ sitemap.xml (${indexable.length} URLs, lastmod ${dates.join(', ')})`);
 
     // /llms.txt: the site's facts in one Markdown file for AI assistants
     // (src/llms.mjs says why). Built from the same pages and data as the site.
@@ -169,6 +188,10 @@ async function build() {
     // site root is what proves an IndexNow ping (scripts/indexnow.mjs) is ours.
     if (site.indexNowKey) await writeFile(join(dist, `${site.indexNowKey}.txt`), site.indexNowKey, 'utf8');
   }
+
+  // Keep the store tidy (a removed page drops out) and write it only when it moved.
+  const nextJson = JSON.stringify(lastmodNext, null, 1) + '\n';
+  if (nextJson !== JSON.stringify(lastmodStore, null, 1) + '\n') await writeFile(lastmodPath, nextJson, 'utf8');
 
   console.log(`\nBuilt ${pages.length} pages → ${dist}`);
 }

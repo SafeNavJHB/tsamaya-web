@@ -185,10 +185,12 @@ ${page.hud === false ? '' : hudStrip()}
     <div class="wrap footer-grid">
       <div class="footer-col">
         <h2>Explore</h2>
+        <a href="features.html">Features</a>
         <a href="how-it-works.html">How it works</a>
         <a href="demo.html">See it in action</a>
         <a href="coverage.html">Coverage</a>
         <a href="driving-in-south-africa.html">Driving here as a visitor</a>
+        <a href="faq.html">Questions answered</a>
         <a href="updates.html">Updates</a>
         <a href="technical.html">Technical details</a>
         <a href="about.html">About us</a>

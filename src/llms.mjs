@@ -13,12 +13,12 @@
 // honesty rules as the pages apply: lower-risk language, no suburb named as risky.
 
 import { site, stats, fmt, canonicalFor } from '../site.config.mjs';
-import { FEATURES, SUMMARY, NOT_A } from './facts.mjs';
+import { FEATURES, SUMMARY, NOT_A, PREMIUM_SOON, PREMIUM_NOTE } from './facts.mjs';
 import { metros } from './data/metros.mjs';
 
 // Pages grouped the way a reader would want them. Anything the build emits that
 // is not listed here lands under "More" rather than disappearing.
-const PRODUCT = ['index.html', 'how-it-works.html', 'driving-in-south-africa.html', 'demo.html', 'get-app.html', 'technical.html', 'updates.html'];
+const PRODUCT = ['index.html', 'features.html', 'how-it-works.html', 'closures-and-protests.html', 'speed-cameras.html', 'hijacking-hotspots.html', 'carplay-android-auto.html', 'live-trip-sharing.html', 'night-driving-gauteng.html', 'compare-waze.html', 'compare-google-maps.html', 'faq.html', 'driving-in-south-africa.html', 'demo.html', 'get-app.html', 'technical.html', 'updates.html'];
 const COMPANY = ['about.html', 'sponsor.html', 'contact.html', 'privacy.html', 'terms.html'];
 const SKIP = new Set(['404.html', 'track.html']);
 
@@ -66,6 +66,12 @@ ${NOT_A}
 ## Features
 
 ${FEATURES.map(([title, body]) => `- ${title}: ${body}`).join('\n')}
+
+## Coming soon
+
+${PREMIUM_NOTE} Planned Premium features:
+
+${PREMIUM_SOON.map(([title, body]) => `- ${title}: ${body}`).join('\n')}
 
 ## Product
 

@@ -81,6 +81,11 @@ if (!existsSync(sitemapPath)) {
   for (const u of missing) fail(`indexable page missing from sitemap: ${u}`);
   for (const u of extra) fail(`sitemap lists a URL that is noindex or does not exist: ${u}`);
   if (!/<lastmod>/.test(sitemap)) warn('sitemap has no <lastmod> entries');
+  // Every entry carries a real date, and none is in the future.
+  const today = new Date().toISOString().slice(0, 10);
+  const mods = [...sitemap.matchAll(/<lastmod>([^<]*)<\/lastmod>/g)].map((m) => m[1]);
+  if (mods.length !== locs.length) fail(`sitemap has ${locs.length} URLs but ${mods.length} <lastmod> entries`);
+  for (const d of mods) if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || d > today) fail(`sitemap <lastmod> is not a valid past date: ${d}`);
 }
 
 // ---- 3. The token-bearing tracker must never be indexable --------------------
