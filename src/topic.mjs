@@ -57,7 +57,7 @@ export function topicPage({ slug, title, description, meta, h1, lead, sections, 
       ]),
     ],
     body: [
-      pageHead({ meta: `${meta}${M}as of ${LATEST.text}`, title: h1, lead, after }),
+      pageHead({ crumb: slug === 'features.html' ? null : { href: 'features.html', label: 'All features' }, meta: `${meta}${M}as of ${LATEST.text}`, title: h1, lead, after }),
       ...sections,
       links.length ? related(links) : '',
       faqs.length ? faqSec({ id: 'faq', title: 'Asked often', faqs }) : '',

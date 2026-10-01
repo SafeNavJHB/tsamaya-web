@@ -58,6 +58,46 @@ function hudStrip() {
 `;
 }
 
+// The "On this page" jump bar (site.js shows it once the reader has scrolled).
+// Built from the page's own sections so it cannot drift: every top-level
+// <section id> that has a heading and a kick line (the small label above it)
+// becomes a chip labelled with the kick. A page can set `jump: false` to have no
+// bar, or `jump: [[id, label], ...]` to name its own (the home page does: its
+// scenes have numbered kicks). Fewer than three chips means no bar.
+const JUMP_SKIP = new Set(['related', 'more', 'elsewhere', 'next']);
+export function jumpItems(page) {
+  if (page.jump === false || page.noindex) return [];
+  const items = Array.isArray(page.jump) ? page.jump : [];
+  if (!items.length) {
+    const body = page.body || '';
+    for (const m of body.matchAll(/<section\b[^>]*\bid="([^"]+)"[^>]*>/g)) {
+      const id = m[1];
+      if (JUMP_SKIP.has(id)) continue;
+      const seg = body.slice(m.index, m.index + 1600);
+      if (!/<h2\b/.test(seg)) continue;
+      const kick = (seg.match(/class="kick[^"]*"[^>]*>([\s\S]*?)<\//) || [])[1];
+      if (!kick) continue;
+      const label = kick.replace(/<[^>]+>/g, '').replace(/^\d+\s*\/\s*/, '').trim();
+      if (label) items.push([id, label]);
+    }
+  }
+  return items.length >= 3 ? items : [];
+}
+
+function jumpBar(items) {
+  if (!items.length) return '';
+  return `  <nav class="jump" id="jump" aria-label="On this page">
+    <div class="wrap">
+      <p class="hud jump-l" aria-hidden="true">On this page</p>
+      <ul>${items.map(([id, label]) => `<li><a href="#${id}">${esc(label)}</a></li>`).join('')}</ul>
+    </div>
+  </nav>
+`;
+}
+
+const toTop = `  <button class="to-top" type="button" aria-label="Back to top"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 16V4M5 9l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+`;
+
 // page: { slug, title, description, body, heroClass, hud, scripts, noindex, root }
 //   hud: false hides the telemetry strip (pages with their own scene HUD).
 //   scripts: extra ES modules for this page only (the 3D scene, the map).
@@ -80,6 +120,7 @@ function fromRoot(html, root) {
 }
 
 function pageHtml(page) {
+  const jump = jumpItems(page);
   const titleFull = esc(
     page.slug === 'index.html'
       ? `${site.name}: ${site.tagline} Lower-risk routes for South African drivers`
@@ -149,7 +190,7 @@ function pageHtml(page) {
   <link rel="stylesheet" href="styles.css"/>
   ${siteGraph(page, titleFull, desc)}
 </head>
-<body class="${page.heroClass || ''}">
+<body class="${page.heroClass || ''}${jump.length ? ' has-jump' : ''}">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" id="top">
     <div class="wrap header-inner">
@@ -172,7 +213,7 @@ function pageHtml(page) {
       <p class="hud"><span data-sa-clock>Live South African time</span></p>
     </nav>
   </header>
-${page.hud === false ? '' : hudStrip()}
+${jumpBar(jump)}${page.hud === false ? '' : hudStrip()}
   <main id="main">
     ${page.body}
   </main>
@@ -219,6 +260,7 @@ ${page.hud === false ? '' : hudStrip()}
     </div>
   </footer>
 
+${toTop}
   <!-- Vendored libraries (public/vendor/README.md), then the site script. All
        deferred, so they run in this order after the page has parsed. The page is
        complete without any of them. -->

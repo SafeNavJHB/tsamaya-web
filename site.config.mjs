@@ -217,9 +217,10 @@ export const colors = {
 // Primary navigation. `href` values are relative so the site is host/path agnostic.
 export const nav = [
   // primary: shown in the header bar and large in the mobile menu. The header
-  // was measured for exactly these five (see the note above .mobile-nav in
+  // was measured for these six (Features added 2026-10-01; breakpoint raised) (see the note above .mobile-nav in
   // styles.css); adding a sixth means re-measuring it.
   { href: 'how-it-works.html', label: 'How it works', primary: true },
+  { href: 'features.html', label: 'Features', primary: true },
   { href: 'coverage.html', label: 'Coverage', primary: true },
   { href: 'updates.html', label: 'Updates', primary: true },
   { href: 'about.html', label: 'About', primary: true },
@@ -227,7 +228,6 @@ export const nav = [
   // secondary: in the footer, and in the small row under the mobile menu.
   { href: 'index.html', label: 'Home' },
   { href: 'demo.html', label: 'See it' },
-  { href: 'features.html', label: 'Features' },
   { href: 'driving-in-south-africa.html', label: 'Visiting SA' },
   { href: 'faq.html', label: 'FAQ' },
   { href: 'technical.html', label: 'Technical' },

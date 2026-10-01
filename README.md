@@ -176,6 +176,17 @@ of `dist/`. No server-side code, no database, no build server required.
 See [`BUILD_NOTES.md`](./BUILD_NOTES.md) for how the screenshots were captured and
 for app bugs noted along the way.
 
+### Getting around a long page
+
+Every page with three or more sections gets an "On this page" bar (it slides in under the
+header once the reader scrolls) and a back-to-top button. The chips are built at build
+time from each top-level `<section id>` that has an `<h2>` and a kick line, labelled with
+the kick (`src/layout.mjs`, `jumpItems`), so a new section appears in the bar with no extra
+work. A page can pass `jump: false` for none, or `jump: [[id, label], ...]` to name its
+own (the home page does). Anything sticky on a page with the bar must clear it: use
+`var(--jump-h)` (see the end of `public/styles.css`). Test scroll behaviour in a real
+browser window: a hidden or zero-size pane does not run animation frames.
+
 ### Onboarding a new metro onto the site
 
 Three edits, in this order:

@@ -281,6 +281,19 @@
     ScrollTrigger.config({ ignoreMobileResize: true });
   }
 
+  // How far an in-page link stops short of its target: the sticky header, plus
+  // the "On this page" bar on a page that has one (it shows once you scroll, so
+  // the room is kept for it even when the link is followed from the top).
+  var jumpEl = $('#jump');
+  var anchorOffset = function () {
+    var h = $('.site-header');
+    return (h ? h.offsetHeight : 68) + (jumpEl ? jumpEl.offsetHeight : 0) + 16;
+  };
+  // Native anchors (no Lenis, reduced motion, a #link on arrival) use the same room.
+  var setScrollPad = function () { doc.style.scrollPaddingTop = anchorOffset() + 'px'; };
+  setScrollPad();
+  window.addEventListener('resize', setScrollPad);
+
   if (!reduce && window.Lenis) {
     var lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true, syncTouch: false });
     window.lenis = lenis;
@@ -302,7 +315,7 @@
       var target = document.getElementById(id.slice(1));
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, { offset: -80 });
+      lenis.scrollTo(target); // Lenis honours the scroll-padding-top set above; an offset here would count the room twice
       history.pushState(null, '', id);
       // and move focus there, as the browser would have (the skip link most of all)
       if (!target.matches('a[href], button, input, select, textarea, [tabindex]')) { target.setAttribute('tabindex', '-1'); target.setAttribute('data-anchor', ''); }
@@ -378,6 +391,69 @@
           gsap.to(panel, { height: 0, duration: 0.18, ease: 'power2.in', onComplete: function () { panel.hidden = true; gsap.set(panel, { clearProps: 'height' }); refresh(); } });
         }
       });
+    });
+  }
+
+  /* "Open every answer" / "Close every answer" on the FAQ page: one click for
+     all of its questions, no animation (it is a reading aid, not a flourish). */
+  $$('[data-qa-all]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var open = b.getAttribute('data-qa-all') === 'open';
+      $$('.qa').forEach(function (qa) {
+        var btn = $('button', qa), panel = $('.qa-a', qa);
+        if (!btn || !panel) return;
+        btn.setAttribute('aria-expanded', String(open));
+        panel.hidden = !open;
+      });
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+    });
+  });
+
+  /* ------------------------------------------------------------------------
+   * 12b. The "On this page" bar and the back-to-top button.
+   *
+   * The bar (built from the page's sections at build time, src/layout.mjs)
+   * slides in once the reader has scrolled about half a screen, marks the
+   * section in view, and keeps that chip visible in its own scrolling row. The
+   * button appears after a screen and a half. Both go through Lenis when it is
+   * driving the page, so the smoothing is not fought.
+   * --------------------------------------------------------------------- */
+  var toTop = $('.to-top');
+  var spyLinks = jumpEl ? $$('a', jumpEl) : [];
+  var spy = spyLinks.map(function (a) { return { a: a, el: document.getElementById(a.getAttribute('href').slice(1)) }; }).filter(function (i) { return i.el; });
+  var spyList = jumpEl ? $('ul', jumpEl) : null;
+  var spyNow = null, spyTick = false;
+  var spyUpdate = function () {
+    spyTick = false;
+    var y = window.scrollY || window.pageYOffset;
+    if (jumpEl) {
+      jumpEl.classList.toggle('on', y > Math.min(window.innerHeight * 0.6, 480));
+      var line = anchorOffset() + 24, cur = null;
+      spy.forEach(function (i) { if (i.el.getBoundingClientRect().top <= line) cur = i; });
+      // at the very bottom the last section wins, even when it is too short to reach the line
+      if (window.innerHeight + y >= document.documentElement.scrollHeight - 4 && spy.length) cur = spy[spy.length - 1];
+      if (cur !== spyNow) {
+        spyLinks.forEach(function (a) { a.removeAttribute('aria-current'); });
+        if (cur) {
+          cur.a.setAttribute('aria-current', 'location');
+          if (spyList && spyList.scrollWidth > spyList.clientWidth) spyList.scrollTo({ left: cur.a.offsetLeft - (spyList.clientWidth - cur.a.offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth' });
+        }
+        spyNow = cur;
+      }
+    }
+    if (toTop) toTop.classList.toggle('on', y > window.innerHeight * 1.5);
+  };
+  if (jumpEl || toTop) {
+    var spyAsk = function () { if (!spyTick) { spyTick = true; requestAnimationFrame(spyUpdate); } };
+    window.addEventListener('scroll', spyAsk, { passive: true });
+    window.addEventListener('resize', spyAsk);
+    spyUpdate();
+  }
+  if (toTop) {
+    toTop.addEventListener('click', function () {
+      if (window.lenis) window.lenis.scrollTo(0); else window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      var skip = $('.skip-link');
+      if (skip) { skip.setAttribute('tabindex', '-1'); skip.focus({ preventScroll: true }); skip.blur(); }
     });
   }
 

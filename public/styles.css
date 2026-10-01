@@ -393,14 +393,63 @@ code { font-family: var(--mono); background: var(--bg-soft); padding: 2px 6px; b
 @media (max-width: 900px) { .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .footer-grid { grid-template-columns: minmax(0, 1fr); } .footer-metros { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
+/* ---------- On this page: the jump bar, and back to top ----------
+   The bar is built from the page's sections (src/layout.mjs) and driven by
+   site.js, so without JavaScript it is simply not there. It is fixed under the
+   header (never in the layout, so the cinematic home and coverage heroes keep
+   their full height) and slides in once the reader has scrolled. In-page links
+   stop short of it by the room site.js measures (scroll-padding-top). */
+.jump { display: none; }
+.js .jump {
+  display: block; position: fixed; left: 0; right: 0; top: var(--head); z-index: 48;
+  background: var(--head-bg); border-bottom: 1px solid var(--hairline);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  transform: translateY(-100%); opacity: 0; visibility: hidden;
+  transition: transform 0.3s var(--ease-out), opacity 0.2s var(--ease-ui), visibility 0s linear 0.3s;
+}
+.js .jump.on { transform: none; opacity: 1; visibility: visible; transition: transform 0.3s var(--ease-out), opacity 0.2s var(--ease-ui), visibility 0s; }
+.jump .wrap { display: flex; align-items: center; gap: 18px; }
+.jump-l { margin: 0; white-space: nowrap; color: var(--fg-2); }
+.jump ul {
+  flex: 1; min-width: 0; margin: 0; padding: 8px 0; list-style: none; display: flex; gap: 6px;
+  overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent 100%);
+  mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent 100%);
+}
+.jump ul::-webkit-scrollbar { display: none; }
+.jump a {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; white-space: nowrap;
+  border: 1px solid var(--hairline); border-radius: 999px; font-size: 0.9rem; color: var(--fg-2);
+  transition: color 0.2s var(--ease-ui), background 0.2s var(--ease-ui), border-color 0.2s var(--ease-ui);
+}
+.jump a:hover { color: var(--ink); border-color: var(--fg-2); }
+.jump a[aria-current='location'] { background: var(--go); color: var(--go-ink); border-color: transparent; font-weight: 600; }
+@media (max-width: 700px) { .jump-l { display: none; } }
+/* a section's own top padding is generous: land with its heading near the bar, not a hundred pixels below it */
+.sn .sec[id] { scroll-margin-top: calc(-1 * clamp(48px, 6vw, 88px)); }
+.to-top {
+  position: fixed; right: max(var(--gutter), env(safe-area-inset-right, 0px)); bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  z-index: 47; width: 48px; height: 48px; display: none; align-items: center; justify-content: center; padding: 0;
+  border: 1px solid var(--field-line); border-radius: 999px; cursor: pointer; color: var(--ink);
+  background: var(--head-bg); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm); opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity 0.2s var(--ease-ui), transform 0.3s var(--ease-out), visibility 0s linear 0.3s;
+}
+.js .to-top { display: inline-flex; }
+.js .to-top.on { opacity: 1; visibility: visible; transform: none; transition: opacity 0.2s var(--ease-ui), transform 0.3s var(--ease-out), visibility 0s; }
+.to-top:hover { border-color: var(--go); color: var(--go); }
+/* the FAQ page's open / close all (only meaningful with JavaScript) */
+html:not(.js) .qa-all { display: none; }
+.qa-all button { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; }
+
 /* ---------- Mobile menu sheet ---------- */
 .mobile-nav { display: none; }
-/* Header measured with the real fonts: logo lockup 150 + five nav links 470 +
-   "Get the app" 150 + gaps, about 820px of content. The full bar therefore
-   fits from about 900px up with the gutter; below that the menu button takes
-   over. Change a nav label or add a link and re-measure `.header-inner`'s
+/* Header measured with the real fonts: logo lockup 150 + six nav links (about
+   560) + "Get the app" 150 + gaps, about 920px of content, plus the theme
+   button. The full bar therefore fits from about 1000px up with the gutter;
+   below that the menu button takes over. Change a nav label or add a link and re-measure `.header-inner`'s
    visible children rather than assuming there is still room. */
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .primary-nav, .header-cta { display: none; }
   .nav-toggle {
     display: inline-flex; flex-direction: column; justify-content: center; gap: 6px; margin-left: auto;
@@ -1631,7 +1680,7 @@ html:not(.js) .sn .mx-key { pointer-events: none; }
 html:not(.js) .theme-toggle { display: none; }
 /* on phones it sits beside the menu button; where it is hidden (no JavaScript,
    no light-dark()) the menu button keeps the right-hand edge to itself */
-@supports (color: light-dark(#000, #fff)) { @media (max-width: 900px) { html.js .theme-toggle { margin-left: auto; } html.js .theme-toggle ~ .nav-toggle { margin-left: 10px; } } }
+@supports (color: light-dark(#000, #fff)) { @media (max-width: 1000px) { html.js .theme-toggle { margin-left: auto; } html.js .theme-toggle ~ .nav-toggle { margin-left: 10px; } } }
 /* the switch itself fades, briefly, rather than snapping (not with reduced motion) */
 html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after { transition: background-color 0.3s var(--ease-ui), color 0.3s var(--ease-ui), border-color 0.3s var(--ease-ui), fill 0.3s var(--ease-ui), stroke 0.3s var(--ease-ui) !important; }
 
@@ -1714,3 +1763,12 @@ html:not(.js) .try { display: none; }
   .page-home .hud-c.br .pause { background: none; }
   .page-home .hud-c.br .pause .pi { box-shadow: 0 0 0 7px var(--hud-plate); border-radius: 1px; }
 }
+
+/* Pages with the "On this page" bar: the sticky pieces stop under it, not behind it
+   (--jump-h is the bar's height: one row of 36px chips, 8px above and below, 1px rule). */
+:root { --jump-h: 53px; }
+.has-jump .phone { top: calc(var(--head) + var(--jump-h) + 32px); }
+@media (min-width: 901px) {
+  .has-jump .hw-stage { top: calc(var(--head) + var(--jump-h) + 16px); height: calc(100vh - var(--head) - var(--jump-h) - 32px); height: calc(100svh - var(--head) - var(--jump-h) - 32px); }
+}
+@media (max-width: 900px) { .has-jump .hw-stage { top: calc(var(--head) + var(--jump-h)); } }

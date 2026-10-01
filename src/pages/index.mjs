@@ -267,7 +267,7 @@ const how = `
       <a class="link-q" href="demo.html"><span>See it in action</span>${arrow}</a>
     </div>
   </div>
-  <div class="wrap feats">
+  <div class="wrap feats" id="features">
     <h3 class="kick hud" data-reveal>Also in the app</h3>
     <dl class="feat-grid">
       ${FEATURES.map(([t, d]) => `<div data-reveal><dt class="hud">${t}</dt><dd>${d}</dd></div>`).join('\n      ')}
@@ -453,6 +453,8 @@ export default {
   heroClass: 'sn page-home',
   hud: false, // the scene carries its own HUD corners
   scripts: ['js/home.js'],
+  // Chips for the "On this page" bar (src/layout.mjs): the scenes' own kicks are numbered.
+  jump: [['bend', 'The route'], ['clocks', 'Time of day'], ['metros', 'Metros'], ['how', 'How it works'], ['features', 'Features'], ['faq', 'Questions'], ['get', 'Get the app']],
   jsonLd: [faqNode(faqs)],
   body: [posterDefs(), zone, flow].join('\n'),
 };

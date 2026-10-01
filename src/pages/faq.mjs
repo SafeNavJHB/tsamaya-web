@@ -35,7 +35,8 @@ const page = {
     pageHead({
       meta: `Questions${M}as of ${LATEST.text}`,
       title: 'Questions, answered straight.',
-      lead: 'Everything people ask about Tsamaya, in one place. Each group links on to the full page. Lower risk is not no risk, and nothing here is a guarantee.',
+      lead: 'Everything people ask about Tsamaya, in one place. Lower risk is not no risk, and nothing here is a guarantee.',
+      after: '\n    <p class="ph-links qa-all"><button class="link-q" type="button" data-qa-all="open"><span>Open every answer</span></button><button class="link-q" type="button" data-qa-all="close"><span>Close every answer</span></button></p>',
     }),
     ...GROUPS.map(([id, kick, title, faqs]) => faqSec({ id: `faq-${id}`, kick, title, faqs })),
     getSec({ title: 'Try it on your next drive.', lead: 'Free, in open beta, on Android and iPhone.' }),
