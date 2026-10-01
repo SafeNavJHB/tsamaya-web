@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-01.8",
+      "date": "1 October 2026",
+      "items": [
+        {
+          "icon": "volume-high-outline",
+          "title": "One voice to the door",
+          "body": "The last few directions before you arrive, where turns come quickly, are now downloaded further ahead, so they are spoken in the same natural voice as the rest of the drive instead of switching to the iPhone voice.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-01.7",
       "date": "1 October 2026",
       "items": [
