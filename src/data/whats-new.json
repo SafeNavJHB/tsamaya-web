@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-01.4",
+      "date": "1 October 2026",
+      "items": [
+        {
+          "icon": "car-sport-outline",
+          "title": "Getting ready for a second car photo",
+          "body": "Car photos now have room for a second car, to switch between two. It will come with Premium or as a one-time purchase, along with search packs, both on the way. Your first car photo stays yours.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-01.3",
       "date": "1 October 2026",
       "items": [
