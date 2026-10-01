@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-01.5",
+      "date": "1 October 2026",
+      "items": [
+        {
+          "icon": "time-outline",
+          "title": "Routes that know when you will get there",
+          "body": "A trip that runs into the evening or night is now checked against the risk at the time you will reach each part of it, not only the time you set off. Leave at 19:10 and the areas that become high risk after 19:30 count for the part of the drive that gets there after 19:30.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-01.4",
       "date": "1 October 2026",
       "items": [
