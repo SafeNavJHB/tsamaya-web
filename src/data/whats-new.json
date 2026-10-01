@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-01.6",
+      "date": "1 October 2026",
+      "items": [
+        {
+          "icon": "moon-outline",
+          "title": "Say when a road is worse at night",
+          "body": "When you suggest an update for a road, a stretch of road or an area, you can now also say how it feels after 19:30, if night is worse than day.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-01.5",
       "date": "1 October 2026",
       "items": [
