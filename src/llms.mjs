@@ -59,7 +59,7 @@ ${NOT_A}
 - Coverage: ${t.metros} South African metros with ${fmt(t.zones).replace(/ /g, ' ')} rated areas, ${fmt(t.corridorsSafe).replace(/ /g, ' ')} checked road stretches and ${fmt(t.corridorsDanger).replace(/ /g, ' ')} flagged road stretches: ${coverageList}. Outside them it works as an ordinary map and navigator with no risk data.
 - Time of day: every area has three ratings, daytime 05:00 to 17:30, evening 17:30 to 19:30 and night 19:30 to 05:00, and the app uses the one for the hour you drive.
 - Route options: Fastest, Balanced and Lower-risk, each graded A (lowest risk) to E. A detour is only offered when it cuts exposure and stays within a distance limit; when there is no sensible way round, the app says so and marks the risky stretches.
-- Risk data: published South African Police Service crime statistics scored against OpenStreetMap roads, checked by an AI second opinion, with disputed ratings decided by a person, before going live, and corrected from drivers' reports in the app.
+- Risk data: published South African Police Service crime statistics scored against OpenStreetMap roads, given an AI second opinion and sense-checked by a person (who looks closely at ratings that stand out) before going live, then refined from drivers' reports in the app, each read by a person before anything on the map changes.
 - Made by: ${site.name} (Pty) Ltd, Johannesburg, South Africa. Founder: Kyle Kimble. Contact: ${site.contactEmail}
 - Visitors: it needs no account, works in rental cars, and people at home can follow a shared trip in a browser. Emergency numbers in South Africa: 10111 (police), 112 (any mobile), 10177 (ambulance).
 
