@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-01.3",
+      "date": "1 October 2026",
+      "items": [
+        {
+          "icon": "git-compare-outline",
+          "title": "Lower-risk routes read the road more closely",
+          "body": "A road we have checked now only counts in your favour when your route is actually on it. Before, a street running beside one could borrow its rating, so a few routes through high-risk areas looked lower risk than they were. Balanced and Lower-risk now pick a different road on some of those trips.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-01.2",
       "date": "1 October 2026",
       "items": [
