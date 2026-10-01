@@ -1767,7 +1767,8 @@ html:not(.js) .try { display: none; }
 /* Pages with the "On this page" bar: the sticky pieces stop under it, not behind it
    (--jump-h is the bar's height: one row of 36px chips, 8px above and below, 1px rule). */
 :root { --jump-h: 53px; }
-.has-jump .phone { top: calc(var(--head) + var(--jump-h) + 32px); }
+/* only where the phones are sticky: below 960px they are position: relative, and a top there would push them down onto the next section */
+@media (min-width: 961px) { .has-jump .phone { top: calc(var(--head) + var(--jump-h) + 32px); } }
 @media (min-width: 901px) {
   .has-jump .hw-stage { top: calc(var(--head) + var(--jump-h) + 16px); height: calc(100vh - var(--head) - var(--jump-h) - 32px); height: calc(100svh - var(--head) - var(--jump-h) - 32px); }
 }
