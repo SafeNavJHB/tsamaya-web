@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-03.1",
+      "date": "3 October 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "Quicker repeat searches",
+          "body": "Searching again for a place you looked up in the last few minutes now answers at once, and the trip cards on the home screen always show a live-traffic time.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-01.10",
       "date": "1 October 2026",
       "items": [
