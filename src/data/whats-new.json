@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-03.2",
+      "date": "3 October 2026",
+      "items": [
+        {
+          "icon": "copy-outline",
+          "title": "Your Support ID, one tap to copy",
+          "body": "Settings, Help & About now shows your Support ID with a copy button. If you write to us about Premium, it lets us find your phone without an account.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-03.1",
       "date": "3 October 2026",
       "items": [
