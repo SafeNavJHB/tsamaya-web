@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-10-04.2",
+      "date": "4 October 2026",
+      "items": [
+        {
+          "icon": "grid-outline",
+          "title": "Your logbook as an Excel file",
+          "body": "Export the SARS logbook as a proper Excel workbook: the summary and claim on one sheet, your trips, costs and odometer readings each on their own, with kilometres, rands and dates ready to add up. Business trips missing where from, where to or why are marked so you can fill them in. CSV is still there.",
+          "category": "feature"
+        },
+        {
+          "icon": "pin-outline",
+          "title": "Drop a pin for a trip you add",
+          "body": "When you add a trip by hand, drop a pin on the map for where it started or ended, and give the place a name for your logbook.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-04.1",
       "date": "4 October 2026",
       "items": [
