@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-10-04.1",
+      "date": "4 October 2026",
+      "items": [
+        {
+          "icon": "car-sport-outline",
+          "title": "Two vehicles in your logbook",
+          "body": "With Premium, keep a SARS logbook for two vehicles. Trips are recorded for the one in use, and its fuel use and toll class price your routes. Add trips Tsamaya did not record, by picking where from and where to or typing the kilometres.",
+          "category": "feature"
+        },
+        {
+          "icon": "camera-outline",
+          "title": "Fuel slips and odometer photos",
+          "body": "Keep fuel slips, other vehicle costs and odometer readings with their photos, on your phone only. Your fill-ups measure what your car really uses, and a reminder on the last day of the tax year asks for an odometer photo.",
+          "category": "feature"
+        },
+        {
+          "icon": "calculator-outline",
+          "title": "A fuller logbook for SARS",
+          "body": "Trips between Home and Work are tagged personal by themselves, business trips say what for and who with, and the export adds tolls, the kilometres no trip covers, your costs and an estimate of your claim from SARS's own tables.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-03.2",
       "date": "3 October 2026",
       "items": [
