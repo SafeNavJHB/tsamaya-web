@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-04.5",
+      "date": "4 October 2026",
+      "items": [
+        {
+          "icon": "information-circle-outline",
+          "title": "Details for every place you pick",
+          "body": "A place picked from the suggestions as you type now shows its hours, Call and Website too, when HERE knows them.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-04.4",
       "date": "4 October 2026",
       "items": [
