@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-04.3",
+      "date": "4 October 2026",
+      "items": [
+        {
+          "icon": "pin-outline",
+          "title": "Clearer naming for a pin",
+          "body": "A pin's name box now starts empty with the map's address beside it, and Add a trip says what is still needed before you can add it.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-04.2",
       "date": "4 October 2026",
       "items": [
