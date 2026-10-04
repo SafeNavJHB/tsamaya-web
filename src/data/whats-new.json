@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-04.6",
+      "date": "4 October 2026",
+      "items": [
+        {
+          "icon": "flag-outline",
+          "title": "Report a hijacking spot from the map",
+          "body": "Press and hold anywhere on the map, then tap Report crime or camera. Mark a hijacking or smash-and-grab spot, or a speed camera, and add a comment. The team checks every hijacking and smash-and-grab report, and approved spots go on the map with the hotspot ahead alert.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-04.5",
       "date": "4 October 2026",
       "items": [
