@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-04.4",
+      "date": "4 October 2026",
+      "items": [
+        {
+          "icon": "time-outline",
+          "title": "Opening hours, Call and Website",
+          "body": "Search results now show when a place closes, or when it opens again. Tap a place to call it or open its website straight from its card.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-04.3",
       "date": "4 October 2026",
       "items": [
