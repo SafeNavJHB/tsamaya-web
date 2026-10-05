@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-05.3",
+      "date": "5 October 2026",
+      "items": [
+        {
+          "icon": "git-merge-outline",
+          "title": "Route colours that match the map",
+          "body": "Where your route crosses a lower-risk road, the route line and the road name card now keep the colour of the road you are on, instead of flashing blue or green at the junction.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-05.2",
       "date": "5 October 2026",
       "items": [
