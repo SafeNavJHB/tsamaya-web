@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-05.1",
+      "date": "5 October 2026",
+      "items": [
+        {
+          "icon": "volume-high-outline",
+          "title": "Natural voice with the phone locked",
+          "body": "Spoken directions are now saved to your phone ahead of time even while the screen is locked, so the last lines before you arrive stay in the natural voice instead of switching to the iPhone voice.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-04.6",
       "date": "4 October 2026",
       "items": [
