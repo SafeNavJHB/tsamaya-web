@@ -15,6 +15,36 @@
   ],
   "releases": [
     {
+      "version": "2026-10-05.5",
+      "date": "5 October 2026",
+      "items": [
+        {
+          "icon": "navigate-outline",
+          "title": "Your car turns first",
+          "body": "Following a route, your car or arrow now swings into each corner first and the map follows a moment later, like Google Maps. As you come up to a turn, the map also starts turning towards the new road.",
+          "category": "feature"
+        },
+        {
+          "icon": "images-outline",
+          "title": "Your own car can turn too",
+          "body": "Using a photo of your car? In Settings, choose Turning views and add photos of its back corners and sides. Or keep Single photo and it stays straight while the map turns, as before.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-05.4",
+      "date": "5 October 2026",
+      "items": [
+        {
+          "icon": "car-sport-outline",
+          "title": "Premium vehicles in 3D",
+          "body": "With Premium, the hatchback, sedan, SUV, bakkie and race car are now proper 3D cars in all six colours, and following a route you see them turn on the map. Pick one in Settings once you have Premium.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-05.3",
       "date": "5 October 2026",
       "items": [
