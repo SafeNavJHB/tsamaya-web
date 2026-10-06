@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-06.1",
+      "date": "6 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "A more realistic hatchback",
+          "body": "The Hatchback vehicle now looks like a real car as it turns, in all six colours.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-05.9",
       "date": "5 October 2026",
       "items": [
