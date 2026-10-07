@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-10-07.2",
+      "date": "7 October 2026",
+      "items": [
+        {
+          "icon": "storefront-outline",
+          "title": "iPhone connects to the App Store for purchases",
+          "body": "Behind the scenes, Tsamaya on iPhone can now reach the App Store for the Premium plans and one-time purchases that are coming. Nothing is for sale yet.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-07.1",
+      "date": "7 October 2026",
+      "items": [
+        {
+          "icon": "speedometer-outline",
+          "title": "The CarPlay dashboard mini map opens again",
+          "body": "On some drives the mini map on the CarPlay dashboard stayed on the Tsamaya logo until you unplugged. It now opens every time, however CarPlay and your phone start up.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-06.4",
       "date": "6 October 2026",
       "items": [
