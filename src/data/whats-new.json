@@ -15,18 +15,6 @@
   ],
   "releases": [
     {
-      "version": "2026-10-07.2",
-      "date": "7 October 2026",
-      "items": [
-        {
-          "icon": "storefront-outline",
-          "title": "iPhone connects to the App Store for purchases",
-          "body": "Behind the scenes, Tsamaya on iPhone can now reach the App Store for the Premium plans and one-time purchases that are coming. Nothing is for sale yet.",
-          "category": "tweak"
-        }
-      ]
-    },
-    {
       "version": "2026-10-07.1",
       "date": "7 October 2026",
       "items": [
@@ -58,30 +46,6 @@
           "icon": "car-outline",
           "title": "Fresh vehicle designs",
           "body": "The Hatchback, Sedan, SUV, Bakkie and Race car have new, cleaner designs, in all six colours.",
-          "category": "feature"
-        }
-      ]
-    },
-    {
-      "version": "2026-10-06.2",
-      "date": "6 October 2026",
-      "items": [
-        {
-          "icon": "car-sport-outline",
-          "title": "More realistic vehicles",
-          "body": "The Hatchback, Sedan, SUV, Bakkie and Race car now look like real cars as they turn, in all six colours.",
-          "category": "feature"
-        }
-      ]
-    },
-    {
-      "version": "2026-10-06.1",
-      "date": "6 October 2026",
-      "items": [
-        {
-          "icon": "car-outline",
-          "title": "A more realistic hatchback",
-          "body": "The Hatchback vehicle now looks like a real car as it turns, in all six colours.",
           "category": "feature"
         }
       ]
@@ -339,18 +303,6 @@
       ]
     },
     {
-      "version": "2026-10-01.8",
-      "date": "1 October 2026",
-      "items": [
-        {
-          "icon": "volume-high-outline",
-          "title": "One voice to the door",
-          "body": "The last few directions before you arrive, where turns come quickly, are now downloaded further ahead, so they are spoken in the same natural voice as the rest of the drive instead of switching to the iPhone voice.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
       "version": "2026-10-01.7",
       "date": "1 October 2026",
       "items": [
@@ -549,18 +501,6 @@
       ]
     },
     {
-      "version": "2026-09-29.5",
-      "date": "29 September 2026",
-      "items": [
-        {
-          "icon": "speedometer-outline",
-          "title": "Speedometer stays in view on Android Auto",
-          "body": "On Android Auto the speedometer no longer gets stuck behind the turn banner or the End route button, or partway down the map. It now moves as soon as the car screen changes, in full screen and split screen, and in free drive it keeps its corner when the car screen shows its buttons.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
       "version": "2026-09-29.4",
       "date": "29 September 2026",
       "items": [
@@ -627,7 +567,7 @@
         {
           "icon": "car-outline",
           "title": "CarPlay no longer sticks on the Tsamaya logo",
-          "body": "When CarPlay started Tsamaya before you opened it on your phone, the CarPlay map, the dashboard mini map and the phone itself could stay on the Tsamaya logo for the whole drive. All three now open properly, whichever one starts first.",
+          "body": "When CarPlay started Tsamaya before you opened it on your phone, the CarPlay map and the phone itself could stay on the Tsamaya logo for the whole drive. Both now open properly, whichever one starts first.",
           "category": "fix"
         },
         {
@@ -753,7 +693,7 @@
         {
           "icon": "mic-outline",
           "title": "Voice reports hear the report words",
-          "body": "When you tap Speak, your phone now listens out for Tsamaya's report words, like police, roadblock and speed camera, so what you say comes back right more often.",
+          "body": "When you tap Speak, your phone now listens out for Tsamaya's report words, like police, roadblock and speed camera, so what you say comes back right more often. A \"police\" heard as \"peace\" or \"polis\" still files a police report.",
           "category": "fix"
         },
         {
@@ -803,12 +743,6 @@
           "title": "Nearby places come from HERE first",
           "body": "Police stations, hospitals, fuel and the other Nearby categories, and the nearest branch of a chain, now come from HERE first. That keeps Google search free for the places you type, and every phone gets a fair share of it each day.",
           "category": "tweak"
-        },
-        {
-          "icon": "information-circle-outline",
-          "title": "A heads-up when your Google searches run out",
-          "body": "Once a day, when this phone's Google searches are used up, Tsamaya says why and shows ways to find a place without a search: drop a pin, save the places you go to often, or find it in Google Maps and share it to Tsamaya.",
-          "category": "feature"
         },
         {
           "icon": "share-outline",
@@ -877,12 +811,6 @@
       "date": "26 September 2026",
       "items": [
         {
-          "icon": "speedometer-outline",
-          "title": "Speed dial back in the corner on Android Auto",
-          "body": "The speed dial sits in the top corner of the map again, and slides down out of the way only while the Android Auto buttons are showing.",
-          "category": "tweak"
-        },
-        {
           "icon": "car-outline",
           "title": "Your car sits nearer you on CarPlay",
           "body": "In a right-hand drive car, where CarPlay puts its turn card on the right, your car and the road ahead now sit closer to that side during a drive, with the road name underneath.",
@@ -893,18 +821,6 @@
           "title": "Send just the drive you mean",
           "body": "When you send your drive log from Settings, you can now pick the last 3, 6, 12 or 24 hours, so the file covers only the trip that went wrong.",
           "category": "feature"
-        }
-      ]
-    },
-    {
-      "version": "2026-09-26.7",
-      "date": "26 September 2026",
-      "items": [
-        {
-          "icon": "mic-outline",
-          "title": "Voice reports hear you better",
-          "body": "When you say \"police\" and your phone hears \"peace\" or \"polis\", Tsamaya now still files a police report. With Siri, say \"Hey Siri, report police in Tsamaya\".",
-          "category": "fix"
         }
       ]
     },
@@ -1087,12 +1003,6 @@
       "date": "23 September 2026",
       "items": [
         {
-          "icon": "arrow-undo-outline",
-          "title": "Undo shows up on Android Auto",
-          "body": "Reporting from the car screen could send the report without the Undo prompt ever appearing, because the report grid was still closing. The prompt now waits for the map and appears reliably.",
-          "category": "fix"
-        },
-        {
           "icon": "list-outline",
           "title": "Tidier risk levels panel",
           "body": "The risk levels panel under the city name now opens clear of the top bar, so the first row is no longer tucked under it.",
@@ -1257,25 +1167,13 @@
       ]
     },
     {
-      "version": "2026-09-19.7",
-      "date": "19 September 2026",
-      "items": [
-        {
-          "icon": "search-outline",
-          "title": "Search keeps working on a busy day",
-          "body": "Destination search now has a daily limit with Google. If the limit is reached, search switches to the map's own place search instead of showing an error, and goes back to Google within the hour. The Nearby buttons say when they are busy rather than asking you to check your connection.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
       "version": "2026-09-19.6",
       "date": "19 September 2026",
       "items": [
         {
           "icon": "layers-outline",
-          "title": "Previous overlays appear as soon as the map does",
-          "body": "After an update the previous risk overlays now go onto the map the moment it opens, rather than after the risk data has loaded and been re-cut, which on older phones was about fourteen seconds. The refreshed overlays still replace them when ready.",
+          "title": "No blank map after an update",
+          "body": "The first launch after an app update rebuilds the risk overlays for the new version. The map now shows the previous overlays the moment it opens and swaps in the new ones when they are ready, instead of leaving it bare for up to half a minute.",
           "category": "tweak"
         }
       ]
@@ -1293,18 +1191,6 @@
       ]
     },
     {
-      "version": "2026-09-19.4",
-      "date": "19 September 2026",
-      "items": [
-        {
-          "icon": "layers-outline",
-          "title": "Previous overlays really do show after an update",
-          "body": "The earlier fix for the bare map after an update was undone by its own first pass: the app built an empty overlay before the risk data had loaded and threw the previous one away. It now waits for real data before writing anything, so the previous overlays stay on the map until the new ones are ready.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
       "version": "2026-09-19.3",
       "date": "19 September 2026",
       "items": [
@@ -1313,12 +1199,6 @@
           "title": "The route screen opens as soon as the fastest route is in",
           "body": "Tapping Go used to show \"Finding route…\" for as long as the first round of safety scoring took, and on older Android phones taps were ignored while the lower-risk search ran. The planner now lets the screen draw between scoring steps whenever the app is on screen, so the fastest route appears as soon as it downloads and the screen stays responsive while the safer options are found.",
           "category": "fix"
-        },
-        {
-          "icon": "layers-outline",
-          "title": "No blank map after an update",
-          "body": "The first launch after an app update rebuilds the risk overlays for the new version. The map now shows the previous overlays straight away and swaps them in when the rebuild finishes, instead of leaving the map bare for half a minute.",
-          "category": "tweak"
         }
       ]
     },
@@ -1366,18 +1246,6 @@
           "icon": "flash-outline",
           "title": "Android Auto: the turn card appears much sooner after Go",
           "body": "Tapping Go on the car screen used to take about ten seconds before the first turn card appeared. Nine of those seconds were spent checking every road segment near the route against the whole route, one sample at a time. That check now skips segments the route cannot touch, so guidance starts within a few seconds.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
-      "version": "2026-09-18.5",
-      "date": "18 September 2026",
-      "items": [
-        {
-          "icon": "stopwatch-outline",
-          "title": "Car screen: measuring the pause after Go",
-          "body": "On Android Auto the first turn card can take about ten seconds to appear after you tap Go. This update times each step of that pause so the next drive log shows exactly where it goes, and lets a staff phone stream its drive log to a connected computer.",
           "category": "fix"
         }
       ]
@@ -1460,8 +1328,8 @@
         },
         {
           "icon": "albums-outline",
-          "title": "Android Auto: risk border on the edge of the map card",
-          "body": "When Tsamaya shares the car screen with another app, the coloured risk border now runs along the edge of the map card instead of floating inside it with map showing around it.",
+          "title": "Android Auto: the risk border frames the map you can see",
+          "body": "The coloured risk border now runs along the screen edges in full screen and along the edge of the map card when Tsamaya shares the car screen with another app, instead of floating inside it or running off it.",
           "category": "fix"
         }
       ]
@@ -1484,8 +1352,8 @@
       "items": [
         {
           "icon": "moon-outline",
-          "title": "CarPlay: the night map follows your car",
-          "body": "Version 1.5.2. With Map look set to Auto, the CarPlay map now switches to the night map when the car itself switches to its dark map appearance, the way Android Auto already does. A look pinned to Day or Dark still wins.",
+          "title": "The night map follows your car",
+          "body": "Version 1.5.2. With Map look on Auto, the CarPlay and Android Auto maps switch to the night map when the car itself switches to its dark look, for example when its lights come on, and back again in daylight, the way Google Maps does. A look pinned to Day or Dark still wins.",
           "category": "feature"
         },
         {
@@ -1513,22 +1381,10 @@
           "category": "fix"
         },
         {
-          "icon": "speedometer-outline",
-          "title": "Faster routes on the car screen",
-          "body": "Planning a trip from CarPlay or Android Auto, by voice or from search, now works out the route options together instead of one after the other, and stops asking for the same directions twice.",
-          "category": "fix"
-        },
-        {
           "icon": "flag-outline",
           "title": "Android Auto: Report and Settings buttons",
           "body": "The Android Auto map now has its own Report and Settings buttons at the top, so you can report an incident without a route and reach Settings without going through Search. While driving, Settings sits next to Search.",
           "category": "feature"
-        },
-        {
-          "icon": "mic-outline",
-          "title": "Ending a drive by voice understands more ways of asking",
-          "body": "Asking your car’s assistant to end the route now works with more ways of saying it, like “can you end the route” or “stop navigating to Rosebank Mall”.",
-          "category": "fix"
         },
         {
           "icon": "shield-checkmark-outline",
@@ -1552,30 +1408,6 @@
           "icon": "grid-outline",
           "title": "Car screen: Settings keeps track of Back",
           "body": "Leaving Settings with the car screen’s own Back button is now recorded properly, so the drive log no longer shows a second Settings screen that was never open, and the one-time Home and Work tip on the car can appear again.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
-      "version": "2026-09-16.3",
-      "date": "16 September 2026",
-      "items": [
-        {
-          "icon": "sunny-outline",
-          "title": "CarPlay: day maps in the daytime",
-          "body": "With Map look on Auto, the car screen could show the night map in broad daylight: CarPlay reports a dark screen style all day, and on Lite detail a phone in dark mode darkened the car map too. The car map now follows the time of day and your Map look choice. Android Auto still switches to night maps when the car does.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
-      "version": "2026-09-16.2",
-      "date": "16 September 2026",
-      "items": [
-        {
-          "icon": "document-text-outline",
-          "title": "Old “App closed unexpectedly” warnings cleared",
-          "body": "A red warning left over from before the last update no longer stays in Settings. It now only appears for a crash the current rules actually find.",
           "category": "fix"
         }
       ]
@@ -1622,8 +1454,8 @@
         },
         {
           "icon": "car-outline",
-          "title": "Android Auto: new route preview, spoken stop, risk border",
-          "body": "Asking for a new destination mid-drive now previews the new route, not the one you are on. Telling the assistant to end navigation ends it instead of offering to drive to a street called End. The risk border frames the map you can see: along the screen edges in full screen, around the card in split view.",
+          "title": "Android Auto: a new destination previews its own route",
+          "body": "Asking for a new destination mid-drive now previews the new route, not the one you are on.",
           "category": "fix"
         },
         {
@@ -1655,12 +1487,6 @@
           "title": "CarPlay: a crash when closing route options is fixed",
           "body": "Version 1.5.1. Closing the route options on the car screen could crash Tsamaya, because two parts of the app changed the car’s buttons at the same moment. They now take turns.",
           "category": "fix"
-        },
-        {
-          "icon": "medkit-outline",
-          "title": "Clearer crash reports on Android",
-          "body": "When Tsamaya crashes on an Android phone, more of the report we receive now names the code involved instead of showing bare memory addresses, which makes the cause quicker to find.",
-          "category": "tweak"
         }
       ]
     },
@@ -1783,12 +1609,6 @@
           "category": "fix"
         },
         {
-          "icon": "pulse-outline",
-          "title": "Android Auto: the warning border fits the small card",
-          "body": "In the split-screen card, the left edge of the safety border was drawn off the card and the right edge was mostly hidden. The border now traces the card you can actually see. CarPlay is unchanged.",
-          "category": "fix"
-        },
-        {
           "icon": "speedometer-outline",
           "title": "Speed limit: no more blink through short gaps in the map data",
           "body": "On roads like Old Pretoria Main Road the limit vanished for a few seconds and came back, because a short stretch of the road has no speed-limit tag in OpenStreetMap. The last limit read on that road is now held through a gap of up to 1.5 km. A held limit is never used for the over-speed chime, and nothing is shown where no limit was ever read.",
@@ -1799,12 +1619,6 @@
           "title": "CarPlay dashboard: the mini-map looks down at the junction too",
           "body": "The small dashboard map now flattens to a top-down view as a turn comes up, the same way the main car map and the phone do, then leans back once you are through.",
           "category": "tweak"
-        },
-        {
-          "icon": "map-outline",
-          "title": "CarPlay: the Mapbox logo is in the top-right corner again",
-          "body": "On Satellite, the map logo and the (i) button sat in the top centre of the screen, and were pushed off the map entirely while a turn card was up. They now sit in the top-right corner of the visible map.",
-          "category": "fix"
         },
         {
           "icon": "document-text-outline",
@@ -1851,18 +1665,6 @@
       ]
     },
     {
-      "version": "2026-09-11.4",
-      "date": "11 September 2026",
-      "items": [
-        {
-          "icon": "refresh-outline",
-          "title": "Car screens notice when you allow location",
-          "body": "Following on from the message added earlier today: if you allowed location from your phone's own Settings rather than from inside Tsamaya, the car screen kept saying it still needed access until you next opened the app. It now picks up the change on its own, within a few seconds.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
       "version": "2026-09-11.3",
       "date": "11 September 2026",
       "items": [
@@ -1875,7 +1677,7 @@
         {
           "icon": "help-circle-outline",
           "title": "Car screens now tell you why the map is empty",
-          "body": "If the app had not been given permission to use your location, or was still finding you, the car screen just showed a map with no car on it and nothing explaining why. It now says what is wrong: either that it needs location access, which only your phone can give it, or simply that it is still finding you. The first one asks you to sort it out on your phone when it is safe to do so, never while you are driving.",
+          "body": "If the app had not been given permission to use your location, or was still finding you, the car screen just showed a map with no car on it and nothing explaining why. It now says what is wrong: either that it needs location access, which only your phone can give it, or that it is still finding you. The first one asks you to sort it out on your phone when it is safe to do so, never while you are driving, and clears by itself within a few seconds once you allow it, even from your phone's own Settings.",
           "category": "fix"
         }
       ]
@@ -1969,12 +1771,6 @@
       "date": "9 September 2026",
       "items": [
         {
-          "icon": "swap-vertical-outline",
-          "title": "Camera tilt the right way round",
-          "body": "Low now means a low camera that leans over the road ahead, the Google Maps look, and Steep means a steep camera looking down, closer to top-down. The first version had the two swapped. Your saved choice stays as it is, so if you picked Low wanting the leaning view you now have it.",
-          "category": "fix"
-        },
-        {
           "icon": "phone-portrait-outline",
           "title": "Android: room for the navigation buttons",
           "body": "On an Android phone using the three-button navigation bar, buttons and sheets at the bottom of the screen sat under the bar: the onboarding Skip link, the end of Settings, and every pop-up sheet. Everything bottom-anchored now clears the bar. Gesture navigation and iPhone are unchanged.",
@@ -2027,12 +1823,6 @@
           "title": "Top-down view at turns",
           "body": "As a turn comes up, about 250 metres out or ten seconds away at speed, the map now tilts to a top-down view of the junction so you can see its shape clearly, then leans back to your camera tilt once you are through. It is on by default, on the phone and on a car screen, and lives under Settings › Navigation › Junction view.",
           "category": "feature"
-        },
-        {
-          "icon": "information-circle-outline",
-          "title": "Satellite map credits moved out of the way",
-          "body": "On a car screen with the satellite basemap, the Mapbox mark and the imagery credit sat at the bottom, where the car’s own bar and the road pill covered them. They now sit in the top corner away from the speedo. They stay on for satellite because the aerial imagery is licensed and must be credited.",
-          "category": "tweak"
         }
       ]
     },
@@ -2073,7 +1863,7 @@
         {
           "icon": "options-outline",
           "title": "Choose how far the map leans",
-          "body": "Settings › Navigation › Camera tilt sets the angle of the driving view: Low is closer to top-down, the way Google Maps sits; Standard is the angle Tsamaya has always used; Steep leans further over the road ahead. It applies to the phone and to the map on a car screen.",
+          "body": "Settings › Navigation › Camera tilt sets the angle of the driving view: Low is a low camera that leans over the road ahead, the Google Maps look; Standard is the angle Tsamaya has always used; Steep looks down, closer to top-down. It applies to the phone and to the map on a car screen.",
           "category": "feature"
         },
         {
@@ -2142,12 +1932,6 @@
       "version": "2026-09-07.1",
       "date": "7 September 2026",
       "items": [
-        {
-          "icon": "moon-outline",
-          "title": "Night map when your car’s lights come on",
-          "body": "On CarPlay and Android Auto the map now switches to the night look whenever the car reports its lights are on, and back to the daytime map when they go off, the way Google Maps does. This applies with Map lighting on Auto; a lighting you have pinned in Settings still wins.",
-          "category": "feature"
-        },
         {
           "icon": "earth-outline",
           "title": "Satellite on the dashboard mini-map",
@@ -2221,12 +2005,6 @@
       "date": "4 September 2026",
       "items": [
         {
-          "icon": "phone-portrait-outline",
-          "title": "Android Auto: the map no longer opens shoved to the left",
-          "body": "When the car screen shows the map in a split card next to another app, the app could apply screen margins that belonged to the previous, full-width layout and put the car marker, the camera and the road name at the card’s left edge until something on the screen changed. Margins that cannot belong to the current card are now ignored.",
-          "category": "fix"
-        },
-        {
           "icon": "car-outline",
           "title": "Android Auto: the road name no longer sits on the car",
           "body": "On short car screens the road-name pill could overlap the car marker, and in navigation cover it entirely under the turn card and ETA bar. It now keeps clear of the marker, switching to a one-line layout when the screen is too short for the stacked one, and it is no longer clipped on its left edge.",
@@ -2267,12 +2045,6 @@
           "title": "Area boundaries are dotted on the car screen",
           "body": "On CarPlay and Android Auto, the outline of a risk area is now a dotted line, and flagged roads stay dashed. An orange boundary meeting an orange road at a junction no longer looks like two roads.",
           "category": "tweak"
-        },
-        {
-          "icon": "refresh-outline",
-          "title": "Dashboard mini-map comes back in seconds",
-          "body": "When the car unit warns the phone about memory, the mini-map briefly hands its graphics memory back. It used to stay off for over a minute after a single warning; it now comes back after about eight seconds, and only stays off longer if the warnings keep coming.",
-          "category": "fix"
         }
       ]
     },
@@ -2355,7 +2127,7 @@
         {
           "icon": "phone-portrait-outline",
           "title": "Guidance keeps up with the screen off",
-          "body": "Version 1.5.0. On a CarPlay drive with the phone locked, reroutes and safety alerts could wait until the screen woke up. The app now keeps its timers and network replies running while the display is off, so a reroute no longer has to wait for the next unlock.",
+          "body": "Version 1.5.0. With your phone locked or in your pocket, directions, reroutes, the speedometer and safety alerts could fall behind or stop until you woke the screen, most of all on CarPlay. Tsamaya now keeps itself running for the whole drive, so nothing waits for the next unlock, and your music is untouched.",
           "category": "fix"
         },
         {
@@ -2363,12 +2135,6 @@
           "title": "Lock Screen card stays on the turn",
           "body": "The Lock Screen and Dynamic Island card could fall a hundred metres behind the turn on a locked phone. Its updates now run at a higher priority, so the card shows the same turn the car does.",
           "category": "fix"
-        },
-        {
-          "icon": "medkit-outline",
-          "title": "Clearer crash reports",
-          "body": "When the app does crash, the report we receive now names the exact function instead of a memory address, so a fix can start from the right line instead of a guess.",
-          "category": "tweak"
         }
       ]
     },
@@ -2395,33 +2161,9 @@
       "date": "1 September 2026",
       "items": [
         {
-          "icon": "sunny-outline",
-          "title": "Day and night maps agree on the car screen",
-          "body": "With Map lighting on Auto, the main CarPlay map could stay in night colours on a bright day while the dashboard mini map correctly showed day. Some cars report night mode to apps all the time, so the map no longer listens to the car for its look: every screen now follows the time of day together.",
-          "category": "fix"
-        },
-        {
-          "icon": "apps-outline",
-          "title": "Car-screen buttons recover on their own",
-          "body": "Tapping the CarPlay map hides the on-screen buttons, and they could then refuse to come back. The app now quietly re-places its buttons as you drive or touch the screen, so a stuck strip rights itself within seconds.",
-          "category": "fix"
-        },
-        {
           "icon": "car-sport-outline",
           "title": "The mini map keeps your car while stopped",
           "body": "The dashboard mini map hid the car marker whenever you stood still for a few seconds, and it only returned once you moved off. A parked car now stays on its map.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
-      "version": "2026-08-30.1",
-      "date": "30 August 2026",
-      "items": [
-        {
-          "icon": "map-outline",
-          "title": "Dashboard mini map no longer disappears mid-drive",
-          "body": "The small CarPlay dashboard map could go dark for ten minutes in the middle of a long drive: a memory safeguard was misreading normal driving as a problem. It now steps aside only when the phone itself reports memory trouble, and comes back within about a minute instead of ten.",
           "category": "fix"
         }
       ]
@@ -2459,30 +2201,6 @@
           "title": "Free drive tells you about the road, not the suburb",
           "body": "With no route set, the dashboard card put the area warning next to the road name, so a clean street inside a busier suburb read as if the street itself were the problem. The card now describes the road you are on. The area is still shown, by the coloured frame around the tile.",
           "category": "fix"
-        }
-      ]
-    },
-    {
-      "version": "2026-08-28.3",
-      "date": "28 August 2026",
-      "items": [
-        {
-          "icon": "map-outline",
-          "title": "CarPlay mini map stays up on long drives",
-          "body": "On longer drives the small dashboard map could step aside for about ten minutes and show only the speed card, because a routine memory reading was mistaken for memory trouble. The app now tells the two apart: the mini map stays up through a normal drive, and still gets out of the way instantly when the phone is genuinely running low on memory.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
-      "version": "2026-08-28.2",
-      "date": "28 August 2026",
-      "items": [
-        {
-          "icon": "bug-outline",
-          "title": "Sharper crash reports",
-          "body": "When something does go wrong, the crash report can now pinpoint the exact place in the app's code, so fixes land faster. Nothing new is collected: this only makes the existing reports readable.",
-          "category": "tweak"
         }
       ]
     },
@@ -2646,12 +2364,6 @@
       "version": "2026-08-20.1",
       "date": "20 August 2026",
       "items": [
-        {
-          "icon": "moon-outline",
-          "title": "CarPlay follows your car into night mode",
-          "body": "When your head unit switches to night (a garage, a storm, early winter dusk) the car map now darkens with it instead of staying in daylight. Zone borders are also calmer on the night map, so your route stands out.",
-          "category": "feature"
-        },
         {
           "icon": "alert-circle-outline",
           "title": "Road alerts reach the car screen",
@@ -2877,39 +2589,9 @@
       ]
     },
     {
-      "version": "2026-08-14.1",
-      "date": "14 August 2026",
-      "items": [
-        {
-          "icon": "volume-medium-outline",
-          "title": "Voice prompts no longer weaken locked-phone navigation",
-          "body": "The silent audio loop that keeps navigation running while the phone is locked was being torn down and rebuilt after spoken instructions: on a guided CarPlay drive that happened every few minutes, each time opening a brief gap in which iOS could pause the app. Handing your music back after a prompt now resumes the loop in place instead of rebuilding it. Also fixed the drive log recording the previous route’s remaining distance right after a reroute (display was always correct; only diagnostics were affected).",
-          "category": "fix"
-        }
-      ]
-    },
-    {
-      "version": "2026-08-12.2",
-      "date": "12 August 2026",
-      "items": [
-        {
-          "icon": "map-outline",
-          "title": "Dashboard mini map recovers after memory pressure",
-          "body": "When iPhone memory ran low, the CarPlay dashboard mini map was switched off for the rest of the day as a protective measure. Even unplugging CarPlay could not bring it back. It now returns on its own once memory has been calm for ten minutes, and comes back in the lighter map style so the retry does not recreate the pressure.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
       "version": "2026-08-12.1",
       "date": "12 August 2026",
       "items": [
-        {
-          "icon": "navigate-outline",
-          "title": "Reroutes no longer wait for your screen",
-          "body": "Fixed a serious bug where a mid-drive reroute (and other live updates) could stall until the phone screen was woken: on locked-phone CarPlay drives, finished network responses were stuck behind iOS’s frozen JS timers. Rerouting now completes with the screen off, and a genuinely stuck reroute cancels itself and retries instead of silently switching off for the rest of the drive.",
-          "category": "fix"
-        },
         {
           "icon": "color-palette-outline",
           "title": "Warning border now matches the map in overlapping zones",
@@ -2929,12 +2611,6 @@
           "category": "feature"
         },
         {
-          "icon": "musical-notes-outline",
-          "title": "Music dims only when the voice actually speaks",
-          "body": "The music used to dip while the natural voice was still being fetched: a few silent seconds before anything was said. It now dims at the moment the words start.",
-          "category": "fix"
-        },
-        {
           "icon": "time-outline",
           "title": "Traffic heads-up now says it clearly",
           "body": "Routes are planned with live traffic, so a jam’s delay is already inside your ETA. The heads-up now says exactly that, instead of sounding like your arrival time is about to jump.",
@@ -2946,12 +2622,6 @@
       "version": "2026-08-11.2",
       "date": "11 August 2026",
       "items": [
-        {
-          "icon": "navigate-outline",
-          "title": "Reroutes and the speedo stay live with the screen locked",
-          "body": "Coming to a stop with the phone locked used to freeze the app’s engine: reroutes could take minutes to land on CarPlay and the speedometer stuck at your last moving speed. Navigation now keeps itself scheduled through standstills, so reroutes, the speedo and safety updates stay current without waking the phone.",
-          "category": "fix"
-        },
         {
           "icon": "moon-outline",
           "title": "Forgotten trips end themselves",
@@ -3183,18 +2853,6 @@
       ]
     },
     {
-      "version": "2026-08-06.3",
-      "date": "6 August 2026",
-      "items": [
-        {
-          "icon": "musical-notes",
-          "title": "Locked-screen drives: music restore and rerouting hardened",
-          "body": "On drives with the screen locked, the fix that hands your music back after each instruction could itself stop the background heartbeat that keeps the app responsive, leaving music dimmed and rerouting frozen until the screen woke. The hand-back now runs in the moment the spoken clip finishes, the background heartbeat repairs itself if it is ever paused, and the brief audio handover can no longer be interrupted midway.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
       "version": "2026-08-06.2",
       "date": "6 August 2026",
       "items": [
@@ -3218,44 +2876,8 @@
       "items": [
         {
           "icon": "musical-notes",
-          "title": "Music really comes back after each instruction now",
-          "body": "On CarPlay (and locked-phone drives) your music dimmed at the first spoken instruction and never recovered until you woke the phone. iPhones only restore other apps' volume when the app that dimmed them briefly lets go of the speaker, and Tsamaya was holding on for the whole drive to keep itself awake in the background. After each spoken line it now lets go for a split second and takes the speaker straight back: your music returns to full volume the moment the voice stops, and navigation keeps running with the screen off exactly as before.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
-      "version": "2026-08-02.5",
-      "date": "2 August 2026",
-      "items": [
-        {
-          "icon": "volume-high",
-          "title": "The real reason directions kept going quiet",
-          "body": "Every time Tsamaya finished speaking, it was handing the phone's audio back completely, which also gave up the permission it needs to keep running with the screen off. So after the first instruction of a drive it would gradually go to sleep, and only wake when you picked the phone up. It now keeps that permission for the whole trip. This is also what made your music jump back to full volume for a few seconds after each instruction.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
-      "version": "2026-08-02.4",
-      "date": "2 August 2026",
-      "items": [
-        {
-          "icon": "musical-notes",
-          "title": "Your music stays at full volume between directions",
-          "body": "Music was being turned down for the whole drive instead of just while Tsamaya was speaking, dipping from the moment you set off and only coming back for a few seconds after each instruction. It now ducks around the spoken line and hands your music straight back.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
-      "version": "2026-08-02.3",
-      "date": "2 August 2026",
-      "items": [
-        {
-          "icon": "volume-high",
-          "title": "Guidance no longer goes quiet mid-drive",
-          "body": "This is the one that kept coming back. Tsamaya was asking iOS to let it keep running with the screen off, but iOS only grants that to an app that is actually playing sound, and between spoken directions there is none, so it kept getting put to sleep. It now plays a silent tone for the length of a drive, which keeps it awake and the directions coming. You will not hear it and your music is untouched.",
+          "title": "Music comes back after each instruction",
+          "body": "On CarPlay and locked-phone drives your music could stay dimmed after a spoken instruction, or dip for the whole drive, until you woke the phone. It now dims only while Tsamaya speaks and returns to full volume the moment the voice stops, and navigation keeps running with the screen off.",
           "category": "fix"
         }
       ]
@@ -3264,12 +2886,6 @@
       "version": "2026-08-02.2",
       "date": "2 August 2026",
       "items": [
-        {
-          "icon": "volume-high",
-          "title": "Voice guidance keeps talking with the phone asleep",
-          "body": "Directions could go quiet mid-drive and only pick up again the moment you woke your phone. Two separate causes: Tsamaya was letting iOS pause its own voice whenever the phone locked, and the claim it makes to keep running in the car was only made once when you plugged in, so if anything took it away later, nothing put it back. It now holds that claim for the whole drive and re-checks it as you move.",
-          "category": "fix"
-        },
         {
           "icon": "pulse",
           "title": "Better evidence if a drive ends by itself",
@@ -3353,12 +2969,6 @@
           "title": "Off the route, the risk readout reads where you actually are",
           "body": "When you left the route, the safety readout could keep reading the risk of the road you were supposed to be on rather than the one you are on. Once you are more than about forty metres off the line, it now reads your real position until the new route lands.",
           "category": "fix"
-        },
-        {
-          "icon": "bandage",
-          "title": "Two more ways the car could put Tsamaya back to sleep",
-          "body": "Muting the voice mid-drive, or a genuinely stuck voice clip, could quietly undo the keep-awake fix from earlier today and return CarPlay to its slow-motion state. Both paths now leave the keep-awake alone.",
-          "category": "fix"
         }
       ]
     },
@@ -3409,22 +3019,10 @@
       "date": "31 July 2026",
       "items": [
         {
-          "icon": "flash",
-          "title": "Tsamaya keeps working while you drive",
-          "body": "On a CarPlay drive your phone was giving Tsamaya almost no time to think (measured at four percent), which is why guidance arrived late, rerouting crawled, and the car screen only caught up when you picked the phone up. It now holds on to the audio channel it uses for spoken directions, which keeps it running for the whole drive. Your music is untouched.",
-          "category": "fix"
-        },
-        {
           "icon": "shield-checkmark",
           "title": "The road rating matches the map again",
           "body": "The line under your car could be drawn green for a verified-safe road while the label beside it said \"Unrated road\". The map read the rating from the road itself; the label read it from your raw GPS position, which between tall buildings can sit a lane or two off. Both now read the road you are actually on.",
           "category": "fix"
-        },
-        {
-          "icon": "phone-landscape",
-          "title": "A smaller road label on the CarPlay dashboard",
-          "body": "The road name and safety pill on the little dashboard map were too big and sat low enough to hide behind the arrival time. Smaller now, and lifted clear of it.",
-          "category": "tweak"
         }
       ]
     },
@@ -3467,12 +3065,6 @@
           "title": "The right road name in free drive",
           "body": "After ending a route, the car screen could name a house you were driving past rather than the road you were on. It now asks which road you are actually travelling along.",
           "category": "fix"
-        },
-        {
-          "icon": "map",
-          "title": "The route picker shows the route again",
-          "body": "Choosing between Fastest, Balanced and Lower-risk on the car screen zoomed out to fit the route across the whole display, including the half hidden behind the list of choices. It now fits the route into the part of the map you can actually see.",
-          "category": "fix"
         }
       ]
     },
@@ -3507,7 +3099,7 @@
         {
           "icon": "git-branch",
           "title": "Route picker: a real Cancel, and a real overview",
-          "body": "Choosing between Fastest, Balanced and Lower-risk on the car screen now zooms out to show the whole route you are picking, and there is a clear ✕ to back out, instead of one unlabelled arrow in the far corner.",
+          "body": "Choosing between Fastest, Balanced and Lower-risk on the car screen now zooms out to show the whole route you are picking, fitted into the part of the map you can see, and there is a clear ✕ to back out, instead of one unlabelled arrow in the far corner.",
           "category": "fix"
         },
         {
@@ -3710,8 +3302,8 @@
       "items": [
         {
           "icon": "map-outline",
-          "title": "The CarPlay dashboard map actually moves now",
-          "body": "The small map on the CarPlay dashboard used to be a still picture that refetched itself every several seconds, so it stepped forward in jumps and could not turn with you: the arrow pointed the right way while the map underneath lagged behind. It is now a real live map that scrolls and rotates continuously, like the one on the main car screen.",
+          "title": "The CarPlay dashboard map moves with you",
+          "body": "The small map on the CarPlay dashboard could show black on real cars, or step forward in jumps as a still picture that refetched itself. It is now a real live map that scrolls and rotates continuously as you drive, like the one on the main car screen.",
           "category": "fix"
         },
         {
@@ -3730,12 +3322,6 @@
           "icon": "return-down-back-outline",
           "title": "U-turn arrow points the South African way",
           "body": "The U-turn symbol was the right-hand-drive shape, looping to the left. In South Africa a U-turn crosses to the right, so the arrow is now mirrored to match what you actually do at the intersection.",
-          "category": "fix"
-        },
-        {
-          "icon": "navigate-outline",
-          "title": "Lock-screen distance keeps up",
-          "body": "The distance to your next turn on the lock-screen card only refreshed every 15 seconds, so it sat well behind the car. It now updates whenever the number on it would actually change.",
           "category": "fix"
         }
       ]
@@ -3931,18 +3517,6 @@
       "date": "21 July 2026",
       "items": [
         {
-          "icon": "map-outline",
-          "title": "Dashboard map moves with you",
-          "body": "The CarPlay home-screen mini-map now glides continuously as you drive instead of jumping every few seconds, matches the day/night look of the main navigation map, and wears a coloured border when you are inside a risk area. While navigating it shows your speed, the road you are on and its risk level: the next turn stays in Apple’s own cards.",
-          "category": "feature"
-        },
-        {
-          "icon": "musical-notes-outline",
-          "title": "Music un-dims reliably",
-          "body": "A voice prompt that got cut off could leave your music quiet until the next prompt. Volume now always restores within a second or two of a prompt finishing, or being interrupted.",
-          "category": "fix"
-        },
-        {
           "icon": "chatbubble-ellipses-outline",
           "title": "Turns name the road, not the suburb",
           "body": "Spoken directions like “turn left toward Hatfield” now say the actual road (“turn left onto Gordon Road”) whenever the road name is known. Signposted ramps and forks still follow the signs.",
@@ -3964,18 +3538,6 @@
           "icon": "layers-outline",
           "title": "Smoother map start-up",
           "body": "Risk zones and flagged roads now wait for the basemap to finish loading before they draw, instead of racing it: no more overlay glitches on launch or when the map look changes.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
-      "version": "2026-07-20.1",
-      "date": "20 July 2026",
-      "items": [
-        {
-          "icon": "map-outline",
-          "title": "CarPlay dashboard map: actually there now",
-          "body": "The map tile on the CarPlay home screen was showing black on real cars (an iOS map-engine limitation in that window). It now draws a live mini-map that follows you as you drive, rotating with your direction, zooming with your speed, and showing your route in its live safety colour when navigating.",
           "category": "fix"
         }
       ]
@@ -4136,8 +3698,8 @@
       "items": [
         {
           "icon": "moon-outline",
-          "title": "Night colours back, 3D kept",
-          "body": "Yesterday’s 3D-after-dark change accidentally swapped the home map’s night look away from the high-visibility night style, dimming the roads, zones and corridor colours. The night map is back to those colours, and the home screen now draws its 3D buildings on top of it, so you get both.",
+          "title": "3D buildings after dark",
+          "body": "The home map keeps its 3D buildings at any time of day, drawn over the high-visibility night style after dark. Navigation still switches to the high-contrast night map while you drive: that one is about reading the road, not the skyline.",
           "category": "fix"
         }
       ]
@@ -4156,12 +3718,6 @@
           "icon": "locate-outline",
           "title": "The map opens where you are",
           "body": "Opening the app away from home (another city or another country) now starts the map at your last known location instead of Johannesburg, and it no longer jumps back to Johannesburg during the day.",
-          "category": "fix"
-        },
-        {
-          "icon": "business-outline",
-          "title": "3D buildings are back after dark",
-          "body": "The home map keeps its 3D buildings when you tilt, at any time of day. Navigation still switches to the high-contrast night map while you drive: that one is about reading the road, not the skyline.",
           "category": "fix"
         },
         {
@@ -4407,18 +3963,6 @@
       ]
     },
     {
-      "version": "2026-07-01.2",
-      "date": "1 July 2026",
-      "items": [
-        {
-          "icon": "battery-charging-outline",
-          "title": "Lighter on long drives",
-          "body": "Navigation now uses noticeably less memory while you drive, so a long trip stays smooth instead of slowing down or closing on you.",
-          "category": "fix"
-        }
-      ]
-    },
-    {
       "version": "2026-07-01.1",
       "date": "1 July 2026",
       "items": [
@@ -4658,8 +4202,8 @@
         },
         {
           "icon": "speedometer-outline",
-          "title": "Speedometer fixes",
-          "body": "The speed dial turns red the moment you’re over the limit (even by 1 km/h), and snaps back to zero promptly when you stop instead of lingering.",
+          "title": "Speedometer turns red over the limit",
+          "body": "The speed dial turns red the moment you’re over the limit, even by 1 km/h.",
           "category": "fix"
         },
         {
