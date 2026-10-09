@@ -97,11 +97,12 @@ if (track) {
   const robotsTxt = join(dist, 'robots.txt');
   if (existsSync(robotsTxt)) {
     const txt = await readFile(robotsTxt, 'utf8');
-    if (!/Disallow:\s*\/track\.html/.test(txt)) warn('robots.txt does not disallow /track.html');
-    // A crawler obeys only the most specific group that names it, so a named
-    // group (the AI crawlers, since 2026-10-09) that forgets the tracker rule
-    // lets that crawler read live-trip links even though `*` blocks them. And no
-    // group may shut a crawler out of the whole site: the point is to be read.
+    // robots.txt must NOT block the tracker: a crawler that may not fetch it never
+    // sees the noindex, and indexes the bare URL from links (Bing did, until
+    // 2026-10-09; build.mjs step 5 has the story). A crawler obeys only the most
+    // specific group that names it, so every group must carry the same rules, or
+    // the named AI crawlers (2026-10-09) drift from `*`. And no group may shut a
+    // crawler out of the whole site: the point is to be read.
     const groups = [];
     let cur = null;
     for (const raw of txt.split('\n')) {
@@ -119,8 +120,9 @@ if (track) {
     if (!groups.length) fail('robots.txt has no User-agent group');
     for (const g of groups) {
       const who = g.agents.join(', ');
-      if (!g.rules.includes('disallow:/track.html')) fail(`robots.txt group for ${who} does not disallow /track.html`);
+      if (g.rules.some((r) => /^disallow:\/track/.test(r))) fail(`robots.txt blocks /track.html for ${who}, so its noindex is never seen`);
       if (g.rules.includes('disallow:/')) fail(`robots.txt shuts ${who} out of the whole site (Disallow: /)`);
+      if (g.rules.join('\n') !== groups[0].rules.join('\n')) fail(`robots.txt group for ${who} has different rules from the first group`);
     }
   }
 }
