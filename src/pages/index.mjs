@@ -18,6 +18,7 @@ import { deviceShot } from '../components.mjs';
 import { shotSize } from '../shots.mjs';
 import { faqNode } from '../seo.mjs';
 import { FEATURES, SUMMARY } from '../facts.mjs';
+import { F } from '../faqs.mjs';
 import { siteData } from '../sitedata.mjs';
 import { posterDefs, planSvg, saSvg, tagAnchors, metrosBySize } from '../poster.mjs';
 import { exploreSection } from '../explore.mjs';
@@ -106,7 +107,7 @@ const hero = `
   <div class="home-hero-in">
     <p class="say hud">Tsamaya (say: ${site.pronunciation})${M}<br>Sesotho and Setswana for go</p>
     <h1 class="hero-h" id="hero-h">Go where <br>the trouble <br>isn't.</h1>
-    <p class="hero-sub">Tsamaya checks your route against ${zones} rated areas in ${nMetros} South African metros, at the hour you drive, and bends it around the high-risk ones.</p>
+    <p class="hero-sub">Tsamaya is a navigation app that checks your route against ${zones} rated areas in ${nMetros} South African metros, at the hour you drive, and bends it around the high-risk ones.</p>
     <div class="home-cta">
       <a class="btn btn-primary btn-lg btn-mag" href="#get">Get the app ${arrow}</a>
       <a class="link-q" href="#bend"><span>Watch it re-route</span></a>
@@ -322,6 +323,9 @@ const faqs = [
     q: 'What is Tsamaya?',
     a: SUMMARY,
   },
+  // Shared with the FAQ hub (src/faqs.mjs), word for word.
+  { q: F.how.q, a: F.how.a },
+  { q: F.avoid.q, a: F.avoid.a },
   {
     q: 'Where does the risk data come from?',
     a: 'Published South African crime statistics, scored against map data to work out where vehicle crime concentrates. An AI review gives a second opinion on the ratings, and a person sense-checks the results, looking closely at any that stand out. After that, drivers\' reports refine the map: a person reads each one before anything changes, so local knowledge keeps improving it.',

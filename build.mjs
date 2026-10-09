@@ -15,6 +15,18 @@ import { site, baseUrl, canonicalFor } from './site.config.mjs';
 import { stripJs } from './scripts/strip-js.mjs';
 import { llmsTxt } from './src/llms.mjs';
 
+// The AI crawlers robots.txt names (step 5 says why). Training, search and
+// on-demand fetchers alike: OpenAI, Anthropic, Perplexity, Google's Gemini
+// token, Apple Intelligence, Common Crawl (which many models learn from), Meta,
+// Amazon, DuckDuckGo's assistant and Mistral.
+const AI_CRAWLERS = [
+  'GPTBot', 'OAI-SearchBot', 'ChatGPT-User',
+  'ClaudeBot', 'Claude-SearchBot', 'Claude-User',
+  'PerplexityBot', 'Perplexity-User',
+  'Google-Extended', 'Applebot-Extended', 'CCBot',
+  'meta-externalagent', 'Amazonbot', 'DuckAssistBot', 'MistralAI-User',
+];
+
 const root = dirname(fileURLToPath(import.meta.url));
 const dist = join(root, 'dist');
 const pagesDir = join(root, 'src', 'pages');
@@ -168,11 +180,20 @@ async function build() {
       .join('\n');
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
     await writeFile(join(dist, 'sitemap.xml'), sitemap, 'utf8');
+    // Explicitly disallow the token-bearing tracker. It also carries a noindex
+    // meta; belt and braces, because this one leaks a live location if indexed.
+    //
+    // The AI crawlers are named as well as covered by `*` (2026-10-09): the site
+    // is meant to be read and quoted by assistants, so the welcome is stated
+    // rather than implied. A crawler obeys only the most specific group that
+    // names it and ignores `*`, so the named group MUST repeat every Disallow;
+    // check-seo.mjs fails the build if any group lacks the tracker rule.
+    // Disallow before Allow: Google takes the longest matching rule, but some
+    // parsers take the first, and with Allow: / first they read the tracker as open.
+    const rules = 'Disallow: /track.html\nAllow: /\n';
     await writeFile(
       join(dist, 'robots.txt'),
-      // Explicitly disallow the token-bearing tracker. It also carries a noindex
-      // meta; belt and braces, because this one leaks a live location if indexed.
-      `User-agent: *\nAllow: /\nDisallow: /track.html\n\nSitemap: ${baseUrl}/sitemap.xml\n`,
+      `User-agent: *\n${rules}\n# AI assistants and AI search: welcome to read and quote the whole site.\n${AI_CRAWLERS.map((ua) => `User-agent: ${ua}\n`).join('')}${rules}\nSitemap: ${baseUrl}/sitemap.xml\n`,
       'utf8',
     );
     const dates = [...new Set(indexable.map((p) => lastmodNext[p.slug].date))].sort();

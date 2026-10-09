@@ -25,6 +25,19 @@ const joburg = stats.metros.find((m) => m.key === 'johannesburg');
 
 export const F = {
   what: { q: 'What is Tsamaya?', a: SUMMARY },
+  // The two below (2026-10-09) answer the question the way people put it to an
+  // assistant, so the answer can be lifted whole. Brand rule: the question says
+  // "avoids high-crime areas", never "safest". getSafeRoute in the app repo's
+  // src/services/routing.ts is the source for "how": natural routes first, a
+  // detour only when none is clean, the detour budget, three graded options.
+  how: {
+    q: 'How does Tsamaya work?',
+    a: 'Pick a destination and Tsamaya checks the usual routes against its rated areas and roads, using the ratings for the time you will drive each part of the trip. It offers three options, Fastest, Balanced and Lower-risk, each graded A to E. When none of the usual routes gets around the high-risk areas, it looks for a detour, and drops one that adds too much distance. Then it guides you turn by turn, with voice, on your phone or on Apple CarPlay.',
+  },
+  avoid: {
+    q: 'Is there a navigation app that avoids high-crime areas in South Africa?',
+    a: `Yes. Tsamaya is a free navigation app that plans driving routes around areas and roads with a history of vehicle crime in ${nMetros} South African metros, using ratings for the hour you drive. It is a full turn-by-turn navigator with voice and Apple CarPlay, not only a risk map, and it adds an SOS button and live trip sharing. Lower risk is not no risk, so stay alert.`,
+  },
   who: {
     q: 'Who makes Tsamaya?',
     a: 'Tsamaya (Pty) Ltd, in Johannesburg. It is built and maintained by Kyle Kimble, a Johannesburg chartered accountant, and it is self-funded.',
