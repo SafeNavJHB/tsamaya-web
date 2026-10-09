@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-10-09.4",
+      "date": "9 October 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "A route you can see on any map",
+          "body": "The route now has a white edge, so its safety colours stand out on the satellite map, at night and on CarPlay and Android Auto. The CarPlay dashboard also shows the colours of the road ahead, not just the road you are on.",
+          "category": "tweak"
+        },
+        {
+          "icon": "color-palette-outline",
+          "title": "A plain blue route, everywhere",
+          "body": "Find the safety colours on the route hard to see, for example on the satellite map? Turn off Route colour in Settings, Alerts, Risk display. The route is then plain blue on your phone, CarPlay and Android Auto. The road name card still shows the risk.",
+          "category": "tweak"
+        },
+        {
+          "icon": "car-outline",
+          "title": "Your car stays steady",
+          "body": "Premium cars and your own car photo no longer swap pictures as you turn. A Premium car shows from behind while you drive and from above when you move the map, and is a little smaller. Your own photo stays as you took it.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-09.3",
       "date": "9 October 2026",
       "items": [
