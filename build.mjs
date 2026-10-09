@@ -180,17 +180,19 @@ async function build() {
       .join('\n');
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
     await writeFile(join(dist, 'sitemap.xml'), sitemap, 'utf8');
-    // Explicitly disallow the token-bearing tracker. It also carries a noindex
-    // meta; belt and braces, because this one leaks a live location if indexed.
+    // The token-bearing tracker (track.html?id=<token>) is kept out of search by
+    // its noindex,nofollow meta, and robots.txt must NOT block it. A crawler that
+    // may not fetch a page never sees its noindex, so a blocked URL can still be
+    // indexed from a link alone, token and all. Found 2026-10-09: Bing still
+    // listed /track.html from a crawl before the meta existed (July), because the
+    // Disallow added then stopped it ever re-reading the page. check-seo.mjs
+    // fails the build if the Disallow comes back.
     //
     // The AI crawlers are named as well as covered by `*` (2026-10-09): the site
     // is meant to be read and quoted by assistants, so the welcome is stated
     // rather than implied. A crawler obeys only the most specific group that
-    // names it and ignores `*`, so the named group MUST repeat every Disallow;
-    // check-seo.mjs fails the build if any group lacks the tracker rule.
-    // Disallow before Allow: Google takes the longest matching rule, but some
-    // parsers take the first, and with Allow: / first they read the tracker as open.
-    const rules = 'Disallow: /track.html\nAllow: /\n';
+    // names it, so any rule added later must go in both groups.
+    const rules = 'Allow: /\n';
     await writeFile(
       join(dist, 'robots.txt'),
       `User-agent: *\n${rules}\n# AI assistants and AI search: welcome to read and quote the whole site.\n${AI_CRAWLERS.map((ua) => `User-agent: ${ua}\n`).join('')}${rules}\nSitemap: ${baseUrl}/sitemap.xml\n`,
