@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-10-09.1",
+      "date": "9 October 2026",
+      "items": [
+        {
+          "icon": "git-compare-outline",
+          "title": "Highways with two route numbers are read correctly",
+          "body": "Where one highway carries two route numbers, like the N12 and R558 past Protea Glen or the N1 and N4 in Pretoria, a stretch we have checked was sometimes counted as high risk because the numbers did not match. It now counts as the road you are on, so Balanced and Lower-risk no longer detour around it.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-07.2",
+      "date": "7 October 2026",
+      "items": [
+        {
+          "icon": "storefront-outline",
+          "title": "iPhone connects to the App Store for purchases",
+          "body": "Behind the scenes, Tsamaya on iPhone can now reach the App Store for the Premium plans and one-time purchases that are coming. Nothing is for sale yet.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-07.1",
       "date": "7 October 2026",
       "items": [
