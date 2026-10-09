@@ -128,6 +128,12 @@ export const site = {
     // and on that day it held no page of this site at all. Same rule as the
     // Google value: Bing re-checks it, so never remove it.
     bing: '4FCC8CBFF6DE710AD94AB28DF61CBEC6',
+    // Bing's XML-file method, one token per Microsoft account: the build writes
+    // them into /BingSiteAuth.xml. Added 9 October 2026, when the site was found
+    // never to have been added to the Bing account Kyle signs in with; its token
+    // differs from the meta tag's above (another account), and the file holds
+    // several accounts at once, so both stay. Never remove one: same rule.
+    bingXml: ['655B0CB73C43D934858E0AA7B410B20A'],
   },
 
   // IndexNow key (https://www.indexnow.org). IndexNow is how a site tells Bing,
