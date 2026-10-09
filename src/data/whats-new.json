@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-10-09.5",
+      "date": "9 October 2026",
+      "items": [
+        {
+          "icon": "git-network-outline",
+          "title": "Every lower-risk option says by how much",
+          "body": "Balanced and Lower-risk routes now always say how they compare to the fastest route. When the overall gap is small, the card says how much high- or medium-risk road you avoid instead, for example “1.4 km less through medium-risk areas”.",
+          "category": "tweak"
+        },
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "An “even lower risk” option you can trust",
+          "body": "The “Even lower risk, much longer” option is only offered when it really carries less risk, and its grade letter is never worse than the route it would replace. It also says how much less risk it is.",
+          "category": "fix"
+        },
+        {
+          "icon": "color-palette-outline",
+          "title": "Route colour has moved",
+          "body": "The Route colour switch now sits with the other route settings, under Settings, Routes, Route line.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-09.4",
       "date": "9 October 2026",
       "items": [
@@ -27,7 +51,7 @@
         {
           "icon": "color-palette-outline",
           "title": "A plain blue route, everywhere",
-          "body": "Find the safety colours on the route hard to see, for example on the satellite map? Turn off Route colour in Settings, Alerts, Risk display. The route is then plain blue on your phone, CarPlay and Android Auto. The road name card still shows the risk.",
+          "body": "Find the safety colours on the route hard to see, for example on the satellite map? Turn off Route colour in Settings, Routes, Route line. The route is then plain blue on your phone, CarPlay and Android Auto. The road name card still shows the risk.",
           "category": "tweak"
         },
         {
