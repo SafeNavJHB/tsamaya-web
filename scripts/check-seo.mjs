@@ -98,6 +98,30 @@ if (track) {
   if (existsSync(robotsTxt)) {
     const txt = await readFile(robotsTxt, 'utf8');
     if (!/Disallow:\s*\/track\.html/.test(txt)) warn('robots.txt does not disallow /track.html');
+    // A crawler obeys only the most specific group that names it, so a named
+    // group (the AI crawlers, since 2026-10-09) that forgets the tracker rule
+    // lets that crawler read live-trip links even though `*` blocks them. And no
+    // group may shut a crawler out of the whole site: the point is to be read.
+    const groups = [];
+    let cur = null;
+    for (const raw of txt.split('\n')) {
+      const line = raw.replace(/#.*/, '').trim();
+      const m = line.match(/^([A-Za-z-]+):\s*(.*)$/);
+      if (!m) continue;
+      const [, key, val] = m;
+      if (/^user-agent$/i.test(key)) {
+        if (!cur || cur.rules.length) groups.push((cur = { agents: [], rules: [] }));
+        cur.agents.push(val);
+      } else if (cur && /^(allow|disallow)$/i.test(key)) {
+        cur.rules.push(`${key.toLowerCase()}:${val}`);
+      }
+    }
+    if (!groups.length) fail('robots.txt has no User-agent group');
+    for (const g of groups) {
+      const who = g.agents.join(', ');
+      if (!g.rules.includes('disallow:/track.html')) fail(`robots.txt group for ${who} does not disallow /track.html`);
+      if (g.rules.includes('disallow:/')) fail(`robots.txt shuts ${who} out of the whole site (Disallow: /)`);
+    }
   }
 }
 

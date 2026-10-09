@@ -10,7 +10,7 @@ import { LATEST } from '../topic.mjs';
 // markup must match).
 
 const GROUPS = [
-  ['about', 'The app', 'About Tsamaya', [F.what, F.who, F.free, F.guarantee, F.privacy]],
+  ['about', 'The app', 'About Tsamaya', [F.what, F.how, F.avoid, F.who, F.free, F.guarantee, F.privacy]],
   ['routes', 'Routes and data', 'Routes, ratings and coverage', [F.data, F.cities, F.longer, F.stops, F.night]],
   ['road', 'On the road', 'Closures, cameras and notices', [F.protests, F.notices, F.cameras, F.vans, F.hotspots, F.voice, F.discover]],
   ['car', 'In the car', 'CarPlay and Android Auto', [F.carplay, F.aa, F.offline]],
