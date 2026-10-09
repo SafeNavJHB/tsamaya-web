@@ -208,6 +208,16 @@ async function build() {
     // The IndexNow key file (site.config.mjs, indexNowKey): its presence at the
     // site root is what proves an IndexNow ping (scripts/indexnow.mjs) is ours.
     if (site.indexNowKey) await writeFile(join(dist, `${site.indexNowKey}.txt`), site.indexNowKey, 'utf8');
+
+    // Bing Webmaster Tools' XML-file verification (site.config.mjs, verification.bingXml).
+    const bingXml = site.verification?.bingXml || [];
+    if (bingXml.length) {
+      await writeFile(
+        join(dist, 'BingSiteAuth.xml'),
+        `<?xml version="1.0"?>\n<users>\n${bingXml.map((t) => `\t<user>${t}</user>\n`).join('')}</users>\n`,
+        'utf8',
+      );
+    }
   }
 
   // Keep the store tidy (a removed page drops out) and write it only when it moved.

@@ -200,6 +200,12 @@ for (const p of pages) {
       fail('the Bing Webmaster Tools verification token is configured but missing from the home page');
     }
   }
+  for (const t of cfg.verification?.bingXml || []) {
+    const xml = join(dist, 'BingSiteAuth.xml');
+    if (!existsSync(xml) || !(await readFile(xml, 'utf8')).includes(`<user>${t}</user>`)) {
+      fail(`the Bing verification token ${t} is configured but missing from /BingSiteAuth.xml`);
+    }
+  }
 }
 
 // ---- 8c. Image rules that set width must also set height ---------------------
