@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-09.2",
+      "date": "9 October 2026",
+      "items": [
+        {
+          "icon": "git-compare-outline",
+          "title": "Freeways read by name or by number",
+          "body": "Some freeways we have checked, like the Albertina Sisulu Freeway, carry a name in our data while your directions call them by route number (R24 or R21). They now count as the same road wherever that freeway carries the number, so a stretch of them is no longer counted as high risk by mistake.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-09.1",
       "date": "9 October 2026",
       "items": [
