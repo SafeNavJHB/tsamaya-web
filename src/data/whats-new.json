@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-09.3",
+      "date": "9 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "CarPlay: your car sits nearer the middle",
+          "body": "During a drive on CarPlay, your car and the road name under it now sit a little closer to the middle of the map, clear of the speed dial and the edge of the screen.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-09.2",
       "date": "9 October 2026",
       "items": [
