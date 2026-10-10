@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-10.1",
+      "date": "10 October 2026",
+      "items": [
+        {
+          "icon": "airplane-outline",
+          "title": "Airport trips end at departures",
+          "body": "Trips to O.R. Tambo and Cape Town International now end at the departures drop-off. Before, the route could go round to a service road on the far side of the airport, which made the trip look up to 15 minutes longer than it is.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-09.5",
       "date": "9 October 2026",
       "items": [
