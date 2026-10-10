@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-10.2",
+      "date": "10 October 2026",
+      "items": [
+        {
+          "icon": "moon-outline",
+          "title": "Roads that are lower risk by day only",
+          "body": "A road can now be lower risk by day and rated after dark. From 17:30 or 19:30 it is treated like any other rated road: routes, colours and alerts use its evening or night rating. Tap the road on the map to see when it changes. The first is FW de Klerk Boulevard in Cape Town.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-10.1",
       "date": "10 October 2026",
       "items": [
