@@ -15,6 +15,54 @@
   ],
   "releases": [
     {
+      "version": "2026-10-10.6",
+      "date": "10 October 2026",
+      "items": [
+        {
+          "icon": "navigate-outline",
+          "title": "A deeper blue route line",
+          "body": "The blue route line is a shade darker on the phone, CarPlay and Android Auto, so it stands out more on the map.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-10.5",
+      "date": "10 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "Sedan faces the right way",
+          "body": "The sedan in your Premium vehicles list now points right, like the other cars.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-10.4",
+      "date": "10 October 2026",
+      "items": [
+        {
+          "icon": "flag-outline",
+          "title": "Lower risk by day, worse at night",
+          "body": "When you report a road as lower risk you can now say it is worse at night, Low risk included, and it is saved just as you said. A report that says nothing about night keeps the night rating the road already has.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-10.3",
+      "date": "10 October 2026",
+      "items": [
+        {
+          "icon": "airplane-outline",
+          "title": "More airport trips end at the terminal",
+          "body": "Trips to King Shaka in Durban, Chief Dawid Stuurman in Gqeberha and Kruger Mpumalanga International now end at the terminal. Before, the route could go round to a cargo or service road, which added up to 20 minutes. Park and Fly and other places at the airports are routed as before.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-10.2",
       "date": "10 October 2026",
       "items": [
