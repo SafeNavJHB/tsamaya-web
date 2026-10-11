@@ -15,7 +15,127 @@
   ],
   "releases": [
     {
-      "version": "2026-10-10.6",
+      "version": "2026-10-11.33",
+      "date": "11 October 2026",
+      "items": [
+        {
+          "icon": "mic-outline",
+          "title": "Navigate with Siri in one sentence",
+          "body": "On iPhone with iOS 27 and Apple Intelligence, say \"Hey Siri, navigate to Sandton City using Tsamaya\", with any place you like. Tsamaya opens and plans your route there. On any iPhone, \"Hey Siri, get directions in Tsamaya\" still works too: Siri asks where you want to go.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-11.32",
+      "date": "11 October 2026",
+      "items": [
+        {
+          "icon": "alert-circle-outline",
+          "title": "SOS on the car screen without a route",
+          "body": "The SOS button is now on the CarPlay and Android Auto map before you start a route too, so you can call 112, 10111 or your emergency contact straight away.",
+          "category": "feature"
+        },
+        {
+          "icon": "checkmark-done-outline",
+          "title": "Ending a free drive saves the trip straight away",
+          "body": "When you tap End drive on the phone, the drive now appears in your trip history at once, instead of a few minutes later.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-11.31",
+      "date": "11 October 2026",
+      "items": [
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Police still there?",
+          "body": "When you drive past police or a roadblock another driver reported, Tsamaya asks if it is still there. Still there keeps it on the map for other drivers for another hour (up to four hours after it was first reported); Not there lets it run out. No answer is fine: the question goes away by itself. With CarPlay or Android Auto, the car screen asks.",
+          "category": "feature"
+        },
+        {
+          "icon": "warning-outline",
+          "title": "Crime hotspots update live",
+          "body": "Hijacking and smash-and-grab hotspots now come from Tsamaya’s live data, so new and corrected spots reach your map without an app update. Tap a spot to see whether it is one the Tsamaya team added or one a driver reported.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-11.30",
+      "date": "11 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "Your trip log keeps going on the car screen",
+          "body": "From when you open Tsamaya on the CarPlay or Android Auto screen until you unplug, your location stays on, so a drive without a route is logged even when music fills the car screen or your phone is locked. On Android this works best once you have opened Tsamaya on your phone during the drive.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-10.30",
+      "date": "10 October 2026",
+      "items": [
+        {
+          "icon": "call-outline",
+          "title": "Call for help from the car screen",
+          "body": "The SOS menu on the Android Auto car screen can now call 112 or 10111, and on both Android Auto and CarPlay it can call your emergency contact.",
+          "category": "feature"
+        },
+        {
+          "icon": "people-outline",
+          "title": "Choose your emergency contact from your contacts",
+          "body": "In Settings, under Sharing & privacy, Choose from contacts fills in the name and number for you. Tsamaya gets only the contact you choose.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-10.12",
+      "date": "10 October 2026",
+      "items": [
+        {
+          "icon": "call-outline",
+          "title": "Call your emergency contact from SOS",
+          "body": "The SOS button on the drive screen can now call your emergency contact, as well as 10111 and 112. Set your contact in Settings, under Sharing & privacy.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-10.11",
+      "date": "10 October 2026",
+      "items": [
+        {
+          "icon": "color-palette-outline",
+          "title": "Road colours change where the map does",
+          "body": "Where a higher-risk stretch of a road ends and a lower-risk stretch of the same road begins, the drive screen now changes colour at the same place as the map. The spoken warning still comes a little before you reach a higher-risk stretch, and no longer lingers after you leave it.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-10.9",
+      "date": "10 October 2026",
+      "items": [
+        {
+          "icon": "speedometer-outline",
+          "title": "Camera warnings on your road only",
+          "body": "Speed camera warnings now come only for cameras on the road ahead of you, counted along the road, and are said once even when you switch to the car screen.",
+          "category": "fix"
+        },
+        {
+          "icon": "home-outline",
+          "title": "\"Almost there\" at the right moment",
+          "body": "The look-around reminder now comes 400 m before you arrive along your route, not when the destination is merely 400 m away in a straight line.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-10.7",
       "date": "10 October 2026",
       "items": [
         {
@@ -23,6 +143,18 @@
           "title": "A deeper blue route line",
           "body": "The blue route line is a shade darker on the phone, CarPlay and Android Auto, so it stands out more on the map.",
           "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-10.6",
+      "date": "10 October 2026",
+      "items": [
+        {
+          "icon": "musical-notes-outline",
+          "title": "Music comes back sooner",
+          "body": "Your music dips for each spoken direction and comes back up a little sooner after it, and a speed warning just before a direction no longer pauses it.",
+          "category": "fix"
         }
       ]
     },
@@ -87,7 +219,7 @@
       ]
     },
     {
-      "version": "2026-10-09.5",
+      "version": "2026-10-09.12",
       "date": "9 October 2026",
       "items": [
         {
@@ -111,7 +243,7 @@
       ]
     },
     {
-      "version": "2026-10-09.4",
+      "version": "2026-10-09.11",
       "date": "9 October 2026",
       "items": [
         {
@@ -130,6 +262,18 @@
           "icon": "car-outline",
           "title": "Your car stays steady",
           "body": "Premium cars and your own car photo no longer swap pictures as you turn. A Premium car shows from behind while you drive and from above when you move the map, and is a little smaller. Your own photo stays as you took it.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-09.10",
+      "date": "9 October 2026",
+      "items": [
+        {
+          "icon": "volume-high-outline",
+          "title": "The first direction in the natural voice",
+          "body": "The first direction of a drive is now downloaded while you look at the route options, and a direction spoken just after you plug into CarPlay gets a moment longer to start, so both use the natural voice instead of the iPhone voice.",
           "category": "fix"
         }
       ]
@@ -171,13 +315,55 @@
       ]
     },
     {
-      "version": "2026-10-07.2",
+      "version": "2026-10-07.11",
+      "date": "7 October 2026",
+      "items": [
+        {
+          "icon": "musical-notes-outline",
+          "title": "CarPlay: music plays from every speaker again",
+          "body": "With CarPlay connected, music could play from one side of the car only, even with no directions playing. Music now plays from every speaker between directions.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-07.10",
       "date": "7 October 2026",
       "items": [
         {
           "icon": "storefront-outline",
           "title": "iPhone connects to the App Store for purchases",
           "body": "Behind the scenes, Tsamaya on iPhone can now reach the App Store for the Premium plans and one-time purchases that are coming. Nothing is for sale yet.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-07.9",
+      "date": "7 October 2026",
+      "items": [
+        {
+          "icon": "notifications-outline",
+          "title": "Notifications on Android",
+          "body": "Android phones can now get Tsamaya notifications, such as fuel price alerts, the same way iPhones do. Choose which ones you want in Settings.",
+          "category": "feature"
+        },
+        {
+          "icon": "camera-outline",
+          "title": "Take logbook photos with the camera on Android",
+          "body": "In the logbook, Add a photo now offers Take a photo on Android too. Photos are made smaller when they are kept, so they stay legible and take less space on your phone.",
+          "category": "feature"
+        },
+        {
+          "icon": "car-outline",
+          "title": "CarPlay: call for help and a separate guidance volume",
+          "body": "The SOS menu on CarPlay can call 112 or 10111 straight from the car screen. Spoken directions now use the car's navigation volume, so you can set them apart from your music.",
+          "category": "tweak"
+        },
+        {
+          "icon": "image-outline",
+          "title": "A clearer launch screen",
+          "body": "On Android the Tsamaya logo now shows full size while the app opens, and on CarPlay the car screens no longer wait behind the launch picture.",
           "category": "tweak"
         }
       ]

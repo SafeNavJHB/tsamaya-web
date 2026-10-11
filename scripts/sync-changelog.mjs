@@ -149,6 +149,31 @@ if (problems.length) {
   process.exit(1);
 }
 
+/* ---- Leave out what the public page should not repeat ------------------ */
+// src/data/whats-new-hidden.json lists item titles the website skips (Kyle,
+// 2026-10-11: only the final version of a fix, never each attempt, and nothing
+// internal). Matched by exact title, so a later renumbering in the app cannot
+// bring them back; a release left with no items is dropped. A listed title that
+// matches nothing is reported, so the list cannot rot quietly.
+const hiddenPath = join(root, 'src', 'data', 'whats-new-hidden.json');
+const hiddenTitles = existsSync(hiddenPath)
+  ? new Set(JSON.parse(await readFile(hiddenPath, 'utf8')).titles.map((h) => h.title))
+  : new Set();
+const hiddenSeen = new Set();
+releases = releases
+  .map((rel) => ({
+    ...rel,
+    items: rel.items.filter((it) => {
+      if (!hiddenTitles.has(it.title)) return true;
+      hiddenSeen.add(it.title);
+      return false;
+    }),
+  }))
+  .filter((rel) => rel.items.length > 0);
+for (const t of hiddenTitles) {
+  if (!hiddenSeen.has(t)) console.warn(`  ! whats-new-hidden.json: "${t}" matches no item (renamed in the app?)`);
+}
+
 /* ---- Shape it for the website ------------------------------------------ */
 // `silent` is an app concept — it decides whether a release interrupts the user
 // with a card. On a page someone chose to visit there is no interruption to
