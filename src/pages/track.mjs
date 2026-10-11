@@ -28,6 +28,10 @@ export default {
   // the sitemap, but a sitemap exclusion is not a noindex — a crawler that finds
   // the link anywhere else will happily index it. This emits the actual directive.
   noindex: true,
+  // No visitor statistics on this page (Privacy Policy v1.15 §11): the beacon
+  // reports the page address, and this page's address IS the trip's bearer
+  // token. Nothing about who follows a trip leaves for a third party.
+  analytics: false,
   heroClass: 'sn page-track',
   hud: false,
   body: `

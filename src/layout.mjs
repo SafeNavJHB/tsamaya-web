@@ -270,7 +270,7 @@ ${toTop}
   <script src="vendor/lenis.min.js" defer></script>
   <script src="js/site.js" defer></script>
   ${(page.scripts || []).map((src) => `<script type="module" src="${src}"></script>`).join('\n  ')}
-  ${analyticsSnippet()}
+  ${page.analytics === false ? '' : analyticsSnippet()}
 </body>
 </html>`;
 }
