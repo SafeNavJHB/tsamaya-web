@@ -5,6 +5,7 @@
     { "title": "Shorter pause after directions", "why": "a second pass at 'Music comes back sooner'" },
     { "title": "Voice timing in drive logs", "why": "internal measurement for the music timing fix" },
     { "title": "Route timing in drive logs", "why": "internal measurement for the slow first car route" },
-    { "title": "A behind-the-scenes test for CarPlay", "why": "internal test; nothing changes for drivers" }
+    { "title": "A behind-the-scenes test for CarPlay", "why": "internal test; nothing changes for drivers" },
+    { "title": "Your area and road ratings, seen on a map", "why": "a review-team (admin) screen; nothing changes for drivers" }
   ]
 }
