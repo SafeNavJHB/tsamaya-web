@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-12.40",
+      "date": "12 October 2026",
+      "items": [
+        {
+          "icon": "git-compare-outline",
+          "title": "Both sides of dual roads on the map",
+          "body": "Where a rated road is a dual carriageway, such as Beyers Naudé Drive, the map now colours both sides instead of one. Routes and warnings are unchanged.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-12.39",
       "date": "12 October 2026",
       "items": [
