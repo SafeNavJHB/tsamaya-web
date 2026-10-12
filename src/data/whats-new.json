@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-12.39",
+      "date": "12 October 2026",
+      "items": [
+        {
+          "icon": "cloud-download-outline",
+          "title": "Risk map updates without a step back",
+          "body": "When the risk map updates while Tsamaya is open, for example when a protest starts or ends, it now keeps showing the current ratings until the update arrives, instead of briefly showing an older copy, and it downloads only what changed.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-12.38",
       "date": "12 October 2026",
       "items": [
