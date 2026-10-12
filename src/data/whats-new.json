@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-10-12.34",
+      "date": "12 October 2026",
+      "items": [
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "An updated Privacy Policy",
+          "body": "Before launch we checked everything Tsamaya does with your information. The Privacy Policy and Terms of Use now say exactly what goes where and for how long. Read them in Settings › Sharing & privacy, and copy your Installation ID from Settings › Help & About if you ever want to ask us what we hold.",
+          "category": "tweak"
+        },
+        {
+          "icon": "notifications-outline",
+          "title": "App news only if you ask for it",
+          "body": "News about new features now comes only if you switch it on in Settings › Alerts › Notifications. Road closure alerts and fuel price alerts are unchanged.",
+          "category": "tweak"
+        },
+        {
+          "icon": "volume-medium-outline",
+          "title": "Your places stay on your phone",
+          "body": "The natural voice now says \"your destination\" instead of a street address or a place name you chose (Home and Work still by name), so those names are never sent to the voice service. Switch Natural voice off to hear every name in your phone's own voice.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-11.33",
       "date": "11 October 2026",
       "items": [
