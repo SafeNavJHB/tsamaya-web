@@ -1,6 +1,6 @@
 # Tsamaya Privacy Policy
 
-**Version 1.16. Effective date: 12 October 2026.**
+**Version 1.17. Effective date: 12 October 2026.**
 
 **Responsible party (POPIA):** Tsamaya (Pty) Ltd, a private company registered in South Africa, registration number 2023/990736/07 ("we", "us")
 
@@ -221,7 +221,7 @@ You have the right to:
 - not be subject to a decision based solely on automated processing that affects you significantly;
 - complain to the Information Regulator: inforegulator.org.za, POPIAComplaints@inforegulator.org.za.
 
-To exercise any right, email info@tsamayaapp.co.za, or contact us in any other way that suits you. It is free. Because Tsamaya has no accounts, we find what we hold through your installation: tell us what you sent and roughly when, or send us your **Installation ID**, which you can copy from Settings › Help & About. We may ask for this to confirm that a request comes from the installation concerned. We respond within 30 days. Because we hold little personal information about drivers, many requests will be answered by confirming what we hold for your installation, which is often nothing beyond what is on your phone.
+To exercise any right, email info@tsamayaapp.co.za, or contact us in any other way that suits you. It is free. Because Tsamaya has no accounts, we find what we hold through your installation: tell us what you sent and roughly when, or send us your **Installation ID**, which you can copy from Settings › Help & About. We may ask for this to confirm that a request comes from the installation concerned. We respond within 30 days. Our manual under the Promotion of Access to Information Act (PAIA), which explains how to request any record we hold and what it costs, is at tsamayaapp.co.za/paia.html. Because we hold little personal information about drivers, many requests will be answered by confirming what we hold for your installation, which is often nothing beyond what is on your phone.
 
 ## 9. Children
 
@@ -243,6 +243,7 @@ We will post changes here and update the version and effective date at the top. 
 
 ## Version history
 
+- v1.17, prepared 2026-10-12 (§8: a link to our PAIA manual).
 - v1.16, prepared 2026-10-12 (§3c and §5: when an older version of the app asks for a closing sentence that names a destination or stop, our server answers with the same sentence without the name, in the natural voice, instead of refusing it, so no version speaks the name in the phone's own voice).
 - v1.15, prepared 2026-10-11 (pre-launch privacy review: added the responsible party's address and Information Officer; §1 now says where location goes, including our server for nearby notices, and that location runs in the background only during a guided drive or a car connection; added §3c on the natural voice (Google Cloud Text-to-Speech through our server; since the October 2026 update it names no destination or stop but Home and Work, our server refuses other names, and the shared cache cannot be listed); §1 and §5 add Mapbox's place search as the last fallback and say Mapbox's telemetry is switched off; §3 discloses "This route looks wrong" reports, the rated areas and roads in trip ratings, the navigation log you can send, and the review team's email and notifications; §3a now says the shared route line shows your starting point, adds SOS and Guardian, viewers' identifiers and a 30-day deletion; §3 adds the roadblock report filed for review, a keyed hash of police reporters' network addresses, and Claude through Anthropic's API under commercial terms; §4 says usage events are linked to the installation identifier, what they are used for and that they can be switched off, that crash reports keep only a service's name from a web address, and that Sentry receives a record of each app session; §4a: app news only for drivers who ask for it; §4b discloses the server-side count of Premium searches; §5 adds Supabase's London region, Google Cloud Text-to-Speech, HERE place details, Expo updates, Resend, Cloudflare and GitHub; new §5a on transfers outside South Africa; §6 gives a period for every kind of data; §7 adds breach notification; §8 explains how to make a request without an account (the Installation ID in Settings) and corrects the Regulator's complaints address; §9 sets the age at 18; new §11 on our website).
 - v1.14, prepared 2026-10-11 (§3: if you pass a police or roadblock notice another driver reported, Tsamaya may ask you "still there?"; your answer is stored with your random installation identifier and a hashed form of your network address only to count each installation once and to limit abuse, and both are deleted with the notice; "Still there" keeps the notice up for another hour, up to four hours after it was first reported).

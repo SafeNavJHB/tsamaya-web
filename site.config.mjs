@@ -88,9 +88,9 @@ export const site = {
   // Legal pages now live on THIS site (src/pages/privacy.mjs + terms.mjs, text
   // rendered from src/content/*.md). They used to be a separate GitHub Pages
   // site — which meant tsamayaapp.co.za/privacy 404'd, and that is the URL the
-  // app and the Play listing want. The old site stays up as a fallback for
-  // builds already in the field that link to it; it is NOT the canonical copy,
-  // so update src/content/ here when the app repo's legal/*.md changes.
+  // app and the Play listing want. The old site now holds only redirect stubs
+  // to these pages (no v0.3 text is served), kept so old links still land
+  // here. Update src/content/ here when the app repo's legal/*.md changes.
   legal: {
     privacy: 'privacy.html',
     terms: 'terms.html',

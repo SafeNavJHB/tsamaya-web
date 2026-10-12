@@ -251,6 +251,7 @@ ${jumpBar(jump)}${page.hud === false ? '' : hudStrip()}
         <h2>Legal</h2>
         <a href="${site.legal.privacy}">Privacy policy</a>
         <a href="${site.legal.terms}">Terms of use</a>
+        <a href="paia.html">PAIA manual</a>
         <a href="mailto:${site.contactEmail}">${icon('mail', 15)} ${site.contactEmail}</a>
       </div>
     </div>
