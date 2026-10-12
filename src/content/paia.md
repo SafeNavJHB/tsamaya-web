@@ -2,14 +2,11 @@
 
 **Prepared in terms of section 51 of the Promotion of Access to Information Act 2 of 2000 (PAIA), as amended, and the Protection of Personal Information Act 4 of 2013 (POPIA). Date of compilation: 12 October 2026. Date of last revision: 12 October 2026.**
 
-## 1. Acronyms
+## 1. Definitions
 
-- **IO**: Information Officer
-- **Minister**: Minister of Justice and Correctional Services
 - **PAIA**: Promotion of Access to Information Act 2 of 2000, as amended
 - **POPIA**: Protection of Personal Information Act 4 of 2013
 - **Regulator**: Information Regulator
-- **Republic**: Republic of South Africa
 - **Tsamaya**, **we**, **us**: Tsamaya (Pty) Ltd
 
 ## 2. Purpose of this manual
@@ -24,7 +21,7 @@ This manual helps anyone who wants information from Tsamaya to:
 - know why and how we process personal information, about whom, who receives it, whether it leaves South Africa, and how we protect it;
 - know what to do if a request is refused.
 
-## 3. Key contact details
+## 3. Contact details
 
 **Information Officer and head of the body:** Kyle Kimble, Director
 
@@ -128,7 +125,7 @@ Complete Form 2 (Request for Access to Record) prescribed by the PAIA Regulation
 
 ### 9.2 Your own personal information
 
-If you want to know what personal information we hold about you, or to have it corrected or deleted, you may simply email us (POPIA sections 23 and 24). Tsamaya has no accounts, so include the **Installation ID** from the app (Settings › Help & About), or tell us what you sent and roughly when. We do not charge for confirming what we hold about you or for an electronic copy of it.
+If you want to know what personal information we hold about you, or to have it corrected or deleted, you may email us (POPIA sections 23 and 24). Tsamaya has no accounts, so include the **Installation ID** from the app (Settings › Help & About), or tell us what you sent and roughly when. We do not charge for confirming what we hold about you or for an electronic copy of it.
 
 ### 9.3 Fees
 

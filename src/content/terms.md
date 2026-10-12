@@ -1,6 +1,6 @@
 # Tsamaya Terms of Use
 
-**Version 1.2. Effective date: 11 October 2026.**
+**Version 1.3. Effective date: 12 October 2026.**
 
 **Provider:** Tsamaya (Pty) Ltd, a private company registered in South Africa, registration number 2023/990736/07 ("Tsamaya", "we")
 
@@ -14,16 +14,16 @@ By using the Tsamaya app you agree to these terms and to our Privacy Policy, whi
 
 ## 1. What Tsamaya is, and what it is not
 
-Tsamaya is an **information tool**. It suggests driving routes with lower statistical exposure to areas and roads showing elevated risk in **historical, statistical data** (public crime statistics, mapping data, and curated review).
+Tsamaya is an information tool. It suggests driving routes with lower statistical exposure to the areas and roads that historical, statistical data rates as higher risk. That data comes from public crime statistics, mapping data and curated review.
 
 Tsamaya is **not** a safety guarantee, a security service, an emergency service, or a substitute for your own judgement.
 
 You must be 18 or older to use Tsamaya.
 
-## 2. The risk disclaimer (read this one)
+## 2. Important notice about risk
 
 - **"Lower-risk" means lower statistical exposure relative to a default route. It does not mean "safe." No route anywhere is free of risk.**
-- Our data is historical and periodically updated. Conditions change faster than any dataset: incidents occur on roads our data rates well, and routes our data rates poorly may be uneventful.
+- Our data is historical and is updated periodically. Conditions change faster than any dataset: incidents occur on roads our data rates well, and routes our data rates poorly may be uneventful.
 - Coverage is limited to specific South African metros and is not exhaustive within them. Absence of a marked zone does not mean absence of risk.
 - Routing depends on third-party services (mapping, traffic) and device sensors (GPS) that can be wrong, stale, or unavailable.
 - **You remain solely responsible** for where and how you drive: obey road laws, road signs, closures, and official instructions; stay alert; use your own judgement over any suggestion the app makes.
@@ -43,7 +43,7 @@ Live trip sharing, the SOS alert and Guardian let someone you choose follow your
 
 ## 4. Intellectual property
 
-The app, its design, brand ("Tsamaya", the mark, "Go well"), and its curated risk dataset are ours or our licensors'. Map data © Mapbox and © OpenStreetMap contributors. Crime statistics derive from public SAPS releases. Fuel prices are the regulated prices published by the Department of Mineral and Petroleum Resources.
+The app, its design, brand ("Tsamaya", the mark, "Go well"), and its curated risk dataset are ours or our licensors'. Map data © Mapbox and © OpenStreetMap contributors. Crime statistics are derived from public SAPS releases. Fuel prices are the regulated prices published by the Department of Mineral and Petroleum Resources.
 
 [ATTORNEY: the DMPR website's terms allow its content to be reproduced with credit but not "for any financial or commercial gain"; the price schedule itself is a regulation, and Copyright Act s12(8)(a) gives no copyright in official texts of a legislative or administrative nature. Confirm that Premium's fuel cost may use the published prices.]
 
@@ -57,7 +57,7 @@ Some of what the app shows comes from other companies, under their own terms as 
 
 ## 5. Availability and changes
 
-The app is provided "as available." Features, coverage areas, and data may change, break, or be withdrawn without notice. We may suspend the service for maintenance or at our discretion.
+The app is provided "as available." Features, coverage areas and data may change, stop working or be withdrawn without notice. We may suspend the service for maintenance or at our discretion.
 
 ## 6. Tsamaya Premium (optional subscription)
 
@@ -92,7 +92,7 @@ To the maximum extent permitted by South African law (including the Consumer Pro
 
 Nothing in these terms limits our liability for loss caused by our gross negligence or wilful misconduct, or any other liability that the law does not allow us to limit.
 
-[ATTORNEY: confirm CPA s48–s51 and s61 posture; adjust the carve-outs accordingly. Note that the in-app risk warnings in §2 are also CPA s49 notices. Confirm prominence/acknowledgement mechanics.]
+[ATTORNEY: confirm the position under CPA s48 to s51 and s61, and adjust the carve-outs accordingly. The in-app risk warnings in section 2 are also CPA s49 notices: confirm that they are prominent enough and that the way they are acknowledged suffices.]
 
 ## 8. Indemnity
 
@@ -100,7 +100,7 @@ To the extent permitted by law, you indemnify us against claims arising from you
 
 ## 9. Termination
 
-You may stop using the app at any time. Uninstalling removes what the app kept on your phone (your phone's own backup may still hold a copy), but not what you sent us, such as reports; the Privacy Policy explains how long we keep that and how to ask us to delete it. Uninstalling does not cancel a Premium subscription: cancel it in your store account (§6). We may suspend access for breach.
+You may stop using the app at any time. Uninstalling removes what the app kept on your phone (your phone's own backup may still hold a copy), but not what you sent us, such as reports; the Privacy Policy explains how long we keep that and how to ask us to delete it. Uninstalling does not cancel a Premium subscription: cancel it in your store account (section 6). We may suspend access for breach.
 
 ## 10. Apple App Store
 
@@ -118,7 +118,7 @@ If you downloaded Tsamaya from the Apple App Store, these terms also say the fol
 
 ## 11. General
 
-South African law governs these terms. If you have a complaint, please contact us first at info@tsamayaapp.co.za and we will try to resolve it. You may also approach the National Consumer Commission, the Information Regulator (for privacy) or a South African court with jurisdiction. If any clause is unenforceable, the rest survive. These terms plus the Privacy Policy are the whole agreement. We may update these terms; continued use after an in-app notice is acceptance.
+South African law governs these terms. If you have a complaint, please contact us first at info@tsamayaapp.co.za and we will try to resolve it. You may also approach the National Consumer Commission, the Information Regulator (for privacy) or a South African court with jurisdiction. If any clause is unenforceable, the remaining clauses continue to apply. These terms and the Privacy Policy are the entire agreement between you and us about the app. We may update these terms. If you continue to use the app after we have told you of an update in the app, you accept the updated terms.
 
 ---
 
@@ -138,6 +138,7 @@ Acknowledgement is recorded on-device (timestamp, the screen's version and the v
 
 ## Version history
 
+- v1.3, prepared 2026-10-12 (wording edited for clarity and consistency throughout, including the heading of section 2; no change to your rights or ours).
 - v1.2, prepared 2026-10-11 (pre-launch review: the provider's address, director and registration number in the form ECTA s43 asks for; §1: users must be 18 or older; new §3a, the licence you give us for your reports; new §3b on the limits of live trip sharing, SOS and Guardian; new §4a naming the Google Maps, HERE and Mapbox terms that also apply; §5 no longer calls Tsamaya a beta; §6 says when Premium starts and why the ECTA cooling-off period does not apply; §7 carves out gross negligence; §9 corrects what uninstalling removes; new §10 with the App Store minimum terms Apple requires; the first-run screen now asks for the 18+ confirmation and links both documents (Appendix A); §11 adds how to raise a complaint).
 - v1.1, prepared 2026-10-04 (§6: the SARS logbook's trips you add by hand, its vehicle costs, and its claim estimate, which applies SARS's published cost table and rate to what you enter and is not tax advice).
 - v1.0, prepared 2026-10-01 (added §6a on one-time purchases: car photo unlocks, restorable, and search packs, kept on the device that bought them and used once its daily share is used up or while the free devices' shared daily searches have run out).
