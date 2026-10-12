@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-12.38",
+      "date": "12 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "Allowed areas and roads on the car screen",
+          "body": "When CarPlay or Android Auto starts Tsamaya while your phone is locked, routes now go through the areas and roads you chose to always allow, and the drive no longer warns you about them.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-12.37",
       "date": "12 October 2026",
       "items": [
