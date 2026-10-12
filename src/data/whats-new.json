@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-12.37",
+      "date": "12 October 2026",
+      "items": [
+        {
+          "icon": "heart-outline",
+          "title": "A thank-you when your report is accepted",
+          "body": "When the review team accepts a report you sent, such as a rating for an area or road, a crime spot or a speed camera, Tsamaya says thank you the next time you open it, with any note from the team. If a report is not accepted and the team leaves a note, you see that too.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-12.35",
       "date": "12 October 2026",
       "items": [
