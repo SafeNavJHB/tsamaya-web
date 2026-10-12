@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-12.35",
+      "date": "12 October 2026",
+      "items": [
+        {
+          "icon": "document-text-outline",
+          "title": "Clearer Privacy Policy and Terms",
+          "body": "We reworded the Privacy Policy and Terms of Use to read more clearly, and the Privacy Policy now links our PAIA manual, which explains how to ask for any record we hold. Nothing changes in what Tsamaya does with your information. Read them in Settings › Sharing & privacy.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-12.34",
       "date": "12 October 2026",
       "items": [
