@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-13.41",
+      "date": "13 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "Android Auto messages in the car's own cards",
+          "body": "On Android Auto, messages such as \"Finding a lower-risk route\" and the location reminder now appear in Android Auto's own alert cards instead of over the map. CarPlay is unchanged.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-12.40",
       "date": "12 October 2026",
       "items": [
