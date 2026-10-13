@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-13.44",
+      "date": "13 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "Drive as a car instead of the arrow",
+          "body": "Settings › Vehicle marker now has Car: a simple blue car seen from above, in place of the arrow. It shows on your phone, CarPlay and Android Auto, and it is free for everyone.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-13.43",
       "date": "13 October 2026",
       "items": [
