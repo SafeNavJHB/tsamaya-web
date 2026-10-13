@@ -15,6 +15,42 @@
   ],
   "releases": [
     {
+      "version": "2026-10-13.45",
+      "date": "13 October 2026",
+      "items": [
+        {
+          "icon": "speedometer-outline",
+          "title": "Long trips no longer freeze the screen",
+          "body": "Planning a long trip, such as Johannesburg to Durban or Cape Town, could freeze the screen for most of a minute and sometimes close the app. Tsamaya now works out the same routes about ten times faster, so the screen keeps responding while it checks the whole way for you.",
+          "category": "fix"
+        },
+        {
+          "icon": "text-outline",
+          "title": "Road names on your route",
+          "body": "While you drive, the names of the roads on your route are now written along the route line itself, so you can see which road you are on and which one you turn into next.",
+          "category": "feature"
+        },
+        {
+          "icon": "disc",
+          "title": "Report potholes",
+          "body": "Tap Report during a drive, then Pothole, or tap Speak and say \"pothole\". Drivers nearby see it on the map and hear \"Pothole reported ahead\" for the next 4 days, and each driver who answers that it is still there keeps it up for another 4 days, for up to 30 days.",
+          "category": "feature"
+        },
+        {
+          "icon": "ticket-outline",
+          "title": "See the toll gates on your route",
+          "body": "The route screen now says how many toll gates a route passes and names them, and marks each one on the map. Tsamaya Premium still shows what each gate costs for your vehicle.",
+          "category": "feature"
+        },
+        {
+          "icon": "map-outline",
+          "title": "Overview, Report and Back are easier to find",
+          "body": "During a drive, the Routes button is now called Overview and shows the road still ahead, and the flag button has a Report label. On the home screen, the From and To card has a Back button to start a new search.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-13.44",
       "date": "13 October 2026",
       "items": [
