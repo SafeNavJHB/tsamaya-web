@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-13.46",
+      "date": "13 October 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Rated roads where you look",
+          "body": "When you move the map during a drive, the roads Tsamaya rates are now coloured around the spot you are looking at, not only around your car. Re-centre brings it back to your car.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-13.45",
       "date": "13 October 2026",
       "items": [
