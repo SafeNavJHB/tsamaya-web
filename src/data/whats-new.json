@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-13.42",
+      "date": "13 October 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "eMalahleni and Middelburg are on the map",
+          "body": "Witbank and Middelburg are now covered, across both municipalities: Witbank from the town centre out to Reyno Ridge and Del Judor, KwaGuqa, Lynnville and Clewer, Ogies and Phola, Kriel, Middelburg with Mhluzi and Aerorand, and Hendrina, with the N4, N11 and N12 between them. Every suburb, village and main road has been rated against SAPS data for the police stations that serve it and checked a second time, and your location is now trusted anywhere in the area. Thank you to the driver who asked for it.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-13.41",
       "date": "13 October 2026",
       "items": [
