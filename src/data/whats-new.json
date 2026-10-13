@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-10-13.43",
+      "date": "13 October 2026",
+      "items": [
+        {
+          "icon": "volume-medium-outline",
+          "title": "The evening safety reminder speaks once",
+          "body": "The evening and late-night reminder to stay alert is now said once an hour, instead of again each time CarPlay starts the app and again when you start a drive. It still shows on screen every time.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-outline",
+          "title": "No update prompt while you are in the car",
+          "body": "The prompt to reload into a new version of Tsamaya now waits until CarPlay or Android Auto is disconnected. Reloading with the car connected could close the app.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-13.42",
       "date": "13 October 2026",
       "items": [
