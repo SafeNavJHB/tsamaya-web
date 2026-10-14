@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-14.47",
+      "date": "14 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "Your route behind the steering wheel",
+          "body": "In cars whose screen behind the steering wheel shows CarPlay, Tsamaya now draws the road ahead there during a drive: your route in its safety colours, the side roads at each junction, and your car, always pointing the way you are going. The car's own zoom buttons work on it.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-13.46",
       "date": "13 October 2026",
       "items": [
