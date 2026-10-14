@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-10-14.49",
+      "date": "14 October 2026",
+      "items": [
+        {
+          "icon": "add-circle-outline",
+          "title": "Add a stop from the car",
+          "body": "On CarPlay and Android Auto, pick another place while you drive and Tsamaya asks whether to add it as a stop or make it your new route. A stop is added before your destination, and the route options show the new trip before you press Go.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-14.48",
+      "date": "14 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "A new look for the free Car marker",
+          "body": "The Car choice under Settings › Vehicle marker is now a blue car seen from behind, as the Premium vehicles are. It is still free for everyone.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-14.47",
       "date": "14 October 2026",
       "items": [
