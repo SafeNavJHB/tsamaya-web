@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-10-15.51",
+      "date": "15 October 2026",
+      "items": [
+        {
+          "icon": "swap-vertical-outline",
+          "title": "Swipe or tap the bar on any sheet",
+          "body": "The little bar at the top of a sheet now works everywhere. Swipe it down or tap it to close a sheet, hide the route details or tuck away the trip bar while you drive, and swipe up or tap to bring them back.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-15.50",
+      "date": "15 October 2026",
+      "items": [
+        {
+          "icon": "chatbubble-ellipses-outline",
+          "title": "Your trip ratings always reach us",
+          "body": "How the areas and roads on your trip felt now reaches the team even when you finish without signal or just after reporting something on the road. Tsamaya keeps your answers and sends them when you are back online.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-14.49",
       "date": "14 October 2026",
       "items": [
