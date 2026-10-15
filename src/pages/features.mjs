@@ -97,6 +97,6 @@ export default topicPage({
   lead: 'Tsamaya is a free navigation app for South African drivers. It plans routes around areas with a history of vehicle crime, then guides you turn by turn. This page lists everything it does today, with a link to the detail on each.',
   sections: [...groups, soon, limits],
   faqs,
-  links: [['How it works', 'how-it-works.html'], ['See it in action', 'demo.html'], ['Every update', 'updates.html'], ['All the questions', 'faq.html']],
+  links: [['How it works', 'how-it-works.html'], ['See it in action', 'demo.html'], ['Every update', 'updates.html'], ['All the questions', 'faq.html'], ['Tsamaya vs Google Maps', 'compare-google-maps.html'], ['Tsamaya vs Waze', 'compare-waze.html']],
   ctaTitle: 'Put it on your phone.',
 });
