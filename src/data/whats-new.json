@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-15.52",
+      "date": "15 October 2026",
+      "items": [
+        {
+          "icon": "hand-left-outline",
+          "title": "Panels follow your finger",
+          "body": "Swipe the route details down and they slide with your finger, and the same when you swipe them back up or close the route overview while you drive. Let go early and they settle back. A tap still opens or hides them at once.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-15.51",
       "date": "15 October 2026",
       "items": [
