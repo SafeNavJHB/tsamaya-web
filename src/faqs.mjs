@@ -96,7 +96,7 @@ export const F = {
   },
   aa: {
     q: 'Does Tsamaya work with Android Auto?',
-    a: 'Android Auto is in testing. It is built and testers use it, but it is not in the public Google Play build yet. This answer changes when that does.',
+    a: 'Yes, from version 1.8 on Google Play. Connect the phone as you normally do and open Tsamaya on the car screen: it shows the route options with their grades, turn-by-turn guidance with a speed dial, a Report button that takes voice reports, an SOS button, and spoken directions on the car\'s navigation volume. The app runs on your phone and the car shows it, so keep the phone with you.',
   },
   offline: {
     q: 'Does Tsamaya work without mobile data?',

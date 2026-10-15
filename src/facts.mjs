@@ -27,10 +27,8 @@ export const FEATURES = [
   // 28, SafeNavJHB/SafeNav#253, 2026-09-29) it stays, and the car map's
   // Guardian shield became an SOS button whose menu holds Guardian
   // (src/carplay/sosFlow.ts; Call 112 from the car screen from build 29).
-  // 1.8 is on INTERNAL testing only, so index.mjs, driving-in-south-africa.mjs
-  // and llms.mjs say "in the current release ... from version 1.8, in testing
-  // now". Once 1.8 or later reaches external TestFlight and Play open testing,
-  // drop the old half. The text opens ready to send; the driver sends it. The
+  // Both public builds are 1.8 or later since 2026-10 (TestFlight's public link
+  // serves 1.10.0, Play open testing 1.8.0), so the pre-1.8 caveat is gone. The text opens ready to send; the driver sends it. The
   // link updates while the drive screen is open, then shows the last position
   // until it expires after 24 hours.
   ['SOS', 'One button on the phone\'s drive screen calls 10111 or 112, or opens a text to your emergency contact, ready to send, with where you are and a link that follows you live while you drive and stays up for 24 hours.'],
@@ -58,10 +56,9 @@ export const FEATURES = [
   ['Offline maps', 'Download the map for an area so it keeps drawing where the signal drops.'],
   // Discover tour + LandmarkLayer (29 Jul 2026); decorative, never a routing input
   ['Discover', 'A guided flyover of your metro, landmark to landmark, with a quick guide at each stop. Landmarks never change your route.'],
-  // src/carplay/*. Android Auto is only on Play's INTERNAL track: the open-test
-  // download (the one the public can install) is built without it. Say
-  // "in testing" until an Android Auto build reaches open testing.
-  ['CarPlay', 'The same routes, voice guidance and alerts on the car\'s own screen. Android Auto is in testing.'],
+  // src/carplay/*. Android Auto is in the public Google Play build from 1.8.0
+  // (open testing, approved by Google 2026-10-09).
+  ['CarPlay', 'The same routes, voice guidance and alerts on the car\'s own screen, with Apple CarPlay or Android Auto.'],
   // speedLimitHold.ts + overspeedCadence.ts
   ['Speed', 'A speed limit readout and a gentle over-speed chime.'],
   // ReportSheet.tsx
@@ -73,7 +70,7 @@ export const FEATURES = [
 // visitor guide open with it, so an assistant quoting any of them gets the same
 // picture: what it does, the safety tools, the platforms, and the status.
 export const SUMMARY =
-  'Tsamaya is a free navigation app for South African drivers, built in Johannesburg. It plans driving routes around the places where vehicle crime is known to happen, using ratings that change with the time of day, then guides you turn by turn on your phone or on Apple CarPlay, with Android Auto in testing. It also has an SOS button and live trip sharing. It is in open beta on iPhone and Android.';
+  'Tsamaya is a free navigation app for South African drivers, built in Johannesburg. It plans driving routes around the places where vehicle crime is known to happen, using ratings that change with the time of day, then guides you turn by turn on your phone, Apple CarPlay or Android Auto. It also has an SOS button and live trip sharing. It is in open beta on iPhone and Android.';
 
 // What it is not. Said plainly, because the honest answer is also the one an
 // assistant needs to place it next to emergency apps correctly.

@@ -32,7 +32,7 @@ const kinds = sec({
     rows: [
       ['Trip link', 'A link for one drive that you send to anyone.', 'When you choose to share a trip.'],
       ['SOS link', 'The SOS button opens a text to your emergency contact, ready to send, with your location and a link that follows you live while you drive and stays up for 24 hours. The button also calls 10111 or 112.', 'When you press SOS and send the text yourself.'],
-      ['Guardian', 'One standing link for your emergency contact. Switching it on from the CarPlay screen lets them follow that drive: your route, live position and the moment you arrive. From version 1.8, in testing now, it lives in the car map\'s SOS menu.', 'When you switch it on from the car screen.'],
+      ['Guardian', 'One standing link for your emergency contact. Switching it on from the CarPlay screen lets them follow that drive: your route, live position and the moment you arrive. It lives in the car map\'s SOS menu.', 'When you switch it on from the car screen.'],
     ],
   }),
 });

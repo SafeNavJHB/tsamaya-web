@@ -225,6 +225,12 @@ async function build() {
   // Keep the store tidy (a removed page drops out) and write it only when it moved.
   const nextJson = JSON.stringify(lastmodNext, null, 1) + '\n';
   if (nextJson !== JSON.stringify(lastmodStore, null, 1) + '\n') await writeFile(lastmodPath, nextJson, 'utf8');
+  // Publish the store with the site. The deploy seeds the next build from the
+  // LIVE copy (deploy.yml), so a page's date moves only when the page does. The
+  // committed copy alone was not enough: the changelog commits never carry it,
+  // so every deploy re-stamped every page changed since its last commit with that
+  // day's date, and the whole sitemap read "changed today" (seen 2026-10-15).
+  await writeFile(join(dist, 'lastmod.json'), nextJson, 'utf8');
 
   console.log(`\nBuilt ${pages.length} pages → ${dist}`);
 }

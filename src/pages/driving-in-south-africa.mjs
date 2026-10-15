@@ -23,9 +23,9 @@ const nMetros = stats.totals.metros;
 const DOES = [
   ['Routes around risk', `Every trip is checked against the rated areas in the ${nMetros} metros we map and bent around the high-risk ones when a sensible detour exists. When none does, it says so and marks the risky stretches.`],
   ['Rated by the hour', 'Daytime, evening and night each carry their own ratings, and the route card warns you when a trip will land after dark.'],
-  ['SOS', 'One button on the phone\'s drive screen calls 10111 or 112, or opens a text to your emergency contact, ready to send, with where you are and a live link. In the current release it is not shown while a drive is on CarPlay, so dial 112 from the phone there. From version 1.8, in testing now, it stays on the phone during a CarPlay drive, and the car map gets an SOS button whose menu holds Guardian.'],
+  ['SOS', 'One button on the phone\'s drive screen calls 10111 or 112, or opens a text to your emergency contact, ready to send, with where you are and a live link. It stays on the phone during a CarPlay or Android Auto drive, and the car map has an SOS button whose menu holds Guardian.'],
   ['Family can follow', 'Send a trip link to anyone, anywhere. It opens in a browser, with no app to install: your route, where you are, your arrival time, then Arrived.'],
-  ['Any car', 'It is a phone app, so it works in a rental. If the car has Apple CarPlay, Tsamaya runs on the car\'s screen as well; Android Auto is in testing.'],
+  ['Any car', 'It is a phone app, so it works in a rental. If the car has Apple CarPlay or Android Auto, Tsamaya runs on the car\'s screen as well.'],
   ['No account', 'Nothing to sign up for. Routing, SOS and trip sharing are free, and your trips are not kept on our servers unless you choose to share one.'],
   ['Offline maps', 'Download the map around where you are staying for the places where the signal drops. Planning a new route needs a connection.'],
   ['Closures and notices', 'Road closures and protests are picked up daily, and the Balanced and Lower-risk routes go around them. Police and roadblock notices from other drivers are spoken when they are ahead of you.'],

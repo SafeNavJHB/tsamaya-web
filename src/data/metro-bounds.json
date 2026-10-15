@@ -197,6 +197,20 @@
         26.21,
         -29.12
       ]
+    },
+    {
+      "key": "emalahleni",
+      "name": "eMalahleni & Middelburg",
+      "bbox": {
+        "lngMin": 28.91,
+        "lngMax": 29.88,
+        "latMin": -26.39,
+        "latMax": -25.4
+      },
+      "center": [
+        29.3,
+        -25.84
+      ]
     }
   ]
 }

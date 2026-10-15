@@ -232,6 +232,8 @@ ${jumpBar(jump)}${page.hud === false ? '' : hudStrip()}
         <a href="coverage.html">Coverage</a>
         <a href="driving-in-south-africa.html">Driving here as a visitor</a>
         <a href="faq.html">Questions answered</a>
+        <a href="compare-google-maps.html">Tsamaya vs Google Maps</a>
+        <a href="compare-waze.html">Tsamaya vs Waze</a>
         <a href="updates.html">Updates</a>
         <a href="technical.html">Technical details</a>
         <a href="about.html">About us</a>
