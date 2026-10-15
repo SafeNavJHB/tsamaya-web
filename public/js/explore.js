@@ -89,7 +89,7 @@ export function initExplore({ root, tier }) {
   }
   function region() {
     ex.sel = -1; ex.lvl = 'reg';
-    say(`Gauteng and surrounds: ${M.filter((m) => m.gt).length} metros.`);
+    say(`${M.filter((m) => m.gt).length} of the ${M.length} metros are in Gauteng and surrounds.`);
     if (ex.gl) ex.gl.fly('reg');
     show();
   }

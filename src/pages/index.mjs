@@ -226,7 +226,7 @@ const STEPS = [
   ['Move it onto checked roads', 'If the route runs through a high-risk area, it moves it onto roads we have checked, and tells you what it went around.'],
   ['Throw out bad detours', 'A detour only gets offered if it cuts your exposure. One that adds too much distance is thrown out, even when it carries less risk.'],
   ["Say so when there's no better way", 'When there is no good alternative, Tsamaya says so and gives you the normal route with the risky stretches marked. It will not invent a detour to look busy.'],
-  ['Drive it', 'Turn-by-turn with voice, on the phone or Apple CarPlay (Android Auto is in testing). Or hand it to Google Maps with the detour points already in place.'],
+  ['Drive it', 'Turn-by-turn with voice, on the phone, Apple CarPlay or Android Auto. Or hand it to Google Maps with the detour points already in place.'],
 ];
 // The feature grid reads the shared list (src/facts.mjs), which also feeds the
 // app's structured data and /llms.txt, so the three can never disagree.
@@ -340,7 +340,7 @@ const faqs = [
   },
   {
     q: 'Does Tsamaya have an SOS or panic button?',
-    a: 'Yes. The SOS button on the phone\'s drive screen calls 10111 (the police) or 112 (any mobile), or opens a text to your emergency contact, ready to send, with your coordinates and a link that follows you live while you drive and stays up for 24 hours. In the current release the button is not shown while a drive is on CarPlay; from version 1.8, in testing now, it stays on the phone during a CarPlay drive and the car map gets its own SOS button. Tsamaya does not send armed response or an ambulance itself, so keep a dedicated emergency app as well, such as the panic button your insurer, bank or security company offers.',
+    a: 'Yes. The SOS button on the phone\'s drive screen calls 10111 (the police) or 112 (any mobile), or opens a text to your emergency contact, ready to send, with your coordinates and a link that follows you live while you drive and stays up for 24 hours. It stays on the phone during a CarPlay or Android Auto drive, and the car map has its own SOS button. Tsamaya does not send armed response or an ambulance itself, so keep a dedicated emergency app as well, such as the panic button your insurer, bank or security company offers.',
   },
   {
     q: 'Can someone at home follow my drive?',

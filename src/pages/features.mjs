@@ -40,7 +40,7 @@ const GROUPS = [
   {
     id: 'car',
     kick: 'In the car',
-    title: 'CarPlay, and Android Auto in testing',
+    title: 'CarPlay and Android Auto',
     items: ['CarPlay'],
     links: [['CarPlay and Android Auto', 'carplay-android-auto.html']],
   },
@@ -82,7 +82,7 @@ const limits = sec({
   title: 'The limits',
   inner: prose(
     `<p>${NOT_A}</p>`,
-    `<p>Tsamaya is in open beta. Android Auto is in testing and not yet in the public Google Play build. The risk ratings come from published crime statistics, an AI second opinion, a person's sense-check and drivers' reports, so they are good information and not a prediction. Lower risk is not no risk.</p>`,
+    `<p>Tsamaya is in open beta. The risk ratings come from published crime statistics, an AI second opinion, a person's sense-check and drivers' reports, so they are good information and not a prediction. Lower risk is not no risk.</p>`,
   ),
 });
 

@@ -379,6 +379,31 @@ export const metros = [
       },
     ],
   },
+  {
+    key: 'emalahleni',
+    slug: 'emalahleni',
+    name: 'eMalahleni & Middelburg',
+    region: 'Mpumalanga',
+    blurb:
+      'Driving routes around eMalahleni (Witbank) and Middelburg, covering the N4 between them, the N12 towards Gauteng, the N11 north and south, and the roads to Ogies, Kriel and Hendrina.',
+    intro:
+      'eMalahleni and Middelburg are mapped as one region on the N4, added in October 2026 after a driver who works there asked for it. Coverage is both municipalities in full: eMalahleni with Witbank, KwaGuqa, Ogies and Kriel, and Steve Tshwete with Middelburg, Mhluzi and Hendrina. Most trips here run on the N4, the N12 or the N11, so those are rated stretch by stretch rather than as one road.',
+    context: [
+      'Most of the N4, N12 and N11 carries no risk penalty, so by day every route option stays on the national roads. The stretches that run through or beside the towns are rated a step up, and higher after dark.',
+      'At night a lower-risk option may leave the national road to go round those stretches, and the route card shows how much time that adds, so the choice stays yours.',
+      'The R544 between Kriel and eMalahleni is rated high after dark, so a night trip on it shows that on the route card. Every road and area is rated separately for day, evening and night.',
+    ],
+    faqs: [
+      {
+        q: 'Does Tsamaya cover Middelburg as well as eMalahleni?',
+        a: 'Yes. They are one region in the app, along with Mhluzi, KwaGuqa, Ogies, Kriel and Hendrina, and the N4, N11 and N12 between them.',
+      },
+      {
+        q: 'Is the drive to Pretoria or Johannesburg covered?',
+        a: 'Most of it. The Gauteng metros are mapped as well, but about 20 km of the N4 and N12 between them and eMalahleni sits outside both. There the app navigates as normal, without risk data, and picks the ratings up again on the other side.',
+      },
+    ],
+  },
 ];
 
 // Look up the editorial entry for a metro key from stats.json.

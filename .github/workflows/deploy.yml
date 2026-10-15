@@ -25,6 +25,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      # Seed the per-page <lastmod> store from the site that is live now, so a
+      # page's date changes only when its HTML does (build.mjs publishes the store
+      # as /lastmod.json). Falls back to the committed copy when the live one is
+      # missing or not valid JSON. Never blocks a deploy.
+      - name: Seed lastmod dates from the live site
+        continue-on-error: true
+        timeout-minutes: 2
+        run: |
+          if curl -fsS --max-time 30 https://tsamayaapp.co.za/lastmod.json -o "$RUNNER_TEMP/lastmod.json" \
+            && node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1],'utf8'));if(!d||typeof d!=='object'||!Object.keys(d).length)process.exit(1)" "$RUNNER_TEMP/lastmod.json"; then
+            cp "$RUNNER_TEMP/lastmod.json" src/data/lastmod.json && echo "seeded from live"
+          else
+            echo "live lastmod.json unavailable; using the committed copy"
+          fi
       # Zero npm dependencies — just run the build.
       # Public client keys for the live-trip tracker (/t/) are injected from repo
       # secrets into dist/config.json so they're never committed to source.

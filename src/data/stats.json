@@ -1,37 +1,37 @@
 {
   "generatedFrom": "uthvorhglqysehayyxzy",
   "totals": {
-    "metros": 14,
-    "zones": 5015,
-    "corridors": 7372,
-    "corridorsSafe": 2281,
-    "corridorsDanger": 5091,
+    "metros": 15,
+    "zones": 5172,
+    "corridors": 7881,
+    "corridorsSafe": 2428,
+    "corridorsDanger": 5453,
     "riskBands": 3
   },
   "bands": {
-    "yellow": 487,
-    "orange": 1557,
-    "none": 282,
-    "red": 2689
+    "none": 275,
+    "orange": 1605,
+    "red": 2793,
+    "yellow": 499
   },
   "byTime": {
     "day": {
-      "yellow": 1491,
-      "red": 1394,
-      "orange": 1769,
-      "none": 361
+      "red": 1408,
+      "orange": 1865,
+      "yellow": 1527,
+      "none": 372
     },
     "evening": {
-      "yellow": 1181,
-      "none": 331,
-      "orange": 1918,
-      "red": 1585
+      "yellow": 1217,
+      "orange": 1962,
+      "none": 333,
+      "red": 1660
     },
     "night": {
-      "none": 282,
-      "orange": 1557,
-      "red": 2689,
-      "yellow": 487
+      "red": 2793,
+      "none": 275,
+      "yellow": 499,
+      "orange": 1605
     }
   },
   "metros": [
@@ -40,31 +40,31 @@
       "name": "Johannesburg",
       "slug": "johannesburg",
       "zones": 800,
-      "corridors": 3703,
+      "corridors": 3874,
       "bands": {
-        "yellow": 99,
-        "red": 533,
-        "orange": 155,
-        "none": 13
+        "orange": 147,
+        "yellow": 95,
+        "none": 6,
+        "red": 552
       },
       "byTime": {
         "day": {
-          "orange": 237,
-          "none": 13,
-          "red": 315,
-          "yellow": 235
+          "none": 6,
+          "red": 317,
+          "yellow": 219,
+          "orange": 258
         },
         "evening": {
-          "red": 326,
+          "red": 354,
           "orange": 228,
-          "none": 13,
-          "yellow": 233
+          "yellow": 212,
+          "none": 6
         },
         "night": {
-          "red": 533,
-          "orange": 155,
-          "yellow": 99,
-          "none": 13
+          "yellow": 95,
+          "orange": 147,
+          "none": 6,
+          "red": 552
         }
       }
     },
@@ -72,32 +72,32 @@
       "key": "cape_town",
       "name": "Cape Town",
       "slug": "cape-town",
-      "zones": 909,
-      "corridors": 1650,
+      "zones": 912,
+      "corridors": 1739,
       "bands": {
-        "yellow": 43,
-        "orange": 234,
-        "red": 587,
-        "none": 45
+        "none": 43,
+        "red": 593,
+        "yellow": 40,
+        "orange": 236
       },
       "byTime": {
         "day": {
-          "red": 280,
-          "orange": 318,
-          "yellow": 266,
-          "none": 45
+          "orange": 327,
+          "red": 284,
+          "none": 44,
+          "yellow": 257
         },
         "evening": {
-          "orange": 371,
-          "yellow": 197,
-          "none": 45,
-          "red": 296
+          "yellow": 194,
+          "orange": 359,
+          "none": 43,
+          "red": 316
         },
         "night": {
-          "orange": 234,
-          "red": 587,
-          "yellow": 43,
-          "none": 45
+          "red": 593,
+          "orange": 236,
+          "none": 43,
+          "yellow": 40
         }
       }
     },
@@ -106,31 +106,31 @@
       "name": "Pretoria",
       "slug": "pretoria",
       "zones": 486,
-      "corridors": 821,
+      "corridors": 868,
       "bands": {
-        "red": 188,
-        "none": 48,
-        "yellow": 97,
-        "orange": 153
+        "red": 205,
+        "orange": 140,
+        "yellow": 94,
+        "none": 47
       },
       "byTime": {
         "day": {
-          "orange": 128,
-          "yellow": 176,
+          "yellow": 175,
+          "none": 47,
           "red": 134,
-          "none": 48
+          "orange": 130
         },
         "evening": {
-          "orange": 128,
-          "yellow": 174,
-          "red": 136,
-          "none": 48
+          "red": 142,
+          "yellow": 171,
+          "orange": 126,
+          "none": 47
         },
         "night": {
-          "yellow": 97,
-          "red": 188,
-          "orange": 153,
-          "none": 48
+          "red": 205,
+          "yellow": 94,
+          "orange": 140,
+          "none": 47
         }
       }
     },
@@ -141,29 +141,29 @@
       "zones": 732,
       "corridors": 0,
       "bands": {
-        "yellow": 73,
-        "red": 457,
-        "orange": 179,
-        "none": 23
+        "orange": 180,
+        "none": 22,
+        "yellow": 71,
+        "red": 459
       },
       "byTime": {
         "day": {
-          "red": 284,
-          "orange": 264,
-          "none": 24,
-          "yellow": 160
-        },
-        "evening": {
-          "red": 312,
-          "yellow": 112,
-          "orange": 285,
+          "red": 286,
+          "orange": 263,
+          "yellow": 160,
           "none": 23
         },
+        "evening": {
+          "yellow": 111,
+          "red": 320,
+          "none": 22,
+          "orange": 279
+        },
         "night": {
-          "none": 23,
-          "yellow": 73,
-          "orange": 179,
-          "red": 457
+          "none": 22,
+          "red": 459,
+          "orange": 180,
+          "yellow": 71
         }
       }
     },
@@ -172,19 +172,19 @@
       "name": "West Rand",
       "slug": "west-rand",
       "zones": 130,
-      "corridors": 106,
+      "corridors": 150,
       "bands": {
-        "red": 57,
-        "none": 20,
+        "orange": 43,
         "yellow": 10,
-        "orange": 43
+        "none": 20,
+        "red": 57
       },
       "byTime": {
         "day": {
-          "orange": 45,
           "red": 26,
-          "yellow": 39,
-          "none": 20
+          "none": 20,
+          "orange": 45,
+          "yellow": 39
         },
         "evening": {
           "red": 33,
@@ -193,10 +193,10 @@
           "yellow": 23
         },
         "night": {
-          "yellow": 10,
-          "orange": 43,
           "red": 57,
-          "none": 20
+          "none": 20,
+          "orange": 43,
+          "yellow": 10
         }
       }
     },
@@ -204,32 +204,32 @@
       "key": "secunda",
       "name": "Secunda",
       "slug": "secunda",
-      "zones": 63,
+      "zones": 62,
       "corridors": 54,
       "bands": {
-        "yellow": 4,
-        "orange": 6,
-        "red": 50,
+        "yellow": 2,
+        "orange": 8,
+        "red": 49,
         "none": 3
       },
       "byTime": {
         "day": {
-          "orange": 21,
-          "yellow": 10,
           "none": 3,
-          "red": 29
+          "orange": 23,
+          "yellow": 8,
+          "red": 28
         },
         "evening": {
-          "orange": 21,
-          "yellow": 10,
-          "red": 29,
+          "red": 28,
+          "orange": 23,
+          "yellow": 8,
           "none": 3
         },
         "night": {
-          "orange": 6,
-          "red": 50,
-          "yellow": 4,
-          "none": 3
+          "orange": 8,
+          "yellow": 2,
+          "none": 3,
+          "red": 49
         }
       }
     },
@@ -240,17 +240,17 @@
       "zones": 32,
       "corridors": 49,
       "bands": {
-        "none": 0,
         "orange": 6,
-        "red": 22,
-        "yellow": 4
+        "none": 0,
+        "yellow": 4,
+        "red": 22
       },
       "byTime": {
         "day": {
-          "none": 3,
-          "red": 12,
+          "yellow": 6,
           "orange": 11,
-          "yellow": 6
+          "red": 12,
+          "none": 3
         },
         "evening": {
           "red": 13,
@@ -259,10 +259,10 @@
           "none": 2
         },
         "night": {
+          "yellow": 4,
           "red": 22,
-          "none": 0,
           "orange": 6,
-          "yellow": 4
+          "none": 0
         }
       }
     },
@@ -273,28 +273,28 @@
       "zones": 98,
       "corridors": 67,
       "bands": {
-        "red": 49,
-        "none": 3,
-        "yellow": 7,
-        "orange": 39
+        "red": 51,
+        "yellow": 6,
+        "orange": 38,
+        "none": 3
       },
       "byTime": {
         "day": {
+          "yellow": 33,
           "red": 38,
-          "orange": 18,
-          "yellow": 38,
-          "none": 4
+          "orange": 24,
+          "none": 3
         },
         "evening": {
-          "orange": 30,
+          "orange": 32,
+          "yellow": 19,
           "red": 44,
-          "none": 3,
-          "yellow": 21
+          "none": 3
         },
         "night": {
-          "orange": 39,
-          "yellow": 7,
-          "red": 49,
+          "red": 51,
+          "orange": 38,
+          "yellow": 6,
           "none": 3
         }
       }
@@ -306,29 +306,29 @@
       "zones": 43,
       "corridors": 5,
       "bands": {
+        "orange": 10,
         "red": 17,
         "yellow": 0,
-        "none": 16,
-        "orange": 10
+        "none": 16
       },
       "byTime": {
         "day": {
           "yellow": 5,
           "none": 16,
-          "red": 5,
-          "orange": 17
+          "orange": 17,
+          "red": 5
         },
         "evening": {
           "orange": 16,
           "red": 9,
-          "yellow": 2,
-          "none": 16
+          "none": 16,
+          "yellow": 2
         },
         "night": {
-          "red": 17,
           "orange": 10,
-          "none": 16,
-          "yellow": 0
+          "red": 17,
+          "yellow": 0,
+          "none": 16
         }
       }
     },
@@ -337,31 +337,31 @@
       "name": "Mossel Bay",
       "slug": "mossel-bay",
       "zones": 58,
-      "corridors": 25,
+      "corridors": 40,
       "bands": {
-        "yellow": 20,
         "red": 16,
         "orange": 13,
+        "yellow": 20,
         "none": 9
       },
       "byTime": {
         "day": {
           "orange": 16,
-          "none": 12,
+          "red": 10,
           "yellow": 20,
-          "red": 10
+          "none": 12
         },
         "evening": {
           "red": 12,
-          "yellow": 19,
           "none": 12,
-          "orange": 15
+          "orange": 15,
+          "yellow": 19
         },
         "night": {
-          "none": 9,
-          "orange": 13,
           "red": 16,
-          "yellow": 20
+          "yellow": 20,
+          "orange": 13,
+          "none": 9
         }
       }
     },
@@ -370,31 +370,31 @@
       "name": "Durban",
       "slug": "durban",
       "zones": 791,
-      "corridors": 407,
+      "corridors": 426,
       "bands": {
         "none": 65,
+        "orange": 251,
         "yellow": 10,
-        "red": 460,
-        "orange": 256
+        "red": 465
       },
       "byTime": {
         "day": {
-          "yellow": 161,
-          "none": 70,
           "red": 211,
-          "orange": 349
+          "orange": 356,
+          "yellow": 154,
+          "none": 70
         },
         "evening": {
-          "orange": 335,
-          "red": 268,
-          "yellow": 120,
+          "red": 269,
+          "yellow": 113,
+          "orange": 341,
           "none": 68
         },
         "night": {
-          "orange": 256,
+          "orange": 251,
           "yellow": 10,
           "none": 65,
-          "red": 460
+          "red": 465
         }
       }
     },
@@ -403,31 +403,31 @@
       "name": "Gqeberha",
       "slug": "gqeberha",
       "zones": 254,
-      "corridors": 172,
+      "corridors": 176,
       "bands": {
         "red": 101,
-        "yellow": 6,
         "orange": 141,
+        "yellow": 6,
         "none": 6
       },
       "byTime": {
         "day": {
-          "red": 30,
-          "orange": 101,
           "none": 6,
-          "yellow": 117
+          "orange": 101,
+          "yellow": 117,
+          "red": 30
         },
         "evening": {
           "yellow": 91,
-          "orange": 90,
           "red": 67,
+          "orange": 90,
           "none": 6
         },
         "night": {
-          "orange": 141,
-          "yellow": 6,
           "red": 101,
-          "none": 6
+          "orange": 141,
+          "none": 6,
+          "yellow": 6
         }
       }
     },
@@ -436,31 +436,31 @@
       "name": "Kruger & Lowveld",
       "slug": "kruger",
       "zones": 445,
-      "corridors": 162,
+      "corridors": 169,
       "bands": {
+        "orange": 232,
         "red": 102,
         "none": 23,
-        "yellow": 88,
-        "orange": 232
+        "yellow": 88
       },
       "byTime": {
         "day": {
-          "orange": 195,
           "yellow": 172,
-          "red": 11,
-          "none": 67
+          "orange": 195,
+          "none": 67,
+          "red": 11
         },
         "evening": {
           "red": 26,
-          "none": 47,
+          "yellow": 128,
           "orange": 244,
-          "yellow": 128
+          "none": 47
         },
         "night": {
           "red": 102,
           "orange": 232,
-          "yellow": 88,
-          "none": 23
+          "none": 23,
+          "yellow": 88
         }
       }
     },
@@ -469,31 +469,64 @@
       "name": "Bloemfontein",
       "slug": "bloemfontein",
       "zones": 174,
-      "corridors": 151,
+      "corridors": 152,
       "bands": {
-        "red": 50,
-        "yellow": 26,
+        "orange": 90,
         "none": 8,
-        "orange": 90
+        "red": 50,
+        "yellow": 26
       },
       "byTime": {
         "day": {
-          "orange": 49,
           "red": 9,
           "none": 30,
+          "orange": 49,
           "yellow": 86
         },
         "evening": {
           "red": 14,
-          "none": 25,
+          "orange": 87,
           "yellow": 48,
-          "orange": 87
+          "none": 25
         },
         "night": {
-          "none": 8,
+          "orange": 90,
           "red": 50,
           "yellow": 26,
-          "orange": 90
+          "none": 8
+        }
+      }
+    },
+    {
+      "key": "emalahleni",
+      "name": "eMalahleni & Middelburg",
+      "slug": "emalahleni",
+      "zones": 155,
+      "corridors": 112,
+      "bands": {
+        "yellow": 27,
+        "orange": 70,
+        "none": 4,
+        "red": 54
+      },
+      "byTime": {
+        "day": {
+          "yellow": 76,
+          "orange": 50,
+          "red": 7,
+          "none": 22
+        },
+        "evening": {
+          "yellow": 75,
+          "none": 13,
+          "orange": 54,
+          "red": 13
+        },
+        "night": {
+          "red": 54,
+          "yellow": 27,
+          "orange": 70,
+          "none": 4
         }
       }
     }

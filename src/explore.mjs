@@ -16,7 +16,7 @@ import { metrosBySize } from './poster.mjs';
 // The metros too close together to pick apart on the national map: pointing at
 // the area names them together, and a click flies to a regional view where
 // each is easy to pick. A layout fact, not data.
-export const GAUTENG = ['johannesburg', 'pretoria', 'ekurhuleni', 'west_rand', 'rustenburg', 'pilanesberg', 'secunda'];
+export const GAUTENG = ['johannesburg', 'pretoria', 'ekurhuleni', 'west_rand', 'rustenburg', 'pilanesberg', 'secunda', 'emalahleni'];
 
 // On the home page the section takes the 3D scene's layout (.cine) while the
 // page is still being read in, so nothing moves when the scene arrives, even
@@ -48,7 +48,7 @@ export function exploreSection({ kick, canvas = false, h = 'h2', lede = '' }) {
     <div class="ex-stage" id="ex-stage">
       <figure class="ex-map" aria-hidden="true"></figure>
       <button class="ex-back hud" type="button" id="ex-back" hidden><span aria-hidden="true">&larr;</span> Back to all ${n}</button>
-      <p class="ex-hint hud" id="ex-hint" aria-hidden="true">Gauteng and surrounds: ${metros.filter((m) => GAUTENG.includes(m.key)).length} metros</p>
+      <p class="ex-hint hud" id="ex-hint" aria-hidden="true">${metros.filter((m) => GAUTENG.includes(m.key)).length} of the ${n} metros are in Gauteng and surrounds</p>
       <button class="ex-pause motion-toggle hud" type="button" aria-pressed="false" data-motion-toggle><span class="pi" aria-hidden="true"></span><span class="motion-label">Pause motion</span></button>
     </div>
     <div class="ex-body">

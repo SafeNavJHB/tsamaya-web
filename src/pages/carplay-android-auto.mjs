@@ -4,9 +4,9 @@ import { topicPage, prose, ul, grid } from '../topic.mjs';
 
 // CarPlay and Android Auto (added 2026-10-01). Everything under "CarPlay" is
 // checked against the changelog (20 Aug, 29 Aug, 11 Aug, 2 Jul, 17 to 26 Sep
-// 2026). Android Auto stays "in testing" until a build with it reaches Google
-// Play open testing, exactly as facts.mjs, llms.mjs and the home page say. The
-// SOS wording copies the careful two-halves form used on the home page.
+// 2026). Android Auto is in the public Google Play build from 1.8.0 (open
+// testing, approved 2026-10-09); its features are checked against the 1.8.0
+// head-unit code (registerAndroidAuto.ts, sosFlow.ts). The SOS wording copies the careful two-halves form used on the home page.
 
 const carplay = sec({
   id: 'carplay',
@@ -28,10 +28,10 @@ const carplay = sec({
 const aa = sec({
   id: 'android-auto',
   kick: 'Android Auto',
-  title: 'In testing',
-  lead: 'Android Auto is built and testers drive with it, but it is not in the public Google Play build yet.',
+  title: 'On Android phones',
+  lead: 'From version 1.8 on Google Play, Tsamaya runs on Android Auto. The app runs on your phone and the car shows it.',
   inner: prose(
-    `<p>The Android Auto screen has the same route list with grades, turn cards, speed dial, risk border, Report and Settings buttons, voice reports, and spoken directions on the car's navigation volume. When it reaches the public build, this page and the app's listing will say so.</p>`,
+    `<p>The Android Auto screen has the same route list with grades, turn cards, a speed dial, Report and Settings buttons, voice reports, an SOS button, and spoken directions on the car's navigation volume.</p>`,
   ),
 });
 
@@ -40,7 +40,7 @@ const sos = sec({
   kick: 'Emergencies',
   title: 'SOS and CarPlay',
   inner: prose(
-    `<p>In the current release the SOS button is on the phone's drive screen and is not shown while a drive is on CarPlay, so dial 112 from the phone there. From version 1.8, in testing now, it stays on the phone during a CarPlay or Android Auto drive and the car map gets its own SOS button whose menu holds Guardian.</p>`,
+    `<p>The SOS button stays on the phone during a CarPlay or Android Auto drive, and the car map has its own SOS button whose menu holds Guardian.</p>`,
   ),
 });
 
@@ -51,6 +51,7 @@ const needs = sec({
   inner: prose(
     ul([
       'An iPhone on iOS 16.4 or later with Tsamaya installed, and a car or head unit with Apple CarPlay.',
+      'Or an Android phone with Tsamaya 1.8 or later from Google Play, and a car or head unit with Android Auto.',
       'No separate car app to install: connect the phone as you normally do and open Tsamaya on the car screen.',
       'A data connection to plan a new route. Download offline maps for the places where the signal drops.',
     ]),
@@ -62,10 +63,10 @@ const faqs = [F.carplay, F.aa, F.sos, F.offline, F.voice];
 export default topicPage({
   slug: 'carplay-android-auto.html',
   title: 'CarPlay and Android Auto',
-  description: 'What Tsamaya does on Apple CarPlay: graded route options, risk border, speed camera and hotspot pins, closure notices, voice reports and Guardian. Android Auto is in testing.',
+  description: 'What Tsamaya does on Apple CarPlay: graded route options, risk border, speed camera and hotspot pins, closure notices, voice reports and Guardian, and the same on Android Auto.',
   meta: 'CarPlay · Android Auto',
   h1: 'Tsamaya on your car screen.',
-  lead: 'Apple CarPlay shows the same lower-risk routes, voice guidance and alerts as the phone. Android Auto is in testing.',
+  lead: 'Apple CarPlay shows the same lower-risk routes, voice guidance and alerts as the phone, and so does Android Auto.',
   sections: [carplay, aa, sos, needs],
   faqs,
   links: [['Features', 'features.html'], ['Live trip sharing', 'live-trip-sharing.html'], ['Speed cameras', 'speed-cameras.html'], ['Get the app', 'get-app.html']],
