@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-16.57",
+      "date": "16 October 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Polokwane is on the map",
+          "body": "Polokwane is now covered across the whole municipality: the city centre, Bendor, Fauna Park, Flora Park, Ivy Park and Nirvana, Westenburg, Seshego, Mankweng and Turfloop, Sebayeng, and the Moletjie, Matlala and Aganang villages, with the N1 round the city and the R71 to Mankweng. Every suburb, village and main road has been rated against SAPS data for the police stations that serve it and checked a second time, and your location is now trusted anywhere in the area.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-16.56",
       "date": "16 October 2026",
       "items": [
