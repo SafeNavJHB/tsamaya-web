@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-16.53",
+      "date": "16 October 2026",
+      "items": [
+        {
+          "icon": "speedometer-outline",
+          "title": "Lighter on your phone",
+          "body": "Tsamaya now keeps a slimmer copy of the risk areas and rated roads, accurate to within a metre, and tidies up after itself while you drive. It uses a lot less memory, so older phones are less likely to close it in the background on a long drive.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-15.52",
       "date": "15 October 2026",
       "items": [
