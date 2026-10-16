@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-16.55",
+      "date": "16 October 2026",
+      "items": [
+        {
+          "icon": "git-branch-outline",
+          "title": "Long drives stay on rated roads",
+          "body": "When you plan a drive of over 150 km (between stops, if it has any), Balanced and Lower-risk no longer send you onto roads we have no risk information for, or add more than about half an hour for every six hours of driving, unless a road on the way is reported closed. If another road looks lower risk on the phone only because nothing is known about it, its card now says so.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-16.53",
       "date": "16 October 2026",
       "items": [
