@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-16.56",
+      "date": "16 October 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Pietermaritzburg is on the map",
+          "body": "Pietermaritzburg is now covered across the whole Msunduzi municipality: the city centre, Scottsville, Pelham, Wembley and Montrose, Northdale, Raisethorpe and Eastwood, Sobantu, Edendale, Imbali and Ashdown, and the Vulindlela villages to the west, with the N3 from Town Hill to Lynnfield Park. Every suburb, village and main road has been rated against SAPS data for the police stations that serve it and checked a second time, and your location is now trusted anywhere in the area.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-16.55",
       "date": "16 October 2026",
       "items": [
