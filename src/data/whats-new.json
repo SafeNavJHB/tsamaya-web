@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-16.58",
+      "date": "16 October 2026",
+      "items": [
+        {
+          "icon": "list-outline",
+          "title": "Long drives list the stretches to watch",
+          "body": "Plan a drive of over 150 km (between stops, if it has any) and each route now lists the stretches to watch in the order you will reach them, instead of an A to E letter: the medium- and high-risk roads and areas, roughly what time you will get to each one, whether that is in the evening or after dark, and how long it is. A city's areas are grouped together, low-risk ones are a tap away, and a line at the bottom says how much of the drive has no risk rating yet. Free for everyone.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-16.57",
       "date": "16 October 2026",
       "items": [
