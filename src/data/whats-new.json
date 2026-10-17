@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-17.60",
+      "date": "17 October 2026",
+      "items": [
+        {
+          "icon": "git-compare-outline",
+          "title": "Lower-risk routes near reviewed freeways",
+          "body": "Near a freeway rated on its own record, the lower-risk search again tries the detours around the areas beside it, as well as the freeway itself, and picks whichever is lower risk. A few Durban trips had lost a lower-risk detour they used to offer.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-17.59",
       "date": "17 October 2026",
       "items": [
