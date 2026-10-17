@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-17.59",
+      "date": "17 October 2026",
+      "items": [
+        {
+          "icon": "trail-sign-outline",
+          "title": "Freeways rated on their own record",
+          "body": "A freeway we have reviewed is now rated on its own record instead of on the areas beside it, so a road past a high-risk area is no longer counted twice and routes stop leaving a freeway for no good reason. It switches on road by road as each one is reviewed, starting with Durban's N2 and N3 and the R71 past Mankweng.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-16.58",
       "date": "16 October 2026",
       "items": [
