@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-20.62",
+      "date": "20 October 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Route line on the CarPlay dashboard in satellite view",
+          "body": "With the satellite map, the small map on the CarPlay dashboard could lose the route line for a whole drive while the full CarPlay map still showed it. The route now always draws over the road outlines.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-20.61",
       "date": "20 October 2026",
       "items": [
