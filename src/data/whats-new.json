@@ -15,6 +15,42 @@
   ],
   "releases": [
     {
+      "version": "2026-10-20.61",
+      "date": "20 October 2026",
+      "items": [
+        {
+          "icon": "color-palette-outline",
+          "title": "Rate a road with no rating",
+          "body": "On a road we have not rated yet, when you stop at a light Tsamaya may ask what colour it should be: green, yellow, orange or red. One tap sends it to the review team. It asks rarely, never at speed, and only on the phone screen.",
+          "category": "feature"
+        },
+        {
+          "icon": "chatbubble-ellipses-outline",
+          "title": "Add a comment to your trip rating",
+          "body": "Tapping Good or Not good after a drive no longer closes the summary straight away. Add a comment if you like, then tap Submit. Closing it still sends your rating.",
+          "category": "tweak"
+        },
+        {
+          "icon": "flag-outline",
+          "title": "Report from CarPlay without a route",
+          "body": "The report flag is now on the CarPlay map when you are not navigating, in place of the Work shortcut. Home and Work are still under Search.",
+          "category": "feature"
+        },
+        {
+          "icon": "map-outline",
+          "title": "Clearer maps",
+          "body": "The drive map now names the side streets around you. The Lower-risk route is drawn in green and Balanced in blue, toll gates show a T, and the CarPlay and Android Auto map opens where you last were instead of panning across from Johannesburg.",
+          "category": "tweak"
+        },
+        {
+          "icon": "locate-outline",
+          "title": "Live trip links open first time",
+          "body": "On iPhone, opening a shared live trip link when Tsamaya was closed now goes straight to the trip, instead of only opening the app.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-17.60",
       "date": "17 October 2026",
       "items": [
