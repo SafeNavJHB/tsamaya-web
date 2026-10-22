@@ -54,7 +54,9 @@ Apple and Google may process information outside South Africa. That processing i
 
 ## 4. Importing
 
-Importing reads a file that you pick yourself: a TWS LOG PDF, an Excel file, a CSV file or a Logbook² backup. The file is read on your phone and the flights from it are added to the local database. Nothing is uploaded.
+Importing reads a file that you pick yourself: a PDF exported from another logbook app, an Excel file, a CSV file or a Logbook² backup. The file is read on your phone and the flights from it are added to the local database. Nothing is uploaded.
+
+**Scanning a paper logbook.** You can photograph a page of your paper logbook, or choose a photo you already have. The app asks for camera or photo access only when you choose this. Text recognition runs on your phone, using the recognition built into iOS (Apple Vision) or Android (Google ML Kit's on-device model); the photo is not sent to us or to anyone else. The photo is kept only in the app's temporary storage while you check the result, and the flights you confirm are saved to the local database like any other entry. Logbook² does not keep the photo afterwards, though a photo you took with the camera may also be in your phone's own photo library under your phone's rules.
 
 ## 5. Backups
 

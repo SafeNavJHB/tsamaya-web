@@ -12,13 +12,13 @@ const start = faqSec({
   title: 'Bringing your flights in',
   faqs: [
     {
-      q: 'How do I import my flights from TWS LOG?',
-      a: 'In TWS LOG, export your logbook as a PDF. Save the PDF to the Files app on your iPhone, or open it directly in Logbook². Then, in Logbook², go to More › Import and pick the file. The flights are read on your phone and nothing is uploaded. Importing needs an active subscription or your 30-day free period.',
+      q: 'How do I import my flights from another logbook app?',
+      a: 'Export your logbook from your current app as a PDF or Excel file. Save it to the Files app on your iPhone, or open it directly in Logbook². Then, in Logbook², go to More › Import and pick the file. The flights are read on your phone and nothing is uploaded. Importing needs an active subscription or your 30-day free period.',
       open: true,
     },
     {
       q: 'Can I import from anything else?',
-      a: 'Yes. Logbook² can also import an Excel file, a CSV file or a Logbook² backup. Pick the file in the same place: More › Import.',
+      a: 'Yes. Logbook² can also import an Excel file, a CSV file or a Logbook² backup, and it can read a photo of your paper logbook. Go to More › Import, choose Camera, lay the page flat in good light and take the photo. Text recognition runs on your phone. The app shows you every row it read and highlights anything it is not sure about, so you confirm or correct each of those before the flights are saved.',
     },
     {
       q: 'Is Logbook² approved by the SACAA?',
@@ -84,7 +84,7 @@ export default {
   slug: 'logbook2-support.html',
   title: 'Logbook² support',
   description:
-    'Help for the Logbook² pilot logbook app: importing from TWS LOG, printing, backing up and restoring your logbook, and managing your subscription.',
+    'Help for the Logbook² pilot logbook app: importing from PDF, Excel or a photo of your paper logbook, printing, backing up and restoring your logbook, and managing your subscription.',
   heroClass: 'sn page-faq',
   hud: false,
   body: [
