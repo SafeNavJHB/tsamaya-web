@@ -15,6 +15,36 @@
   ],
   "releases": [
     {
+      "version": "2026-10-22.63",
+      "date": "22 October 2026",
+      "items": [
+        {
+          "icon": "color-palette-outline",
+          "title": "Route colours line up with the road",
+          "body": "On long trips the colours on the route line could change a kilometre or more after the road did, so the road card said Lower risk while the line under the car was still blue. The line now changes colour where the road does.",
+          "category": "fix"
+        },
+        {
+          "icon": "phone-landscape-outline",
+          "title": "Reports stay in landscape",
+          "body": "Reporting a road with the phone sideways no longer turns the drive screen to portrait. The trip summary stays sideways too.",
+          "category": "fix"
+        },
+        {
+          "icon": "resize-outline",
+          "title": "Road card no longer cut off",
+          "body": "On a lower-risk road inside a higher-risk area, the area label could hang out of the road card under the trip bar. Both labels now sit on one row inside the card.",
+          "category": "fix"
+        },
+        {
+          "icon": "volume-high-outline",
+          "title": "One voice for the voice button",
+          "body": "Turning the voice back on says \"Tsamaya, let's go!\" in the voice you picked, not the phone's own voice.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-20.62",
       "date": "20 October 2026",
       "items": [
