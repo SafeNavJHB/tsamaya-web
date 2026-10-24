@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-24.65",
+      "date": "24 October 2026",
+      "items": [
+        {
+          "icon": "time-outline",
+          "title": "Arrival time keeps up with traffic",
+          "body": "Your arrival time used to be worked out once, when you pressed Go, so a jam that built up later was missed. During a drive Tsamaya now checks live traffic on the road ahead every few minutes and eases the arrival time to match.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-22.63",
       "date": "22 October 2026",
       "items": [
