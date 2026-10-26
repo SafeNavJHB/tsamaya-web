@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-10-26.68",
+      "date": "26 October 2026",
+      "items": [
+        {
+          "icon": "git-compare-outline",
+          "title": "Routes compared by distance",
+          "body": "Each route option now says how far it drives through high-risk areas, such as 12 km, instead of how many areas it passes. A detour can cross more, smaller areas and still be the lower-risk choice, and the count made it look worse.",
+          "category": "fix"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "The start button says which route",
+          "body": "While Tsamaya is still looking for lower-risk options, the button now reads Start fastest route, because that is the route it would start.",
+          "category": "fix"
+        },
+        {
+          "icon": "text-outline",
+          "title": "Bigger road names on the drive screen",
+          "body": "The next road name is larger and bolder, and a long name wraps onto more lines instead of being cut off.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-26.67",
       "date": "26 October 2026",
       "items": [
