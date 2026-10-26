@@ -88,6 +88,12 @@ export const site = {
   // tells search engines two different things are the same company.
   profiles: [
     'https://www.linkedin.com/company/tsamaya',
+    'https://www.instagram.com/tsamaya_app/',
+  ],
+  // The same two, as the footer's follow links on every page (src/layout.mjs).
+  social: [
+    { label: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/company/tsamaya/' },
+    { label: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/tsamaya_app/' },
   ],
 
   // Legal pages now live on THIS site (src/pages/privacy.mjs + terms.mjs, text

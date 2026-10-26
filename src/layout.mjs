@@ -248,6 +248,8 @@ ${jumpBar(jump)}${page.hud === false ? '' : hudStrip()}
         <a href="sponsor.html">Ways to help</a>
         <a href="sponsor.html#donate">Chip in</a>
         <a href="contact.html">Contact</a>
+        <h2 class="footer-follow">Follow us</h2>
+        ${site.social.map((s) => `<a href="${s.href}" rel="noopener me">${icon(s.icon, 16)} ${s.label}</a>`).join('\n        ')}
       </div>
       <div class="footer-col">
         <h2>Legal</h2>
