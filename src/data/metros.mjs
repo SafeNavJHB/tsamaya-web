@@ -404,6 +404,56 @@ export const metros = [
       },
     ],
   },
+  {
+    key: 'pietermaritzburg',
+    slug: 'pietermaritzburg',
+    name: 'Pietermaritzburg',
+    region: 'KwaZulu-Natal',
+    blurb:
+      'Driving routes around Pietermaritzburg and the whole of Msunduzi, covering the N3 from Town Hill to Lynnfield Park, the R33, the R56, the R103 and the R617.',
+    intro:
+      'Pietermaritzburg was added in October 2026, and coverage is the whole Msunduzi municipality rather than the old city limits: the city centre and the suburbs around it, Edendale and Imbali, and the Vulindlela villages to the west. Every area and main road is rated against SAPS figures for the police stations that serve it, and checked a second time.',
+    context: [
+      'The N3 through the city, from Town Hill to Lynnfield Park, is a checked road with no risk penalty, so a trip that only needs to get past Pietermaritzburg can stay on it.',
+      'Some stretches of the R33 and the R56 are rated medium risk, and parts of the R103 and R617 are marked for caution. The route card names any rated stretch a route uses.',
+      'Every road and area is rated separately for day, evening and night, so the same trip can grade differently after dark.',
+    ],
+    faqs: [
+      {
+        q: 'Does Tsamaya cover Edendale and the Vulindlela villages?',
+        a: 'Yes. Coverage is the whole Msunduzi municipality, including Edendale, Imbali and the Vulindlela villages to the west, as well as the city and its suburbs.',
+      },
+      {
+        q: 'Is the N3 to Durban covered?',
+        a: 'The N3 is rated through Pietermaritzburg, and Durban is mapped as its own metro. Any stretch outside both is navigated as normal, without risk data, and the ratings pick up again on the other side.',
+      },
+    ],
+  },
+  {
+    key: 'polokwane',
+    slug: 'polokwane',
+    name: 'Polokwane',
+    region: 'Limpopo',
+    blurb:
+      'Driving routes around Polokwane and the whole municipality, covering the N1 round the city, the R71 to Mankweng, the R37, the R81 and the R101.',
+    intro:
+      'Polokwane was added in October 2026 and is the first Limpopo city on the map. Coverage is the whole municipality: the city centre and suburbs, Seshego, Mankweng and Turfloop, Sebayeng, and the Moletjie, Matlala and Aganang villages. Every area and main road is rated against SAPS figures for the police stations that serve it, and checked a second time.',
+    context: [
+      'The N1 round the city, the R37 and the N11 are checked roads with no risk penalty, so a trip through Polokwane on the N1 can stay on it.',
+      'The R71 to Mankweng is rated stretch by stretch: some of it carries no penalty and some is rated medium risk. The route card shows which stretches a route uses.',
+      'Parts of the R81 and the R101 are marked for caution. Every road and area is rated separately for day, evening and night.',
+    ],
+    faqs: [
+      {
+        q: 'Does Tsamaya cover Seshego and Mankweng?',
+        a: 'Yes. Coverage is the whole municipality, including Seshego, Mankweng and Turfloop, Sebayeng and the villages to the north-west, as well as the city and its suburbs.',
+      },
+      {
+        q: 'Is the N1 to Gauteng covered?',
+        a: 'Only at the ends. The N1 round Polokwane is mapped, and so are the Gauteng metros, but the long stretch between them runs outside both. There the app navigates as normal, without risk data.',
+      },
+    ],
+  },
 ];
 
 // Look up the editorial entry for a metro key from stats.json.

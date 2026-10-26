@@ -59,7 +59,7 @@ export function faqSec({ id = 'faq', kick = 'Questions', title = 'Straight answe
 <section class="sec qs" id="${id}" aria-labelledby="${id}-h">
   <div class="wrap faq-in">
     <header class="sec-h">
-      <p class="kick hud" data-reveal>${kick}</p>
+      ${kick ? `<p class="kick hud" data-reveal>${kick}</p>` : ''}
       <h2 class="h2" id="${id}-h" data-split>${title}</h2>
     </header>
     <div class="faq-list">
@@ -109,8 +109,8 @@ export function storePanels({ steps = false, h = 'h3' } = {}) {
 }
 
 // The closing "get the app" section most pages end on.
-export function getSec({ id = 'get', title = 'Free, and in open beta now.', lead = '' } = {}) {
-  return sec({ id, cls: 'get', kick: 'Get the app', title, lead, inner: storePanels() });
+export function getSec({ id = 'get', kick = 'Get the app', title = 'Free, and in open beta now.', lead = '' } = {}) {
+  return sec({ id, cls: 'get', kick, title, lead, inner: storePanels() });
 }
 
 // A legal page's text (rendered from src/content/*.md): each h2 gets an id, and

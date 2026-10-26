@@ -76,6 +76,11 @@ export const site = {
   // than implying a finished release. No version/size/checksum here on
   // purpose: Play always serves the current build, so any number written on
   // this site would only ever go stale.
+  // Where the home page asks which metro a visitor is near (public/js/metro-hero.js).
+  // A Cloudflare Worker that answers { lat, lon } from the visitor's connection
+  // (workers/where/); empty until it is deployed, and then the page simply keeps
+  // its Johannesburg and Cape Town default.
+  geoEndpoint: '',
   androidPlayLink: 'https://play.google.com/store/apps/details?id=com.tsamaya.app',
 
   // Public profiles that are verifiably this company (the Organization node's
@@ -100,7 +105,7 @@ export const site = {
   // Headline coverage — honest to the app's live service areas (the metro bounding
   // boxes in src/constants/cities.ts) plus the data footprint in Supabase.
   coverageLive:
-    'Gauteng (Johannesburg, Pretoria, Ekurhuleni and the West Rand), Durban, Gqeberha, Cape Town and Stellenbosch, Rustenburg and Pilanesberg, Mossel Bay, Secunda, eMalahleni and Middelburg, Bloemfontein with Botshabelo and Thaba Nchu, and Kruger National Park with Mbombela and the Lowveld',
+    'Gauteng (Johannesburg, Pretoria, Ekurhuleni and the West Rand), Durban, Pietermaritzburg, Gqeberha, Cape Town and Stellenbosch, Rustenburg and Pilanesberg, Mossel Bay, Secunda, eMalahleni and Middelburg, Bloemfontein with Botshabelo and Thaba Nchu, Polokwane, and Kruger National Park with Mbombela and the Lowveld',
   coverageData: stats.metros.map((m) => m.name).join(' · '),
 
   // Headline figures, derived from the live database — never hand-typed.
@@ -222,20 +227,20 @@ export const colors = {
 
 // Primary navigation. `href` values are relative so the site is host/path agnostic.
 export const nav = [
-  // primary: shown in the header bar and large in the mobile menu. The header
-  // was measured for these six (Features added 2026-10-01; breakpoint raised) (see the note above .mobile-nav in
-  // styles.css); adding a sixth means re-measuring it.
+  // primary: shown in the header bar and large in the mobile menu. Three since
+  // the 2026-10 redesign (it was six); the rest are one tap away in the footer
+  // and in the small row under the mobile menu.
   { href: 'how-it-works.html', label: 'How it works', primary: true },
-  { href: 'features.html', label: 'Features', primary: true },
   { href: 'coverage.html', label: 'Coverage', primary: true },
-  { href: 'updates.html', label: 'Updates', primary: true },
-  { href: 'about.html', label: 'About', primary: true },
-  { href: 'sponsor.html', label: 'Support', primary: true },
+  { href: 'faq.html', label: 'Questions', primary: true },
   // secondary: in the footer, and in the small row under the mobile menu.
   { href: 'index.html', label: 'Home' },
+  { href: 'features.html', label: 'Features' },
   { href: 'demo.html', label: 'See it' },
+  { href: 'updates.html', label: 'Updates' },
   { href: 'driving-in-south-africa.html', label: 'Visiting SA' },
-  { href: 'faq.html', label: 'FAQ' },
+  { href: 'about.html', label: 'About' },
+  { href: 'sponsor.html', label: 'Support' },
   { href: 'technical.html', label: 'Technical' },
   { href: 'contact.html', label: 'Contact' },
 ];

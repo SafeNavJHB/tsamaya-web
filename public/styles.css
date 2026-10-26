@@ -1773,3 +1773,76 @@ html:not(.js) .try { display: none; }
   .has-jump .hw-stage { top: calc(var(--head) + var(--jump-h) + 16px); height: calc(100vh - var(--head) - var(--jump-h) - 32px); height: calc(100svh - var(--head) - var(--jump-h) - 32px); }
 }
 @media (max-width: 900px) { .has-jump .hw-stage { top: calc(var(--head) + var(--jump-h)); } }
+
+/* ---------------------------------------------------------------------------
+ * Home (2026-10 redesign): src/pages/index.mjs, public/js/metro-hero.js.
+ * Five sections on the page tokens, so light and dark both follow the header
+ * switch. Each hero phone carries the metro's daytime, evening and night map;
+ * only the band the toggle picks shows (and a hidden lazy image never loads).
+ * ------------------------------------------------------------------------ */
+.page-home2 .hm-hero { padding: clamp(40px, 6vw, 88px) 0 clamp(56px, 7vw, 104px); }
+.page-home2 .hm-hero-in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.page-home2 .hm-say { margin: 0 0 18px; color: var(--fg-2); font-size: 1rem; }
+.page-home2 .hm-h1 { margin: 0; font-size: clamp(3rem, 7.4vw, 5.6rem); line-height: 0.98; font-weight: 800; font-stretch: 118%; letter-spacing: -0.01em; color: var(--ink); text-wrap: balance; }
+.page-home2 .hm-sub { margin: 26px 0 0; max-width: 34ch; font-size: clamp(1.1rem, 1.6vw, 1.3rem); line-height: 1.5; color: var(--text-soft); }
+.page-home2 .hm-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 34px; }
+.page-home2 .hm-alt { color: var(--ink); text-underline-offset: 3px; }
+.page-home2 .hm-note { margin: 22px 0 0; font-size: 0.95rem; color: var(--fg-2); }
+.page-home2 .hm-phones { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.page-home2 .hm-row { display: flex; justify-content: center; gap: clamp(14px, 2vw, 24px); }
+.page-home2 .hm-phone { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; width: clamp(150px, 19vw, 240px); }
+.page-home2 .hm-phone[hidden] { display: none; }
+.page-home2 .hm-frame { width: 100%; border-radius: 15% / 7%; border: 8px solid var(--fill-deep); overflow: hidden; background: var(--surface); box-shadow: var(--shadow-lg); }
+.page-home2 .hm-frame picture, .page-home2 .hm-frame img { display: block; width: 100%; height: auto; }
+.page-home2 .hm-phone figcaption { font-size: 0.95rem; color: var(--text-soft); text-align: center; }
+.page-home2 .hm-phone figcaption b { display: block; color: var(--ink); }
+.page-home2 .hm-v { display: none; }
+.page-home2 [data-band='day'] .hm-v-day,
+.page-home2 [data-band='evening'] .hm-v-evening,
+.page-home2 [data-band='night'] .hm-v-night { display: block; }
+.page-home2 .hm-bands { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--hairline); border-radius: 999px; background: var(--surface); }
+html:not(.js) .page-home2 .hm-bands { display: none; }
+.page-home2 .hm-bands button { min-height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: var(--text-soft); font: inherit; font-size: 0.95rem; cursor: pointer; }
+.page-home2 .hm-bands button[aria-pressed='true'] { background: var(--go); color: var(--go-ink); font-weight: 700; }
+.page-home2 .hm-bands button:focus-visible { outline: 2px solid var(--go); outline-offset: 2px; }
+.page-home2 .hm-band-line { margin: -6px 0 0; font-size: 0.95rem; color: var(--fg-2); text-align: center; }
+.page-home2 .hm-loc { margin: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 8px; font-size: 0.95rem; color: var(--fg-2); text-align: center; }
+.page-home2 .hm-loc a { color: var(--go); }
+.page-home2 .hm-pick { margin: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 12px; font-size: 0.95rem; color: var(--text-soft); }
+.page-home2 .hm-pick[hidden] { display: none; }
+.page-home2 .hm-pick select { min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--field-line); background: var(--surface); color: var(--ink); font: inherit; }
+
+.page-home2 .hm-how { background: var(--bg-band); }
+.page-home2 .hm-steps { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.page-home2 .hm-steps h3 { margin: 14px 0 6px; font-size: 1.3rem; color: var(--ink); }
+.page-home2 .hm-steps p { margin: 0; color: var(--text-soft); }
+.page-home2 .hm-n { display: inline-flex; width: 40px; height: 40px; border-radius: 50%; align-items: center; justify-content: center; background: var(--go); color: var(--go-ink); font-weight: 800; }
+.page-home2 .hm-trip { margin-top: clamp(36px, 5vw, 56px); padding: clamp(20px, 3vw, 30px); border: 1px solid var(--hairline); border-radius: var(--radius-lg); background: var(--surface); }
+.page-home2 .hm-trip-h, .page-home2 .hm-trip-foot { margin: 0; color: var(--text-soft); font-size: 1rem; }
+.page-home2 .hm-trip-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 32px; margin: 18px 0; }
+.page-home2 .hm-route { display: flex; gap: 16px; align-items: center; }
+.page-home2 .hm-route p { margin: 0; color: var(--text-soft); }
+.page-home2 .hm-route .hm-route-t { color: var(--ink); font-weight: 700; font-size: 1.15rem; }
+.page-home2 .hm-grade { flex: 0 0 54px; height: 54px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; font-weight: 800; color: #fff; }
+.page-home2 .hm-grade.g-a, .page-home2 .hm-grade.g-b { background: #2f8a57; }
+.page-home2 .hm-grade.g-c { background: #8a6d00; }
+.page-home2 .hm-grade.g-d { background: #b45309; }
+.page-home2 .hm-grade.g-e { background: #c0263a; }
+.page-home2 .hm-more { display: flex; flex-wrap: wrap; gap: 12px 32px; margin: 28px 0 0; }
+
+.page-home2 .hm-metros { list-style: none; margin: 30px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.page-home2 .hm-metros a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 16px; border: 1px solid var(--hairline); border-radius: 999px; color: var(--ink); text-decoration: none; background: var(--surface); }
+.page-home2 .hm-metros a:hover { border-color: var(--go); }
+.page-home2 .hm-count { color: var(--fg-2); font-variant-numeric: tabular-nums; font-size: 0.9rem; }
+
+@media (max-width: 860px) {
+  .page-home2 .hm-hero-in { grid-template-columns: minmax(0, 1fr); }
+  .page-home2 .hm-steps, .page-home2 .hm-trip-rows { grid-template-columns: minmax(0, 1fr); }
+  .page-home2 .hm-phone { width: clamp(140px, 42vw, 220px); }
+}
+@media (max-width: 680px) {
+  .page-home2 .hm-cta .btn { width: 100%; justify-content: center; }
+  .page-home2 .hm-cta { flex-direction: column; align-items: stretch; text-align: center; }
+}
+.page-home2 .hm-change { padding: 0; border: 0; background: none; font: inherit; color: var(--go); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 32px; }
+.page-home2 .hm-where .lead { margin-top: 18px; max-width: 44rem; }
