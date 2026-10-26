@@ -63,6 +63,18 @@
 // off: a night map with the overlay on shows risk colours over named suburbs,
 // which the site never does (the reason the older night set was removed).
 //
+// METRO SET (26 October 2026): metro-<slug>-<day|evening|night>, the home page
+// hero (src/pages/index.mjs). These DO show the risk colours, at each band, so
+// they are taken with every name a suburb could carry switched off: Mapbox's
+// place, point-of-interest and transit labels (the Standard style's import
+// config by day, the settlement/poi/transit label layers on the night style)
+// and the app's own zone-name labels. Road numbers and the app's landmark
+// badges stay. That keeps the rule: a risk colour never sits under a named
+// suburb. A capture-only bundle of app commit eafe6a2a (never committed) also
+// pinned the band, set the start zoom to 10.2 and hid the trip suggestion card;
+// it ran in the Release app on the iPhone 15 Pro (iOS 18.6) simulator, cropped
+// 330 px off the top (status bar and city pill) and scaled to 600 px wide.
+//
 // DAYTIME SET (25 September 2026): home-day, route-card-day and navigation-day.
 // A Release build of app commit 111afbc on an iPhone 16 Pro simulator (iOS
 // 27.0), captured between 08:09 and 08:31 SAST with the city chip reading Day.
