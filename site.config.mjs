@@ -227,15 +227,15 @@ export const colors = {
 
 // Primary navigation. `href` values are relative so the site is host/path agnostic.
 export const nav = [
-  // primary: shown in the header bar and large in the mobile menu. Three since
+  // primary: shown in the header bar and large in the mobile menu. Four since
   // the 2026-10 redesign (it was six); the rest are one tap away in the footer
   // and in the small row under the mobile menu.
   { href: 'how-it-works.html', label: 'How it works', primary: true },
+  { href: 'features.html', label: 'Features', primary: true },
   { href: 'coverage.html', label: 'Coverage', primary: true },
   { href: 'faq.html', label: 'Questions', primary: true },
   // secondary: in the footer, and in the small row under the mobile menu.
   { href: 'index.html', label: 'Home' },
-  { href: 'features.html', label: 'Features' },
   { href: 'demo.html', label: 'See it' },
   { href: 'updates.html', label: 'Updates' },
   { href: 'driving-in-south-africa.html', label: 'Visiting SA' },

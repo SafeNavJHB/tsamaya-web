@@ -444,9 +444,10 @@ html:not(.js) .qa-all { display: none; }
 
 /* ---------- Mobile menu sheet ---------- */
 .mobile-nav { display: none; }
-/* Header measured with the real fonts: logo lockup 150 + six nav links (about
-   560) + "Get the app" 150 + gaps, about 920px of content, plus the theme
-   button. The full bar therefore fits from about 1000px up with the gutter;
+/* Header measured with the real fonts when it had six nav links: logo lockup
+   150 + six links (about 560) + "Get the app" 150 + gaps, about 920px of
+   content, plus the theme button. It has four since 2026-10 (about 380), so it
+   now has room to spare. The full bar therefore fits from about 1000px up with the gutter;
    below that the menu button takes over. Change a nav label or add a link and re-measure `.header-inner`'s
    visible children rather than assuming there is still room. */
 @media (max-width: 1000px) {
