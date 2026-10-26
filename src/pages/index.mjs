@@ -30,7 +30,8 @@ const zones = fmt(stats.totals.zones);
 // location against. Only metros with a screenshot pair can take over the hero.
 const bounds = JSON.parse(readFileSync(new URL('../data/metro-bounds.json', import.meta.url), 'utf8'));
 const boxOf = Object.fromEntries((bounds.metros || bounds).map((m) => [m.key, m.bbox]));
-const SHOTS = ['johannesburg', 'cape_town', 'durban'];
+// Every metro has a day and a night screenshot (assets/screens-src/metro-*,
+// cropped below the app's status bar and city pill).
 const DEFAULT = ['johannesburg', 'cape_town'];
 const metros = stats.metros
   .map((m) => ({ key: m.key, slug: m.slug, name: m.name, zones: m.zones, box: boxOf[m.key] }))
@@ -42,8 +43,8 @@ const text = (t) => String(t).replace(/&/g, '&amp;');
 
 // The screenshot pair for a metro: the app's day map for the light theme, its
 // night map for the dark one. styles.css shows the one that matches the page.
-const SHOT_W = 1179;
-const SHOT_H = 2556;
+const SHOT_W = 600;
+const SHOT_H = 1133;
 function phone(key) {
   const m = byKey[key];
   const alt = (look) => `The Tsamaya map of ${text(m.name)} with its rated areas coloured by risk, ${look} map`;
@@ -53,6 +54,7 @@ function phone(key) {
     width: SHOT_W,
     height: SHOT_H,
     sizes: '(max-width: 680px) 44vw, 240px',
+    widths: [300, 600],
     className: `hm-shot hm-shot-${theme}`,
   });
   return `<figure class="hm-phone" data-metro="${m.key}"${DEFAULT.includes(key) ? '' : ' hidden'}>
@@ -74,9 +76,9 @@ const hero = `
       </div>
       <p class="hm-note">Free while in beta. Lower risk is not no risk: stay alert.</p>
     </div>
-    <div class="hm-phones" id="metro-hero" data-metros='${attr(JSON.stringify(metros.map(({ key, slug, name, zones: z, box }) => ({ key, slug, name, zones: z, box, shot: SHOTS.includes(key) }))))}' data-default="${DEFAULT.join(' ')}"${site.geoEndpoint ? ` data-geo="${site.geoEndpoint}"` : ''}>
+    <div class="hm-phones" id="metro-hero" data-metros='${attr(JSON.stringify(metros.map(({ key, slug, name, zones: z, box }) => ({ key, slug, name, zones: z, box, shot: true }))))}' data-default="${DEFAULT.join(' ')}"${site.geoEndpoint ? ` data-geo="${site.geoEndpoint}"` : ''}>
       <div class="hm-row">
-      ${SHOTS.map(phone).join('\n      ')}
+      ${metros.map((m) => phone(m.key)).join('\n      ')}
       </div>
       <p class="hm-loc">
         <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
