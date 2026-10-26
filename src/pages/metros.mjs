@@ -14,7 +14,7 @@
 // See the editorial note at the top of src/data/metros.mjs.
 
 import { readFileSync } from 'node:fs';
-import { stats, fmt } from '../../site.config.mjs';
+import { stats, fmt, statsAsOf } from '../../site.config.mjs';
 import { metros as metroContent } from '../data/metros.mjs';
 import { faqNode, breadcrumbNode } from '../seo.mjs';
 import { exploreSection } from '../explore.mjs';
@@ -124,7 +124,7 @@ function metroPage({ content, data }) {
         <ul class="tp-all">
           ${BANDS.map((b) => `<li><span class="hud">${b.name}, ${b.from} to ${b.to}</span><b class="num">${fmt(red[b.key])}</b></li>`).join('\n          ')}
         </ul>
-        <p class="fine">Of the ${fmt(z)} rated areas in ${name}, these are the ones in the top of the four bands for each part of the day. Every figure comes straight from the live database. The lowest band means an area was checked and carries no routing penalty, which is different from an area we have no data for.</p>
+        <p class="fine">Of the ${fmt(z)} rated areas in ${name}, these are the ones in the top of the four bands for each part of the day. Every figure comes straight from the live database, read on ${statsAsOf}. The lowest band means an area was checked and carries no routing penalty, which is different from an area we have no data for. A rating describes an area's history of vehicle crime, not what is happening on a street right now: lower risk is not no risk.</p>
       </div>`;
 
   const numbers = `
@@ -224,7 +224,7 @@ const coverageGrid = sec({
   id: 'metros',
   kick: 'Coverage by metro',
   title: 'Pick a metro',
-  lead: 'Each metro has its own page: its figures for every part of the day, what to know on its roads, and the questions people ask about it.',
+  lead: `Each metro has its own page: its figures for every part of the day, what to know on its roads, and the questions people ask about it. Figures from the live database on ${statsAsOf}.`,
   inner: `
     <ul class="mcards">
       ${joined.map(({ content, data }) => `<li data-reveal><a href="${content.slug}.html"><span class="hud">${content.region}${M}${fmt(data.zones)} rated areas</span><span class="mc-n">${content.name}</span><span class="mc-b">${content.blurb}</span><span class="mc-go" aria-hidden="true">View coverage</span></a></li>`).join('\n      ')}

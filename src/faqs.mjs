@@ -62,6 +62,14 @@ export const F = {
     q: 'Does a lower-risk route take much longer?',
     a: 'Usually a few minutes. A detour is only offered when it cuts your exposure, and one that adds too much distance is thrown out, even when it carries less risk. When there is no sensible way round, Tsamaya says so and marks the risky stretches.',
   },
+  times: {
+    q: 'How does the time of day change a route?',
+    a: 'Every rated area has three ratings: daytime (05:00 to 17:30), evening (17:30 to 19:30) and night (19:30 to 05:00). Tsamaya scores each part of a trip at the time you will drive it, so a route that is fine at lunchtime can be graded lower after dark, and a long trip that runs into the evening is scored that way for its later stretches.',
+  },
+  grade: {
+    q: 'What do the A to E grades mean?',
+    a: 'Each route option gets a letter for how much of it runs through rated areas, weighted by how high their rating is: A has the least exposure, E the most. A route through any high-risk area is graded D or E, however short the stretch. The grade compares routes; it is not a promise about any one drive.',
+  },
   stops: {
     q: 'Can I add stops to a trip?',
     a: 'Yes, up to four. Tap Add stop on the route card. Each leg is planned and risk-checked on its own, the voice announces each stop by name, and only the last stop ends the trip.',

@@ -41,6 +41,9 @@ function organisation() {
     '@id': ID.org,
     name: 'Tsamaya',
     legalName: 'Tsamaya (Pty) Ltd',
+    // "Tsamaya" is a Sesotho and Setswana word that other products and campaigns
+    // also use; this says which one this is.
+    disambiguatingDescription: 'The company behind Tsamaya, a lower-risk navigation app for drivers in South Africa, based in Johannesburg.',
     url: `${baseUrl}/`,
     logo: {
       '@type': 'ImageObject',

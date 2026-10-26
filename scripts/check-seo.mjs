@@ -275,6 +275,30 @@ if (home) {
   }
 }
 
+// ---- 10b. Every page states the same coverage totals -----------------------
+// Search engines and AI assistants quote whichever page they read, so a page
+// still saying "15 metros" or an old area count is repeated with confidence (a
+// 2026-10-26 audit found 14, 15 and 7 metros in search snippets of older
+// builds). Every "N metros" must be the live total, "the other N metros" one
+// less; every "N rated areas across/in M metros" must carry the live area total.
+// The hotspot page counts the metros that HAVE hotspots, a different figure.
+{
+  const total = stats.totals.metros;
+  const zonesTotal = String(stats.totals.zones);
+  const visible = (html) => html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;|\u00a0|\u202f/g, ' ').replace(/\s+/g, ' ');
+  const llms = existsSync(join(dist, 'llms.txt')) ? await readFile(join(dist, 'llms.txt'), 'utf8') : '';
+  for (const [file, text] of [...pages.map((p) => [p.file, visible(p.html)]), ['llms.txt', visible(llms)]]) {
+    for (const m of text.matchAll(/(\bother\s+)?\b(\d+)\s+(?:South African\s+)?metros\b/gi)) {
+      const n = Number(m[2]);
+      if (file === 'hijacking-hotspots.html') continue;
+      if (m[1] ? n !== total - 1 : n !== total) fail(`${file}: says "${m[0].trim()}" but the live total is ${total} metros`);
+    }
+    for (const m of text.matchAll(/(\d[\d ]*\d|\d)\s+(?:rated\s+)?(?:areas|risk zones)\s+(?:across|in)\s+(\d+)\s+(?:South African\s+)?metros/gi)) {
+      if (m[1].replace(/ /g, '') !== zonesTotal) fail(`${file}: says "${m[0]}" but the live total is ${zonesTotal} rated areas`);
+    }
+  }
+}
+
 // ---- 11. No em dashes in published copy ------------------------------------
 // House style since the 2026/09 redesign: commas, colons or full stops, never an
 // em dash. Scripts and styles are ignored; only what a reader can see counts.

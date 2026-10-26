@@ -199,6 +199,10 @@ async function main() {
   const stats = {
     // Stamped by the caller, not the script: the build sandbox forbids Date.*,
     // and a stamp that changes on every run makes for noisy diffs anyway.
+    // The day the figures were read, shown beside them on the site ("figures
+    // from the live database on ..."). Pass STATS_AS_OF=YYYY-MM-DD to set it;
+    // otherwise today's date in South Africa.
+    asOf: process.env.STATS_AS_OF || new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Johannesburg' }).format(new Date()),
     generatedFrom: URL_BASE.replace(/^https?:\/\//, '').split('.')[0],
     totals: {
       metros: metros.filter((m) => m.zones > 0).length,

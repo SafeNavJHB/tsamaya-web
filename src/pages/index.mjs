@@ -13,7 +13,7 @@
 // FIGURES. Nothing is typed by hand. Counts come from src/data/stats.json, the
 // example trip from src/data/route-card.json.
 import { readFileSync } from 'node:fs';
-import { site, stats, fmt } from '../../site.config.mjs';
+import { site, stats, fmt, statsAsOf } from '../../site.config.mjs';
 import { picture } from '../components.mjs';
 import { faqSec, getSec, linkQ, ARROW } from '../kit.mjs';
 import { faqNode } from '../seo.mjs';
@@ -137,7 +137,7 @@ const where = `
 <section class="sec hm-where" id="where" aria-labelledby="where-h">
   <div class="wrap">
     <h2 class="h2" id="where-h">Does it cover where you drive?</h2>
-    <p class="lead">${nMetros} metros and ${zones} rated areas, each rated separately for daytime, evening and night. Everywhere else Tsamaya works as a normal map and navigator.</p>
+    <p class="lead">${nMetros} metros and ${zones} rated areas, each rated separately for daytime, evening and night. Everywhere else Tsamaya works as a normal map and navigator. Figures from the live database on ${statsAsOf}.</p>
     <ul class="hm-metros">
       ${metros.map((m) => `<li><a href="${m.slug}.html"><span>${text(m.name)}</span><span class="hm-count">${fmt(m.zones)}</span></a></li>`).join('\n      ')}
     </ul>
