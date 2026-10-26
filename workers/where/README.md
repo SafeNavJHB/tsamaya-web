@@ -2,7 +2,7 @@
 
 The home page hero shows Johannesburg and Cape Town to everyone. When a visitor's
 connection looks like it is in another metro, `public/js/metro-hero.js` can show that
-metro's own day and night screenshots instead. A visitor can always pick a metro by hand with
+metro's own screenshots instead. A visitor can always pick a metro by hand with
 **Change**, and that choice wins from then on.
 
 GitHub Pages cannot see where a visitor is, so the lookup is a tiny Cloudflare Worker,

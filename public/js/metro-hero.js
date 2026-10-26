@@ -6,9 +6,9 @@
 // 1. The metro. A metro the visitor picked before (localStorage) wins. Otherwise,
 //    when site.geoEndpoint is set (data-geo), it asks once per tab where the
 //    connection is ({ lat, lon }, a Cloudflare Worker: workers/where/) and matches
-//    that against each metro's service-area box. The metro's own screenshot takes
-//    over the hero (every metro has one; a metro without would keep the default
-//    pair and get a line of its own).
+//    that against each metro's service-area box. The metro's own screenshots
+//    take over the hero (every metro has them; a metro without would keep the
+//    default pair and get a line of its own).
 //    No match, no answer within 1.5 s, or any error: the default stays.
 // 2. The store button. An iPhone gets TestFlight first and Google Play second.
 //
@@ -42,6 +42,7 @@
   // how: 'picked' (the visitor's choice), 'near' (from the connection) or ''.
   function apply(key, how) {
     var m = byKey[key];
+    if (!line) return;
     if (pick) pick.value = m ? key : '';
     if (!m) {
       show(defaults);
@@ -105,9 +106,9 @@
     change.parentNode.replaceChild(btn, change);
     change = btn;
     change.addEventListener('click', function () {
-      row.hidden = false;
-      change.setAttribute('aria-expanded', 'true');
-      pick.focus();
+      row.hidden = !row.hidden;
+      change.setAttribute('aria-expanded', String(!row.hidden));
+      if (!row.hidden) pick.focus();
     });
     change.setAttribute('aria-controls', 'metro-pick-row');
     change.setAttribute('aria-expanded', 'false');
@@ -137,6 +138,7 @@
   }
   var current = bandNow();
   function setBand(b) {
+    if (!BANDS[b]) b = 'day';
     root.setAttribute('data-band', b);
     bandBtns.forEach(function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-band') === b)); });
     if (bandLine) bandLine.textContent = BANDS[b][0] + ' ratings, ' + BANDS[b][1] + (b === current ? ', the ones in use in South Africa right now.' : '.');

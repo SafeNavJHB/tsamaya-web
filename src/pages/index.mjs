@@ -26,27 +26,28 @@ const low = card.lower;
 const nMetros = stats.totals.metros;
 const zones = fmt(stats.totals.zones);
 
-// The metros, largest first, with the bounding box metro-hero.js matches a
-// location against. Only metros with a screenshot pair can take over the hero.
+// The metros, Johannesburg and Cape Town first (the pair every visitor sees
+// without JavaScript, in the order the page names them), then largest first,
+// with the bounding box metro-hero.js matches a location against.
 const bounds = JSON.parse(readFileSync(new URL('../data/metro-bounds.json', import.meta.url), 'utf8'));
 const boxOf = Object.fromEntries((bounds.metros || bounds).map((m) => [m.key, m.bbox]));
-// Every metro has a day and a night screenshot (assets/screens-src/metro-*,
-// cropped below the app's status bar and city pill).
+// Every metro has a daytime, evening and night screenshot
+// (assets/screens-src/metro-*, cropped below the app's status bar and city pill).
 const DEFAULT = ['johannesburg', 'cape_town'];
+const rank = (m) => (DEFAULT.includes(m.key) ? DEFAULT.indexOf(m.key) : DEFAULT.length);
 const metros = stats.metros
   .map((m) => ({ key: m.key, slug: m.slug, name: m.name, zones: m.zones, box: boxOf[m.key] }))
   .filter((m) => editorial.some((e) => e.key === m.key))
-  .sort((a, b) => b.zones - a.zones);
+  .sort((a, b) => rank(a) - rank(b) || b.zones - a.zones);
 const byKey = Object.fromEntries(metros.map((m) => [m.key, m]));
 const attr = (t) => String(t).replace(/&/g, '&amp;').replace(/'/g, '&#39;');
 const text = (t) => String(t).replace(/&/g, '&amp;');
 
-// The screenshot pair for a metro: the app's day map for the light theme, its
-// night map for the dark one. styles.css shows the one that matches the page.
 const SHOT_W = 600;
 const SHOT_H = 1133;
 // Each metro's map at the three times of day it is rated for, as the app draws
-// it then (day, dusk and night styling). Only the band the toggle picks shows.
+// it then (day, dusk and night styling). Only the band the toggle picks shows;
+// the two default daytime shots load eagerly, being the first thing on screen.
 const BANDS = [
   { key: 'day', label: 'Daytime', range: '05:00 to 17:30' },
   { key: 'evening', label: 'Evening', range: '17:30 to 19:30' },
@@ -55,6 +56,7 @@ const BANDS = [
 function phone(key) {
   const m = byKey[key];
   const pic = (band) => picture({
+    loading: DEFAULT.includes(key) && band.key === 'day' ? 'eager' : 'lazy',
     name: `metro-${m.slug}-${band.key}`,
     alt: `The Tsamaya map of ${text(m.name)} with its rated areas coloured by their ${band.label.toLowerCase()} ratings`,
     width: SHOT_W,
@@ -80,7 +82,7 @@ const hero = `
         <a class="btn btn-primary btn-lg" href="${site.androidPlayLink}" rel="noopener" data-store="primary" data-android="${site.androidPlayLink}" data-ios="${site.testflightPublicLink}">Get it on Google Play ${ARROW}</a>
         <a class="hm-alt" href="${site.testflightPublicLink}" rel="noopener" data-store="other" data-android="${site.androidPlayLink}" data-ios="${site.testflightPublicLink}">On iPhone? Join on TestFlight</a>
       </div>
-      <p class="hm-note">Free while in beta. Lower risk is not no risk: stay alert.</p>
+      <p class="hm-note">Free, in open beta. Lower risk is not no risk: stay alert.</p>
     </div>
     <div class="hm-phones" id="metro-hero" data-metros='${attr(JSON.stringify(metros.map(({ key, slug, name, zones: z, box }) => ({ key, slug, name, zones: z, box, shot: true }))))}' data-default="${DEFAULT.join(' ')}" data-band="day"${site.geoEndpoint ? ` data-geo="${site.geoEndpoint}"` : ''}>
       <div class="hm-row">
@@ -120,10 +122,10 @@ const how = `
       ${STEPS.map(([t, p], i) => `<li><span class="hm-n" aria-hidden="true">${i + 1}</span><h3>${t}</h3><p>${p}</p></li>`).join('\n      ')}
     </ol>
     <div class="hm-trip">
-      <p class="hm-trip-h">One real trip, from a route card in the app (Johannesburg, ${card.captured})</p>
+      <p class="hm-trip-h">One real trip, from a route card in the app (Ekurhuleni, ${card.captured})</p>
       <div class="hm-trip-rows">
-        <div class="hm-route"><span class="hm-grade g-${std.grade.toLowerCase()}" aria-label="Grade ${std.grade}">${std.grade}</span><div><p class="hm-route-t">${std.label}: ${std.minutes} min, ${std.km.toFixed(1)} km</p><p>${std.highRiskKm} km through ${std.highRisk} high-risk areas</p></div></div>
-        <div class="hm-route"><span class="hm-grade g-${low.grade.toLowerCase()}" aria-label="Grade ${low.grade}">${low.grade}</span><div><p class="hm-route-t">${low.label[0].toUpperCase() + low.label.slice(1)}: ${low.minutes} min, ${low.km.toFixed(1)} km</p><p>No high-risk areas, ${low.mediumRiskKm} km through ${low.mediumRisk} medium-risk area</p></div></div>
+        <div class="hm-route"><span class="hm-grade g-${std.grade.toLowerCase()}" role="img" aria-label="Grade ${std.grade}">${std.grade}</span><div><p class="hm-route-t">${std.label}: ${std.minutes} min, ${std.km.toFixed(1)} km</p><p>${std.highRiskKm} km through ${std.highRisk} high-risk ${std.highRisk === 1 ? 'area' : 'areas'}</p></div></div>
+        <div class="hm-route"><span class="hm-grade g-${low.grade.toLowerCase()}" role="img" aria-label="Grade ${low.grade}">${low.grade}</span><div><p class="hm-route-t">${low.label[0].toUpperCase() + low.label.slice(1)}: ${low.minutes} min, ${low.km.toFixed(1)} km</p><p>No high-risk areas, ${low.mediumRiskKm} km through ${low.mediumRisk} medium-risk ${low.mediumRisk === 1 ? 'area' : 'areas'}</p></div></div>
       </div>
       <p class="hm-trip-foot">That morning the lower-risk route was ${low.minutesQuicker} minutes quicker. Usually it takes a few minutes longer, and a detour that adds too much is thrown out.</p>
     </div>
@@ -160,6 +162,6 @@ export default {
     how,
     where,
     faqSec({ id: 'faq', kick: '', title: 'Questions', faqs }),
-    getSec({ kick: '', title: 'Put it on your phone', lead: 'Free while in beta, on Android and iPhone. No account and no ads.' }),
+    getSec({ kick: '', title: 'Put it on your phone', lead: 'Free, in open beta on Android and iPhone. No account and no ads.' }),
   ].join('\n'),
 };

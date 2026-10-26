@@ -1777,8 +1777,8 @@ html:not(.js) .try { display: none; }
 /* ---------------------------------------------------------------------------
  * Home (2026-10 redesign): src/pages/index.mjs, public/js/metro-hero.js.
  * Five sections on the page tokens, so light and dark both follow the header
- * switch. The hero's phones carry the app's day map and its night map; only
- * the one that matches the page shows (and a hidden lazy image never loads).
+ * switch. Each hero phone carries the metro's daytime, evening and night map;
+ * only the band the toggle picks shows (and a hidden lazy image never loads).
  * ------------------------------------------------------------------------ */
 .page-home2 .hm-hero { padding: clamp(40px, 6vw, 88px) 0 clamp(56px, 7vw, 104px); }
 .page-home2 .hm-hero-in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
