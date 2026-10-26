@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-26.69",
+      "date": "26 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "Android Auto map keeps to the visible area",
+          "body": "On Android Auto the speed dial and the risk border now stay inside the part of the map the car leaves visible, and the road-name card under the car is gone there. The road's rating still shows as the border and route colours and is spoken. CarPlay is unchanged.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-26.68",
       "date": "26 October 2026",
       "items": [
