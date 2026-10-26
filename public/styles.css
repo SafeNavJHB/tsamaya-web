@@ -1796,14 +1796,16 @@ html:not(.js) .try { display: none; }
 .page-home2 .hm-frame picture, .page-home2 .hm-frame img { display: block; width: 100%; height: auto; }
 .page-home2 .hm-phone figcaption { font-size: 0.95rem; color: var(--text-soft); text-align: center; }
 .page-home2 .hm-phone figcaption b { display: block; color: var(--ink); }
-.page-home2 .hm-v { display: block; }
-.page-home2 .hm-v-dark { display: none; }
-:root[data-theme='dark'] .page-home2 .hm-v-light { display: none; }
-:root[data-theme='dark'] .page-home2 .hm-v-dark { display: block; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .page-home2 .hm-v-light { display: none; }
-  :root:not([data-theme]) .page-home2 .hm-v-dark { display: block; }
-}
+.page-home2 .hm-v { display: none; }
+.page-home2 [data-band='day'] .hm-v-day,
+.page-home2 [data-band='evening'] .hm-v-evening,
+.page-home2 [data-band='night'] .hm-v-night { display: block; }
+.page-home2 .hm-bands { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--hairline); border-radius: 999px; background: var(--surface); }
+html:not(.js) .page-home2 .hm-bands { display: none; }
+.page-home2 .hm-bands button { min-height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: var(--text-soft); font: inherit; font-size: 0.95rem; cursor: pointer; }
+.page-home2 .hm-bands button[aria-pressed='true'] { background: var(--go); color: var(--go-ink); font-weight: 700; }
+.page-home2 .hm-bands button:focus-visible { outline: 2px solid var(--go); outline-offset: 2px; }
+.page-home2 .hm-band-line { margin: -6px 0 0; font-size: 0.95rem; color: var(--fg-2); text-align: center; }
 .page-home2 .hm-loc { margin: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 8px; font-size: 0.95rem; color: var(--fg-2); text-align: center; }
 .page-home2 .hm-loc a { color: var(--go); }
 .page-home2 .hm-pick { margin: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 12px; font-size: 0.95rem; color: var(--text-soft); }

@@ -45,20 +45,26 @@ const text = (t) => String(t).replace(/&/g, '&amp;');
 // night map for the dark one. styles.css shows the one that matches the page.
 const SHOT_W = 600;
 const SHOT_H = 1133;
+// Each metro's map at the three times of day it is rated for, as the app draws
+// it then (day, dusk and night styling). Only the band the toggle picks shows.
+const BANDS = [
+  { key: 'day', label: 'Daytime', range: '05:00 to 17:30' },
+  { key: 'evening', label: 'Evening', range: '17:30 to 19:30' },
+  { key: 'night', label: 'Night', range: '19:30 to 05:00' },
+];
 function phone(key) {
   const m = byKey[key];
-  const alt = (look) => `The Tsamaya map of ${text(m.name)} with its rated areas coloured by risk, ${look} map`;
-  const pic = (theme, look) => picture({
-    name: `metro-${m.slug}-${theme}`,
-    alt: alt(look),
+  const pic = (band) => picture({
+    name: `metro-${m.slug}-${band.key}`,
+    alt: `The Tsamaya map of ${text(m.name)} with its rated areas coloured by their ${band.label.toLowerCase()} ratings`,
     width: SHOT_W,
     height: SHOT_H,
     sizes: '(max-width: 680px) 44vw, 240px',
     widths: [300, 600],
-    className: `hm-shot hm-shot-${theme}`,
+    className: 'hm-shot',
   });
   return `<figure class="hm-phone" data-metro="${m.key}"${DEFAULT.includes(key) ? '' : ' hidden'}>
-        <div class="hm-frame"><span class="hm-v hm-v-light">${pic('light', 'day')}</span><span class="hm-v hm-v-dark">${pic('dark', 'night')}</span></div>
+        <div class="hm-frame">${BANDS.map((b) => `<span class="hm-v hm-v-${b.key}">${pic(b)}</span>`).join('')}</div>
         <figcaption><b>${text(m.name)}</b> ${fmt(m.zones)} rated areas</figcaption>
       </figure>`;
 }
@@ -76,10 +82,14 @@ const hero = `
       </div>
       <p class="hm-note">Free while in beta. Lower risk is not no risk: stay alert.</p>
     </div>
-    <div class="hm-phones" id="metro-hero" data-metros='${attr(JSON.stringify(metros.map(({ key, slug, name, zones: z, box }) => ({ key, slug, name, zones: z, box, shot: true }))))}' data-default="${DEFAULT.join(' ')}"${site.geoEndpoint ? ` data-geo="${site.geoEndpoint}"` : ''}>
+    <div class="hm-phones" id="metro-hero" data-metros='${attr(JSON.stringify(metros.map(({ key, slug, name, zones: z, box }) => ({ key, slug, name, zones: z, box, shot: true }))))}' data-default="${DEFAULT.join(' ')}" data-band="day"${site.geoEndpoint ? ` data-geo="${site.geoEndpoint}"` : ''}>
       <div class="hm-row">
       ${metros.map((m) => phone(m.key)).join('\n      ')}
       </div>
+      <div class="hm-bands" role="group" aria-label="Show the ratings for a time of day">
+        ${BANDS.map((b, i) => `<button type="button" data-band="${b.key}" aria-pressed="${i === 0}">${b.label}</button>`).join('')}
+      </div>
+      <p class="hm-band-line" id="band-line" aria-live="polite">${BANDS[0].label} ratings, ${BANDS[0].range}.</p>
       <p class="hm-loc">
         <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
         <span id="metro-line" aria-live="polite">Showing Johannesburg and Cape Town.</span>

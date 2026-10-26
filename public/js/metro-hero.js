@@ -121,6 +121,29 @@
   if (chosen && byKey[chosen]) apply(chosen, 'picked');
   else if (root.getAttribute('data-geo')) detect(root.getAttribute('data-geo'));
 
+  // The time of day the screenshots show. The HTML shows daytime; this starts on
+  // the band South Africa is in right now (the app's own clock: daytime
+  // 05:00-17:30, evening 17:30-19:30, night 19:30-05:00) and the buttons switch.
+  var BANDS = { day: ['Daytime', '05:00 to 17:30'], evening: ['Evening', '17:30 to 19:30'], night: ['Night', '19:30 to 05:00'] };
+  var bandLine = document.getElementById('band-line');
+  var bandBtns = Array.prototype.slice.call(root.querySelectorAll('.hm-bands [data-band]'));
+  function bandNow() {
+    var hm;
+    try {
+      hm = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Johannesburg', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date()).split(':');
+    } catch (e) { return 'day'; }
+    var mins = Number(hm[0]) % 24 * 60 + Number(hm[1]);
+    return mins >= 300 && mins < 1050 ? 'day' : mins >= 1050 && mins < 1170 ? 'evening' : 'night';
+  }
+  var current = bandNow();
+  function setBand(b) {
+    root.setAttribute('data-band', b);
+    bandBtns.forEach(function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-band') === b)); });
+    if (bandLine) bandLine.textContent = BANDS[b][0] + ' ratings, ' + BANDS[b][1] + (b === current ? ', the ones in use in South Africa right now.' : '.');
+  }
+  bandBtns.forEach(function (x) { x.addEventListener('click', function () { setBand(x.getAttribute('data-band')); }); });
+  setBand(current);
+
   // The store button for the visitor's phone (the same test as site.js).
   var ua = navigator.userAgent || '';
   var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
