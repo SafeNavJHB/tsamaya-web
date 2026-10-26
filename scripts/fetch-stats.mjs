@@ -75,6 +75,8 @@ const METROS = [
   { key: 'kruger', name: 'Kruger & Lowveld', slug: 'kruger' },
   { key: 'bloemfontein', name: 'Bloemfontein', slug: 'bloemfontein' },
   { key: 'emalahleni', name: 'eMalahleni & Middelburg', slug: 'emalahleni' },
+  { key: 'pietermaritzburg', name: 'Pietermaritzburg', slug: 'pietermaritzburg' },
+  { key: 'polokwane', name: 'Polokwane', slug: 'polokwane' },
 ];
 
 const BANDS = ['red', 'orange', 'yellow', 'none'];

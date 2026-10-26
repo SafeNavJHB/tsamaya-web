@@ -283,7 +283,7 @@ const coverageTail = sec({
 const coveragePage = {
   slug: 'coverage.html',
   title: 'Coverage',
-  description: `Tsamaya rates ${fmt(stats.totals.zones)} areas across ${stats.totals.metros} South African metros: Johannesburg, Cape Town, Durban, Gqeberha, Pretoria, Ekurhuleni, the West Rand, Stellenbosch, Rustenburg, Pilanesberg, Mossel Bay, Secunda, eMalahleni and Middelburg, Bloemfontein and the Kruger National Park area.`,
+  description: `Tsamaya rates ${fmt(stats.totals.zones)} areas across ${stats.totals.metros} South African metros: Johannesburg, Cape Town, Durban, Pietermaritzburg, Gqeberha, Pretoria, Ekurhuleni, the West Rand, Stellenbosch, Rustenburg, Pilanesberg, Mossel Bay, Secunda, eMalahleni and Middelburg, Bloemfontein, Polokwane and the Kruger National Park area.`,
   heroClass: 'sn page-coverage',
   jsonLd: [
     faqNode(coverageFaqs),

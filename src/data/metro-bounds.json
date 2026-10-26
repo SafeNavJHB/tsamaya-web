@@ -211,6 +211,34 @@
         29.3,
         -25.84
       ]
+    },
+    {
+      "key": "pietermaritzburg",
+      "name": "Pietermaritzburg",
+      "bbox": {
+        "lngMin": 29.95,
+        "lngMax": 30.55,
+        "latMin": -29.84,
+        "latMax": -29.51
+      },
+      "center": [
+        30.38,
+        -29.6
+      ]
+    },
+    {
+      "key": "polokwane",
+      "name": "Polokwane",
+      "bbox": {
+        "lngMin": 28.84,
+        "lngMax": 29.93,
+        "latMin": -24.3,
+        "latMax": -23.52
+      },
+      "center": [
+        29.45,
+        -23.9
+      ]
     }
   ]
 }
