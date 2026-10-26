@@ -18,7 +18,7 @@ import { metros } from './data/metros.mjs';
 
 // Pages grouped the way a reader would want them. Anything the build emits that
 // is not listed here lands under "More" rather than disappearing.
-const PRODUCT = ['index.html', 'features.html', 'how-it-works.html', 'closures-and-protests.html', 'speed-cameras.html', 'hijacking-hotspots.html', 'carplay-android-auto.html', 'live-trip-sharing.html', 'night-driving-gauteng.html', 'compare-waze.html', 'compare-google-maps.html', 'faq.html', 'driving-in-south-africa.html', 'demo.html', 'get-app.html', 'technical.html', 'updates.html'];
+const PRODUCT = ['index.html', 'features.html', 'how-it-works.html', 'closures-and-protests.html', 'speed-cameras.html', 'hijacking-hotspots.html', 'carplay-android-auto.html', 'live-trip-sharing.html', 'night-driving-gauteng.html', 'night-driving-cape-town.html', 'night-driving-durban.html', 'airports.html', 'compare-waze.html', 'compare-google-maps.html', 'compare-apple-maps.html', 'faq.html', 'driving-in-south-africa.html', 'demo.html', 'get-app.html', 'technical.html', 'updates.html'];
 const COMPANY = ['about.html', 'sponsor.html', 'contact.html', 'privacy.html', 'terms.html'];
 const SKIP = new Set(['404.html', 'track.html']);
 

@@ -20,7 +20,7 @@ const GROUPS = [
     title: 'Lower-risk routes, graded',
     lead: `Every trip is checked against the rated areas in ${nMetros} metros, for the hour you drive, and bent around the high-risk ones when a sensible detour exists.`,
     items: ['Three options', 'Stops', 'Before dark', 'Live overlay', 'Outside the metros'],
-    links: [['How routing works', 'how-it-works.html'], ['Driving at night in Gauteng', 'night-driving-gauteng.html'], ['Coverage', 'coverage.html']],
+    links: [['How routing works', 'how-it-works.html'], ['Driving at night', 'night-driving-gauteng.html'], ['Driving from the airport', 'airports.html'], ['Coverage', 'coverage.html']],
   },
   {
     id: 'awareness',

@@ -65,5 +65,5 @@ export default topicPage({
   lead: 'Looking for a Waze alternative in South Africa? Tsamaya is a navigator that plans around risk, closures and protests. Here is what it adds, and where you may still want both.',
   sections: [built, jobs, both],
   faqs,
-  links: [['Tsamaya vs Google Maps', 'compare-google-maps.html'], ['Features', 'features.html'], ['How it works', 'how-it-works.html'], ['Coverage', 'coverage.html']],
+  links: [['Tsamaya vs Google Maps', 'compare-google-maps.html'], ['Tsamaya vs Apple Maps', 'compare-apple-maps.html'], ['Features', 'features.html'], ['How it works', 'how-it-works.html'], ['Coverage', 'coverage.html']],
 });

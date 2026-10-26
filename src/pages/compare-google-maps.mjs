@@ -66,5 +66,5 @@ export default topicPage({
   lead: 'A general-purpose map finds the way. Tsamaya adds whether that way passes high-risk areas at the hour you drive, grades the options, and can hand a route to Google Maps.',
   sections: [built, example, together],
   faqs,
-  links: [['Tsamaya vs Waze', 'compare-waze.html'], ['Features', 'features.html'], ['See it in action', 'demo.html'], ['How it works', 'how-it-works.html']],
+  links: [['Tsamaya vs Waze', 'compare-waze.html'], ['Tsamaya vs Apple Maps', 'compare-apple-maps.html'], ['Features', 'features.html'], ['See it in action', 'demo.html'], ['How it works', 'how-it-works.html']],
 });

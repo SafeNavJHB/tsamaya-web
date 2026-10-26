@@ -15,7 +15,7 @@ const GROUPS = [
   ['road', 'On the road', 'Closures, cameras and notices', [F.protests, F.notices, F.cameras, F.vans, F.hotspots, F.voice, F.discover]],
   ['car', 'In the car', 'CarPlay and Android Auto', [F.carplay, F.aa, F.offline]],
   ['help', 'Emergencies and sharing', 'SOS and live trips', [F.sos, F.share]],
-  ['compare', 'Compared', 'Tsamaya and other navigators', [F.waze, F.google]],
+  ['compare', 'Compared', 'Tsamaya and other navigators', [F.waze, F.google, F.apple]],
 ];
 
 const all = GROUPS.flatMap((g) => g[3]);

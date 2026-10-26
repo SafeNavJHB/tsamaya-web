@@ -134,6 +134,10 @@ export const F = {
     q: 'Does Tsamaya replace Google Maps?',
     a: 'It can: it is a full turn-by-turn navigator with voice. It can also hand a route to Google Maps with the detour points already in place. Whether to keep Google Maps as well is your call.',
   },
+  apple: {
+    q: 'Is Tsamaya an Apple Maps alternative?',
+    a: 'It does a different job. Apple Maps is the general-purpose map built into the iPhone; Tsamaya is a navigator built around risk in South African metros, rated for the hour you drive. It is a full turn-by-turn navigator with voice on the iPhone and Apple CarPlay, and a place shared from Apple Maps opens in it. You can keep both.',
+  },
   night: {
     q: 'How does Tsamaya handle driving at night in Johannesburg?',
     a: `Ratings rise after dark: in Johannesburg ${fmt(joburg.byTime.day.red)} rated areas are high risk in the day and ${fmt(joburg.byTime.night.red)} at night. Tsamaya uses the rating for the hour you drive, warns you when a trip will arrive after dark, and offers a lower-risk route when one exists. It cannot make any route safe, and lower risk is not no risk.`,

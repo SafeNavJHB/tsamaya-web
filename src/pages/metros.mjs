@@ -202,10 +202,14 @@ function metroPage({ content, data }) {
       faqSec({ id: 'faq', title: `${name}, asked`, faqs: content.faqs }),
       getSec({ title: `Drive ${name} with it tonight.` }),
       elsewhere,
-      `<p class="wrap back">${linkQ(`Back to all ${nMetros} metros`, 'coverage.html')}</p>`,
+      `<p class="wrap back">${linkQ(`Back to all ${nMetros} metros`, 'coverage.html')}${linkQ('Driving at night', NIGHT_FOR[content.region] || 'night-driving-gauteng.html')}</p>`,
     ].join('\n'),
   };
 }
+
+// Each metro's night page: its own province's where there is one, else the
+// Gauteng page, whose table covers every metro (src/night.mjs).
+const NIGHT_FOR = { Gauteng: 'night-driving-gauteng.html', 'Western Cape': 'night-driving-cape-town.html', 'KwaZulu-Natal': 'night-driving-durban.html' };
 
 /* ---------------------------------------------------------------------------
  * The coverage index: the explore map, then every metro, the counts, the

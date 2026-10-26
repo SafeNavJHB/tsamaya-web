@@ -153,7 +153,7 @@ export default {
       meta: `For visitors${M}rental cars welcome${M}${nMetros} metros`,
       title: 'Driving in South Africa? Take local knowledge with you.',
       lead: `Tsamaya is a free navigation app built in Johannesburg. It plans your route around areas with a history of vehicle crime, using ratings that change after dark, and it gives you an SOS button and a live trip link for the people back home.`,
-      after: `\n    <p class="ph-links">${linkQ('Get the app', 'get-app.html')}${linkQ('How it works', 'how-it-works.html')}</p>`,
+      after: `\n    <p class="ph-links">${linkQ('Get the app', 'get-app.html')}${linkQ('How it works', 'how-it-works.html')}${linkQ('Driving from the airport', 'airports.html')}</p>`,
     }),
     does,
     before,
