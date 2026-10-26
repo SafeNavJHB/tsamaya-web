@@ -15,6 +15,60 @@
   ],
   "releases": [
     {
+      "version": "2026-10-26.68",
+      "date": "26 October 2026",
+      "items": [
+        {
+          "icon": "git-compare-outline",
+          "title": "Routes compared by distance",
+          "body": "Each route option now says how far it drives through high-risk areas, such as 12 km, instead of how many areas it passes. A detour can cross more, smaller areas and still be the lower-risk choice, and the count made it look worse.",
+          "category": "fix"
+        },
+        {
+          "icon": "navigate-outline",
+          "title": "The start button says which route",
+          "body": "While Tsamaya is still looking for lower-risk options, the button now reads Start fastest route, because that is the route it would start.",
+          "category": "fix"
+        },
+        {
+          "icon": "text-outline",
+          "title": "Bigger road names on the drive screen",
+          "body": "The next road name is larger and bolder, and a long name wraps onto more lines instead of being cut off.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-26.67",
+      "date": "26 October 2026",
+      "items": [
+        {
+          "icon": "location-outline",
+          "title": "Your city, named right",
+          "body": "In Pretoria, Ekurhuleni and the West Rand the map said Johannesburg, and road closure alerts came for Johannesburg too. Tsamaya now works out your city from the municipality you are in, so the city name, your closure alerts and the Discover tour all follow where you are.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-26.66",
+      "date": "26 October 2026",
+      "items": [
+        {
+          "icon": "share-outline",
+          "title": "Share your drive while on CarPlay",
+          "body": "With CarPlay connected, the drive screen on your phone only offered SOS. A Share trip button now sits above the trip bar: send a live link someone can follow, or just your arrival time. Stop the live link from the same spot.",
+          "category": "feature"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "No pause at 17:30 and 19:30",
+          "body": "When the evening and night risk levels started during a drive, the car screen could freeze for a second or two while the map caught up. Tsamaya now gets the next risk levels ready before the time comes.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-24.65",
       "date": "24 October 2026",
       "items": [
