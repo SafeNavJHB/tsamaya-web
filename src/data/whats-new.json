@@ -15,6 +15,48 @@
   ],
   "releases": [
     {
+      "version": "2026-10-27.74",
+      "date": "27 October 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "CarPlay opens faster",
+          "body": "The car map no longer stalls for several seconds when CarPlay starts Tsamaya before you have opened it on the phone.",
+          "category": "fix"
+        },
+        {
+          "icon": "color-palette-outline",
+          "title": "Roads you only cross keep their own colour",
+          "body": "The route line and the road readout now take a rated road's colour only where you drive along it. A car park beside a rated road, or a junction where you cross one, no longer shows that road's colour.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-27.73",
+      "date": "27 October 2026",
+      "items": [
+        {
+          "icon": "arrow-up-circle-outline",
+          "title": "What a new version adds",
+          "body": "When you install a newer version of Tsamaya from the store, the first card you see now lists what that version can do that yours could not, such as notifications or taking logbook photos with the camera.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-27.71",
+      "date": "27 October 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "East London is on the map",
+          "body": "East London is now covered across the whole of Buffalo City: the city centre, Quigney and Southernwood, Vincent, Berea, Nahoon, Beacon Bay and Gonubie, Duncan Village, Buffalo Flats and Scenery Park, Mdantsane, Qonce (King William's Town) with Bhisho, Zwelitsha and Dimbaza, and the coast from Kidd's Beach to Gonubie, with the N2 and the N6 through the metro. Every suburb, village and main road has been rated against SAPS data for the police stations that serve it and checked a second time, and your location is now trusted anywhere in the area.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-10-26.69",
       "date": "26 October 2026",
       "items": [
