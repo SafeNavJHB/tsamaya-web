@@ -149,6 +149,13 @@ if (problems.length) {
   process.exit(1);
 }
 
+/* ---- Leave out releases written for an older app binary ---------------- */
+// A release with `maxBuild` is shown only on older app binaries that received
+// newer JavaScript (2026-10-27: the 1.8.0 catch-up, SafeNav
+// docs/BUILD28_CATCHUP.md). The website describes the current app, so it
+// never lists them. Items with `needsBuild` are current features and stay.
+releases = releases.filter((rel) => rel.maxBuild == null);
+
 /* ---- Leave out what the public page should not repeat ------------------ */
 // src/data/whats-new-hidden.json lists item titles the website skips (Kyle,
 // 2026-10-11: only the final version of a fix, never each attempt, and nothing
