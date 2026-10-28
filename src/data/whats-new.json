@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-28.76",
+      "date": "28 October 2026",
+      "items": [
+        {
+          "icon": "flag-outline",
+          "title": "Reports from unrated roads are easier to check",
+          "body": "A report you send while driving somewhere Tsamaya has not rated yet now tells the review team which metro you were in, never your exact position, so they can find the road you named.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-28.75",
       "date": "28 October 2026",
       "items": [
