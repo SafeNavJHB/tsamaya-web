@@ -20,11 +20,11 @@
 // Rich Results Test before shipping.
 
 import { site, stats, baseUrl, canonicalFor } from '../site.config.mjs';
-import { FEATURES, SUMMARY } from './facts.mjs';
+import { FEATURES, SUMMARY, POSITIONING } from './facts.mjs';
 
 // The product topic pages (src/pages/*, built with src/topic.mjs) are about the
 // app, so they carry the app node like the other product pages do.
-const TOPIC_PAGES = ['features.html', 'closures-and-protests.html', 'speed-cameras.html', 'hijacking-hotspots.html', 'carplay-android-auto.html', 'live-trip-sharing.html', 'night-driving-gauteng.html', 'night-driving-cape-town.html', 'night-driving-durban.html', 'airports.html', 'compare-waze.html', 'compare-google-maps.html', 'compare-apple-maps.html', 'faq.html'];
+const TOPIC_PAGES = ['why-tsamaya.html', 'features.html', 'closures-and-protests.html', 'speed-cameras.html', 'hijacking-hotspots.html', 'carplay-android-auto.html', 'live-trip-sharing.html', 'night-driving-gauteng.html', 'night-driving-cape-town.html', 'night-driving-durban.html', 'airports.html', 'compare-waze.html', 'compare-google-maps.html', 'compare-apple-maps.html', 'faq.html'];
 
 // Stable @id anchors. The trailing fragment is conventional and lets other nodes
 // point at these without duplicating them.
@@ -116,6 +116,11 @@ function application() {
     publisher: { '@id': ID.org },
     author: { '@id': ID.org },
     inLanguage: 'en-ZA',
+    // How people search for it (Why Tsamaya, 2026-10-28). Plain words, no
+    // "first" or "only" (facts.mjs STANDOUT says why).
+    slogan: POSITIONING,
+    keywords: 'risk-aware navigation, South African navigation app, avoid high-crime areas, lower-risk routes, hijacking hotspots, CarPlay, Android Auto, SOS, live trip sharing',
+    countryOfOrigin: { '@type': 'Country', name: 'South Africa' },
     screenshot: `${baseUrl}/img/og.png`,
     // Where to install it: the Play listing and the TestFlight invite.
     installUrl: [site.androidPlayLink, site.testflightPublicLink],

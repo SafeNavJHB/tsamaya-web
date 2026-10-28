@@ -75,6 +75,7 @@ const hero = `
 <section class="hm-hero" aria-labelledby="hero-h">
   <div class="wrap hm-hero-in">
     <div class="hm-copy">
+      <p class="hm-badge"><a href="why-tsamaya.html">Risk-aware navigation<span aria-hidden="true"> · </span><span class="sr">, </span>Proudly South African</a></p>
       <p class="hm-say">Tsamaya (say: ${site.pronunciation}) is Sesotho and Setswana for "go".</p>
       <h1 class="hm-h1" id="hero-h">Go where the trouble isn't.</h1>
       <p class="hm-sub">A free navigation app that checks your route against ${zones} rated areas in ${nMetros} South African metros, at the hour you drive, and plans it around the high-risk ones.</p>

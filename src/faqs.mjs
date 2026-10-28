@@ -38,6 +38,16 @@ export const F = {
     q: 'Is there a navigation app that avoids high-crime areas in South Africa?',
     a: `Yes. Tsamaya is a free navigation app that plans driving routes around areas and roads with a history of vehicle crime in ${nMetros} South African metros, using ratings for the hour you drive. It is a full turn-by-turn navigator with voice and Apple CarPlay, not only a risk map, and it adds an SOS button and live trip sharing. Lower risk is not no risk, so stay alert.`,
   },
+  // Why Tsamaya (2026-10-28): the "what makes it different" question, answered by
+  // what it does, never by what another app lacks (facts.mjs STANDOUT says why).
+  different: {
+    q: 'What makes Tsamaya different from other navigation and safety apps?',
+    a: `It puts risk into the whole drive, not only the map. Every rated area has separate ratings for daytime, evening and night, and each part of a trip is checked at the hour you will reach it. Roads carry ratings of their own as well as areas. You get three routes graded A to E, closures and protests are routed around each day, and it guides you turn by turn on the phone, Apple CarPlay and Android Auto, with an SOS button and live trip sharing. It covers ${nMetros} South African metros, and it is free, with no account and no ads.`,
+  },
+  local: {
+    q: 'Is Tsamaya a South African app?',
+    a: 'Yes, proudly. It is designed, built and run in Johannesburg by Tsamaya (Pty) Ltd, a South African company, and its risk ratings are built from published South African Police Service crime statistics for South African roads. The name is Sesotho and Setswana for "go", from "tsamaya sentle", go well.',
+  },
   who: {
     q: 'Who makes Tsamaya?',
     a: 'Tsamaya (Pty) Ltd, in Johannesburg. It is built and maintained by Kyle Kimble, a Johannesburg chartered accountant, and it is self-funded.',

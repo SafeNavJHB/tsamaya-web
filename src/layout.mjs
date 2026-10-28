@@ -226,6 +226,7 @@ ${jumpBar(jump)}${page.hud === false ? '' : hudStrip()}
     <div class="wrap footer-grid">
       <div class="footer-col">
         <h2>Explore</h2>
+        <a href="why-tsamaya.html">Why Tsamaya</a>
         <a href="features.html">Features</a>
         <a href="how-it-works.html">How it works</a>
         <a href="demo.html">See it in action</a>

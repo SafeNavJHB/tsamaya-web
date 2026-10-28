@@ -1,190 +1,210 @@
 {
  "404.html": {
-  "hash": "cab39cab003fa523",
-  "date": "2026-10-26"
+  "hash": "fef45a50a71dd05a",
+  "date": "2026-10-28"
  },
  "about.html": {
-  "hash": "d72881258ddc6516",
-  "date": "2026-10-26"
+  "hash": "4508898d69c11b55",
+  "date": "2026-10-28"
+ },
+ "airports.html": {
+  "hash": "36515b6d7fd510c2",
+  "date": "2026-10-28"
  },
  "carplay-android-auto.html": {
-  "hash": "8ecedc353a680aef",
-  "date": "2026-10-26"
+  "hash": "9f188566f6eb2c29",
+  "date": "2026-10-28"
  },
  "closures-and-protests.html": {
-  "hash": "473ce45870ce9e83",
-  "date": "2026-10-26"
+  "hash": "5bc000eabb8730dc",
+  "date": "2026-10-28"
+ },
+ "compare-apple-maps.html": {
+  "hash": "00099f4cfc8a4a44",
+  "date": "2026-10-28"
  },
  "compare-google-maps.html": {
-  "hash": "efff26b31db18cc3",
-  "date": "2026-10-26"
+  "hash": "ca13c40b9f7ffe08",
+  "date": "2026-10-28"
  },
  "compare-waze.html": {
-  "hash": "332640acff32e251",
-  "date": "2026-10-26"
+  "hash": "92fc017a820ce013",
+  "date": "2026-10-28"
  },
  "contact.html": {
-  "hash": "8df00a224659afef",
-  "date": "2026-10-26"
+  "hash": "750d00e1e18a6362",
+  "date": "2026-10-28"
  },
  "demo.html": {
-  "hash": "52b64c9e23987bb9",
-  "date": "2026-10-26"
+  "hash": "ddbd1e0643beaf10",
+  "date": "2026-10-28"
  },
  "driving-in-south-africa.html": {
-  "hash": "6e7313631994279e",
-  "date": "2026-10-26"
+  "hash": "613027e5b06e9145",
+  "date": "2026-10-28"
  },
  "faq.html": {
-  "hash": "8a93216b75e4035e",
-  "date": "2026-10-26"
+  "hash": "93e553ad851720d7",
+  "date": "2026-10-28"
  },
  "features.html": {
-  "hash": "d55e94080f050f02",
-  "date": "2026-10-26"
+  "hash": "11e273955d15fc0c",
+  "date": "2026-10-28"
  },
  "get-app.html": {
-  "hash": "d8314ee366dd6ef6",
-  "date": "2026-10-26"
+  "hash": "1b7a557058e6871a",
+  "date": "2026-10-28"
  },
  "hijacking-hotspots.html": {
-  "hash": "a3b11ac060b97014",
-  "date": "2026-10-26"
+  "hash": "b83ef30630d142d2",
+  "date": "2026-10-28"
  },
  "how-it-works.html": {
-  "hash": "4d37603c6bae14ec",
-  "date": "2026-10-26"
+  "hash": "0da61e202ea1f64c",
+  "date": "2026-10-28"
  },
  "index.html": {
-  "hash": "47c5e5b7f7d816fb",
-  "date": "2026-10-26"
+  "hash": "0ab50744dae28a68",
+  "date": "2026-10-28"
  },
  "live-trip-sharing.html": {
-  "hash": "58f3cc3ca4f23f5f",
-  "date": "2026-10-26"
+  "hash": "c4c4adac7d7feb8d",
+  "date": "2026-10-28"
  },
  "logbook2-privacy.html": {
-  "hash": "10bd27a158a58db6",
-  "date": "2026-10-26"
+  "hash": "b70987c63be779c8",
+  "date": "2026-10-28"
  },
  "logbook2-support.html": {
-  "hash": "4d2a67ccb5ddfe09",
-  "date": "2026-10-26"
+  "hash": "0eef80ca0fcc9330",
+  "date": "2026-10-28"
  },
  "logbook2-terms.html": {
-  "hash": "9c406050f5b8cf21",
-  "date": "2026-10-26"
+  "hash": "6d08886ea61125c5",
+  "date": "2026-10-28"
  },
  "coverage.html": {
-  "hash": "2188a2ba276b3413",
-  "date": "2026-10-26"
+  "hash": "34337fbcbec99e8b",
+  "date": "2026-10-28"
  },
  "johannesburg.html": {
-  "hash": "a2df31cfffe6bd89",
-  "date": "2026-10-26"
+  "hash": "f91b68a6fa8b9bcf",
+  "date": "2026-10-28"
  },
  "cape-town.html": {
-  "hash": "d8f099a5a195f3f7",
-  "date": "2026-10-26"
+  "hash": "a86d3c2d836672d4",
+  "date": "2026-10-28"
  },
  "pretoria.html": {
-  "hash": "edb79770dd5155a8",
-  "date": "2026-10-26"
+  "hash": "26bc30c09a754448",
+  "date": "2026-10-28"
  },
  "ekurhuleni.html": {
-  "hash": "286f1c23bfbbaadc",
-  "date": "2026-10-26"
+  "hash": "bbb76e29b7b66f8d",
+  "date": "2026-10-28"
  },
  "west-rand.html": {
-  "hash": "4615cae1e64d1071",
-  "date": "2026-10-26"
+  "hash": "c2200eca1a8ca2fe",
+  "date": "2026-10-28"
  },
  "secunda.html": {
-  "hash": "2a71a4348e19b938",
-  "date": "2026-10-26"
+  "hash": "de2803eb3ec312d3",
+  "date": "2026-10-28"
  },
  "stellenbosch.html": {
-  "hash": "39f306d92e5a7fd8",
-  "date": "2026-10-26"
+  "hash": "d873b87f856c4ce9",
+  "date": "2026-10-28"
  },
  "rustenburg.html": {
-  "hash": "966e73b451c222fe",
-  "date": "2026-10-26"
+  "hash": "f5d13a7279a22e0e",
+  "date": "2026-10-28"
  },
  "pilanesberg.html": {
-  "hash": "d6097111ecfca3c8",
-  "date": "2026-10-26"
+  "hash": "b7aebcf0ba23a57d",
+  "date": "2026-10-28"
  },
  "mossel-bay.html": {
-  "hash": "19e90da4cc2bb8ef",
-  "date": "2026-10-26"
+  "hash": "ef3c6d4b9d9d580d",
+  "date": "2026-10-28"
  },
  "durban.html": {
-  "hash": "a427738cf12aec09",
-  "date": "2026-10-26"
+  "hash": "55624c63a42d99f6",
+  "date": "2026-10-28"
  },
  "gqeberha.html": {
-  "hash": "8356a9247e8c1be5",
-  "date": "2026-10-26"
+  "hash": "33eae3417ebc697d",
+  "date": "2026-10-28"
  },
  "kruger.html": {
-  "hash": "b995dbf2d728cc1f",
-  "date": "2026-10-26"
+  "hash": "f7839750d9169876",
+  "date": "2026-10-28"
  },
  "bloemfontein.html": {
-  "hash": "2f2c1a3d504e8c70",
-  "date": "2026-10-26"
+  "hash": "0aeec2d605b00a69",
+  "date": "2026-10-28"
  },
  "emalahleni.html": {
-  "hash": "5bdb3990f10f2cd7",
-  "date": "2026-10-26"
+  "hash": "49137d4cbfc53715",
+  "date": "2026-10-28"
  },
  "pietermaritzburg.html": {
-  "hash": "69bb09b607b8fae9",
-  "date": "2026-10-26"
+  "hash": "0dcd6c49244a0afe",
+  "date": "2026-10-28"
  },
  "polokwane.html": {
-  "hash": "01c5ec3757a93968",
-  "date": "2026-10-26"
+  "hash": "8e65905f783a7761",
+  "date": "2026-10-28"
+ },
+ "night-driving-cape-town.html": {
+  "hash": "8423f0fcf87a50b9",
+  "date": "2026-10-28"
+ },
+ "night-driving-durban.html": {
+  "hash": "758f6cf3c77cb193",
+  "date": "2026-10-28"
  },
  "night-driving-gauteng.html": {
-  "hash": "e440116d2b7fa448",
-  "date": "2026-10-26"
+  "hash": "1ac4713617b2a318",
+  "date": "2026-10-28"
  },
  "paia.html": {
-  "hash": "5f1f2fb6a14ea28d",
-  "date": "2026-10-26"
+  "hash": "39a445ea3f4e1f72",
+  "date": "2026-10-28"
  },
  "privacy.html": {
-  "hash": "9a3dc9ce815cecae",
-  "date": "2026-10-26"
+  "hash": "09ee2a9ef5b6eb35",
+  "date": "2026-10-28"
  },
  "speed-cameras.html": {
-  "hash": "0d7806b01f608e2b",
-  "date": "2026-10-26"
+  "hash": "c7db871279157821",
+  "date": "2026-10-28"
  },
  "sponsor.html": {
-  "hash": "9c6f8f1a072927a4",
-  "date": "2026-10-26"
+  "hash": "fc083b80a494a2a4",
+  "date": "2026-10-28"
  },
  "technical.html": {
-  "hash": "1d42511b54a6249c",
-  "date": "2026-10-26"
+  "hash": "f1758e11d8729b24",
+  "date": "2026-10-28"
  },
  "terms.html": {
-  "hash": "46ba06e3c8d29239",
-  "date": "2026-10-26"
+  "hash": "9d7b0101ffde00ce",
+  "date": "2026-10-28"
  },
  "track.html": {
-  "hash": "e2b7058af9e6e797",
-  "date": "2026-10-26"
+  "hash": "bf56e1143e770216",
+  "date": "2026-10-28"
  },
  "updates.html": {
-  "hash": "9affc168954742ec",
-  "date": "2026-10-26"
+  "hash": "2a6a08d8e52e465e",
+  "date": "2026-10-28"
  },
  "updates-archive.html": {
-  "hash": "21379d9b61851ba9",
-  "date": "2026-10-26"
+  "hash": "cdcccbebe34aa270",
+  "date": "2026-10-28"
+ },
+ "why-tsamaya.html": {
+  "hash": "28370e5510335f74",
+  "date": "2026-10-28"
  }
 }

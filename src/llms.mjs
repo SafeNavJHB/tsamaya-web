@@ -13,12 +13,12 @@
 // honesty rules as the pages apply: lower-risk language, no suburb named as risky.
 
 import { site, stats, fmt, canonicalFor } from '../site.config.mjs';
-import { FEATURES, SUMMARY, NOT_A, PREMIUM_SOON, PREMIUM_NOTE } from './facts.mjs';
+import { FEATURES, SUMMARY, NOT_A, PREMIUM_SOON, PREMIUM_NOTE, POSITIONING, STANDOUT } from './facts.mjs';
 import { metros } from './data/metros.mjs';
 
 // Pages grouped the way a reader would want them. Anything the build emits that
 // is not listed here lands under "More" rather than disappearing.
-const PRODUCT = ['index.html', 'features.html', 'how-it-works.html', 'closures-and-protests.html', 'speed-cameras.html', 'hijacking-hotspots.html', 'carplay-android-auto.html', 'live-trip-sharing.html', 'night-driving-gauteng.html', 'night-driving-cape-town.html', 'night-driving-durban.html', 'airports.html', 'compare-waze.html', 'compare-google-maps.html', 'compare-apple-maps.html', 'faq.html', 'driving-in-south-africa.html', 'demo.html', 'get-app.html', 'technical.html', 'updates.html'];
+const PRODUCT = ['index.html', 'why-tsamaya.html', 'features.html', 'how-it-works.html', 'closures-and-protests.html', 'speed-cameras.html', 'hijacking-hotspots.html', 'carplay-android-auto.html', 'live-trip-sharing.html', 'night-driving-gauteng.html', 'night-driving-cape-town.html', 'night-driving-durban.html', 'airports.html', 'compare-waze.html', 'compare-google-maps.html', 'compare-apple-maps.html', 'faq.html', 'driving-in-south-africa.html', 'demo.html', 'get-app.html', 'technical.html', 'updates.html'];
 const COMPANY = ['about.html', 'sponsor.html', 'contact.html', 'privacy.html', 'terms.html'];
 const SKIP = new Set(['404.html', 'track.html']);
 
@@ -52,6 +52,7 @@ ${NOT_A}
 ## Key facts
 
 - Name: ${site.name} (say: ${site.pronunciation}), Sesotho and Setswana for "go", from "tsamaya sentle", go well. Tagline: "${site.tagline}"
+- Positioning: ${POSITIONING} A risk-aware navigation app designed, built and run in Johannesburg by a South African company.
 - What it is: a navigation app for drivers in South Africa that plans lower-risk routes around areas with a history of vehicle crime, then guides you turn by turn with voice, on the phone, Apple CarPlay or Android Auto.
 - Safety tools: an SOS button on the phone's drive screen (it calls 10111 or 112, or opens a text to an emergency contact, ready to send, with your location and a link that follows you live while you drive and stays up for 24 hours; it stays on the phone during a CarPlay or Android Auto drive and the car map gets its own SOS button), live trip sharing that anyone can follow in a web browser, and Guardian, a standing link for an emergency contact that the driver switches on from the CarPlay screen (from version 1.8, in the car's SOS menu).
 - Price: free, with no account and no ads. Routing around risk, the SOS button and trip sharing stay free. No trip history is kept on the server unless the driver shares a live trip.
@@ -62,6 +63,10 @@ ${NOT_A}
 - Risk data: published South African Police Service crime statistics scored against OpenStreetMap roads, given an AI second opinion and sense-checked by a person (who looks closely at ratings that stand out) before going live, then refined from drivers' reports in the app, each read by a person before anything on the map changes.
 - Made by: ${site.name} (Pty) Ltd, Johannesburg, South Africa. Founder: Kyle Kimble. Contact: ${site.contactEmail}
 - Visitors: it needs no account, works in rental cars, and people at home can follow a shared trip in a browser. Emergency numbers in South Africa: 10111 (police), 112 (any mobile), 10177 (ambulance).
+
+## What sets it apart
+
+${STANDOUT.map(([title, body]) => `- ${title}: ${body}`).join('\n')}
 
 ## Features
 
