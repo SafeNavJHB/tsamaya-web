@@ -77,6 +77,7 @@ const METROS = [
   { key: 'emalahleni', name: 'eMalahleni & Middelburg', slug: 'emalahleni' },
   { key: 'pietermaritzburg', name: 'Pietermaritzburg', slug: 'pietermaritzburg' },
   { key: 'polokwane', name: 'Polokwane', slug: 'polokwane' },
+  { key: 'east_london', name: 'East London', slug: 'east-london' },
 ];
 
 const BANDS = ['red', 'orange', 'yellow', 'none'];

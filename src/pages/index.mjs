@@ -2,7 +2,7 @@
 // The metro detection it can use is described in workers/where/README.md.
 //
 // Five sections, about a third of the old page's length: the hero with real app
-// screenshots of a metro, how it works with one real trip, the 17 metros, the
+// screenshots of a metro, how it works with one real trip, the metros, the
 // questions, and the store panels. Everything else lives on its own page.
 //
 // The page reads top to bottom without JavaScript and ships the same HTML to every
@@ -12,7 +12,7 @@
 //
 // FIGURES. Nothing is typed by hand. Counts come from src/data/stats.json, the
 // example trip from src/data/route-card.json.
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { site, stats, fmt, statsAsOf } from '../../site.config.mjs';
 import { picture } from '../components.mjs';
 import { faqSec, getSec, linkQ, ARROW } from '../kit.mjs';
@@ -31,12 +31,15 @@ const zones = fmt(stats.totals.zones);
 // with the bounding box metro-hero.js matches a location against.
 const bounds = JSON.parse(readFileSync(new URL('../data/metro-bounds.json', import.meta.url), 'utf8'));
 const boxOf = Object.fromEntries((bounds.metros || bounds).map((m) => [m.key, m.bbox]));
-// Every metro has a daytime, evening and night screenshot
-// (assets/screens-src/metro-*, cropped below the app's status bar and city pill).
+// A metro has a daytime, evening and night screenshot (assets/screens-src/metro-*,
+// cropped below the app's status bar and city pill) once someone captures it
+// (src/shots.mjs, METRO SET). Until then it gets no phone here: metro-hero.js keeps
+// the default pair and names it in a line with a link to its page (shot: false).
+const hasShot = (slug) => existsSync(new URL(`../../public/img/screens/metro-${slug}-day-600.webp`, import.meta.url));
 const DEFAULT = ['johannesburg', 'cape_town'];
 const rank = (m) => (DEFAULT.includes(m.key) ? DEFAULT.indexOf(m.key) : DEFAULT.length);
 const metros = stats.metros
-  .map((m) => ({ key: m.key, slug: m.slug, name: m.name, zones: m.zones, box: boxOf[m.key] }))
+  .map((m) => ({ key: m.key, slug: m.slug, name: m.name, zones: m.zones, box: boxOf[m.key], shot: hasShot(m.slug) }))
   .filter((m) => editorial.some((e) => e.key === m.key))
   .sort((a, b) => rank(a) - rank(b) || b.zones - a.zones);
 const byKey = Object.fromEntries(metros.map((m) => [m.key, m]));
@@ -85,9 +88,9 @@ const hero = `
       </div>
       <p class="hm-note">Free, in open beta. Lower risk is not no risk: stay alert.</p>
     </div>
-    <div class="hm-phones" id="metro-hero" data-metros='${attr(JSON.stringify(metros.map(({ key, slug, name, zones: z, box }) => ({ key, slug, name, zones: z, box, shot: true }))))}' data-default="${DEFAULT.join(' ')}" data-band="day"${site.geoEndpoint ? ` data-geo="${site.geoEndpoint}"` : ''}>
+    <div class="hm-phones" id="metro-hero" data-metros='${attr(JSON.stringify(metros.map(({ key, slug, name, zones: z, box, shot }) => ({ key, slug, name, zones: z, box, shot }))))}' data-default="${DEFAULT.join(' ')}" data-band="day"${site.geoEndpoint ? ` data-geo="${site.geoEndpoint}"` : ''}>
       <div class="hm-row">
-      ${metros.map((m) => phone(m.key)).join('\n      ')}
+      ${metros.filter((m) => m.shot).map((m) => phone(m.key)).join('\n      ')}
       </div>
       <div class="hm-bands" role="group" aria-label="Show the ratings for a time of day">
         ${BANDS.map((b, i) => `<button type="button" data-band="${b.key}" aria-pressed="${i === 0}">${b.label}</button>`).join('')}

@@ -7,8 +7,8 @@
 //    when site.geoEndpoint is set (data-geo), it asks once per tab where the
 //    connection is ({ lat, lon }, a Cloudflare Worker: workers/where/) and matches
 //    that against each metro's service-area box. The metro's own screenshots
-//    take over the hero (every metro has them; a metro without would keep the
-//    default pair and get a line of its own).
+//    take over the hero (a metro without them keeps the
+//    default pair and gets a line of its own).
 //    No match, no answer within 1.5 s, or any error: the default stays.
 // 2. The store button. An iPhone gets TestFlight first and Google Play second.
 //

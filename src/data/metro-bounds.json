@@ -239,6 +239,20 @@
         29.45,
         -23.9
       ]
+    },
+    {
+      "key": "east_london",
+      "name": "East London",
+      "bbox": {
+        "lngMin": 27.15,
+        "lngMax": 28.09,
+        "latMin": -33.29,
+        "latMax": -32.67
+      },
+      "center": [
+        27.91,
+        -33.01
+      ]
     }
   ]
 }

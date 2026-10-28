@@ -454,6 +454,31 @@ export const metros = [
       },
     ],
   },
+  {
+    key: 'east_london',
+    slug: 'east-london',
+    name: 'East London',
+    region: 'Eastern Cape',
+    blurb:
+      'Driving routes around East London and the whole of Buffalo City, covering the N2 from the Qonce side to beyond Gonubie, the N6, the R102, the R346, the R63 and the R72.',
+    intro:
+      'East London was added in October 2026, and coverage is the whole Buffalo City metro: the city centre, Quigney and Southernwood, the suburbs from Vincent and Berea out to Beacon Bay and Gonubie, Mdantsane, Qonce (King William\'s Town) with Bhisho, Zwelitsha and Dimbaza, Berlin, and the coast from Kidd\'s Beach to Gonubie. Every area and main road is rated against SAPS figures for the police stations that serve it, and checked a second time.',
+    context: [
+      'The N2 through the metro and the N6 are checked roads with no risk penalty, so a trip that only needs to get past East London can stay on them.',
+      'Parts of the R102, the R346 and the R63, and city roads such as Settlers Way and the North East Expressway, are rated medium risk. The R72 along the coast is marked for caution. The route card names any rated stretch a route uses.',
+      'Every road and area is rated separately for day, evening and night, so the same trip can grade differently after dark.',
+    ],
+    faqs: [
+      {
+        q: 'Does Tsamaya cover Mdantsane and Qonce?',
+        a: 'Yes. Coverage is the whole Buffalo City metro, including Mdantsane, Qonce (King William\'s Town), Bhisho, Zwelitsha, Dimbaza and Berlin, as well as East London and its suburbs.',
+      },
+      {
+        q: 'Is the drive to Gqeberha covered?',
+        a: 'Only at the ends. Buffalo City is mapped, and so is Gqeberha, but most of the road between them runs outside both. There the app navigates as normal, without risk data, and picks the ratings up again on the other side.',
+      },
+    ],
+  },
 ];
 
 // Look up the editorial entry for a metro key from stats.json.
