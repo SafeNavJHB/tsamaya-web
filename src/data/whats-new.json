@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-31.82",
+      "date": "31 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "Traffic sits on the road again",
+          "body": "A jam now shows as a plum edge along the road’s own colour, the way it already does along your route, instead of a line beside the road.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-31.81",
       "date": "31 October 2026",
       "items": [
