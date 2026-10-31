@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-10-31.81",
+      "date": "31 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "Traffic now shows beside rated roads",
+          "body": "Jams sit beside a road’s risk colour instead of under it, so slow traffic on an orange or yellow road is visible. The plum is a little deeper and wider, and the map legend explains it.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-31.80",
       "date": "31 October 2026",
       "items": [
