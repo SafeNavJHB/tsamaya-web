@@ -15,6 +15,42 @@
   ],
   "releases": [
     {
+      "version": "2026-10-31.80",
+      "date": "31 October 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "See live traffic on the map",
+          "body": "Slow and stopped traffic now shows in plum on the map and along your route, while free-flowing roads stay uncoloured so green stays reserved for the roads and areas we have rated lower-risk. You can switch it off under Settings › Map.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-31.79",
+      "date": "31 October 2026",
+      "items": [
+        {
+          "icon": "time-outline",
+          "title": "Arrival time only ever from your own road",
+          "body": "The live-traffic arrival time is used only when the traffic answer follows the whole of your route, checked along its full length rather than at a few points.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-29.78",
+      "date": "29 October 2026",
+      "items": [
+        {
+          "icon": "bug-outline",
+          "title": "Very long reroutes no longer end the drive",
+          "body": "A reroute that came back with an extremely long route could replace the drive with an error screen. The map now handles routes of any length.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-10-28.76",
       "date": "28 October 2026",
       "items": [

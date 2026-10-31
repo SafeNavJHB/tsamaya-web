@@ -1,12 +1,37 @@
 {
   "//": "What's New items the PUBLIC updates page leaves out, matched by exact title; the app's own changelog keeps them. Kyle, 2026-10-11: the website shows only the final version of a fix, never each attempt, and nothing internal. scripts/sync-changelog.mjs applies this list and warns when a title no longer matches anything.",
   "titles": [
-    { "title": "Ask Siri for directions", "why": "superseded by 'Navigate with Siri in one sentence', which names both phrases" },
-    { "title": "Shorter pause after directions", "why": "a second pass at 'Music comes back sooner'" },
-    { "title": "Voice timing in drive logs", "why": "internal measurement for the music timing fix" },
-    { "title": "Route timing in drive logs", "why": "internal measurement for the slow first car route" },
-    { "title": "A behind-the-scenes test for CarPlay", "why": "internal test; nothing changes for drivers" },
-    { "title": "Your area and road ratings, seen on a map", "why": "a review-team (admin) screen; nothing changes for drivers" },
-    { "title": "Rating changes keep the shape on the map", "why": "a review-team (admin) editor fix; nothing changes for drivers" }
+    {
+      "title": "Ask Siri for directions",
+      "why": "superseded by 'Navigate with Siri in one sentence', which names both phrases"
+    },
+    {
+      "title": "Shorter pause after directions",
+      "why": "a second pass at 'Music comes back sooner'"
+    },
+    {
+      "title": "Voice timing in drive logs",
+      "why": "internal measurement for the music timing fix"
+    },
+    {
+      "title": "Route timing in drive logs",
+      "why": "internal measurement for the slow first car route"
+    },
+    {
+      "title": "A behind-the-scenes test for CarPlay",
+      "why": "internal test; nothing changes for drivers"
+    },
+    {
+      "title": "Your area and road ratings, seen on a map",
+      "why": "a review-team (admin) screen; nothing changes for drivers"
+    },
+    {
+      "title": "Rating changes keep the shape on the map",
+      "why": "a review-team (admin) editor fix; nothing changes for drivers"
+    },
+    {
+      "title": "Road reports are rated where they happen",
+      "why": "internal: the admin report screen's review reading (2026-10-28.77, silent in the app)"
+    }
   ]
 }
