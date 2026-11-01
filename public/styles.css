@@ -1369,6 +1369,8 @@ html:not(.js) .ex-page .ex-in { min-height: 0; }
 .sn .prose a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
 .sn .prose hr { border: 0; border-top: 1px solid var(--hairline); margin: 2em 0; }
 .sn .prose blockquote { padding: 12px 16px; border-left: 2px solid var(--hud); color: var(--fg-2); }
+/* The legal pages' blockquotes are the clauses the Terms' opening notice lists (they limit liability or place obligations on the driver): section 49 of the Consumer Protection Act wants them conspicuous, so they are shaded as in the signed Word document and in the app. */
+.sn .sec.legal .prose blockquote { background: rgba(240, 150, 50, 0.14); border-left: 3px solid #f09632; border-radius: 8px; color: var(--ink); }
 .sn .prose .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .sn .prose .table-scroll th[scope="row"] a { white-space: nowrap; } /* a metro name never breaks mid-word in a narrow first column */
 .sn .prose table { width: 100%; min-width: 460px; border-collapse: collapse; font-size: 14.5px; line-height: 1.55; }
