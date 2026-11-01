@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-11-01.85",
+      "date": "1 November 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "George is on the map",
+          "body": "George is now covered south of the Outeniqua mountains: the town centre and its suburbs, Blanco, Pacaltsdorp, Thembalethu, Conville and Rosedale, the airport, Herold's Bay, Victoria Bay and Wilderness, with the N2, the Outeniqua Pass and the R102. Every suburb and main road has been rated against SAPS data and local news and checked a second time. The Montagu Pass is marked closed until it reopens, so routes over the mountains use the Outeniqua Pass.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-11-01.84",
       "date": "1 November 2026",
       "items": [
