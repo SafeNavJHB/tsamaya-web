@@ -26,6 +26,7 @@ const main = `
 export default {
   slug: 'logbook2-privacy.html',
   title: 'Logbook² privacy policy',
+  headTitle: 'Logbook² privacy policy: your logbook stays on your phone',
   description:
     'How the Logbook² pilot logbook app handles your information under POPIA: everything stays on your device, with no accounts, no servers, no analytics and no advertising.',
   heroClass: 'sn page-legal',

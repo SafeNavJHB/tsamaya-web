@@ -38,6 +38,7 @@ const more = sec({
 export default {
   slug: 'get-app.html',
   title: 'Get the app',
+  headTitle: 'Get Tsamaya: free lower-risk navigation for Android and iPhone',
   description:
     'Install Tsamaya on Android (Google Play) or iPhone (TestFlight), free during the beta, and get set up in about five minutes.',
   heroClass: 'sn page-get',

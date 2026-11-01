@@ -53,6 +53,7 @@ const numbers = `
 export default {
   slug: 'technical.html',
   title: 'Technical details',
+  headTitle: 'Tsamaya technical details: routing model and data pipeline',
   description:
     'The Tsamaya tech stack and routing model: React Native and Expo, Mapbox, Supabase and PostGIS, a Python data pipeline with a Claude-assisted review, and the rules that decide a detour.',
   heroClass: 'sn page-tech',

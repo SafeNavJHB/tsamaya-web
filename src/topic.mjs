@@ -41,10 +41,11 @@ const related = (links) => sec({
  * @param {{q:string,a:string}[]} [o.faqs]
  * @param {[string,string][]} [o.links]  related pages
  */
-export function topicPage({ slug, title, description, meta, h1, lead, sections, faqs = [], links = [], ctaTitle = 'Try it on your next drive.', after = '' }) {
+export function topicPage({ slug, title, headTitle, description, meta, h1, lead, sections, faqs = [], links = [], ctaTitle = 'Try it on your next drive.', after = '' }) {
   return {
     slug,
     title,
+    headTitle,
     description,
     heroClass: 'sn page-visit',
     hud: false,

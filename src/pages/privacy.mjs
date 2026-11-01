@@ -26,6 +26,7 @@ const main = `
 export default {
   slug: 'privacy.html',
   title: 'Privacy policy',
+  headTitle: 'Tsamaya privacy policy: your information under POPIA',
   description:
     'How Tsamaya handles location, analytics and reports under POPIA: no accounts, no ads, no sale of personal information, and no server-side history of where you go.',
   heroClass: 'sn page-legal',

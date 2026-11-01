@@ -59,6 +59,7 @@ const faqs = [F.waze, F.google, F.cities, F.free, F.guarantee];
 export default topicPage({
   slug: 'compare-waze.html',
   title: 'Tsamaya vs Waze',
+  headTitle: 'Tsamaya vs Waze: a South African Waze alternative',
   description: 'Tsamaya and Waze do different jobs. See what Tsamaya adds for South African drivers who want routes that account for risk, closures and protests, and why many keep both.',
   meta: 'Comparison · Waze',
   h1: 'Tsamaya and Waze: two different jobs.',

@@ -71,6 +71,7 @@ const faqs = [F.hotspots, F.cameras, {
 export default topicPage({
   slug: 'hijacking-hotspots.html',
   title: 'Hijacking hotspots',
+  headTitle: 'Hijacking hotspots in South Africa, on the map · Tsamaya',
   description: `How Tsamaya shows ${total} reported hijacking and smash-and-grab hotspots on the map with a spoken heads-up, what they are, what they are not, and where they come from.`,
   meta: 'Hijacking · smash-and-grab',
   h1: 'Hijacking and smash-and-grab hotspots.',

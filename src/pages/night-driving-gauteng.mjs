@@ -27,6 +27,7 @@ const faqs = [F.night, F.times, F.longer, F.sos, F.share, F.guarantee];
 export default topicPage({
   slug: 'night-driving-gauteng.html',
   title: 'Driving at night in Gauteng',
+  headTitle: 'Driving at night in Gauteng: lower-risk routes · Tsamaya',
   description: `How Tsamaya handles night driving in Gauteng: three sets of ratings by hour, ${fmt(g.night)} high-risk rated areas at night against ${fmt(g.day)} by day, after-dark warnings and lower-risk routes.`,
   meta: 'Gauteng · after dark',
   h1: 'Driving at night in Gauteng.',

@@ -63,6 +63,7 @@ const faqs = [F.protests, F.notices, F.voice, {
 export default topicPage({
   slug: 'closures-and-protests.html',
   title: 'Protests and road closures',
+  headTitle: 'Protest and road closure alerts in South Africa · Tsamaya',
   description: 'How Tsamaya finds protests, strikes, blockades and road closures each morning and routes around them, plus closed roads and Police and Roadblock notices from drivers.',
   meta: `Closures${' · '}protests${' · '}roadblocks`,
   h1: 'Protests, closures and roadblocks, routed around.',

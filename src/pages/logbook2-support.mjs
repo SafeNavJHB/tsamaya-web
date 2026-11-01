@@ -83,6 +83,7 @@ const contact = sec({
 export default {
   slug: 'logbook2-support.html',
   title: 'Logbook² support',
+  headTitle: 'Logbook² support and contact · Tsamaya',
   description:
     'Help for the Logbook² pilot logbook app: importing from PDF, Excel or a photo of your paper logbook, printing, backing up and restoring your logbook, and managing your subscription.',
   heroClass: 'sn page-faq',

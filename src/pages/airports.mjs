@@ -78,6 +78,7 @@ const hireFaq = {
 export default topicPage({
   slug: 'airports.html',
   title: 'Driving to and from the airport',
+  headTitle: 'Driving to and from South African airports · Tsamaya',
   description: `Lower-risk routes from O.R. Tambo, Cape Town International, King Shaka and other South African airports, rated for the hour you land, with drives that end on the drop-off road.`,
   meta: 'Airports · arrivals and departures',
   h1: 'Driving to and from the airport.',

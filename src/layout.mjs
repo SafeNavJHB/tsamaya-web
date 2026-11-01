@@ -124,7 +124,10 @@ function pageHtml(page) {
   const titleFull = esc(
     page.slug === 'index.html'
       ? `${site.name}: ${site.tagline} Lower-risk routes for South African drivers`
-      : `${page.title} · ${site.name}`,
+      // headTitle, when a page sets one, is the whole <title>: a longer, searchable
+      // name for search results (Bing flags short titles), while page.title stays
+      // the short name used in breadcrumbs and llms.txt.
+      : page.headTitle || `${page.title} · ${site.name}`,
   );
   const desc = esc(page.description || site.description);
   // Absolute URLs — crawlers require them for canonical tags and social images.

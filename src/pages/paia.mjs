@@ -26,6 +26,7 @@ const main = `
 export default {
   slug: 'paia.html',
   title: 'PAIA manual',
+  headTitle: 'Tsamaya PAIA manual: how to request a record',
   description:
     'Tsamaya (Pty) Ltd\'s manual under the Promotion of Access to Information Act: our records, how to request them, the fees, and how we process personal information under POPIA.',
   heroClass: 'sn page-legal',

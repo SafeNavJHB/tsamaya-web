@@ -118,6 +118,7 @@ const honest = sec({
 export default {
   slug: 'demo.html',
   title: 'See it in action',
+  headTitle: 'Tsamaya demo: see the lower-risk navigation app in action',
   description:
     'A walkthrough of the Tsamaya app on real screens: the home screen, setting a trip, comparing a lower-risk route against the standard one, and driving it.',
   heroClass: 'sn page-see',

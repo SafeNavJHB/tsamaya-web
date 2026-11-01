@@ -46,6 +46,7 @@ const side = `
 export default {
   slug: 'contact.html',
   title: 'Contact us',
+  headTitle: 'Contact Tsamaya: support, partnerships and press',
   description:
     'Get in touch about the beta, sponsorship, or a corner of the map we should know about. Tsamaya is built in Johannesburg.',
   heroClass: 'sn page-contact',

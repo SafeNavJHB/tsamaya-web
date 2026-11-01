@@ -91,6 +91,7 @@ const faqs = [F.stops, F.cameras, F.protests, F.carplay, F.aa, F.offline, F.free
 export default topicPage({
   slug: 'features.html',
   title: 'Features',
+  headTitle: 'Tsamaya features: lower-risk routes, SOS, CarPlay and more',
   description: 'Everything Tsamaya does for South African drivers: graded lower-risk routes, stops, road closures and protests, speed cameras, hotspots, CarPlay, SOS and live trip sharing.',
   meta: 'Features',
   h1: 'What Tsamaya does.',

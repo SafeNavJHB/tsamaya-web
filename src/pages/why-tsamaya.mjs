@@ -37,6 +37,7 @@ const faqs = [F.different, F.local, F.avoid, F.free, F.guarantee];
 export default topicPage({
   slug: 'why-tsamaya.html',
   title: 'Why Tsamaya',
+  headTitle: 'Why Tsamaya: risk-aware navigation, proudly South African',
   description: `Tsamaya is a risk-aware navigation app built in South Africa: ratings for the hour you drive, rated roads, graded routes, CarPlay and Android Auto, SOS and trip sharing, free in ${nMetros} metros.`,
   meta: 'Why Tsamaya',
   h1: POSITIONING,

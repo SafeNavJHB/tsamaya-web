@@ -60,6 +60,7 @@ const faqs = [F.google, F.waze, F.longer, F.cities, F.guarantee];
 export default topicPage({
   slug: 'compare-google-maps.html',
   title: 'Tsamaya vs Google Maps',
+  headTitle: 'Tsamaya vs Google Maps: lower-risk routes in South Africa',
   description: 'Tsamaya compared with Google Maps for South African drivers: routes graded by risk for the hour you drive, one real route card, and how the two work together.',
   meta: 'Comparison · Google Maps',
   h1: 'Tsamaya and Google Maps: time, distance and risk.',

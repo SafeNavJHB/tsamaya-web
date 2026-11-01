@@ -22,6 +22,7 @@ const main = `
 export default {
   slug: 'terms.html',
   title: 'Terms of use',
+  headTitle: 'Tsamaya terms of use for the navigation app',
   description:
     'The terms covering your use of Tsamaya, including the safety disclaimer: lower-risk routing is information, not a guarantee, and every driving decision stays yours.',
   heroClass: 'sn page-legal',

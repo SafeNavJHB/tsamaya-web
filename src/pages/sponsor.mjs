@@ -100,6 +100,7 @@ const tail = sec({
 export default {
   slug: 'sponsor.html',
   title: 'Support Tsamaya',
+  headTitle: 'Support Tsamaya: ways to help, most of them free',
   description:
     "Ways to support Tsamaya, most of them free: drive with it, tell one other driver, report a corner we've got wrong. Bank details for a once-off EFT if you'd like to chip in.",
   heroClass: 'sn page-support',

@@ -22,6 +22,7 @@ const main = `
 export default {
   slug: 'logbook2-terms.html',
   title: 'Logbook² terms of use',
+  headTitle: 'Logbook² terms of use · Tsamaya',
   description:
     'The terms covering your use of the Logbook² pilot logbook app, including the Logbook² Pro subscription and why the pilot stays responsible for the legal validity of their logbook.',
   heroClass: 'sn page-legal',

@@ -62,6 +62,7 @@ const together = sec({
 export default topicPage({
   slug: 'compare-apple-maps.html',
   title: 'Tsamaya vs Apple Maps',
+  headTitle: 'Tsamaya vs Apple Maps: lower-risk routes in South Africa',
   description: 'Tsamaya compared with Apple Maps for South African iPhone drivers: routes graded by risk for the hour you drive, one real route card, and how the two share an iPhone and CarPlay.',
   meta: 'Comparison · Apple Maps',
   h1: 'Tsamaya and Apple Maps: time, distance and risk.',

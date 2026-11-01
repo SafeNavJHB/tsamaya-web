@@ -76,6 +76,7 @@ const stats = `
 const updatesPage = {
   slug: 'updates.html',
   title: 'Updates',
+  headTitle: 'What\'s new: Tsamaya app updates and release notes',
   description: `Every update shipped to the Tsamaya app, newest first. ${releases.length} releases and ${totalItems} changes, the most recent on ${latest.date}.`,
   heroClass: 'sn page-updates',
   hud: false,
@@ -105,6 +106,7 @@ const oldest = earlier.length ? earlier[earlier.length - 1].date : '';
 const archivePage = {
   slug: 'updates-archive.html',
   title: 'Earlier updates',
+  headTitle: 'Earlier Tsamaya app updates and release notes',
   description: earlier.length ? `Every earlier update to the Tsamaya app, from ${esc(oldest)} to ${esc(earlier[0].date)}: ${earlier.length} releases. The newest are on the Updates page.` : 'Earlier updates to the Tsamaya app.',
   heroClass: 'sn page-updates',
   hud: false,

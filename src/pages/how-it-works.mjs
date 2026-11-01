@@ -103,6 +103,7 @@ const hours = sec({
 export default {
   slug: 'how-it-works.html',
   title: 'How it works',
+  headTitle: 'How Tsamaya works: risk-rated routes by time of day',
   description:
     'How Tsamaya plans a lower-risk route: fetch the fastest route, test it against every rated area for this hour, prefer checked roads, find a way round, and throw out any detour that costs too much.',
   heroClass: 'sn page-how',

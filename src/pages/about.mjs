@@ -64,6 +64,7 @@ const founder = sec({
 export default {
   slug: 'about.html',
   title: 'About us',
+  headTitle: 'About Tsamaya: a lower-risk navigation app from Johannesburg',
   description:
     'The story behind Tsamaya, an independent navigation app built in Johannesburg that routes South African drivers around known risk. The name means "go well".',
   heroClass: 'sn page-about',

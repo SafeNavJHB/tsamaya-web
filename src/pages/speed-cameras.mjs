@@ -57,6 +57,7 @@ const faqs = [F.cameras, F.vans, F.voice, {
 export default topicPage({
   slug: 'speed-cameras.html',
   title: 'Speed cameras',
+  headTitle: 'Speed camera alerts in South Africa · Tsamaya',
   description: 'Speed cameras on the Tsamaya map: known fixed cameras with a spoken heads-up, camera vans reported by drivers for about three hours, and honest limits on coverage.',
   meta: 'Speed cameras · speed traps',
   h1: 'Speed cameras and speed traps.',

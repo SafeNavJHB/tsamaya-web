@@ -14,7 +14,7 @@
 // See the editorial note at the top of src/data/metros.mjs.
 
 import { readFileSync } from 'node:fs';
-import { stats, fmt, statsAsOf } from '../../site.config.mjs';
+import { site, stats, fmt, statsAsOf } from '../../site.config.mjs';
 import { metros as metroContent } from '../data/metros.mjs';
 import { faqNode, breadcrumbNode } from '../seo.mjs';
 import { exploreSection } from '../explore.mjs';
@@ -177,6 +177,7 @@ function metroPage({ content, data }) {
   return {
     slug: `${content.slug}.html`,
     title: `${name} coverage`,
+    headTitle: `Lower-risk driving routes in ${name} · ${site.name}`,
     description: content.blurb,
     heroClass: 'sn page-metro',
     hud: false,
@@ -287,6 +288,7 @@ const coverageTail = sec({
 const coveragePage = {
   slug: 'coverage.html',
   title: 'Coverage',
+  headTitle: `Tsamaya coverage: rated areas in ${stats.totals.metros} South African metros`,
   description: `Tsamaya rates ${fmt(stats.totals.zones)} areas across ${stats.totals.metros} South African metros: Johannesburg, Cape Town, Durban, Pietermaritzburg, Gqeberha, East London, Pretoria, Ekurhuleni, the West Rand, Stellenbosch, Rustenburg, Pilanesberg, Mossel Bay, Secunda, eMalahleni and Middelburg, Bloemfontein, Polokwane and the Kruger National Park area.`,
   heroClass: 'sn page-coverage',
   jsonLd: [

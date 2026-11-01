@@ -63,6 +63,7 @@ const faqs = [F.carplay, F.aa, F.sos, F.offline, F.voice];
 export default topicPage({
   slug: 'carplay-android-auto.html',
   title: 'CarPlay and Android Auto',
+  headTitle: 'Lower-risk navigation on CarPlay and Android Auto · Tsamaya',
   description: 'What Tsamaya does on Apple CarPlay: graded route options, risk border, speed camera and hotspot pins, closure notices, voice reports and Guardian, and the same on Android Auto.',
   meta: 'CarPlay · Android Auto',
   h1: 'Tsamaya on your car screen.',

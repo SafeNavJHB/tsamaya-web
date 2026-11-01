@@ -23,6 +23,7 @@ const all = GROUPS.flatMap((g) => g[3]);
 const page = {
   slug: 'faq.html',
   title: 'Questions and answers',
+  headTitle: 'Tsamaya FAQ: questions about lower-risk navigation',
   description: 'Answers to what people ask about Tsamaya: coverage, risk data, closures and protests, speed cameras, hotspots, CarPlay, SOS, live trip sharing and how it compares with Waze and Google Maps.',
   heroClass: 'sn page-visit',
   hud: false,

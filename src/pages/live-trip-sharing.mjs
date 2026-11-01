@@ -62,6 +62,7 @@ const faqs = [F.share, F.sos, {
 export default topicPage({
   slug: 'live-trip-sharing.html',
   title: 'Live trip sharing',
+  headTitle: 'Live trip sharing and SOS links in South Africa · Tsamaya',
   description: 'Share a live Tsamaya trip with anyone in a browser: no app or account needed to watch, an Arrived screen at the end, plus the SOS link and Guardian, and what is kept.',
   meta: 'Trip sharing · SOS · Guardian',
   h1: 'Let someone follow your drive.',

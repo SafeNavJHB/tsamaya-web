@@ -32,6 +32,7 @@ const faqs = [nightFaq, F.times, F.longer, F.sos, F.share, F.guarantee];
 export default topicPage({
   slug: 'night-driving-durban.html',
   title: 'Driving at night in Durban',
+  headTitle: 'Driving at night in Durban: lower-risk routes · Tsamaya',
   description: `How Tsamaya handles night driving in Durban: three sets of ratings by hour, ${fmt(m.byTime.night.red)} high-risk rated areas at night against ${fmt(m.byTime.day.red)} by day, after-dark warnings and lower-risk routes.`,
   meta: 'KwaZulu-Natal · after dark',
   h1: 'Driving at night in Durban.',
