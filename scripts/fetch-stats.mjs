@@ -78,6 +78,7 @@ const METROS = [
   { key: 'pietermaritzburg', name: 'Pietermaritzburg', slug: 'pietermaritzburg' },
   { key: 'polokwane', name: 'Polokwane', slug: 'polokwane' },
   { key: 'east_london', name: 'East London', slug: 'east-london' },
+  { key: 'george', name: 'George', slug: 'george' },
 ];
 
 const BANDS = ['red', 'orange', 'yellow', 'none'];

@@ -479,6 +479,31 @@ export const metros = [
       },
     ],
   },
+  {
+    key: 'george',
+    slug: 'george',
+    name: 'George',
+    region: 'Western Cape',
+    blurb:
+      'Driving routes around George, covering the N2 from the Maalgate River to Wilderness, the Outeniqua Pass, the R102 past the airport and the R404 to Herold\'s Bay.',
+    intro:
+      'George was added in November 2026, the second Garden Route town after Mossel Bay. Coverage is the George municipality south of the Outeniqua mountains: the town centre and its suburbs, Blanco, Pacaltsdorp, Thembalethu, Conville and Rosedale, the airport, Herold\'s Bay, Victoria Bay and Wilderness. Every area and main road is rated against SAPS figures for the police stations that serve it and against local news reports, and checked a second time.',
+    context: [
+      'The N2 through George and the Outeniqua Pass are checked roads with no risk penalty, so a trip along the Garden Route or over the mountain can stay on them.',
+      'The R102 past the airport, the R404 to Herold\'s Bay and town roads such as York Street, Knysna Street, Courtenay Street and Montagu Street are marked for caution, mostly for theft from parked cars and grab-and-go theft at traffic lights. The route card names any rated stretch a route uses.',
+      'The Montagu Pass has been closed since 2023 for flood repairs and is marked as closed, so routes over the mountains use the Outeniqua Pass until it reopens.',
+    ],
+    faqs: [
+      {
+        q: 'Does Tsamaya cover Wilderness and Victoria Bay?',
+        a: 'Yes. Wilderness, Hoekwil, Victoria Bay and Herold\'s Bay are inside the mapped area, as are Pacaltsdorp and Thembalethu.',
+      },
+      {
+        q: 'Is the drive on to Knysna or Plettenberg Bay covered?',
+        a: 'The George end is. The N2 east of Wilderness runs outside the mapped area, so there the app navigates as normal, without risk data.',
+      },
+    ],
+  },
 ];
 
 // Look up the editorial entry for a metro key from stats.json.

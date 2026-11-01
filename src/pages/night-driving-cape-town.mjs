@@ -36,9 +36,9 @@ export default topicPage({
   description: `How Tsamaya handles night driving in Cape Town: three sets of ratings by hour, ${fmt(m.byTime.night.red)} high-risk rated areas at night against ${fmt(m.byTime.day.red)} by day, after-dark warnings and lower-risk routes.`,
   meta: 'Western Cape · after dark',
   h1: 'Driving at night in Cape Town.',
-  lead: 'Cape Town, Stellenbosch and Mossel Bay are rated differently by hour. Here is what changes after dark, what Tsamaya does about it, and what it cannot do.',
+  lead: 'Cape Town, Stellenbosch, Mossel Bay and George are rated differently by hour. Here is what changes after dark, what Tsamaya does about it, and what it cannot do.',
   sections: [why, doesSec, stepsSec, allMetrosNight],
   faqs,
-  links: [['Cape Town', 'cape-town.html'], ['Stellenbosch', 'stellenbosch.html'], ['Mossel Bay', 'mossel-bay.html'], ...NIGHT_PAGES.filter(([, h]) => h !== 'night-driving-cape-town.html'), ['Live trip sharing', 'live-trip-sharing.html']],
+  links: [['Cape Town', 'cape-town.html'], ['Stellenbosch', 'stellenbosch.html'], ['Mossel Bay', 'mossel-bay.html'], ['George', 'george.html'], ...NIGHT_PAGES.filter(([, h]) => h !== 'night-driving-cape-town.html'), ['Live trip sharing', 'live-trip-sharing.html']],
   ctaTitle: 'Check the hour before you leave.',
 });

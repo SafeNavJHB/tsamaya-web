@@ -127,7 +127,7 @@ const faqs = [
   },
   {
     q: 'Does it cover the Kruger National Park and the Garden Route?',
-    a: 'The Kruger National Park area is covered, with Mbombela and the Lowveld towns around the gates. On the Garden Route, Mossel Bay has ratings; the towns further east do not yet. Pilanesberg, Cape Town and Stellenbosch are covered too.',
+    a: 'The Kruger National Park area is covered, with Mbombela and the Lowveld towns around the gates. On the Garden Route, Mossel Bay and George have ratings; the towns further east do not yet. Pilanesberg, Cape Town and Stellenbosch are covered too.',
   },
   {
     q: 'Is Tsamaya an emergency response app?',
