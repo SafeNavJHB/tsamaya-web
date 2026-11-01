@@ -15,6 +15,36 @@
   ],
   "releases": [
     {
+      "version": "2026-11-01.84",
+      "date": "1 November 2026",
+      "items": [
+        {
+          "icon": "time-outline",
+          "title": "Routes now plan with live traffic",
+          "body": "Fastest is now the quickest road right now, with its risk shown as always. Each route also shows how much slower than usual it is running.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-01.83",
+      "date": "1 November 2026",
+      "items": [
+        {
+          "icon": "document-text-outline",
+          "title": "Terms of Use and Privacy Policy reviewed by our attorneys",
+          "body": "Both documents, and our PAIA Manual, were reviewed by ZS Attorneys. The clauses that limit our liability or place obligations on you are now shaded, and you are asked to acknowledge the Terms once more. Nothing we collect has changed.",
+          "category": "tweak"
+        },
+        {
+          "icon": "card-outline",
+          "title": "Premium: clearer purchase and annual renewal",
+          "body": "The purchase screen now says that Premium starts at once, so the seven-day cooling-off period does not apply. An annual plan gets a reminder 40 to 80 working days before it renews, with the choice to renew for a year, switch to monthly or manage it in the store.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-31.82",
       "date": "31 October 2026",
       "items": [
