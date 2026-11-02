@@ -15,6 +15,36 @@
   ],
   "releases": [
     {
+      "version": "2026-11-02.86",
+      "date": "2 November 2026",
+      "items": [
+        {
+          "icon": "car-outline",
+          "title": "CarPlay buttons stay hidden while you drive",
+          "body": "The Search, Settings and End route buttons on CarPlay no longer pop up on their own every half a minute. Tap the map to show them, as before.",
+          "category": "fix"
+        },
+        {
+          "icon": "time-outline",
+          "title": "Traffic shows along your route",
+          "body": "Moderate traffic now shows as a plum edge along your route line, as it does on every other road, instead of disappearing under the route.",
+          "category": "fix"
+        },
+        {
+          "icon": "map-outline",
+          "title": "The right colour and name at the end of a drive",
+          "body": "Where one road becomes another under the same route number, such as Glenhove Road into Bolton Road on the M20, the route line and the road label no longer keep the previous road's colour for the last few hundred metres, and the label names the road you are on.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-outline",
+          "title": "Road label fits the CarPlay dashboard",
+          "body": "On the CarPlay dashboard, a long road name and its rating now stay inside the map tile instead of running off its edges.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-11-01.85",
       "date": "1 November 2026",
       "items": [
