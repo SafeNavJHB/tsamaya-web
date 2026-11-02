@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-11-02.87",
+      "date": "2 November 2026",
+      "items": [
+        {
+          "icon": "warning-outline",
+          "title": "Rated stretches on the open road",
+          "body": "The N1, N2, N3, N4 and N12 between the cities now carry rated stretches where there is evidence of crime against motorists: the N3 between the De Hoek and Wilge plazas (red after dark), the N1 past Hammanskraal, Bela-Bela, Ventersburg, Winburg, De Doorns and Musina, the N2 at the Mandeni toll and Kokstad, the N4 between Brits and Bapong, and the N12 at Britstown. Each stretch is rated on its own evidence and checked twice, and your route list names it with the time of day you will reach it. The rest of the open road stays unrated: that is not a safety rating either way.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-11-02.86",
       "date": "2 November 2026",
       "items": [
