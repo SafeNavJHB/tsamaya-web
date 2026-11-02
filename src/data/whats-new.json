@@ -15,6 +15,36 @@
   ],
   "releases": [
     {
+      "version": "2026-11-02.89",
+      "date": "2 November 2026",
+      "items": [
+        {
+          "icon": "volume-high-outline",
+          "title": "The evening heads-up in the natural voice",
+          "body": "\"Heads up, evening is a higher-risk time\" is fetched before it is needed, so it is said in the natural voice on a car connect or a drive that starts after dark, not the iPhone voice.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "The CarPlay dashboard map appears sooner",
+          "body": "The dashboard mini map shows as soon as it draws its first frame, while the rest of the imagery is still loading, instead of waiting for every tile. It also starts loading while the main map is up, so it is ready when you switch to the dashboard.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-02.88",
+      "date": "2 November 2026",
+      "items": [
+        {
+          "icon": "rainy-outline",
+          "title": "The rain reminder is said once",
+          "body": "With CarPlay or Android Auto connected, \"Rain ahead\" is said once for the whole time the car is connected, not again when you start a route. On the phone alone it is said once a drive.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-11-02.87",
       "date": "2 November 2026",
       "items": [
