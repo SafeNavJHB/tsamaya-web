@@ -126,7 +126,7 @@ export const site = {
   stats: [
     { value: String(stats.totals.metros), label: 'metros mapped' },
     { value: fmt(stats.totals.zones), label: 'risk zones' },
-    { value: fmt(stats.totals.corridorsSafe), label: 'checked corridors' },
+    { value: fmt(stats.totals.corridorsSafe), label: 'checked road stretches' },
     { value: String(stats.totals.riskBands), label: 'risk bands by time of day' },
   ],
 

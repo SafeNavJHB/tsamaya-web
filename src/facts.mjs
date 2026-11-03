@@ -74,13 +74,13 @@ export const FEATURES = [
 // one competitor update away from false. Each line says what Tsamaya does, never
 // what another app lacks. Same sourcing rule as FEATURES: true of the app that
 // installs today.
-const road = fmt(stats.totals.corridors);
+const road = fmt(stats.totals.corridorsSafe + stats.totals.corridorsDanger);
 export const POSITIONING = 'Risk-aware navigation, proudly South African.';
 export const STANDOUT = [
   // segmentBands + scoreCandidateAcrossBands (src/services/routing.ts)
   ['Rated for the hour you drive', 'Every rated area has its own daytime, evening and night rating. A trip that starts at five and ends after dark is checked against the rating for the time you reach each part of it.'],
-  // corridors (stats.totals.corridors); safeCorridorCertifies, dangerRowClaims (geometry.ts)
-  ['Roads as well as areas', `${road} road stretches carry ratings of their own. A main road can count as the better way through a rated area, and a flagged road you only cross is not held against the route.`],
+  // rated roads = checked + flagged (stats.totals); closed roads carry no rating; safeCorridorCertifies, dangerRowClaims (geometry.ts)
+  ['Roads as well as areas', `${road} road stretches carry ratings of their own, checked or flagged. A main road can count as the better way through a rated area, and a flagged road you only cross is not held against the route.`],
   // getSafeRoute + withOrderedOptions; withinBudget (src/services/routing.ts)
   ['Three routes, graded', 'Fastest, Balanced and Lower-risk, each graded A to E, with what each one goes around. A detour that adds too much is dropped, and when there is no sensible way round, the app says so.'],
   // useNavSession drives the phone and the car (src/hooks/useNavSession.ts)
