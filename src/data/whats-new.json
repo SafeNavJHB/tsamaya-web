@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-11-03.94",
+      "date": "3 November 2026",
+      "items": [
+        {
+          "icon": "time-outline",
+          "title": "Arrival times that learn your commute",
+          "body": "Live traffic often underestimates a regular jam, like the crawl into a business district at peak. After three drives from the same start to one of your saved places at about the same time of day, the arrival time includes how much longer those drives usually took, and where along the road. The route card says so (\"Usually +12 min at this time\"). It only ever adds time. What it learns is kept on your phone, never sent to us, and Delete trip history clears it.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-11-03.93",
       "date": "3 November 2026",
       "items": [
