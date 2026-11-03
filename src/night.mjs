@@ -76,11 +76,11 @@ for (const t of ['day', 'evening', 'night']) all[t] = all.rows.reduce((n, m) => 
 /** Every metro, so a driver anywhere in the coverage sees that night ratings apply there too. */
 export const allMetrosNight = sec({
   id: 'all-metros',
-  kick: 'Every metro',
-  title: `Night ratings in all ${stats.totals.metros} metros`,
-  lead: `This is not only for Gauteng, Cape Town and Durban. Every area in every metro Tsamaya covers has its own daytime, evening and night rating, and the app uses the one for the hour you drive. Each metro's page has its full figures.`,
-  inner: `${nightTable('High-risk rated areas by time of day in every metro', all, 'All metros')}
-    ${prose(`<p>Across all ${stats.totals.metros} metros, ${fmt(all.night)} of ${fmt(all.total)} rated areas are high risk at night, against ${fmt(all.day)} in the day. These are counts of rated areas, not a forecast of what will happen on a given night.</p>`)}`,
+  kick: 'Every place',
+  title: `Night ratings in all ${stats.totals.metros} places`,
+  lead: `This is not only for Gauteng, Cape Town and Durban. Every area in every place Tsamaya covers has its own daytime, evening and night rating, and the app uses the one for the hour you drive. Each place's page has its full figures.`,
+  inner: `${nightTable('High-risk rated areas by time of day in every place', all, 'All places')}
+    ${prose(`<p>Across all ${stats.totals.metros} places, ${fmt(all.night)} of ${fmt(all.total)} rated areas are high risk at night, against ${fmt(all.day)} in the day. These are counts of rated areas, not a forecast of what will happen on a given night.</p>`)}`,
 });
 
 /** The three night pages, for each page's related links. */

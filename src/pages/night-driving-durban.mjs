@@ -18,7 +18,7 @@ const why = sec({
   kick: 'Why night is different',
   title: 'The same roads carry different ratings after dark',
   lead: BANDS_LEAD,
-  inner: `${nightTable('High-risk rated areas by time of day in the KwaZulu-Natal metros', r, 'Both')}
+  inner: `${nightTable('High-risk rated areas by time of day in KwaZulu-Natal', r, 'Both')}
     ${prose(`<p>In Durban, ${fmt(m.byTime.night.red)} of ${fmt(m.zones)} rated areas are high risk at night, against ${fmt(m.byTime.day.red)} in the day. These are counts of rated areas, not a forecast of what will happen on a given night.</p>`)}`,
 });
 

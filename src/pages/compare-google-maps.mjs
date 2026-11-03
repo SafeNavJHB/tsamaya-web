@@ -19,7 +19,7 @@ const built = sec({
   title: 'Time and distance, or risk as well',
   lead: 'Google Maps is a general-purpose map and navigator, built around time and distance. Tsamaya adds the risk of the road at the hour you drive.',
   inner: prose(
-    `<p>Tsamaya is a full turn-by-turn navigator with voice, on the phone and on Apple CarPlay. For each trip it fetches the quickest route, tests it against the rated areas in ${nMetros} metros for the hour you are driving, and, if the route passes high-risk areas, looks for a way round that does not cost too much. It shows the options side by side with A to E grades. This page describes Tsamaya and the kind of app Google Maps is; for what Google Maps offers today, its own site is the source.</p>`,
+    `<p>Tsamaya is a full turn-by-turn navigator with voice, on the phone and on Apple CarPlay. For each trip it fetches the quickest route, tests it against the rated areas in ${nMetros} places for the hour you are driving, and, if the route passes high-risk areas, looks for a way round that does not cost too much. It shows the options side by side with A to E grades. This page describes Tsamaya and the kind of app Google Maps is; for what Google Maps offers today, its own site is the source.</p>`,
   ),
 });
 
@@ -49,7 +49,7 @@ const together = sec({
     ul([
       'Tsamaya can hand a route to Google Maps with up to eight points along the lower-risk route, so the same road is followed there.',
       'Locations shared to Tsamaya from other apps open in it, including Google Maps links.',
-      'Outside the rated metros, Tsamaya is an ordinary map and navigator with no risk data.',
+      'Outside the rated places, Tsamaya is an ordinary map and navigator with no risk data.',
     ]),
     `<p>The primary action in Tsamaya is its own turn-by-turn navigation. The handoff is a fallback. Lower risk is not no risk.</p>`,
   ),

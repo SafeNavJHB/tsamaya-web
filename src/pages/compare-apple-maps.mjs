@@ -23,7 +23,7 @@ const built = sec({
   title: 'The map on every iPhone, or risk as well',
   lead: 'Apple Maps is the general-purpose map and navigator built into the iPhone, built around time and distance. Tsamaya adds the risk of the road at the hour you drive.',
   inner: prose(
-    `<p>Tsamaya is a full turn-by-turn navigator with voice, on the iPhone and on Apple CarPlay, and on Android and Android Auto as well. For each trip it fetches the quickest route, tests it against the rated areas in ${nMetros} South African metros for the hour you are driving, and, if the route passes high-risk areas, looks for a way round that does not cost too much. It shows the options side by side with A to E grades. This page describes Tsamaya and the kind of app Apple Maps is; for what Apple Maps offers today, Apple's own site is the source.</p>`,
+    `<p>Tsamaya is a full turn-by-turn navigator with voice, on the iPhone and on Apple CarPlay, and on Android and Android Auto as well. For each trip it fetches the quickest route, tests it against the rated areas in ${nMetros} places in South Africa for the hour you are driving, and, if the route passes high-risk areas, looks for a way round that does not cost too much. It shows the options side by side with A to E grades. This page describes Tsamaya and the kind of app Apple Maps is; for what Apple Maps offers today, Apple's own site is the source.</p>`,
   ),
 });
 
@@ -53,7 +53,7 @@ const together = sec({
     ul([
       'Share a place from Apple Maps to Tsamaya and it opens there, ready to plan the trip.',
       'On Apple CarPlay, Tsamaya shows its own map with the route options and their grades, the coloured risk border, and its alerts.',
-      'Outside the rated metros, Tsamaya is an ordinary map and navigator with no risk data, so for a trip with no rated ground either app will do.',
+      'Outside the rated places, Tsamaya is an ordinary map and navigator with no risk data, so for a trip with no rated ground either app will do.',
     ]),
     `<p>Lower risk is not no risk. Tsamaya cuts your exposure to areas with a history of vehicle crime; it cannot make a drive safe.</p>`,
   ),

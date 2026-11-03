@@ -53,7 +53,7 @@ const arrow = '<svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true
 function hudStrip() {
   return `  <div class="wrap hud-strip" aria-label="Live status">
     <span class="hud hud-live" data-sa-clock>South African time</span>
-    <span class="hud">${stats.totals.metros} metros \u00b7 ${fmt(stats.totals.zones)} rated areas \u00b7 3 time bands</span>
+    <span class="hud">${stats.totals.metros} places \u00b7 ${fmt(stats.totals.zones)} rated areas \u00b7 3 time bands</span>
   </div>
 `;
 }
@@ -178,10 +178,10 @@ function pageHtml(page) {
   <meta property="og:image:type" content="image/png"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
-  <meta property="og:image:alt" content="Tsamaya: lower-risk driving routes for South African metros"/>
+  <meta property="og:image:alt" content="Tsamaya: lower-risk driving routes for South African drivers"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:image" content="${ogImage}"/>
-  <meta name="twitter:image:alt" content="Tsamaya: lower-risk driving routes for South African metros"/>
+  <meta name="twitter:image:alt" content="Tsamaya: lower-risk driving routes for South African drivers"/>
   <link rel="icon" type="image/png" sizes="48x48" href="img/favicon.png"/>
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg"/>
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png"/>

@@ -64,7 +64,7 @@ export const FEATURES = [
   ['Speed', 'A speed limit readout and a gentle over-speed chime.'],
   // ReportSheet.tsx
   ['Report a corner', 'Tell us where we got it wrong, from inside the app.'],
-  ['Outside the metros', 'An ordinary map and navigator. It just has no risk data there.'],
+  ['Outside the rated places', 'An ordinary map and navigator. It just has no risk data there.'],
 ];
 
 // WHAT SETS IT APART (Kyle, 2026-10-28: "it needs to stand out"). Read by the

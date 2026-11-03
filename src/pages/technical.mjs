@@ -44,7 +44,7 @@ const pipeline = `
 
 const numbers = `
     <div class="cov-stats" data-reveal>
-      <div><b class="num">${stats.totals.metros}</b><span class="hud">Metros mapped</span></div>
+      <div><b class="num">${stats.totals.metros}</b><span class="hud">Places mapped</span></div>
       <div><b class="num">${fmt(stats.totals.zones)}</b><span class="hud">Rated areas</span></div>
       <div><b class="num">${fmt(stats.totals.corridorsSafe)}</b><span class="hud">Checked road stretches</span></div>
       <div><b class="num">${stats.totals.riskBands}</b><span class="hud">Time bands</span></div>
@@ -82,8 +82,8 @@ export default {
       id: 'coverage',
       kick: 'Coverage',
       title: 'Where Tsamaya works today',
-      lead: `Live across ${site.coverageLive}. Adding a city follows a documented runbook, which is how the map went from one metro to ${stats.totals.metros}.`,
-      inner: `${numbers}\n    <p class="more" data-reveal>${linkQ('Coverage by metro', 'coverage.html')}</p>`,
+      lead: `Live across ${site.coverageLive}. Adding a city follows a documented runbook, which is how the map went from one city to ${stats.totals.metros} places.`,
+      inner: `${numbers}\n    <p class="more" data-reveal>${linkQ('Coverage by place', 'coverage.html')}</p>`,
     }),
     sec({
       id: 'more',

@@ -33,7 +33,7 @@ const form = `
 
 const ROWS = [
   ['Email', `<a href="mailto:${site.contactEmail}">${site.contactEmail}</a>`, 'We usually reply within a day or two. Every message reaches a real person.'],
-  ['Based in', 'Johannesburg, South Africa', 'Built for South African metros.'],
+  ['Based in', 'Johannesburg, South Africa', 'Built for South African roads.'],
   ['Here for the app?', 'Installing Tsamaya has its own page, for iPhone and Android.', linkQ('Get the app', 'get-app.html')],
   ['A corner we got wrong?', 'Local knowledge makes the map better: a road we flag that is fine these days, or one we have missed.', linkQ('Report it by email', `mailto:${site.contactEmail}?subject=${encodeURIComponent('A corner you got wrong')}`)],
 ];

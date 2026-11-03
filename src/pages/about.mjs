@@ -51,7 +51,7 @@ const founder = sec({
     <div class="about-f">
       <div data-reveal>
         <p class="lead">Tsamaya is built and maintained by Kyle Kimble, a Johannesburg chartered accountant who taught himself to ship a mobile app because the problem would not leave him alone.</p>
-        <p>It is not backed by a big company or a marketing budget. Every metro on the map came out of one person's nights and weekends, and it carries no ads and sells nothing about you.</p>
+        <p>It is not backed by a big company or a marketing budget. Every place on the map came out of one person's nights and weekends, and it carries no ads and sells nothing about you.</p>
         <p class="more">${linkQ('Support the project', 'sponsor.html')}${linkQ('Say hello', 'contact.html')}</p>
       </div>
       <figure class="quote" data-reveal>

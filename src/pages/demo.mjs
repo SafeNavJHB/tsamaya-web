@@ -112,7 +112,7 @@ const honest = sec({
   kick: 'An honest note',
   title: 'Every screen here is the real app.',
   lead: `Captured on ${card.captured} from a release build on an iPhone simulator, against the live database: real map tiles, real ratings, real search and real routing. They are daytime captures, with the risk overlay switched off where it would have coloured the streets where people live. Routes weigh known risk. They are not a guarantee of safety, so stay aware on the road regardless.`,
-  inner: `<p class="more" data-reveal>${linkQ('How the routing decides', 'how-it-works.html')}${linkQ('Coverage by metro', 'coverage.html')}</p>`,
+  inner: `<p class="more" data-reveal>${linkQ('How the routing decides', 'how-it-works.html')}${linkQ('Coverage by place', 'coverage.html')}</p>`,
 });
 
 export default {

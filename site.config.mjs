@@ -124,8 +124,8 @@ export const site = {
   // Headline figures, derived from the live database — never hand-typed.
   // Refresh with `npm run stats`, then commit src/data/stats.json.
   stats: [
-    { value: String(stats.totals.metros), label: 'metros mapped' },
-    { value: fmt(stats.totals.zones), label: 'risk zones' },
+    { value: String(stats.totals.metros), label: 'places mapped' },
+    { value: fmt(stats.totals.zones), label: 'rated areas' },
     { value: fmt(stats.totals.corridorsSafe), label: 'checked road stretches' },
     { value: String(stats.totals.riskBands), label: 'risk bands by time of day' },
   ],

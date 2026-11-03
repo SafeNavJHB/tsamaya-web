@@ -167,7 +167,7 @@ function metroPage({ content, data }) {
   const elsewhere = sec({
     id: 'elsewhere',
     kick: 'Elsewhere',
-    title: `The other ${others.length} metros`,
+    title: `The other ${others.length} places`,
     inner: `
     <ul class="mlist" data-reveal>
       ${others.map(({ content: c, data: d }) => `<li><a href="${c.slug}.html"><span>${c.name}</span><span class="num">${fmt(d.zones)}<span class="sr"> rated areas</span></span></a></li>`).join('\n      ')}
@@ -192,7 +192,7 @@ function metroPage({ content, data }) {
     ],
     body: [
       pageHead({
-        crumb: { href: 'coverage.html', label: `All ${nMetros} metros` },
+        crumb: { href: 'coverage.html', label: `All ${nMetros} places` },
         meta: `${content.region}${M}${fmt(z)} rated areas`,
         title: `<span class="ph-pre">Lower-risk driving routes in</span> ${name}`,
         lead: content.intro,
@@ -203,7 +203,7 @@ function metroPage({ content, data }) {
       faqSec({ id: 'faq', title: `${name}, asked`, faqs: content.faqs }),
       getSec({ title: `Drive ${name} with it tonight.` }),
       elsewhere,
-      `<p class="wrap back">${linkQ(`Back to all ${nMetros} metros`, 'coverage.html')}${linkQ('Driving at night', NIGHT_FOR[content.region] || 'night-driving-gauteng.html')}</p>`,
+      `<p class="wrap back">${linkQ(`Back to all ${nMetros} places`, 'coverage.html')}${linkQ('Driving at night', NIGHT_FOR[content.region] || 'night-driving-gauteng.html')}</p>`,
     ].join('\n'),
   };
 }
@@ -272,7 +272,7 @@ const coverageFaqs = [
   },
   {
     q: 'Which metro is next?',
-    a: 'New metros are added as time and money allow, since each one means fetching map data, scoring it against crime statistics, and running a review pass before anything goes live. Anything people chip in speeds that up.',
+    a: 'New places are added as time and money allow, since each one means fetching map data, scoring it against crime statistics, and running a review pass before anything goes live. Anything people chip in speeds that up.',
   },
 ];
 
@@ -288,8 +288,8 @@ const coverageTail = sec({
 const coveragePage = {
   slug: 'coverage.html',
   title: 'Coverage',
-  headTitle: `Tsamaya coverage: rated areas in ${stats.totals.metros} South African metros`,
-  description: `Tsamaya rates ${fmt(stats.totals.zones)} areas across ${stats.totals.metros} South African metros: Johannesburg, Cape Town, Durban, Pietermaritzburg, Gqeberha, East London, Port Alfred, Mthatha, Pretoria, Ekurhuleni, the West Rand, Stellenbosch, Rustenburg, Pilanesberg, Mossel Bay, George, Beaufort West, Secunda, eMalahleni and Middelburg, Bloemfontein, Polokwane and the Kruger National Park area.`,
+  headTitle: `Tsamaya coverage: rated areas in ${stats.totals.metros} places in South Africa`,
+  description: `Tsamaya rates ${fmt(stats.totals.zones)} areas across ${stats.totals.metros} places in South Africa: Johannesburg, Cape Town, Durban, Pietermaritzburg, Gqeberha, East London, Port Alfred, Mthatha, Pretoria, Ekurhuleni, the West Rand, Stellenbosch, Rustenburg, Pilanesberg, Mossel Bay, George, Beaufort West, Secunda, eMalahleni and Middelburg, Bloemfontein, Polokwane and the Kruger National Park area.`,
   heroClass: 'sn page-coverage',
   jsonLd: [
     faqNode(coverageFaqs),

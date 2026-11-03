@@ -81,7 +81,7 @@ const hero = `
       <p class="hm-badge"><a href="why-tsamaya.html">Risk-aware navigation<span aria-hidden="true"> · </span><span class="sr">, </span>Proudly South African</a></p>
       <p class="hm-say">Tsamaya (say: ${site.pronunciation}) is Sesotho and Setswana for "go".</p>
       <h1 class="hm-h1" id="hero-h">Go where the trouble isn't.</h1>
-      <p class="hm-sub">A free navigation app that checks your route against ${zones} rated areas in ${nMetros} South African metros, at the hour you drive, and plans it around the high-risk ones.</p>
+      <p class="hm-sub">A free navigation app that checks your route against ${zones} rated areas in ${nMetros} places in South Africa, at the hour you drive, and plans it around the high-risk ones.</p>
       <div class="hm-cta">
         <a class="btn btn-primary btn-lg" href="${site.androidPlayLink}" rel="noopener" data-store="primary" data-android="${site.androidPlayLink}" data-ios="${site.testflightPublicLink}">Get it on Google Play ${ARROW}</a>
         <a class="hm-alt" href="${site.testflightPublicLink}" rel="noopener" data-store="other" data-android="${site.androidPlayLink}" data-ios="${site.testflightPublicLink}">On iPhone? Join on TestFlight</a>
@@ -102,7 +102,7 @@ const hero = `
         <a href="#where" id="metro-change">Change</a>
       </p>
       <p class="hm-pick" id="metro-pick-row" hidden>
-        <label for="metro-pick">Show the metro you drive in</label>
+        <label for="metro-pick">Show the place you drive in</label>
         <select id="metro-pick">
           <option value="">Johannesburg and Cape Town</option>
           ${metros.map((m) => `<option value="${m.key}">${text(m.name)}</option>`).join('')}
@@ -141,7 +141,7 @@ const where = `
 <section class="sec hm-where" id="where" aria-labelledby="where-h">
   <div class="wrap">
     <h2 class="h2" id="where-h">Does it cover where you drive?</h2>
-    <p class="lead">${nMetros} metros and ${zones} rated areas, each rated separately for daytime, evening and night. Everywhere else Tsamaya works as a normal map and navigator. Figures from the live database on ${statsAsOf}.</p>
+    <p class="lead">${nMetros} places and ${zones} rated areas, each rated separately for daytime, evening and night. Everywhere else Tsamaya works as a normal map and navigator. Figures from the live database on ${statsAsOf}.</p>
     <ul class="hm-metros">
       ${metros.map((m) => `<li><a href="${m.slug}.html"><span>${text(m.name)}</span><span class="hm-count">${fmt(m.zones)}</span></a></li>`).join('\n      ')}
     </ul>

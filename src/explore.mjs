@@ -40,19 +40,19 @@ export function exploreSection({ kick, canvas = false, h = 'h2', lede = '' }) {
   <div class="ex-in wrap">
     <div class="ex-head">
       <p class="kick hud">${kick}</p>
-      <${h} class="ch-h" id="ex-h" data-split>Explore the ${n} metros</${h}>
-      <p class="ch-p">${lede ? lede + ' ' : ''}<span class="ex-js">Point at a metro to light it up, or pick one to fly in.</span><span class="ex-nojs">Each metro has its own page, with its figures for every time band.</span></p>
+      <${h} class="ch-h" id="ex-h" data-split>Explore the ${n} places</${h}>
+      <p class="ch-p">${lede ? lede + ' ' : ''}<span class="ex-js">Point at a place to light it up, or pick one to fly in.</span><span class="ex-nojs">Each place has its own page, with its figures for every time band.</span></p>
       <div class="ex-bands ex-js" role="group" aria-label="Time band the rings show">${bands.map((b, i) => `<button class="exb hud" type="button" data-b="${i}" aria-pressed="false">${b.name}</button>`).join('')}</div>
       <p class="ex-cap hud ex-js">Pillar height shows how many rated areas a metro has. The ring shows how many are rated high risk in the band you pick. Nothing here is finer than a whole metro.</p>
     </div>
     <div class="ex-stage" id="ex-stage">
       <figure class="ex-map" aria-hidden="true"></figure>
       <button class="ex-back hud" type="button" id="ex-back" hidden><span aria-hidden="true">&larr;</span> Back to all ${n}</button>
-      <p class="ex-hint hud" id="ex-hint" aria-hidden="true">${metros.filter((m) => GAUTENG.includes(m.key)).length} of the ${n} metros are in Gauteng and surrounds</p>
+      <p class="ex-hint hud" id="ex-hint" aria-hidden="true">${metros.filter((m) => GAUTENG.includes(m.key)).length} of the ${n} places are in Gauteng and surrounds</p>
       <button class="ex-pause motion-toggle hud" type="button" aria-pressed="false" data-motion-toggle><span class="pi" aria-hidden="true"></span><span class="motion-label">Pause motion</span></button>
     </div>
     <div class="ex-body">
-      <ul class="ex-list" id="ex-list" aria-label="The ${n} metros" style="--rows:${Math.ceil(metros.length / 2)}">
+      <ul class="ex-list" id="ex-list" aria-label="The ${n} places" style="--rows:${Math.ceil(metros.length / 2)}">
           ${rows}
       </ul>
       <p class="sr" id="ex-live" aria-live="polite"></p>
