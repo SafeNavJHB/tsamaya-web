@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-11-03.93",
+      "date": "3 November 2026",
+      "items": [
+        {
+          "icon": "alert-circle-outline",
+          "title": "Crime spot alerts only for spots on your route",
+          "body": "A crime hotspot is announced only when it is ahead of you on the road your route takes. On a verified lower-risk road such as a freeway, a spot on an off-ramp you are not taking is no longer announced.",
+          "category": "fix"
+        },
+        {
+          "icon": "car-sport-outline",
+          "title": "The CarPlay map shows more of the road ahead",
+          "body": "The main CarPlay map sits as far out as the dashboard mini map, so it never shows less of the route ahead than the smaller map. It still zooms in as you reach a turn.",
+          "category": "fix"
+        },
+        {
+          "icon": "chatbubble-ellipses-outline",
+          "title": "Easier to add a comment after a drive",
+          "body": "Return on the keyboard now hides it so you can reach Submit. Tapping outside the card, or Skip, while you are typing hides the keyboard instead of closing the card.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-11-03.92",
       "date": "3 November 2026",
       "items": [
