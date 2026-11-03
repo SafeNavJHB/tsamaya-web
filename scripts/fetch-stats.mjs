@@ -79,6 +79,9 @@ const METROS = [
   { key: 'polokwane', name: 'Polokwane', slug: 'polokwane' },
   { key: 'east_london', name: 'East London', slug: 'east-london' },
   { key: 'george', name: 'George', slug: 'george' },
+  { key: 'port_alfred', name: 'Port Alfred', slug: 'port-alfred' },
+  { key: 'mthatha', name: 'Mthatha', slug: 'mthatha' },
+  { key: 'beaufort_west', name: 'Beaufort West', slug: 'beaufort-west' },
 ];
 
 const BANDS = ['red', 'orange', 'yellow', 'none'];

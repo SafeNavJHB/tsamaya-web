@@ -504,6 +504,79 @@ export const metros = [
       },
     ],
   },
+  {
+    key: 'port_alfred',
+    slug: 'port-alfred',
+    name: 'Port Alfred',
+    region: 'Eastern Cape',
+    blurb:
+      'Driving routes around Port Alfred and the Sunshine Coast, covering the R72 coast road from Alexandria to Kleinemonde, the R67 to Bathurst and the R343 to Salem.',
+    intro:
+      'Port Alfred was added in November 2026 as one of the festive-season towns. Coverage is the Ndlambe municipality: Port Alfred and East Bank, Bathurst, Kenton-on-Sea, Bushmans River, Alexandria and the seaside villages from Cannon Rocks and Boknes to Kasouga and Kleinemonde. Every area and main road is rated against SAPS figures for the police stations that serve it and against local news reports, and checked a second time.',
+    context: [
+      'The R72 coast road, the R67 to Bathurst and the R343 to Salem are marked for caution, mostly for theft from parked cars. The route card names any rated stretch a route uses.',
+      'Crime against motorists is low on this coast: the police stations in the area recorded two carjackings in the year to June 2026.',
+    ],
+    faqs: [
+      {
+        q: 'Does Tsamaya cover Kenton-on-Sea and Bushmans River?',
+        a: 'Yes. Kenton-on-Sea, Bushmans River, Cannon Rocks, Boknes, Kasouga and Kleinemonde are inside the mapped area, as are Bathurst and Alexandria.',
+      },
+      {
+        q: 'Is the drive to East London or Gqeberha covered?',
+        a: 'The Port Alfred end of the R72 is, and so is the East London or Gqeberha end. The open road between them runs outside the mapped areas, so there the app navigates as normal, without risk data.',
+      },
+    ],
+  },
+  {
+    key: 'mthatha',
+    slug: 'mthatha',
+    name: 'Mthatha',
+    region: 'Eastern Cape',
+    blurb:
+      'Driving routes around Mthatha and the Wild Coast, covering the N2 through town, the R61 and the roads to Coffee Bay and Hole in the Wall.',
+    intro:
+      'Mthatha was added in November 2026 as one of the festive-season towns. Coverage is the King Sabata Dalindyebo municipality: Mthatha and its suburbs, the airport, Mqanduli and the villages, and the Wild Coast at Coffee Bay and Hole in the Wall. Every area and main road is rated against SAPS figures for the police stations that serve it and against local news reports, and checked a second time.',
+    context: [
+      'The N2 outside the town centre is a checked road with no risk penalty, so a trip along it can stay on it.',
+      'The N2 and Nelson Mandela Drive through town, the R61 and the road to Coffee Bay and Hole in the Wall are marked for caution. The streets of the town centre around Sutherland Street are rated higher, mostly for robbery around the shops and taxi ranks. The route card names any rated stretch a route uses.',
+      'Some of the drive to the coast runs past villages that are rated higher after dark, so a daytime drive to Coffee Bay or Hole in the Wall scores better than an evening one.',
+    ],
+    faqs: [
+      {
+        q: 'Does Tsamaya cover Coffee Bay and Hole in the Wall?',
+        a: 'Yes. Coffee Bay, Hole in the Wall and the road to them from Mthatha through Mqanduli are inside the mapped area.',
+      },
+      {
+        q: 'Is the drive to Port St Johns covered?',
+        a: 'The Mthatha end is. Beyond the municipality the R61 carries Tsamaya\'s regional route rating, which rates the open road by the police precincts it crosses.',
+      },
+    ],
+  },
+  {
+    key: 'beaufort_west',
+    slug: 'beaufort-west',
+    name: 'Beaufort West',
+    region: 'Western Cape',
+    blurb:
+      'Driving routes through Beaufort West, covering Donkin Street and the N1 through town, the N12 and the roads out to Aberdeen and Loxton.',
+    intro:
+      'Beaufort West was added in November 2026 as one of the festive-season towns, the main stop on the N1 between Johannesburg and Cape Town. Coverage is the town and about 15 km round it, with the Karoo National Park. Every area and main road is rated against SAPS figures for the town\'s police station and against local news reports, and checked a second time.',
+    context: [
+      'The N1 and N12 on the way into town are checked roads with no risk penalty.',
+      'Donkin Street, the N1 through town with its fuel stops, is marked for caution, mostly for theft from parked cars, as are the R61 to Aberdeen and the R381 to Loxton near town. The route card names any rated stretch a route uses.',
+    ],
+    faqs: [
+      {
+        q: 'Is the rest of the N1 through the Karoo covered?',
+        a: 'Yes. The town has its own ratings, and the open N1 between the towns carries Tsamaya\'s national route rating, which rates the road by the police precincts it crosses.',
+      },
+      {
+        q: 'Is the Karoo National Park covered?',
+        a: 'Yes. The park and the road from the N1 to its gate are inside the mapped area.',
+      },
+    ],
+  },
 ];
 
 // Look up the editorial entry for a metro key from stats.json.

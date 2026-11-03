@@ -84,6 +84,7 @@ METROS = [
     "stellenbosch", "rustenburg", "pilanesberg", "mossel_bay", "durban", "gqeberha",
     "kruger", "bloemfontein", "emalahleni",
     "pietermaritzburg", "polokwane", "east_london", "george",
+    "port_alfred", "mthatha", "beaufort_west",
 ]
 
 PAGE = 500  # rows per request; zone geometry is large, so keep the pages small

@@ -289,7 +289,7 @@ const coveragePage = {
   slug: 'coverage.html',
   title: 'Coverage',
   headTitle: `Tsamaya coverage: rated areas in ${stats.totals.metros} South African metros`,
-  description: `Tsamaya rates ${fmt(stats.totals.zones)} areas across ${stats.totals.metros} South African metros: Johannesburg, Cape Town, Durban, Pietermaritzburg, Gqeberha, East London, Pretoria, Ekurhuleni, the West Rand, Stellenbosch, Rustenburg, Pilanesberg, Mossel Bay, George, Secunda, eMalahleni and Middelburg, Bloemfontein, Polokwane and the Kruger National Park area.`,
+  description: `Tsamaya rates ${fmt(stats.totals.zones)} areas across ${stats.totals.metros} South African metros: Johannesburg, Cape Town, Durban, Pietermaritzburg, Gqeberha, East London, Port Alfred, Mthatha, Pretoria, Ekurhuleni, the West Rand, Stellenbosch, Rustenburg, Pilanesberg, Mossel Bay, George, Beaufort West, Secunda, eMalahleni and Middelburg, Bloemfontein, Polokwane and the Kruger National Park area.`,
   heroClass: 'sn page-coverage',
   jsonLd: [
     faqNode(coverageFaqs),
