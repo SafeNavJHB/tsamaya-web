@@ -99,7 +99,7 @@ function metroPage({ content, data }) {
           <path class="mx-fill" fill-rule="evenodd" d="${o.d}"/>
           <path class="mx-line" d="${o.d}"/>${hs.length ? `
           <g class="mx-hs">
-            ${hs.map((h, i) => { const [x, y] = o.at(h.lng, h.lat); return `<g class="hs ${HS_KIND[h.type].cls}" data-h="${i}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle class="hs-halo" r="13"/><circle class="hs-dot" r="5.5"/><title>${HS_KIND[h.type].word}: ${esc(h.label)}</title></g>`; }).join('\n            ')}
+            ${hs.map((h, i) => { const [x, y] = o.at(h.lng, h.lat); return `<g class="hs ${HS_KIND[h.type].cls}" data-h="${i}" data-label="${esc(`${HS_KIND[h.type].word}: ${h.label}`)}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle class="hs-halo" r="13"/><circle class="hs-dot" r="5.5"/></g>`; }).join('\n            ')}
           </g>` : ''}
         </svg>${hs.length ? `
         <div class="mx-key" role="group" aria-label="Show on the map">
@@ -119,7 +119,7 @@ function metroPage({ content, data }) {
           <p class="tp-n num" id="mx-n">${fmt(red[night.key])}</p>
           <p class="tp-l" id="mx-l">${bandLabel(night)}</p>
           <div class="tp-bar" aria-hidden="true"><i style="transform:scaleX(${(red[night.key] / z).toFixed(3)})"></i></div>
-          <p class="tp-sc hud" aria-hidden="true"><span>0</span><span>${fmt(z)} rated areas</span></p>
+          <p class="tp-sc hud" aria-hidden="true"><span data-v="0"></span><span data-v="${fmt(z)} rated areas"></span></p>
         </div>
         <ul class="tp-all">
           ${BANDS.map((b) => `<li><span class="hud">${b.name}, ${b.from} to ${b.to}</span><b class="num">${fmt(red[b.key])}</b></li>`).join('\n          ')}
@@ -227,9 +227,9 @@ const coverageMapSection = exploreSection({
 
 const coverageGrid = sec({
   id: 'metros',
-  kick: 'Coverage by metro',
-  title: 'Pick a metro',
-  lead: `Each metro has its own page: its figures for every part of the day, what to know on its roads, and the questions people ask about it. Figures from the live database on ${statsAsOf}.`,
+  kick: 'Coverage by place',
+  title: 'Pick a place',
+  lead: `Each place has its own page: its figures for every part of the day, what to know on its roads, and the questions people ask about it. Figures from the live database on ${statsAsOf}.`,
   inner: `
     <ul class="mcards">
       ${joined.map(({ content, data }) => `<li data-reveal><a href="${content.slug}.html"><span class="hud">${content.region}${M}${fmt(data.zones)} rated areas</span><span class="mc-n">${content.name}</span><span class="mc-b">${content.blurb}</span><span class="mc-go" aria-hidden="true">View coverage</span></a></li>`).join('\n      ')}
@@ -237,12 +237,16 @@ const coverageGrid = sec({
 });
 
 const maxZ = Math.max(...joined.map((x) => x.data.zones)), half = Math.ceil(joined.length / 2);
+// The bar is drawn for the eye; its column carries the same fact as text (the
+// share of all rated areas), so a reader without CSS gets a value, not an empty
+// "Relative size" column.
+const pct = (z) => { const p = (100 * z) / stats.totals.zones; return `${p < 1 ? '&lt;1' : Math.round(p)}%`; };
 const covTable = (rows, part) => `
     <table class="cov-t">
-      <caption class="sr">Rated areas per metro, part ${part} of 2</caption>
-      <thead><tr><th scope="col">Metro</th><th scope="col" class="n">Areas</th><th scope="col" class="b"><span class="sr">Relative size</span></th></tr></thead>
+      <caption class="sr">Rated areas per place, part ${part} of 2</caption>
+      <thead><tr><th scope="col">Place</th><th scope="col" class="n">Areas</th><th scope="col" class="b"><span class="sr">Share of all rated areas</span></th></tr></thead>
       <tbody>
-        ${rows.map(({ content, data }) => `<tr><th scope="row"><a href="${content.slug}.html">${content.name}</a></th><td class="n">${fmt(data.zones)}</td><td class="b" aria-hidden="true"><i style="--w:${(data.zones / maxZ).toFixed(3)}"></i></td></tr>`).join('\n        ')}
+        ${rows.map(({ content, data }) => `<tr><th scope="row"><a href="${content.slug}.html">${content.name}</a></th><td class="n">${fmt(data.zones)}</td><td class="b"><span class="sr">${pct(data.zones)}</span><i aria-hidden="true" style="--w:${(data.zones / maxZ).toFixed(3)}"></i></td></tr>`).join('\n        ')}
       </tbody>
     </table>`;
 const bySize = [...joined].sort((a, b) => b.data.zones - a.data.zones);
@@ -250,8 +254,8 @@ const stell = stats.metros.find((m) => m.key === 'stellenbosch');
 const coverageChart = sec({
   id: 'counts',
   kick: 'The shape of the map',
-  title: 'Rated areas per metro',
-  lead: `Counts follow the size and density of each metro, not how thoroughly it has been covered.${stell ? ` Stellenbosch has ${fmt(stell.zones)} rated areas because it is a small town, not because it is half-finished.` : ''}`,
+  title: 'Rated areas per place',
+  lead: `Counts follow the size and density of each place, not how thoroughly it has been covered.${stell ? ` Stellenbosch has ${fmt(stell.zones)} rated areas because it is a small town, not because it is half-finished.` : ''}`,
   inner: `
     <div class="cov-tables" data-reveal>${covTable(bySize.slice(0, half), 1)}${covTable(bySize.slice(half), 2)}
     </div>`,
