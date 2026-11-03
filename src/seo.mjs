@@ -206,7 +206,7 @@ export function siteGraph(page, title, description) {
   // The app node belongs on pages that are actually about the product, not on
   // the sponsor or contact pages — repeating it everywhere dilutes rather than
   // reinforces, and gives crawlers conflicting signals about what each page is.
-  const APP_PAGES = new Set(['index.html', 'how-it-works.html', 'demo.html', 'technical.html', 'coverage.html', 'driving-in-south-africa.html', ...TOPIC_PAGES]);
+  const APP_PAGES = new Set(['index.html', 'get-app.html', 'how-it-works.html', 'demo.html', 'technical.html', 'coverage.html', 'driving-in-south-africa.html', ...TOPIC_PAGES]);
   if (APP_PAGES.has(page.slug)) graph.push(application());
 
   for (const node of page.jsonLd || []) if (node) graph.push(node);
