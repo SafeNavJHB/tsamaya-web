@@ -62,7 +62,7 @@ export const F = {
   },
   data: {
     q: 'Where does the risk data come from?',
-    a: 'Published South African crime statistics, scored against map data to work out where vehicle crime concentrates. An AI review gives a second opinion on the ratings, and a person sense-checks the results, looking closely at any that stand out. After that, drivers\' reports refine the map: a person reads each one before anything changes.',
+    a: 'Published South African crime statistics, scored against map data to work out where vehicle crime concentrates. An AI review gives a second opinion on the ratings, and a person sense-checks the results, looking closely at any that stand out. After that, drivers\' reports refine the map: a person reads each one before a rating changes.',
   },
   cities: {
     q: 'Which cities does it cover?',

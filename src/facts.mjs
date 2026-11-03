@@ -90,7 +90,7 @@ export const STANDOUT = [
   // SosSheet, liveTrips, Guardian (src/carplay/sosFlow.ts)
   ['Help if it goes wrong', 'An SOS button that calls 10111 or 112 or texts your emergency contact, and live trip links anyone can follow in a browser.'],
   // the pipeline's review stage and the report review queue
-  ['Checked by people', 'Ratings start from published SAPS crime statistics, get an AI second opinion and a person\'s sense-check. A person reads every driver report before the map changes.'],
+  ['Checked by people', 'Ratings start from published SAPS crime statistics, get an AI second opinion and a person\'s sense-check. A person reads every driver report on a road or area before its rating changes.'],
   // no account, no ads (privacy policy)
   ['Free, nothing to sign up for', 'No account and no ads, and nothing about you is sold. Routing around risk, SOS and trip sharing stay free.'],
 ];

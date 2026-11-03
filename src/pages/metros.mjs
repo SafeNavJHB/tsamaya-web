@@ -107,7 +107,7 @@ function metroPage({ content, data }) {
           ${nSg ? `<button class="mk sg hud" type="button" data-t="sg" aria-pressed="true"><i aria-hidden="true"></i>Smash-and-grab <b class="num">${nSg}</b></button>` : ''}
         </div>
         <p class="mx-tip hud" id="mx-tip" aria-live="polite" hidden></p>` : ''}
-        <figcaption class="hud">Rated ground in ${name}${hs.length ? `, with ${nHs}` : ''}. We never name suburbs as risky.</figcaption>
+        <figcaption class="hud">Rated ground in ${name}${hs.length ? `, with ${nHs}` : ''}. Tsamaya names roads, never neighbourhoods.</figcaption>
       </figure>` : '';
   const panel = `
       <div class="mx-panel">
@@ -124,7 +124,7 @@ function metroPage({ content, data }) {
         <ul class="tp-all">
           ${BANDS.map((b) => `<li><span class="hud">${b.name}, ${b.from} to ${b.to}</span><b class="num">${fmt(red[b.key])}</b></li>`).join('\n          ')}
         </ul>
-        <p class="fine">Of the ${fmt(z)} rated areas in ${name}, these are the ones in the top of the four bands for each part of the day. Every figure comes straight from the live database, read on ${statsAsOf}. The lowest band means an area was checked and carries no routing penalty, which is different from an area we have no data for. A rating describes an area's history of vehicle crime, not what is happening on a street right now: lower risk is not no risk.</p>
+        <p class="fine">Of the ${fmt(z)} rated areas in ${name}, these are the ones at the highest of the four risk levels, for each of the three times of day. Every figure comes straight from the live database, read on ${statsAsOf}. The lowest band means an area was checked and carries no routing penalty, which is different from an area we have no data for. A rating describes an area's history of vehicle crime, not what is happening on a street right now: lower risk is not no risk.</p>
       </div>`;
 
   const numbers = `

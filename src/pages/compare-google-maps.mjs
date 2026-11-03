@@ -30,7 +30,7 @@ const example = sec({
   lead: `A route card from the app, captured ${card.captured} in daytime traffic. No place names are recorded here on purpose.`,
   inner: `${table({
     label: 'A real route card',
-    head: ['', 'Standard route', 'Lower-risk route'],
+    head: ['On the card', 'Standard route', 'Lower-risk route'],
     rows: [
       ['Grade', s.grade, l.grade],
       ['Time', `${s.minutes} min`, `${l.minutes} min`],
@@ -38,7 +38,7 @@ const example = sec({
       ['Areas passed', `${s.highRisk} high-risk`, `${l.mediumRisk} medium-risk, for ${l.mediumRiskKm} km`],
     ],
   })}
-    ${prose(`<p>That morning the lower-risk route was ${l.extraKm} km further and ${l.minutesQuicker} minutes quicker, and the card put it at ${l.lessRiskPct}% less risk. It is one trip: another day, hour or trip will look different, and sometimes the lower-risk route is a few minutes slower. The card shows the times either way.</p>`)}`,
+    ${prose(`<p>That morning the lower-risk route was ${l.extraKm} km further and ${l.minutesQuicker} minutes quicker, and the card put it at ${l.lessRiskPct}% less risk. That figure is the app's own measure, where a kilometre through a high-risk area counts many times more than one through a medium-risk area, so ${s.highRiskKm} km past ${s.highRisk} high-risk areas against ${l.mediumRiskKm} km of medium risk comes out at ${l.lessRiskPct}%. The card works the distances out before rounding, which is why it says ${l.extraKm} km rather than the ${(l.km - s.km).toFixed(1)} the rounded figures suggest. It is one trip: another day, hour or trip will look different, and sometimes the lower-risk route is a few minutes slower. The card shows the times either way.</p>`)}`,
 });
 
 const together = sec({

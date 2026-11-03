@@ -17,7 +17,7 @@ const how = sec({
     ul([
       'Start a drive, tap share, and send the link by any messaging app.',
       'The person who opens it sees your route, where you are now, your arrival time, and a full-screen Arrived message when you get there. It works in any browser, in any country.',
-      'The link stops updating when you arrive and closes shortly after, so it cannot be used to follow you afterwards.',
+      'The link stops updating when you arrive and closes 30 minutes later, so it cannot be used to follow you afterwards. The position and route behind it are deleted from our server within 30 days after the link stops working.',
     ]),
   ),
 });
@@ -28,11 +28,11 @@ const kinds = sec({
   title: 'Trip link, SOS link and Guardian',
   inner: table({
     label: 'Ways to be followed',
-    head: ['', 'What it is', 'When it is sent'],
+    head: ['Link', 'What it is', 'When it is sent'],
     rows: [
       ['Trip link', 'A link for one drive that you send to anyone.', 'When you choose to share a trip.'],
       ['SOS link', 'The SOS button opens a text to your emergency contact, ready to send, with your location and a link that follows you live while you drive and stays up for 24 hours. The button also calls 10111 or 112.', 'When you press SOS and send the text yourself.'],
-      ['Guardian', 'One standing link for your emergency contact. Switching it on from the CarPlay screen lets them follow that drive: your route, live position and the moment you arrive. It lives in the car map\'s SOS menu.', 'When you switch it on from the car screen.'],
+      ['Guardian', 'One link that stays the same, shared once with your emergency contact. Switching Guardian on from the CarPlay screen lets them follow that drive: your route, live position and the moment you arrive. Between drives the link shows no trip. It lives in the car map\'s SOS menu.', 'When you switch it on from the car screen.'],
     ],
   }),
 });
@@ -56,7 +56,7 @@ const faqs = [F.share, F.sos, {
   a: 'No. The link opens in any browser on any phone or computer. They see your route, your live position, your arrival time and an Arrived screen.',
 }, {
   q: 'How long does a shared trip link last?',
-  a: 'A trip link updates while you drive, stops when you arrive or end the share, and closes shortly after. An SOS link follows you while you drive and stays up for 24 hours.',
+  a: 'A trip link updates while you drive, stops when you arrive or end the share, and closes 30 minutes after that. An SOS link follows you while you drive and stays up for 24 hours. What the link showed is deleted from our server within 30 days after it stops working.',
 }, F.privacy];
 
 export default topicPage({

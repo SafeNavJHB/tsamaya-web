@@ -34,7 +34,7 @@ const example = sec({
   lead: `A route card from the app, captured ${card.captured} in daytime traffic. No place names are recorded here on purpose.`,
   inner: `${table({
     label: 'A real route card',
-    head: ['', 'Standard route', 'Lower-risk route'],
+    head: ['On the card', 'Standard route', 'Lower-risk route'],
     rows: [
       ['Grade', s.grade, l.grade],
       ['Time', `${s.minutes} min`, `${l.minutes} min`],
