@@ -275,7 +275,6 @@ ${jumpBar(jump)}${page.hud === false ? '' : hudStrip()}
     </div>
     <div class="wrap footer-bottom">
       <p>© ${year} TSAMAYA (PTY) LTD. Built in Johannesburg. Routes consider risk. They are not a guarantee of safety.</p>
-      <p class="footer-admin"><a href="https://admin.tsamayaapp.co.za" rel="noopener nofollow" aria-label="Admin sign-in">Admin</a></p>
     </div>
   </footer>
 
