@@ -15,6 +15,42 @@
   ],
   "releases": [
     {
+      "version": "2026-11-03.92",
+      "date": "3 November 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Beaufort West is on the map",
+          "body": "Beaufort West is now covered: the town and its suburbs, Donkin Street and the N1 through town with its fuel stops, the N12 and the roads out to Aberdeen and Loxton, and the Karoo National Park. Every area and main road has been rated against SAPS data and local news and checked a second time.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-03.91",
+      "date": "3 November 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Mthatha is on the map",
+          "body": "Mthatha and the King Sabata Dalindyebo area are now covered: the town and its suburbs and townships, the airport, Mqanduli and the villages, and the Wild Coast at Coffee Bay and Hole in the Wall, with the N2 and the R61 through town. Every area and main road has been rated against SAPS data and local news and checked a second time.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-02.90",
+      "date": "2 November 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Port Alfred is on the map",
+          "body": "Port Alfred and the Sunshine Coast are now covered: the town, Nemato, East Bank, Bathurst, Kenton-on-Sea, Bushmans River, Alexandria and the seaside villages from Cannon Rocks to Kleinemonde, with the R72 coast road, the R67 to Bathurst and the R343 to Salem. Every area and main road has been rated against SAPS data and local news and checked a second time.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-11-02.89",
       "date": "2 November 2026",
       "items": [
