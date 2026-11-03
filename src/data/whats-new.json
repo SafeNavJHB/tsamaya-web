@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-11-03.96",
+      "date": "3 November 2026",
+      "items": [
+        {
+          "icon": "text-outline",
+          "title": "The road name keeps up with the road",
+          "body": "Where a road changes its name without a turn, the road name on the map could keep the first name for kilometres (Pretoria Street all the way along Glenhove and Bolton Roads), and the names written along your route line did the same. Both now change with the road. After you arrive and drive into an estate or a car park, the road name no longer shows the street outside.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-03.95",
+      "date": "3 November 2026",
+      "items": [
+        {
+          "icon": "cloud-download-outline",
+          "title": "Updates install quietly",
+          "body": "No more \"Update ready\" pop-ups. Tsamaya downloads its latest fixes in the background and switches to them by itself the next time it starts. To get an update straight away, use Settings > Help & About > Check for app updates.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-11-03.94",
       "date": "3 November 2026",
       "items": [
