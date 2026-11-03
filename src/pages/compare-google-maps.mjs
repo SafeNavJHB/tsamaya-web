@@ -19,7 +19,7 @@ const built = sec({
   title: 'Time and distance, or risk as well',
   lead: 'Google Maps is a general-purpose map and navigator, built around time and distance. Tsamaya adds the risk of the road at the hour you drive.',
   inner: prose(
-    `<p>Tsamaya is a full turn-by-turn navigator with voice, on the phone and on Apple CarPlay. For each trip it fetches the quickest route, tests it against the rated areas in ${nMetros} metros for the hour you are driving, and, if the route passes high-risk areas, looks for a way round that does not cost too much. It shows the options side by side with A to E grades. This page describes Tsamaya and the kind of app Google Maps is; for what Google Maps offers today, its own site is the source.</p>`,
+    `<p>Tsamaya is a full turn-by-turn navigator with voice, on the phone and on Apple CarPlay. For each trip it fetches the quickest route, tests it against the rated areas in ${nMetros} places for the hour you are driving, and, if the route passes high-risk areas, looks for a way round that does not cost too much. It shows the options side by side with A to E grades. This page describes Tsamaya and the kind of app Google Maps is; for what Google Maps offers today, its own site is the source.</p>`,
   ),
 });
 
@@ -30,7 +30,7 @@ const example = sec({
   lead: `A route card from the app, captured ${card.captured} in daytime traffic. No place names are recorded here on purpose.`,
   inner: `${table({
     label: 'A real route card',
-    head: ['', 'Standard route', 'Lower-risk route'],
+    head: ['On the card', 'Standard route', 'Lower-risk route'],
     rows: [
       ['Grade', s.grade, l.grade],
       ['Time', `${s.minutes} min`, `${l.minutes} min`],
@@ -38,7 +38,7 @@ const example = sec({
       ['Areas passed', `${s.highRisk} high-risk`, `${l.mediumRisk} medium-risk, for ${l.mediumRiskKm} km`],
     ],
   })}
-    ${prose(`<p>That morning the lower-risk route was ${l.extraKm} km further and ${l.minutesQuicker} minutes quicker, and the card put it at ${l.lessRiskPct}% less risk. It is one trip: another day, hour or trip will look different, and sometimes the lower-risk route is a few minutes slower. The card shows the times either way.</p>`)}`,
+    ${prose(`<p>That morning the lower-risk route was ${l.extraKm} km further and ${l.minutesQuicker} minutes quicker, and the card put it at ${l.lessRiskPct}% less risk. That figure is the app's own measure, where a kilometre through a high-risk area counts many times more than one through a medium-risk area, so ${s.highRiskKm} km past ${s.highRisk} high-risk areas against ${l.mediumRiskKm} km of medium risk comes out at ${l.lessRiskPct}%. The card works the distances out before rounding, which is why it says ${l.extraKm} km rather than the ${(l.km - s.km).toFixed(1)} the rounded figures suggest. It is one trip: another day, hour or trip will look different, and sometimes the lower-risk route is a few minutes slower. The card shows the times either way.</p>`)}`,
 });
 
 const together = sec({
@@ -49,7 +49,7 @@ const together = sec({
     ul([
       'Tsamaya can hand a route to Google Maps with up to eight points along the lower-risk route, so the same road is followed there.',
       'Locations shared to Tsamaya from other apps open in it, including Google Maps links.',
-      'Outside the rated metros, Tsamaya is an ordinary map and navigator with no risk data.',
+      'Outside the rated places, Tsamaya is an ordinary map and navigator with no risk data.',
     ]),
     `<p>The primary action in Tsamaya is its own turn-by-turn navigation. The handoff is a fallback. Lower risk is not no risk.</p>`,
   ),

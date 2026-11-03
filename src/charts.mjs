@@ -161,7 +161,7 @@ export function coverageBars(items) {
   <details class="chart-table">
     <summary>View as table</summary>
     <table>
-      <caption>Mapped risk zones per metro</caption>
+      <caption>Rated areas per place</caption>
       <thead><tr><th scope="col">Metro</th><th scope="col">Zones</th></tr></thead>
       <tbody>${rows}</tbody>
     </table>

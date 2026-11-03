@@ -21,7 +21,7 @@ import { pageHead, sec, faqSec, getSec, linkQ, M } from '../kit.mjs';
 const nMetros = stats.totals.metros;
 
 const DOES = [
-  ['Routes around risk', `Every trip is checked against the rated areas in the ${nMetros} metros we map and bent around the high-risk ones when a sensible detour exists. When none does, it says so and marks the risky stretches.`],
+  ['Routes around risk', `Every trip is checked against the rated areas in the ${nMetros} places we map and bent around the high-risk ones when a sensible detour exists. When none does, it says so and marks the risky stretches.`],
   ['Rated by the hour', 'Daytime, evening and night each carry their own ratings, and the route card warns you when a trip will land after dark.'],
   ['SOS', 'One button on the phone\'s drive screen calls 10111 or 112, or opens a text to your emergency contact, ready to send, with where you are and a live link. It stays on the phone during a CarPlay or Android Auto drive, and the car map has an SOS button whose menu holds Guardian.'],
   ['Family can follow', 'Send a trip link to anyone, anywhere. It opens in a browser, with no app to install: your route, where you are, your arrival time, then Arrived.'],
@@ -84,7 +84,7 @@ const where = sec({
 // kind of app they are.
 const ROWS = [
   ['Get from A to B', 'Turn-by-turn with voice, on the phone or Apple CarPlay. It can also hand its route to Google Maps with the detour points in place.', 'Any navigator: Google Maps, Waze, Apple Maps.'],
-  ['Keep away from high-risk areas', `Routes around rated areas, with separate ratings for day, evening and night, in ${nMetros} metros.`, 'Ask where you are staying which roads locals avoid.'],
+  ['Keep away from high-risk areas', `Routes around rated areas, with separate ratings for day, evening and night, in ${nMetros} places.`, 'Ask where you are staying which roads locals avoid.'],
   ['Get help in an emergency', 'The SOS button calls 10111 or 112, or opens a ready-to-send text to your emergency contact. It does not dispatch anyone itself.', 'A dedicated emergency app, such as the panic button your insurer, bank or security company offers.'],
   ['Let people know where you are', 'A live trip link that opens in any browser, with your arrival time and an Arrived screen.', 'Live location in WhatsApp.'],
 ];
@@ -111,7 +111,7 @@ const which = sec({
 const faqs = [
   {
     q: 'Can I use Tsamaya as a tourist in South Africa?',
-    a: `Yes. It is free, there is no account to create, and it works in any car, including a rental. Install it on Android from Google Play or on iPhone through TestFlight, add an emergency contact, and it is ready. It has ratings in ${nMetros} metros and works as an ordinary navigator everywhere else.`,
+    a: `Yes. It is free, there is no account to create, and it works in any car, including a rental. Install it on Android from Google Play or on iPhone through TestFlight, add an emergency contact, and it is ready. It has ratings in ${nMetros} places and works as an ordinary navigator everywhere else.`,
   },
   {
     q: 'Can my family at home follow my drive?',
@@ -138,7 +138,7 @@ const faqs = [
 export default {
   slug: 'driving-in-south-africa.html',
   title: 'Driving in South Africa as a visitor',
-  description: `A visitor's guide to driving in South Africa with Tsamaya: lower-risk routes in ${nMetros} metros, an SOS button, live trip sharing for family at home, offline maps.`,
+  description: `A visitor's guide to driving in South Africa with Tsamaya: lower-risk routes in ${nMetros} places, an SOS button, live trip sharing for family at home, offline maps.`,
   heroClass: 'sn page-visit',
   hud: false,
   jsonLd: [
@@ -150,7 +150,7 @@ export default {
   ],
   body: [
     pageHead({
-      meta: `For visitors${M}rental cars welcome${M}${nMetros} metros`,
+      meta: `For visitors${M}rental cars welcome${M}${nMetros} places`,
       title: 'Driving in South Africa? Take local knowledge with you.',
       lead: `Tsamaya is a free navigation app built in Johannesburg. It plans your route around areas with a history of vehicle crime, using ratings that change after dark, and it gives you an SOS button and a live trip link for the people back home.`,
       after: `\n    <p class="ph-links">${linkQ('Get the app', 'get-app.html')}${linkQ('How it works', 'how-it-works.html')}${linkQ('Driving from the airport', 'airports.html')}</p>`,

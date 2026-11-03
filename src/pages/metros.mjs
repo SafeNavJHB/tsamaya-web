@@ -99,7 +99,7 @@ function metroPage({ content, data }) {
           <path class="mx-fill" fill-rule="evenodd" d="${o.d}"/>
           <path class="mx-line" d="${o.d}"/>${hs.length ? `
           <g class="mx-hs">
-            ${hs.map((h, i) => { const [x, y] = o.at(h.lng, h.lat); return `<g class="hs ${HS_KIND[h.type].cls}" data-h="${i}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle class="hs-halo" r="13"/><circle class="hs-dot" r="5.5"/><title>${HS_KIND[h.type].word}: ${esc(h.label)}</title></g>`; }).join('\n            ')}
+            ${hs.map((h, i) => { const [x, y] = o.at(h.lng, h.lat); return `<g class="hs ${HS_KIND[h.type].cls}" data-h="${i}" data-label="${esc(`${HS_KIND[h.type].word}: ${h.label}`)}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle class="hs-halo" r="13"/><circle class="hs-dot" r="5.5"/></g>`; }).join('\n            ')}
           </g>` : ''}
         </svg>${hs.length ? `
         <div class="mx-key" role="group" aria-label="Show on the map">
@@ -107,7 +107,7 @@ function metroPage({ content, data }) {
           ${nSg ? `<button class="mk sg hud" type="button" data-t="sg" aria-pressed="true"><i aria-hidden="true"></i>Smash-and-grab <b class="num">${nSg}</b></button>` : ''}
         </div>
         <p class="mx-tip hud" id="mx-tip" aria-live="polite" hidden></p>` : ''}
-        <figcaption class="hud">Rated ground in ${name}${hs.length ? `, with ${nHs}` : ''}. We never name suburbs as risky.</figcaption>
+        <figcaption class="hud">Rated ground in ${name}${hs.length ? `, with ${nHs}` : ''}. Tsamaya names roads, never neighbourhoods.</figcaption>
       </figure>` : '';
   const panel = `
       <div class="mx-panel">
@@ -119,12 +119,12 @@ function metroPage({ content, data }) {
           <p class="tp-n num" id="mx-n">${fmt(red[night.key])}</p>
           <p class="tp-l" id="mx-l">${bandLabel(night)}</p>
           <div class="tp-bar" aria-hidden="true"><i style="transform:scaleX(${(red[night.key] / z).toFixed(3)})"></i></div>
-          <p class="tp-sc hud" aria-hidden="true"><span>0</span><span>${fmt(z)} rated areas</span></p>
+          <p class="tp-sc hud" aria-hidden="true"><span data-v="0"></span><span data-v="${fmt(z)} rated areas"></span></p>
         </div>
         <ul class="tp-all">
           ${BANDS.map((b) => `<li><span class="hud">${b.name}, ${b.from} to ${b.to}</span><b class="num">${fmt(red[b.key])}</b></li>`).join('\n          ')}
         </ul>
-        <p class="fine">Of the ${fmt(z)} rated areas in ${name}, these are the ones in the top of the four bands for each part of the day. Every figure comes straight from the live database, read on ${statsAsOf}. The lowest band means an area was checked and carries no routing penalty, which is different from an area we have no data for. A rating describes an area's history of vehicle crime, not what is happening on a street right now: lower risk is not no risk.</p>
+        <p class="fine">Of the ${fmt(z)} rated areas in ${name}, these are the ones at the highest of the four risk levels, for each of the three times of day. Every figure comes straight from the live database, read on ${statsAsOf}. The lowest band means an area was checked and carries no routing penalty, which is different from an area we have no data for. A rating describes an area's history of vehicle crime, not what is happening on a street right now: lower risk is not no risk.</p>
       </div>`;
 
   const numbers = `
@@ -167,7 +167,7 @@ function metroPage({ content, data }) {
   const elsewhere = sec({
     id: 'elsewhere',
     kick: 'Elsewhere',
-    title: `The other ${others.length} metros`,
+    title: `The other ${others.length} places`,
     inner: `
     <ul class="mlist" data-reveal>
       ${others.map(({ content: c, data: d }) => `<li><a href="${c.slug}.html"><span>${c.name}</span><span class="num">${fmt(d.zones)}<span class="sr"> rated areas</span></span></a></li>`).join('\n      ')}
@@ -192,7 +192,7 @@ function metroPage({ content, data }) {
     ],
     body: [
       pageHead({
-        crumb: { href: 'coverage.html', label: `All ${nMetros} metros` },
+        crumb: { href: 'coverage.html', label: `All ${nMetros} places` },
         meta: `${content.region}${M}${fmt(z)} rated areas`,
         title: `<span class="ph-pre">Lower-risk driving routes in</span> ${name}`,
         lead: content.intro,
@@ -203,7 +203,7 @@ function metroPage({ content, data }) {
       faqSec({ id: 'faq', title: `${name}, asked`, faqs: content.faqs }),
       getSec({ title: `Drive ${name} with it tonight.` }),
       elsewhere,
-      `<p class="wrap back">${linkQ(`Back to all ${nMetros} metros`, 'coverage.html')}${linkQ('Driving at night', NIGHT_FOR[content.region] || 'night-driving-gauteng.html')}</p>`,
+      `<p class="wrap back">${linkQ(`Back to all ${nMetros} places`, 'coverage.html')}${linkQ('Driving at night', NIGHT_FOR[content.region] || 'night-driving-gauteng.html')}</p>`,
     ].join('\n'),
   };
 }
@@ -227,9 +227,9 @@ const coverageMapSection = exploreSection({
 
 const coverageGrid = sec({
   id: 'metros',
-  kick: 'Coverage by metro',
-  title: 'Pick a metro',
-  lead: `Each metro has its own page: its figures for every part of the day, what to know on its roads, and the questions people ask about it. Figures from the live database on ${statsAsOf}.`,
+  kick: 'Coverage by place',
+  title: 'Pick a place',
+  lead: `Each place has its own page: its figures for every part of the day, what to know on its roads, and the questions people ask about it. Figures from the live database on ${statsAsOf}.`,
   inner: `
     <ul class="mcards">
       ${joined.map(({ content, data }) => `<li data-reveal><a href="${content.slug}.html"><span class="hud">${content.region}${M}${fmt(data.zones)} rated areas</span><span class="mc-n">${content.name}</span><span class="mc-b">${content.blurb}</span><span class="mc-go" aria-hidden="true">View coverage</span></a></li>`).join('\n      ')}
@@ -237,12 +237,16 @@ const coverageGrid = sec({
 });
 
 const maxZ = Math.max(...joined.map((x) => x.data.zones)), half = Math.ceil(joined.length / 2);
+// The bar is drawn for the eye; its column carries the same fact as text (the
+// share of all rated areas), so a reader without CSS gets a value, not an empty
+// "Relative size" column.
+const pct = (z) => { const p = (100 * z) / stats.totals.zones; return `${p < 1 ? '&lt;1' : Math.round(p)}%`; };
 const covTable = (rows, part) => `
     <table class="cov-t">
-      <caption class="sr">Rated areas per metro, part ${part} of 2</caption>
-      <thead><tr><th scope="col">Metro</th><th scope="col" class="n">Areas</th><th scope="col" class="b"><span class="sr">Relative size</span></th></tr></thead>
+      <caption class="sr">Rated areas per place, part ${part} of 2</caption>
+      <thead><tr><th scope="col">Place</th><th scope="col" class="n">Areas</th><th scope="col" class="b"><span class="sr">Share of all rated areas</span></th></tr></thead>
       <tbody>
-        ${rows.map(({ content, data }) => `<tr><th scope="row"><a href="${content.slug}.html">${content.name}</a></th><td class="n">${fmt(data.zones)}</td><td class="b" aria-hidden="true"><i style="--w:${(data.zones / maxZ).toFixed(3)}"></i></td></tr>`).join('\n        ')}
+        ${rows.map(({ content, data }) => `<tr><th scope="row"><a href="${content.slug}.html">${content.name}</a></th><td class="n">${fmt(data.zones)}</td><td class="b"><span class="sr">${pct(data.zones)}</span><i aria-hidden="true" style="--w:${(data.zones / maxZ).toFixed(3)}"></i></td></tr>`).join('\n        ')}
       </tbody>
     </table>`;
 const bySize = [...joined].sort((a, b) => b.data.zones - a.data.zones);
@@ -250,8 +254,8 @@ const stell = stats.metros.find((m) => m.key === 'stellenbosch');
 const coverageChart = sec({
   id: 'counts',
   kick: 'The shape of the map',
-  title: 'Rated areas per metro',
-  lead: `Counts follow the size and density of each metro, not how thoroughly it has been covered.${stell ? ` Stellenbosch has ${fmt(stell.zones)} rated areas because it is a small town, not because it is half-finished.` : ''}`,
+  title: 'Rated areas per place',
+  lead: `Counts follow the size and density of each place, not how thoroughly it has been covered.${stell ? ` Stellenbosch has ${fmt(stell.zones)} rated areas because it is a small town, not because it is half-finished.` : ''}`,
   inner: `
     <div class="cov-tables" data-reveal>${covTable(bySize.slice(0, half), 1)}${covTable(bySize.slice(half), 2)}
     </div>`,
@@ -272,7 +276,7 @@ const coverageFaqs = [
   },
   {
     q: 'Which metro is next?',
-    a: 'New metros are added as time and money allow, since each one means fetching map data, scoring it against crime statistics, and running a review pass before anything goes live. Anything people chip in speeds that up.',
+    a: 'New places are added as time and money allow, since each one means fetching map data, scoring it against crime statistics, and running a review pass before anything goes live. Anything people chip in speeds that up.',
   },
 ];
 
@@ -288,8 +292,8 @@ const coverageTail = sec({
 const coveragePage = {
   slug: 'coverage.html',
   title: 'Coverage',
-  headTitle: `Tsamaya coverage: rated areas in ${stats.totals.metros} South African metros`,
-  description: `Tsamaya rates ${fmt(stats.totals.zones)} areas across ${stats.totals.metros} South African metros: Johannesburg, Cape Town, Durban, Pietermaritzburg, Gqeberha, East London, Port Alfred, Mthatha, Pretoria, Ekurhuleni, the West Rand, Stellenbosch, Rustenburg, Pilanesberg, Mossel Bay, George, Beaufort West, Secunda, eMalahleni and Middelburg, Bloemfontein, Polokwane and the Kruger National Park area.`,
+  headTitle: `Tsamaya coverage: rated areas in ${stats.totals.metros} places in South Africa`,
+  description: `Tsamaya rates ${fmt(stats.totals.zones)} areas across ${stats.totals.metros} places in South Africa: Johannesburg, Cape Town, Durban, Pietermaritzburg, Gqeberha, East London, Port Alfred, Mthatha, Pretoria, Ekurhuleni, the West Rand, Stellenbosch, Rustenburg, Pilanesberg, Mossel Bay, George, Beaufort West, Secunda, eMalahleni and Middelburg, Bloemfontein, Polokwane and the Kruger National Park area.`,
   heroClass: 'sn page-coverage',
   jsonLd: [
     faqNode(coverageFaqs),

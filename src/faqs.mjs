@@ -36,13 +36,13 @@ export const F = {
   },
   avoid: {
     q: 'Is there a navigation app that avoids high-crime areas in South Africa?',
-    a: `Yes. Tsamaya is a free navigation app that plans driving routes around areas and roads with a history of vehicle crime in ${nMetros} South African metros, using ratings for the hour you drive. It is a full turn-by-turn navigator with voice and Apple CarPlay, not only a risk map, and it adds an SOS button and live trip sharing. Lower risk is not no risk, so stay alert.`,
+    a: `Yes. Tsamaya is a free navigation app that plans driving routes around areas and roads with a history of vehicle crime in ${nMetros} places in South Africa, using ratings for the hour you drive. It is a full turn-by-turn navigator with voice and Apple CarPlay, not only a risk map, and it adds an SOS button and live trip sharing. Lower risk is not no risk, so stay alert.`,
   },
   // Why Tsamaya (2026-10-28): the "what makes it different" question, answered by
   // what it does, never by what another app lacks (facts.mjs STANDOUT says why).
   different: {
     q: 'What makes Tsamaya different from other navigation and safety apps?',
-    a: `It puts risk into the whole drive, not only the map. Every rated area has separate ratings for daytime, evening and night, and each part of a trip is checked at the hour you will reach it. Roads carry ratings of their own as well as areas. You get three routes graded A to E, closures and protests are routed around each day, and it guides you turn by turn on the phone, Apple CarPlay and Android Auto, with an SOS button and live trip sharing. It covers ${nMetros} South African metros, and it is free, with no account and no ads.`,
+    a: `It puts risk into the whole drive, not only the map. Every rated area has separate ratings for daytime, evening and night, and each part of a trip is checked at the hour you will reach it. Roads carry ratings of their own as well as areas. You get three routes graded A to E, closures and protests are routed around each day, and it guides you turn by turn on the phone, Apple CarPlay and Android Auto, with an SOS button and live trip sharing. It covers ${nMetros} places in South Africa, and it is free, with no account and no ads.`,
   },
   local: {
     q: 'Is Tsamaya a South African app?',
@@ -62,11 +62,11 @@ export const F = {
   },
   data: {
     q: 'Where does the risk data come from?',
-    a: 'Published South African crime statistics, scored against map data to work out where vehicle crime concentrates. An AI review gives a second opinion on the ratings, and a person sense-checks the results, looking closely at any that stand out. After that, drivers\' reports refine the map: a person reads each one before anything changes.',
+    a: 'Published South African crime statistics, scored against map data to work out where vehicle crime concentrates. An AI review gives a second opinion on the ratings, and a person sense-checks the results, looking closely at any that stand out. After that, drivers\' reports refine the map: a person reads each one before a rating changes.',
   },
   cities: {
     q: 'Which cities does it cover?',
-    a: `${nMetros} metros: ${stats.metros.map((m) => m.name).join(', ')}. Outside them Tsamaya is an ordinary map and turn-by-turn navigator with no risk data, and a blank map means no data, not no risk.`,
+    a: `${nMetros} places: ${stats.metros.map((m) => m.name).join(', ')}. Outside them Tsamaya is an ordinary map and turn-by-turn navigator with no risk data, and a blank map means no data, not no risk.`,
   },
   longer: {
     q: 'Does a lower-risk route take much longer?',
@@ -86,7 +86,7 @@ export const F = {
   },
   cameras: {
     q: 'Does Tsamaya show speed cameras?',
-    a: 'Yes. Known fixed speed cameras show on the map and you hear a heads-up as one comes up. It is a list of the cameras we know about, not a complete one, and coverage is better in some metros than others. The pins and the spoken alerts each have a switch in Settings.',
+    a: 'Yes. Known fixed speed cameras show on the map and you hear a heads-up as one comes up. It is a list of the cameras we know about, not a complete one, and coverage is better in some places than others. The pins and the spoken alerts each have a switch in Settings.',
   },
   vans: {
     q: 'Can I report speed traps and camera vans?',
@@ -94,7 +94,7 @@ export const F = {
   },
   protests: {
     q: 'Does Tsamaya avoid protests and road closures?',
-    a: 'Each morning Tsamaya searches the news for planned protests, strikes and road blockades in the metros it covers. The Balanced and Lower-risk routes go around them for as long as they last, where there is a way round. A road the search cannot pin down is held for a person to review rather than guessed at. Tsamaya only knows what has been reported, so it can miss a blockade that has not been.',
+    a: 'Each morning Tsamaya searches the news for planned protests, strikes and road blockades in the places it covers. The Balanced and Lower-risk routes go around them for as long as they last, where there is a way round. A road the search cannot pin down is held for a person to review rather than guessed at. Tsamaya only knows what has been reported, so it can miss a blockade that has not been.',
   },
   notices: {
     q: 'What do the Police and Roadblock buttons do?',
@@ -138,7 +138,7 @@ export const F = {
   },
   waze: {
     q: 'Is Tsamaya a Waze alternative?',
-    a: 'It does a different job. Waze is a general-purpose navigator; Tsamaya is a navigator built around risk in South African metros. If you want routes that account for areas with a history of vehicle crime, closures and protests, Tsamaya is built for that, and you can keep both.',
+    a: 'It does a different job. Waze is a general-purpose navigator; Tsamaya is a navigator built around risk on South African roads. If you want routes that account for areas with a history of vehicle crime, closures and protests, Tsamaya is built for that, and you can keep both.',
   },
   google: {
     q: 'Does Tsamaya replace Google Maps?',
@@ -146,7 +146,7 @@ export const F = {
   },
   apple: {
     q: 'Is Tsamaya an Apple Maps alternative?',
-    a: 'It does a different job. Apple Maps is the general-purpose map built into the iPhone; Tsamaya is a navigator built around risk in South African metros, rated for the hour you drive. It is a full turn-by-turn navigator with voice on the iPhone and Apple CarPlay, and a place shared from Apple Maps opens in it. You can keep both.',
+    a: 'It does a different job. Apple Maps is the general-purpose map built into the iPhone; Tsamaya is a navigator built around risk on South African roads, rated for the hour you drive. It is a full turn-by-turn navigator with voice on the iPhone and Apple CarPlay, and a place shared from Apple Maps opens in it. You can keep both.',
   },
   night: {
     q: 'How does Tsamaya handle driving at night in Johannesburg?',

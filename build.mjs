@@ -10,6 +10,7 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, extname } from 'node:path';
 import { renderPage } from './src/layout.mjs';
+import { readableJoins } from './src/readable.mjs';
 import { siteData, geoData } from './src/sitedata.mjs';
 import { site, baseUrl, canonicalFor } from './site.config.mjs';
 import { stripJs } from './scripts/strip-js.mjs';
@@ -125,7 +126,7 @@ async function build() {
   }
 
   for (const page of pages) {
-    const html = await fingerprint(renderPage(page));
+    const html = await fingerprint(readableJoins(renderPage(page)));
     noteLastmod(page.slug, html);
     const outPath = join(dist, page.slug);
     // Support nested slugs like 't/index.html' (gives a clean /t/ URL).

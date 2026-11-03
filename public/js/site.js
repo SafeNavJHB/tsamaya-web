@@ -25,6 +25,11 @@
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+  // The phone menu ships as an inert script block (src/layout.mjs says why).
+  // Stamp it in first, so the clock and the menu below find its contents.
+  var menuSrc = $('.mobile-nav > script[data-menu]');
+  if (menuSrc) menuSrc.parentNode.innerHTML = menuSrc.textContent;
+
   // A fresh visit to a page opens at its top, whatever the last page's scroll
   // was. Back and forward (and a #link) keep the browser's own position, and so
   // does a reader who has already scrolled (the head script notes the first
@@ -60,7 +65,7 @@
     var m = saMinutes();
     var band = bandAt(m);
     var time = pad(Math.floor(m / 60)) + ':' + pad(m % 60);
-    $$('[data-sa-clock]').forEach(function (el) { el.textContent = time + ' SAST · ' + band.name + ' ratings'; });
+    $$('[data-sa-clock]').forEach(function (el) { el.textContent = time + ' SAST · ' + band.name + ' ratings'; el.hidden = false; });
     $$('[data-sa-time]').forEach(function (el) { el.textContent = time; });
     $$('[data-sa-band]').forEach(function (el) { el.textContent = band.name; });
     doc.setAttribute('data-band', band.key);

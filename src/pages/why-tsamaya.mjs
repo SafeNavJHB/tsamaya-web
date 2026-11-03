@@ -27,7 +27,7 @@ const made = sec({
   kick: 'Made here',
   title: 'Proudly South African',
   inner: prose(
-    `<p>Tsamaya is designed, built and run in Johannesburg by a South African company, for the way people drive here. Its ratings come from published South African Police Service crime statistics, scored against the roads of ${nMetros} metros: ${fmt(t.zones)} rated areas, ${fmt(t.corridorsSafe)} checked road stretches and ${fmt(t.corridorsDanger)} flagged ones, as of ${stats.asOf}.</p>`,
+    `<p>Tsamaya is designed, built and run in Johannesburg by a South African company, for the way people drive here. Its ratings come from published South African Police Service crime statistics, scored against the roads of ${nMetros} places: ${fmt(t.zones)} rated areas, ${fmt(t.corridorsSafe)} checked road stretches and ${fmt(t.corridorsDanger)} flagged ones, as of ${stats.asOf}.</p>`,
     `<p>The name is Sesotho and Setswana for "go", from <em>tsamaya sentle</em>, go well. It is a wish for a good journey, not a promise: lower risk is not no risk, and the app says so.</p>`,
   ),
 });
@@ -38,10 +38,10 @@ export default topicPage({
   slug: 'why-tsamaya.html',
   title: 'Why Tsamaya',
   headTitle: 'Why Tsamaya: risk-aware navigation, proudly South African',
-  description: `Tsamaya is a risk-aware navigation app built in South Africa: ratings for the hour you drive, rated roads, graded routes, CarPlay and Android Auto, SOS and trip sharing, free in ${nMetros} metros.`,
+  description: `Tsamaya is a risk-aware navigation app built in South Africa: ratings for the hour you drive, rated roads, graded routes, CarPlay and Android Auto, SOS and trip sharing, free in ${nMetros} places.`,
   meta: 'Why Tsamaya',
   h1: POSITIONING,
-  lead: `Tsamaya plans your route around areas with a history of vehicle crime, at the hour you drive, then guides you there turn by turn. It is free, it covers ${nMetros} South African metros, and it is made in Johannesburg.`,
+  lead: `Tsamaya plans your route around areas with a history of vehicle crime, at the hour you drive, then guides you there turn by turn. It is free, it covers ${nMetros} places in South Africa, and it is made in Johannesburg.`,
   sections: [apart, made],
   faqs,
   links: [['Everything it does', 'features.html'], ['How it works', 'how-it-works.html'], ['Coverage', 'coverage.html'], ['About us', 'about.html']],

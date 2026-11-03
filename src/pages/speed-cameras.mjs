@@ -41,7 +41,7 @@ const reports = sec({
     label: 'Speed camera reports',
     head: ['What you report', 'What happens'],
     rows: [
-      ['A permanent camera', 'Added to a review queue and put on the map automatically once a few drivers flag the same place. A person reads reports before anything changes.'],
+      ['A permanent camera', 'Added to a review queue, where a person can approve it. If three different drivers flag the same spot before then, it goes on the map without waiting.'],
       ['A camera van', 'Shown in amber for about three hours from when it was spotted, and never turned into a permanent camera. Tap one and say "still there" to keep it up for others, or "not there" to take it down.'],
       ['A switched-off camera that is working again', 'Tap the greyed-out pin and report it. A few reports switch it back to a live camera.'],
       ['By voice', 'Tap Report, then Speak, and say "speed camera". It goes through the same Undo as a tap, on the phone and on the car screen.'],

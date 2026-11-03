@@ -122,11 +122,15 @@ async function main() {
   const live = 'deleted_at=is.null';
 
   // ---- Totals -------------------------------------------------------------
-  const [zonesTotal, corridorsTotal, corridorsSafe, corridorsDanger] = await Promise.all([
+  // Closed roads ('blocked') carry no rating, so the site's "rated road
+  // stretches" figure is safe + danger, never the total (the total was one
+  // higher than the two it was printed beside on 2026-11-03).
+  const [zonesTotal, corridorsTotal, corridorsSafe, corridorsDanger, corridorsBlocked] = await Promise.all([
     count('zones', `select=id&${live}`),
     count('corridors', `select=id&${live}`),
     count('corridors', `select=id&${live}&corridor_type=eq.safe`),
     count('corridors', `select=id&${live}&corridor_type=eq.danger`),
+    count('corridors', `select=id&${live}&corridor_type=eq.blocked`),
   ]);
 
   // ---- Risk-band split (drives the distribution chart) --------------------
@@ -167,9 +171,9 @@ async function main() {
         `${zonesTotal - bandSum} zone(s) carry a band outside [${BANDS.join(', ')}].`,
     );
   }
-  if (corridorsSafe + corridorsDanger !== corridorsTotal) {
+  if (corridorsSafe + corridorsDanger + corridorsBlocked !== corridorsTotal) {
     warnings.push(
-      `Safe (${corridorsSafe}) + danger (${corridorsDanger}) ≠ total (${corridorsTotal}) corridors.`,
+      `Safe (${corridorsSafe}) + danger (${corridorsDanger}) + blocked (${corridorsBlocked}) ≠ total (${corridorsTotal}) corridors.`,
     );
   }
   for (const time of TIMES) {
@@ -215,6 +219,7 @@ async function main() {
       corridors: corridorsTotal,
       corridorsSafe,
       corridorsDanger,
+      corridorsBlocked,
       riskBands: 3,
     },
     // The summary column. The site no longer renders this: it is the worst of a
@@ -235,7 +240,7 @@ async function main() {
   console.log(
     `\n  metros    ${stats.totals.metros}` +
       `\n  zones     ${zonesTotal}` +
-      `\n  corridors ${corridorsTotal}  (safe ${corridorsSafe} · danger ${corridorsDanger})\n`,
+      `\n  corridors ${corridorsTotal}  (safe ${corridorsSafe} · danger ${corridorsDanger} · blocked ${corridorsBlocked})\n`,
   );
   // The whole reason the site publishes three splits: watch red climb after dark.
   console.log(`  ${'by band'.padEnd(10)} ${BANDS.map((b) => b.padStart(7)).join('')}`);

@@ -17,7 +17,7 @@ const built = sec({
   title: 'Two different questions',
   lead: 'Waze is a general-purpose navigator, built to get you there quickly. Tsamaya is a navigator built around risk on South African roads.',
   inner: prose(
-    `<p>A general-purpose navigator asks which way is quickest. Tsamaya asks that too, and then a second question: which of the ways there passes through the fewest areas with a history of vehicle crime, at the hour you are driving? It plans the answer in ${nMetros} South African metros, grades the options A to E, and guides you turn by turn with voice, on the phone and on Apple CarPlay.</p>`,
+    `<p>A general-purpose navigator asks which way is quickest. Tsamaya asks that too, and then a second question: which of the ways there passes through the fewest areas with a history of vehicle crime, at the hour you are driving? It plans the answer in ${nMetros} places in South Africa, grades the options A to E, and guides you turn by turn with voice, on the phone and on Apple CarPlay.</p>`,
     `<p>This page describes Tsamaya and the kind of app Waze is. For what Waze offers today, its own site is the source: we do not list another app's features, because they change.</p>`,
   ),
 });
@@ -26,16 +26,17 @@ const jobs = sec({
   id: 'jobs',
   kick: 'Which job is which',
   title: 'What Tsamaya adds',
+  lead: 'This table describes Tsamaya only. For what a general-purpose navigator such as Waze offers on each line, check that app itself: it changes, and we would rather not guess.',
   inner: table({
-    label: 'Tsamaya and general-purpose navigators',
-    head: ['You want to', 'Tsamaya', 'A general-purpose navigator such as Waze'],
+    label: 'What Tsamaya does for each job',
+    head: ['You want to', 'Tsamaya'],
     rows: [
-      ['Get there quickly', 'A Fastest option with traffic-aware arrival times, alongside the others.', 'This is the job it is built for.'],
-      ['Avoid areas with a history of vehicle crime', `Routes around rated areas, with separate ratings for day, evening and night, in ${nMetros} metros.`, 'Check the app itself.'],
-      ['Go around protests and closures', 'Searched for each morning and routed around while they last. Gated and closed roads are kept in a record of their own.', 'Check the app itself.'],
-      ['Know about police, roadblocks and cameras', 'Police and roadblock notices from nearby drivers for an hour, known fixed speed cameras, camera vans for about three hours, and hijacking hotspots.', 'Check the app itself.'],
-      ['See that a trip will end after dark', 'The route card warns, and says how soon to leave to arrive in daylight.', 'Check the app itself.'],
-      ['Call for help or let someone follow you', 'An SOS button that calls 10111 or 112 or texts your emergency contact, and live trip links that open in any browser.', 'Check the app itself.'],
+      ['Get there quickly', 'A Fastest option with traffic-aware arrival times, alongside the others. This is also the job a general-purpose navigator is built for.'],
+      ['Avoid areas with a history of vehicle crime', `Routes around rated areas, with separate ratings for day, evening and night, in ${nMetros} places.`],
+      ['Go around protests and closures', 'Searched for each morning and routed around while they last. Gated and closed roads are kept in a record of their own.'],
+      ['Know about police, roadblocks and cameras', 'Police and roadblock notices from nearby drivers for an hour, known fixed speed cameras, camera vans for about three hours, and hijacking hotspots.'],
+      ['See that a trip will end after dark', 'The route card warns, and says how soon to leave to arrive in daylight.'],
+      ['Call for help or let someone follow you', 'An SOS button that calls 10111 or 112 or texts your emergency contact, and live trip links that open in any browser.'],
     ],
   }),
 });
@@ -46,9 +47,9 @@ const both = sec({
   title: 'You can keep both',
   inner: prose(
     ul([
-      'Use Tsamaya for trips to somewhere unfamiliar, late in the day, or through a metro with ratings. Keep whatever else you use for the rest.',
+      'Use Tsamaya for trips to somewhere unfamiliar, late in the day, or through a place with ratings. Keep whatever else you use for the rest.',
       'Tsamaya can hand a route to Google Maps with the detour points already in place, and it opens locations shared to it from other apps.',
-      'Outside the rated metros Tsamaya is an ordinary map and navigator with no risk data.',
+      'Outside the rated places Tsamaya is an ordinary map and navigator with no risk data.',
     ]),
     `<p>Tsamaya is in open beta, it is free, and lower risk is not no risk.</p>`,
   ),

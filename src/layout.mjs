@@ -19,6 +19,12 @@ function navLinks(active) {
 
 // The mobile menu: the primary items large, the secondary ones in a small row
 // underneath, so nothing in the old nine-item bar becomes unreachable on a phone.
+// The phone menu's links ship as an inert <script type="text/html"> that site.js
+// stamps into the sheet. The menu only opens with JavaScript anyway, and a reader
+// that ignores CSS (an AI assistant, a search tool) otherwise read the whole
+// navigation twice, with "Get the app" three times, on every page (fetch test,
+// 2026-11-03). Text tools drop script contents, which a <template> does not
+// guarantee.
 function mobileLinks(active) {
   const cur = (n) => (n.href === active ? ' aria-current="page"' : '');
   const primary = nav.filter((n) => n.primary).map((n) => `<a class="mnav-link" href="${n.href}"${cur(n)}>${n.label}</a>`).join('');
@@ -49,11 +55,12 @@ const arrow = '<svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true
 
 // The telemetry strip under the header on content pages. The time and band are
 // filled in by site.js from the South African clock; without JavaScript the
-// strip still carries the coverage, which is written in at build time.
+// clock stays hidden (an empty label read as text by assistants, 2026-11-03)
+// and the strip still carries the coverage, which is written in at build time.
 function hudStrip() {
   return `  <div class="wrap hud-strip" aria-label="Live status">
-    <span class="hud hud-live" data-sa-clock>South African time</span>
-    <span class="hud">${stats.totals.metros} metros \u00b7 ${fmt(stats.totals.zones)} rated areas \u00b7 3 time bands</span>
+    <span class="hud hud-live" data-sa-clock hidden></span>
+    <span class="hud">${stats.totals.metros} places \u00b7 ${fmt(stats.totals.zones)} rated areas \u00b7 3 time bands</span>
   </div>
 `;
 }
@@ -178,10 +185,10 @@ function pageHtml(page) {
   <meta property="og:image:type" content="image/png"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
-  <meta property="og:image:alt" content="Tsamaya: lower-risk driving routes for South African metros"/>
+  <meta property="og:image:alt" content="Tsamaya: lower-risk driving routes for South African drivers"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:image" content="${ogImage}"/>
-  <meta name="twitter:image:alt" content="Tsamaya: lower-risk driving routes for South African metros"/>
+  <meta name="twitter:image:alt" content="Tsamaya: lower-risk driving routes for South African drivers"/>
   <link rel="icon" type="image/png" sizes="48x48" href="img/favicon.png"/>
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg"/>
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png"/>
@@ -210,11 +217,11 @@ function pageHtml(page) {
         <span></span><span></span><span></span>
       </button>
     </div>
-    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile" data-lenis-prevent>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile" data-lenis-prevent><script type="text/html" data-menu>
       ${mobileLinks(page.slug)}
       <a class="btn btn-primary btn-lg" href="get-app.html">Get the app ${arrow}</a>
-      <p class="hud"><span data-sa-clock>Live South African time</span></p>
-    </nav>
+      <p class="hud"><span data-sa-clock hidden></span></p>
+    </script></nav>
   </header>
 ${jumpBar(jump)}${page.hud === false ? '' : hudStrip()}
   <main id="main">

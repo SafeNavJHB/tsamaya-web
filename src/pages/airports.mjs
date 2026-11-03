@@ -33,7 +33,7 @@ const landing = sec({
   title: 'A new city, a hired car and often the dark',
   lead: 'The drive out of the airport is usually the one you know least: an unfamiliar car, roads you have not driven, and, on many flights, the evening or night ratings rather than the daytime ones.',
   inner: prose(
-    `<p>Tsamaya rates every area in ${nMetros} South African metros three times, for daytime (05:00 to 17:30), evening (17:30 to 19:30) and night (19:30 to 05:00), and plans your route with the ratings for the hour you actually drive it. Ask for directions from the airport and it compares the fastest route with lower-risk options, grades each from A to E, and says what each one passes.</p>`,
+    `<p>Tsamaya rates every area in ${nMetros} places in South Africa three times, for daytime (05:00 to 17:30), evening (17:30 to 19:30) and night (19:30 to 05:00), and plans your route with the ratings for the hour you actually drive it. Ask for directions from the airport and it compares the fastest route with lower-risk options, grades each from A to E, and says what each one passes.</p>`,
   ),
 });
 
@@ -68,7 +68,7 @@ const before = sec({
 
 const airportFaq = {
   q: 'Does Tsamaya work for the drive from the airport?',
-  a: `Yes, when the airport is in one of the ${nMetros} metros it covers. It plans the trip with the ratings for the hour you drive, which after an evening flight are the evening or night ones, and compares the fastest route with lower-risk options. Going to O.R. Tambo, Cape Town International, King Shaka, Chief Dawid Stuurman or Kruger Mpumalanga, it ends the drive on the drop-off road.`,
+  a: `Yes, when the airport is in one of the ${nMetros} places it covers. It plans the trip with the ratings for the hour you drive, which after an evening flight are the evening or night ones, and compares the fastest route with lower-risk options. Going to O.R. Tambo, Cape Town International, King Shaka, Chief Dawid Stuurman or Kruger Mpumalanga, it ends the drive on the drop-off road.`,
 };
 const hireFaq = {
   q: 'Can I use Tsamaya in a hired car?',

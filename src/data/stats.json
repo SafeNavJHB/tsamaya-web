@@ -7,6 +7,7 @@
     "corridors": 8796,
     "corridorsSafe": 2931,
     "corridorsDanger": 5864,
+    "corridorsBlocked": 1,
     "riskBands": 3
   },
   "bands": {

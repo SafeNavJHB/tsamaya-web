@@ -64,7 +64,7 @@ export const FEATURES = [
   ['Speed', 'A speed limit readout and a gentle over-speed chime.'],
   // ReportSheet.tsx
   ['Report a corner', 'Tell us where we got it wrong, from inside the app.'],
-  ['Outside the metros', 'An ordinary map and navigator. It just has no risk data there.'],
+  ['Outside the rated places', 'An ordinary map and navigator. It just has no risk data there.'],
 ];
 
 // WHAT SETS IT APART (Kyle, 2026-10-28: "it needs to stand out"). Read by the
@@ -74,13 +74,13 @@ export const FEATURES = [
 // one competitor update away from false. Each line says what Tsamaya does, never
 // what another app lacks. Same sourcing rule as FEATURES: true of the app that
 // installs today.
-const road = fmt(stats.totals.corridors);
+const road = fmt(stats.totals.corridorsSafe + stats.totals.corridorsDanger);
 export const POSITIONING = 'Risk-aware navigation, proudly South African.';
 export const STANDOUT = [
   // segmentBands + scoreCandidateAcrossBands (src/services/routing.ts)
   ['Rated for the hour you drive', 'Every rated area has its own daytime, evening and night rating. A trip that starts at five and ends after dark is checked against the rating for the time you reach each part of it.'],
-  // corridors (stats.totals.corridors); safeCorridorCertifies, dangerRowClaims (geometry.ts)
-  ['Roads as well as areas', `${road} road stretches carry ratings of their own. A main road can count as the better way through a rated area, and a flagged road you only cross is not held against the route.`],
+  // rated roads = checked + flagged (stats.totals); closed roads carry no rating; safeCorridorCertifies, dangerRowClaims (geometry.ts)
+  ['Roads as well as areas', `${road} road stretches carry ratings of their own, checked or flagged. A main road can count as the better way through a rated area, and a flagged road you only cross is not held against the route.`],
   // getSafeRoute + withOrderedOptions; withinBudget (src/services/routing.ts)
   ['Three routes, graded', 'Fastest, Balanced and Lower-risk, each graded A to E, with what each one goes around. A detour that adds too much is dropped, and when there is no sensible way round, the app says so.'],
   // useNavSession drives the phone and the car (src/hooks/useNavSession.ts)
@@ -90,7 +90,7 @@ export const STANDOUT = [
   // SosSheet, liveTrips, Guardian (src/carplay/sosFlow.ts)
   ['Help if it goes wrong', 'An SOS button that calls 10111 or 112 or texts your emergency contact, and live trip links anyone can follow in a browser.'],
   // the pipeline's review stage and the report review queue
-  ['Checked by people', 'Ratings start from published SAPS crime statistics, get an AI second opinion and a person\'s sense-check. A person reads every driver report before the map changes.'],
+  ['Checked by people', 'Ratings start from published SAPS crime statistics, get an AI second opinion and a person\'s sense-check. A person reads every driver report on a road or area before its rating changes.'],
   // no account, no ads (privacy policy)
   ['Free, nothing to sign up for', 'No account and no ads, and nothing about you is sold. Routing around risk, SOS and trip sharing stay free.'],
 ];

@@ -28,7 +28,7 @@ const what = sec({
   lead: 'Off-ramps, intersections and stretches of road where hijackings and smash-and-grabs have been reported.',
   inner: prose(
     `<p>${data.attribution} Each hotspot is labelled by its road: Tsamaya names roads, never the neighbourhoods around them.</p>`,
-    `<p>There are ${total} on the map today, in ${rows.length} metros.</p>`,
+    `<p>There are ${total} on the map today, in ${rows.length} of the ${stats.totals.metros} places Tsamaya covers.</p>`,
   ),
 });
 
@@ -48,10 +48,10 @@ const does = sec({
 
 const where = sec({
   id: 'where',
-  kick: 'By metro',
-  title: 'How many reported hotspots each metro has',
-  lead: 'These are counts of reported spots, not a measure of how risky a metro is. A metro with more ratings or more reporting will show more.',
-  inner: table({ label: 'Reported hotspots by metro', head: ['Metro', 'Reported hotspots'], rows }),
+  kick: 'By place',
+  title: 'How many reported hotspots each place has',
+  lead: 'These are counts of reported spots, not a measure of how risky a place is. A place with more ratings or more reporting will show more.',
+  inner: table({ label: 'Reported hotspots by place', head: ['Place', 'Reported hotspots'], rows }),
 });
 
 const limits = sec({

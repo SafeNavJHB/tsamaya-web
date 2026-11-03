@@ -74,7 +74,7 @@ if (hsMap) {
     const m = marks.get(i);
     if (m) {
       hsMap.appendChild(m); // draw the lit one on top of its neighbours
-      tip.textContent = $('title', m).textContent;
+      tip.textContent = m.dataset.label;
     } else tip.textContent = hint;
   }
   const pin = (i) => { pinned = pinned === i ? -1 : i; light(pinned); };

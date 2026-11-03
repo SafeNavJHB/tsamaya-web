@@ -18,8 +18,8 @@ const why = sec({
   kick: 'Why night is different',
   title: 'The same roads carry different ratings after dark',
   lead: BANDS_LEAD,
-  inner: `${nightTable('High-risk rated areas by time of day in the Gauteng metros', g, 'All four')}
-    ${prose(`<p>Across the four Gauteng metros, ${fmt(g.night)} of ${fmt(g.total)} rated areas are high risk at night, against ${fmt(g.day)} in the day. These are counts of rated areas, not a forecast of what will happen on a given night.</p>`)}`,
+  inner: `${nightTable('High-risk rated areas by time of day in Gauteng', g, 'All four')}
+    ${prose(`<p>Across the four Gauteng places, ${fmt(g.night)} of ${fmt(g.total)} rated areas are high risk at night, against ${fmt(g.day)} in the day. These are counts of rated areas, not a forecast of what will happen on a given night.</p>`)}`,
 });
 
 const faqs = [F.night, F.times, F.longer, F.sos, F.share, F.guarantee];
