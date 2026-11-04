@@ -120,8 +120,8 @@ export const PREMIUM_SOON = [
   ['More detailed searches', 'A bigger daily allowance of detailed place searches than the free share.'],
   // vehicleChoice.ts, constants/vehicles.ts
   ['3D vehicles', 'A garage of 3D vehicles in six colours for the map.'],
-  // tripHistory.ts: the latest trip stays free
-  ['Trip history', 'Your whole history on the phone with 30-day totals. The latest trip stays free.'],
+  // tripHistory.ts freeTripsShown: the last two days stay free (since 2026-11-04)
+  ['Trip history', 'Your whole history on the phone with 30-day totals. The last two days of drives stay free.'],
   // logbook.ts, logbookExport.ts
   ['SARS logbook', 'Tag a trip business or personal and export a logbook in the order of SARS\'s own eLogbook.'],
   // leaveBy.ts
