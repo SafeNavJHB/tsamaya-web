@@ -1,6 +1,6 @@
 # Tsamaya Privacy Policy
 
-**Version 1.20. Effective date: 1 November 2026.**
+**Version 1.21. Effective date: 4 November 2026.**
 
 **Responsible Party:** Tsamaya (Pty) Ltd, a private company registered in South Africa
 
@@ -184,6 +184,8 @@
 6.8.2 Speed camera reports store the spot you reported, the kind of camera, the metro, the speed limit if you gave one, any comment you add, and the Installation ID, for the review team, which confirms or rejects the camera (clause 15 says how long the report is kept).
 
 6.8.3 Crime spot reports (a hijacking or smash-and-grab spot you pin on the map) and suggested corrections to a hotspot's position store the spot you pinned, not where you are, with the place name nearest to it, the kind of spot, when it happened if you say, your comment and the Installation ID, for the review team. An approved spot is shown on every driver's map with a name and safety tip chosen by the review team; your comment and identifier are never shown.
+
+6.8.4 On a road we have not rated yet, Tsamaya may ask during a drive "What colour is this road?". If you answer, we store the colour you chose, the road's name, the spot where your car was when you answered, the time band, the App version and the Installation ID, for the review team, which uses them to rate the road (clause 15 says how long the report is kept). If you close the question without answering, nothing is sent.
 
 ## 7. Live Trip Sharing, SOS and Guardian (optional)
 
@@ -480,6 +482,7 @@
 
 | Version | Date | Summary of changes |
 |---|---|---|
+| 1.21 | 4 November 2026 | Clause 6.8.4 added: an answer to the in-drive "What colour is this road?" question stores the spot where your car was, which the App already sent but clause 6.8 did not list. No other change to what we collect, why, who receives it, how long we keep it, or your rights. |
 | 1.20 | 1 November 2026 | Legal review by ZS Attorneys Inc. (22 October 2026): refund requests for App Store annual plans added to clauses 4, 12 and 15; retention periods confirmed; donations recorded in Xero (clauses 13, 15 and 21); the Responsible Party's details tabulated; all paragraphs numbered and clauses renumbered (bullet points replaced by numbered clauses); new clause 1 (Introduction) and clause 2 (Definitions), with defined terms used consistently; the Summary explains which information is de-identified and which is Personal Information; clause 4 adds how we collect Personal Information and the rule on further Processing; clause 6 adds Special Personal Information; clause 11 adds Direct Marketing; clause 13 explains Operators and other Recipients; clause 14 explains the basis for transfers to the United States; clause 15 sets specific retention periods and adds new categories; clause 16 lists our security measures and notification of a security compromise as soon as reasonably possible; clause 17 sets out all your rights under POPIA; new clause 18 explains how to exercise them; clause 21 covers donations by EFT; clause 22 gives notice before changes take effect; new clause 23 (contact details) and Annexure A (Data Subject Request Form). On publication: the retention period for weather answers in clause 15 corrected to 48 hours, as clause 4 says, and Xero's region (the United States) given in clause 14. |
 | 1.19 | 13 October 2026 | Clauses 1, 2 and 3: pothole notices, public like police and roadblock notices but shown for about four days, up to 30 days with "still there" answers; stored, kept and deleted as police and roadblock notices are. |
 | 1.18 | 12 October 2026 | Wording edited for clarity and consistency throughout; no change to what we collect, why, who receives it, how long we keep it, or your rights. |
