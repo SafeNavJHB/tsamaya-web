@@ -36,6 +36,10 @@
     {
       "title": "Car marker holds on CarPlay",
       "why": "internal: only the review team's admin-only Mazda marker changes (app #610, 2026-11-04)"
+    },
+    {
+      "title": "Free Premium for your reports, from your first report",
+      "why": "a same-day fix to the feature's first version (app #613, 2026-11-04): the 'Free Premium for your reports' entry already describes the final behaviour"
     }
   ]
 }
