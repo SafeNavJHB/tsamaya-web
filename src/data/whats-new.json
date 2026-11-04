@@ -15,6 +15,42 @@
   ],
   "releases": [
     {
+      "version": "2026-11-04.99",
+      "date": "4 November 2026",
+      "items": [
+        {
+          "icon": "time-outline",
+          "title": "Two days of trip history, free",
+          "body": "Trip history now shows every drive from today and yesterday without Premium, not only your latest drive. Your trips stay on your phone only.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-04.98",
+      "date": "4 November 2026",
+      "items": [
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Reroutes keep your lower-risk route",
+          "body": "If you leave a Balanced or Lower-risk route, the reroute now tries to bring you back onto the road you chose instead of switching to the fastest one.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-03.97",
+      "date": "3 November 2026",
+      "items": [
+        {
+          "icon": "phone-portrait-outline",
+          "title": "Wording for your phone",
+          "body": "Premium, Settings and the list of updates now speak only of the car screen your phone uses.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-11-03.96",
       "date": "3 November 2026",
       "items": [
