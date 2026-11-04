@@ -1,6 +1,6 @@
 # Tsamaya Privacy Policy
 
-**Version 1.21. Effective date: 4 November 2026.**
+**Version 1.22. Effective date: 4 November 2026.**
 
 **Responsible Party:** Tsamaya (Pty) Ltd, a private company registered in South Africa
 
@@ -102,7 +102,7 @@
 
 3.8 Voice reports are optional. When you tap Speak (or ask Siri) to report something on the road, your phone's own speech service turns what you say into text so that the App can choose the report. Tsamaya never records or keeps audio; only the report itself is sent (clause 8).
 
-3.9 Tsamaya Premium is optional. If you subscribe, Apple or Google takes the payment and we never see your card. RevenueCat, the service that checks subscriptions for us, receives your store purchase records and a random id it creates, so that Premium stays on the account that paid (clause 12).
+3.9 Tsamaya Premium is optional. If you subscribe, Apple or Google takes the payment and we never see your card. RevenueCat, the service that checks subscriptions for us, receives your store purchase records and a random id it creates, so that Premium stays on the account that paid (clause 12). Free Premium earned with accepted reports is counted against your Installation ID and given through RevenueCat only when you claim it (clause 12.10).
 
 3.10 Notifications are optional. Nothing arrives unless your phone allows Tsamaya to send notifications, and news about new features arrives only if you ask for it. We store a delivery token for your device and the metro you are in (such as "Cape Town"), never your coordinates. With the fuel price alert on, we also store your fuel type and, with Tsamaya Premium, a date based on when your Premium ends. Each kind of notification has its own switch (clause 11).
 
@@ -124,6 +124,7 @@
 | A live trip you choose to share, an SOS link or Guardian (see clause 7) | Supabase, and anyone who holds the link | Letting someone you choose follow your drive | Consent (you tap Share, Alert or Guardian) |
 | Premium check, on every install (see clause 12) | The App asks RevenueCat whether this device has Premium, which sends a random RevenueCat id and basic device details. On an iPhone, the first check after installing also sends Apple's record of the App's download (not a payment) | Showing whether this device has Premium, and bringing back a subscription the store account already has | Legitimate interest (knowing whether this device has Premium) |
 | Premium purchases, only if you subscribe (see clause 12) | Apple or Google take the payment. RevenueCat receives the store's purchase and renewal records, a random RevenueCat id and basic device details. Our server (Supabase) keeps the subscription's status against that id | Selling Premium and keeping it on the store account that paid for it | Performance of contract (the subscription you buy) |
+| Free Premium for your reports (see clause 12.10) | The App sends our server (Supabase) your Installation ID, which counts your accepted reports. When you tap Claim, our server reads RevenueCat's Premium records for your RevenueCat id, asks RevenueCat to give the free month, and keeps a record of the month given with both ids | Thanking contributors with free Premium, and giving each earned month only once | Legitimate interest (counting accepted reports you chose to send); Consent (you tap Claim) |
 | Refund requests, only if you cancel an annual plan bought on the App Store and ask us for a refund (clause 11.5 of the Terms of Use) | You send us by email the Apple order ID from your receipt, your name, email address and bank account details. We check the order ID against our subscription records and pay the refund by EFT from our bank account, and record the payment in our accounting system (Xero). On Google Play, refunds go through the store and we receive no bank details | Verifying and paying your refund, and keeping the records tax law requires | Performance of contract (your right to a refund) and compliance with the law (consumer protection and tax law) |
 | Your voice, only while you make a voice report, ask Siri, or say a destination on Android Auto (see clause 8) | Your phone's speech service (Apple on iPhone; usually Google on Android, and Google Assistant on Android Auto) turns it into text; the audio is not recorded, kept or sent to us | Choosing the report type you said, or finding the place you asked for | Consent (the microphone and speech permissions, and your tap on Speak) |
 | Open in Google Maps, only if you tap it | The route's start, destination and up to 8 points along it go to Google Maps, under Google's terms | Continuing the route in Google Maps | Consent (your tap) |
@@ -161,7 +162,7 @@
 
 6.1.3 the area or road the report concerns (and any line or area you draw, with the points you tapped), the time band, and the App version;
 
-6.1.4 an Installation ID generated on your device, used to spot duplicate or abusive submissions and to find your reports if you ask us about them; it is not an account and identifies the installation, not you;
+6.1.4 an Installation ID generated on your device, used to spot duplicate or abusive submissions, to find your reports if you ask us about them, and to count your accepted reports towards free Premium (clause 12.10); it is not an account and identifies the installation, not you;
 
 6.1.5 your email address, only if you choose to give it, used only to reply to that report.
 
@@ -257,7 +258,7 @@
 
 12.3 To check that a subscription is real, and to keep Premium on the right account, the App uses RevenueCat, a subscription service. RevenueCat receives:
 
-12.3.1 a random RevenueCat id that the App creates on your device. It is not an account, and it is not the Installation ID in clause 6;
+12.3.1 a random RevenueCat id that the App creates on your device. It is not an account, and it is not the Installation ID in clause 6 (the two are linked only if you claim free Premium for your reports, clause 12.10);
 
 12.3.2 the store's purchase and renewal records for Tsamaya Premium: which plan, when it started, when it renews or ends, and whether a free trial or a billing problem applies;
 
@@ -274,6 +275,8 @@
 12.8 One-time purchases (clause 12 of the Terms of Use: car photo unlocks and search packs) go through the same store and RevenueCat, which receives the same kind of purchase record for them. How many pack searches you have used is counted only on your phone.
 
 12.9 Premium's other features work on your device. Trip history (with the SARS logbook's tags and notes, and trips you add by hand), your fuel settings, the vehicles, costs and odometer readings you give the logbook, the photos of odometers and slips you take or choose for it, and any Arrive by or logbook reminder are kept only on your phone (with the fuel price alert on, your fuel type is also stored with this device's notification registration, clause 11). For the logbook's "From", a drive that starts at one of your saved places (such as Home or Work) is named after it, on your phone. Tsamaya asks for your camera only when you tap to photograph an odometer or a slip, and a photo you choose instead is copied into the App; the photos are never uploaded. To measure a trip you add by hand, a place you search for is looked up like any search (clause 4), the two places you pick are sent to Mapbox for a route, as for any route, and only their names are kept with the trip. A logbook you export, and its photos, are files that go only where you send them. Fuel cost and toll prices (for the vehicle class you choose) read the official fuel prices and toll tariffs from our public lists on our server, which contain no information about you, and Arrive by asks Mapbox how long the route takes at the time you would leave.
+
+12.10 **Free Premium for your reports.** Road and area reports that the review team accepts earn free months of Premium (clause 11.11 of the Terms of Use). To show how far yours have come, the App sends our server your Installation ID when a report of yours is accepted and when you open Settings or the Premium screen, and our server counts the accepted reports that carry it; nothing new is collected for this. An accepted report counts for two years after it is accepted, until the Installation ID is removed from it (clause 15). When you tap Claim, the App also sends your RevenueCat id. Our server reads RevenueCat's Premium records for that id (to see whether a paid plan or a free month is already running) and asks RevenueCat to switch Premium on for it until a set date. We keep a record of each month given (the two ids, when it starts and when it ends) so that a month is given only once. This record is the only place where the two ids are linked, and it is not used for anything else.
 
 ## 13. Operators and Other Recipients
 
@@ -325,6 +328,7 @@
 | Crash reports | Deleted by Sentry after at most 90 days |
 | Push registrations (clause 11) | Retained while notifications are switched on. Deleted immediately when you turn all the notification switches off, or the next time you open the App after blocking Tsamaya's notifications in your phone's settings; a registration the delivery service reports as uninstalled is retired and deleted within 6 months. The record of a notification we sent keeps the device tokens it went to for 30 days |
 | Premium records (clause 12) | Kept while the subscription is active and then for five years from the date on which the tax return to which they relate is submitted, as section 29 (Duty to keep records) of the Tax Administration Act 28 of 2011 requires; the daily count of Premium searches is deleted after 35 days. RevenueCat keeps its own records under its terms |
+| Records of free Premium given for reports (clause 12.10) | Deleted two years after the free month ends |
 | Refund requests and records of refunds paid (Apple order ID, name, email address and bank account details) | Used only to verify and pay the refund. Kept for five years from the date on which the tax return to which they relate is submitted, as section 29 (Duty to keep records) of the Tax Administration Act 28 of 2011 requires |
 | Donation records (the name and payment reference your bank shows us) (clause 21) | Kept for five years from the date on which the tax return to which they relate is submitted, as section 29 (Duty to keep records) of the Tax Administration Act 28 of 2011 requires |
 | Voice cache (clause 9) | Kept while it is useful to avoid making the same sentence twice. It holds no identifier, and since the October 2026 update nothing new in it names a destination or stop other than Home or Work; clips earlier versions made remain, unlisted and linked to no one. Clips are not deleted after a set period, because the cache holds no Personal Information |
@@ -482,6 +486,7 @@
 
 | Version | Date | Summary of changes |
 |---|---|---|
+| 1.22 | 4 November 2026 | Free Premium for your reports: clauses 3, 6 and 12 (new clause 12.10) explain how accepted reports are counted by Installation ID and how a claimed month is given through RevenueCat, the processing table adds a row for it, and clause 15 sets how long the record of each month given is kept. |
 | 1.21 | 4 November 2026 | Clause 6.8.4 added: an answer to the in-drive "What colour is this road?" question stores the spot where your car was, which the App already sent but clause 6.8 did not list. No other change to what we collect, why, who receives it, how long we keep it, or your rights. |
 | 1.20 | 1 November 2026 | Legal review by ZS Attorneys Inc. (22 October 2026): refund requests for App Store annual plans added to clauses 4, 12 and 15; retention periods confirmed; donations recorded in Xero (clauses 13, 15 and 21); the Responsible Party's details tabulated; all paragraphs numbered and clauses renumbered (bullet points replaced by numbered clauses); new clause 1 (Introduction) and clause 2 (Definitions), with defined terms used consistently; the Summary explains which information is de-identified and which is Personal Information; clause 4 adds how we collect Personal Information and the rule on further Processing; clause 6 adds Special Personal Information; clause 11 adds Direct Marketing; clause 13 explains Operators and other Recipients; clause 14 explains the basis for transfers to the United States; clause 15 sets specific retention periods and adds new categories; clause 16 lists our security measures and notification of a security compromise as soon as reasonably possible; clause 17 sets out all your rights under POPIA; new clause 18 explains how to exercise them; clause 21 covers donations by EFT; clause 22 gives notice before changes take effect; new clause 23 (contact details) and Annexure A (Data Subject Request Form). On publication: the retention period for weather answers in clause 15 corrected to 48 hours, as clause 4 says, and Xero's region (the United States) given in clause 14. |
 | 1.19 | 13 October 2026 | Clauses 1, 2 and 3: pothole notices, public like police and roadblock notices but shown for about four days, up to 30 days with "still there" answers; stored, kept and deleted as police and roadblock notices are. |

@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-11-04.101",
+      "date": "4 November 2026",
+      "items": [
+        {
+          "icon": "ribbon-outline",
+          "title": "Free Premium for your reports",
+          "body": "Every 15 road or area reports the review team accepts earn you a free month of Premium. A road counts from 1 km, and each road or area counts up to 3 times. Your progress shows when a report is accepted and on the Premium screen, where you claim the month.",
+          "category": "feature"
+        },
+        {
+          "icon": "document-text-outline",
+          "title": "Updated Terms and Privacy Policy",
+          "body": "Terms clause 11.11 and Privacy Policy clause 12.10 explain how accepted reports are counted on this phone and how a free month is given. Nothing new is collected.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-11-04.100",
       "date": "4 November 2026",
       "items": [
