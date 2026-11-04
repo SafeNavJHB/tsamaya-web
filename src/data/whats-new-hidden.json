@@ -32,6 +32,10 @@
     {
       "title": "Road reports are rated where they happen",
       "why": "internal: the admin report screen's review reading (2026-10-28.77, silent in the app)"
+    },
+    {
+      "title": "Car marker holds on CarPlay",
+      "why": "internal: only the review team's admin-only Mazda marker changes (app #610, 2026-11-04)"
     }
   ]
 }
