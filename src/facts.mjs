@@ -82,7 +82,7 @@ export const STANDOUT = [
   // rated roads = checked + flagged (stats.totals); closed roads carry no rating; safeCorridorCertifies, dangerRowClaims (geometry.ts)
   ['Roads as well as areas', `${road} road stretches carry ratings of their own, checked or flagged. A main road can count as the better way through a rated area, and a flagged road you only cross is not held against the route.`],
   // getSafeRoute + withOrderedOptions; withinBudget (src/services/routing.ts)
-  ['Three routes, graded', 'Fastest, Balanced and Lower-risk, each graded A to E, with what each one goes around. A detour that adds too much is dropped, and when there is no sensible way round, the app says so.'],
+  ['Three routes, graded', 'Fastest, Balanced and Lower-risk, each graded A to E, with what each one goes around. A detour that adds too much is left out of the three, and when there is no sensible way round, the app says so.'],
   // useNavSession drives the phone and the car (src/hooks/useNavSession.ts)
   ['A full navigator, in the car too', 'Turn-by-turn voice on the phone, Apple CarPlay and Android Auto, from the same routing. It guides the whole drive, not only the plan before you leave.'],
   // protest watch + blocked corridors
@@ -100,6 +100,50 @@ export const STANDOUT = [
 // picture: what it does, the safety tools, the platforms, and the status.
 export const SUMMARY =
   'Tsamaya is a free, risk-aware navigation app for South African drivers, proudly built in Johannesburg. It plans driving routes around the places where vehicle crime is known to happen, using ratings that change with the time of day, then guides you turn by turn on your phone, Apple CarPlay or Android Auto. It also has an SOS button and live trip sharing. It is in open beta on iPhone and Android.';
+
+// WHERE IT INSTALLS TODAY: one statement, with the day it was last checked, read by
+// the get-app and car pages and /llms.txt. `verified` is the day someone looked at
+// the stores, not the day the wording was written, so move it only after looking:
+// the Play listing, App Store Connect's public TestFlight group and the App Store.
+// `npm run check:facts` compares these with the stores and fails when it has gone
+// more than 45 days without a check. iPhone 1.10.0 is the public TestFlight group's
+// newest build (45); Android 1.8.0 is Play open testing (version code 27).
+export const AVAILABILITY = {
+  verified: '2026-11-05',
+  androidVersion: '1.8.0',
+  iphoneVersion: '1.10.0',
+  android: 'Android: Google Play open testing, which anyone can install. Version 1.8.0, which includes Android Auto.',
+  iphone: 'iPhone: a public TestFlight beta, version 1.10.0, on iOS 16.4 or later. It is not on the App Store yet.',
+};
+
+// HOW RATINGS AND GRADES WORK: the numbers the method section of the technical page
+// states, read from one place because the app owns them. `npm run check:facts`
+// compares each with the app repo. Sources: routingTunables.ts (pricing, grades),
+// timeBandClock.ts (hours), fetch_saps_crimes.py in the pipeline (the quarters).
+export const METHOD = {
+  costPerKm: { red: 1000, orange: 50, yellow: 20 },
+  saturationKm: 5,
+  redFloorMetres: 50,
+  gradeUnder: { A: 50, B: 250, C: 1000, D: 8000 },
+  bands: {
+    daytime: ['05:00', '17:30'],
+    evening: ['17:30', '19:30'],
+    night: ['19:30', '05:00'],
+  },
+  sapsQuarters: 'July 2025 to June 2026',
+};
+
+// WHAT THE RATINGS CANNOT TELL YOU. Read by the technical page and /llms.txt, so a
+// person and an assistant get the same limits. Plain text, no markup.
+export const LIMITS = [
+  ['Reported crime only', 'SAPS counts crime reported to the police. Under-reporting differs by place and by kind of crime, so a low figure is not proof of a quiet place.'],
+  ['Precinct, not street', 'A police station\'s total cannot say which street a crime happened on. Spreading it by population is an estimate, and a busy precinct\'s figure can land on an airport, a mine or other land with few residents. We correct those as we find them.'],
+  ['History, not a forecast', 'Ratings describe the past, about a year of figures at best. A new pattern shows up late. Only closures and driver reports move faster.'],
+  ['After dark is an estimate', 'SAPS does not publish crime by the hour, so evening and night ratings are not measured. They are a review\'s estimate of how a place changes after dark.'],
+  ['Not every rating is read by a person', 'A person sense-checks the results and looks closely at what stands out, not at each of the thousands of ratings one by one.'],
+  ['Gaps in the map', 'Most side streets have no rating of their own. Outside the rated places there is no risk data at all, and a blank map means no data, not no risk.'],
+  ['Not a safety promise', 'Lower risk does not mean safe. No route is guaranteed crime-free, and every driving decision stays yours.'],
+];
 
 // What it is not. Said plainly, because the honest answer is also the one an
 // assistant needs to place it next to emergency apps correctly.

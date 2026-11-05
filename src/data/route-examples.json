@@ -1,0 +1,25 @@
+{
+  "source": "Planned by the app's own planRoute (src/services/routing.ts) against the live database, through the same path as a Go in the app. Generated once, then committed; never hand-edited, and re-run rather than patched when the figures need to change. Grades and distances are as planned; minutes are the app's live-traffic figure (liveSeconds) at the moment of the run, so they are shown for the daytime plan only. No place names on purpose: the site names regions, and never lets a reader connect a suburb to risk. The trips come from the fixed list in the app's scripts/qa/probeTrips.ts, chosen to show a spread, so they are not an average.",
+  "capturedUtc": "2026-11-05T07:08:47Z",
+  "capturedIso": "2026-11-05",
+  "capturedSast": "09:08",
+  "ratedAreas": 6649,
+  "ratedRoads": 9015,
+  "trips": [
+    { "place": "Ekurhuleni to Midrand", "trip": "across town",
+      "day": { "fastest": { "grade": "E", "km": 17.9, "minutes": 28 }, "lower": { "grade": "D", "km": 36.4, "minutes": 42 } },
+      "night": { "fastest": { "grade": "E", "km": 17.9 }, "lower": { "grade": "D", "km": 36.5 } } },
+    { "place": "Johannesburg", "trip": "city centre to the northern suburbs",
+      "day": { "fastest": { "grade": "E", "km": 19.9, "minutes": 38 }, "lower": { "grade": "D", "km": 21.3, "minutes": 38 } },
+      "night": { "fastest": { "grade": "E", "km": 19.9 }, "lower": { "grade": "D", "km": 21.3 } } },
+    { "place": "Pretoria", "trip": "suburb to suburb",
+      "day": { "fastest": { "grade": "D", "km": 24.2, "minutes": 24 }, "lower": null },
+      "night": { "fastest": { "grade": "D", "km": 24.2 }, "lower": { "grade": "D", "km": 21.9 } } },
+    { "place": "Cape Town", "trip": "northern suburbs to the Atlantic seaboard",
+      "day": { "fastest": { "grade": "E", "km": 31.2, "minutes": 56 }, "lower": { "grade": "D", "km": 32.1, "minutes": 59 } },
+      "night": { "fastest": { "grade": "E", "km": 31.2 }, "lower": { "grade": "D", "km": 35.4 } } },
+    { "place": "Durban", "trip": "city centre to the north coast",
+      "day": { "fastest": { "grade": "D", "km": 17.7, "minutes": 21 }, "lower": null },
+      "night": { "fastest": { "grade": "E", "km": 17.7 }, "lower": null } }
+  ]
+}

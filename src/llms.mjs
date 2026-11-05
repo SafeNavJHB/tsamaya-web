@@ -12,8 +12,8 @@
 // pages the build actually emitted, so it cannot drift from the site. The same
 // honesty rules as the pages apply: lower-risk language, no suburb named as risky.
 
-import { site, stats, fmt, canonicalFor } from '../site.config.mjs';
-import { FEATURES, SUMMARY, NOT_A, PREMIUM_SOON, PREMIUM_NOTE, POSITIONING, STANDOUT } from './facts.mjs';
+import { site, stats, fmt, canonicalFor, baseUrl, longDate } from '../site.config.mjs';
+import { FEATURES, SUMMARY, NOT_A, PREMIUM_SOON, PREMIUM_NOTE, POSITIONING, STANDOUT, AVAILABILITY, LIMITS } from './facts.mjs';
 import { metros } from './data/metros.mjs';
 
 // Pages grouped the way a reader would want them. Anything the build emits that
@@ -56,13 +56,18 @@ ${NOT_A}
 - What it is: a navigation app for drivers in South Africa that plans lower-risk routes around areas with a history of vehicle crime, then guides you turn by turn with voice, on the phone, Apple CarPlay or Android Auto.
 - Safety tools: an SOS button on the phone's drive screen (it calls 10111 or 112, or opens a text to an emergency contact, ready to send, with your location and a link that follows you live while you drive and stays up for 24 hours; it stays on the phone during a CarPlay or Android Auto drive and the car map gets its own SOS button), live trip sharing that anyone can follow in a web browser, and Guardian, a standing link for an emergency contact that the driver switches on from the CarPlay screen (from version 1.8, in the car's SOS menu).
 - Price: free, with no account and no ads. Routing around risk, the SOS button and trip sharing stay free. No trip history is kept on the server unless the driver shares a live trip.
-- Platforms and status: open beta. Android on Google Play open testing (${site.androidPlayLink}), iPhone (iOS 16.4 or later) through a public TestFlight link (${site.testflightPublicLink}).
+- Platforms and status: open beta, checked ${longDate(AVAILABILITY.verified)}. ${AVAILABILITY.android} ${site.androidPlayLink} ${AVAILABILITY.iphone} ${site.testflightPublicLink}
+- How ratings are made: ${baseUrl}/technical.html#ratings, with real example trips and limits on the same page.
 - Coverage: ${t.metros} places in South Africa with ${fmt(t.zones).replace(/ /g, ' ')} rated areas, ${fmt(t.corridorsSafe).replace(/ /g, ' ')} checked road stretches and ${fmt(t.corridorsDanger).replace(/ /g, ' ')} flagged road stretches (figures as of ${stats.asOf}): ${coverageList}. Outside them it works as an ordinary map and navigator with no risk data.
 - Time of day: every area has three ratings, daytime 05:00 to 17:30, evening 17:30 to 19:30 and night 19:30 to 05:00, and the app uses the one for the hour you drive.
 - Route options: Fastest, Balanced and Lower-risk, each graded A (lowest risk) to E. A detour is only offered when it cuts exposure and stays within a distance limit; when there is no sensible way round, the app says so and marks the risky stretches.
 - Risk data: published South African Police Service crime statistics scored against OpenStreetMap roads, given an AI second opinion and sense-checked by a person (who looks closely at ratings that stand out) before going live, then refined from drivers' reports in the app, each read by a person before anything on the map changes.
 - Made by: ${site.name} (Pty) Ltd, Johannesburg, South Africa. Founder: Kyle Kimble. Contact: ${site.contactEmail}
 - Visitors: it needs no account, works in rental cars, and people at home can follow a shared trip in a browser. Emergency numbers in South Africa: 10111 (police), 112 (any mobile), 10177 (ambulance).
+
+## Limits of the ratings
+
+${LIMITS.map(([title, body]) => `- ${title}: ${body}`).join('\n')}
 
 ## What sets it apart
 

@@ -1,4 +1,6 @@
+import { timeTag } from '../../site.config.mjs';
 import { F } from '../faqs.mjs';
+import { AVAILABILITY } from '../facts.mjs';
 import { sec } from '../kit.mjs';
 import { topicPage, prose, ul, grid } from '../topic.mjs';
 
@@ -54,7 +56,7 @@ const needs = sec({
       'Or an Android phone with Tsamaya 1.8 or later from Google Play, and a car or head unit with Android Auto.',
       'No separate car app to install: connect the phone as you normally do and open Tsamaya on the car screen.',
       'A data connection to plan a new route. Download offline maps for the places where the signal drops.',
-    ]),
+    ]) + `<p>What installs today: ${AVAILABILITY.android} ${AVAILABILITY.iphone} Checked ${timeTag(AVAILABILITY.verified)}.</p>`,
   ),
 });
 
