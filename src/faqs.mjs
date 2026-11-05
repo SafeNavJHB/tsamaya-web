@@ -32,7 +32,7 @@ export const F = {
   // detour only when none is clean, the detour budget, three graded options.
   how: {
     q: 'How does Tsamaya work?',
-    a: 'Pick a destination and Tsamaya checks the usual routes against its rated areas and roads, using the ratings for the time you will drive each part of the trip. It offers three options, Fastest, Balanced and Lower-risk, each graded A to E. When none of the usual routes gets around the high-risk areas, it looks for a detour, and drops one that adds too much distance. Then it guides you turn by turn, with voice, on your phone or on Apple CarPlay.',
+    a: 'Pick a destination and Tsamaya checks the usual routes against its rated areas and roads, using the ratings for the time you will drive each part of the trip. It offers three options, Fastest, Balanced and Lower-risk, each graded A to E. When none of the usual routes gets around the high-risk areas, it looks for a detour, and leaves out one that adds too much distance. Then it guides you turn by turn, with voice, on your phone or on Apple CarPlay.',
   },
   avoid: {
     q: 'Is there a navigation app that avoids high-crime areas in South Africa?',
@@ -54,7 +54,7 @@ export const F = {
   },
   free: {
     q: 'Is Tsamaya free?',
-    a: 'Yes. Everything that routes you around risk, the SOS button and trip sharing included, is free and stays free. There is no account and there are no ads, and we do not sell anything about you.',
+    a: 'Yes. Everything that routes you around risk, the SOS button and trip sharing included, is free and stays free. There is no account and there are no ads, and we do not sell anything about you. Google Play shows an "In-app purchases" label because an optional Premium subscription is being set up. It is not on sale yet, and nothing here depends on it.',
   },
   guarantee: {
     q: 'Does it guarantee I will be safe?',
@@ -70,7 +70,7 @@ export const F = {
   },
   longer: {
     q: 'Does a lower-risk route take much longer?',
-    a: 'Usually a few minutes. A detour is only offered when it cuts your exposure, and one that adds too much distance is thrown out, even when it carries less risk. When there is no sensible way round, Tsamaya says so and marks the risky stretches.',
+    a: 'Usually a few minutes. A detour is only offered when it cuts your exposure, and one that adds too much distance is left out of the three options, even when it carries less risk. When there is no sensible way round, Tsamaya says so and marks the risky stretches.',
   },
   times: {
     q: 'How does the time of day change a route?',
@@ -78,7 +78,7 @@ export const F = {
   },
   grade: {
     q: 'What do the A to E grades mean?',
-    a: 'Each route option gets a letter for how much of it runs through rated areas, weighted by how high their rating is: A has the least exposure, E the most. A route through any high-risk area is graded D or E, however short the stretch. The grade compares routes; it is not a promise about any one drive.',
+    a: 'Each route option gets a letter for how much of it runs through rated areas, weighted by how high their rating is: A has the least exposure, E the most. A route that drives 50 m or more on high-risk ground is graded D or E, unless a checked road covers that stretch. The grade compares routes; it is not a promise about any one drive.',
   },
   stops: {
     q: 'Can I add stops to a trip?',

@@ -16,7 +16,7 @@ const STEPS = [
   ['Test it against the rated areas', 'The route is sampled along its length and tested against every rated area, using the ratings for this hour. Only high-risk (red) and elevated (orange) areas count. Yellow is shown on the map but never forces a detour.'],
   ['Already on a checked road?', 'Where the route already runs along a road we have checked through an area, that counts as passing through, and no detour is needed. Checked roads are the local knowledge that stops the app over-reacting.'],
   ['Find a way round', 'For the areas the route still runs through, Tsamaya picks a nearby checked road and adds a few waypoints, nudging the route around the area rather than through it.'],
-  ['Re-route, then sanity-check', 'The route is fetched again through those points. A detour is only offered if it cuts your exposure, and one that adds too much distance is thrown out. When there is no good alternative, you get the normal route with the risky stretches marked. It will not invent a detour to look busy.'],
+  ['Re-route, then sanity-check', 'The route is fetched again through those points. A detour is only offered if it cuts your exposure, and one that adds too much distance is left out of the three options. When there is no good alternative, you get the normal route with the risky stretches marked. It will not invent a detour to look busy.'],
   ['Drive it', 'Follow it in the app, turn by turn with voice, on your phone, Apple CarPlay or Android Auto. Or hand it to Google Maps with the detour points already in place, so it follows the same line.'],
 ];
 
@@ -126,7 +126,7 @@ export default {
       kick: 'Go deeper',
       title: 'The screens, and the machinery',
       lead: 'Walk through the real app, or read the rules that decide a detour.',
-      inner: `<p class="more" data-reveal>${linkQ('See it in action', 'demo.html')}${linkQ('Technical details', 'technical.html')}</p>`,
+      inner: `<p class="more" data-reveal>${linkQ('See it in action', 'demo.html')}${linkQ('How ratings are made, and their limits', 'technical.html#ratings')}</p>`,
     }),
   ].join('\n'),
 };

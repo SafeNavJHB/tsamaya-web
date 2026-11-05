@@ -13,7 +13,7 @@
 // FIGURES. Nothing is typed by hand. Counts come from src/data/stats.json, the
 // example trip from src/data/route-card.json.
 import { existsSync, readFileSync } from 'node:fs';
-import { site, stats, fmt, statsAsOf } from '../../site.config.mjs';
+import { site, stats, fmt, timeTag } from '../../site.config.mjs';
 import { picture } from '../components.mjs';
 import { faqSec, getSec, linkQ, ARROW } from '../kit.mjs';
 import { faqNode } from '../seo.mjs';
@@ -131,7 +131,7 @@ const how = `
         <div class="hm-route"><span class="hm-grade g-${std.grade.toLowerCase()}" role="img" aria-label="Grade ${std.grade}">${std.grade}</span><div><p class="hm-route-t">${std.label}: ${std.minutes} min, ${std.km.toFixed(1)} km</p><p>${std.highRiskKm} km through ${std.highRisk} high-risk ${std.highRisk === 1 ? 'area' : 'areas'}</p></div></div>
         <div class="hm-route"><span class="hm-grade g-${low.grade.toLowerCase()}" role="img" aria-label="Grade ${low.grade}">${low.grade}</span><div><p class="hm-route-t">${low.label[0].toUpperCase() + low.label.slice(1)}: ${low.minutes} min, ${low.km.toFixed(1)} km</p><p>No high-risk areas, ${low.mediumRiskKm} km through ${low.mediumRisk} medium-risk ${low.mediumRisk === 1 ? 'area' : 'areas'}</p></div></div>
       </div>
-      <p class="hm-trip-foot">That morning the lower-risk route was ${low.minutesQuicker} minutes quicker. Usually it takes a few minutes longer, and a detour that adds too much is thrown out.</p>
+      <p class="hm-trip-foot">That morning the lower-risk route was ${low.minutesQuicker} minutes quicker. Usually it takes a few minutes longer, and a detour that adds too much is left out.</p>
     </div>
     <p class="hm-more">${linkQ('How the routing works', 'how-it-works.html')}${linkQ('Everything it does', 'features.html')}</p>
   </div>
@@ -141,7 +141,7 @@ const where = `
 <section class="sec hm-where" id="where" aria-labelledby="where-h">
   <div class="wrap">
     <h2 class="h2" id="where-h">Does it cover where you drive?</h2>
-    <p class="lead">${nMetros} places and ${zones} rated areas, each rated separately for daytime, evening and night. Everywhere else Tsamaya works as a normal map and navigator. Figures from the live database on ${statsAsOf}.</p>
+    <p class="lead">${nMetros} places and ${zones} rated areas, each rated separately for daytime, evening and night. Everywhere else Tsamaya works as a normal map and navigator. Figures from the live database on ${timeTag(stats.asOf)}.</p>
     <ul class="hm-metros">
       ${metros.map((m) => `<li><a href="${m.slug}.html"><span>${text(m.name)}</span><span class="hm-count">${fmt(m.zones)}</span></a></li>`).join('\n      ')}
     </ul>

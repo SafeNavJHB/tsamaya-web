@@ -200,6 +200,12 @@ Three edits, in this order:
 Then `npm run build && npm run check`. The metro gets a landing page, a card on the
 coverage page, a block on the map and a footer link, all at once.
 
+Then `npm run check:facts`, which compares the site with the app repo and the store
+listings. The stores do not update themselves: it fails until the Play listing names
+the new place. It is not a deploy gate, and a Play listing edit is a review
+submission, so time it around any release in review. The full release checklist is in
+`docs/audits/2026-11-05-seo-geo-audit.md`.
+
 If its label lands on top of a neighbour's on the map, give it an entry in `LABELS` at
 the top of `src/map.mjs`. Nothing checks label collisions for you.
 

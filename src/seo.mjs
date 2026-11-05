@@ -20,7 +20,7 @@
 // Rich Results Test before shipping.
 
 import { site, stats, baseUrl, canonicalFor } from '../site.config.mjs';
-import { FEATURES, SUMMARY, POSITIONING } from './facts.mjs';
+import { FEATURES, SUMMARY } from './facts.mjs';
 
 // The product topic pages (src/pages/*, built with src/topic.mjs) are about the
 // app, so they carry the app node like the other product pages do.
@@ -93,7 +93,9 @@ function website() {
   };
 }
 
-// The product itself. This is the node that can earn an app rich result.
+// The product itself. Google's app rich result also needs a real rating or review,
+// which the app does not have on the web, so this node states facts and earns no
+// star snippet. Never add a rating to get one.
 function application() {
   return {
     '@type': 'MobileApplication',
@@ -118,7 +120,6 @@ function application() {
     inLanguage: 'en-ZA',
     // How people search for it (Why Tsamaya, 2026-10-28). Plain words, no
     // "first" or "only" (facts.mjs STANDOUT says why).
-    slogan: POSITIONING,
     keywords: 'risk-aware navigation, South African navigation app, avoid high-crime areas, lower-risk routes, hijacking hotspots, CarPlay, Android Auto, SOS, live trip sharing',
     countryOfOrigin: { '@type': 'Country', name: 'South Africa' },
     screenshot: `${baseUrl}/img/og.png`,

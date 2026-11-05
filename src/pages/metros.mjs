@@ -14,7 +14,7 @@
 // See the editorial note at the top of src/data/metros.mjs.
 
 import { readFileSync } from 'node:fs';
-import { site, stats, fmt, statsAsOf } from '../../site.config.mjs';
+import { site, stats, fmt, timeTag } from '../../site.config.mjs';
 import { metros as metroContent } from '../data/metros.mjs';
 import { faqNode, breadcrumbNode } from '../seo.mjs';
 import { exploreSection } from '../explore.mjs';
@@ -124,7 +124,7 @@ function metroPage({ content, data }) {
         <ul class="tp-all">
           ${BANDS.map((b) => `<li><span class="hud">${b.name}, ${b.from} to ${b.to}</span><b class="num">${fmt(red[b.key])}</b></li>`).join('\n          ')}
         </ul>
-        <p class="fine">Of the ${fmt(z)} rated areas in ${name}, these are the ones at the highest of the four risk levels, for each of the three times of day. Every figure comes straight from the live database, read on ${statsAsOf}. The lowest band means an area was checked and carries no routing penalty, which is different from an area we have no data for. A rating describes an area's history of vehicle crime, not what is happening on a street right now: lower risk is not no risk.</p>
+        <p class="fine">Of the ${fmt(z)} rated areas in ${name}, these are the ones at the highest of the four risk levels, for each of the three times of day. Every figure comes straight from the live database, read on ${timeTag(stats.asOf)}. The lowest band means an area was checked and carries no routing penalty, which is different from an area we have no data for. A rating describes an area's history of vehicle crime, not what is happening on a street right now: lower risk is not no risk.</p>
       </div>`;
 
   const numbers = `
@@ -229,7 +229,7 @@ const coverageGrid = sec({
   id: 'metros',
   kick: 'Coverage by place',
   title: 'Pick a place',
-  lead: `Each place has its own page: its figures for every part of the day, what to know on its roads, and the questions people ask about it. Figures from the live database on ${statsAsOf}.`,
+  lead: `Each place has its own page: its figures for every part of the day, what to know on its roads, and the questions people ask about it. Figures from the live database on ${timeTag(stats.asOf)}.`,
   inner: `
     <ul class="mcards">
       ${joined.map(({ content, data }) => `<li data-reveal><a href="${content.slug}.html"><span class="hud">${content.region}${M}${fmt(data.zones)} rated areas</span><span class="mc-n">${content.name}</span><span class="mc-b">${content.blurb}</span><span class="mc-go" aria-hidden="true">View coverage</span></a></li>`).join('\n      ')}
