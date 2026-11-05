@@ -86,6 +86,24 @@ if (!existsSync(sitemapPath)) {
   const mods = [...sitemap.matchAll(/<lastmod>([^<]*)<\/lastmod>/g)].map((m) => m[1]);
   if (mods.length !== locs.length) fail(`sitemap has ${locs.length} URLs but ${mods.length} <lastmod> entries`);
   for (const d of mods) if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || d > today) fail(`sitemap <lastmod> is not a valid past date: ${d}`);
+
+  // One date per page: the sitemap, the WebPage node and the line a reader sees
+  // must agree, or a crawler has three answers to "when did this change?". The
+  // date comes from the page's own content (build.mjs), so dates that all move
+  // together mean something shared crept back into the hash.
+  const lastmods = new Map([...sitemap.matchAll(/<loc>([^<]*)<\/loc>\s*<lastmod>([^<]*)<\/lastmod>/g)].map((m) => [m[1], m[2]]));
+  const dated = [];
+  for (const p of pages) {
+    let node = null;
+    try { node = JSON.parse(p.jsonLd)['@graph'].find((n) => n['@type'] === 'WebPage'); } catch {}
+    const declared = node && node.dateModified;
+    if (!declared) continue;
+    dated.push(declared);
+    if (lastmods.get(p.canonical) !== declared) fail(`${p.file}: dateModified ${declared} disagrees with its sitemap <lastmod> ${lastmods.get(p.canonical)}`);
+    const main = p.html.slice(p.html.indexOf('<main'), p.html.indexOf('</main>'));
+    if (!main.includes(`<time datetime="${declared}">`)) fail(`${p.file}: dateModified ${declared} is not the date shown on the page`);
+  }
+  if (dated.length < 30) fail(`only ${dated.length} pages carry a content date (expected every indexable page but the legal ones)`);
 }
 
 // ---- 3. The token-bearing tracker must never be indexable --------------------

@@ -1,5 +1,5 @@
 // layout.mjs — the HTML shell wrapped around every page's body.
-import { site, nav, baseUrl, canonicalFor, stats, fmt } from '../site.config.mjs';
+import { site, nav, baseUrl, canonicalFor, stats, fmt, timeTag } from '../site.config.mjs';
 import { logoLockup, logoMark, icon } from './components.mjs';
 import { siteGraph } from './seo.mjs';
 import { analyticsSnippet } from './analytics.mjs';
@@ -225,7 +225,7 @@ function pageHtml(page) {
   </header>
 ${jumpBar(jump)}${page.hud === false ? '' : hudStrip()}
   <main id="main">
-    ${page.body}
+    ${page.body}${page.modified && !page.dateInHead ? `\n    <p class="wrap page-date">Page last updated ${timeTag(page.modified)}.</p>` : ''}
   </main>
 
   <footer class="site-footer">

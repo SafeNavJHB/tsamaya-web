@@ -9,6 +9,9 @@
 import { site } from '../site.config.mjs';
 
 export const M = ' · '; // the telemetry line's separator
+// Where a page shows its own content date. build.mjs hashes the body with this
+// slot still empty, then fills it, so showing a date cannot change the date.
+export const PAGE_DATE = '<!--page-date-->';
 export const ARROW = '<svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const COPY = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>';
 

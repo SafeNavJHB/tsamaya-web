@@ -12,7 +12,8 @@ import { dirname, join, extname } from 'node:path';
 import { renderPage } from './src/layout.mjs';
 import { readableJoins } from './src/readable.mjs';
 import { siteData, geoData } from './src/sitedata.mjs';
-import { site, baseUrl, canonicalFor } from './site.config.mjs';
+import { site, baseUrl, canonicalFor, timeTag } from './site.config.mjs';
+import { PAGE_DATE } from './src/kit.mjs';
 import { stripJs } from './scripts/strip-js.mjs';
 import { llmsTxt } from './src/llms.mjs';
 
@@ -41,21 +42,49 @@ const buildDate = new Date(
   .toISOString()
   .slice(0, 10);
 
-// Per-page <lastmod>: the date each page's rendered HTML last CHANGED. The hash of
-// every page is kept in src/data/lastmod.json (committed); a build whose page
-// hashes differently from the stored one stamps today's date and updates the
-// file, so commit it with the change. It works from the committed file alone, so
-// a CI checkout (one commit deep, where file dates all read the same) gives the
-// same dates as a local build. A page nobody touched keeps its old date, which
-// is the signal a search engine wants from lastmod.
+// Per-page date: the day each page's own CONTENT last changed. One date, three
+// places: <lastmod>, the WebPage node's dateModified and the line a reader sees.
+// The hash of every page's body is kept in src/data/lastmod.json (committed); a
+// build whose body hashes differently stamps today's date and updates the file, so
+// commit it with the change. It works from the committed file alone, so a CI
+// checkout (one commit deep, where file dates all read the same) gives the same
+// dates as a local build. A page nobody touched keeps its old date, which is the
+// signal a search engine wants.
+//
+// Only the body counts. Hashing the whole page re-dated all of them for a footer
+// link or a new stylesheet fingerprint, and a search engine stops trusting dates
+// that all move together (2026-11-05 audit: 55 pages stamped within two days).
 const lastmodPath = join(root, 'src', 'data', 'lastmod.json');
 let lastmodStore = {};
 try { lastmodStore = JSON.parse(await readFile(lastmodPath, 'utf8')); } catch {}
 const lastmodNext = {};
-function noteLastmod(slug, html) {
-  const hash = createHash('sha256').update(html).digest('hex').slice(0, 16);
+function noteLastmod(slug, body) {
+  const hash = createHash('sha256').update(body).digest('hex').slice(0, 16);
   const prev = lastmodStore[slug];
-  lastmodNext[slug] = prev && prev.hash === hash ? prev : { hash, date: buildDate };
+  // An entry with no basis hashed the whole page, so its hash cannot be compared.
+  // Its date is the best one there is: keep it and start from this body.
+  if (prev && prev.basis !== 'body') lastmodNext[slug] = { hash, basis: 'body', date: prev.date };
+  else lastmodNext[slug] = prev && prev.hash === hash ? prev : { hash, basis: 'body', date: buildDate };
+  return lastmodNext[slug].date;
+}
+
+// Pages that carry no "last updated" line: the legal pages and the changelog show
+// their own version dates, and a date on an error or tracker page means nothing.
+const UNDATED = new Set([
+  '404.html', 'track.html', 't/index.html', 'updates.html', 'updates-archive.html',
+  'privacy.html', 'terms.html', 'paia.html',
+  'logbook2-privacy.html', 'logbook2-support.html', 'logbook2-terms.html',
+]);
+
+// Gives a page its content date and fills the PAGE_DATE slot, if it has one.
+function datePage(page) {
+  const date = noteLastmod(page.slug, page.body || '');
+  if (page.noindex || UNDATED.has(page.slug)) return;
+  page.modified = date;
+  if ((page.body || '').includes(PAGE_DATE)) {
+    page.dateInHead = true;
+    page.body = page.body.replaceAll(PAGE_DATE, timeTag(date));
+  }
 }
 
 async function copyDir(from, to) {
@@ -126,8 +155,8 @@ async function build() {
   }
 
   for (const page of pages) {
+    datePage(page);
     const html = await fingerprint(readableJoins(renderPage(page)));
-    noteLastmod(page.slug, html);
     const outPath = join(dist, page.slug);
     // Support nested slugs like 't/index.html' (gives a clean /t/ URL).
     await mkdir(dirname(outPath), { recursive: true });
