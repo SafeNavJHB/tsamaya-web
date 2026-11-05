@@ -1,7 +1,6 @@
 import { F } from '../faqs.mjs';
 import { faqNode, breadcrumbNode } from '../seo.mjs';
-import { pageHead, faqSec, getSec, M } from '../kit.mjs';
-import { LATEST } from '../topic.mjs';
+import { pageHead, faqSec, getSec, M, PAGE_DATE } from '../kit.mjs';
 
 // The FAQ hub (added 2026-10-01): every question people ask about Tsamaya, in
 // groups, on one page. The answers are the shared objects in src/faqs.mjs, the
@@ -27,14 +26,13 @@ const page = {
   description: 'Answers to what people ask about Tsamaya: coverage, risk data, closures and protests, speed cameras, hotspots, CarPlay, SOS, live trip sharing and how it compares with Waze and Google Maps.',
   heroClass: 'sn page-visit',
   hud: false,
-  modified: LATEST.iso,
   jsonLd: [
     faqNode(all),
     breadcrumbNode([{ name: 'Home', slug: 'index.html' }, { name: 'Questions and answers', slug: 'faq.html' }]),
   ],
   body: [
     pageHead({
-      meta: `Questions${M}as of ${LATEST.text}`,
+      meta: `Questions${M}updated ${PAGE_DATE}`,
       title: 'Questions, answered straight.',
       lead: 'Everything people ask about Tsamaya, in one place. Lower risk is not no risk, and nothing here is a guarantee.',
       after: '\n    <p class="ph-links qa-all"><button class="link-q" type="button" data-qa-all="open"><span>Open every answer</span></button><button class="link-q" type="button" data-qa-all="close"><span>Close every answer</span></button></p>',

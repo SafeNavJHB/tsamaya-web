@@ -1315,6 +1315,8 @@ html:not(.js) .ex-page .ex-in { min-height: 0; }
 .sn .spec dt { color: var(--fg-2); }
 .sn .spec dd { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; }
 .sn .fine { margin-top: 28px; max-width: 46rem; color: var(--fg-2); font-size: 15px; }
+/* The day this page's content last changed (build.mjs). Quiet: for readers who want to check, and for crawlers. */
+.page-date { padding-block: 20px 28px; color: var(--fg-2); font-size: 13px; }
 @media (max-width: 960px) { .sn .give { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 480px) {
   .sn .give .amounts > div { grid-template-columns: minmax(0, 1fr); gap: 8px; }

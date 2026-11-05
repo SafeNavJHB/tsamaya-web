@@ -188,8 +188,9 @@ function webPage(page, title, description) {
     about: { '@id': ID.app },
     publisher: { '@id': ID.org },
     inLanguage: 'en-ZA',
-    // Only topic pages carry a date (src/topic.mjs): the newest changelog entry
-    // they were written against, never a hand-typed value.
+    // The day this page's own content last changed (build.mjs), the same date as
+    // its sitemap entry and the line a reader sees. Never hand-typed, and never a
+    // date borrowed from something else, such as the newest changelog entry.
     ...(page.modified ? { dateModified: page.modified } : {}),
   };
 }

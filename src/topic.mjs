@@ -10,19 +10,8 @@
 // lower-risk language (never "safe" as a promise), roads and regions but never a
 // suburb as risky, no em dashes, straight quotes, figures from stats.json, and
 // other apps named only by the KIND of app they are (Kyle, 2026-09-28).
-import { readFileSync } from 'node:fs';
 import { faqNode, breadcrumbNode } from './seo.mjs';
-import { pageHead, sec, faqSec, getSec, linkQ, M } from './kit.mjs';
-
-// The newest changelog entry is the date the site last described the app. It
-// comes from the same file the Updates page reads, so it moves with it.
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const { releases } = JSON.parse(readFileSync(new URL('./data/whats-new.json', import.meta.url), 'utf8'));
-const [d, m, y] = releases[0].date.split(' ');
-export const LATEST = {
-  text: releases[0].date,
-  iso: `${y}-${String(MONTHS.indexOf(m) + 1).padStart(2, '0')}-${d.padStart(2, '0')}`,
-};
+import { pageHead, sec, faqSec, getSec, linkQ, M, PAGE_DATE } from './kit.mjs';
 
 // A related-pages row: [label, href] pairs, written as the site's quiet links.
 const related = (links) => sec({
@@ -49,7 +38,6 @@ export function topicPage({ slug, title, headTitle, description, meta, h1, lead,
     description,
     heroClass: 'sn page-visit',
     hud: false,
-    modified: LATEST.iso,
     jsonLd: [
       faqs.length ? faqNode(faqs) : null,
       breadcrumbNode([
@@ -58,7 +46,7 @@ export function topicPage({ slug, title, headTitle, description, meta, h1, lead,
       ]),
     ],
     body: [
-      pageHead({ crumb: slug === 'features.html' ? null : { href: 'features.html', label: 'All features' }, meta: `${meta}${M}as of ${LATEST.text}`, title: h1, lead, after }),
+      pageHead({ crumb: slug === 'features.html' ? null : { href: 'features.html', label: 'All features' }, meta: `${meta}${M}updated ${PAGE_DATE}`, title: h1, lead, after }),
       ...sections,
       links.length ? related(links) : '',
       faqs.length ? faqSec({ id: 'faq', title: 'Asked often', faqs }) : '',

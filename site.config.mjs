@@ -15,12 +15,16 @@ export const stats = JSON.parse(
   readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'src', 'data', 'stats.json'), 'utf8'),
 );
 
-// "26 October 2026": the day stats.json was read from the live database.
+// "2026-10-26" as "26 October 2026", and as a <time> a machine can read too.
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-export const statsAsOf = (() => {
-  const [y, m, d] = String(stats.asOf || '').split('-').map(Number);
+export const longDate = (iso) => {
+  const [y, m, d] = String(iso || '').split('-').map(Number);
   return y ? `${d} ${MONTHS[m - 1]} ${y}` : '';
-})();
+};
+export const timeTag = (iso) => `<time datetime="${iso}">${longDate(iso)}</time>`;
+
+// The day stats.json was read from the live database.
+export const statsAsOf = longDate(stats.asOf);
 
 // Formats 3254 as "3 254", the South African style: a space as the thousands
 // separator. It is a NON-BREAKING space (U+00A0), so a number never wraps across
