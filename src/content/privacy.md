@@ -1,6 +1,6 @@
 # Tsamaya Privacy Policy
 
-**Version 1.22. Effective date: 4 November 2026.**
+**Version 1.23. Effective date: 5 November 2026.**
 
 **Responsible Party:** Tsamaya (Pty) Ltd, a private company registered in South Africa
 
@@ -321,7 +321,7 @@
 | Police, roadblock and pothole notices, with their reporters' identifiers, hashed network addresses and still-there answers | Deleted a day after the notice expires |
 | Weather answers for the rain reminder (clause 4) | Reused for 10 minutes for drivers in the same area and deleted within 48 hours; your position is not stored |
 | Speed camera reports and answers | A report keeps your Installation ID and comment for up to two years after it is reviewed; an answer to "still there?" is deleted two years after you give it |
-| Reports, suggestions, trip ratings, "This route looks wrong" reports and crime spot reports | Until reviewed and actioned, then up to two years as the record behind a change to the risk data, after which the Installation ID, email address, note and Claude's notes on it are removed. The route lines and rounded start and end of a "This route looks wrong" report are deleted 12 months after the report |
+| Reports, suggestions, trip ratings, "This route looks wrong" reports and crime spot reports | Until reviewed and actioned, then up to two years as the record behind a change to the risk data. Two years after a report is reviewed, or two years after it was sent if it is never reviewed, the Installation ID, email address, note and Claude's notes on it are removed, along with the spot stored with an answer to "What colour is this road?" (clause 6.8.4). The route lines and rounded start and end of a "This route looks wrong" report are deleted 12 months after the report |
 | An email address you add to a report | Until we have replied, and at most 12 months |
 | A navigation log you email to us | Until the fault it helps with is solved, and at most 12 months |
 | Usage events and installation records | Usage events are deleted after 24 months; an installation record's identifier is replaced once the installation has sent no usage event for 24 months, so only the count remains |
@@ -486,6 +486,7 @@
 
 | Version | Date | Summary of changes |
 |---|---|---|
+| 1.23 | 5 November 2026 | Clause 15: says what happens to a report nobody reviews (its identifiers are removed two years after it was sent, as already happened), and the spot stored with an answer to "What colour is this road?" is now removed at the same time. No retention period is longer, and nothing new is collected. |
 | 1.22 | 4 November 2026 | Free Premium for your reports: clauses 3, 6 and 12 (new clause 12.10) explain how accepted reports are counted by Installation ID and how a claimed month is given through RevenueCat, the processing table adds a row for it, and clause 15 sets how long the record of each month given is kept. |
 | 1.21 | 4 November 2026 | Clause 6.8.4 added: an answer to the in-drive "What colour is this road?" question stores the spot where your car was, which the App already sent but clause 6.8 did not list. No other change to what we collect, why, who receives it, how long we keep it, or your rights. |
 | 1.20 | 1 November 2026 | Legal review by ZS Attorneys Inc. (22 October 2026): refund requests for App Store annual plans added to clauses 4, 12 and 15; retention periods confirmed; donations recorded in Xero (clauses 13, 15 and 21); the Responsible Party's details tabulated; all paragraphs numbered and clauses renumbered (bullet points replaced by numbered clauses); new clause 1 (Introduction) and clause 2 (Definitions), with defined terms used consistently; the Summary explains which information is de-identified and which is Personal Information; clause 4 adds how we collect Personal Information and the rule on further Processing; clause 6 adds Special Personal Information; clause 11 adds Direct Marketing; clause 13 explains Operators and other Recipients; clause 14 explains the basis for transfers to the United States; clause 15 sets specific retention periods and adds new categories; clause 16 lists our security measures and notification of a security compromise as soon as reasonably possible; clause 17 sets out all your rights under POPIA; new clause 18 explains how to exercise them; clause 21 covers donations by EFT; clause 22 gives notice before changes take effect; new clause 23 (contact details) and Annexure A (Data Subject Request Form). On publication: the retention period for weather answers in clause 15 corrected to 48 hours, as clause 4 says, and Xero's region (the United States) given in clause 14. |
