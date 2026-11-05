@@ -21,15 +21,15 @@ Property `https://tsamayaapp.co.za/`. "Stored copy" is Google's View crawled pag
 | Page | Last crawl before request | Google's stored copy | Action |
 |---|---|---|---|
 | `/coverage.html` | 26 Oct | 15 metros, 5 172 areas | Requested. **Recrawled within minutes: the stored copy now says 22 places, 6 649 areas.** |
-| `/features.html` | 30 Oct | 18 metros | Requested, result not yet seen |
-| `/faq.html` | 30 Oct | 18 metros | Requested, result not yet seen |
+| `/features.html` | 30 Oct | 18 metros | Requested. Recrawled the same morning (09:37). New stored copy not read. |
+| `/faq.html` | 30 Oct | 18 metros | Requested. Recrawled the same morning (09:36). New stored copy not read. |
 | `/technical.html` | 3 Nov | Not read | Requested, result not yet seen |
 | `/mthatha.html` | Never: "Discovered, currently not indexed" | None | Requested, result not yet seen |
-| `/` | 30 Oct | Not read | **Unconfirmed.** The first request was still submitting when the dialog was left, and the retry was blocked. See Open items. |
+| `/` | 30 Oct | Not read | Requested and confirmed ("Indexing requested"), result not yet seen |
 | `/carplay-android-auto.html`, `/johannesburg.html` | Not recorded | Indexed | None |
 
 - Google's live test of `/coverage.html` showed 22 places and 6 649 areas, against 15 and 5 172 stored. Google-selected canonical: the inspected URL.
-- Sitemap report: Success, last read 3 Nov, 55 pages. Some per-URL views still say "Sitemaps: Temporary processing error"; recheck next time.
+- Sitemap report: re-submitted on 5 Nov and read the same day: Success, 55 pages. Before that, last read 3 Nov. Some per-URL views still say "Sitemaps: Temporary processing error"; recheck next time.
 - Page indexing report (last updated 23 Oct, so behind): 21 indexed, 19 "Discovered, currently not indexed", 1 alternate with a proper canonical. It lags: it still lists `/faq.html` and `/features.html`, both indexed since.
 - Plausible, not proven: Google crawls this site rarely because it has few links from elsewhere (52 web search clicks in three months). That fits the 19 waiting pages, and is why independent coverage is worth more than anything else in this file.
 
@@ -159,8 +159,7 @@ Score each answer: named for the category (discovery), correct on place, availab
 
 ## Open items
 
-- **Home page and sitemap, awaiting Kyle:** request indexing for `/` (unconfirmed above) and re-submit `sitemap.xml`, so Google reads the new dates. Neither was on the list approved on 5 Nov, and the retry was blocked by the permission system.
-- **Check back in about a week:** the stored copies of `/features.html`, `/faq.html` and `/technical.html`, and whether `/mthatha.html` was crawled.
+- **Check back in about a week:** the stored copies of `/`, `/features.html`, `/faq.html` and `/technical.html`, and whether `/mthatha.html` was crawled.
 - **Waiting pages:** the rest of the 19 can be requested at about 10 a day if they stay unindexed. Refresh the report first, since it is from 23 Oct.
 - **Play listing:** send the text above after the version code 31 verdict.
 - **Rich Results Test:** run once on `/` and `/faq.html`. The Schema.org validator shows 0 errors and 0 warnings on `/`, `/features.html` and `/technical.html` after the deploy.
