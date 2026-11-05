@@ -4,20 +4,36 @@ An external audit (ChatGPT, public retrieval only) reported mixed-age content fo
 
 ## Root cause
 
-**The live site was not stale. The old counts live in other companies' search indexes, and in our own store listings.**
+**The live site was not stale. Google's own index held old copies, because it had not recrawled those pages since they changed, and other search indexes hold older ones still. Separately, our store listings really were out of date.**
 
-| Stale phrase in the audit | Live site (origin, 5 Nov 06:58 UTC) | Where it actually lives |
+| Stale phrase in the audit | Live site (5 Nov) | Where it actually lives |
 |---|---|---|
-| "15 metros", "14 metros", "5,172 areas" | Absent from every page tested | Third-party search and AI snapshots of older builds. The site moved to 22 places on 3 Nov. |
-| "Android Auto is in testing" | Absent | Older snapshots. `/features.html` says "Yes, from version 1.8 on Google Play". |
-| Older place list | Current on the site | **Google Play listing: a real defect.** Last updated 29 Sept, names 14 of the 22 places. |
-| "dangerous zones", "major metropolitan areas" | Absent | **TestFlight beta description: a real defect.** Off-brand wording, and its privacy link is the old github.io forwarder. |
+| "15 metros", "5,172 areas" | Absent | **Google's stored copy of `/coverage.html`**, crawled 26 Oct: "5 172 areas across 15 South African metros". |
+| "14 metros" | Absent | Not in any Google copy read here, so older third-party snapshots. |
+| "Android Auto is in testing" | Absent | Not in Google's copy of `/features.html` (30 Oct), which already says "from version 1.8". So older third-party snapshots. |
+| Older place list | Current | **Google Play listing: a real defect.** Last updated 29 Sept, names 14 of the 22 places. Held, see below. |
+| "dangerous zones", "major metropolitan areas" | Absent | **TestFlight description: a real defect.** Corrected on 5 Nov, along with its privacy link. |
 
-### What is confirmed and what is not
+### Search Console on 5 Nov
 
-- **Confirmed:** origin HTML is current, and identical for every user agent tested (below).
-- **Not yet confirmed:** what Google's own index holds per page. That needs Search Console URL Inspection, which needs Kyle's sign-in (see Open items).
-- **Measured on 5 Nov:** Anthropic's web search still returns no page from the domain, the same as 15 Oct. It has no submission tool, so this one is outside our control.
+Property `https://tsamayaapp.co.za/`. "Stored copy" is Google's View crawled page. Decision tree outcome: origin current, Google indexed old, so indexing lag. No canonical, robots or crawl fault found.
+
+| Page | Last crawl before request | Google's stored copy | Action |
+|---|---|---|---|
+| `/coverage.html` | 26 Oct | 15 metros, 5 172 areas | Requested. **Recrawled within minutes: the stored copy now says 22 places, 6 649 areas.** |
+| `/features.html` | 30 Oct | 18 metros | Requested, result not yet seen |
+| `/faq.html` | 30 Oct | 18 metros | Requested, result not yet seen |
+| `/technical.html` | 3 Nov | Not read | Requested, result not yet seen |
+| `/mthatha.html` | Never: "Discovered, currently not indexed" | None | Requested, result not yet seen |
+| `/` | 30 Oct | Not read | **Unconfirmed.** The first request was still submitting when the dialog was left, and the retry was blocked. See Open items. |
+| `/carplay-android-auto.html`, `/johannesburg.html` | Not recorded | Indexed | None |
+
+- Google's live test of `/coverage.html` showed 22 places and 6 649 areas, against 15 and 5 172 stored. Google-selected canonical: the inspected URL.
+- Sitemap report: Success, last read 3 Nov, 55 pages. Some per-URL views still say "Sitemaps: Temporary processing error"; recheck next time.
+- Page indexing report (last updated 23 Oct, so behind): 21 indexed, 19 "Discovered, currently not indexed", 1 alternate with a proper canonical. It lags: it still lists `/faq.html` and `/features.html`, both indexed since.
+- Plausible, not proven: Google crawls this site rarely because it has few links from elsewhere (52 web search clicks in three months). That fits the 19 waiting pages, and is why independent coverage is worth more than anything else in this file.
+
+Anthropic's web search still returned no page from the domain on 5 Nov, the same as 15 Oct. It has no submission tool.
 
 ## Technical audit sheet
 
@@ -69,14 +85,13 @@ An independent read of the new method copy against the pipeline and app code, be
 | Live stats refreshed: 9 015 rated roads (was 8 796), 5 Nov | `src/data/stats.json` | Revert, or `npm run stats` |
 | `slogan` removed from the app node; breadcrumb added to the technical page | `src/seo.mjs`, `src/pages/technical.mjs` | Revert the PR |
 | `npm run check:facts`: site against app repo and stores | `scripts/check-facts.mjs` | Delete the script |
+| TestFlight description and privacy link, through the App Store Connect API | Beta app localization (en-US) | Patch the old text back, quoted below |
 
 Deliberately not done, because the audit's own anti-patterns or the evidence ruled them out: no rewrite of current pages, no robots change, no cache change, no new `llms.txt` strategy, no invented rating, and no new city pages.
 
 ## Schema report
 
-Validated with the Schema.org validator against the live `/features.html`: **0 errors, 1 warning** (`slogan`, now removed). Google's app rich result needs a real rating or review, and the app has none on the web, so the node states facts and earns no star snippet. That is correct, and no rating should ever be added to change it. `offers.price` is 0 and true today; `MobileApplication` carries `installUrl` for both real install paths. `Organization` has `legalName`, `sameAs` (LinkedIn, Instagram) and `disambiguatingDescription`, which separates us from other uses of the word Tsamaya.
-
-Google's Rich Results Test is interactive: run it once on `/` and `/faq.html` after the deploy.
+Schema.org validator on the live site before the change: **0 errors, 1 warning** (`slogan` on `/features.html`). After: **0 errors, 0 warnings** on `/`, `/features.html` and `/technical.html`. Google's app rich result needs a real rating or review, and the app has none on the web, so the node states facts and earns no star snippet. That is correct, and no rating should ever be added to change it. `offers.price` is 0 and true today; `MobileApplication` carries `installUrl` for both real install paths. `Organization` has `legalName`, `sameAs` (LinkedIn, Instagram) and `disambiguatingDescription`, which separates us from other uses of the word Tsamaya.
 
 ## Store listings: text ready to send
 
@@ -100,11 +115,11 @@ Under "Privacy", add:
 
 Then update `AVAILABILITY` in `src/facts.mjs` if the version changed, and run `npm run check:facts`.
 
-### TestFlight beta description
+### TestFlight beta description: changed on 5 Nov
 
-Current: "Tsamaya is designed to be a navigation app for South Africans, to assist in routing around dangerous zones and roads within the major metropolitan areas, expanding across South African cities". Privacy link: the old github.io forwarder.
+Was: "Tsamaya is designed to be a navigation app for South Africans, to assist in routing around dangerous zones and roads within the major metropolitan areas, expanding across South African cities". Privacy link: `https://safenavjhb.github.io/tsamaya-legal/privacy/`.
 
-Proposed:
+Now:
 
 > Tsamaya is a navigation app for South African drivers. It plans routes around areas with a history of vehicle crime, using ratings that change with the time of day, in 22 places across South Africa, and guides you turn by turn on your phone and on Apple CarPlay. Lower risk does not mean safe: it gives you better information, and every driving decision stays yours. More at tsamayaapp.co.za.
 
@@ -144,6 +159,9 @@ Score each answer: named for the category (discovery), correct on place, availab
 
 ## Open items
 
-- **Search Console:** record, for `/coverage.html`, `/features.html` and `/faq.html`, the last crawl, the user-declared and Google-selected canonicals, and indexed against live content. Then request indexing for those three plus `/technical.html`.
+- **Home page and sitemap, awaiting Kyle:** request indexing for `/` (unconfirmed above) and re-submit `sitemap.xml`, so Google reads the new dates. Neither was on the list approved on 5 Nov, and the retry was blocked by the permission system.
+- **Check back in about a week:** the stored copies of `/features.html`, `/faq.html` and `/technical.html`, and whether `/mthatha.html` was crawled.
+- **Waiting pages:** the rest of the 19 can be requested at about 10 a day if they stay unindexed. Refresh the report first, since it is from 23 Oct.
 - **Play listing:** send the text above after the version code 31 verdict.
-- **Independent coverage:** South African motoring, tech, insurance and fleet press is worth more than any change here. Earned, never bought. Not started.
+- **Rich Results Test:** run once on `/` and `/faq.html`. The Schema.org validator shows 0 errors and 0 warnings on `/`, `/features.html` and `/technical.html` after the deploy.
+- **Independent coverage:** South African motoring, tech, insurance and fleet press. Earned, never bought. Not started.
