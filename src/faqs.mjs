@@ -78,7 +78,7 @@ export const F = {
   },
   grade: {
     q: 'What do the A to E grades mean?',
-    a: 'Each route option gets a letter for how much of it runs through rated areas, weighted by how high their rating is: A has the least exposure, E the most. A route with 50 m or more of high-risk ground is graded D or E. The grade compares routes; it is not a promise about any one drive.',
+    a: 'Each route option gets a letter for how much of it runs through rated areas, weighted by how high their rating is: A has the least exposure, E the most. A route that drives 50 m or more on high-risk ground is graded D or E, unless a checked road covers that stretch. The grade compares routes; it is not a promise about any one drive.',
   },
   stops: {
     q: 'Can I add stops to a trip?',
