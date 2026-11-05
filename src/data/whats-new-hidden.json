@@ -40,6 +40,10 @@
     {
       "title": "Free Premium for your reports, from your first report",
       "why": "a same-day fix to the feature's first version (app #613, 2026-11-04): the 'Free Premium for your reports' entry already describes the final behaviour"
+    },
+    {
+      "title": "A speed limit test for the team",
+      "why": "internal: an admin-only test tool, no driver sees it"
     }
   ]
 }
