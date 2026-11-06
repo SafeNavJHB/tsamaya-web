@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-11-06.100",
+      "date": "6 November 2026",
+      "items": [
+        {
+          "icon": "navigate-outline",
+          "title": "The map comes back to your car",
+          "body": "Tapping the map during a drive no longer leaves it behind: it returns to your car after a few seconds, as it does after a drag.",
+          "category": "fix"
+        },
+        {
+          "icon": "flag-outline",
+          "title": "Arriving when you park just past the spot",
+          "body": "If you roll past your destination and stop just beyond it, the drive now ends as an arrival instead of waiting at 0 m.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-11-05.101",
       "date": "5 November 2026",
       "items": [
