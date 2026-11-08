@@ -1857,3 +1857,24 @@ html:not(.js) .page-home2 .hm-bands { display: none; }
 }
 .page-home2 .hm-change { padding: 0; border: 0; background: none; font: inherit; color: var(--go); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 32px; }
 .page-home2 .hm-where .lead { margin-top: 18px; max-width: 44rem; }
+
+/* ---------- Founding 30 claim page (founding-30.html) ---------- */
+.f30 { margin-top: 32px; max-width: 40rem; padding: 26px 24px; border: 1px solid var(--hairline); border-radius: 16px; background: var(--night-2); }
+.f30-count { display: flex; align-items: baseline; gap: 10px; color: var(--fg-2); font-size: 1.05rem; }
+.f30-n { font-size: clamp(2.6rem, 9vw, 3.6rem); font-weight: 700; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.f30-claim { margin-top: 18px; }
+.f30 .btn { white-space: normal; text-align: center; }
+.f30 .btn[disabled] { opacity: 0.55; cursor: default; }
+.f30-msg { margin-top: 12px; min-height: 1.4em; color: var(--ink); }
+.f30-msg:empty { display: none; }
+.f30-note { margin-top: 12px; color: var(--fg-2); font-size: 15px; }
+.f30-got .hud { color: var(--go); }
+.f30-steps { margin: 12px 0 0; padding-left: 1.3em; color: var(--fg-2); list-style: decimal; }
+.f30-steps li + li { margin-top: 6px; }
+.f30-steps a, .f30-rules a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.f30-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.f30-copy { border-color: var(--hairline); color: var(--ink); background: transparent; }
+.f30-copy:hover { border-color: var(--ink); }
+.f30-rules { max-width: 46rem; padding-left: 1.2em; color: var(--fg-2); list-style: disc; }
+.f30-rules li + li { margin-top: 10px; }
+.f30 [hidden] { display: none !important; }
