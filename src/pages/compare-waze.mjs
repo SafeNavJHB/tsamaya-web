@@ -51,7 +51,7 @@ const both = sec({
       'Tsamaya can hand a route to Google Maps with the detour points already in place, and it opens locations shared to it from other apps.',
       'Outside the rated places Tsamaya is an ordinary map and navigator with no risk data.',
     ]),
-    `<p>Tsamaya is in open beta, it is free, and lower risk is not no risk.</p>`,
+    `<p>Tsamaya is free, and lower risk is not no risk.</p>`,
   ),
 });
 

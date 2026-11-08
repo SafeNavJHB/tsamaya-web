@@ -10,7 +10,7 @@
 //    take over the hero (a metro without them keeps the
 //    default pair and gets a line of its own).
 //    No match, no answer within 1.5 s, or any error: the default stays.
-// 2. The store button. An iPhone gets TestFlight first and Google Play second.
+// 2. The store button. An iPhone gets the App Store first and Google Play second.
 //
 // Nothing here is needed to read or use the page.
 (function () {
@@ -155,7 +155,7 @@
     if (main && other) {
       var arrow = main.querySelector('svg');
       main.href = main.getAttribute('data-ios');
-      main.textContent = 'Join on TestFlight ';
+      main.textContent = 'Get it on the App Store ';
       if (arrow) main.appendChild(arrow);
       other.href = other.getAttribute('data-android');
       other.textContent = 'On Android? Get it on Google Play';

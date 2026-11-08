@@ -92,11 +92,22 @@ if (!existsSync(join(app, 'src', 'constants', 'routingTunables.ts'))) {
   else pass('time bands match the app');
 }
 
-// ---- 3. The App Store: the site says it is not there yet ----------------------
+// ---- 3. The App Store listing (live since 2026-11-06) --------------------------
 try {
-  const found = JSON.parse(await get(`https://itunes.apple.com/lookup?bundleId=${BUNDLE_ID}&country=za`)).resultCount;
-  if (found) fail('Tsamaya IS on the App Store now: update AVAILABILITY and PREMIUM_NOTE (facts.mjs), the get-app page and the store links');
-  else pass('not on the App Store yet, as the site says');
+  const app = JSON.parse(await get(`https://itunes.apple.com/lookup?bundleId=${BUNDLE_ID}&country=za`)).results?.[0];
+  if (!app) fail('Tsamaya is not on the South African App Store, but every page links to it (site.appStoreLink)');
+  else {
+    if (!site.appStoreLink.includes(`/id${app.trackId}`)) fail(`site.appStoreLink does not point at app id ${app.trackId}`);
+    else pass(`site.appStoreLink points at the live listing (id ${app.trackId})`);
+    if (app.version === AVAILABILITY.iphoneVersion) pass(`the App Store shows ${app.version}, as AVAILABILITY says`);
+    else fail(`the App Store shows ${app.version} but AVAILABILITY says ${AVAILABILITY.iphoneVersion}`);
+    const text = app.description || '';
+    if (/dangerous/i.test(text)) fail('the App Store description says "dangerous": brand copy is lower-risk language (docs/BRAND.md in the app repo)');
+    else pass('the App Store description keeps to lower-risk language');
+    // The count is only there if someone wrote one, so absence is not a failure.
+    const count = (text.match(/\b(\d+) places\b/) || [])[1];
+    if (count && Number(count) !== stats.totals.metros) fail(`the App Store description says ${count} places but the live total is ${stats.totals.metros}`);
+  }
 } catch (e) { skip(`could not check the App Store: ${e.message}`); }
 
 // ---- 4. The Google Play listing ----------------------------------------------
@@ -114,15 +125,6 @@ try {
   else fail(`Play shows ${version} but AVAILABILITY says ${AVAILABILITY.androidVersion}`);
 } catch (e) { skip(`could not check the Play listing: ${e.message}`); }
 
-// ---- 5. The public TestFlight page -------------------------------------------
-try {
-  const text = textOf(await get(site.testflightPublicLink));
-  if (/dangerous/i.test(text)) fail('the TestFlight description says "dangerous": brand copy is lower-risk language (docs/BRAND.md in the app repo)');
-  else pass('the TestFlight description keeps to lower-risk language');
-  // The count is only there if someone wrote one, so absence is not a failure.
-  const count = (text.match(/\b(\d+) places\b/) || [])[1];
-  if (count && Number(count) !== stats.totals.metros) fail(`the TestFlight description says ${count} places but the live total is ${stats.totals.metros}`);
-} catch (e) { skip(`could not check TestFlight: ${e.message}`); }
 
 for (const [state, msg] of results) console.log(`  ${state.padEnd(4)}  ${msg}`);
 const failed = results.filter(([s]) => s === 'FAIL').length;

@@ -133,7 +133,7 @@ After a new place, a new store release, or a change to grades or time bands:
 2. `npm run build && npm run check`. This is the deploy gate.
 3. `npm run check:facts`. This compares the site with the app repo and the stores. It is not a deploy gate, because a lagging store listing must never block the site.
 4. If it flags a store listing, update the listing, remembering that a Play change is a review submission.
-5. **When 1.12.0 reaches the App Store:** `check:facts` fails on purpose. Update `AVAILABILITY`, `PREMIUM_NOTE` and `PREMIUM_SOON` in `src/facts.mjs`, the get-app page and the `installUrl` list.
+5. **Done 2026-11-08** (1.12.0 went live on 6 November): the site links the App Store listing, and `check:facts` now checks that listing's id, version and description. Was: `check:facts` fails on purpose. Update `AVAILABILITY`, `PREMIUM_NOTE` and `PREMIUM_SOON` in `src/facts.mjs`, the get-app page and the `installUrl` list.
 6. After a big content change, request indexing in Search Console for the pages that matter. Do not repeat it for the same URL.
 
 ## Monitoring baseline

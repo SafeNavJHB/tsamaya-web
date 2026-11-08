@@ -43,7 +43,7 @@ const does = sec({
 });
 
 const STEPS = [
-  ['Install it', `Free on Google Play for Android, and through Apple's TestFlight app for iPhone. Both links are on the <a href="get-app.html">get the app</a> page.`],
+  ['Install it', `Free on the App Store for iPhone and on Google Play for Android. Both links are on the <a href="get-app.html">get the app</a> page.`],
   ['Add an emergency contact', 'In Settings, under Sharing &amp; privacy. The SOS button can then text them your location and a live link. If you drive with CarPlay, share your Guardian link with them once too; switching Guardian on from the car screen then lets them follow that drive.'],
   ['Save a map for where you are staying', 'In Settings, under Places, then Offline maps. Frame the area and download it, on Wi-Fi if you can.'],
   ['Look before you leave', 'Check the route card before you set off, especially late in the day. It shows each option with its grade and what it goes around, and warns when a trip will land after dark.'],
@@ -111,7 +111,7 @@ const which = sec({
 const faqs = [
   {
     q: 'Can I use Tsamaya as a tourist in South Africa?',
-    a: `Yes. It is free, there is no account to create, and it works in any car, including a rental. Install it on Android from Google Play or on iPhone through TestFlight, add an emergency contact, and it is ready. It has ratings in ${nMetros} places and works as an ordinary navigator everywhere else.`,
+    a: `Yes. It is free, there is no account to create, and it works in any car, including a rental. Install it on Android from Google Play or on iPhone from the App Store, add an emergency contact, and it is ready. It has ratings in ${nMetros} places and works as an ordinary navigator everywhere else.`,
   },
   {
     q: 'Can my family at home follow my drive?',
@@ -160,6 +160,6 @@ export default {
     where,
     which,
     faqSec({ id: 'faq', title: 'Visitors ask', faqs }),
-    getSec({ title: 'Install it before your first drive.', lead: `Free, in open beta, on Android and iPhone. ${site.lockup}` }),
+    getSec({ title: 'Install it before your first drive.', lead: `Free on Android and iPhone. ${site.lockup}` }),
   ].join('\n'),
 };

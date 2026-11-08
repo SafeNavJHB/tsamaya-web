@@ -84,9 +84,9 @@ export function storePanels({ steps = false, h = 'h3' } = {}) {
         </ol>` : '';
   const iphone = steps ? `
         <ol class="mini">
-          <li>Open the TestFlight link on your iPhone.</li>
-          <li>Install TestFlight if you do not have it, then tap Install for Tsamaya.</li>
-          <li>Updates come on their own during the beta.</li>
+          <li>Open the App Store link on your iPhone.</li>
+          <li>Tap Get, as you would for anything else.</li>
+          <li>Updates come through the App Store.</li>
         </ol>` : '';
   return `
     <div class="get-grid">
@@ -97,10 +97,10 @@ export function storePanels({ steps = false, h = 'h3' } = {}) {
         <a class="btn btn-primary btn-lg btn-mag" href="${site.androidPlayLink}" rel="noopener">Get it on Google Play ${ARROW}</a>
       </article>
       <article class="gp" data-platform="ios" data-reveal>
-        <p class="hud">TestFlight${M}beta</p>
+        <p class="hud">App Store${M}iOS 16.4+</p>
         <${h}>iPhone</${h}>
-        <p>Apple's TestFlight app installs beta apps. Get it first, then open our invite.</p>${iphone}
-        <a class="btn btn-primary btn-lg btn-mag" href="${site.testflightPublicLink}" rel="noopener">Join on TestFlight ${ARROW}</a>
+        <p>Download it from the App Store like any other app.</p>${iphone}
+        <a class="btn btn-primary btn-lg btn-mag" href="${site.appStoreLink}" rel="noopener">Get it on the App Store ${ARROW}</a>
       </article>
       <aside class="priv" data-reveal aria-label="Privacy">
         <p class="hud">Privacy</p>
@@ -112,7 +112,7 @@ export function storePanels({ steps = false, h = 'h3' } = {}) {
 }
 
 // The closing "get the app" section most pages end on.
-export function getSec({ id = 'get', kick = 'Get the app', title = 'Free, and in open beta now.', lead = '' } = {}) {
+export function getSec({ id = 'get', kick = 'Get the app', title = 'Free on Android and iPhone.', lead = '' } = {}) {
   return sec({ id, cls: 'get', kick, title, lead, inner: storePanels() });
 }
 

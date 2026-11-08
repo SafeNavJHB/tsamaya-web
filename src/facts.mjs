@@ -28,8 +28,8 @@ export const FEATURES = [
   // 28, SafeNavJHB/SafeNav#253, 2026-09-29) it stays, and the car map's
   // Guardian shield became an SOS button whose menu holds Guardian
   // (src/carplay/sosFlow.ts; Call 112 from the car screen from build 29).
-  // Both public builds are 1.8 or later since 2026-10 (TestFlight's public link
-  // serves 1.10.0, Play open testing 1.8.0), so the pre-1.8 caveat is gone. The text opens ready to send; the driver sends it. The
+  // Both public builds are 1.8 or later since 2026-10 (the App Store
+  // serves 1.12.0, Play open testing 1.8.0), so the pre-1.8 caveat is gone. The text opens ready to send; the driver sends it. The
   // link updates while the drive screen is open, then shows the last position
   // until it expires after 24 hours.
   ['SOS', 'One button on the phone\'s drive screen calls 10111 or 112, or opens a text to your emergency contact, ready to send, with where you are and a link that follows you live while you drive and stays up for 24 hours.'],
@@ -99,21 +99,21 @@ export const STANDOUT = [
 // visitor guide open with it, so an assistant quoting any of them gets the same
 // picture: what it does, the safety tools, the platforms, and the status.
 export const SUMMARY =
-  'Tsamaya is a free, risk-aware navigation app for South African drivers, proudly built in Johannesburg. It plans driving routes around the places where vehicle crime is known to happen, using ratings that change with the time of day, then guides you turn by turn on your phone, Apple CarPlay or Android Auto. It also has an SOS button and live trip sharing. It is in open beta on iPhone and Android.';
+  'Tsamaya is a free, risk-aware navigation app for South African drivers, proudly built in Johannesburg. It plans driving routes around the places where vehicle crime is known to happen, using ratings that change with the time of day, then guides you turn by turn on your phone, Apple CarPlay or Android Auto. It also has an SOS button and live trip sharing. It is on the App Store for iPhone, and in open testing on Google Play for Android.';
 
 // WHERE IT INSTALLS TODAY: one statement, with the day it was last checked, read by
 // the get-app and car pages and /llms.txt. `verified` is the day someone looked at
 // the stores, not the day the wording was written, so move it only after looking:
-// the Play listing, App Store Connect's public TestFlight group and the App Store.
+// the Play listing and the App Store.
 // `npm run check:facts` compares these with the stores and fails when it has gone
-// more than 45 days without a check. iPhone 1.10.0 is the public TestFlight group's
-// newest build (45); Android 1.8.0 is Play open testing (version code 27).
+// more than 45 days without a check. iPhone 1.12.0 is the App Store release (6
+// November 2026); Android 1.8.0 is Play open testing (version code 27).
 export const AVAILABILITY = {
-  verified: '2026-11-05',
+  verified: '2026-11-08',
   androidVersion: '1.8.0',
-  iphoneVersion: '1.10.0',
+  iphoneVersion: '1.12.0',
   android: 'Android: Google Play open testing, which anyone can install. Version 1.8.0, which includes Android Auto.',
-  iphone: 'iPhone: a public TestFlight beta, version 1.10.0, on iOS 16.4 or later. It is not on the App Store yet.',
+  iphone: 'iPhone: the App Store, version 1.12.0, on iOS 16.4 or later.',
 };
 
 // HOW RATINGS AND GRADES WORK: the numbers the method section of the technical page
@@ -150,16 +150,15 @@ export const LIMITS = [
 export const NOT_A =
   'Tsamaya is not an emergency response service. Its SOS button calls the public emergency numbers (10111 for the police, 112 from any mobile) and opens a text to your own contact; it does not dispatch armed response or an ambulance itself. It aims to lower your exposure to areas with a history of vehicle crime; it cannot guarantee safety.';
 
-// COMING SOON: Tsamaya Premium (build 28, docs/PREMIUM_TIER.md in the app repo).
-// Built, in testing, and NOT on sale: it opens when Apple and Google approve the
-// subscriptions. Deliberately kept OUT of FEATURES (the home grid, the app's
-// featureList) because those must only list what installs today. The features
-// page and llms.txt show it under "Coming soon", with no prices (they are not
-// final). When Premium goes live: move these into a Premium section of the
-// features page (Kyle, 2026-10-01: "a premium tab/comparison"), delete this
-// export and the "Coming soon" wording, and keep routing, SOS and trip sharing
-// listed as free. Source for each line is named beside it.
-export const PREMIUM_SOON = [
+// TSAMAYA PREMIUM (docs/PREMIUM_TIER.md in the app repo). On sale on iPhone
+// through the App Store since 1.12.0 (6 November 2026); NOT on sale on Android
+// yet (premium_config.sales_android is off). Kept OUT of FEATURES (the home grid,
+// the app's featureList) because those list what is free. The features page and
+// llms.txt show it in its own Premium section, with no prices (the App Store
+// shows them). Still to come (Kyle, 2026-10-01): "a premium tab/comparison".
+// Keep routing, SOS and trip sharing listed as free. Source for each line is
+// named beside it.
+export const PREMIUM_FEATURES = [
   // searchAllowance.ts: Premium 25 detailed searches a day against the free share
   ['More detailed searches', 'A bigger daily allowance of detailed place searches than the free share.'],
   // vehicleChoice.ts, constants/vehicles.ts
@@ -178,4 +177,4 @@ export const PREMIUM_SOON = [
   ['Fuel price alert, earlier', 'The alert before a fuel price change arrives a day earlier than it does for free phones.'],
 ];
 export const PREMIUM_NOTE =
-  'Tsamaya Premium is an optional subscription that is built and in testing. It is not on sale yet, and it is not needed for anything listed above: routing around risk, the SOS button and trip sharing stay free.';
+  'Tsamaya Premium is an optional subscription, on sale on iPhone through the App Store and not yet on Android. It is not needed for anything listed above: routing around risk, the SOS button and trip sharing stay free.';
