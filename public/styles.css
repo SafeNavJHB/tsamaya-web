@@ -272,7 +272,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .btn:focus-visible
   cursor: pointer; white-space: nowrap;
   transition: background 0.18s var(--ease-ui), border-color 0.18s var(--ease-ui), color 0.18s var(--ease-ui);
 }
-.btn svg { transition: transform 0.25s var(--ease-ui); }
+.btn svg { flex-shrink: 0; transition: transform 0.25s var(--ease-ui); }
 .btn:hover svg { transform: translateX(3px); }
 .btn-primary { background: var(--go); color: var(--go-ink); }
 .btn-primary:hover { background: var(--go-hover); }

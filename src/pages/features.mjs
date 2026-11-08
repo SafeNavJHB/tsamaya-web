@@ -1,5 +1,5 @@
 import { stats } from '../../site.config.mjs';
-import { FEATURES, NOT_A, PREMIUM_SOON, PREMIUM_NOTE } from '../facts.mjs';
+import { FEATURES, NOT_A, PREMIUM_FEATURES, PREMIUM_NOTE } from '../facts.mjs';
 import { F } from '../faqs.mjs';
 import { sec, linkQ } from '../kit.mjs';
 import { topicPage, grid, prose } from '../topic.mjs';
@@ -66,14 +66,14 @@ const groups = GROUPS.map((g) => sec({
     <div class="more" data-reveal>${g.links.map(([t, h]) => linkQ(t, h)).join('')}</div>`,
 }));
 
-// Not available yet: shown apart from the features above, which all install today.
-// When Premium goes live this becomes a Premium tab or comparison (facts.mjs).
+// The optional subscription: shown apart from the free features above. A Premium
+// tab or comparison is still to come (facts.mjs).
 const soon = sec({
-  id: 'coming-soon',
-  kick: 'Coming soon',
+  id: 'premium',
+  kick: 'Optional',
   title: 'Tsamaya Premium',
   lead: PREMIUM_NOTE,
-  inner: grid(PREMIUM_SOON),
+  inner: grid(PREMIUM_FEATURES),
 });
 
 const limits = sec({
@@ -82,7 +82,7 @@ const limits = sec({
   title: 'The limits',
   inner: prose(
     `<p>${NOT_A}</p>`,
-    `<p>Tsamaya is in open beta. The risk ratings come from published crime statistics, an AI second opinion, a person's sense-check and drivers' reports, so they are good information and not a prediction. Lower risk is not no risk.</p>`,
+    `<p>The risk ratings come from published crime statistics, an AI second opinion, a person's sense-check and drivers' reports, so they are good information and not a prediction. Lower risk is not no risk.</p>`,
   ),
 });
 

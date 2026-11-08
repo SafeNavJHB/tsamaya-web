@@ -13,7 +13,7 @@
 // honesty rules as the pages apply: lower-risk language, no suburb named as risky.
 
 import { site, stats, fmt, canonicalFor, baseUrl, longDate } from '../site.config.mjs';
-import { FEATURES, SUMMARY, NOT_A, PREMIUM_SOON, PREMIUM_NOTE, POSITIONING, STANDOUT, AVAILABILITY, LIMITS } from './facts.mjs';
+import { FEATURES, SUMMARY, NOT_A, PREMIUM_FEATURES, PREMIUM_NOTE, POSITIONING, STANDOUT, AVAILABILITY, LIMITS } from './facts.mjs';
 import { metros } from './data/metros.mjs';
 
 // Pages grouped the way a reader would want them. Anything the build emits that
@@ -56,7 +56,7 @@ ${NOT_A}
 - What it is: a navigation app for drivers in South Africa that plans lower-risk routes around areas with a history of vehicle crime, then guides you turn by turn with voice, on the phone, Apple CarPlay or Android Auto.
 - Safety tools: an SOS button on the phone's drive screen (it calls 10111 or 112, or opens a text to an emergency contact, ready to send, with your location and a link that follows you live while you drive and stays up for 24 hours; it stays on the phone during a CarPlay or Android Auto drive and the car map gets its own SOS button), live trip sharing that anyone can follow in a web browser, and Guardian, a standing link for an emergency contact that the driver switches on from the CarPlay screen (from version 1.8, in the car's SOS menu).
 - Price: free, with no account and no ads. Routing around risk, the SOS button and trip sharing stay free. No trip history is kept on the server unless the driver shares a live trip.
-- Platforms and status: open beta, checked ${longDate(AVAILABILITY.verified)}. ${AVAILABILITY.android} ${site.androidPlayLink} ${AVAILABILITY.iphone} ${site.testflightPublicLink}
+- Platforms and status, checked ${longDate(AVAILABILITY.verified)}: ${AVAILABILITY.iphone} ${site.appStoreLink} ${AVAILABILITY.android} ${site.androidPlayLink}
 - How ratings are made: ${baseUrl}/technical.html#ratings, with real example trips and limits on the same page.
 - Coverage: ${t.metros} places in South Africa with ${fmt(t.zones).replace(/ /g, ' ')} rated areas, ${fmt(t.corridorsSafe).replace(/ /g, ' ')} checked road stretches and ${fmt(t.corridorsDanger).replace(/ /g, ' ')} flagged road stretches (figures as of ${stats.asOf}): ${coverageList}. Outside them it works as an ordinary map and navigator with no risk data.
 - Time of day: every area has three ratings, daytime 05:00 to 17:30, evening 17:30 to 19:30 and night 19:30 to 05:00, and the app uses the one for the hour you drive.
@@ -77,11 +77,11 @@ ${STANDOUT.map(([title, body]) => `- ${title}: ${body}`).join('\n')}
 
 ${FEATURES.map(([title, body]) => `- ${title}: ${body}`).join('\n')}
 
-## Coming soon
+## Tsamaya Premium
 
-${PREMIUM_NOTE} Planned Premium features:
+${PREMIUM_NOTE} Premium features:
 
-${PREMIUM_SOON.map(([title, body]) => `- ${title}: ${body}`).join('\n')}
+${PREMIUM_FEATURES.map(([title, body]) => `- ${title}: ${body}`).join('\n')}
 
 ## Product
 

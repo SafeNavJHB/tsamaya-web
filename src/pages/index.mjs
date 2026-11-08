@@ -83,10 +83,10 @@ const hero = `
       <h1 class="hm-h1" id="hero-h">Go where the trouble isn't.</h1>
       <p class="hm-sub">A free navigation app that checks your route against ${zones} rated areas in ${nMetros} places in South Africa, at the hour you drive, and plans it around the high-risk ones.</p>
       <div class="hm-cta">
-        <a class="btn btn-primary btn-lg" href="${site.androidPlayLink}" rel="noopener" data-store="primary" data-android="${site.androidPlayLink}" data-ios="${site.testflightPublicLink}">Get it on Google Play ${ARROW}</a>
-        <a class="hm-alt" href="${site.testflightPublicLink}" rel="noopener" data-store="other" data-android="${site.androidPlayLink}" data-ios="${site.testflightPublicLink}">On iPhone? Join on TestFlight</a>
+        <a class="btn btn-primary btn-lg" href="${site.androidPlayLink}" rel="noopener" data-store="primary" data-android="${site.androidPlayLink}" data-ios="${site.appStoreLink}">Get it on Google Play ${ARROW}</a>
+        <a class="hm-alt" href="${site.appStoreLink}" rel="noopener" data-store="other" data-android="${site.androidPlayLink}" data-ios="${site.appStoreLink}">On iPhone? Get it on the App Store</a>
       </div>
-      <p class="hm-note">Free, in open beta. Lower risk is not no risk: stay alert.</p>
+      <p class="hm-note">Free, with no account. Lower risk is not no risk: stay alert.</p>
     </div>
     <div class="hm-phones" id="metro-hero" data-metros='${attr(JSON.stringify(metros.map(({ key, slug, name, zones: z, box, shot }) => ({ key, slug, name, zones: z, box, shot }))))}' data-default="${DEFAULT.join(' ')}" data-band="day"${site.geoEndpoint ? ` data-geo="${site.geoEndpoint}"` : ''}>
       <div class="hm-row">
@@ -166,6 +166,6 @@ export default {
     how,
     where,
     faqSec({ id: 'faq', kick: '', title: 'Questions', faqs }),
-    getSec({ kick: '', title: 'Put it on your phone', lead: 'Free, in open beta on Android and iPhone. No account and no ads.' }),
+    getSec({ kick: '', title: 'Put it on your phone', lead: 'Free on Android and iPhone. No account and no ads.' }),
   ].join('\n'),
 };

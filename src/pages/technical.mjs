@@ -16,7 +16,7 @@ const STACK = [
   ['Supabase and PostGIS', 'Postgres with PostGIS geometry holds every rated area and road. The app reads it live; the editor writes through typed RPC functions.'],
   ['Python data pipeline', 'Map data fetched, scored for crime density, classified into rated areas and roads, staged, then promoted to live.'],
   ['Claude review', 'An AI second opinion on the ratings, researched against local reporting. A person then sense-checks the results and looks closely at any rating that stands out.'],
-  ['GitHub and EAS', 'Versioned SQL migrations keep the database reproducible; TestFlight and Google Play open testing get builds to testers.'],
+  ['GitHub and EAS', 'Versioned SQL migrations keep the database reproducible; builds go to the App Store and to Google Play open testing.'],
 ];
 
 const PIPE = [

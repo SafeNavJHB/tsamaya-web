@@ -3,7 +3,7 @@ import { pageHead, sec, storePanels, linkQ, M } from '../kit.mjs';
 import { AVAILABILITY } from '../facts.mjs';
 
 // The dedicated "Get the app" page; the header's button and every "Get the app"
-// link land here. Two panels, Google Play first and TestFlight second, with the
+// link land here. Two panels, Google Play first and the App Store second, with the
 // privacy line beside them. site.js lights the panel for the visitor's phone
 // (data-platform); nothing moves.
 
@@ -41,14 +41,14 @@ export default {
   title: 'Get the app',
   headTitle: 'Get Tsamaya: free lower-risk navigation for Android and iPhone',
   description:
-    'Install Tsamaya free on Android (Google Play open testing) or iPhone (a public TestFlight beta), and get set up in about five minutes.',
+    'Install Tsamaya free from the App Store on iPhone or Google Play on Android (open testing), and get set up in about five minutes.',
   heroClass: 'sn page-get',
   hud: false,
   body: [
     pageHead({
-      meta: `Open beta${M}Android and iPhone${M}free`,
+      meta: `App Store${M}Google Play${M}free`,
       title: 'Put Tsamaya on your phone.',
-      lead: 'An open beta on both platforms: Google Play on Android, TestFlight on iPhone. Free to install, and routing around risk, SOS and trip sharing stay free. A few minutes to set up, and you can leave whenever you like.',
+      lead: 'On the App Store for iPhone, and in open testing on Google Play for Android. Free to install, and routing around risk, SOS and trip sharing stay free. A few minutes to set up, and you can leave whenever you like.',
       after: `${storePanels({ steps: true, h: 'h2' })}
     <p class="fine">${AVAILABILITY.android} ${AVAILABILITY.iphone} Checked ${timeTag(AVAILABILITY.verified)}.</p>`,
     }),

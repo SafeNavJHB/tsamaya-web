@@ -59,21 +59,13 @@ export const site = {
   // Everything that references a contact email (contact page, footer, sponsor) reads from here.
   contactEmail: 'info@tsamayaapp.co.za',
 
-  // The app ships to testers via TestFlight (Apple ID 6779297974). No public App
-  // Store listing yet.
-  betaSubject: 'Tsamaya beta access request',
 
-  // PUBLIC TESTFLIGHT LINK — paste it here and the beta section switches from
-  // "ask us for access" to "install it right now", with no reply needed from you.
-  //
-  // Find it in App Store Connect → your app → TestFlight → Public Link. It looks
-  // like https://testflight.apple.com/join/XXXXXXXX and it is meant to be public,
-  // so there is nothing sensitive about putting it on the site.
-  //
-  // Left empty, the page falls back to the email request flow — which still works,
-  // it just costs you a manual reply each time. Filled in 2026-08-25, so the iOS
-  // card now installs directly and no longer routes people through Kyle's inbox.
-  testflightPublicLink: 'https://testflight.apple.com/join/BZmAqy4v',
+  // iPHONE: the App Store, live since 6 November 2026 (1.12.0, Apple ID
+  // 6779297974, South Africa only). It replaced the public TestFlight beta
+  // (https://testflight.apple.com/join/BZmAqy4v, 25 August to 6 November 2026),
+  // so no page sends iPhone users through TestFlight any more. The /za/ path is
+  // the listing's own canonical URL (the app is sold in South Africa only).
+  appStoreLink: 'https://apps.apple.com/za/app/tsamaya-lower-risk-routes/id6779297974',
 
   // ANDROID — Google Play open testing, live since 22 August 2026. This
   // replaced the direct APK download that ran until then (GitHub Releases,

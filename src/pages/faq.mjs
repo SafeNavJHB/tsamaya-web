@@ -38,7 +38,7 @@ const page = {
       after: '\n    <p class="ph-links qa-all"><button class="link-q" type="button" data-qa-all="open"><span>Open every answer</span></button><button class="link-q" type="button" data-qa-all="close"><span>Close every answer</span></button></p>',
     }),
     ...GROUPS.map(([id, kick, title, faqs]) => faqSec({ id: `faq-${id}`, kick, title, faqs })),
-    getSec({ title: 'Try it on your next drive.', lead: 'Free, in open beta, on Android and iPhone.' }),
+    getSec({ title: 'Try it on your next drive.', lead: 'Free on Android and iPhone.' }),
   ].join('\n'),
 };
 

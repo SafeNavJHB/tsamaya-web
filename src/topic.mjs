@@ -50,7 +50,7 @@ export function topicPage({ slug, title, headTitle, description, meta, h1, lead,
       ...sections,
       links.length ? related(links) : '',
       faqs.length ? faqSec({ id: 'faq', title: 'Asked often', faqs }) : '',
-      getSec({ title: ctaTitle, lead: `Free, in open beta, on Android and iPhone. Lower risk is not no risk. ` }),
+      getSec({ title: ctaTitle, lead: `Free on Android and iPhone. Lower risk is not no risk. ` }),
     ].join('\n'),
   };
 }

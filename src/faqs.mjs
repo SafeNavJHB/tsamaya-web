@@ -54,7 +54,7 @@ export const F = {
   },
   free: {
     q: 'Is Tsamaya free?',
-    a: 'Yes. Everything that routes you around risk, the SOS button and trip sharing included, is free and stays free. There is no account and there are no ads, and we do not sell anything about you. Google Play shows an "In-app purchases" label because an optional Premium subscription is being set up. It is not on sale yet, and nothing here depends on it.',
+    a: 'Yes. Everything that routes you around risk, the SOS button and trip sharing included, is free and stays free. There is no account and there are no ads, and we do not sell anything about you. An optional Premium subscription adds extras such as trip history, a SARS logbook and toll prices. It is on sale on iPhone through the App Store and not yet on Android (Google Play already shows an "In-app purchases" label for it), and nothing free depends on it.',
   },
   guarantee: {
     q: 'Does it guarantee I will be safe?',

@@ -109,7 +109,7 @@ function application() {
     // Both platforms, because every page of this site says both. Declaring iOS
     // only told crawlers the opposite of the page text and made the app node
     // ineligible for Android-intent results. iOS 16.4 is the floor from 1.7.0
-    // (build 27) on, which is what the public TestFlight link is moving to
+    // (build 27) on, and the App Store release (1.12.0) needs it
     // (Kyle, 2026-09-28; 1.6.0 still ran on 15.1).
     operatingSystem: 'iOS 16.4 or later, Android',
     // The long summary, not the one-line meta description: this node is what an
@@ -123,9 +123,9 @@ function application() {
     keywords: 'risk-aware navigation, South African navigation app, avoid high-crime areas, lower-risk routes, hijacking hotspots, CarPlay, Android Auto, SOS, live trip sharing',
     countryOfOrigin: { '@type': 'Country', name: 'South Africa' },
     screenshot: `${baseUrl}/img/og.png`,
-    // Where to install it: the Play listing and the TestFlight invite.
-    installUrl: [site.androidPlayLink, site.testflightPublicLink],
-    sameAs: [site.androidPlayLink],
+    // Where to install it: the App Store and Play listings.
+    installUrl: [site.appStoreLink, site.androidPlayLink],
+    sameAs: [site.appStoreLink, site.androidPlayLink],
     isAccessibleForFree: true,
     // One entry per feature, from the same list the home page shows (facts.mjs).
     featureList: FEATURES.map(([t, d]) => `${t}: ${d}`),
