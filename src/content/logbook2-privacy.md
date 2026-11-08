@@ -16,9 +16,10 @@ Logbook² is a pilot logbook app for iPhone and Android. This policy explains wh
 
 - Everything you enter in Logbook² is stored on your device, in a local database. We never receive it.
 - There are no accounts and no sign-in. We run no servers for the app.
-- There is no analytics, no crash reporting, no advertising and no tracking.
+- There is no crash reporting, no advertising and no tracking, and no analytics of how you use the app.
 - We cannot see, recover or delete your data. Uninstalling the app deletes what it stored on your phone.
 - Your logbook only leaves your phone in the ways listed in section 3, and in each one the destination is yours or the store's, not ours: files you share, automatic backups you turn on, your phone's own iCloud or Google backup, and flights you send to a student.
+- When you open the app, it checks for updates (section 3). That check holds nothing from your logbook.
 
 ## 1. What stays on your device
 
@@ -43,7 +44,7 @@ If you add a home-screen widget, it shows your total hours, your recency and you
 
 - We do not create accounts for you, and you do not sign in.
 - We do not run servers that receive your logbook or anything else from the app.
-- We do not use analytics, crash reporting or advertising, and we do not track you across apps or websites.
+- We do not use crash reporting or advertising, we do not measure how you use the app, and we do not track you across apps or websites.
 - We do not sell or share personal information, because we do not have any.
 - We do not use your contacts or microphone.
 
@@ -62,6 +63,7 @@ The app uses three things on your phone only when you ask it to:
 - **Flights you send to a student.** If you instruct, you can send a flight as a QR code or a link. It holds the flight's date, registration, aircraft type, route, times, hours, landings and lesson details, and your name. It does not hold your remarks or your student's details. The link goes to a small page on our website, which hands the flight to the app. The flight's details are in the part of the link after the # sign, which browsers do not send to a website, so we never receive them. Our website's host receives the ordinary details of any page visit, such as an IP address. Anyone you send the link to can read what is in it.
 - **Feedback you send.** Send feedback opens your own email app with the app version and your phone's system version filled in. You see it before you send it.
 - **Google ML Kit statistics, on Android.** Reading a photo of a logbook page uses Google's ML Kit on your phone. The photo and its text stay on your phone, but ML Kit sends Google usage and performance statistics, such as the device model and how long recognition took.
+- **App update checks.** When you open the app, it asks Expo's update service (expo.dev) whether a newer version is ready. The request carries the app version, your phone's system, and a random ID made when the app was installed, which isn't linked to you or your logbook. Expo receives your IP address as with any request. We can see how many phones have taken an update, not whose they are.
 - **Network details sent to the stores.** When the app contacts the App Store or Google Play, for example to check a subscription, Apple or Google receives the standard network details any app sends, such as your IP address and basic device information. This is handled under Apple's or Google's privacy policy.
 
 Apple and Google may process information outside South Africa. That processing is theirs, under their terms.
