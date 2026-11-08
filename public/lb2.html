@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+<title>Open in Logbook²</title>
+<style>
+  :root { color-scheme: light dark; --bg: #f4f6fa; --card: #fff; --text: #111827; --muted: #5b6b82; --accent: #0784c9; --on: #fff; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0d1014; --card: #171c22; --text: #f1f5f9; --muted: #98a3b0; --accent: #2dd4bf; --on: #0d1014; } }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 16px; box-sizing: border-box; background: var(--bg); color: var(--text); font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  main { width: 100%; max-width: 420px; background: var(--card); border-radius: 18px; padding: 24px; box-sizing: border-box; }
+  h1 { margin: 0 0 8px; font-size: 22px; }
+  p { margin: 0 0 16px; }
+  .flight { font-weight: 600; }
+  .note { margin: 16px 0 0; color: var(--muted); font-size: 14px; }
+  a.open { display: block; padding: 14px; border-radius: 12px; background: var(--accent); color: var(--on); text-align: center; font-weight: 600; text-decoration: none; }
+  [hidden] { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <h1>A flight for your logbook</h1>
+  <div id="ok" hidden>
+    <p id="flight" class="flight" hidden></p>
+    <p>Open it in Logbook² to check it. Nothing is added to your logbook until you tap Save.</p>
+    <a id="open" class="open" href="#">Open in Logbook²</a>
+    <p class="note">You need Logbook² on this phone. The flight's details are only in this link: they aren't sent to our website.</p>
+  </div>
+  <p id="bad" hidden>This link is incomplete. Ask your instructor to send it again.</p>
+</main>
+<script>
+  // The flight is everything after the #, which browsers don't send to a server. It goes to the
+  // app unchanged, and is only ever shown here as plain text.
+  var query = location.hash.slice(1);
+  if (/^v=1(&|$)/.test(query)) {
+    document.getElementById('open').href = 'logbook2://flight/draft?' + query;
+    document.getElementById('ok').hidden = false;
+    var read = function (key) {
+      var match = new RegExp('(?:^|&)' + key + '=([^&]*)').exec(query);
+      if (!match) return '';
+      try { return decodeURIComponent(match[1]); } catch (e) { return ''; }
+    };
+    var date = /^(\d{4})-(\d{2})-(\d{2})$/.exec(read('date'));
+    var parts = [date ? date[3] + '/' + date[2] + '/' + date[1] : '', read('reg'), read('source')].filter(Boolean);
+    if (parts.length) {
+      var line = document.getElementById('flight');
+      line.textContent = parts.join(' · ');
+      line.hidden = false;
+    }
+  } else {
+    document.getElementById('bad').hidden = false;
+  }
+</script>
+</body>
+</html>

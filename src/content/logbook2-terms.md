@@ -1,6 +1,6 @@
 # Logbook² Terms of Use
 
-**Version 1.0. Effective date: 22 October 2026.**
+**Version 1.1. Effective date: 8 November 2026.**
 
 **Provider:** Tsamaya (Pty) Ltd, a private company registered in South Africa, registration number 2023/990736/07 ("Tsamaya", "we")
 
@@ -14,7 +14,7 @@ By using the Logbook² app you agree to these terms and to our Logbook² Privacy
 
 ## 1. What Logbook² is
 
-Logbook² is a pilot logbook app for iPhone, with an Android version to follow. You enter your flights and it keeps your totals, shows recency and expiry information, and produces exports and printable logbook pages.
+Logbook² is a pilot logbook app for iPhone and Android. You enter your flights and it keeps your totals, shows recency and expiry information, and produces exports and printable logbook pages.
 
 You must be 18 or older to use Logbook².
 
@@ -62,7 +62,7 @@ Logbook² Pro is an auto-renewing subscription sold through the App Store or Goo
 
 - **Price.** R29.99 per month or R299.99 per year. The price is shown in the app before you confirm. A price may change in future, and the store will notify you of the change in advance, as its rules require.
 - **Free period.** Every new installation gets a 30-day free period with all features. You do not need to subscribe to use the app during it.
-- **After the free period.** Without an active subscription you can no longer add, edit or import flights. You can still view, export, print and back up your existing data, and that stays free. We never hold your data back from you.
+- **After the free period.** Without an active subscription you can keep using one logbook, including adding, editing, exporting, printing and backing up its flights. Pro features, such as importing, a second logbook and instructor tools, need a subscription. We never hold your data back from you.
 - **Renewal and cancelling.** Your subscription renews automatically at the end of each period until you cancel. Cancel at any time in your store account's subscription settings. Cancelling stops the next renewal, and Pro stays on until the end of the period you have paid for.
 - **Payment and refunds.** Apple or Google takes the payment under its own terms, and we never see your payment details. Refunds are handled by Apple or Google under their policies. Nothing in these terms limits a right you have under the Consumer Protection Act 68 of 2008.
 - **Restoring.** Your subscription belongs to the Apple ID or Google account that bought it. Use Restore Purchases on the Subscription screen to bring it back after a reinstall or on a new phone.
