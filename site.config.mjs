@@ -92,11 +92,15 @@ export const site = {
   profiles: [
     'https://www.linkedin.com/company/tsamaya',
     'https://www.instagram.com/tsamaya_app/',
+    'https://www.facebook.com/profile.php?id=61596495056556',
+    'https://www.tiktok.com/@tsamaya_app',
   ],
-  // The same two, as the footer's follow links on every page (src/layout.mjs).
+  // The same four, as the footer's follow links on every page (src/layout.mjs).
   social: [
     { label: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/company/tsamaya/' },
     { label: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/tsamaya_app/' },
+    { label: 'Facebook', icon: 'facebook', href: 'https://www.facebook.com/profile.php?id=61596495056556' },
+    { label: 'TikTok', icon: 'tiktok', href: 'https://www.tiktok.com/@tsamaya_app' },
   ],
 
   // Legal pages now live on THIS site (src/pages/privacy.mjs + terms.mjs, text
