@@ -84,7 +84,7 @@ const hero = `
       <p class="hm-sub">A free navigation app that checks your route against ${zones} rated areas in ${nMetros} places in South Africa, at the hour you drive, and plans it around the high-risk ones.</p>
       <div class="hm-cta">
         <a class="btn btn-primary btn-lg" href="${site.androidPlayLink}" rel="noopener" data-store="primary" data-android="${site.androidPlayLink}" data-ios="${site.appStoreLink}">Get it on Google Play ${ARROW}</a>
-        <a class="hm-alt" href="${site.appStoreLink}" rel="noopener" data-store="other" data-android="${site.androidPlayLink}" data-ios="${site.appStoreLink}">On iPhone? Get it on the App Store</a>
+        <a class="btn btn-secondary btn-lg hm-alt" href="${site.appStoreLink}" rel="noopener" data-store="other" data-android="${site.androidPlayLink}" data-ios="${site.appStoreLink}">On iPhone? Get it on the App Store</a>
       </div>
       <p class="hm-note">Free, with no account. Lower risk is not no risk: stay alert.</p>
     </div>

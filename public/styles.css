@@ -276,6 +276,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .btn:focus-visible
 .btn:hover svg { transform: translateX(3px); }
 .btn-primary { background: var(--go); color: var(--go-ink); }
 .btn-primary:hover { background: var(--go-hover); }
+/* The second store on the home hero: the same size as the main button, outlined, so it reads as a button but never competes with the emerald. */
+.btn-secondary { background: var(--surface); color: var(--ink); border: 1.5px solid var(--muted); border-color: color-mix(in srgb, var(--ink) 55%, transparent); }
+.btn-secondary:hover { background: var(--surface-2); border-color: var(--ink); }
 .btn-sm { min-height: 40px; padding: 9px 16px; font-size: 0.9rem; }
 .btn-lg { min-height: 54px; padding: 15px 28px; font-size: 1.05rem; }
 
@@ -1797,7 +1800,6 @@ html:not(.js) .try { display: none; }
 .page-home2 .hm-h1 { margin: 0; font-size: clamp(3rem, 7.4vw, 5.6rem); line-height: 0.98; font-weight: 800; font-stretch: 118%; letter-spacing: -0.01em; color: var(--ink); text-wrap: balance; }
 .page-home2 .hm-sub { margin: 26px 0 0; max-width: 34ch; font-size: clamp(1.1rem, 1.6vw, 1.3rem); line-height: 1.5; color: var(--text-soft); }
 .page-home2 .hm-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 34px; }
-.page-home2 .hm-alt { color: var(--ink); text-underline-offset: 3px; }
 .page-home2 .hm-note { margin: 22px 0 0; font-size: 0.95rem; color: var(--fg-2); }
 .page-home2 .hm-phones { display: flex; flex-direction: column; align-items: center; gap: 18px; }
 .page-home2 .hm-row { display: flex; justify-content: center; gap: clamp(14px, 2vw, 24px); }
