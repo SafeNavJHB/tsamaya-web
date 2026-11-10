@@ -44,6 +44,10 @@
     {
       "title": "A speed limit test for the team",
       "why": "internal: an admin-only test tool, no driver sees it"
+    },
+    {
+      "title": "Tsamaya is on the App Store",
+      "why": "test builds only: the thank-you notice for iPhones still on a TestFlight / 1.8.0 build (app #647, 2026-11-10.100, silent in the app)"
     }
   ]
 }

@@ -15,6 +15,30 @@
   ],
   "releases": [
     {
+      "version": "2026-11-09.101",
+      "date": "9 November 2026",
+      "items": [
+        {
+          "icon": "git-branch-outline",
+          "title": "Road ratings can change one stretch",
+          "body": "The review team can now rate just the part of a road a report is about, on both carriageways, instead of the whole road.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-09.100",
+      "date": "9 November 2026",
+      "items": [
+        {
+          "icon": "location-outline",
+          "title": "Road reports find the right stretch",
+          "body": "A one-tap report from the car now keeps where you were, rounded to about 100 m, so the review team can tell which stretch you mean. The Privacy Policy explains this in clause 6.8.5.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-11-06.100",
       "date": "6 November 2026",
       "items": [
