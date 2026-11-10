@@ -89,6 +89,7 @@ export const metros = [
       'The Ben Schoeman and the N4 both carry protective ratings. An early version of the data flagged a stretch of the Ben Schoeman badly enough that it would have pushed traffic onto side roads. A validation check caught it before it shipped.',
       'Most of Pretoria\'s flagged areas sit in the middle and caution bands rather than the top one, so a lot of what you see on the map is marked without changing your route.',
       'The CBD and the areas immediately around it change rating between the daytime and evening bands more often than the outer suburbs do.',
+      'Since November 2026 the map reaches north to Soshanguve, Mabopane, Winterveld, Hammanskraal and Temba. Each area there is rated on its own crime figures, so quiet farm holdings stay clear while the busy townships are marked.',
     ],
     faqs: [
       {
@@ -574,6 +575,54 @@ export const metros = [
       {
         q: 'Is the Karoo National Park covered?',
         a: 'Yes. The park and the road from the N1 to its gate are inside the mapped area.',
+      },
+    ],
+  },
+  {
+    key: 'vaal',
+    slug: 'vaal',
+    name: 'The Vaal',
+    region: 'Gauteng',
+    blurb:
+      'Driving routes through the Vaal: Vereeniging, Vanderbijlpark, Sebokeng, Evaton, Sharpeville, Meyerton and Heidelberg.',
+    intro:
+      'The Vaal was added in November 2026. It covers the whole of Sedibeng: Emfuleni (Vereeniging, Vanderbijlpark, Sebokeng, Evaton, Sharpeville, Boipatong and Bophelong), Midvaal (Meyerton and the farms along the river) and Lesedi (Heidelberg and Ratanda). Every area is rated on its own crime figures from SAPS and on local news reports, not just on the busiest police station nearby.',
+    context: [
+      'Several Sebokeng units, Lakeside, Bophelong, Sharpeville and Ratanda carry the top rating on their own figures. Evaton, Tshepiso and Boipatong are a step lower and go up to the top rating at night.',
+      'The Vereeniging and Vanderbijlpark town centres go up a step at night, so the same drive can grade differently late in the evening.',
+    ],
+    faqs: [
+      {
+        q: 'Is the drive from Johannesburg to the Vaal covered?',
+        a: 'Yes. The roads south from Johannesburg are rated as part of the Johannesburg map, and the Vaal map takes over from there.',
+      },
+      {
+        q: 'Are Heidelberg and Meyerton included?',
+        a: 'Yes. Heidelberg and Ratanda (Lesedi) and Meyerton (Midvaal) are inside the Vaal map.',
+      },
+    ],
+  },
+  {
+    key: 'paarl',
+    slug: 'paarl',
+    name: 'Paarl',
+    region: 'Western Cape',
+    blurb:
+      'Driving routes through Paarl, Mbekweni and Wellington, and the N1 past the Huguenot Tunnel.',
+    intro:
+      'Paarl was added in November 2026. It covers the Drakenstein municipality: Paarl, Mbekweni, Wellington and the farmland and passes around them. Every area is rated on its own crime figures from SAPS and on local news reports.',
+    context: [
+      'Mbekweni and parts of Paarl East (Dalvale, Klein Nederburg, Groenheuwel and Amstelhof) and of Wellington (Hillcrest and Van Wyks Vlei) carry the top rating on their own figures.',
+      'The N1 past Paarl carries Tsamaya\'s national route rating, which rates the road by the police precincts it crosses.',
+    ],
+    faqs: [
+      {
+        q: 'Is the drive from Cape Town to Paarl covered?',
+        a: 'Yes. The N1 from Cape Town is rated by the Cape Town map and the national route rating, and the Paarl map covers the town itself.',
+      },
+      {
+        q: 'Is Wellington included?',
+        a: 'Yes. Wellington is part of Drakenstein and inside the Paarl map.',
       },
     ],
   },

@@ -82,6 +82,8 @@ const METROS = [
   { key: 'port_alfred', name: 'Port Alfred', slug: 'port-alfred' },
   { key: 'mthatha', name: 'Mthatha', slug: 'mthatha' },
   { key: 'beaufort_west', name: 'Beaufort West', slug: 'beaufort-west' },
+  { key: 'vaal', name: 'The Vaal', slug: 'vaal' },
+  { key: 'paarl', name: 'Paarl', slug: 'paarl' },
 ];
 
 const BANDS = ['red', 'orange', 'yellow', 'none'];
