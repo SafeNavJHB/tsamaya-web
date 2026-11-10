@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-11-10.101",
+      "date": "10 November 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "The Vaal, Paarl and north of Pretoria",
+          "body": "Tsamaya now rates Vereeniging, Vanderbijlpark, Sebokeng, Evaton, Meyerton and Heidelberg, Paarl, Mbekweni and Wellington, and Pretoria north to Soshanguve, Mabopane, Winterveld and Hammanskraal.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-11-09.101",
       "date": "9 November 2026",
       "items": [
@@ -471,6 +483,42 @@
       ]
     },
     {
+      "version": "2026-10-26.70",
+      "date": "26 October 2026",
+      "items": [
+        {
+          "icon": "cloudy-night-outline",
+          "title": "Evening arrivals named right",
+          "body": "A trip that arrives between 17:30 and 19:30 now says it arrives in the evening band, when risk starts to rise, instead of after dark. After dark still means from 19:30.",
+          "category": "fix"
+        },
+        {
+          "icon": "locate-outline",
+          "title": "A note when your location is approximate",
+          "body": "With Precise Location switched off, the map now says your location is approximate and a route may not start where you are. Tap the note to turn it on in Settings.",
+          "category": "fix"
+        },
+        {
+          "icon": "flag-outline",
+          "title": "Reports name the road you are on",
+          "body": "Reporting a road while driving now names the same road as the drive screen, not a nearby road beside it.",
+          "category": "fix"
+        },
+        {
+          "icon": "text-outline",
+          "title": "Larger text fits better",
+          "body": "With a large text size, the trip history times no longer split over two lines, and the road trip planner stop types wrap onto two rows so Overnight is not cut off.",
+          "category": "fix"
+        },
+        {
+          "icon": "help-buoy-outline",
+          "title": "A shorter Support ID",
+          "body": "Settings and the Premium screen show your Support ID without its technical prefix. Tapping it still copies the whole ID for us.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-10-26.69",
       "date": "26 October 2026",
       "items": [
@@ -545,6 +593,18 @@
           "title": "Arrival time keeps up with traffic",
           "body": "Your arrival time used to be worked out once, when you pressed Go, so a jam that built up later was missed. During a drive Tsamaya now checks live traffic on the road ahead every few minutes and eases the arrival time to match.",
           "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-10-23.64",
+      "date": "23 October 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Plan a road trip",
+          "body": "Plan a long drive with stops on a map: pick when you leave and how long you will spend at each stop, and each part is rated at the time you will drive it. Every stop shows how risky its area is when you get there, the trip strip shows the whole drive and where it runs into the dark, and a checklist helps you get the car ready. Drag stops into order or let Best order do it, import a trip from Google Maps, and save it to get a reminder the evening before. With Premium: up to 10 stops, overnights placed for you from your daily limits, and fuel stations along the way. Tap Road trip in the Where to? bar to start, and set up your vehicles once in the new My vehicle section of Settings, for fill-ups and fuel cost.",
+          "category": "feature"
         }
       ]
     },

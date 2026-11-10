@@ -31,6 +31,20 @@
       ]
     },
     {
+      "key": "paarl",
+      "name": "Paarl",
+      "bbox": {
+        "lngMin": 18.78,
+        "lngMax": 19.22,
+        "latMin": -33.88,
+        "latMax": -33.12
+      },
+      "center": [
+        18.96,
+        -33.73
+      ]
+    },
+    {
       "key": "cape_town",
       "name": "Cape Town",
       "bbox": {
@@ -51,7 +65,7 @@
         "lngMin": 27.95,
         "lngMax": 28.45,
         "latMin": -25.95,
-        "latMax": -25.55
+        "latMax": -25.29
       },
       "center": [
         28.19,
@@ -98,6 +112,20 @@
       "center": [
         27.65,
         -26.275
+      ]
+    },
+    {
+      "key": "vaal",
+      "name": "Vaal",
+      "bbox": {
+        "lngMin": 27.56,
+        "lngMax": 28.87,
+        "latMin": -26.93,
+        "latMax": -26.17
+      },
+      "center": [
+        27.93,
+        -26.67
       ]
     },
     {
