@@ -2,38 +2,38 @@
   "asOf": "2026-11-10",
   "generatedFrom": "uthvorhglqysehayyxzy",
   "totals": {
-    "metros": 24,
-    "zones": 7054,
-    "corridors": 9078,
+    "metros": 25,
+    "zones": 7288,
+    "corridors": 9110,
     "corridorsSafe": 2950,
-    "corridorsDanger": 6126,
+    "corridorsDanger": 6158,
     "corridorsBlocked": 2,
     "riskBands": 3
   },
   "bands": {
-    "none": 412,
-    "orange": 3335,
-    "yellow": 651,
-    "red": 2656
+    "none": 462,
+    "yellow": 691,
+    "orange": 3404,
+    "red": 2731
   },
   "byTime": {
     "day": {
-      "yellow": 2819,
-      "none": 589,
-      "red": 1462,
-      "orange": 2184
+      "none": 639,
+      "yellow": 2928,
+      "orange": 2240,
+      "red": 1481
     },
     "evening": {
-      "yellow": 2430,
-      "red": 1718,
-      "orange": 2380,
-      "none": 526
+      "orange": 2436,
+      "red": 1737,
+      "none": 576,
+      "yellow": 2539
     },
     "night": {
-      "yellow": 651,
-      "none": 412,
-      "red": 2656,
-      "orange": 3335
+      "none": 462,
+      "yellow": 691,
+      "red": 2731,
+      "orange": 3404
     }
   },
   "metros": [
@@ -44,27 +44,27 @@
       "zones": 788,
       "corridors": 4004,
       "bands": {
-        "orange": 372,
-        "none": 6,
         "red": 323,
-        "yellow": 87
+        "yellow": 87,
+        "none": 6,
+        "orange": 372
       },
       "byTime": {
         "day": {
-          "yellow": 234,
-          "red": 292,
           "none": 6,
-          "orange": 256
+          "yellow": 234,
+          "red": 291,
+          "orange": 257
         },
         "evening": {
-          "red": 312,
-          "none": 6,
           "yellow": 227,
-          "orange": 243
+          "orange": 244,
+          "red": 311,
+          "none": 6
         },
         "night": {
-          "red": 323,
           "orange": 372,
+          "red": 323,
           "none": 6,
           "yellow": 87
         }
@@ -77,29 +77,29 @@
       "zones": 908,
       "corridors": 1775,
       "bands": {
+        "none": 43,
         "red": 325,
         "yellow": 40,
-        "orange": 500,
-        "none": 43
+        "orange": 500
       },
       "byTime": {
         "day": {
-          "orange": 316,
           "none": 44,
+          "red": 270,
           "yellow": 276,
-          "red": 272
+          "orange": 318
         },
         "evening": {
-          "orange": 353,
+          "red": 294,
           "yellow": 216,
-          "none": 43,
-          "red": 296
+          "orange": 355,
+          "none": 43
         },
         "night": {
-          "orange": 500,
+          "none": 43,
           "red": 325,
-          "yellow": 40,
-          "none": 43
+          "orange": 500,
+          "yellow": 40
         }
       }
     },
@@ -110,29 +110,29 @@
       "zones": 616,
       "corridors": 868,
       "bands": {
+        "none": 58,
         "orange": 184,
-        "red": 267,
         "yellow": 107,
-        "none": 58
+        "red": 267
       },
       "byTime": {
         "day": {
-          "orange": 163,
-          "red": 180,
           "none": 58,
-          "yellow": 215
+          "orange": 163,
+          "yellow": 215,
+          "red": 180
         },
         "evening": {
-          "orange": 156,
-          "none": 58,
           "red": 191,
-          "yellow": 211
+          "yellow": 211,
+          "orange": 156,
+          "none": 58
         },
         "night": {
+          "orange": 184,
           "red": 267,
-          "none": 58,
           "yellow": 107,
-          "orange": 184
+          "none": 58
         }
       }
     },
@@ -144,28 +144,28 @@
       "corridors": 0,
       "bands": {
         "red": 455,
-        "none": 22,
+        "orange": 181,
         "yellow": 70,
-        "orange": 181
+        "none": 22
       },
       "byTime": {
         "day": {
           "red": 284,
-          "none": 23,
           "yellow": 159,
+          "none": 23,
           "orange": 262
         },
         "evening": {
           "orange": 278,
-          "red": 318,
           "yellow": 110,
+          "red": 318,
           "none": 22
         },
         "night": {
+          "none": 22,
           "red": 455,
-          "orange": 181,
           "yellow": 70,
-          "none": 22
+          "orange": 181
         }
       }
     },
@@ -173,32 +173,32 @@
       "key": "west_rand",
       "name": "West Rand",
       "slug": "west-rand",
-      "zones": 130,
-      "corridors": 150,
+      "zones": 245,
+      "corridors": 155,
       "bands": {
-        "none": 20,
-        "orange": 43,
-        "yellow": 18,
-        "red": 49
+        "yellow": 23,
+        "red": 92,
+        "none": 49,
+        "orange": 81
       },
       "byTime": {
         "day": {
-          "red": 25,
-          "none": 20,
-          "yellow": 47,
-          "orange": 38
+          "yellow": 90,
+          "red": 34,
+          "none": 49,
+          "orange": 72
         },
         "evening": {
-          "yellow": 31,
-          "orange": 47,
-          "red": 32,
-          "none": 20
+          "none": 49,
+          "yellow": 74,
+          "orange": 81,
+          "red": 41
         },
         "night": {
-          "red": 49,
-          "orange": 43,
-          "none": 20,
-          "yellow": 18
+          "yellow": 23,
+          "red": 92,
+          "orange": 81,
+          "none": 49
         }
       }
     },
@@ -209,28 +209,28 @@
       "zones": 62,
       "corridors": 54,
       "bands": {
-        "none": 3,
         "yellow": 2,
+        "orange": 8,
         "red": 49,
-        "orange": 8
+        "none": 3
       },
       "byTime": {
         "day": {
           "red": 28,
-          "orange": 23,
+          "none": 3,
           "yellow": 8,
-          "none": 3
+          "orange": 23
         },
         "evening": {
           "red": 28,
-          "yellow": 8,
           "none": 3,
+          "yellow": 8,
           "orange": 23
         },
         "night": {
-          "orange": 8,
           "yellow": 2,
           "red": 49,
+          "orange": 8,
           "none": 3
         }
       }
@@ -242,29 +242,29 @@
       "zones": 32,
       "corridors": 52,
       "bands": {
-        "orange": 6,
-        "red": 22,
         "yellow": 4,
+        "red": 22,
+        "orange": 6,
         "none": 0
       },
       "byTime": {
         "day": {
-          "red": 12,
-          "orange": 11,
           "none": 3,
-          "yellow": 6
+          "yellow": 6,
+          "orange": 11,
+          "red": 12
         },
         "evening": {
           "yellow": 3,
-          "none": 2,
           "red": 13,
-          "orange": 14
+          "orange": 14,
+          "none": 2
         },
         "night": {
-          "orange": 6,
           "red": 22,
+          "none": 0,
           "yellow": 4,
-          "none": 0
+          "orange": 6
         }
       }
     },
@@ -275,29 +275,29 @@
       "zones": 98,
       "corridors": 67,
       "bands": {
-        "orange": 38,
+        "yellow": 6,
         "none": 3,
         "red": 51,
-        "yellow": 6
+        "orange": 38
       },
       "byTime": {
         "day": {
-          "red": 38,
-          "yellow": 33,
           "orange": 24,
-          "none": 3
+          "red": 38,
+          "none": 3,
+          "yellow": 33
         },
         "evening": {
           "red": 44,
-          "yellow": 19,
+          "none": 3,
           "orange": 32,
-          "none": 3
+          "yellow": 19
         },
         "night": {
-          "none": 3,
           "yellow": 6,
+          "orange": 38,
           "red": 51,
-          "orange": 38
+          "none": 3
         }
       }
     },
@@ -308,29 +308,29 @@
       "zones": 43,
       "corridors": 5,
       "bands": {
-        "red": 17,
         "orange": 10,
-        "yellow": 0,
-        "none": 16
+        "red": 17,
+        "none": 16,
+        "yellow": 0
       },
       "byTime": {
         "day": {
-          "orange": 17,
-          "red": 5,
           "none": 16,
+          "red": 5,
+          "orange": 17,
           "yellow": 5
         },
         "evening": {
-          "orange": 16,
           "none": 16,
-          "red": 9,
-          "yellow": 2
+          "yellow": 2,
+          "orange": 16,
+          "red": 9
         },
         "night": {
-          "red": 17,
           "orange": 10,
+          "none": 16,
           "yellow": 0,
-          "none": 16
+          "red": 17
         }
       }
     },
@@ -341,29 +341,29 @@
       "zones": 54,
       "corridors": 39,
       "bands": {
-        "yellow": 17,
         "orange": 12,
         "red": 16,
-        "none": 9
+        "none": 9,
+        "yellow": 17
       },
       "byTime": {
         "day": {
           "red": 10,
-          "yellow": 17,
           "none": 12,
+          "yellow": 17,
           "orange": 15
         },
         "evening": {
-          "orange": 14,
           "red": 12,
+          "orange": 14,
           "yellow": 16,
           "none": 12
         },
         "night": {
+          "none": 9,
           "orange": 12,
           "yellow": 17,
-          "red": 16,
-          "none": 9
+          "red": 16
         }
       }
     },
@@ -374,29 +374,29 @@
       "zones": 791,
       "corridors": 426,
       "bands": {
-        "orange": 246,
-        "red": 464,
+        "none": 65,
         "yellow": 16,
-        "none": 65
+        "red": 464,
+        "orange": 246
       },
       "byTime": {
         "day": {
-          "orange": 352,
-          "red": 210,
           "yellow": 159,
-          "none": 70
+          "red": 210,
+          "none": 70,
+          "orange": 352
         },
         "evening": {
           "yellow": 119,
-          "none": 68,
           "orange": 336,
-          "red": 268
+          "red": 268,
+          "none": 68
         },
         "night": {
-          "orange": 246,
           "yellow": 16,
-          "none": 65,
-          "red": 464
+          "red": 464,
+          "orange": 246,
+          "none": 65
         }
       }
     },
@@ -407,29 +407,29 @@
       "zones": 254,
       "corridors": 176,
       "bands": {
-        "orange": 140,
         "none": 6,
         "red": 100,
-        "yellow": 8
+        "yellow": 8,
+        "orange": 140
       },
       "byTime": {
         "day": {
           "yellow": 119,
-          "none": 6,
           "red": 29,
+          "none": 6,
           "orange": 100
         },
         "evening": {
-          "red": 66,
           "orange": 89,
-          "none": 6,
-          "yellow": 93
+          "yellow": 93,
+          "red": 66,
+          "none": 6
         },
         "night": {
           "red": 100,
           "none": 6,
-          "yellow": 8,
-          "orange": 140
+          "orange": 140,
+          "yellow": 8
         }
       }
     },
@@ -440,28 +440,28 @@
       "zones": 445,
       "corridors": 169,
       "bands": {
-        "red": 102,
         "yellow": 88,
-        "orange": 232,
-        "none": 23
+        "none": 23,
+        "red": 102,
+        "orange": 232
       },
       "byTime": {
         "day": {
-          "orange": 195,
+          "red": 11,
           "yellow": 172,
-          "none": 67,
-          "red": 11
+          "orange": 195,
+          "none": 67
         },
         "evening": {
-          "orange": 244,
+          "yellow": 128,
           "none": 47,
-          "red": 26,
-          "yellow": 128
+          "orange": 244,
+          "red": 26
         },
         "night": {
-          "yellow": 88,
-          "red": 102,
           "orange": 232,
+          "red": 102,
+          "yellow": 88,
           "none": 23
         }
       }
@@ -473,29 +473,29 @@
       "zones": 174,
       "corridors": 152,
       "bands": {
-        "red": 50,
-        "orange": 90,
         "yellow": 26,
-        "none": 8
+        "red": 50,
+        "none": 8,
+        "orange": 90
       },
       "byTime": {
         "day": {
-          "orange": 49,
           "yellow": 86,
           "red": 9,
-          "none": 30
+          "none": 30,
+          "orange": 49
         },
         "evening": {
           "yellow": 48,
-          "red": 14,
           "none": 25,
-          "orange": 87
+          "orange": 87,
+          "red": 14
         },
         "night": {
-          "yellow": 26,
+          "none": 8,
           "orange": 90,
-          "red": 50,
-          "none": 8
+          "yellow": 26,
+          "red": 50
         }
       }
     },
@@ -503,32 +503,32 @@
       "key": "emalahleni",
       "name": "eMalahleni & Middelburg",
       "slug": "emalahleni",
-      "zones": 155,
-      "corridors": 112,
+      "zones": 182,
+      "corridors": 120,
       "bands": {
-        "orange": 70,
-        "red": 54,
-        "none": 4,
-        "yellow": 27
+        "orange": 74,
+        "yellow": 36,
+        "red": 65,
+        "none": 7
       },
       "byTime": {
         "day": {
-          "orange": 50,
-          "none": 22,
-          "red": 7,
-          "yellow": 76
+          "none": 25,
+          "red": 13,
+          "orange": 55,
+          "yellow": 89
         },
         "evening": {
-          "yellow": 75,
-          "none": 13,
-          "red": 13,
-          "orange": 54
+          "orange": 59,
+          "none": 16,
+          "yellow": 88,
+          "red": 19
         },
         "night": {
-          "red": 54,
-          "yellow": 27,
-          "orange": 70,
-          "none": 4
+          "orange": 74,
+          "yellow": 36,
+          "red": 65,
+          "none": 7
         }
       }
     },
@@ -539,29 +539,29 @@
       "zones": 154,
       "corridors": 89,
       "bands": {
-        "red": 41,
         "none": 10,
         "yellow": 19,
-        "orange": 84
+        "orange": 84,
+        "red": 41
       },
       "byTime": {
         "day": {
-          "yellow": 89,
           "orange": 41,
           "none": 17,
+          "yellow": 89,
           "red": 7
         },
         "evening": {
           "yellow": 71,
-          "red": 17,
           "none": 16,
-          "orange": 50
+          "orange": 50,
+          "red": 17
         },
         "night": {
-          "red": 41,
           "yellow": 19,
+          "none": 10,
           "orange": 84,
-          "none": 10
+          "red": 41
         }
       }
     },
@@ -572,29 +572,29 @@
       "zones": 312,
       "corridors": 87,
       "bands": {
+        "yellow": 75,
         "none": 3,
         "orange": 215,
-        "red": 19,
-        "yellow": 75
+        "red": 19
       },
       "byTime": {
         "day": {
-          "yellow": 209,
-          "red": 1,
           "orange": 35,
-          "none": 67
+          "none": 67,
+          "yellow": 209,
+          "red": 1
         },
         "evening": {
-          "red": 1,
+          "none": 51,
           "yellow": 168,
           "orange": 92,
-          "none": 51
+          "red": 1
         },
         "night": {
-          "red": 19,
-          "none": 3,
+          "orange": 215,
           "yellow": 75,
-          "orange": 215
+          "red": 19,
+          "none": 3
         }
       }
     },
@@ -605,29 +605,29 @@
       "zones": 392,
       "corridors": 205,
       "bands": {
-        "red": 89,
-        "orange": 281,
+        "yellow": 15,
         "none": 7,
-        "yellow": 15
+        "red": 89,
+        "orange": 281
       },
       "byTime": {
         "day": {
           "orange": 92,
-          "red": 14,
           "yellow": 274,
-          "none": 12
+          "none": 12,
+          "red": 14
         },
         "evening": {
-          "red": 23,
           "yellow": 272,
+          "red": 23,
           "orange": 90,
           "none": 7
         },
         "night": {
-          "orange": 281,
           "yellow": 15,
           "red": 89,
-          "none": 7
+          "none": 7,
+          "orange": 281
         }
       }
     },
@@ -638,29 +638,29 @@
       "zones": 56,
       "corridors": 72,
       "bands": {
+        "yellow": 14,
         "orange": 29,
         "red": 4,
-        "none": 9,
-        "yellow": 14
+        "none": 9
       },
       "byTime": {
         "day": {
-          "red": 0,
-          "yellow": 36,
+          "none": 12,
           "orange": 8,
-          "none": 12
+          "red": 0,
+          "yellow": 36
         },
         "evening": {
           "red": 0,
-          "none": 10,
+          "orange": 10,
           "yellow": 36,
-          "orange": 10
+          "none": 10
         },
         "night": {
-          "orange": 29,
           "red": 4,
           "none": 9,
-          "yellow": 14
+          "yellow": 14,
+          "orange": 29
         }
       }
     },
@@ -671,29 +671,29 @@
       "zones": 20,
       "corridors": 13,
       "bands": {
-        "orange": 14,
+        "yellow": 0,
         "red": 4,
         "none": 2,
-        "yellow": 0
+        "orange": 14
       },
       "byTime": {
         "day": {
-          "yellow": 14,
-          "red": 0,
           "orange": 4,
-          "none": 2
+          "red": 0,
+          "none": 2,
+          "yellow": 14
         },
         "evening": {
-          "red": 1,
           "none": 2,
-          "yellow": 14,
-          "orange": 3
+          "orange": 3,
+          "red": 1,
+          "yellow": 14
         },
         "night": {
           "red": 4,
           "none": 2,
-          "orange": 14,
-          "yellow": 0
+          "yellow": 0,
+          "orange": 14
         }
       }
     },
@@ -704,29 +704,29 @@
       "zones": 530,
       "corridors": 18,
       "bands": {
-        "orange": 446,
         "red": 72,
         "yellow": 7,
-        "none": 5
+        "none": 5,
+        "orange": 446
       },
       "byTime": {
         "day": {
+          "red": 1,
           "orange": 76,
           "yellow": 447,
-          "red": 1,
           "none": 6
         },
         "evening": {
-          "orange": 88,
-          "yellow": 429,
           "red": 7,
-          "none": 6
+          "none": 6,
+          "yellow": 429,
+          "orange": 88
         },
         "night": {
+          "yellow": 7,
           "none": 5,
-          "orange": 446,
           "red": 72,
-          "yellow": 7
+          "orange": 446
         }
       }
     },
@@ -737,10 +737,10 @@
       "zones": 20,
       "corridors": 18,
       "bands": {
-        "orange": 16,
         "red": 3,
         "none": 1,
-        "yellow": 0
+        "yellow": 0,
+        "orange": 16
       },
       "byTime": {
         "day": {
@@ -751,15 +751,15 @@
         },
         "evening": {
           "yellow": 12,
-          "orange": 7,
+          "none": 1,
           "red": 0,
-          "none": 1
+          "orange": 7
         },
         "night": {
-          "red": 3,
           "none": 1,
-          "yellow": 0,
-          "orange": 16
+          "red": 3,
+          "orange": 16,
+          "yellow": 0
         }
       }
     },
@@ -770,29 +770,29 @@
       "zones": 239,
       "corridors": 54,
       "bands": {
-        "orange": 89,
         "red": 60,
         "none": 87,
-        "yellow": 3
+        "yellow": 3,
+        "orange": 89
       },
       "byTime": {
         "day": {
-          "orange": 44,
-          "yellow": 91,
           "none": 87,
-          "red": 17
+          "yellow": 91,
+          "red": 17,
+          "orange": 44
         },
         "evening": {
           "red": 17,
-          "orange": 44,
+          "none": 87,
           "yellow": 91,
-          "none": 87
+          "orange": 44
         },
         "night": {
-          "yellow": 3,
           "red": 60,
+          "none": 87,
           "orange": 89,
-          "none": 87
+          "yellow": 3
         }
       }
     },
@@ -803,10 +803,10 @@
       "zones": 53,
       "corridors": 5,
       "bands": {
-        "orange": 29,
+        "none": 2,
         "yellow": 2,
         "red": 20,
-        "none": 2
+        "orange": 29
       },
       "byTime": {
         "day": {
@@ -816,16 +816,49 @@
           "none": 2
         },
         "evening": {
-          "yellow": 31,
           "red": 10,
-          "orange": 10,
-          "none": 2
+          "none": 2,
+          "yellow": 31,
+          "orange": 10
         },
         "night": {
-          "yellow": 2,
-          "orange": 29,
           "red": 20,
-          "none": 2
+          "yellow": 2,
+          "none": 2,
+          "orange": 29
+        }
+      }
+    },
+    {
+      "key": "madibeng",
+      "name": "Brits & Hartbeespoort",
+      "slug": "brits-hartbeespoort",
+      "zones": 92,
+      "corridors": 19,
+      "bands": {
+        "yellow": 26,
+        "red": 21,
+        "none": 18,
+        "orange": 27
+      },
+      "byTime": {
+        "day": {
+          "none": 18,
+          "red": 7,
+          "orange": 14,
+          "yellow": 53
+        },
+        "evening": {
+          "red": 7,
+          "none": 18,
+          "yellow": 53,
+          "orange": 14
+        },
+        "night": {
+          "orange": 27,
+          "red": 21,
+          "yellow": 26,
+          "none": 18
         }
       }
     }

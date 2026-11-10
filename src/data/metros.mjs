@@ -139,6 +139,7 @@ export const metros = [
       'The N14 and the R28 are the two routes most West Rand driving depends on, and both are mapped end to end.',
       'Plenty of the West Rand has been checked and found to carry no penalty. That is different from having no data at all. One means we looked, the other means we have not got there yet.',
       'The run into Johannesburg on the N1 and the M5 is covered the whole way, since both metros are live.',
+      'Since November 2026 the map covers all of Mogale City, Rand West City and Merafong City: Munsieville, Kagiso and Krugersdorp, and Carletonville, Khutsong and Fochville in the south-west. Each area is rated on its own crime figures, so quiet farm holdings stay clear while the busy townships are marked.',
     ],
     faqs: [
       {
@@ -388,7 +389,7 @@ export const metros = [
     blurb:
       'Driving routes around eMalahleni (Witbank) and Middelburg, covering the N4 between them, the N12 towards Gauteng, the N11 north and south, and the roads to Ogies, Kriel and Hendrina.',
     intro:
-      'eMalahleni and Middelburg are mapped as one region on the N4, added in October 2026 after a driver who works there asked for it. Coverage is both municipalities in full: eMalahleni with Witbank, KwaGuqa, Ogies and Kriel, and Steve Tshwete with Middelburg, Mhluzi and Hendrina. Most trips here run on the N4, the N12 or the N11, so those are rated stretch by stretch rather than as one road.',
+      'eMalahleni and Middelburg are mapped as one region on the N4, added in October 2026 after a driver who works there asked for it. Coverage is three municipalities in full: eMalahleni with Witbank, KwaGuqa, Ogies and Kriel, Steve Tshwete with Middelburg, Mhluzi and Hendrina, and since November 2026 Victor Khanye with Delmas and Botleng. Most trips here run on the N4, the N12 or the N11, so those are rated stretch by stretch rather than as one road.',
     context: [
       'Most of the N4, N12 and N11 carries no risk penalty, so by day every route option stays on the national roads. The stretches that run through or beside the towns are rated a step up, and higher after dark.',
       'At night a lower-risk option may leave the national road to go round those stretches, and the route card shows how much time that adds, so the choice stays yours.',
@@ -623,6 +624,30 @@ export const metros = [
       {
         q: 'Is Wellington included?',
         a: 'Yes. Wellington is part of Drakenstein and inside the Paarl map.',
+      },
+    ],
+  },
+  {
+    key: 'madibeng',
+    slug: 'brits-hartbeespoort',
+    name: 'Brits & Hartbeespoort',
+    region: 'North West',
+    blurb:
+      'Driving routes around Brits, Hartbeespoort, Mothutlung and Letlhabile, covering the N4 and the R511 and R512 towards Pretoria and Johannesburg.',
+    intro:
+      'Brits and Hartbeespoort were added in November 2026. Coverage is the whole Madibeng municipality: Brits with Oukasie and Mothutlung, Letlhabile, Mmakau, Hartbeespoort and the dam, and the farmland north towards Jericho. Every area is rated on its own crime figures from SAPS and on local news reports, not just on the busiest police station nearby.',
+    context: [
+      'Oukasie and parts of Letlhabile carry the top rating on their own figures. Mothutlung, Damonsville, Majakaneng and Lethabong are a step lower by day and go up a step at night.',
+      'Hartbeespoort and the estates round the dam, and most of the farmland, are rated low or assessed clear.',
+    ],
+    faqs: [
+      {
+        q: 'Is the drive from Pretoria or Johannesburg to Hartbeespoort covered?',
+        a: 'Yes. The roads out of Pretoria and Johannesburg are rated by those maps, and the Brits & Hartbeespoort map covers the rest of the way.',
+      },
+      {
+        q: 'Is the N4 past Brits covered?',
+        a: 'Yes. The N4 carries Tsamaya\'s national route rating, which rates the road by the police precincts it crosses.',
       },
     ],
   },

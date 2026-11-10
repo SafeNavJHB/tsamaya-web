@@ -84,6 +84,7 @@ const METROS = [
   { key: 'beaufort_west', name: 'Beaufort West', slug: 'beaufort-west' },
   { key: 'vaal', name: 'The Vaal', slug: 'vaal' },
   { key: 'paarl', name: 'Paarl', slug: 'paarl' },
+  { key: 'madibeng', name: 'Brits & Hartbeespoort', slug: 'brits-hartbeespoort' },
 ];
 
 const BANDS = ['red', 'orange', 'yellow', 'none'];
