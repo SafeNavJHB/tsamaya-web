@@ -104,10 +104,10 @@
       "key": "west_rand",
       "name": "West Rand",
       "bbox": {
-        "lngMin": 27.4,
-        "lngMax": 27.9,
-        "latMin": -26.55,
-        "latMax": -26
+        "lngMin": 27.15,
+        "lngMax": 27.95,
+        "latMin": -26.65,
+        "latMax": -25.79
       },
       "center": [
         27.65,
@@ -126,6 +126,20 @@
       "center": [
         27.93,
         -26.67
+      ]
+    },
+    {
+      "key": "madibeng",
+      "name": "Brits & Hartbeespoort",
+      "bbox": {
+        "lngMin": 27.42,
+        "lngMax": 28.06,
+        "latMin": -25.9,
+        "latMax": -24.96
+      },
+      "center": [
+        27.78,
+        -25.63
       ]
     },
     {
@@ -230,7 +244,7 @@
       "key": "emalahleni",
       "name": "eMalahleni & Middelburg",
       "bbox": {
-        "lngMin": 28.91,
+        "lngMin": 28.49,
         "lngMax": 29.88,
         "latMin": -26.39,
         "latMax": -25.4

@@ -114,7 +114,7 @@ export const site = {
   // Headline coverage — honest to the app's live service areas (the metro bounding
   // boxes in src/constants/cities.ts) plus the data footprint in Supabase.
   coverageLive:
-    'Gauteng (Johannesburg, Pretoria, Ekurhuleni, the West Rand and the Vaal), Durban, Pietermaritzburg, Gqeberha, East London, Port Alfred, Mthatha, Cape Town, Stellenbosch and Paarl, Rustenburg and Pilanesberg, Mossel Bay and George, Beaufort West, Secunda, eMalahleni and Middelburg, Bloemfontein with Botshabelo and Thaba Nchu, Polokwane, and Kruger National Park with Mbombela and the Lowveld',
+    'Gauteng (Johannesburg, Pretoria, Ekurhuleni, the West Rand and the Vaal), Durban, Pietermaritzburg, Gqeberha, East London, Port Alfred, Mthatha, Cape Town, Stellenbosch and Paarl, Rustenburg, Pilanesberg, Brits and Hartbeespoort, Mossel Bay and George, Beaufort West, Secunda, eMalahleni, Middelburg and Delmas, Bloemfontein with Botshabelo and Thaba Nchu, Polokwane, and Kruger National Park with Mbombela and the Lowveld',
   coverageData: stats.metros.map((m) => m.name).join(' · '),
 
   // Headline figures, derived from the live database — never hand-typed.

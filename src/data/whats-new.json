@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-11-10.102",
+      "date": "10 November 2026",
+      "items": [
+        {
+          "icon": "map-outline",
+          "title": "Brits, Hartbeespoort, Delmas and Krugersdorp",
+          "body": "Tsamaya now rates Brits, Hartbeespoort, Mothutlung and Letlhabile, Delmas and Botleng, and the rest of the West Rand: Krugersdorp, Munsieville, Carletonville, Khutsong and Fochville.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-11-10.101",
       "date": "10 November 2026",
       "items": [
