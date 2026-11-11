@@ -15,6 +15,60 @@
   ],
   "releases": [
     {
+      "version": "2026-11-11.104",
+      "date": "11 November 2026",
+      "items": [
+        {
+          "icon": "cloud-done-outline",
+          "title": "Risk data catches up by itself",
+          "body": "When the check for newer risk data fails, for example on a weak signal, Tsamaya now tries again by itself after a short wait. Before, the home screen kept saying \"Offline\" until you closed and reopened the app.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-11.103",
+      "date": "11 November 2026",
+      "items": [
+        {
+          "icon": "location-outline",
+          "title": "Reports filed under the right area",
+          "body": "A report, road suggestion or speed camera sent from the Vaal, Brits, Hartbeespoort, Delmas or Krugersdorp is now filed under that area instead of Johannesburg, so it is checked against the right roads.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-11.102",
+      "date": "11 November 2026",
+      "items": [
+        {
+          "icon": "construct-outline",
+          "title": "Long closures avoided in both directions",
+          "body": "When a road is closed in both directions for several kilometres, routes now go around both sides of the closure. Before, a route could still be planned along the second side.",
+          "category": "fix"
+        },
+        {
+          "icon": "alert-circle-outline",
+          "title": "Closed road warning on every Fastest route",
+          "body": "If the Fastest route uses a road reported closed, it now says so wherever you drive. Before, the warning could be missing away from the areas we rate.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-11.101",
+      "date": "11 November 2026",
+      "items": [
+        {
+          "icon": "construct-outline",
+          "title": "Roadworks show as closed roads",
+          "body": "A road shut for roadworks now shows as a closed road, and routes go around it. It is no longer marked as a high-risk area, because roadworks are not a crime risk.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
       "version": "2026-11-10.102",
       "date": "10 November 2026",
       "items": [

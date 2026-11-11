@@ -48,6 +48,10 @@
     {
       "title": "Tsamaya is on the App Store",
       "why": "test builds only: the thank-you notice for iPhones still on a TestFlight / 1.8.0 build (app #647, 2026-11-10.100, silent in the app)"
+    },
+    {
+      "title": "Android Auto: no coloured border for now",
+      "why": "temporary, while Google reviews the Android Auto screen; it comes back by OTA"
     }
   ]
 }
