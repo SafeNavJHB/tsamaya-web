@@ -75,6 +75,16 @@
 // it ran in the Release app on the iPhone 15 Pro (iOS 18.6) simulator, cropped
 // 330 px off the top (status bar and city pill) and scaled to 600 px wide.
 //
+// The eight metros onboarded after that (East London, George, Port Alfred,
+// Mthatha, Beaufort West, the Vaal, Paarl, Brits & Hartbeespoort) were added on
+// 11 November 2026 the same way, on the same simulator, from app trunk 3d08bf1a
+// run through Metro in the Debug dev client (the floating dev-menu button off,
+// LogBox silenced). The same capture-only patch, rebuilt and never committed,
+// also dropped every temporary row (rows with an expires_at: protests and
+// roadworks closures) and the closure banner, so a closure that ends that day is
+// never frozen into the site. Each is centred on the metro's `center` in the
+// app's src/constants/cities.ts (Brits & Hartbeespoort is the app's `madibeng`).
+//
 // DAYTIME SET (25 September 2026): home-day, route-card-day and navigation-day.
 // A Release build of app commit 111afbc on an iPhone 16 Pro simulator (iOS
 // 27.0), captured between 08:09 and 08:31 SAST with the city chip reading Day.
