@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-11-13.1",
+      "date": "13 November 2026",
+      "items": [
+        {
+          "icon": "briefcase-outline",
+          "title": "Your logbook has its own place in Settings",
+          "body": "Settings now has a Logbook card. With Premium it shows this tax year's business and personal kilometres, your latest trips to tag, your vehicle, and the export for SARS, all in one place. Trip history is still in Places too.",
+          "category": "feature"
+        },
+        {
+          "icon": "checkmark-done-outline",
+          "title": "Tag many trips Personal at once",
+          "body": "In Trip history, tap Select, pick the trips (or Select untagged) and tag them all Personal in one go, with Undo. Tap any one afterwards to change it to Business.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-11-11.104",
       "date": "11 November 2026",
       "items": [
