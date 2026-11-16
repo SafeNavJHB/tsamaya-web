@@ -52,6 +52,10 @@
     {
       "title": "Android Auto: no coloured border for now",
       "why": "temporary, while Google reviews the Android Auto screen; it comes back by OTA"
+    },
+    {
+      "title": "A quieter setup reminder",
+      "why": "a same-day second pass at 'Set up Tsamaya your way' (the Personalise offer moved from a dialog to a bottom card); presentation only"
     }
   ]
 }
