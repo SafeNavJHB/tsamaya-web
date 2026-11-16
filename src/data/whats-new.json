@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-11-16.100",
+      "date": "16 November 2026",
+      "items": [
+        {
+          "icon": "options-outline",
+          "title": "Set up Tsamaya your way",
+          "body": "A quick setup for the route option you want picked, the alerts you want spoken, and any road or area you drive through anyway. New drivers start with it, drivers already using Tsamaya are offered it once, and every step can be skipped. Run it again any time in Settings › Help & feedback.",
+          "category": "feature"
+        },
+        {
+          "icon": "star-outline",
+          "title": "Set up Premium in one place",
+          "body": "Straight after Premium switches on, one screen sets up your car’s fuel for trip costs, the details your SARS logbook needs, and shows how to turn a photo of your own car into the car on the map. Find it again on the Premium screen.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-11-13.1",
       "date": "13 November 2026",
       "items": [
