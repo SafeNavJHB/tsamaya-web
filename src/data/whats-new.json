@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-11-17.101",
+      "date": "17 November 2026",
+      "items": [
+        {
+          "icon": "rainy-outline",
+          "title": "Rain reminder speaks up in the rain",
+          "body": "The \"switch your headlights on\" reminder now comes on when the weather says it is raining or stormy where you are. Before, it often stayed quiet because the rain gauge read zero even in a downpour.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-11-16.100",
       "date": "16 November 2026",
       "items": [
