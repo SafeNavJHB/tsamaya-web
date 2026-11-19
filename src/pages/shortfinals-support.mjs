@@ -69,7 +69,7 @@ const unlock = faqSec({
   faqs: [
     {
       q: 'What does the unlock cost?',
-      a: 'There is one unlock per licence, each a once-off payment. In South Africa the PPL unlock is R499.99 and the CPL unlock R799.99. The PPL unlock opens every PPL paper; the CPL unlock opens every CPL paper and the PPL papers its exams cover. Either one opens every aircraft and all the practice. There is no subscription, and nothing renews.',
+      a: 'There is one unlock per licence, each a once-off payment. In South Africa the PPL unlock is R499.99 and the CPL unlock R999.99. The PPL unlock opens every PPL paper; the CPL unlock opens every CPL paper and the PPL papers its exams cover. Either one opens every aircraft and all the practice. If you already have the PPL unlock, CPL is a R499.99 upgrade, so both licences cost R999.99 either way. There is no subscription, and nothing renews.',
     },
     {
       q: 'I bought the unlock and it has gone.',
@@ -121,7 +121,7 @@ const SELLER = [
   ['Self-regulatory or accreditation bodies, codes of conduct', 'We are not a member of a self-regulatory or accreditation body, and have not signed up to a voluntary code of conduct.'],
   ['Alternative dispute resolution', 'We have not signed up to an alternative dispute resolution code. If we can\'t resolve a complaint with you, you may contact the National Consumer Commission or the Consumer Goods and Services Ombud.'],
   ['What we sell', 'Short Finals, a study app for the SACAA PPL and CPL theory exams and for training aircraft. The app is free; optional once-off in-app purchases unlock a licence: the PPL unlock opens every PPL paper, the CPL unlock every CPL paper and the PPL papers its exams cover, and either opens every aircraft and practice item.'],
-  ['Price', 'In South Africa, R499.99 for the PPL unlock and R799.99 for the CPL unlock, each once-off and including VAT where the store charges it. No delivery costs. The store shows the final price before you confirm.'],
+  ['Price', 'In South Africa, R499.99 for the PPL unlock and R999.99 for the CPL unlock, or R499.99 to upgrade to CPL if you have the PPL unlock, each once-off and including VAT where the store charges it. No delivery costs. The store shows the final price before you confirm.'],
   ['How you pay', 'Through the App Store or Google Play, by the methods they accept. We never see your card or payment details, and the store\'s own security protects the payment.'],
   ['When you get it', 'An unlock opens as soon as the store confirms the payment.'],
   ['How long the agreement lasts', 'A once-off purchase with no subscription and no renewal.'],
