@@ -1,6 +1,6 @@
 # Short Finals Privacy Policy
 
-**Version 1.0. Effective date: 19 November 2026.**
+**Version 1.1. Effective date: 19 November 2026.**
 
 **Responsible party (POPIA):** Tsamaya (Pty) Ltd, a private company registered in South Africa, registration number 2023/990736/07 ("we", "us")
 
@@ -16,8 +16,8 @@ Short Finals is a ground school study app for student pilots, for iPhone, iPad a
 
 - Short Finals has no accounts, no sign-in, no ads, no analytics and no crash reporting. We don't track you, and we don't sell or share your information.
 - Your name, profile, study progress, notes and exam results stay on your phone. We never receive them.
-- Apart from the purchase, which Apple or Google handles, and backups you control (section 5), two things leave your phone without you sending them yourself: the aerodrome code when you open a live weather report, and a check for app updates each time the app starts. Section 3 describes both.
-- Problem reports stay on your phone in this version. We only see one if you share it with us yourself.
+- Apart from the purchase, which Apple or Google handles, and backups you control (section 5), only these leave your phone: the aerodrome code when you open a live weather report, a check for app updates each time the app starts, a check for new or corrected questions, a problem report when you send one, and an instructor code when an instructor enters it. Section 3 describes each.
+- A problem report goes to our server so we can fix the question. It has no name or identifier for you or your phone.
 - Radio practice listens through the microphone only when you tap to speak, and turns your words into text on the phone. Nothing is recorded or sent to us.
 
 ## 2. What stays on your phone
@@ -30,7 +30,7 @@ The app keeps the following on your phone only. We never receive it:
 - exam dates and the papers you have passed, in the planner;
 - cards you write yourself, and PDFs you import (for example a POH or your school's procedures);
 - radio practice settings and scores;
-- problem reports, and any school or aircraft you asked us to add;
+- a copy of your problem reports (section 3.4 says what we receive), and any school or aircraft you asked us to add;
 - whether you have bought the unlock or entered an instructor code.
 
 The app's own files (imported PDFs and the study database) stay inside the app and don't show in the Files app.
@@ -49,15 +49,15 @@ Each time the app starts, it asks Expo (650 Industries, Inc., USA), the service 
 
 ### 3.3 Question bank downloads
 
-The current version uses only the questions that came with it and downloads none. If a later version downloads new or corrected questions, we will update this section before it does.
+The app comes with its questions and can download new or corrected ones from our server, which runs on Cloudflare. When you open the app, at most every 6 hours, it asks for the list of current question files and downloads a file only when it has changed. The request names files only and carries nothing about you. Cloudflare sees your IP address to deliver the files; our server doesn't read or keep it.
 
 ### 3.4 Problem reports
 
 When you tap Report a problem on a question, you choose what is wrong and may add a note. The report holds the question's id, the question bank version, the kind of problem, your note (up to 1 000 characters) and the time you made it. It doesn't hold your name, your profile or any identifier for you or your phone.
 
-In the current version a report stays on your phone. We don't receive it unless you share it with us yourself, by email or message from the report screen (section 3.7). If you email it, we receive your email address and your message too, and use them only to answer you and correct the question.
+When you send a report, the app sends it to our server, which runs on Cloudflare. We keep the report with the time we received it and whether we have dealt with it. We don't keep your IP address, your phone's details or anything else about the request. If your phone is offline, or your version of the app can't send reports yet, the report waits on your phone and goes when it can, including reports you saved before.
 
-The report screen says that reports kept on your phone go to us once sending from the app is ready. Before any version of the app sends reports, we will update this policy to say what our server receives and keeps, and for how long.
+You can also share a report yourself, by email or message from the report screen (section 3.7). If you email it, we receive your email address and your message too, and use them only to answer you and correct the question.
 
 Please don't put personal information in a report note. We use reports only to correct questions. We may publish a short note on what we fixed, which the app can show in What changed, but never the text of your report.
 
@@ -65,7 +65,7 @@ School and aircraft requests you make during setup stay on your phone.
 
 ### 3.5 Instructor codes
 
-Instructors can receive a code from us that unlocks the app. In the current version the app can't check codes yet, so no code leaves your phone. Before code checking is switched on, we will update this policy to say what the app sends and what our server keeps.
+Instructors can receive a code from us that unlocks the app. When an instructor enters a code, the app sends only the code to our server to check it. The server keeps a scrambled form (a hash) of each code we issue and one daily count of wrong codes across everyone, with nothing about the phone or the person entering it.
 
 When we give an instructor a code, we keep the instructor's name and school with it, so we can withdraw the code if needed.
 
@@ -114,8 +114,9 @@ We can't read these backups, and we can't restore your data if you lose both you
 | US Aviation Weather Center | The aerodrome code you ask for, and your IP address as part of the request | USA |
 | Expo (650 Industries, Inc.) | Update checks: operating system, app version, a random installation code, an error message after a failed start, and your IP address as part of the request | USA |
 | Apple or Google | Payment for the unlock, and your backups, under their own terms | Their own locations |
+| Cloudflare, Inc. | Runs our server: problem reports, instructor code checks and question downloads, and your IP address as part of each request (used to deliver it, not kept by us) | USA and Cloudflare's network worldwide |
 
-Section 72 of POPIA allows personal information to go outside South Africa where the recipient is bound by law or an agreement giving protection substantially similar to POPIA, or where the transfer is needed to give you the service you asked for. The weather request goes to a public government service because you asked for a live report. The update check goes to Expo so the app can receive its updates, and Expo handles it under its own terms and privacy policy.
+Section 72 of POPIA allows personal information to go outside South Africa where the recipient is bound by law or an agreement giving protection substantially similar to POPIA, or where the transfer is needed to give you the service you asked for. The weather request goes to a public government service because you asked for a live report. The update check goes to Expo so the app can receive its updates, and Expo handles it under its own terms and privacy policy. Cloudflare runs our server for us as our service provider, under its customer agreement and data processing addendum.
 
 We may also disclose information to our professional advisers, or to authorities where the law requires it.
 
@@ -123,7 +124,7 @@ We may also disclose information to our professional advisers, or to authorities
 
 We keep personal information only as long as we need it for the reason we received it, as section 14 of POPIA requires.
 
-- Problem reports: the app sends us none in this version. A report you email us is kept only as long as we need it to answer you and correct the question.
+- Problem reports sent from the app: kept until we have dealt with them, and deleted within 12 months after that. A report you email us is kept only as long as we need it to answer you and correct the question.
 - Instructor codes: the instructor's name and school are kept with the code while it can be used, and only as long afterwards as we need them to deal with a question about that code.
 - Sales reports from Apple and Google: five years from the date on which the tax return they relate to is submitted, as section 29 of the Tax Administration Act 28 of 2011 requires.
 - We keep nothing else about you, because we receive nothing else.
@@ -140,7 +141,11 @@ Every connection the app makes uses HTTPS. Your study data is protected by your 
 
 Under POPIA you may ask whether we hold personal information about you and see it, ask us to correct or delete it, object to how we process it, and complain to the Information Regulator.
 
-Your study data is on your phone, so you can see, correct and delete it in the app. Because the app has no accounts and reports carry no identifier, we usually can't tell which emailed report is yours unless you tell us what you sent and roughly when. Email info@tsamayaapp.co.za, or contact us in any other way that suits you. There is no charge, and our Information Officer replies within 30 days.
+Your study data is on your phone, so you can see, correct and delete it in the app.
+
+To have a problem report you sent from Short Finals deleted from our server, email info@tsamayaapp.co.za with the question it was about (the question's id or wording), what you wrote, and roughly when you sent it. Because the app has no accounts and reports carry no identifier, that is how we find it; the same goes for a report you emailed us. We delete the whole report and keep nothing of it. There is nothing else about you on our server to delete.
+
+Email info@tsamayaapp.co.za, or contact us in any other way that suits you. There is no charge, and our Information Officer replies within 30 days.
 
 If you are not satisfied with our answer, you may contact the Information Regulator:
 
@@ -153,7 +158,7 @@ If you are not satisfied with our answer, you may contact the Information Regula
 
 ## 12. Changes to this policy
 
-When the app starts doing something new with personal information, for example sending problem reports or checking instructor codes, we update this policy first and change the version and effective date at the top. The current version is always at https://tsamayaapp.co.za/shortfinals-privacy.html.
+When the app starts doing something new with personal information, we update this policy first and change the version and effective date at the top. The current version is always at https://tsamayaapp.co.za/shortfinals-privacy.html.
 
 ## 13. Contact
 
