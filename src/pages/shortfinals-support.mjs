@@ -69,11 +69,11 @@ const unlock = faqSec({
   faqs: [
     {
       q: 'What does the unlock cost?',
-      a: 'One once-off payment of R499.99 in South Africa. It unlocks every licence and every aircraft in the app. There is no subscription, and nothing renews.',
+      a: 'There is one unlock per licence, each a once-off payment. In South Africa the PPL unlock is R499.99 and the CPL unlock R799.99. The PPL unlock opens every PPL paper; the CPL unlock opens every CPL paper and the PPL papers its exams cover. Either one opens every aircraft and all the practice. There is no subscription, and nothing renews.',
     },
     {
       q: 'I bought the unlock and it has gone.',
-      a: 'Open More › Unlock everything, or Settings, and tap Restore purchase. Use the same Apple ID or Google account you bought it with.',
+      a: 'Open More › Unlock Short Finals, or Settings, and tap Restore purchase. Use the same Apple ID or Google account you bought it with.',
     },
     {
       q: 'Can I use the unlock on more than one device?',
@@ -120,10 +120,10 @@ const SELLER = [
   ['Website', '<a href="index.html">tsamayaapp.co.za</a>'],
   ['Self-regulatory or accreditation bodies, codes of conduct', 'We are not a member of a self-regulatory or accreditation body, and have not signed up to a voluntary code of conduct.'],
   ['Alternative dispute resolution', 'We have not signed up to an alternative dispute resolution code. If we can\'t resolve a complaint with you, you may contact the National Consumer Commission or the Consumer Goods and Services Ombud.'],
-  ['What we sell', 'Short Finals, a study app for the SACAA PPL and CPL theory exams and for training aircraft. The app is free; one optional in-app purchase unlocks every question and practice item for every licence and aircraft.'],
-  ['Price', 'R499.99 once-off in South Africa, including VAT where the store charges it. No delivery costs. The store shows the final price before you confirm.'],
+  ['What we sell', 'Short Finals, a study app for the SACAA PPL and CPL theory exams and for training aircraft. The app is free; optional once-off in-app purchases unlock a licence: the PPL unlock opens every PPL paper, the CPL unlock every CPL paper and the PPL papers its exams cover, and either opens every aircraft and practice item.'],
+  ['Price', 'In South Africa, R499.99 for the PPL unlock and R799.99 for the CPL unlock, each once-off and including VAT where the store charges it. No delivery costs. The store shows the final price before you confirm.'],
   ['How you pay', 'Through the App Store or Google Play, by the methods they accept. We never see your card or payment details, and the store\'s own security protects the payment.'],
-  ['When you get it', 'The unlock opens as soon as the store confirms the payment.'],
+  ['When you get it', 'An unlock opens as soon as the store confirms the payment.'],
   ['How long the agreement lasts', 'A once-off purchase with no subscription and no renewal.'],
   ['Your record of the purchase', 'The store emails a receipt and keeps the purchase in your account\'s purchase history.'],
   ['Refunds and returns', 'Through the store, as set out under "Can I get a refund?" above.'],

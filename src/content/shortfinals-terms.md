@@ -18,7 +18,7 @@ Short Finals is a ground school study app for South African student pilots, for 
 
 The questions follow the format of the SACAA theory exams, but we wrote them ourselves from published sources. They are not SACAA exam questions.
 
-If you are under 18, please read these terms with a parent or guardian, and ask them before you buy the unlock.
+If you are under 18, please read these terms with a parent or guardian, and ask them before you buy an unlock.
 
 ## 2. Important notice: study aid only
 
@@ -58,16 +58,16 @@ Your profile, progress and notes are stored only on your phone, as the Privacy P
 - you are responsible for making backups and keeping them safe;
 - cards you write yourself and files you import are yours, and we claim no rights in them.
 
-## 6. The unlock (once-off purchase)
+## 6. The unlocks (once-off purchases)
 
-Short Finals is free to download. Without the unlock you can use the first 15 questions of every pack, the first item of each kind of practice, a 10-question sample exam for every paper, and every card you write yourself, with no time limit. The app shows what is free before you pay.
+Short Finals is free to download. Without an unlock you can use the first 15 questions of every pack, the first item of each kind of practice, a 10-question sample exam for every paper, and every card you write yourself, with no time limit. The app shows what is free before you pay.
 
-- **What it is.** One once-off in-app purchase that unlocks every licence and every aircraft in the app. There is no subscription and nothing renews.
-- **Price.** R499.99 in South Africa. The store shows the price, in your currency, before you confirm. We may change the price for future buyers; that doesn't affect an unlock you have already bought.
-- **When it starts.** The unlock opens as soon as the store confirms your payment.
+- **What they are.** Two once-off in-app purchases, one for each licence. The PPL unlock opens every PPL paper. The CPL unlock opens every CPL paper and the PPL papers its exams cover. Either one opens every aircraft and all the practice. There is no subscription and nothing renews.
+- **Price.** In South Africa the PPL unlock costs R499.99 and the CPL unlock R799.99. The store shows the price, in your currency, before you confirm. We may change the prices for future buyers; that doesn't affect an unlock you have already bought.
+- **When it starts.** An unlock opens as soon as the store confirms your payment.
 - **Payment.** Apple or Google takes the payment under its own terms, and we never see your payment details.
 - **Refunds.** Refunds are handled by Apple or Google under their own refund policies. On the App Store, ask at reportaproblem.apple.com, signed in with the Apple ID that bought the unlock. On Google Play, ask from the order history in your Google Play account. If the store won't help, email us and we'll do what we can. Nothing in these terms limits a right you have under the Consumer Protection Act 68 of 2008 or the Electronic Communications and Transactions Act 25 of 2002.
-- **Restoring.** The unlock belongs to the Apple ID or Google account that bought it, and works on that account's devices on the same platform. It does not carry over between Apple and Android devices. Tap Restore purchase on the unlock screen or in Settings to bring it back after a reinstall or on a new phone.
+- **Restoring.** An unlock belongs to the Apple ID or Google account that bought it, and works on that account's devices on the same platform. It does not carry over between Apple and Android devices. Tap Restore purchase on the unlock screen or in Settings to bring your unlocks back after a reinstall or on a new phone.
 
 ## 7. The content can change
 
@@ -102,7 +102,7 @@ Nothing in these terms excludes or limits a right you have under the Consumer Pr
 To the maximum extent permitted by South African law:
 
 - we are not liable for any loss or damage arising from your use of, reliance on, or inability to use the app, including loss of data, a failed exam or flight test, or a decision made on the basis of a question, an explanation or a figure in the app;
-- where liability cannot be excluded, it is limited to the amount you paid for the unlock (for most users, nothing).
+- where liability cannot be excluded, it is limited to the amount you paid for your unlocks (for most users, nothing).
 
 Nothing in these terms limits our liability for loss caused by our gross negligence or wilful misconduct, or any other liability that the law does not allow us to limit.
 
