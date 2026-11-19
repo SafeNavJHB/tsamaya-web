@@ -1,0 +1,160 @@
+# Short Finals Privacy Policy
+
+**Version 1.0. Effective date: 19 November 2026.**
+
+**Responsible party (POPIA):** Tsamaya (Pty) Ltd, a private company registered in South Africa, registration number 2023/990736/07 ("we", "us")
+
+**Address:** 10 Audocia Place, Hurlingham Manor, Sandton, 2196, South Africa
+
+**Information Officer:** Kyle Kimble (director)
+
+**Contact for anything in this policy:** info@tsamayaapp.co.za, 073 285 5752
+
+Short Finals is a ground school study app for student pilots, for iPhone, iPad and Android. This policy explains what personal information the app processes, who receives it, and your rights under the Protection of Personal Information Act 4 of 2013 (POPIA). It is given in terms of section 18 of POPIA.
+
+## 1. Summary
+
+- Short Finals has no accounts, no sign-in, no ads, no analytics and no crash reporting. We don't track you, and we don't sell or share your information.
+- Your name, profile, study progress, notes and exam results stay on your phone. We never receive them.
+- Apart from the purchase, which Apple or Google handles, and backups you control (section 5), two things leave your phone without you sending them yourself: the aerodrome code when you open a live weather report, and a check for app updates each time the app starts. Section 3 describes both.
+- Problem reports stay on your phone in this version. We only see one if you share it with us yourself.
+- Radio practice listens through the microphone only when you tap to speak, and turns your words into text on the phone. Nothing is recorded or sent to us.
+
+## 2. What stays on your phone
+
+The app keeps the following on your phone only. We never receive it:
+
+- the profile you enter: your first name, licence, aeroplane or helicopter, school, aircraft, and whether you are a student or an instructor;
+- your study progress, answers, weak list, bookmarks, streak and activity calendar;
+- practice exam results, and exams you haven't finished;
+- exam dates and the papers you have passed, in the planner;
+- cards you write yourself, and PDFs you import (for example a POH or your school's procedures);
+- radio practice settings and scores;
+- problem reports, and any school or aircraft you asked us to add;
+- whether you have bought the unlock or entered an instructor code.
+
+On iPhone and iPad the app's documents folder (imported PDFs and the study database) shows in the Files app, so anyone who can unlock your phone can see it there.
+
+Deleting the app deletes this information from the phone, except for backups you made (section 5).
+
+## 3. What leaves your phone, and why
+
+### 3.1 Live weather reports
+
+When you open a live METAR or TAF, the app asks the US Aviation Weather Center (aviationweather.gov, run by the US National Weather Service) for the latest reports. The request carries the aerodrome's four-letter code and nothing about you. Like any website, their server sees your phone's internet (IP) address, and their own privacy policy covers that. This happens only when you open a live report.
+
+### 3.2 App update checks
+
+Each time the app starts, it asks Expo (650 Industries, Inc., USA), the service we use to deliver app updates, whether a newer version of the app's code is ready. The request carries your phone's operating system, the app's version, and a random code the app makes for this installation so the update service can tell installations apart. The code isn't linked to your name, phone number, store account or device. If the app failed to start after an update, the next check also carries a short technical error message, so the faulty update can be rolled back. Expo's server sees your IP address. We use this only to deliver updates.
+
+### 3.3 Question bank downloads
+
+The current version uses only the questions that came with it and downloads none. If a later version downloads new or corrected questions, we will update this section before it does.
+
+### 3.4 Problem reports
+
+When you tap Report a problem on a question, you choose what is wrong and may add a note. The report holds the question's id, the question bank version, the kind of problem, your note (up to 1 000 characters) and the time you made it. It doesn't hold your name, your profile or any identifier for you or your phone.
+
+In the current version a report stays on your phone. We don't receive it unless you share it with us yourself, by email or message from the report screen (section 3.7). If you email it, we receive your email address and your message too, and use them only to answer you and correct the question.
+
+The report screen says that reports kept on your phone go to us once sending from the app is ready. Before any version of the app sends reports, we will update this policy to say what our server receives and keeps, and for how long.
+
+Please don't put personal information in a report note. We use reports only to correct questions. We may publish a short note on what we fixed, which the app can show in What changed, but never the text of your report.
+
+School and aircraft requests you make during setup stay on your phone.
+
+### 3.5 Instructor codes
+
+Instructors can receive a code from us that unlocks the app. In the current version the app can't check codes yet, so no code leaves your phone. Before code checking is switched on, we will update this policy to say what the app sends and what our server keeps.
+
+When we give an instructor a code, we keep the instructor's name and school with it, so we can withdraw the code if needed.
+
+### 3.6 Buying the unlock
+
+The unlock is sold through the App Store or Google Play. Apple or Google takes the payment under its own terms and privacy policy. We never see your card, your name or your store account. The app learns from the store on your phone whether you own the unlock, and sends no purchase record to us. Apple and Google send us sales reports for our accounting. They don't include your name or contact details, but can include the country and region of the purchase.
+
+### 3.7 Things you share yourself
+
+The app can make a message or link that you send with your phone's own share sheet: a problem report, a quiz (a title and question ids), or your Ask my instructor list (your first name and question ids). These go only to the person and app you choose. We don't receive them unless you send them to us.
+
+## 4. Permissions the app asks for
+
+- **Notifications**, only if you turn on hourly questions or exam reminders. The notifications are scheduled on your phone. The app doesn't use push notifications.
+- **Microphone and speech recognition**, only in radio practice, when you choose Speak and tap to talk. On iPhone, iPad and Android 13 or later, the app requires recognition to run on the phone, so the audio never leaves it. On Android 12 and 12L the app asks the phone's speech service to work offline, but that service (usually Google's) makes the final choice. Where a phone can't recognise speech offline, including every Android phone older than Android 12, Speak isn't offered and you type your reply instead. The text of your reply is shown next to the correct call during that practice run. Nothing is recorded or sent to us. The air traffic control voice is your phone's own text-to-speech.
+- **Camera.** The app includes the camera permission so that a later version can scan a quiz QR code inside the app. This version never turns on the camera or asks for it. To open a quiz code, scan it with your phone's camera app.
+- **Files.** When you import a PDF or restore a backup, you pick the file. The app reads only that file.
+
+The app never asks for your location, contacts, photos or calendar.
+
+## 5. Backups
+
+There is no Short Finals account, so backups are yours:
+
+- **iPhone and iPad.** You can choose a folder, for example in iCloud Drive, and the app saves a backup file there after you study, keeping the 14 most recent. You can also save or share a backup file yourself. The file holds your profile, progress, own cards, planner, bookmarks and saved reports. It doesn't hold your purchase or instructor code: those come back from the store, or by entering the code again. Your phone's own iCloud backup may also include the app's data.
+- **Android.** Android's own backup can save the app's study database to your Google account if backup is on in your phone's settings. Google handles this under your Google account.
+
+We can't read these backups, and we can't restore your data if you lose both your phone and your backups.
+
+## 6. What we do not do
+
+- No accounts and no sign-in.
+- No advertising and no advertising identifiers.
+- No analytics, usage tracking or crash reporting.
+- No tracking across other companies' apps or websites.
+- No selling, renting or trading of personal information.
+- No location, contacts or photos.
+- No audio recording.
+- No direct marketing. The app's notifications are only the study questions and reminders you turn on.
+- No automated decisions about you in the sense of section 71 of POPIA.
+
+## 7. Who receives information, and transfers outside South Africa
+
+| Recipient | What | Where |
+|---|---|---|
+| US Aviation Weather Center | The aerodrome code you ask for, and your IP address as part of the request | USA |
+| Expo (650 Industries, Inc.) | Update checks: operating system, app version, a random installation code, an error message after a failed start, and your IP address as part of the request | USA |
+| Apple or Google | Payment for the unlock, and your backups, under their own terms | Their own locations |
+
+Section 72 of POPIA allows personal information to go outside South Africa where the recipient is bound by law or an agreement giving protection substantially similar to POPIA, or where the transfer is needed to give you the service you asked for. The weather request goes to a public government service because you asked for a live report. The update check goes to Expo so the app can receive its updates, and Expo handles it under its own terms and privacy policy.
+
+We may also disclose information to our professional advisers, or to authorities where the law requires it.
+
+## 8. How long we keep information
+
+We keep personal information only as long as we need it for the reason we received it, as section 14 of POPIA requires.
+
+- Problem reports: the app sends us none in this version. A report you email us is kept only as long as we need it to answer you and correct the question.
+- Instructor codes: the instructor's name and school are kept with the code while it can be used, and only as long afterwards as we need them to deal with a question about that code.
+- Sales reports from Apple and Google: five years from the date on which the tax return they relate to is submitted, as section 29 of the Tax Administration Act 28 of 2011 requires.
+- We keep nothing else about you, because we receive nothing else.
+
+## 9. Children
+
+Short Finals is a study aid for student pilots, and some of them are under 18. The app doesn't collect information that identifies you, and a problem report has no name or identifier in it. If you are under 18, please don't put personal details in a report note. If you think something we hold contains a child's personal information, contact us and we will delete it.
+
+## 10. Security
+
+Every connection the app makes uses HTTPS. Your study data is protected by your phone's own security, such as its passcode and the operating system's protections, so please protect your phone and the backup files you create. If we have reasonable grounds to believe someone has gained unauthorised access to personal information we hold, we will tell the Information Regulator and, where we can identify and reach them, the people affected, as section 22 of POPIA requires.
+
+## 11. Your rights (POPIA)
+
+Under POPIA you may ask whether we hold personal information about you and see it, ask us to correct or delete it, object to how we process it, and complain to the Information Regulator.
+
+Your study data is on your phone, so you can see, correct and delete it in the app. Because the app has no accounts and reports carry no identifier, we usually can't tell which emailed report is yours unless you tell us what you sent and roughly when. Email info@tsamayaapp.co.za, or contact us in any other way that suits you. There is no charge, and our Information Officer replies within 30 days.
+
+If you are not satisfied with our answer, you may contact the Information Regulator:
+
+- Physical address: Woodmead North Office Park, 54 Maxwell Drive, Woodmead, Johannesburg, 2191
+- Telephone: 010 023 5200; toll-free: 0800 017 160
+- General enquiries: enquiries@inforegulator.org.za
+- Complaints about personal information (POPIA): the eServices portal at https://eservices.inforegulator.org.za
+- Complaints about access to information (PAIA): PAIAComplaints@inforegulator.org.za
+- Website: https://inforegulator.org.za
+
+## 12. Changes to this policy
+
+When the app starts doing something new with personal information, for example sending problem reports or checking instructor codes, we update this policy first and change the version and effective date at the top. The current version is always at https://tsamayaapp.co.za/shortfinals-privacy.html.
+
+## 13. Contact
+
+Tsamaya (Pty) Ltd, 10 Audocia Place, Hurlingham Manor, Sandton, 2196, South Africa. Information Officer: Kyle Kimble (director). Email: info@tsamayaapp.co.za. Telephone: 073 285 5752. Support: https://tsamayaapp.co.za/shortfinals-support.html.

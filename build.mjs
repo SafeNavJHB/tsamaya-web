@@ -74,6 +74,7 @@ const UNDATED = new Set([
   '404.html', 'track.html', 't/index.html', 'updates.html', 'updates-archive.html',
   'privacy.html', 'terms.html', 'paia.html',
   'logbook2-privacy.html', 'logbook2-support.html', 'logbook2-terms.html',
+  'shortfinals-privacy.html', 'shortfinals-support.html', 'shortfinals-terms.html',
 ]);
 
 // Gives a page its content date and fills the PAGE_DATE slot, if it has one.
