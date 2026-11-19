@@ -12,6 +12,13 @@
           { "/": "/track/*" },
           { "/": "/track.html" }
         ]
+      },
+      {
+        "appIDs": ["6Z2294K878.com.tsamaya.shortfinals"],
+        "components": [
+          { "/": "/shortfinals-quiz.html", "comment": "Open a quiz an instructor shared in Short Finals" },
+          { "/": "/shortfinals-ask.html", "comment": "Open a student's Ask my instructor list in Short Finals" }
+        ]
       }
     ]
   }

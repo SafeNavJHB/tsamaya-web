@@ -33,7 +33,7 @@ The app keeps the following on your phone only. We never receive it:
 - problem reports, and any school or aircraft you asked us to add;
 - whether you have bought the unlock or entered an instructor code.
 
-On iPhone and iPad the app's documents folder (imported PDFs and the study database) shows in the Files app, so anyone who can unlock your phone can see it there.
+The app's own files (imported PDFs and the study database) stay inside the app and don't show in the Files app.
 
 Deleting the app deletes this information from the phone, except for backups you made (section 5).
 
@@ -75,7 +75,7 @@ The unlock is sold through the App Store or Google Play. Apple or Google takes t
 
 ### 3.7 Things you share yourself
 
-The app can make a message or link that you send with your phone's own share sheet: a problem report, a quiz (a title and question ids), or your Ask my instructor list (your first name and question ids). These go only to the person and app you choose. We don't receive them unless you send them to us.
+The app can make a message or link that you send with your phone's own share sheet: a problem report, a quiz (a title and question ids), or your Ask my instructor list (your first name and question ids). These go only to the person and app you choose. We don't receive them unless you send them to us. Quiz and list links are addresses on tsamayaapp.co.za that open the app. The quiz or list is in the part of the link after the #, which a browser never sends to a website. When a link opens in a browser instead of the app (for example when the app isn't on the phone), it shows a page on our website with only what is in the link; our website host (GitHub) sees an ordinary page visit, but not the quiz or list.
 
 ## 4. Permissions the app asks for
 
