@@ -55,7 +55,7 @@ The app comes with its questions and can download new or corrected ones from our
 
 When you tap Report a problem on a question, you choose what is wrong and may add a note. The report holds the question's id, the question bank version, the kind of problem, your note (up to 1 000 characters) and the time you made it. It doesn't hold your name, your profile or any identifier for you or your phone.
 
-When you send a report, the app sends it to our server, which runs on Cloudflare. We keep the report with the time we received it and whether we have dealt with it. We don't keep your IP address, your phone's details or anything else about the request. If your phone is offline, or your version of the app can't send reports yet, the report waits on your phone and goes when it can, including reports you saved before.
+When you send a report, the app sends it to our server, which runs on Cloudflare. We keep the report with the time we received it and whether we have dealt with it. We don't keep your IP address, your phone's details or anything else about the request. If your phone is offline, or our server is busy, the report waits on your phone and goes as soon as it can. Reports you saved before sending was switched on go the same way.
 
 You can also share a report yourself, by email or message from the report screen (section 3.7). If you email it, we receive your email address and your message too, and use them only to answer you and correct the question.
 
