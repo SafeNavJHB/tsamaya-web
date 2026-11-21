@@ -1,6 +1,6 @@
 # Short Finals Privacy Policy
 
-**Version 1.2. Effective date: 21 November 2026.**
+**Version 1.3. Effective date: 21 November 2026.**
 
 **Responsible party (POPIA):** Tsamaya (Pty) Ltd, a private company registered in South Africa, registration number 2023/990736/07 ("we", "us")
 
@@ -16,7 +16,7 @@ Short Finals is a ground school study app for student pilots, for iPhone, iPad a
 
 - Short Finals has no accounts, no sign-in, no ads, no analytics and no crash reporting. We don't track you, and we don't sell or share your information.
 - Your name, profile, study progress, notes and exam results stay on your phone. We never receive them.
-- Apart from the purchase, which Apple or Google handles, and backups you control (section 5), only these leave your phone: the aerodrome code when you open a live weather report, a check for app updates each time the app starts, a check for new or corrected questions, a problem report when you send one, a school or aircraft you ask us to add during setup, and an instructor code when an instructor enters it. Section 3 describes each.
+- Apart from the purchase, which Apple or Google handles, and backups you control (section 5), only these leave your phone: the aerodrome code when you open a live weather report, a check for app updates each time the app starts, a check for new or corrected questions, a problem report when you send one, a school or aircraft you ask us to add during setup, and an instructor code with a device check value when an instructor enters it. Section 3 describes each.
 - A problem report goes to our server so we can fix the question, and a school or aircraft request so we can add it. Neither has a name or identifier for you or your phone.
 - Radio practice listens through the microphone only when you tap to speak, and turns your words into text on the phone. Nothing is recorded or sent to us.
 
@@ -67,7 +67,7 @@ During setup, and later under your profile, you can tell us that your school or 
 
 ### 3.6 Instructor codes
 
-Instructors can receive a code from us that unlocks the app. When an instructor enters a code, the app sends only the code to our server to check it. The server keeps a scrambled form (a hash) of each code we issue and one daily count of wrong codes across everyone, with nothing about the phone or the person entering it.
+Instructors can receive a code from us that unlocks the app on up to two of their devices, for example a phone and an iPad. When an instructor enters a code, the app sends the code and a device check value to our server. The device check value is a scrambled form (a hash) of the code together with the identifier the phone gives the app: on iPhone and iPad, the identifier our apps share on that device; on Android, the app's own Android ID. It lets the server recognise the same device again, and it can't be turned back into the phone's identifier or used to recognise the phone anywhere else. The server keeps a hash of each code we issue, the check values of up to two devices that have used it with the date each was first seen, and one daily count of wrong codes across everyone. Nothing else about the phone or the person entering it is kept.
 
 When we give an instructor a code, we keep the instructor's name and school with it, so we can withdraw the code if needed.
 
@@ -128,7 +128,7 @@ We keep personal information only as long as we need it for the reason we receiv
 
 - Problem reports sent from the app: kept until we have dealt with them, and deleted within 12 months after that. A report you email us is kept only as long as we need it to answer you and correct the question.
 - School and aircraft requests: kept until we have added the school or aircraft or decided not to, and deleted within 12 months after that.
-- Instructor codes: the instructor's name and school are kept with the code while it can be used, and only as long afterwards as we need them to deal with a question about that code.
+- Instructor codes: the instructor's name and school, and the check values of the devices that used the code, are kept with the code while it can be used, and only as long afterwards as we need them to deal with a question about that code.
 - Sales reports from Apple and Google: five years from the date on which the tax return they relate to is submitted, as section 29 of the Tax Administration Act 28 of 2011 requires.
 - We keep nothing else about you, because we receive nothing else.
 
@@ -146,7 +146,7 @@ Under POPIA you may ask whether we hold personal information about you and see i
 
 Your study data is on your phone, so you can see, correct and delete it in the app.
 
-To have a problem report you sent from Short Finals deleted from our server, email info@tsamayaapp.co.za with the question it was about (the question's id or wording), what you wrote, and roughly when you sent it. Because the app has no accounts and reports carry no identifier, that is how we find it; the same goes for a report you emailed us. We delete the whole report and keep nothing of it. A school or aircraft request is found and deleted the same way, from what you typed and roughly when. There is nothing else about you on our server to delete.
+To have a problem report you sent from Short Finals deleted from our server, email info@tsamayaapp.co.za with the question it was about (the question's id or wording), what you wrote, and roughly when you sent it. Because the app has no accounts and reports carry no identifier, that is how we find it; the same goes for a report you emailed us. We delete the whole report and keep nothing of it. A school or aircraft request is found and deleted the same way, from what you typed and roughly when. An instructor can ask us to delete the device check values kept with their code; the code then works on two new devices. There is nothing else about you on our server to delete.
 
 Email info@tsamayaapp.co.za, or contact us in any other way that suits you. There is no charge, and our Information Officer replies within 30 days.
 
