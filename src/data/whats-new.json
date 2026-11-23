@@ -15,6 +15,78 @@
   ],
   "releases": [
     {
+      "version": "2026-11-23.104",
+      "date": "23 November 2026",
+      "items": [
+        {
+          "icon": "navigate-outline",
+          "title": "Road names before route numbers",
+          "body": "Turn instructions and route options now name the road with its number beside it, like \"Turn left onto Preller Drive (M30)\", instead of \"Preller Drive / M30\" or a bare \"M30\".",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-23.103",
+      "date": "23 November 2026",
+      "items": [
+        {
+          "icon": "hand-left-outline",
+          "title": "Rate the road you are on in two taps",
+          "body": "Tap the road name under your car on the drive screen to rate that road. Handy for a passenger: one tap opens the rating, a second picks the colour.",
+          "category": "feature"
+        },
+        {
+          "icon": "color-palette-outline",
+          "title": "The colour question on rated roads too",
+          "body": "When you are stopped or crawling, Tsamaya may now ask what colour a rated road is, showing the colour it has now. Picking the same colour sends nothing; a different one goes to the review team. It still asks at most twice a drive.",
+          "category": "tweak"
+        },
+        {
+          "icon": "flag-outline",
+          "title": "A tidier report sheet",
+          "body": "Rating the road or area now sits right under Hijacking, Smash & grab and Police, so you no longer scroll to reach it. Blue lights is gone from the buttons, since Police covers it.",
+          "category": "tweak"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-23.102",
+      "date": "23 November 2026",
+      "items": [
+        {
+          "icon": "color-palette-outline",
+          "title": "The drive colours, explained",
+          "body": "The route line shows each road's own rating and the screen border shows the area's, so a green road through a red area is normal. A short card explains it on your next drive, a one-line note names a new colour the first few times the line changes, and Settings, Map now has the guide plus a switch to hide the dashed rated-road lines.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-23.101",
+      "date": "23 November 2026",
+      "items": [
+        {
+          "icon": "heart-outline",
+          "title": "Thank-yous for your reports are back",
+          "body": "When the review team accepts a road or area you reported, Tsamaya thanks you the next time you open the map, with the team's note if there is one. Since 16 November that thank-you was not appearing.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
+      "version": "2026-11-23.100",
+      "date": "23 November 2026",
+      "items": [
+        {
+          "icon": "swap-vertical",
+          "title": "Best order for your stops",
+          "body": "Adding two or more stops to a trip? Tap Best order on the trip card and Tsamaya works out the quickest order to visit them and how much time that saves. Your destination always stays last. Tap Apply, then Go.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-11-17.101",
       "date": "17 November 2026",
       "items": [
