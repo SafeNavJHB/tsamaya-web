@@ -15,6 +15,18 @@
   ],
   "releases": [
     {
+      "version": "2026-11-23.105",
+      "date": "23 November 2026",
+      "items": [
+        {
+          "icon": "flash-outline",
+          "title": "Your reports show up straight away",
+          "body": "Crash, hazard, robot out, hijacking, smash and grab and spiking reports now appear for drivers nearby as soon as you send them, like police reports, and Tsamaya warns drivers heading that way. Most last an hour; a robot out lasts 3 hours. Hijacking, smash and grab and spiking reports also go to our review team, who may mark the spot on the map for good.",
+          "category": "feature"
+        }
+      ]
+    },
+    {
       "version": "2026-11-23.104",
       "date": "23 November 2026",
       "items": [
