@@ -1,12 +1,27 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.tsamaya.app",
       "sha256_cert_fingerprints": [
         "6B:AA:D1:3D:5E:8C:AD:BA:32:7B:DB:E7:13:72:AB:18:EA:95:76:69:38:1B:EB:95:9C:C5:06:C8:66:92:B8:C1",
         "40:34:8E:4C:3A:F2:E5:77:64:C7:2F:83:A4:66:8D:A7:DC:BD:0B:91:57:3D:5D:15:6D:28:35:09:C7:05:9C:93"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.tsamaya.shortfinals",
+      "sha256_cert_fingerprints": [
+        "70:BF:AF:B2:41:1F:46:14:32:3B:4B:04:C7:F0:AF:E4:21:DF:7D:19:6F:FF:06:D8:49:2D:B2:B8:43:20:89:CF",
+        "5D:AE:B2:11:15:96:3A:ED:AE:C8:BF:79:D5:A3:1A:E1:52:18:37:5C:C5:1B:2B:D7:2A:C1:32:D8:79:EE:42:D3"
       ]
     }
   }
