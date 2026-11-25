@@ -15,6 +15,24 @@
   ],
   "releases": [
     {
+      "version": "2026-11-25.107",
+      "date": "25 November 2026",
+      "items": [
+        {
+          "icon": "shield-checkmark-outline",
+          "title": "Fewer repeated risk-area warnings",
+          "body": "Starting a drive inside a higher-risk area now says \"you are in\" once, not \"entering\" every time you set off. Set off again in the same area within half an hour and it stays quiet.",
+          "category": "fix"
+        },
+        {
+          "icon": "speedometer-outline",
+          "title": "Camera warnings only when they matter",
+          "body": "With \"Only near the limit\", a camera with no limit on record now uses the road's limit, so it no longer speaks while you are parked or crawling. Two cameras at one spot give one warning.",
+          "category": "fix"
+        }
+      ]
+    },
+    {
       "version": "2026-11-23.106",
       "date": "23 November 2026",
       "items": [
