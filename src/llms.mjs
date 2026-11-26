@@ -15,6 +15,7 @@
 import { site, stats, fmt, canonicalFor, baseUrl, longDate } from '../site.config.mjs';
 import { FEATURES, SUMMARY, NOT_A, PREMIUM_FEATURES, PREMIUM_NOTE, POSITIONING, STANDOUT, AVAILABILITY, LIMITS } from './facts.mjs';
 import { metros } from './data/metros.mjs';
+import { FLIGHT_SLUGS } from './flight.mjs';
 
 // Pages grouped the way a reader would want them. Anything the build emits that
 // is not listed here lands under "More" rather than disappearing.
@@ -36,6 +37,7 @@ export function llmsTxt(pages, buildDate) {
   const product = take(PRODUCT);
   const coverage = take(['coverage.html', ...metroSlugs]);
   const company = take(COMPANY);
+  const flight = take(FLIGHT_SLUGS);
   const more = [...bySlug.values()].map(line);
 
   const t = stats.totals;
@@ -94,6 +96,12 @@ ${coverage.join('\n')}
 ## Company and legal
 
 ${company.join('\n')}
+
+## Flight apps
+
+Tsamaya (Pty) Ltd also makes apps for pilots, separate from the driving app, each with its own privacy policy, terms and support page: Logbook², a pilot logbook with SA-CATS 61 pages, and Short Finals, ground school study for the SACAA PPL and CPL theory exams. Both are in testing and not yet in the App Store or Google Play.
+
+${flight.join('\n')}
 ${more.length ? `\n## Optional\n\n${more.join('\n')}\n` : ''}
 Last built: ${buildDate}. Figures come from the live database at build time.
 `;

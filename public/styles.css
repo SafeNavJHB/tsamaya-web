@@ -1880,3 +1880,38 @@ html:not(.js) .page-home2 .hm-bands { display: none; }
 .f30-rules { max-width: 46rem; padding-left: 1.2em; color: var(--fg-2); list-style: disc; }
 .f30-rules li + li { margin-top: 10px; }
 .f30 [hidden] { display: none !important; }
+
+/* ---------------------------------------------------------------------------
+ * Flight apps (src/flight.mjs): the hub (flight.html), each app's landing page
+ * and the brand line in their header. Built from the same kit as every other
+ * inner page; only the app cards and icons are new.
+ * ------------------------------------------------------------------------- */
+.brand-sub { margin-left: 2px; padding: 3px 7px; border: 1px solid var(--hairline); border-radius: 6px; font-size: 10px; letter-spacing: 0.12em; color: var(--hud); align-self: center; }
+.sn .fl-icon { display: block; width: 72px; height: auto; aspect-ratio: 1; border-radius: 22%; flex: none; }
+.sn .fl-icon-soon { color: var(--hud); border-radius: 0; }
+.sn .ph-fig .fl-icon { width: min(192px, 40vw); height: auto; margin-inline: auto; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35); }
+.sn .fl-soon-line { margin-top: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; color: var(--fg-2); }
+.sn .fl-grid { margin-top: 44px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.sn .fl-card { display: flex; flex-direction: column; gap: 12px; padding: 26px 24px 20px; border: 1px solid var(--hairline); border-radius: 16px; background: linear-gradient(180deg, var(--surface), var(--night-2)); }
+.sn .fl-card-h { display: flex; align-items: center; gap: 16px; }
+.sn .fl-card h3 { margin-top: 4px; font-size: clamp(1.5rem, 2.4vw, 2rem); font-weight: 800; font-stretch: 116%; letter-spacing: -0.02em; line-height: 1.05; }
+.sn .fl-card h3 a { color: var(--ink); }
+.sn .fl-card p:not(.hud) { color: var(--fg-2); }
+.sn .fl-status { color: var(--go); }
+.sn .fl-soon .fl-status { color: var(--hud); }
+.sn .fl-links { margin-top: auto; }
+.sn .fl-small { display: flex; flex-wrap: wrap; gap: 4px 18px; padding-top: 12px; border-top: 1px solid var(--hairline); font-size: 14.5px; }
+.sn .fl-small a { color: var(--fg-2); min-height: 32px; display: inline-flex; align-items: center; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--hairline); }
+.sn .fl-small a:hover { color: var(--ink); text-decoration-color: currentColor; }
+.sn .fl-policies dd { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 6px 26px; padding: 12px 0; }
+.sn .fl-policies dd a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--hairline); }
+.sn .fl-ver { color: var(--fg-2); font-size: 14px; }
+@media (max-width: 960px) { .sn .fl-grid { grid-template-columns: minmax(0, 1fr); max-width: 40rem; } }
+.sn .ph .fl-grid-head { margin-top: 48px; }
+.sn .ph .fl-grid-head .fl-card h3 { margin-top: 4px; }
+/* On a phone the app icon sits small above the title, not as a big block below the lead. */
+@media (max-width: 860px) {
+  .sn.page-flight .ph-split .crumb { order: -2; justify-self: start; }
+  .sn.page-flight .ph-split .ph-fig { order: -1; margin: 6px 0 18px; max-width: none; }
+  .sn.page-flight .ph-fig .fl-icon { width: 84px; height: auto; margin-inline: 0; box-shadow: none; }
+}

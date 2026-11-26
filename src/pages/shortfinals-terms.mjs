@@ -16,7 +16,7 @@ const main = `
     ${toc}
     <article class="prose">${html}</article>
   </div>
-  <p class="wrap legal-foot">${linkQ('Short Finals privacy policy', 'shortfinals-privacy.html')}${linkQ('Short Finals support', 'shortfinals-support.html')}</p>
+  <p class="wrap legal-foot">${linkQ('Short Finals privacy policy', 'shortfinals-privacy.html')}${linkQ('Short Finals support', 'shortfinals-support.html')}${linkQ('About Short Finals', 'shortfinals.html')}</p>
 </section>`;
 
 export default {
@@ -28,7 +28,7 @@ export default {
   heroClass: 'sn page-legal',
   hud: false,
   body: [
-    pageHead({ meta: 'Legal', title: 'Short Finals terms of use', lead: 'The agreement covering your use of Short Finals, including the unlock and what the app does not promise.' }),
+    pageHead({ crumb: { href: 'shortfinals.html', label: 'Short Finals' }, meta: 'Legal', title: 'Short Finals terms of use', lead: 'The agreement covering your use of Short Finals, including the unlock and what the app does not promise.' }),
     main,
   ].join('\n'),
 };

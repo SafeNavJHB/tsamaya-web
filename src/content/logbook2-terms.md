@@ -1,6 +1,6 @@
 # Logbook² Terms of Use
 
-**Version 1.1. Effective date: 8 November 2026.**
+**Version 1.2. Effective date: 26 November 2026.**
 
 **Provider:** Tsamaya (Pty) Ltd, a private company registered in South Africa, registration number 2023/990736/07 ("Tsamaya", "we")
 
@@ -16,7 +16,7 @@ By using the Logbook² app you agree to these terms and to our Logbook² Privacy
 
 Logbook² is a pilot logbook app for iPhone and Android. You enter your flights and it keeps your totals, shows recency and expiry information, and produces exports and printable logbook pages.
 
-You must be 18 or older to use Logbook².
+Logbook² is for pilots and student pilots of any age. If you are under 18, please read these terms with a parent or guardian, and ask them before you subscribe.
 
 ## 2. Important notice about regulations
 
@@ -61,11 +61,11 @@ Your logbook is stored only on your device, as the Privacy Policy explains. We h
 Logbook² Pro is an auto-renewing subscription sold through the App Store or Google Play.
 
 - **Price.** R29.99 per month or R299.99 per year. The price is shown in the app before you confirm. A price may change in future, and the store will notify you of the change in advance, as its rules require.
-- **Free period.** Every new installation gets a 30-day free period with all features. You do not need to subscribe to use the app during it.
-- **After the free period.** Without an active subscription you can keep using one logbook, including adding, editing, exporting, printing and backing up its flights. Pro features, such as importing, a second logbook and instructor tools, need a subscription. We never hold your data back from you.
+- **Free period.** The app gives you 30 days with all features, counted from the first time you open it after installing it. You do not need to subscribe to use the app during it. Restoring a Logbook² backup does not change it, but if your phone brings back the app's data from its own iCloud or Google backup, the free period carries on from where it was.
+- **After the free period.** Without an active subscription you can keep using one logbook, including adding, editing, printing and backing up its flights, and exporting them as CSV. Pro features, such as importing, a second logbook, Excel export and instructor tools, need a subscription. We never hold your data back from you.
 - **Renewal and cancelling.** Your subscription renews automatically at the end of each period until you cancel. Cancel at any time in your store account's subscription settings. Cancelling stops the next renewal, and Pro stays on until the end of the period you have paid for.
 - **Payment and refunds.** Apple or Google takes the payment under its own terms, and we never see your payment details. Refunds are handled by Apple or Google under their policies. Nothing in these terms limits a right you have under the Consumer Protection Act 68 of 2008.
-- **Restoring.** Your subscription belongs to the Apple ID or Google account that bought it. Use Restore Purchases on the Subscription screen to bring it back after a reinstall or on a new phone.
+- **Restoring.** Your subscription belongs to the Apple ID or Google account that bought it. Use Restore purchases under Settings › Subscription to bring it back after a reinstall or on a new phone.
 
 ## 7. Intellectual property
 
@@ -94,7 +94,7 @@ We may improve or change the app, and we may update these terms. The version and
 
 You may stop using the app at any time. Uninstalling deletes the data the app stored on your phone, so export or back up what you need first. Uninstalling does not cancel a subscription: cancel it in your store account.
 
-We may suspend or end your licence if you break these terms. Your right to view, export, print and back up your own data does not depend on a subscription, and we will not use termination to withhold it where we are able to give it to you.
+We may suspend or end your licence if you break these terms. Your right to view, print and back up your own data, and to export it as CSV, does not depend on a subscription, and we will not use termination to withhold it where we are able to give it to you.
 
 ## 12. Apple App Store and Google Play
 

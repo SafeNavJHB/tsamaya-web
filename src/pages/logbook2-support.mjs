@@ -13,12 +13,12 @@ const start = faqSec({
   faqs: [
     {
       q: 'How do I import my flights from another logbook app?',
-      a: 'Export your logbook from your current app as a PDF or Excel file. Save it to your phone\'s files, or open it directly in Logbook². Then, in Logbook², go to More › Import and pick the file. The flights are read on your phone and nothing is uploaded. Importing needs an active subscription or your 30-day free period.',
+      a: 'Export your logbook from your current app as a PDF, Excel or CSV file and save it to your phone\'s files. Then, in Logbook², go to Profile › Import, choose PDF or Excel or CSV, and pick the file. On iPhone you can also save the file into the Logbook² folder (Files › On My iPhone › Logbook²), and Import lists it under From the Logbook² folder. The flights are read on your phone and nothing is uploaded. Importing needs an active subscription or your 30-day free period.',
       open: true,
     },
     {
       q: 'Can I import from anything else?',
-      a: 'Yes. Logbook² can also import an Excel file, a CSV file or a Logbook² backup, and it can read a photo of your paper logbook. Go to More › Import, choose Camera, lay the page flat in good light and take the photo. Text recognition runs on your phone. The app shows you every row it read and highlights anything it is not sure about, so you confirm or correct each of those before the flights are saved.',
+      a: 'Yes. Logbook² can also import an Excel file, a CSV file or a Logbook² backup, and it can read a photo of your paper logbook. Go to Profile › Import, choose Camera, lay the page flat in good light and tap Take photo, or Choose photo for one you already have. Text recognition runs on your phone. The app shows you every row it read and highlights anything it is not sure about, so you confirm or correct each of those before the flights are saved.',
     },
     {
       q: 'Is Logbook² approved by the SACAA?',
@@ -34,15 +34,15 @@ const keep = faqSec({
   faqs: [
     {
       q: 'How do I print my logbook?',
-      a: 'Go to More › Print Logbook. Print the result from the share sheet, or save it as a PDF. Viewing, exporting and printing your existing data stay free, with or without a subscription.',
+      a: 'Go to Profile › Print Logbook. Print the result from the share sheet, or save it as a PDF. Viewing, printing, CSV export and backups stay free, with or without a subscription. Excel export is part of Logbook² Pro.',
     },
     {
       q: 'How do I back up my logbook?',
-      a: 'Go to More › Backup & Restore and create a backup. It is a file, and you decide where it goes. Keep it somewhere safe, for example in iCloud Drive or Google Drive. We hold no copy of your data and cannot recover it for you. Backing up is always free.',
+      a: 'Go to Profile › Backup & Restore and tap Create backup. It is one file with your flights, records and settings, and you decide where it goes. Keep it somewhere safe, for example in iCloud Drive or Google Drive. We hold no copy of your data and cannot recover it for you. Backing up is always free.',
     },
     {
       q: 'Can Logbook² back up by itself?',
-      a: 'Yes. On iPhone, go to More › Backup & Restore, choose a folder under Automatic backup, for example one in iCloud Drive. Logbook² saves your flights and records there on days you open it after a change, and keeps the last 14. On Android, your flights and records go to your Google account when Backup is on in your phone\'s settings. Both leave out photos and documents, so make a backup with them now and then. Automatic backups have no password.',
+      a: 'Yes. On iPhone, go to Profile › Backup & Restore and tap Choose a folder under Automatic backup, for example one in iCloud Drive. Logbook² saves your flights and records there on days you open it after a change, and keeps the last 14. On Android, your flights and records go to your Google account when Backup is on in your phone\'s settings. Both leave out photos and documents, so make a backup with them now and then. Automatic backups have no password.',
     },
     {
       q: 'Can I put a password on a backup?',
@@ -50,11 +50,15 @@ const keep = faqSec({
     },
     {
       q: 'How do I lock the app?',
-      a: 'Go to More › App lock. Logbook² then asks for Face ID, your fingerprint or your phone\'s passcode when you open it and after a minute away. It uses your phone\'s own lock, so there is no separate PIN to forget.',
+      a: 'Tap the gear at the top of Home or Profile to open Settings, then App lock, and turn on Lock Logbook². Logbook² then asks for Face ID, your fingerprint or your phone\'s passcode when you open it and after a minute away. It uses your phone\'s own lock, so there is no separate PIN to forget.',
+    },
+    {
+      q: 'How do I get reminders before my licence or medical expires?',
+      a: 'Open Settings (the gear on Home or Profile), then Reminders, and tap Allow notifications. Logbook² reminds you before a licence, rating or medical expires and when a print is due, and, if you instruct, before a student\'s medical or licence expires. You choose which ones and the time of day. Reminders are set up on your phone and nothing is sent to us. After your first 30 days they are part of Logbook² Pro.',
     },
     {
       q: 'How do I restore my logbook on a new phone?',
-      a: 'Install Logbook² on the new phone. Make sure your backup file can be reached from that phone, for example in iCloud Drive or Google Drive. Then go to More › Backup & Restore and choose the backup file to restore.',
+      a: 'Install Logbook² on the new phone. Make sure your backup file can be reached from that phone, for example in iCloud Drive or Google Drive. Then go to Profile › Backup & Restore, tap Choose backup file, check what it holds and tap Restore this backup. Your settings come back too, including app lock and your reminder choices. On the new phone, allow notifications under Settings › Reminders so the reminders can arrive.',
     },
   ],
 });
@@ -66,7 +70,7 @@ const teach = faqSec({
   faqs: [
     {
       q: 'How do I send a flight to a student?',
-      a: 'Open a saved flight that has a student on it and tap Send to student. Your student scans the QR code with their phone camera, or you can share it as a link. They need Logbook² installed. They check the flight and tap Save, and nothing is added to their logbook before that. Your remarks and your student\'s details are not sent.',
+      a: 'Open a saved flight that has a student on it and tap Send to student. Your student scans the QR code with their phone camera, or you can share it as a link. They need Logbook² installed. They check the flight and tap Save, and nothing is added to their logbook before that. Your remarks and your student\'s details are not sent. Sending is part of the instructor tools in Logbook² Pro. Saving a flight you were sent is free.',
     },
   ],
 });
@@ -78,15 +82,15 @@ const money = faqSec({
   faqs: [
     {
       q: 'What does Logbook² Pro cost, and what do I get?',
-      a: 'Logbook² Pro is R29.99 per month or R299.99 per year, renewing automatically through the App Store or Google Play. Every new install gets 30 days free with all features. After that one logbook, printing, backups and restoring stay free. Pro adds your second logbook, imports, Excel export, instructor tools, the duty log, photos and documents, goals, reminders and the revalidation pack.',
+      a: 'Logbook² Pro is R29.99 per month or R299.99 per year, renewing automatically through the App Store or Google Play. Every new install gets 30 days free with all features. After that, one logbook, printing, CSV export, backups and restoring stay free. Pro adds your second logbook, imports, Excel export, instructor tools and signatures, the duty log, photos and documents, goals, reminders and the revalidation pack.',
     },
     {
       q: 'How do I manage or cancel my subscription?',
-      a: 'In your phone\'s subscription settings: on iPhone, your Apple ID, then Subscriptions; on Android, Google Play, then Payments and subscriptions. Cancel at least 24 hours before the period ends to avoid being charged for the next one. Pro stays on until the end of the period you paid for.',
+      a: 'In your phone\'s subscription settings: on iPhone, your Apple ID, then Subscriptions; on Android, Google Play, then Payments and subscriptions. In Logbook², Settings › Subscription › Manage subscription takes you there. On iPhone, cancel at least 24 hours before the period ends to avoid being charged for the next one. Pro stays on until the end of the period you paid for.',
     },
     {
       q: 'I paid, but the app still asks me to subscribe.',
-      a: 'Open the Subscription screen in the app and tap Restore Purchases. This works after a reinstall or on a new phone, as long as you are signed in with the Apple ID or Google account that bought it. If it still does not work, write to us.',
+      a: 'In the app, open Settings (the gear on Home or Profile), then Subscription, and tap Restore purchases. This works after a reinstall or on a new phone, as long as you are signed in with the Apple ID or Google account that bought it. If it still does not work, write to us.',
     },
     {
       q: 'Can I get a refund?',
@@ -100,7 +104,7 @@ const contact = sec({
   cls: 'tail',
   kick: 'Still stuck?',
   title: 'Write to us',
-  lead: `Email ${mail}. We usually reply within two working days. Please tell us your phone model, its system version and what you were doing when it went wrong. In the app, More › About › Send feedback fills in the versions for you. Do not send your whole logbook.`,
+  lead: `Email ${mail}. We usually reply within two working days. Please tell us your phone model, its system version and what you were doing when it went wrong. In the app, Settings › About › Send feedback fills in the versions for you. Do not send your whole logbook.`,
   inner: `<p class="more" data-reveal>${linkQ('Logbook² privacy policy', 'logbook2-privacy.html')}${linkQ('Logbook² terms of use', 'logbook2-terms.html')}</p>`,
 });
 
@@ -113,7 +117,7 @@ export default {
   heroClass: 'sn page-faq',
   hud: false,
   body: [
-    pageHead({ meta: 'Support', title: 'Logbook² support', lead: 'Importing, printing, backups, students and your subscription. Version 1.1. Effective date: 8 November 2026.' }),
+    pageHead({ crumb: { href: 'logbook2.html', label: 'Logbook²' }, meta: 'Support', title: 'Logbook² support', lead: 'Importing, printing, backups, reminders, students and your subscription. Version 1.2. Effective date: 26 November 2026.' }),
     start,
     keep,
     teach,

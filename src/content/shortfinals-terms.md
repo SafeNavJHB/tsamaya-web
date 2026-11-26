@@ -1,6 +1,6 @@
 # Short Finals Terms of Use
 
-**Version 1.0. Effective date: 19 November 2026.**
+**Version 1.1. Effective date: 26 November 2026.**
 
 **Provider:** Tsamaya (Pty) Ltd, a private company registered in South Africa, registration number 2023/990736/07 ("Tsamaya", "we")
 
@@ -14,7 +14,7 @@ By using the Short Finals app you agree to these terms and to our Short Finals P
 
 ## 1. What Short Finals is
 
-Short Finals is a ground school study app for South African student pilots, for iPhone, iPad and Android. It has questions for the PPL and CPL theory papers, aeroplane and helicopter, and for a number of training aircraft, with practice exams, worked examples, drills, weather report decoding and radio practice.
+Short Finals is a ground school study app for South African student pilots, for iPhone, iPad and Android. It has questions for the PPL and CPL theory papers, aeroplane and helicopter, and for a number of training aircraft, with practice exams, worked examples (including planning a full flight), drills, weather report decoding and radio practice.
 
 The questions follow the format of the SACAA theory exams, but we wrote them ourselves from published sources. They are not SACAA exam questions.
 
@@ -26,7 +26,7 @@ If you are under 18, please read these terms with a parent or guardian, and ask 
 
 Short Finals helps you study alongside ground school. It does not replace ground school at an approved training organisation, your instructor, or the official sources: the Civil Aviation Regulations (CAR), SA-CATS, the AIP and the pilot's operating handbook (POH) for your aircraft.
 
-- Every question cites its source so you can check it. Where sources disagree, or where your school may teach it differently, the question says so and tells you to ask your instructor.
+- Every question cites its source so you can check it, or, where no free source covers the point, is marked as our own question. Where sources disagree, or where your school may teach it differently, the question says so and tells you to ask your instructor.
 - Regulations and procedures change. A question shows what its source said when we wrote or last checked it, so always check the current version.
 - Aircraft figures and procedures differ between models, serial numbers and handbook editions. The charts in worked examples are our own, with invented figures, and are not for flight planning.
 - A good score in the app is not a promise that you will pass a SACAA exam or a flight test.
@@ -60,7 +60,7 @@ Your profile, progress and notes are stored only on your phone, as the Privacy P
 
 ## 6. The unlocks (once-off purchases)
 
-Short Finals is free to download. Without an unlock you can use the first 15 questions of every pack, the first item of each kind of practice, a 10-question sample exam for every paper, and every card you write yourself, with no time limit. The app shows what is free before you pay.
+Short Finals is free to download. Without an unlock you can use the first 15 questions of every pack, the first item of each kind of practice, one sample flight to plan, live weather reports, a 10-question sample exam for every paper, and every card you write yourself, with no time limit. The app shows what is free before you pay.
 
 - **What they are.** Once-off in-app purchases, one for each licence. The PPL unlock opens every PPL paper. The CPL unlock opens every CPL paper and the PPL papers its exams cover. Either one opens every aircraft and all the practice. If you already have the PPL unlock, the app offers the CPL upgrade instead, which opens the same as the CPL unlock. There is no subscription and nothing renews.
 - **Price.** In South Africa the PPL unlock costs R499.99, the CPL unlock R999.99 and the CPL upgrade R499.99, so both licences cost R999.99 whichever you buy first. The store shows the price, in your currency, before you confirm. We may change the prices for future buyers; that doesn't affect an unlock you have already bought.
@@ -71,21 +71,19 @@ Short Finals is free to download. Without an unlock you can use the first 15 que
 
 ## 7. The content can change
 
-We add, correct and remove questions, aircraft, practice items and features as we check our sources, as the regulations change and as we learn from problem reports. A question you answered before may be reworded, given a new answer or withdrawn. Changes to the question bank are listed in What changed in the app.
+We add, correct and remove questions, aircraft, practice items and features as we check our sources, as the regulations change and as we learn from problem reports. A question you answered before may be reworded, given a new answer or withdrawn. Changes to the question bank are listed in You › What changed in the app.
 
 We may also change how the app works, or stop offering part of it.
 
 ## 8. Instructor codes
 
-We may give a flight instructor a code that unlocks the app on their own phone, so that they can teach with it. A code is for that instructor only: do not share, sell or publish it. We may withdraw a code at any time, for example if it has been shared.
-
-In the current version the app can't check instructor codes yet, so a code doesn't unlock anything until checking is switched on.
+We may give a flight instructor a code that unlocks the app on up to two of their own devices, for example a phone and an iPad, so that they can teach with it. Instructors apply in the app, under You › Instructor › Apply for a code. A code is for that instructor only: do not share, sell or publish it. We may withdraw a code at any time, for example if it has been shared.
 
 ## 9. Problem reports
 
 If you think a question is wrong, tap Report a problem on it. When you send us a report, you allow us to use it to check and correct the question, and to publish a short note on what we fixed, without your note's text or anything that identifies you. We read every report we receive, but we decide whether and how to change a question. Please don't put personal information in a report.
 
-In the current version a report stays on your phone until you share it with us yourself.
+The app sends a report to us when you save it, or, if your phone is offline, the next time you open the app with a connection. Until it has gone, you can also share it with us by email from the report screen.
 
 ## 10. Intellectual property
 

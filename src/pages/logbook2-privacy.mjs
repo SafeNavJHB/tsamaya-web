@@ -20,7 +20,7 @@ const main = `
     ${toc}
     <article class="prose">${html}</article>
   </div>
-  <p class="wrap legal-foot">${linkQ('Logbook² terms of use', 'logbook2-terms.html')}${linkQ('Logbook² support', 'logbook2-support.html')}</p>
+  <p class="wrap legal-foot">${linkQ('Logbook² terms of use', 'logbook2-terms.html')}${linkQ('Logbook² support', 'logbook2-support.html')}${linkQ('About Logbook²', 'logbook2.html')}</p>
 </section>`;
 
 export default {
@@ -32,7 +32,7 @@ export default {
   heroClass: 'sn page-legal',
   hud: false,
   body: [
-    pageHead({ meta: 'Legal', title: 'Logbook² privacy policy', lead: 'What Logbook² does and does not do with your information. Short version: your logbook stays on your phone.' }),
+    pageHead({ crumb: { href: 'logbook2.html', label: 'Logbook²' }, meta: 'Legal', title: 'Logbook² privacy policy', lead: 'What Logbook² does and does not do with your information. Short version: your logbook stays on your phone.' }),
     main,
   ].join('\n'),
 };

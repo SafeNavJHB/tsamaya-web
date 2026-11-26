@@ -64,6 +64,11 @@
   "basis": "body",
   "date": "2026-11-10"
  },
+ "flight.html": {
+  "hash": "4fdbaf49581a0abf",
+  "basis": "body",
+  "date": "2026-11-26"
+ },
  "founding-30.html": {
   "hash": "e49383409e99a79f",
   "basis": "body",
@@ -95,19 +100,24 @@
   "date": "2026-11-08"
  },
  "logbook2-privacy.html": {
-  "hash": "e5bd56b25a39559b",
+  "hash": "404b9e95fb1245de",
   "basis": "body",
-  "date": "2026-11-08"
+  "date": "2026-11-26"
  },
  "logbook2-support.html": {
-  "hash": "13df8986860ce3f6",
+  "hash": "42a705d37e41e7b8",
   "basis": "body",
-  "date": "2026-11-08"
+  "date": "2026-11-26"
  },
  "logbook2-terms.html": {
-  "hash": "0914accf709d8e8c",
+  "hash": "f768b69d7893802b",
   "basis": "body",
-  "date": "2026-11-08"
+  "date": "2026-11-26"
+ },
+ "logbook2.html": {
+  "hash": "ee2c2352706c2747",
+  "basis": "body",
+  "date": "2026-11-26"
  },
  "coverage.html": {
   "hash": "52dd5b82817879a6",
@@ -260,24 +270,29 @@
   "date": "2026-11-03"
  },
  "privacy.html": {
-  "hash": "27b340084f08060a",
+  "hash": "9e4a3558c9c247b2",
   "basis": "body",
-  "date": "2026-11-10"
+  "date": "2026-11-26"
  },
  "shortfinals-privacy.html": {
-  "hash": "d2e6c96879f5aeea",
+  "hash": "317e40072ca0f39b",
   "basis": "body",
-  "date": "2026-11-21"
+  "date": "2026-11-26"
  },
  "shortfinals-support.html": {
-  "hash": "7c90102d9ace8492",
+  "hash": "b0cfd44b2e027789",
   "basis": "body",
-  "date": "2026-11-19"
+  "date": "2026-11-26"
  },
  "shortfinals-terms.html": {
-  "hash": "2a6702e3896e8c61",
+  "hash": "fb8bf4bd59f8bdc2",
   "basis": "body",
-  "date": "2026-11-19"
+  "date": "2026-11-26"
+ },
+ "shortfinals.html": {
+  "hash": "b34a46a94b1495f1",
+  "basis": "body",
+  "date": "2026-11-26"
  },
  "speed-cameras.html": {
   "hash": "4ec78a91b8e21126",
@@ -305,14 +320,14 @@
   "date": "2026-11-03"
  },
  "updates.html": {
-  "hash": "f4fd324041b24fbe",
+  "hash": "b8c04aa233985ad3",
   "basis": "body",
-  "date": "2026-11-23"
+  "date": "2026-11-26"
  },
  "updates-archive.html": {
-  "hash": "2da9c916fef569fd",
+  "hash": "6d715196852c30ba",
   "basis": "body",
-  "date": "2026-11-23"
+  "date": "2026-11-26"
  },
  "why-tsamaya.html": {
   "hash": "db425ef626c01cb0",

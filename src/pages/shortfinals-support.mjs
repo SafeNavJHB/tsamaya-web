@@ -11,6 +11,7 @@ import { pageHead, sec, faqSec, linkQ } from '../kit.mjs';
 const mail = `<a href="mailto:${site.contactEmail}">${site.contactEmail}</a>`;
 
 const DISCLAIMER = "Study aid only. Use the POH for your aircraft's serial number and follow your instructor. Never use figures from this app for flight planning.";
+const NOT_GOV = 'Not a government app. Short Finals is published by Tsamaya (Pty) Ltd and does not represent the South African Civil Aviation Authority (SACAA) or any other government body.';
 const NOT_AFFILIATED = 'Cessna is a trademark of Textron Aviation Inc. Piper, Robinson, R22, R44, Sling and Diamond are trademarks of their respective owners. This app is not affiliated with or endorsed by any manufacturer or by SACAA.';
 
 const aid = sec({
@@ -18,7 +19,8 @@ const aid = sec({
   kick: 'Before you start',
   title: 'Study aid only',
   lead: DISCLAIMER,
-  inner: `<p class="fine" data-reveal>${NOT_AFFILIATED}</p>`,
+  inner: `<p class="fine" data-reveal>${NOT_GOV}</p>
+    <p class="fine" data-reveal>${NOT_AFFILIATED}</p>`,
 });
 
 const start = faqSec({
@@ -33,7 +35,7 @@ const start = faqSec({
     },
     {
       q: 'What is free?',
-      a: 'The first 15 questions of every pack, the first item of each kind of practice (worked examples, drills, weather reports and radio practice), a 10-question sample exam for every paper, and every card you write yourself. The unlock screen shows the exact counts before you pay.',
+      a: 'The first 15 questions of every pack, the first item of each kind of practice (worked examples, drills, weather reports and radio practice), one sample flight to plan, live weather reports, a 10-question sample exam for every paper, and every card you write yourself. The unlock screen shows how many questions are free in each pack before you pay.',
     },
     {
       q: 'Is this the real SACAA exam?',
@@ -49,7 +51,7 @@ const report = faqSec({
   faqs: [
     {
       q: 'How do I report a problem with a question?',
-      a: `Every question in Short Finals cites its source, and we check questions against those sources before they go in the app. Mistakes still slip through, so please tell us. Open the question and tap Report a problem. Choose what is wrong (the answer, the wording, the source or something else), add a note if you like, and save the report. Then tap Share the report and send it to ${mail}, or keep it on your phone. In this version the app doesn't send reports by itself.`,
+      a: `Every question in Short Finals cites its source, and we check questions against those sources before they go in the app. Mistakes still slip through, so please tell us. Open the question and tap Report a problem. Choose what is wrong (the answer, the wording, the source or something else), add a note if you like, and tap Save the report. The app sends it to us. If your phone is offline, the report waits on your phone and goes by itself the next time you open the app with a connection. Until then you can also tap Share the report and email it to ${mail}. You'll see what we did about it in You › What changed.`,
     },
     {
       q: 'What should I put in the report?',
@@ -57,7 +59,7 @@ const report = faqSec({
     },
     {
       q: 'Where do I see what has changed?',
-      a: 'Changes to the question bank are listed in More › What changed.',
+      a: 'Changes to the question bank, rule changes and answers to your reports are listed in You › What changed.',
     },
   ],
 });
@@ -73,11 +75,15 @@ const unlock = faqSec({
     },
     {
       q: 'I bought the unlock and it has gone.',
-      a: 'Open More › Unlock Short Finals, or Settings, and tap Restore purchase. Use the same Apple ID or Google account you bought it with.',
+      a: 'Open You › Unlock Short Finals, or You › Settings, and tap Restore purchase. Use the same Apple ID or Google account you bought it with.',
     },
     {
       q: 'Can I use the unlock on more than one device?',
-      a: 'Yes. It works on every iPhone and iPad signed in to the Apple ID that bought it, or every Android device with the Google account that bought it. Tap Restore purchase on each one. It does not carry over between Apple and Android devices.',
+      a: 'Yes. It works on every iPhone and iPad signed in to the Apple ID that bought it, or every Android device with the Google account that bought it. Tap Restore purchase on each one. It does not carry over between Apple and Android devices, and Family Sharing doesn\'t apply to it.',
+    },
+    {
+      q: 'I\'m an instructor. Can I use Short Finals free?',
+      a: 'Yes, if you teach at a South African school. Open You › Instructor › Apply for a code. The app writes an email to admin@tsamayaapp.co.za in your email app. Attach a photo of your licence page that shows your instructor rating and send it. We check it and email you a code, which works on up to two of your devices. Enter it in You › Instructor › Enter your instructor code. The privacy policy says what we keep from your application and for how long.',
     },
     {
       q: 'Can I get a refund?',
@@ -93,15 +99,15 @@ const phone = faqSec({
   faqs: [
     {
       q: 'How do I move to a new phone?',
-      a: 'On iPhone, choose a backup folder in Settings › Backup (for example in iCloud Drive), then restore from it on the new phone during setup or in Settings › Backup. On Android, Android\'s own backup to your Google account carries your study progress to the new phone. Then restore the purchase.',
+      a: 'On iPhone or iPad, open You › Settings › Backup and tap Choose a backup folder (for example in iCloud Drive). On the new phone, tap Restore from a backup on the first setup screen, or later in You › Settings › Backup. On Android, Android\'s own backup to your Google account carries your study progress to the new phone. On either, you can also tap Back up now in You › Settings › Backup to save a backup file and restore it the same way. Then restore the purchase.',
     },
     {
       q: 'Radio practice can\'t hear me.',
-      a: 'Speak needs the microphone and speech recognition permissions, and a phone that can recognise speech offline. If Speak isn\'t offered, type your reply instead. On iPhone, allow both in Settings › Short Finals.',
+      a: 'Speak needs the microphone and speech recognition permissions, and a phone that can recognise speech offline. Tap Allow the microphone when the app asks. If you said no before, allow both for Short Finals in your phone\'s Settings app (on Android, in the app\'s permissions in your phone\'s settings). If the app says speaking isn\'t available on this phone, it switches to Type: type your reply, or choose Pick.',
     },
     {
       q: 'Hourly questions don\'t arrive.',
-      a: 'Check that notifications are allowed for Short Finals in your phone\'s settings, and that the hours and days in Settings › Hourly questions include now. Tap Send a test question to check.',
+      a: 'Check that notifications are allowed for Short Finals in your phone\'s settings, and that the hours (or set times) and days in You › Settings › Hourly questions include now. Tap Send a test question, then lock your phone: it arrives a few seconds later.',
     },
   ],
 });
@@ -169,7 +175,7 @@ export default {
   heroClass: 'sn page-faq',
   hud: false,
   body: [
-    pageHead({ meta: 'Support', title: 'Short Finals support', lead: 'The free sampler, wrong questions, the unlock, refunds and moving phones. Version 1.0. Effective date: 19 November 2026.' }),
+    pageHead({ crumb: { href: 'shortfinals.html', label: 'Short Finals' }, meta: 'Support', title: 'Short Finals support', lead: 'The free sampler, wrong questions, the unlock, instructor codes, refunds and moving phones. Version 1.1. Effective date: 26 November 2026.' }),
     aid,
     start,
     report,

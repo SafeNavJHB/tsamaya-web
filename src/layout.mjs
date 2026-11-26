@@ -4,6 +4,7 @@ import { logoLockup, logoMark, icon } from './components.mjs';
 import { siteGraph } from './seo.mjs';
 import { analyticsSnippet } from './analytics.mjs';
 import { metros } from './data/metros.mjs';
+import { FLIGHT_APPS, FLIGHT_SLUGS, flightNav } from './flight.mjs';
 
 const year = 2026; // build-time constant; Date.* is unavailable in the build sandbox.
 
@@ -30,6 +31,44 @@ function mobileLinks(active) {
   const primary = nav.filter((n) => n.primary).map((n) => `<a class="mnav-link" href="${n.href}"${cur(n)}>${n.label}</a>`).join('');
   const more = nav.filter((n) => !n.primary).map((n) => `<a href="${n.href}"${cur(n)}>${n.label}</a>`).join('');
   return `${primary}<div class="mnav-more">${more}</div>`;
+}
+
+// The flight pages (src/flight.mjs) are for pilots, not drivers: their own brand
+// link, menu, call to action and footer, and no driving copy anywhere in the shell.
+const isFlight = (page) => FLIGHT_SLUGS.includes(page.slug);
+
+function flightLinks(active, cls = '') {
+  return flightNav.map((n) => `<a${cls ? ` class="${cls}"` : ''} href="${n.href}"${n.href === active ? ' aria-current="page"' : ''}>${n.label}</a>`).join('');
+}
+
+function flightFooter() {
+  const appCol = (a) => `
+      <div class="footer-col">
+        <h2>${a.name}</h2>
+        <a href="${a.slug}">About ${a.name}</a>
+        <a href="${a.support}">Support</a>
+        <a href="${a.privacy}">Privacy policy</a>
+        <a href="${a.terms}">Terms of use</a>
+      </div>`;
+  return `
+    <div class="wrap footer-grid">
+      <div class="footer-col">
+        <h2>Flight apps</h2>
+        ${flightLinks('')}
+        <a href="flight.html#policies">Every policy</a>
+      </div>${FLIGHT_APPS.map(appCol).join('')}
+      <div class="footer-col">
+        <h2>Company</h2>
+        <a href="flight.html#who">Who we are</a>
+        <a href="paia.html">PAIA manual</a>
+        <a href="privacy.html#21-our-website">Website privacy</a>
+        <a href="index.html">Tsamaya for drivers</a>
+        <a href="mailto:${site.contactEmail}">${icon('mail', 15)} ${site.contactEmail}</a>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© ${year} TSAMAYA (PTY) LTD. Built in Johannesburg. Our flight apps are independent: they are not affiliated with or endorsed by the SACAA.</p>
+    </div>`;
 }
 
 // Every page links to every metro page from the footer. On a site this small that
@@ -140,7 +179,10 @@ function pageHtml(page) {
   // Absolute URLs — crawlers require them for canonical tags and social images.
   // canonicalFor() is shared with the sitemap generator so the two cannot drift.
   const canonical = canonicalFor(page.slug);
-  const ogImage = baseUrl ? `${baseUrl}/img/og.png` : 'img/og.png';
+  const flight = isFlight(page);
+  const ogFile = flight ? 'img/og-flight.png' : 'img/og.png';
+  const ogImage = baseUrl ? `${baseUrl}/${ogFile}` : ogFile;
+  const ogAlt = flight ? 'Tsamaya flight apps: Logbook² and Short Finals, for pilots in South Africa' : 'Tsamaya: lower-risk driving routes for South African drivers';
   // The live-trip tracker is a token-bearing page and must never be indexed.
   const noindex = page.noindex === true;
 
@@ -185,10 +227,10 @@ function pageHtml(page) {
   <meta property="og:image:type" content="image/png"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
-  <meta property="og:image:alt" content="Tsamaya: lower-risk driving routes for South African drivers"/>
+  <meta property="og:image:alt" content="${ogAlt}"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:image" content="${ogImage}"/>
-  <meta name="twitter:image:alt" content="Tsamaya: lower-risk driving routes for South African drivers"/>
+  <meta name="twitter:image:alt" content="${ogAlt}"/>
   <link rel="icon" type="image/png" sizes="48x48" href="img/favicon.png"/>
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg"/>
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png"/>
@@ -204,11 +246,14 @@ function pageHtml(page) {
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" id="top">
     <div class="wrap header-inner">
-      ${logoLockup(30)}
+      ${flight ? `<a class="brand" href="flight.html" aria-label="Tsamaya flight apps">
+    ${logoMark(30)}
+    <span class="brand-word">Tsamaya</span><span class="brand-sub hud">Flight</span>
+  </a>` : logoLockup(30)}
       <nav class="primary-nav" aria-label="Primary">
-        ${navLinks(page.slug)}
+        ${flight ? flightLinks(page.slug) : navLinks(page.slug)}
       </nav>
-      <a class="btn btn-primary btn-sm header-cta btn-mag" href="get-app.html">Get the app ${arrow}</a>
+      ${flight ? `<a class="btn btn-primary btn-sm header-cta btn-mag" href="flight.html#help">Get help ${arrow}</a>` : `<a class="btn btn-primary btn-sm header-cta btn-mag" href="get-app.html">Get the app ${arrow}</a>`}
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode">
         <svg class="tt-sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         <svg class="tt-moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.2A8 8 0 0 1 9.8 4a8 8 0 1 0 10.2 10.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
@@ -218,12 +263,13 @@ function pageHtml(page) {
       </button>
     </div>
     <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile" data-lenis-prevent><script type="text/html" data-menu>
-      ${mobileLinks(page.slug)}
+      ${flight ? `${flightLinks(page.slug, 'mnav-link')}<div class="mnav-more"><a href="flight.html#policies">Every policy</a><a href="flight.html#who">Who we are</a><a href="index.html">Tsamaya for drivers</a></div>
+      <a class="btn btn-primary btn-lg" href="flight.html#help">Get help ${arrow}</a>` : `${mobileLinks(page.slug)}
       <a class="btn btn-primary btn-lg" href="get-app.html">Get the app ${arrow}</a>
-      <p class="hud"><span data-sa-clock hidden></span></p>
+      <p class="hud"><span data-sa-clock hidden></span></p>`}
     </script></nav>
   </header>
-${jumpBar(jump)}${page.hud === false ? '' : hudStrip()}
+${jumpBar(jump)}${page.hud === false || flight ? '' : hudStrip()}
   <main id="main">
     ${page.body}${page.modified && !page.dateInHead ? `\n    <p class="wrap page-date">Page last updated ${timeTag(page.modified)}.</p>` : ''}
   </main>
@@ -233,6 +279,7 @@ ${jumpBar(jump)}${page.hud === false ? '' : hudStrip()}
       <p class="signoff">Go well<span class="stop">.</span></p>
       <p class="signoff-note"><em>Tsamaya</em> (say: ${site.pronunciation}) is Sesotho and Setswana for "go", from <em>tsamaya sentle</em>: go well. It is how people say goodbye here.</p>
     </div>
+${flight ? flightFooter() : `
     <div class="wrap footer-grid">
       <div class="footer-col">
         <h2>Explore</h2>
@@ -262,6 +309,7 @@ ${jumpBar(jump)}${page.hud === false ? '' : hudStrip()}
         <a href="sponsor.html">Ways to help</a>
         <a href="sponsor.html#donate">Chip in</a>
         <a href="contact.html">Contact</a>
+        <a href="flight.html">Our apps for pilots</a>
         <h2 class="footer-follow">Follow us</h2>
         ${site.social.map((s) => `<a href="${s.href}" rel="noopener me">${icon(s.icon, 16)} ${s.label}</a>`).join('\n        ')}
       </div>
@@ -275,7 +323,7 @@ ${jumpBar(jump)}${page.hud === false ? '' : hudStrip()}
     </div>
     <div class="wrap footer-bottom">
       <p>© ${year} TSAMAYA (PTY) LTD. Built in Johannesburg. Routes consider risk. They are not a guarantee of safety.</p>
-    </div>
+    </div>`}
   </footer>
 
 ${toTop}

@@ -22,7 +22,7 @@ const main = `
     ${toc}
     <article class="prose">${html}</article>
   </div>
-  <p class="wrap legal-foot">${linkQ('Short Finals terms of use', 'shortfinals-terms.html')}${linkQ('Short Finals support', 'shortfinals-support.html')}</p>
+  <p class="wrap legal-foot">${linkQ('Short Finals terms of use', 'shortfinals-terms.html')}${linkQ('Short Finals support', 'shortfinals-support.html')}${linkQ('About Short Finals', 'shortfinals.html')}</p>
 </section>`;
 
 export default {
@@ -34,7 +34,7 @@ export default {
   heroClass: 'sn page-legal',
   hud: false,
   body: [
-    pageHead({ meta: 'Legal', title: 'Short Finals privacy policy', lead: 'What Short Finals does and does not do with your information. Short version: your study data stays on your phone.' }),
+    pageHead({ crumb: { href: 'shortfinals.html', label: 'Short Finals' }, meta: 'Legal', title: 'Short Finals privacy policy', lead: 'What Short Finals does and does not do with your information. Short version: your study data stays on your phone.' }),
     main,
   ].join('\n'),
 };

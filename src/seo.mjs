@@ -21,6 +21,7 @@
 
 import { site, stats, baseUrl, canonicalFor } from '../site.config.mjs';
 import { FEATURES, SUMMARY } from './facts.mjs';
+import { FLIGHT_APPS } from './flight.mjs';
 
 // The product topic pages (src/pages/*, built with src/topic.mjs) are about the
 // app, so they carry the app node like the other product pages do.
@@ -178,6 +179,14 @@ export function breadcrumbNode(trail) {
  * A WebPage node tying the page to the site and the organisation. Gives every
  * page an explicit identity rather than leaving crawlers to infer one.
  */
+// What a page is about. Most pages are about the driving app. A flight app's pages
+// (src/flight.mjs) are about that app, and the flight hub about the company.
+function aboutOf(slug) {
+  if (slug === 'flight.html') return ID.org;
+  const app = FLIGHT_APPS.find((a) => [a.slug, a.privacy, a.terms, a.support].includes(slug));
+  return app ? `${baseUrl}/${app.slug}#app` : ID.app;
+}
+
 function webPage(page, title, description) {
   return {
     '@type': 'WebPage',
@@ -186,7 +195,7 @@ function webPage(page, title, description) {
     name: title,
     description,
     isPartOf: { '@id': ID.website },
-    about: { '@id': ID.app },
+    about: { '@id': aboutOf(page.slug) },
     publisher: { '@id': ID.org },
     inLanguage: 'en-ZA',
     // The day this page's own content last changed (build.mjs), the same date as

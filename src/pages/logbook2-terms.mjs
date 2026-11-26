@@ -16,7 +16,7 @@ const main = `
     ${toc}
     <article class="prose">${html}</article>
   </div>
-  <p class="wrap legal-foot">${linkQ('Logbook² privacy policy', 'logbook2-privacy.html')}${linkQ('Logbook² support', 'logbook2-support.html')}</p>
+  <p class="wrap legal-foot">${linkQ('Logbook² privacy policy', 'logbook2-privacy.html')}${linkQ('Logbook² support', 'logbook2-support.html')}${linkQ('About Logbook²', 'logbook2.html')}</p>
 </section>`;
 
 export default {
@@ -28,7 +28,7 @@ export default {
   heroClass: 'sn page-legal',
   hud: false,
   body: [
-    pageHead({ meta: 'Legal', title: 'Logbook² terms of use', lead: 'The agreement covering your use of Logbook², including what the app does not promise.' }),
+    pageHead({ crumb: { href: 'logbook2.html', label: 'Logbook²' }, meta: 'Legal', title: 'Logbook² terms of use', lead: 'The agreement covering your use of Logbook², including what the app does not promise.' }),
     main,
   ].join('\n'),
 };

@@ -46,6 +46,13 @@ Home · How it works · See it (demo) · **Coverage** · Technical · About · S
 plus a landing page per metro (`/johannesburg.html`, `/cape-town.html`, …) generated
 from `src/data/metros.mjs`.
 
+**Flight apps.** Tsamaya's apps for pilots have their own corner of the site: the hub
+`/flight.html`, a landing page per app (`/logbook2.html`, `/shortfinals.html`) and each
+app's privacy policy, terms and support page. They wear a pilot header, menu, footer and
+preview image instead of the driving ones. All of it is driven by `src/flight.mjs`: add an
+app there. Never rename an app's legal page, because the App Store and Google Play link to
+it and GitHub Pages cannot redirect.
+
 ## The two rules that keep this site honest
 
 **1. Figures are never typed by hand.** Every coverage number on the site comes from
